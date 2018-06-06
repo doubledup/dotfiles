@@ -38,7 +38,7 @@ alias g=git
 alias gst='git status'
 alias gb='git branch'
 alias ga='git add'
-alias gc='git commit'
+alias gc='git commit -v'
 alias gco='git checkout'
 alias grb='git rebase'
 
