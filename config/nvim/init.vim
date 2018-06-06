@@ -80,7 +80,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 1
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_fixers = {
 \  'ruby': [
 \    'rubocop',
