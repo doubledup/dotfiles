@@ -1,5 +1,5 @@
 # Zsh
-PS1="%(?.%F{green}.%F{red})%?%f [%F{white}%3~%f]%(#.#.$) "
+PS1="%(?.%F{green}.%F{red})%?%f [%F{blue}%3~%f]%(#.#.$) "
 #RPS1=""
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
