@@ -10,7 +10,6 @@ setopt no_extended_glob
 setopt share_history
 # save commands to history before they're run
 setopt inc_append_history
-export EDITOR='nvim'
 
 # alt-backspace clears by word, where [/-_ ] aren't considered as being in words
 backward-kill-dir () {
@@ -43,6 +42,8 @@ alias gco='git checkout'
 alias grb='git rebase'
 
 ## vim & nvim
+export EDITOR='nvim'
+
 alias vim!='vim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
