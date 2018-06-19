@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+brew tap thoughtbot/formulae
+
 brew install \
   adns \
   autoconf \
@@ -17,7 +19,6 @@ brew install \
   gnutls \
   haskell-stack \
   heroku \
-  heroku-node \
   icu4c \
   imagemagick \
   jemalloc \
@@ -75,6 +76,7 @@ brew install \
   zsh-completions
 
 brew tap homebrew/cask
+brew tap homebrew/cask-fonts
 
 brew cask install \
   atom \
