@@ -93,4 +93,4 @@
 ;; (must be after packages are loaded, as solarized is a MELPA theme)
 (setq solarized-use-variable-pitch nil
       solarized-scale-org-headlines nil)
-(load-theme 'solarized-dark t)
+(load-theme 'solarized-light t)
