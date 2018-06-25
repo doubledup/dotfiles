@@ -71,6 +71,7 @@ command_not_found_handler() {
     exit 127
   fi
 }
+alias :q=exit
 
 # Path
 
