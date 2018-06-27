@@ -104,8 +104,8 @@ nnoremap <Leader>gb :Gblame<cr>
 nnoremap <Leader>gl :Glog<cr>
 
 " TODO: set this up with rg
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug '/usr/local/opt/fzf'
 nnoremap <Leader>ff :Files<cr>
 nnoremap <Leader>fb :Buffers<cr>
 nnoremap <Leader>fc :Commits<cr>
