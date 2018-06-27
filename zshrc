@@ -56,17 +56,13 @@ command_not_found_handler() {
     len=${#1}
     up_one=../
     unset arg
-    # echo "cmd len: $len"
-    # echo "arg before: $arg"
     for _ in {1..$len}
     do
       arg+=$up_one
-      # echo "arg so far: $arg"
     done
     echo 'zsh spawns command_not_found_handler in a new subshell :'"'"'('
     echo 'cd '$arg
     cd ../
-    # echo 'ran cd'
   else
     exit 127
   fi
