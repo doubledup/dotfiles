@@ -112,13 +112,17 @@ nnoremap <Leader>fc :Commits<cr>
 
 Plug 'tpope/vim-repeat'
 
+" Plug 'tpope/vim-sleuth'
+
 Plug 'lifepillar/vim-solarized8'
 
 Plug 'tpope/vim-surround'
 
+" Plug 'valloric/youcompleteme'
+
 "" code
 Plug 'vim-ruby/vim-ruby'
-" Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rails'
 
 call plug#end()
 
