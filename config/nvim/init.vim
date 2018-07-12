@@ -124,6 +124,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 
+Plug 'elixir-lang/vim-elixir'
+
 call plug#end()
 
 set background=light
