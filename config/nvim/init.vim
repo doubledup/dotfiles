@@ -116,6 +116,8 @@ Plug 'tpope/vim-repeat'
 
 Plug 'lifepillar/vim-solarized8'
 
+Plug 'tpope/vim-speeddating'
+
 Plug 'tpope/vim-surround'
 
 " Plug 'valloric/youcompleteme'
