@@ -123,10 +123,20 @@ Plug 'tpope/vim-surround'
 " Plug 'valloric/youcompleteme'
 
 "" code
+" ruby
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 
 Plug 'elixir-lang/vim-elixir'
+
+" elixir
+Plug 'elixir-lang/vim-elixir'
+
+"golang
+Plug 'fatih/vim-go'
+nnoremap <Leader>ob :GoBuild<cr>
+nnoremap <Leader>od :GoDoc<cr>
+nnoremap <Leader>or :GoRun<cr>
 
 call plug#end()
 
