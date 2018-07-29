@@ -131,6 +131,9 @@ Plug 'elixir-lang/vim-elixir'
 
 " elixir
 Plug 'elixir-lang/vim-elixir'
+Plug 'mhinz/vim-mix-format'
+nnoremap <Leader>emf :MixFormat<cr>
+nnoremap <Leader>ems :MixFormatDiff<cr>
 
 "golang
 Plug 'fatih/vim-go'
