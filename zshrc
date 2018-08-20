@@ -75,7 +75,7 @@ alias :q=exit
 export PATH="$HOME/.local/bin:$PATH"
 
 # autojump
-# /usr/share/autojump/autojump.zsh
+[ -f /usr/share/autojump/autojump.zsh ] && . /usr/share/autojump/autojump.zsh
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
