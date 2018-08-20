@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+defaults write com.extropy.oni ApplePressAndHoldEnabled -bool false
