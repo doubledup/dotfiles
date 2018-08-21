@@ -109,6 +109,7 @@ Plug 'junegunn/fzf.vim'
 nnoremap <Leader>ff :Files<cr>
 nnoremap <Leader>fb :Buffers<cr>
 nnoremap <Leader>fc :Commits<cr>
+nnoremap <Leader>fw :Windows<cr>
 
 Plug 'tpope/vim-repeat'
 
