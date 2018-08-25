@@ -147,6 +147,6 @@ nnoremap <Leader>or :GoRun<cr>
 
 call plug#end()
 
-set background=light
+set background=dark
 set termguicolors
 colorscheme solarized8

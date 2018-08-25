@@ -124,6 +124,6 @@ Plug 'vim-ruby/vim-ruby'
 
 call plug#end()
 
-set background=light
+set background=dark
 set termguicolors
 colorscheme solarized8
