@@ -49,6 +49,9 @@ nnoremap <Leader><c-k> <c-w>K
 nnoremap <Leader><c-h> <c-w>H
 nnoremap <Leader><c-l> <c-w>L
 
+nnoremap <Leader>tn :tabnext<cr>
+nnoremap <Leader>tp :tabprevious<cr>
+
 " disable arrow keys.
 " don't be a peasant.
 noremap <up> <nop>
