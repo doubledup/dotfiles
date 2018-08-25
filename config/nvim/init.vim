@@ -70,7 +70,7 @@ call plug#begin('~/.vim/plugged')
 
 " other plugins to check out:
 "
-" vim-airline/vim-airline
+" Plug 'vim-airline/vim-airline'
 " scrooloose/nerdtree
 " jremmen/vim-ripgrep
 " tpope/vim-unimpaired
@@ -78,6 +78,8 @@ call plug#begin('~/.vim/plugged')
 " janko-m/vim-test
 " rizzatti/dash.vim
 " jceb/vim-orgmode
+" Plug 'valloric/youcompleteme'
+" Plug 'tpope/vim-sleuth'
 
 "" general
 Plug 'w0rp/ale'
@@ -90,8 +92,6 @@ let g:ale_fixers = {
 \  ]
 \}
 nnoremap <Leader>af :ALEFix<cr>
-
-" Plug 'vim-airline/vim-airline'
 
 Plug 'tpope/vim-commentary'
 
@@ -116,15 +116,11 @@ nnoremap <Leader>fw :Windows<cr>
 
 Plug 'tpope/vim-repeat'
 
-" Plug 'tpope/vim-sleuth'
-
 Plug 'lifepillar/vim-solarized8'
 
 Plug 'tpope/vim-speeddating'
 
 Plug 'tpope/vim-surround'
-
-" Plug 'valloric/youcompleteme'
 
 "" code
 " ruby
