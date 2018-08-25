@@ -135,7 +135,7 @@ Plug 'mhinz/vim-mix-format'
 nnoremap <Leader>emf :MixFormat<cr>
 nnoremap <Leader>ems :MixFormatDiff<cr>
 
-"golang
+" go
 Plug 'fatih/vim-go'
 nnoremap <Leader>ob :GoBuild<cr>
 nnoremap <Leader>od :GoDoc<cr>
