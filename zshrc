@@ -1,4 +1,4 @@
-# Zsh
+# zsh
 PS1="%(?.%F{green}.%F{red})%?%f [%F{blue}%3~%f]%(#.#.$) "
 #RPS1=""
 HISTFILE=~/.zsh_history
