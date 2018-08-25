@@ -40,6 +40,7 @@ alias ga='git add'
 alias gc='git commit -v'
 alias gco='git checkout'
 alias grb='git rebase'
+alias glog='git log --oneline --decorate --graph'
 
 ## vim & nvim
 export EDITOR='nvim'
