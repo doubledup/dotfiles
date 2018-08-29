@@ -145,14 +145,14 @@ nnoremap <Leader>or :GoRun<cr>
 Plug 'elmcast/elm-vim'
 
 let g:elm_setup_keybindings = 0
-nnoremap <Leader>em :ElmMake<cr>
-nnoremap <Leader>eb :ElmMakeMain<cr>
-nnoremap <Leader>et :ElmTest<cr>
-nnoremap <Leader>er :ElmRepl<cr>
-nnoremap <Leader>ee :ElmErrorDetail<cr>
-nnoremap <Leader>ed :ElmShowDocs<cr>
-nnoremap <Leader>ew :ElmBrowseDocs<cr>
-nnoremap <Leader>ef :ElmFormat<cr>
+nnoremap <Leader>lm :ElmMake 
+nnoremap <Leader>lb :ElmMakeMain<cr>
+nnoremap <Leader>lt :ElmTest<cr>
+nnoremap <Leader>lr :ElmRepl<cr>
+nnoremap <Leader>le :ElmErrorDetail<cr>
+nnoremap <Leader>ld :ElmShowDocs<cr>
+nnoremap <Leader>lw :ElmBrowseDocs<cr>
+nnoremap <Leader>lf :ElmFormat<cr>
 
 call plug#end()
 
