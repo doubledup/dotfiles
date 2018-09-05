@@ -114,6 +114,8 @@ nnoremap <Leader>fb :Buffers<cr>
 nnoremap <Leader>fc :Commits<cr>
 nnoremap <Leader>fw :Windows<cr>
 
+Plug 'aklt/plantuml-syntax'
+
 Plug 'tpope/vim-repeat'
 
 Plug 'lifepillar/vim-solarized8'
