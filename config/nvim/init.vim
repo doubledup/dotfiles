@@ -156,6 +156,6 @@ nnoremap <Leader>lf :ElmFormat<cr>
 
 call plug#end()
 
-set background=dark
+set background=light
 set termguicolors
 colorscheme solarized8
