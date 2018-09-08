@@ -158,6 +158,8 @@ nnoremap <Leader>lf :ElmFormat<cr>
 
 call plug#end()
 
-set background=light
+set background=dark
 set termguicolors
 colorscheme solarized8
+
+source ~/.config/nvim/init.vim.local
