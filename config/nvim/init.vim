@@ -2,6 +2,8 @@
 " let &packpath = &runtimepath
 " source ~/.vimrc
 
+let mapleader = ","
+
 " options
 
 " show line numbers
@@ -36,8 +38,6 @@ set cuc cul
 
 " mappings
 
-let mapleader = ","
-
 " sane pane shifting shortcuts
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -48,6 +48,10 @@ nnoremap <Leader><c-j> <c-w>J
 nnoremap <Leader><c-k> <c-w>K
 nnoremap <Leader><c-h> <c-w>H
 nnoremap <Leader><c-l> <c-w>L
+
+" split panes layouts
+nnoremap <Leader>ss :vertical resize 80<cr>
+nnoremap <Leader>sl :vertical resize 120<cr>
 
 nnoremap <Leader>tn :tabnext<cr>
 nnoremap <Leader>tp :tabprevious<cr>
