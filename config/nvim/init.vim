@@ -166,4 +166,6 @@ set background=dark
 set termguicolors
 colorscheme solarized8
 
-source ~/.config/nvim/init.vim.local
+if !empty(glob("~/.config/nvim/init.vim.local"))
+  source ~/.config/nvim/init.vim.local
+endif
