@@ -95,7 +95,11 @@ let g:ale_fixers = {
 \    'rubocop',
 \  ]
 \}
+nnoremap <Leader>ad :ALEGoToDefinition<cr>
+nnoremap <Leader>aD :ALEGoToDefinitionInTab<cr>
 nnoremap <Leader>af :ALEFix<cr>
+nnoremap <Leader>ar :ALEFindReferences<cr>
+nnoremap <Leader>as :ALEFixSuggest<cr>
 
 Plug 'tpope/vim-commentary'
 
