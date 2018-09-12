@@ -49,7 +49,7 @@ nnoremap <Leader><c-k> <c-w>K
 nnoremap <Leader><c-h> <c-w>H
 nnoremap <Leader><c-l> <c-w>L
 
-" split panes layouts
+" split pane layouts
 nnoremap <Leader>ss :vertical resize 80<cr>
 nnoremap <Leader>sl :vertical resize 120<cr>
 
@@ -133,11 +133,6 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 
 "" code
-" ruby
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-
-Plug 'elixir-lang/vim-elixir'
 
 " elixir
 Plug 'elixir-lang/vim-elixir'
@@ -145,15 +140,8 @@ Plug 'mhinz/vim-mix-format'
 nnoremap <Leader>emf :MixFormat<cr>
 nnoremap <Leader>ems :MixFormatDiff<cr>
 
-" go
-Plug 'fatih/vim-go'
-nnoremap <Leader>ob :GoBuild<cr>
-nnoremap <Leader>od :GoDoc<cr>
-nnoremap <Leader>or :GoRun<cr>
-
 " elm
 Plug 'elmcast/elm-vim'
-
 let g:elm_setup_keybindings = 0
 nnoremap <Leader>lm :! elm make %
 nnoremap <Leader>lb :! elm make src/Main.elm<cr>
@@ -163,6 +151,16 @@ nnoremap <Leader>le :ElmErrorDetail<cr>
 nnoremap <Leader>ld :ElmShowDocs<cr>
 nnoremap <Leader>lw :ElmBrowseDocs<cr>
 nnoremap <Leader>lf :ElmFormat<cr>
+
+" go
+Plug 'fatih/vim-go'
+nnoremap <Leader>ob :GoBuild<cr>
+nnoremap <Leader>od :GoDoc<cr>
+nnoremap <Leader>or :GoRun<cr>
+
+" ruby
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
 
 call plug#end()
 
