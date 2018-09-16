@@ -12,15 +12,11 @@ setopt share_history
 setopt inc_append_history
 
 # alt-backspace clears by word, where [/-_ ] aren't considered as being in words
-backward-kill-dir () {
-    local WORDCHARS=${WORDCHARS/\/}
-    local WORDCHARS=${WORDCHARS/\-}
-    local WORDCHARS=${WORDCHARS/\_}
-    local WORDCHARS=${WORDCHARS/\ }
-    zle backward-kill-word
-}
-zle -N backward-kill-dir
-bindkey '^[^?' backward-kill-dir
+
+WORDCHARS=${WORDCHARS/\/}
+WORDCHARS=${WORDCHARS/\-}
+WORDCHARS=${WORDCHARS/\_}
+WORDCHARS=${WORDCHARS/\ }
 
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
