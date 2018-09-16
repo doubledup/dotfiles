@@ -71,12 +71,14 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
+nnoremap <Leader>pc :PlugClean<cr>
+nnoremap <Leader>pd :PlugDiff<cr>
+nnoremap <Leader>pi :PlugInstall<cr>
+nnoremap <Leader>ps :PlugStatus<cr>
+nnoremap <Leader>pu :PlugUpdate<cr>
+
 " vim-plug plugins
 call plug#begin('~/.vim/plugged')
-
-nnoremap <Leader>pu :PlugUpdate<cr>
-nnoremap <Leader>ps :PlugStatus<cr>
-nnoremap <Leader>pd :PlugDiff<cr>
 
 " vim-plug runs both
 " `filetype plugin indent on`
