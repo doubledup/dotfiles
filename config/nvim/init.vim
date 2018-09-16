@@ -87,7 +87,6 @@ nnoremap <Leader>pd :PlugDiff<cr>
 " other plugins to check out:
 "
 " Plug 'vim-airline/vim-airline'
-" scrooloose/nerdtree
 " jremmen/vim-ripgrep
 " tpope/vim-unimpaired
 " ervandew/supertab
@@ -154,8 +153,8 @@ Plug 'tpope/vim-surround'
 " elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'mhinz/vim-mix-format'
-nnoremap <Leader>emf :MixFormat<cr>
-nnoremap <Leader>ems :MixFormatDiff<cr>
+nnoremap <Leader>mf :MixFormat<cr>
+nnoremap <Leader>ms :MixFormatDiff<cr>
 
 " elm
 Plug 'elmcast/elm-vim'
