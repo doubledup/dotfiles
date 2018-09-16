@@ -39,6 +39,11 @@ let g:netrw_liststyle = 3
 " Highlight current column and line
 set cuc cul
 
+" ctags config
+nnoremap gd :tag <c-r><c-w><cr>
+nnoremap <c-]> :tag<cr>
+nnoremap <c-[> :pop<cr>
+
 " mappings
 
 " sane pane shifting shortcuts
