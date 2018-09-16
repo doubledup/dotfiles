@@ -144,7 +144,7 @@ Plug 'aklt/plantuml-syntax'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'lifepillar/vim-solarized8'
+Plug 'iCyMind/NeoSolarized'
 
 Plug 'tpope/vim-speeddating'
 
@@ -184,7 +184,7 @@ call plug#end()
 
 set background=dark
 set termguicolors
-colorscheme solarized8
+colorscheme NeoSolarized
 
 if !empty(glob("~/.config/nvim/init.vim.local"))
   source ~/.config/nvim/init.vim.local
