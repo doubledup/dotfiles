@@ -74,7 +74,11 @@ noremap <right> <nop>
 " vim-plug plugins
 call plug#begin('~/.vim/plugged')
 
-" vim-plug should run both
+nnoremap <Leader>pu :PlugUpdate<cr>
+nnoremap <Leader>ps :PlugStatus<cr>
+nnoremap <Leader>pd :PlugDiff<cr>
+
+" vim-plug runs both
 " `filetype plugin indent on`
 " and
 " `syntax enable`
