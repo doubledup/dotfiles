@@ -21,6 +21,8 @@ set shiftwidth=2
 set expandtab
 " automatically indent when adding a new line
 set autoindent
+" show extra whitespace
+set list
 
 set backspace=2
 
@@ -145,6 +147,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'tpope/vim-repeat'
 
 Plug 'iCyMind/NeoSolarized'
+let g:neosolarized_visibility = "high"
 
 Plug 'tpope/vim-speeddating'
 
