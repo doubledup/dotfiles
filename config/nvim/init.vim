@@ -34,6 +34,8 @@ set splitright
 
 set nowrap
 
+let g:netrw_liststyle = 3
+
 " Highlight current column and line
 set cuc cul
 
