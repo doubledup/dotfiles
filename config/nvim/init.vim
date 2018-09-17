@@ -26,6 +26,11 @@ set list
 
 set backspace=2
 
+" better tag navigation
+nnoremap gd :tag <c-r><c-w><cr>
+nnoremap <c-]> :tag<cr>
+nnoremap <c-[> :pop<cr>
+
 " live on the edge!
 set noswapfile
 set autoread
