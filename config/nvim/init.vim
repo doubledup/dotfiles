@@ -106,23 +106,37 @@ call plug#begin('~/.vim/plugged')
 " Plug 'tpope/vim-sleuth'
 
 "" general
+
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 1
 let g:ale_fix_on_save = 0
-" let g:ale_linters = {
-" \  'ruby': [
-" \    'solargraph',
-" \  ]
-" \}
+
+let g:ale_linters = {
+\  'ruby': [
+\    'brakeman',
+\    'reek',
+\    'rubocop',
+\    'ruby',
+\    'solargraph',
+\  ]
+\}
+
 let g:ale_fixers = {
+\  'javascripit': [
+\    'eslint',
+\  ],
 \  'ruby': [
 \    'rubocop',
+\  ],
+\  'yaml': [
+\    'prettier',
 \  ],
 \}
 nnoremap <Leader>ad :ALEGoToDefinition<cr>
 nnoremap <Leader>aD :ALEGoToDefinitionInTab<cr>
 nnoremap <Leader>af :ALEFix<cr>
+nnoremap <Leader>ai :ALEInfo<cr>
 nnoremap <Leader>ar :ALEFindReferences<cr>
 nnoremap <Leader>as :ALEFixSuggest<cr>
 
