@@ -199,6 +199,7 @@ nnoremap <Leader>lf :ElmFormat<cr>
 Plug 'fatih/vim-go'
 nnoremap <Leader>ob :GoBuild<cr>
 nnoremap <Leader>od :GoDoc<cr>
+nnoremap <Leader>of :GoFmt<cr>
 nnoremap <Leader>or :GoRun<cr>
 
 " ruby
