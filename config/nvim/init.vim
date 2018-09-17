@@ -39,6 +39,8 @@ set autoread
 set splitbelow
 set splitright
 
+let g:netrw_liststyle= 3 " thin/long/wide/tree
+
 set nowrap
 
 let g:netrw_liststyle = 3
