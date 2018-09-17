@@ -129,7 +129,7 @@ map <Space> <Plug>(easymotion-prefix)
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>ge :Gedit
 nnoremap <Leader>gs :Gstatus<cr>
-nnoremap <Leader>gc :Gcommit<cr>
+nnoremap <Leader>gc :Gcommit<space>--verbose<cr>
 nnoremap <Leader>gd :Gdiff<cr>
 nnoremap <Leader>gb :Gblame<cr>
 nnoremap <Leader>gl :Glog<cr>
