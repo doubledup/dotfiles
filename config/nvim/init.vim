@@ -67,6 +67,7 @@ nnoremap <Leader><c-l> <c-w>L
 " split pane layouts
 nnoremap <Leader>ss :vertical resize 80<cr>
 nnoremap <Leader>sl :vertical resize 120<cr>
+nnoremap <Leader>sc :new<cr><c-w>L:new<cr><c-w>H<c-w>l
 
 nnoremap <Leader>tn :tabnext<cr>
 nnoremap <Leader>tp :tabprevious<cr>
