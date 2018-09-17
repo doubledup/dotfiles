@@ -162,6 +162,8 @@ nnoremap <Leader>fb :Buffers<cr>
 nnoremap <Leader>fc :Commits<cr>
 nnoremap <Leader>fw :Windows<cr>
 
+Plug 'andrewradev/linediff.vim'
+
 Plug 'aklt/plantuml-syntax'
 
 Plug 'tpope/vim-repeat'
