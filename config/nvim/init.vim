@@ -41,6 +41,9 @@ set splitright
 
 let g:netrw_liststyle= 3 " thin/long/wide/tree
 
+" use <Esc> to exit terminal-mode
+tnoremap <Esc> <C-\><C-n>
+
 set nowrap
 
 let g:netrw_liststyle = 3
