@@ -177,6 +177,12 @@ Plug 'tpope/vim-surround'
 
 "" code
 
+"" crystal
+Plug 'rhysd/vim-crystal'
+nnoremap <Leader>cr :!crystal run %<cr>
+nnoremap <Leader>cb :!crystal build %<cr>
+Plug 'elorest/vim-slang'
+
 """ elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'mhinz/vim-mix-format'
