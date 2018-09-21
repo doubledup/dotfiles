@@ -82,6 +82,9 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
+" search for selected text
+vnoremap // y/<C-R>"<CR>
+
 nnoremap <Leader>pc :PlugClean<cr>
 nnoremap <Leader>pd :PlugDiff<cr>
 nnoremap <Leader>pi :PlugInstall<cr>
