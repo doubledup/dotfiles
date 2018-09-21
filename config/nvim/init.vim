@@ -177,13 +177,13 @@ Plug 'tpope/vim-surround'
 
 "" code
 
-" elixir
+""" elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'mhinz/vim-mix-format'
 nnoremap <Leader>mf :MixFormat<cr>
 nnoremap <Leader>ms :MixFormatDiff<cr>
 
-" elm
+""" elm
 Plug 'elmcast/elm-vim'
 let g:elm_setup_keybindings = 0
 nnoremap <Leader>lm :! elm make %
@@ -195,14 +195,14 @@ nnoremap <Leader>ld :ElmShowDocs<cr>
 nnoremap <Leader>lw :ElmBrowseDocs<cr>
 nnoremap <Leader>lf :ElmFormat<cr>
 
-" go
+""" go
 Plug 'fatih/vim-go'
 nnoremap <Leader>ob :GoBuild<cr>
 nnoremap <Leader>od :GoDoc<cr>
 nnoremap <Leader>of :GoFmt<cr>
 nnoremap <Leader>or :GoRun<cr>
 
-" ruby
+""" ruby
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 
