@@ -17,6 +17,7 @@ WORDCHARS=${WORDCHARS/\/}
 WORDCHARS=${WORDCHARS/\-}
 WORDCHARS=${WORDCHARS/\_}
 WORDCHARS=${WORDCHARS/\ }
+WORDCHARS=${WORDCHARS/\.}
 
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
