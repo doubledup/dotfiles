@@ -91,7 +91,6 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
 alias omz='cd ~/.oh-my-zsh'
 alias fucking='sudo'
-alias n='j'
 alias gpraise='git blame'
 alias cl='clear'
 alias claer='clear'
