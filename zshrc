@@ -9,10 +9,10 @@ git_prompt() {
       wc -l |
       sed 's/^0$//;s/[0-9][0-9]*/*/'
     )
-    branch_name=$(git status |
-      head -1 |
-      sed "s/On branch \(.*\)$/%F{green}($dirty\1)%f/" |
-      sed "s/HEAD detached at \(.*\)$/%F{yellow}(${dirty}detached@\1)%f/"
+    branch_name=$(git branch |
+      sed -n '/\* /s///p' |
+      sed "s/^\([^(]*\)$/%F{green}($dirty\1)%f/" |
+      sed "s/(HEAD detached at \(.*\))$/%F{yellow}(${dirty}detached@\1)%f/"
     )
     echo "$branch_name"
   fi
