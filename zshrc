@@ -1,8 +1,20 @@
 # zsh
-PS1="[%F{blue}%3~%f]%(#.#.$) "
+setopt promptsubst
+git_prompt() {
+  if [[ -d .git ]]; then
+    branch_name=$(git status |
+      head -1 |
+      sed 's/On branch \(.*\)$/%F{green}(\1)%f/' |
+      sed 's/HEAD detached at \(.*\)$/%F{yellow}(detached@\1)%f/'
+    )
+    echo "${branch_name}"
+  fi
+}
+PS1='[%F{blue}%3~%f]$(git_prompt)%(#.#.$) '
+
 exit_status='%(?..%F{red}%?%f)'
-RPROMPT="${exit_status}"
-#RPS1=""
+RPS1="${exit_status}"
+
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=1000000
