@@ -41,7 +41,7 @@ git_prompt() {
       sed "s/(HEAD detached at \(.*\))$/detached@\1/"
     )
 
-    if [[ -n dirty ]]; then
+    if [[ -n ${dirty} ]]; then
       prompt='%F{yellow}'
     else
       prompt='%F{green}'
