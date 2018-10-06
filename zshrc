@@ -12,15 +12,36 @@ git_prompt() {
 
     stash=$(git stash list |
       wc -l |
-      sed 's/^0$//;s/[0-9][0-9]*/[S:&]/'
+      sed 's/^0$//;s/[0-9][0-9]*/|S:&/'
     )
 
-    branch_name=$(git branch |
+    remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+    if [[ -n ${remote} ]] ; then
+      ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+      behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+
+      remote=''
+      if [ $ahead -gt 0 ] || [ $behind -gt 0 ]
+      then
+        remote+='|'
+      fi
+      if [ $ahead -gt 0 ]
+      then
+        remote+="$ahead->"
+      fi
+      if [ $behind -gt 0 ]
+      then
+        remote+="<-$behind"
+      fi
+    fi
+
+    prompt=$(git branch |
       sed -n '/\* /s///p' |
-      sed "s/^\([^(]*\)$/%F{green}($dirty$stash\1)%f/" |
-      sed "s/(HEAD detached at \(.*\))$/%F{yellow}(${dirty}${stash}detached@\1)%f/"
+      sed "s/^\([^(]*\)$/%F{green}(\1$dirty$remote$stash)%f/" |
+      sed "s/(HEAD detached at \(.*\))$/%F{yellow}(detached@\1${dirty}${remote}${stash})%f/"
     )
-    echo "$branch_name"
+
+    echo $prompt
   fi
 }
 PS1='[%F{blue}%3~%f]$(git_prompt)%(!.#.$) '
