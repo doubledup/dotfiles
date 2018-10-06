@@ -35,11 +35,18 @@ git_prompt() {
       fi
     fi
 
-    prompt=$(git branch |
+    branch=$(git branch |
       sed -n '/\* /s///p' |
-      sed "s/^\([^(]*\)$/%F{green}(\1$dirty$remote$stash)%f/" |
-      sed "s/(HEAD detached at \(.*\))$/%F{yellow}(detached@\1${dirty}${remote}${stash})%f/"
+      sed "s/^\([^(]*\)$/\1/" |
+      sed "s/(HEAD detached at \(.*\))$/detached@\1/"
     )
+
+    if [[ -n dirty ]]; then
+      prompt='%F{yellow}'
+    else
+      prompt='%F{green}'
+    fi
+    prompt+="($branch$dirty$remote$stash)%f"
 
     echo $prompt
   fi
