@@ -2,12 +2,19 @@
 setopt promptsubst
 git_prompt() {
   if [[ -d .git ]]; then
+    dirty=$(git status\
+      --porcelain\
+      --ignore-submodules=none \
+      2> /dev/null |
+      wc -l |
+      sed 's/^0$//;s/[0-9][0-9]*/*/'
+    )
     branch_name=$(git status |
       head -1 |
-      sed 's/On branch \(.*\)$/%F{green}(\1)%f/' |
-      sed 's/HEAD detached at \(.*\)$/%F{yellow}(detached@\1)%f/'
+      sed "s/On branch \(.*\)$/%F{green}($dirty\1)%f/" |
+      sed "s/HEAD detached at \(.*\)$/%F{yellow}(${dirty}detached@\1)%f/"
     )
-    echo "${branch_name}"
+    echo "$branch_name"
   fi
 }
 PS1='[%F{blue}%3~%f]$(git_prompt)%(!.#.$) '
