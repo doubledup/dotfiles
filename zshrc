@@ -1,5 +1,7 @@
 # zsh
-PS1="%(?.%F{green}.%F{red})%?%f [%F{blue}%3~%f]%(#.#.$) "
+PS1="[%F{blue}%3~%f]%(#.#.$) "
+exit_status='%(?..%F{red}%?%f)'
+RPROMPT="${exit_status}"
 #RPS1=""
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
