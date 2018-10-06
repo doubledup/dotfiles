@@ -9,10 +9,16 @@ git_prompt() {
       wc -l |
       sed 's/^0$//;s/[0-9][0-9]*/*/'
     )
+
+    stash=$(git stash list |
+      wc -l |
+      sed 's/^0$//;s/[0-9][0-9]*/[S:&]/'
+    )
+
     branch_name=$(git branch |
       sed -n '/\* /s///p' |
-      sed "s/^\([^(]*\)$/%F{green}($dirty\1)%f/" |
-      sed "s/(HEAD detached at \(.*\))$/%F{yellow}(${dirty}detached@\1)%f/"
+      sed "s/^\([^(]*\)$/%F{green}($dirty$stash\1)%f/" |
+      sed "s/(HEAD detached at \(.*\))$/%F{yellow}(${dirty}${stash}detached@\1)%f/"
     )
     echo "$branch_name"
   fi
