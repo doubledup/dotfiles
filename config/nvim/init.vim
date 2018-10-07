@@ -161,6 +161,9 @@ nnoremap <Leader>fb :Buffers<cr>
 nnoremap <Leader>fc :Commits<cr>
 nnoremap <Leader>fw :Windows<cr>
 nnoremap <Leader>fr :Rg<cr>
+nnoremap <Leader>fs :Lines<cr>
+nnoremap <Leader>f/ :BLines<cr>
+nnoremap <Leader>f* :BLines <c-r><c-w><cr>
 
 Plug 'andrewradev/linediff.vim'
 
