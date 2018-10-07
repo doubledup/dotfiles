@@ -1,0 +1,11 @@
+[user]
+	name = David Dunn
+	email = 26876072+doubledup@users.noreply.github.com
+[core]
+	editor = /usr/bin/nvim
+	ignorecase = true
+	excludesfile = ~/.gitignore
+[diff]
+	tool = nvim -d
+[color]
+	ui = auto
