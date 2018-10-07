@@ -66,9 +66,8 @@ setopt share_history
 # save commands to history before they're run
 setopt inc_append_history
 
-# alt-backspace clears by word, where [/-_ ] aren't considered as being in words
-
-WORDCHARS=$(echo $WORDCHARS > sed 's/[\/\-_ \.]//')
+# alt-backspace clears by word, where [/_ .-] aren't considered as being in words
+WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
 
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
