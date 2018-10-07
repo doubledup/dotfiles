@@ -68,11 +68,7 @@ setopt inc_append_history
 
 # alt-backspace clears by word, where [/-_ ] aren't considered as being in words
 
-WORDCHARS=${WORDCHARS/\/}
-WORDCHARS=${WORDCHARS/\-}
-WORDCHARS=${WORDCHARS/\_}
-WORDCHARS=${WORDCHARS/\ }
-WORDCHARS=${WORDCHARS/\.}
+WORDCHARS=$(echo $WORDCHARS > sed 's/[\/\-_ \.]//')
 
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
