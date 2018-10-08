@@ -2,10 +2,16 @@
 	name = David Dunn
 	email = 26876072+doubledup@users.noreply.github.com
 [core]
-	editor = /usr/bin/nvim
+	editor = /usr/local/bin/nvim
 	ignorecase = true
 	excludesfile = ~/.gitignore
+[url "ssh://git@heroku.com/"]
+	insteadOf = https://git.heroku.com/
+[rerere]
+	enabled = false
 [diff]
 	tool = nvim -d
 [color]
 	ui = auto
+[github]
+	user = doubledup
