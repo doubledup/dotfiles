@@ -74,6 +74,8 @@ nnoremap <Leader>sc :new<cr><c-w>L:new<cr><c-w>H<c-w>l
 
 nnoremap <Leader>tn :tabnext<cr>
 nnoremap <Leader>tp :tabprevious<cr>
+nnoremap <Leader>t> :tabmove +1<cr>
+nnoremap <Leader>t< :tabmove -1<cr>
 
 " disable arrow keys.
 " don't be a peasant.
