@@ -222,6 +222,7 @@ nnoremap <Leader>or :GoRun<cr>
 """ ruby
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
+nnoremap <Leader>rr :Rails<cr>
 
 call plug#end()
 
