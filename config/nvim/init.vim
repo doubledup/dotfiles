@@ -87,6 +87,9 @@ noremap <right> <nop>
 " search for selected text
 vnoremap // y/<C-R>"<CR>
 
+" open NeoVim config
+nnoremap <Leader><Leader>c :tabnew ~/.config/nvim/init.vim<cr>
+
 nnoremap <Leader>pc :PlugClean<cr>
 nnoremap <Leader>pd :PlugDiff<cr>
 nnoremap <Leader>pi :PlugInstall<cr>
