@@ -1,7 +1,7 @@
 # zsh
 setopt promptsubst
 git_prompt() {
-  if [[ -d .git ]]; then
+  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
     dirty=$(git status\
       --porcelain\
       --ignore-submodules=none \
