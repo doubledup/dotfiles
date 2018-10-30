@@ -19,11 +19,13 @@ set softtabstop=2
 set shiftwidth=2
 " when tab is pressed, expand with spaces
 set expandtab
+
 " automatically indent when adding a new line
 set autoindent
 " show extra whitespace
+set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
 set list
-
+" remove 2 spaces with backspace
 set backspace=2
 
 " better tag navigation
