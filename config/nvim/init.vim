@@ -41,22 +41,17 @@ set autoread
 set splitbelow
 set splitright
 
-let g:netrw_liststyle= 3 " thin/long/wide/tree
+" netrw config
+let g:netrw_liststyle=3 " thin/long/wide/tree
 
 " exit terminal-mode more easily
 tnoremap <Leader><Esc> <C-\><C-n>
 
+" don't wrap lines
 set nowrap
 
 " Highlight current column and line
 set cuc cul
-
-" ctags config
-nnoremap gd :tag <c-r><c-w><cr>
-nnoremap <c-]> :tag<cr>
-nnoremap <c-[> :pop<cr>
-
-" mappings
 
 " sane pane shifting shortcuts
 nnoremap <c-j> <c-w>j
