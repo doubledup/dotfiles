@@ -1,4 +1,4 @@
-# zsh
+#!/usr/bin/env zsh
 setopt promptsubst
 git_prompt() {
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
