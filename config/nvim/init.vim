@@ -170,22 +170,20 @@ Plug 'tpope/vim-speeddating'
 
 Plug 'tpope/vim-surround'
 
-"" code
-
-"" crystal
-Plug 'rhysd/vim-crystal'
+" crystal
+Plug 'rhysd/vim-crystal', {'for': 'crystal'}
 nnoremap <Leader>cr :!crystal run %<cr>
 nnoremap <Leader>cb :!crystal build %<cr>
-Plug 'elorest/vim-slang'
+Plug 'elorest/vim-slang', {'for': 'crystal'}
 
-""" elixir
-Plug 'elixir-lang/vim-elixir'
-Plug 'mhinz/vim-mix-format'
+" elixir
+Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+Plug 'mhinz/vim-mix-format', {'for': 'elixir'}
 nnoremap <Leader>mf :MixFormat<cr>
 nnoremap <Leader>ms :MixFormatDiff<cr>
 
-""" elm
-Plug 'elmcast/elm-vim'
+" elm
+Plug 'elmcast/elm-vim', {'for': 'elm'}
 let g:elm_setup_keybindings = 0
 nnoremap <Leader>lm :! elm make %
 nnoremap <Leader>lb :! elm make src/Main.elm<cr>
@@ -196,18 +194,18 @@ nnoremap <Leader>ld :ElmShowDocs<cr>
 nnoremap <Leader>lw :ElmBrowseDocs<cr>
 nnoremap <Leader>lf :ElmFormat<cr>
 
-""" go
-"""" edit go with tabs at width 4
+" go
+" edit go with tabs at width 4
 au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'for': 'go'}
 nnoremap <Leader>ob :GoBuild<cr>
 nnoremap <Leader>od :GoDoc<cr>
 nnoremap <Leader>of :GoFmt<cr>
 nnoremap <Leader>or :GoRun<cr>
 
-""" ruby
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
+" ruby
+Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
+Plug 'tpope/vim-rails', {'for': 'ruby'}
 nnoremap <Leader>rr :Rails<cr>
 
 " here vim-plug runs both
