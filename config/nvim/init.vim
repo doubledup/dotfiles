@@ -164,7 +164,7 @@ Plug 'aklt/plantuml-syntax'
 Plug 'tpope/vim-repeat'
 
 Plug 'iCyMind/NeoSolarized'
-let g:neosolarized_visibility = "high"
+let g:neosolarized_contrast = "high"
 
 Plug 'tpope/vim-speeddating'
 
