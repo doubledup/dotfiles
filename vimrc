@@ -106,7 +106,7 @@ nnoremap <Leader>fc :Commits<cr>
 
 Plug 'tpope/vim-repeat'
 
-Plug 'lifepillar/vim-solarized8'
+Plug 'iCyMind/NeoSolarized'
 
 Plug 'tpope/vim-speeddating'
 
@@ -118,6 +118,6 @@ Plug 'vim-ruby/vim-ruby'
 
 call plug#end()
 
-set background=light
+set background=dark
 set termguicolors
-colorscheme solarized8
+colorscheme NeoSolarized
