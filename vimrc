@@ -121,3 +121,7 @@ call plug#end()
 set background=dark
 set termguicolors
 colorscheme NeoSolarized
+
+if !empty(glob("~/.vimrc.local"))
+  source ~/.vimrc.local
+endif
