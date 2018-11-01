@@ -80,20 +80,14 @@ nnoremap <c-[> :pop<cr>
 " open NeoVim config
 nnoremap <Leader><Leader>c :tabnew ~/.config/nvim/init.vim<cr>
 
+" vim-plug
 nnoremap <Leader>pc :PlugClean<cr>
 nnoremap <Leader>pd :PlugDiff<cr>
 nnoremap <Leader>pi :PlugInstall<cr>
 nnoremap <Leader>ps :PlugStatus<cr>
 nnoremap <Leader>pu :PlugUpdate<cr>
 
-" vim-plug plugins
-call plug#begin('~/.vim/plugged')
-
-" vim-plug runs both
-" `filetype plugin indent on`
-" and
-" `syntax enable`
-" by itself
+call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
 "
@@ -216,6 +210,10 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 nnoremap <Leader>rr :Rails<cr>
 
+" here vim-plug runs both
+" `filetype plugin indent on`
+" and
+" `syntax enable`
 call plug#end()
 
 set background=dark
