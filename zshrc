@@ -72,6 +72,8 @@ WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
 
+setopt AUTO_CD
+
 # autojump
 [ -f /usr/share/autojump/autojump.zsh ] && . /usr/share/autojump/autojump.zsh
 
@@ -110,23 +112,7 @@ alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
 
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"
-setopt AUTO_CD
-command_not_found_handler() {
-  if [[ $1 =~ ^b[kb]*$ ]]; then
-    len=${#1}
-    up_one=../
-    unset arg
-    for _ in {1..$len}
-    do
-      arg+=$up_one
-    done
-    echo 'zsh spawns command_not_found_handler in a new subshell :'"'"'('
-    echo 'cd '$arg
-    cd ../
-  else
-    exit 127
-  fi
-}
+
 alias :q=exit
 
 # Path
