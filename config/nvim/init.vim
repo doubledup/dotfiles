@@ -159,8 +159,6 @@ nnoremap <Leader>f* :BLines <c-r><c-w><cr>
 
 Plug 'andrewradev/linediff.vim'
 
-Plug 'aklt/plantuml-syntax'
-
 Plug 'tpope/vim-repeat'
 
 Plug 'iCyMind/NeoSolarized'
