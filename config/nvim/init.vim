@@ -91,15 +91,16 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
 "
-" Plug 'vim-airline/vim-airline'
+" vim-airline/vim-airline
 " jremmen/vim-ripgrep
 " tpope/vim-unimpaired
 " ervandew/supertab
 " janko-m/vim-test
 " rizzatti/dash.vim
 " jceb/vim-orgmode
-" Plug 'valloric/youcompleteme'
-" Plug 'tpope/vim-sleuth'
+" valloric/youcompleteme
+" tpope/vim-sleuth
+" Shougo/deoplete.nvim
 
 "" general
 
