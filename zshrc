@@ -77,6 +77,9 @@ WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--height 100% --preview '(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -100'"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # git
 export LESS=-R
