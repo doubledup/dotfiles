@@ -142,7 +142,6 @@ nnoremap <Leader>gs :Gstatus<cr>
 nnoremap <Leader>gc :Gcommit<space>--verbose<cr>
 nnoremap <Leader>gd :Gdiff<cr>
 nnoremap <Leader>gb :Gblame<cr>
-nnoremap <Leader>gl :Glog<cr>
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
