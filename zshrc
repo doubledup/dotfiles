@@ -51,7 +51,7 @@ git_prompt() {
     echo $prompt
   fi
 }
-PS1='[%F{blue}%3~%f]$(git_prompt)%(!.#.$) '
+PS1='[%F{blue}%3~%f]$(git_prompt)%(!.#.♠) '
 
 exit_status='%(?..%F{red}%?%f)'
 RPS1="${exit_status}"
