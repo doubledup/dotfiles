@@ -161,8 +161,6 @@ Plug 'tpope/vim-repeat'
 Plug 'iCyMind/NeoSolarized'
 let g:neosolarized_contrast = "high"
 
-Plug 'tpope/vim-speeddating'
-
 Plug 'tpope/vim-surround'
 
 " crystal
