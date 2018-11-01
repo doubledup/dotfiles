@@ -1,18 +1,40 @@
 #!/usr/bin/env zsh
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=1000000
+setopt append_history
+setopt no_extended_glob
+# read histfile whenever history is needed
+setopt share_history
+# save commands to history before they're run
+setopt inc_append_history
+# cd by typing directory name
+setopt auto_cd
+
+# alt-backspace clears by word, where [/_ .-] aren't considered as being in words
+WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
+
+# eval `dircolors ~/.dir_colors`
+# export TERM=xterm-256color
+
+# prompt
+
 setopt promptsubst
 git_prompt() {
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) ]]; then
+    branch=$(git branch |
+      sed -n '/\* /s///p' |
+      sed "s/^\([^(]*\)$/\1/" |
+      sed "s/(HEAD detached at \(.*\))$/detached@\1/"
+    )
+
     dirty=$(git status\
       --porcelain\
       --ignore-submodules=none \
       2> /dev/null |
       wc -l |
       sed 's/^0$//;s/[0-9][0-9]*/*/'
-    )
-
-    stash=$(git stash list |
-      wc -l |
-      sed 's/^0$//;s/[0-9][0-9]*/|S:&/'
     )
 
     remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
@@ -35,10 +57,9 @@ git_prompt() {
       fi
     fi
 
-    branch=$(git branch |
-      sed -n '/\* /s///p' |
-      sed "s/^\([^(]*\)$/\1/" |
-      sed "s/(HEAD detached at \(.*\))$/detached@\1/"
+    stash=$(git stash list |
+      wc -l |
+      sed 's/^0$//;s/[0-9][0-9]*/|S:&/'
     )
 
     if [[ -n ${dirty} ]]; then
@@ -46,44 +67,28 @@ git_prompt() {
     else
       prompt='%F{green}'
     fi
-    prompt+="($branch$dirty$remote$stash)%f"
 
+    prompt+="($branch$dirty$remote$stash)%f"
     echo $prompt
   fi
 }
-PS1='[%F{blue}%3~%f]$(git_prompt)%(!.#.♠) '
 
+PS1='[%F{blue}%3~%f]$(git_prompt)%(!.#.♠) '
 exit_status='%(?..%F{red}%?%f)'
 RPS1="${exit_status}"
 
-HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=1000000
-setopt append_history
-setopt no_extended_glob
-# read histfile whenever history is needed
-setopt share_history
-# save commands to history before they're run
-setopt inc_append_history
+# Tools
 
-# alt-backspace clears by word, where [/_ .-] aren't considered as being in words
-WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
-
-# eval `dircolors ~/.dir_colors`
-# export TERM=xterm-256color
-
-setopt AUTO_CD
-
-# autojump
+## autojump
 [ -f /usr/share/autojump/autojump.zsh ] && . /usr/share/autojump/autojump.zsh
 
-# fzf
+## fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--height 95% --preview '(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -100'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# git
+## git
 export LESS=-R
 
 # Aliases
@@ -91,7 +96,6 @@ export LESS=-R
 ## builtins
 alias la='ls -al'
 alias ll='ls -l'
-alias claer='clear'
 
 ## git
 alias g=git
