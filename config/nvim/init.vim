@@ -130,8 +130,7 @@ nnoremap <Leader>as :ALEFixSuggest<cr>
 
 Plug 'tpope/vim-commentary'
 
-Plug 'craigemery/vim-autotag'
-let g:autotagTagsFile="tags"
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'easymotion/vim-easymotion'
 map <Space> <Plug>(easymotion-prefix)
