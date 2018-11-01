@@ -1,9 +1,3 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath = &runtimepath
-" source ~/.vimrc
-
-" options
-
 " show line numbers
 set number
 
