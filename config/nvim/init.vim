@@ -85,16 +85,26 @@ nnoremap <Leader>pu :PlugUpdate<cr>
 call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
-"
-" jremmen/vim-ripgrep
+
 " tpope/vim-unimpaired
+" tpope/vim-endwise
+" SirVer/ultisnips
+" honza/vim-snippets
+" vim-gitgutter
+" Shougo/deoplete.nvim
+" nelstrom/vim-markdown-folding
+" pangloss/vim-javascript
+" mattn/emmet-vim
+" elixir-editors/vim-elixir
+
 " ervandew/supertab
 " janko-m/vim-test
+" jremmen/vim-ripgrep
+" tpope/vim-sleuth
+" valloric/youcompleteme
+
 " rizzatti/dash.vim
 " jceb/vim-orgmode
-" valloric/youcompleteme
-" tpope/vim-sleuth
-" Shougo/deoplete.nvim
 
 " general
 
