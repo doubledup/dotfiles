@@ -1,8 +1,3 @@
-let mapleader = ","
-
-" options
-
-" show line numbers
 set number
 set relativenumber
 
@@ -24,11 +19,6 @@ set list
 " remove 2 spaces with backspace
 set backspace=2
 
-" better tag navigation
-nnoremap gd :tag <c-r><c-w><cr>
-nnoremap <c-]> :tag<cr>
-nnoremap <c-[> :pop<cr>
-
 " live on the edge!
 set noswapfile
 set autoread
@@ -37,19 +27,21 @@ set autoread
 set splitbelow
 set splitright
 
-" netrw config
-let g:netrw_liststyle=3 " thin/long/wide/tree
-
-" exit terminal-mode more easily
-tnoremap <Leader><Esc> <C-\><C-n>
-
 " don't wrap lines
 set nowrap
 
 " Highlight current column and line
 set cuc cul
 
-" sane pane shifting shortcuts
+" netrw
+let g:netrw_liststyle=3 " thin/long/wide/tree
+
+let mapleader = ","
+
+" exit terminal-mode more easily
+tnoremap <Leader><Esc> <C-\><C-n>
+
+" sane window shifting shortcuts
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
@@ -79,6 +71,11 @@ noremap <right> <nop>
 
 " search for selected text
 vnoremap // y/<C-R>"<CR>
+
+" better ctag bindings
+nnoremap gd :tag <c-r><c-w><cr>
+nnoremap <c-]> :tag<cr>
+nnoremap <c-[> :pop<cr>
 
 " open NeoVim config
 nnoremap <Leader><Leader>c :tabnew ~/.config/nvim/init.vim<cr>
