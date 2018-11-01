@@ -86,7 +86,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
 "
-" vim-airline/vim-airline
 " jremmen/vim-ripgrep
 " tpope/vim-unimpaired
 " ervandew/supertab
@@ -98,6 +97,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Shougo/deoplete.nvim
 
 " general
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme='solarized'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#ale#enabled = 1
 
 Plug 'w0rp/ale'
 let g:ale_completion_enabled = 1
