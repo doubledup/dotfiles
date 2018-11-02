@@ -130,7 +130,15 @@ nnoremap <Leader>as :ALEFixSuggest<cr>
 
 Plug 'tpope/vim-commentary'
 
-Plug 'ludovicchabant/vim-gutentags'
+" deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
 
 Plug 'easymotion/vim-easymotion'
 map <Space> <Plug>(easymotion-prefix)
@@ -152,6 +160,8 @@ nnoremap <Leader>fr :Rg<cr>
 nnoremap <Leader>fs :Lines<cr>
 nnoremap <Leader>f/ :BLines<cr>
 nnoremap <Leader>f* :BLines <c-r><c-w><cr>
+
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'andrewradev/linediff.vim'
 
