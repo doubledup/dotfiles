@@ -29,8 +29,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
 WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
 
-# eval `dircolors ~/.dir_colors`
-# export TERM=xterm-256color
+eval `dircolors ~/.dir_colors`
 
 # prompt
 
@@ -108,8 +107,9 @@ export LESS=-R
 # Aliases
 
 ## builtins
-alias la='ls -al'
-alias ll='ls -l'
+alias ls='ls --color=auto'
+alias la='ls -al --color=auto'
+alias ll='ls -l --color=auto'
 
 ## git
 alias g=git
