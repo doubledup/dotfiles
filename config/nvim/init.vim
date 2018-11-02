@@ -116,12 +116,11 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#ale#enabled = 1
 
 Plug 'w0rp/ale'
-let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 0
 
 let g:ale_fixers = {}
-let g:ale_fixers.javascripit = ['eslint']
+let g:ale_fixers.javascripit = ['eslint', 'prettier']
 let g:ale_fixers.json = ['prettier']
-let g:ale_fixers.ruby = ['rubocop']
 let g:ale_fixers.yaml = ['prettier']
 
 nnoremap <Leader>af :ALEFix<cr>
