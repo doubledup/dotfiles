@@ -13,17 +13,13 @@ setopt inc_append_history
 setopt auto_cd
 setopt no_beep
 
-autoload -Uz compinit
-compinit
+. ~/.zshrc.zni
+
 zstyle ':completion:*' rehash true
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
 # autocomplete switches for aliases
 setopt complete_aliases
 setopt menu_complete
-
-autoload -Uz predict-on
-predict-on
 
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
 WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
