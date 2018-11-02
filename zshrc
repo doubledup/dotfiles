@@ -21,12 +21,13 @@ zstyle ':completion:*' rehash true
 setopt complete_aliases
 setopt menu_complete
 
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# change highlight for dark theme
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
 WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
-# change highlight for dark theme
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
