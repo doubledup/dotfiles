@@ -24,9 +24,6 @@ setopt menu_complete
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
 WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g')
 
-# autoload -Uz zsh-mime-setup
-# zsh-mime-setup
-
 # eval `dircolors ~/.dir_colors`
 # export TERM=xterm-256color
 
