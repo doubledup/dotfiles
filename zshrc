@@ -17,8 +17,6 @@ setopt no_beep
 
 zstyle ':completion:*' rehash true
 
-# autocomplete switches for aliases
-setopt complete_aliases
 setopt menu_complete
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
