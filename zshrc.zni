@@ -17,7 +17,7 @@ zstyle ':completion:*' prompt 'Found %e errors. Possible corrections include:'
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p; current/total matches: %l%s'
 zstyle ':completion:*' substitute 1
 zstyle ':completion:*' use-compctl true
-zstyle :compinstall filename '/home/strix/.zshrc.zni'
+zstyle :compinstall filename '~/.zshrc.zni'
 
 autoload -Uz compinit
 compinit
