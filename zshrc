@@ -25,7 +25,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
-WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-]//g' | sed 's/\$/|/g')
+WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-=]//g' | sed 's/\$/|/g')
 
 eval `dircolors ~/.dir_colors`
 
