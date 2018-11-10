@@ -124,6 +124,7 @@ let g:ale_fixers.javascripit = ['eslint', 'prettier']
 let g:ale_fixers.json = ['prettier']
 let g:ale_fixers.yaml = ['prettier']
 
+nnoremap <Leader>ad :ALEDetail<cr>
 nnoremap <Leader>af :ALEFix<cr>
 nnoremap <Leader>ai :ALEInfo<cr>
 nnoremap <Leader>as :ALEFixSuggest<cr>
