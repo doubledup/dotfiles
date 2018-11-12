@@ -151,5 +151,5 @@ export PATH="$HOME/.nodenv/bin:$PATH"
 eval "$(nodenv init -)"
 
 ## go
-export GOPATH="$HOME/go"
+export GOPATH="$HOME/code/go"
 export PATH="$GOPATH/bin:$PATH"
