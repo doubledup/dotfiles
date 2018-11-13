@@ -24,8 +24,16 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # change highlight for dark theme
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 
+if [[ $(uname -s) == "Darwin" ]]; then
+  # use gnu utils by default
+  PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+  PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+fi
+
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
-WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.\-=]//g' | sed 's/\$/|/g')
+WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.=-]//g' | sed 's/\$/|/g')
 
 eval `dircolors ~/.dir_colors`
 
