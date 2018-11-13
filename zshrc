@@ -30,6 +30,10 @@ if [[ $(uname -s) == "Darwin" ]]; then
   MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
   PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
   MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+
+  [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+else
+  [ -f /usr/share/autojump/autojump.zsh ] && . /usr/share/autojump/autojump.zsh
 fi
 
 # alt-backspace clears by word, where [/_ .-] aren't considered as being in words
@@ -97,9 +101,6 @@ exit_status='%(?..%F{red}%?%f)'
 RPS1="${exit_status}"
 
 # Tools
-
-## autojump
-[ -f /usr/share/autojump/autojump.zsh ] && . /usr/share/autojump/autojump.zsh
 
 ## fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
