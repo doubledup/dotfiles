@@ -60,10 +60,10 @@ git_prompt() {
       sed 's/^0$//;s/[0-9][0-9]*/*/'
     )
 
-    remote=${$(command git rev-parse --verify ${hook_com[branch]}@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
+    remote=${$(command git rev-parse --verify $branch@{upstream} --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
     if [[ -n ${remote} ]] ; then
-      ahead=$(command git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-      behind=$(command git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+      ahead=$(command git rev-list $branch@{upstream}..HEAD 2>/dev/null | wc -l)
+      behind=$(command git rev-list HEAD..$branch@{upstream} 2>/dev/null | wc -l)
 
       remote=''
       if [ $ahead -gt 0 ] || [ $behind -gt 0 ]
