@@ -180,7 +180,7 @@ nnoremap <Leader>cb :!crystal build %<cr>
 Plug 'elorest/vim-slang', {'for': 'crystal'}
 
 " elixir
-Plug 'elixir-lang/vim-elixir', {'for': 'elixir'}
+Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
 Plug 'mhinz/vim-mix-format', {'for': 'elixir'}
 nnoremap <Leader>mf :MixFormat<cr>
 nnoremap <Leader>ms :MixFormatDiff<cr>
