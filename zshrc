@@ -162,3 +162,7 @@ eval "$(nodenv init -)"
 ## go
 export GOPATH="$HOME/code/go"
 export PATH="$GOPATH/bin:$PATH"
+
+## elixir
+export PATH="$HOME/.exenv/bin:$PATH"
+eval "$(exenv init -)"
