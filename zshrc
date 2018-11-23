@@ -166,3 +166,5 @@ export PATH="$GOPATH/bin:$PATH"
 ## elixir
 export PATH="$HOME/.exenv/bin:$PATH"
 eval "$(exenv init -)"
+
+[[ -f '~/.zshrc.local' ]] && source ~/.zshrc.local
