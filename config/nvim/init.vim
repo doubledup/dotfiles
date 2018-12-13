@@ -11,23 +11,21 @@ set shiftwidth=2
 " when tab is pressed, expand with spaces
 set expandtab
 
+" remove 2 spaces with backspace
+set backspace=2
 " automatically indent when adding a new line
 set autoindent
 " show extra whitespace
 set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
 set list
-" remove 2 spaces with backspace
-set backspace=2
 
 " live on the edge!
 set noswapfile
 set autoread
 
-" split panes open below and to the right
 set splitbelow
 set splitright
 
-" don't wrap lines
 set nowrap
 
 " Highlight current column and line
@@ -46,11 +44,6 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
-
-nnoremap <Leader><c-j> <c-w>J
-nnoremap <Leader><c-k> <c-w>K
-nnoremap <Leader><c-h> <c-w>H
-nnoremap <Leader><c-l> <c-w>L
 
 nnoremap <Leader>> :tabnext<cr>
 nnoremap <Leader>< :tabprevious<cr>
@@ -76,12 +69,6 @@ nnoremap <c-[> :pop<cr>
 nnoremap <Leader><Leader>c :tabnew ~/.config/nvim/init.vim<cr>
 
 " vim-plug
-nnoremap <Leader>pc :PlugClean<cr>
-nnoremap <Leader>pd :PlugDiff<cr>
-nnoremap <Leader>pi :PlugInstall<cr>
-nnoremap <Leader>ps :PlugStatus<cr>
-nnoremap <Leader>pu :PlugUpdate<cr>
-
 call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
@@ -118,7 +105,6 @@ let g:airline#extensions#ale#enabled = 1
 
 Plug 'w0rp/ale'
 let g:ale_fix_on_save = 0
-
 let g:ale_fixers = {}
 let g:ale_fixers.javascripit = ['eslint', 'prettier']
 let g:ale_fixers.json = ['prettier']
