@@ -110,10 +110,10 @@ let g:ale_fixers.javascripit = ['eslint', 'prettier']
 let g:ale_fixers.json = ['prettier']
 let g:ale_fixers.yaml = ['prettier']
 
-nnoremap <Leader>ad :ALEDetail<cr>
-nnoremap <Leader>af :ALEFix<cr>
-nnoremap <Leader>ai :ALEInfo<cr>
-nnoremap <Leader>as :ALEFixSuggest<cr>
+" info
+nnoremap <Leader>i :ALEDetail<cr>
+" lint
+nnoremap <Leader>l :ALEFix<cr>
 
 Plug 'tpope/vim-commentary'
 
@@ -131,22 +131,18 @@ Plug 'easymotion/vim-easymotion'
 map <Space> <Plug>(easymotion-prefix)
 
 Plug 'tpope/vim-fugitive'
-nnoremap <Leader>ge :Gedit
-nnoremap <Leader>gs :Gstatus<cr>
-nnoremap <Leader>gc :Gcommit<space>--verbose<cr>
-nnoremap <Leader>gd :Gdiff<cr>
-nnoremap <Leader>gb :Gblame<cr>
+nnoremap <Leader>d :Gdiff<cr>
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-nnoremap <Leader>ff :Files<cr>
-nnoremap <Leader>fb :Buffers<cr>
-nnoremap <Leader>fc :Commits<cr>
-nnoremap <Leader>fw :Windows<cr>
-nnoremap <Leader>fr :Rg<cr>
-nnoremap <Leader>fs :Lines<cr>
-nnoremap <Leader>f/ :BLines<cr>
-nnoremap <Leader>f* :BLines <c-r><c-w><cr>
+nnoremap <Leader>f :Files<cr>
+nnoremap <Leader>b :Buffers<cr>
+nnoremap <Leader>c :Commits<cr>
+nnoremap <Leader>w :Windows<cr>
+nnoremap <Leader>r :Rg<cr>
+nnoremap <Leader>s :Lines<cr>
+nnoremap <Leader>/ :BLines<cr>
+nnoremap <Leader>* :BLines <c-r><c-w><cr>
 
 Plug 'ludovicchabant/vim-gutentags'
 
