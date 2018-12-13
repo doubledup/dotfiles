@@ -148,6 +148,8 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'andrewradev/linediff.vim'
 
+Plug 'vim-scripts/paredit.vim'
+
 Plug 'tpope/vim-repeat'
 
 Plug 'iCyMind/NeoSolarized'
