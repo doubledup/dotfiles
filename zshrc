@@ -167,4 +167,4 @@ export PATH="$GOPATH/bin:$PATH"
 export PATH="$HOME/.exenv/bin:$PATH"
 eval "$(exenv init -)"
 
-[[ -f '~/.zshrc.local' ]] && source ~/.zshrc.local
+[[ -f "$HOME/.zshrc.local" ]] && source ~/.zshrc.local
