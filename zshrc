@@ -145,6 +145,18 @@ alias :q=exit
 ## binaries
 export PATH="$HOME/.local/bin:$PATH"
 
+## exenv
+export PATH="$HOME/.exenv/bin:$PATH"
+eval "$(exenv init -)"
+
+## go
+export GOPATH="$HOME/code/go"
+export PATH="$GOPATH/bin:$PATH"
+
+## nodenv
+export PATH="$HOME/.nodenv/bin:$PATH"
+eval "$(nodenv init -)"
+
 ## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -154,17 +166,5 @@ eval "$(pyenv init -)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-
-## nodenv
-export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
-
-## go
-export GOPATH="$HOME/code/go"
-export PATH="$GOPATH/bin:$PATH"
-
-## elixir
-export PATH="$HOME/.exenv/bin:$PATH"
-eval "$(exenv init -)"
 
 [[ -f "$HOME/.zshrc.local" ]] && source ~/.zshrc.local
