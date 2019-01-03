@@ -65,6 +65,9 @@ nnoremap gd :tag <c-r><c-w><cr>
 nnoremap <c-]> :tag<cr>
 nnoremap <c-[> :pop<cr>
 
+" get new file changes from disk
+nnoremap <Leader>g :checktime<cr>
+
 " open NeoVim config
 nnoremap <Leader><Leader>c :tabnew ~/.config/nvim/init.vim<cr>
 
