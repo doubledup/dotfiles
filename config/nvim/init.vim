@@ -151,6 +151,8 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'andrewradev/linediff.vim'
 
+Plug 'jceb/vim-orgmode'
+
 Plug 'vim-scripts/paredit.vim'
 
 Plug 'tpope/vim-repeat'
