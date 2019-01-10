@@ -35,6 +35,7 @@ set cuc cul
 let g:netrw_liststyle=3 " thin/long/wide/tree
 
 let mapleader = ","
+let maplocalleader = ";"
 
 " exit terminal-mode more easily
 tnoremap <Leader><Esc> <C-\><C-n>
