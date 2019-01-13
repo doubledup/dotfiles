@@ -31,6 +31,10 @@ set nowrap
 " Highlight current column and line
 set cuc cul
 
+" incrementally highlight searches
+set incsearch
+set hlsearch
+
 " netrw
 let g:netrw_liststyle=3 " thin/long/wide/tree
 
