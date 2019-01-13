@@ -132,7 +132,8 @@ endif
 let g:deoplete#enable_at_startup = 1
 
 Plug 'easymotion/vim-easymotion'
-map <Space> <Plug>(easymotion-prefix)
+map <Space> <Plug>(easymotion-s)
+nmap <Space> <Plug>(easymotion-overwin-f)
 
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>d :Gdiff<cr>
