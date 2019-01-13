@@ -65,6 +65,9 @@ noremap <right> <nop>
 " search for selected text
 vnoremap // y/<C-R>"<CR>
 
+" clear search highlights
+nnoremap <Leader>? :noh<cr>
+
 " better ctag bindings
 nnoremap gd :tag <c-r><c-w><cr>
 nnoremap <c-]> :tag<cr>
