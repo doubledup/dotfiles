@@ -112,7 +112,7 @@ let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 0
 
 Plug 'w0rp/ale'
 let g:ale_fix_on_save = 0
@@ -170,6 +170,8 @@ Plug 'iCyMind/NeoSolarized'
 let g:neosolarized_contrast = "high"
 
 Plug 'tpope/vim-surround'
+
+Plug 'lervag/vimtex'
 
 " crystal
 Plug 'rhysd/vim-crystal', {'for': 'crystal'}
