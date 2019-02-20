@@ -169,9 +169,13 @@ Plug 'tpope/vim-repeat'
 Plug 'iCyMind/NeoSolarized'
 let g:neosolarized_contrast = "high"
 
+Plug 'honza/vim-snippets'
+
 Plug 'tpope/vim-surround'
 
 Plug 'lervag/vimtex'
+
+Plug 'sirver/ultisnips'
 
 " crystal
 Plug 'rhysd/vim-crystal', {'for': 'crystal'}
