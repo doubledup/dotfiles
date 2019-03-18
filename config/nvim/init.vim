@@ -23,9 +23,6 @@ set list
 set noswapfile
 set autoread
 
-set splitbelow
-set splitright
-
 set nowrap
 
 " Highlight current column and line
