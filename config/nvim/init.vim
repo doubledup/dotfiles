@@ -83,14 +83,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " tpope/vim-unimpaired
 " tpope/vim-endwise
-" SirVer/ultisnips
-" honza/vim-snippets
 " vim-gitgutter
-" Shougo/deoplete.nvim
 " nelstrom/vim-markdown-folding
 " pangloss/vim-javascript
 " mattn/emmet-vim
-" elixir-editors/vim-elixir
 
 " ervandew/supertab
 " janko-m/vim-test
