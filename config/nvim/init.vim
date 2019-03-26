@@ -170,10 +170,6 @@ Plug 'lervag/vimtex'
 
 Plug 'sirver/ultisnips'
 
-" crystal
-Plug 'rhysd/vim-crystal', {'for': 'crystal'}
-Plug 'elorest/vim-slang', {'for': 'crystal'}
-
 " elixir
 Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
 Plug 'mhinz/vim-mix-format', {'for': 'elixir'}
