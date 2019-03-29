@@ -158,7 +158,7 @@ Plug 'andrewradev/linediff.vim'
 
 Plug 'jceb/vim-orgmode'
 
-Plug 'vim-scripts/paredit.vim'
+Plug 'vim-scripts/paredit.vim', {'for': 'scheme'}
 
 Plug 'tpope/vim-repeat'
 
