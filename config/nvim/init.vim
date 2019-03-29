@@ -25,6 +25,9 @@ set autoread
 
 set nowrap
 
+" don't redraw while executing commands & using registers
+set lazyredraw
+
 " Highlight current column and line
 set cuc cul
 
