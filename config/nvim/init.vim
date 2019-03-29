@@ -42,7 +42,7 @@ let mapleader = ","
 let maplocalleader = ";"
 
 " exit terminal-mode more easily
-tnoremap <Leader><Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>
 
 " sane window shifting shortcuts
 nnoremap <c-j> <c-w>j
@@ -50,8 +50,8 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-nnoremap <Leader>> :tabnext<cr>
-nnoremap <Leader>< :tabprevious<cr>
+nnoremap <c-n> :tabnext<cr>
+nnoremap <c-p> :tabprevious<cr>
 nnoremap <Leader>] :tabmove +1<cr>
 nnoremap <Leader>[ :tabmove -1<cr>
 
@@ -66,7 +66,7 @@ noremap <right> <nop>
 vnoremap // y/<C-R>"<CR>
 
 " clear search highlights
-nnoremap <Leader>? :noh<cr>
+nnoremap <cr> :noh<cr>
 
 " better ctag bindings
 nnoremap gd :tag <c-r><c-w><cr>
@@ -77,7 +77,7 @@ nnoremap <c-[> :pop<cr>
 nnoremap <Leader>g :checktime<cr>
 
 " open NeoVim config
-nnoremap <Leader><Leader>c :tabnew ~/.config/nvim/init.vim<cr>
+nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
 
 " vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
