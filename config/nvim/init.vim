@@ -63,7 +63,7 @@ noremap <left> <nop>
 noremap <right> <nop>
 
 " search for selected text
-vnoremap // y/<C-R>"<CR>
+vnoremap // y/<c-r>"<cr>
 
 " clear search highlights
 nnoremap <cr> :noh<cr>
@@ -151,6 +151,7 @@ nnoremap <Leader>r :Rg<cr>
 nnoremap <Leader>s :Lines<cr>
 nnoremap <Leader>/ :BLines<cr>
 nnoremap <Leader>* :BLines <c-r><c-w><cr>
+vnoremap <Leader>r y:Rg <c-r>"<cr>
 
 Plug 'ludovicchabant/vim-gutentags'
 
