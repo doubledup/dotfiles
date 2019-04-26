@@ -164,15 +164,15 @@ Plug 'vim-scripts/paredit.vim', {'for': 'scheme'}
 Plug 'tpope/vim-repeat'
 
 Plug 'iCyMind/NeoSolarized'
-let g:neosolarized_contrast = "high"
+let g:neosolarized_contrast = 'high'
 
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-surround'
 
-Plug 'lervag/vimtex'
+" Plug 'lervag/vimtex'
 
-Plug 'sirver/ultisnips'
+" Plug 'sirver/ultisnips'
 
 " elixir
 Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
