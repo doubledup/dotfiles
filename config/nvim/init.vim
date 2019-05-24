@@ -18,6 +18,8 @@ set autoindent
 " show extra whitespace
 set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
 set list
+" trim trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 " live on the edge!
 set noswapfile
