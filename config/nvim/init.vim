@@ -71,7 +71,7 @@ vnoremap // y/<c-r>"<cr>
 nnoremap <cr> :noh<cr>
 
 " better ctag bindings
-nnoremap gd :tag <c-r><c-w><cr>
+nnoremap gd g<c-]>
 nnoremap <c-]> :tag<cr>
 nnoremap <c-[> :pop<cr>
 
