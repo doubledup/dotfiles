@@ -128,6 +128,9 @@ nnoremap <Leader>l :ALEFix<cr>
 
 Plug 'tpope/vim-commentary'
 
+Plug 'rizzatti/dash.vim'
+nmap <Leader>n <Plug>DashSearch
+
 " deoplete
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
