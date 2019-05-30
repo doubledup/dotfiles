@@ -39,6 +39,8 @@ set hlsearch
 
 " netrw
 let g:netrw_liststyle=3 " thin/long/wide/tree
+let g:netrw_browse_split=2 " horizontal/vertical/tab/window
+let g:netrw_winsize=25 " size as screen %
 
 let mapleader = ","
 let maplocalleader = ";"
