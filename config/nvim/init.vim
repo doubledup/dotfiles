@@ -194,7 +194,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-Plug 'tpope/vim-rails', {'for': 'ruby'}
 
 " here vim-plug runs both
 " `filetype plugin indent on`
