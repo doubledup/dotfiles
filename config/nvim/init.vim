@@ -199,6 +199,9 @@ Plug 'fatih/vim-go', {'for': 'go'}
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
+" kotlin
+Plug 'udalov/kotlin-vim'
+
 " here vim-plug runs both
 " `filetype plugin indent on`
 " and
