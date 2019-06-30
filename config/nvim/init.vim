@@ -105,9 +105,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " tpope/vim-sleuth
 " valloric/youcompleteme
 
-" rizzatti/dash.vim
-" jceb/vim-orgmode
-
 " general
 
 Plug 'vim-airline/vim-airline'
