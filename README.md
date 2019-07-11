@@ -1,6 +1,8 @@
 # dotfiles
 Dotfiles, tracked with rcm (https://github.com/thoughtbot/rcm)
 
-## OSX
-- Install [Homebrew](https://brew.sh/) and [Cask](https://caskroom.github.io/)
-- Run `./.install_homebrew`
+## MacOS
+- Install [Homebrew](https://brew.sh/).
+- Run `brew bundle install`.
+- Run `git submodule init`.
+- Run `rcup`
