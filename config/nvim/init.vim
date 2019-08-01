@@ -169,6 +169,8 @@ Plug 'jceb/vim-orgmode'
 
 Plug 'vim-scripts/paredit.vim', {'for': 'scheme'}
 
+Plug 'aklt/plantuml-syntax'
+
 Plug 'tpope/vim-repeat'
 
 Plug 'iCyMind/NeoSolarized'
