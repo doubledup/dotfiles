@@ -1,1 +1,1 @@
-nnoremap <Leader>x :!scheme <%<cr>
+nnoremap <LocalLeader>x :!scheme <%<cr>

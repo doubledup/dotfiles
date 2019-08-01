@@ -1,2 +1,2 @@
-nnoremap <Leader>x :!crystal run %<cr>
-nnoremap <Leader>m :!crystal build %<cr>
+nnoremap <LocalLeader>x :!crystal run %<cr>
+nnoremap <LocalLeader>m :!crystal build %<cr>
