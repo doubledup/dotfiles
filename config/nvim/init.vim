@@ -92,6 +92,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
 
+" neoclide/coc.nvim
+" autozimu/languageclient-neovim
 " tpope/vim-unimpaired
 " tpope/vim-endwise
 " vim-gitgutter
