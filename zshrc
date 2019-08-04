@@ -148,7 +148,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ## exenv
 export PATH="$HOME/.exenv/bin:$PATH"
-eval "$(exenv init -)"
+eval "$(exenv init - --no-rehash)"
 
 ## go
 export GOPATH="$HOME/code/go"
@@ -156,17 +156,17 @@ export PATH="$GOPATH/bin:$PATH"
 
 ## nodenv
 export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init -)"
+eval "$(nodenv init - --no-rehash)"
 
 ## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+eval "$(pyenv init - --no-rehash)"
 export PIPENV_VENV_IN_PROJECT=1
 
 ## rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
+eval "$(rbenv init - --no-rehash)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
 [[ -f "$HOME/.zshrc.local" ]] && source ~/.zshrc.local
