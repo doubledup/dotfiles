@@ -9,6 +9,9 @@ only want on your current machine.
 - Run `git submodule init`.
 - Run `rcup`
 
+If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER` in
+`~/.zshrc.local`.
+
 ## MacOS
 - Install [Homebrew](https://brew.sh/).
 - Run `brew bundle install`.
