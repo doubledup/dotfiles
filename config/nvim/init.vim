@@ -84,8 +84,9 @@ nnoremap <c-[> :pop<cr>
 " get new file changes from disk
 nnoremap <Leader>g :checktime<cr>
 
-" open NeoVim config
+" NeoVim config
 nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
+nnoremap <Leader>ee :so ~/.config/nvim/init.vim<cr>
 
 " vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
