@@ -1,19 +1,13 @@
 # dotfiles
-Dotfiles, tracked with rcm (https://github.com/thoughtbot/rcm)
+Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
+
+For machine-local zsh and neovim config, append '.local' to the normal config
+name and save it in the same place, eg. use `~/.zshrc.local` for zsh config you
+only want on your current machine.
 
 ## Linux
-
-### Firefox
-
-To set up Firefox styling, make sure you have a `chrome` folder in your local
-settings. NB: you'll need to fill in your profile name.
-
-`mkdir ~/.mozilla/firefox/<profile name>/chrome`
-
-Copy .userChrome.css to your profile's `chrome` folder:
-
-`cp .userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css`
-
+- Run `git submodule init`.
+- Run `rcup`
 
 ## MacOS
 - Install [Homebrew](https://brew.sh/).
@@ -21,19 +15,19 @@ Copy .userChrome.css to your profile's `chrome` folder:
 - Run `git submodule init`.
 - Run `rcup`
 
-### Firefox
+## Firefox
+To set up Firefox styling, make sure you have a `chrome` folder in your profile
+directory.
 
-To set up Firefox styling, make sure you have a `chrome` folder in your local
-settings. NB: you'll need to fill in your profile name.
-
-`mkdir ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome`
+Linux: `mkdir ~/.mozilla/firefox/<profile name>/chrome`
+MacOS: `mkdir ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome`
 
 Copy .userChrome.css to your profile's `chrome` folder:
 
-`cp .userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css`
+Linux: `cp .userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css`
+MacOS: `cp .userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css`
 
 ### Locale errors
-
 If you see errors like this:
 
 `Warning: Failed to set locale category LC_NUMERIC to en_ZA.`
