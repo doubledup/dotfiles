@@ -135,7 +135,7 @@ nnoremap <Leader>p :ALEPreviousWrap<cr>
 Plug 'tpope/vim-commentary'
 
 Plug 'rizzatti/dash.vim'
-nnoremap <Leader>m <Plug>DashSearch
+nmap <Leader>m <Plug>DashSearch
 
 " deoplete
 if has('nvim')
