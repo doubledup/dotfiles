@@ -129,11 +129,13 @@ let g:ale_fixers.yaml = ['prettier']
 nnoremap <Leader>i :ALEDetail<cr>
 " lint
 nnoremap <Leader>l :ALEFix<cr>
+nnoremap <Leader>n :ALENextWrap<cr>
+nnoremap <Leader>p :ALEPreviousWrap<cr>
 
 Plug 'tpope/vim-commentary'
 
 Plug 'rizzatti/dash.vim'
-nmap <Leader>n <Plug>DashSearch
+nnoremap <Leader>m <Plug>DashSearch
 
 " deoplete
 if has('nvim')
