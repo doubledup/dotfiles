@@ -194,7 +194,7 @@ Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
 Plug 'mhinz/vim-mix-format', {'for': 'elixir'}
 
 " elm
-Plug 'elmcast/elm-vim', {'for': 'elm'}
+Plug 'doubledup/elm-vim', {'for': 'elm'}
 let g:elm_setup_keybindings = 0
 
 " go
