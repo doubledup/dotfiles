@@ -136,6 +136,7 @@ Plug 'tpope/vim-commentary'
 
 Plug 'rizzatti/dash.vim'
 nmap <Leader>m <Plug>DashSearch
+Plug 'kabbamine/zeavim.vim'
 
 " deoplete
 if has('nvim')
