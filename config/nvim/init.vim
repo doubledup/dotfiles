@@ -37,10 +37,6 @@ set cuc cul
 set incsearch
 set hlsearch
 
-" quickfix
-" goto nth quickfix error
-nnoremap <Leader>q :cc
-
 " netrw
 let g:netrw_liststyle=3 " thin/long/wide/tree
 let g:netrw_browse_split=2 " horizontal/vertical/tab/window
@@ -48,6 +44,10 @@ let g:netrw_winsize=25 " size as screen %
 
 let mapleader = ","
 let maplocalleader = ";"
+
+" quickfix
+" goto nth quickfix error
+nnoremap <Leader>q :cc
 
 " exit terminal-mode more easily
 tnoremap <Esc> <C-\><C-n>
