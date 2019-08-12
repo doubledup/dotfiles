@@ -21,6 +21,10 @@ set list
 " trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+" ignore case unless there are upper-case characters
+set ignorecase
+set smartcase
+
 " live on the edge!
 set noswapfile
 set autoread
