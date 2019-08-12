@@ -84,6 +84,9 @@ nnoremap <c-[> :pop<cr>
 " get new file changes from disk
 nnoremap <Leader>g :checktime<cr>
 
+" close all other windows
+nnoremap <Leader>x :on<cr>
+
 " NeoVim config
 nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <Leader>ee :so ~/.config/nvim/init.vim<cr>
