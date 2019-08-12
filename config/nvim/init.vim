@@ -141,9 +141,14 @@ nnoremap <Leader>p :ALEPreviousWrap<cr>
 
 Plug 'tpope/vim-commentary'
 
-Plug 'rizzatti/dash.vim'
+" Dash/Zeal
+" let os = system('uname -s')
+if trim(system('uname -s')) ==? 'Darwin'
+  Plug 'rizzatti/dash.vim'
+else
+  Plug 'kabbamine/zeavim.vim'
+endif
 nmap <Leader>m <Plug>DashSearch
-Plug 'kabbamine/zeavim.vim'
 
 " deoplete
 if has('nvim')
