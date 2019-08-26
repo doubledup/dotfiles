@@ -131,6 +131,7 @@ alias glog='git log --oneline --decorate --graph'
 ## vim & nvim
 export EDITOR='nvim'
 
+alias v="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
