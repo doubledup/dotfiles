@@ -18,6 +18,9 @@ If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER` i
 - Run `git submodule init`.
 - Run `rcup`
 
+### Bonus points
+- Disable "smart" quotes: `defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false`
+
 ## Firefox
 To set up Firefox styling, make sure you have a `chrome` folder in your profile
 directory.
