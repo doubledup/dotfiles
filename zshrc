@@ -109,6 +109,16 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" 2> /de
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 ## git
+# The default less flags that git uses are FRX:
+#
+# F makes less exit if there's less than one page of diff. This makes `git
+# diff` inconsistent: sometimes it opens less, sometimes not.
+#
+# X prevents the less output from getting cleared when less exits. This
+# pollutes terminal output after scrolling multiple pages of diff.
+#
+# Removing these makes the behaviour of `git diff` consistent: it *always*
+# opens less and *never* leaves its output lying around in the terminal.
 export LESS=-R
 
 # Aliases
