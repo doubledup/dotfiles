@@ -233,6 +233,6 @@ set background=dark
 set termguicolors
 colorscheme NeoSolarized
 
-if !empty(glob("~/.config/nvim/init.vim.local"))
-  source ~/.config/nvim/init.vim.local
+if !empty(glob("~/.config/nvim/init.local.vim"))
+  source ~/.config/nvim/init.local.vim
 endif
