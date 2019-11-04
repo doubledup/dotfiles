@@ -219,6 +219,10 @@ Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 " kotlin
 Plug 'udalov/kotlin-vim'
 
+if !empty(glob("~/.config/nvim/plugs.local.vim"))
+  source ~/.config/nvim/plugs.local.vim
+endif
+
 " here vim-plug runs both
 " `filetype plugin indent on`
 " and
