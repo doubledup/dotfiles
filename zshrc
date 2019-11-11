@@ -143,6 +143,9 @@ alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
 
+alias e='emacsclient -c'
+alias et='emacsclient -t'
+
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"
 

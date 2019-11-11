@@ -4,3 +4,7 @@
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "emacs.d"]
+	path = emacs.d
+	url = git@github.com:doubledup/prelude.git
+	branch = custom
