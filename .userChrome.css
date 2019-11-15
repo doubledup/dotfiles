@@ -4,6 +4,6 @@
 }
 
 /* hide TreeStyleTabs sidebar heading */
-#sidebar-header {
+#sidebar-box #sidebar-header {
   display: none !important;
 }
