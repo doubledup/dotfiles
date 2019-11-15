@@ -70,6 +70,7 @@ brew "libvterm"
 brew "lolcat"
 brew "luajit"
 brew "msgpack"
+brew "mysql-client"
 brew "mysql@5.6", restart_service: true
 brew "ncdu"
 brew "neovim"
