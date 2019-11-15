@@ -183,10 +183,6 @@ Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'andrewradev/linediff.vim'
 
-Plug 'jceb/vim-orgmode'
-
-Plug 'vim-scripts/paredit.vim', {'for': 'scheme'}
-
 Plug 'aklt/plantuml-syntax'
 
 Plug 'tpope/vim-repeat'
@@ -215,9 +211,6 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-
-" kotlin
-Plug 'udalov/kotlin-vim'
 
 if !empty(glob("~/.config/nvim/plugs.local.vim"))
   source ~/.config/nvim/plugs.local.vim
