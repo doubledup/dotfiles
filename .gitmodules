@@ -6,5 +6,5 @@
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "emacs.d"]
 	path = emacs.d
-	url = git@github.com:doubledup/prelude.git
+	url = https://github.com/doubledup/prelude.git
 	branch = custom
