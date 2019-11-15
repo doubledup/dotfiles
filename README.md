@@ -7,6 +7,7 @@ only want on your current machine.
 
 ## Linux
 - Run `git submodule init`.
+- Run `git submodule update`.
 - Run `rcup`
 
 If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER` in
@@ -14,9 +15,24 @@ If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER` i
 
 ## MacOS
 - Install [Homebrew](https://brew.sh/).
-- Run `brew bundle install`.
-- Run `git submodule init`.
-- Run `rcup`
+- Run these commands to get up and running:
+```
+$ brew bundle install
+$ git submodule init
+$ git submodule update
+$ rcup
+$ chsh -s /bin/zsh
+```
+- In iTerm2, open General -> Preferences and load config from ~/.iterm2.
+- For Neovim packages:
+  - Install [vim-plug](https://github.com/junegunn/vim-plug).
+  - Install Python and get the `pynvim` package.
+- Install any languages necessary, eg. Ruby with rbenv.
+- Set up SSH keys for git:
+```
+ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
+eval "$(ssh-agent -s)"
+```
 
 ### Bonus points
 - Disable "smart" quotes: `defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false`
