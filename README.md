@@ -6,12 +6,32 @@ name and save it in the same place, eg. use `~/.zshrc.local` for zsh config you
 only want on your current machine.
 
 ## Linux
-- Run `git submodule init`.
-- Run `git submodule update`.
-- Run `rcup`
+
+To get up and running:
+
+```
+git submodule init
+git submodule update
+rcup
+```
 
 If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER` in
 `~/.zshrc.local`.
+
+### `chsh: PAM authentication failed` when changing shells, eg. to zsh
+
+Mark Linuxbrew's zsh as an allowed login shell:
+
+`echo "$(brew --prefix)"/bin/zsh >> /etc/shells`
+
+### pyenv: zlib not found
+
+Reinstall the python version using `brew`'s zlib:
+
+`CPPFLAGS="-I$(brew --prefix zlib)/include" pyenv install -v <version>`
+
+Note: you might want store the currently isntalled packages from `pip freeze`
+before reinstalling Python.
 
 ## MacOS
 - Install [Homebrew](https://brew.sh/).
@@ -36,6 +56,10 @@ eval "$(ssh-agent -s)"
 
 ### Bonus points
 - Disable "smart" quotes: `defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false`
+
+## FZF autocomplete & bindings with brew
+
+`"$(brew --prefix)/opt/fzf/install"`
 
 ## Firefox
 To set up Firefox styling, make sure you have a `chrome` folder in your profile
