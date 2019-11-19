@@ -1,1 +1,2 @@
 EXCLUDES="Brewfile LICENSE README.md"
+SYMLINK_DIRS="emacs.d zsh"
