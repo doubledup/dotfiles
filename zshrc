@@ -35,10 +35,14 @@ if [[ $(uname -s) == "Darwin" ]]; then
 
   [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 else
-  [ -f /usr/share/autojump/autojump.zsh ] && . /usr/share/autojump/autojump.zsh
+  if [ -f /usr/share/autojump/autojump.zsh ]; then
+    . /usr/share/autojump/autojump.zsh
+  elif [ -f "$(brew --prefix)"/share/autojump/autojump.zsh ]; then
+    . "$(brew --prefix)"/share/autojump/autojump.zsh
+  fi
 fi
 
-# alt-backspace clears by word, where [/_ .-] aren't considered as being in words
+# when moving & deleting by word, [/_ .-] aren't considered as being in words
 WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.=-]//g' | sed 's/\$/|/g')
 
 eval `dircolors ~/.dir_colors`
