@@ -40,6 +40,16 @@ else
   elif [ -f "$(brew --prefix)"/share/autojump/autojump.zsh ]; then
     . "$(brew --prefix)"/share/autojump/autojump.zsh
   fi
+
+  # get extra info for VTE-based terminal emulators
+  # (lets new termainals open with the same dir as the current one)
+  if [ $VTE_VERSION ]; then
+    if [ -f /etc/profile.d/vte.sh ]; then
+      source /etc/profile.d/vte.sh
+    elif [ -f /usr/share/defaults/etc/profile.d/vte.sh ]; then
+      source /usr/share/defaults/etc/profile.d/vte.sh
+    fi
+  fi
 fi
 
 # when moving & deleting by word, [/_ .-] aren't considered as being in words
