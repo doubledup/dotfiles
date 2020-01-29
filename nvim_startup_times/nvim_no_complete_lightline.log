@@ -1,0 +1,90 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.011  000.011: --- NVIM STARTING ---
+000.554  000.543: locale set
+009.085  008.531: inits 1
+009.113  000.028: window checked
+009.123  000.009: parsing arguments
+009.367  000.244: expanding arguments
+009.440  000.073: inits 2
+009.984  000.544: init highlight
+010.132  000.148: waiting for UI
+012.402  002.270: done waiting for UI
+012.420  000.019: initialized screen early for UI
+014.743  001.718  001.718: sourcing /Users/david.dunn/.local/share/nvim/site/autoload/plug.vim
+026.510  000.021  000.021: sourcing /Users/david.dunn/.local/share/nvim/plugged/elm-vim/ftdetect/elm.vim
+027.034  000.080  000.080: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-go/ftdetect/gofiletype.vim
+034.053  000.015  000.015: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-fugitive/ftdetect/fugitive.vim
+034.213  000.038  000.038: sourcing /Users/david.dunn/.local/share/nvim/plugged/plantuml-syntax/ftdetect/plantuml.vim
+034.426  000.094  000.094: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-ruby/ftdetect/ruby.vim
+034.607  000.130  000.130: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-ruby/ftdetect/ruby_extra.vim
+034.715  006.677  006.400: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/filetype.vim
+034.905  000.040  000.040: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/ftplugin.vim
+035.081  000.032  000.032: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/indent.vim
+035.724  000.254  000.254: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syncolor.vim
+035.820  000.493  000.238: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/synload.vim
+035.846  000.666  000.173: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syntax.vim
+036.306  000.130  000.130: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syncolor.vim
+037.253  000.146  000.146: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syncolor.vim
+037.732  000.130  000.130: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syncolor.vim
+040.203  003.600  003.324: sourcing /Users/david.dunn/.local/share/nvim/plugged/NeoSolarized/colors/NeoSolarized.vim
+041.133  000.180  000.180: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syncolor.vim
+041.817  000.161  000.161: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/syntax/syncolor.vim
+043.812  003.413  003.072: sourcing /Users/david.dunn/.local/share/nvim/plugged/NeoSolarized/colors/NeoSolarized.vim
+043.820  003.531  000.118: sourcing /Users/david.dunn/.config/nvim/init.local.vim
+043.828  031.160  014.667: sourcing /Users/david.dunn/.config/nvim/init.vim
+043.847  000.266: sourcing vimrc file(s)
+044.200  000.107  000.107: sourcing /Users/david.dunn/.local/share/nvim/plugged/lightline.vim/plugin/lightline.vim
+044.908  000.090  000.090: sourcing /Users/david.dunn/.local/share/nvim/plugged/ale/autoload/ale/events.vim
+045.062  000.732  000.642: sourcing /Users/david.dunn/.local/share/nvim/plugged/ale/plugin/ale.vim
+045.345  000.140  000.140: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-commentary/plugin/commentary.vim
+045.783  000.089  000.089: sourcing /Users/david.dunn/.local/share/nvim/plugged/dash.vim/autoload/dash/defaults.vim
+045.884  000.267  000.178: sourcing /Users/david.dunn/.local/share/nvim/plugged/dash.vim/autoload/dash.vim
+046.250  000.773  000.507: sourcing /Users/david.dunn/.local/share/nvim/plugged/dash.vim/plugin/dash.vim
+050.842  004.448  004.448: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-easymotion/plugin/EasyMotion.vim
+051.911  000.930  000.930: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-fugitive/plugin/fugitive.vim
+052.605  000.562  000.562: sourcing /Users/david.dunn/.fzf/plugin/fzf.vim
+053.425  000.683  000.683: sourcing /Users/david.dunn/.local/share/nvim/plugged/fzf.vim/plugin/fzf.vim
+053.767  000.206  000.206: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-gutentags/plugin/gutentags.vim
+054.015  000.083  000.083: sourcing /Users/david.dunn/.local/share/nvim/plugged/linediff.vim/plugin/linediff.vim
+054.582  000.413  000.413: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-surround/plugin/surround.vim
+055.143  000.170  000.170: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/gzip.vim
+055.207  000.013  000.013: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/health.vim
+055.323  000.066  000.066: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/man.vim
+056.545  000.232  000.232: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+056.591  001.220  000.988: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/matchit.vim
+056.782  000.141  000.141: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/matchparen.vim
+057.252  000.403  000.403: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/netrwPlugin.vim
+057.787  000.159  000.159: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/autoload/remote/host.vim
+058.140  000.146  000.146: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/autoload/remote/define.vim
+058.214  000.720  000.415: sourcing /Users/david.dunn/.local/share/nvim/rplugin.vim
+058.221  000.901  000.181: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/rplugin.vim
+058.375  000.095  000.095: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/shada.vim
+058.458  000.023  000.023: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/spellfile.vim
+058.639  000.127  000.127: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/tarPlugin.vim
+058.774  000.081  000.081: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/tohtml.vim
+058.866  000.019  000.019: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/tutor.vim
+059.070  000.156  000.156: sourcing /usr/local/Cellar/neovim/0.4.3/share/nvim/runtime/plugin/zipPlugin.vim
+059.077  002.736: loading plugins
+059.157  000.080: loading packages
+059.202  000.044: loading after plugins
+059.212  000.010: inits 3
+061.738  002.527: reading ShaDa
+062.046  000.159  000.159: sourcing /Users/david.dunn/.local/share/nvim/plugged/ale/autoload/ale.vim
+062.109  000.212: opening buffers
+062.468  000.290  000.290: sourcing /Users/david.dunn/.local/share/nvim/plugged/lightline.vim/autoload/lightline.vim
+062.896  000.035  000.035: sourcing /Users/david.dunn/.local/share/nvim/plugged/lightline.vim/autoload/lightline/tab.vim
+063.286  000.140  000.140: sourcing /Users/david.dunn/.local/share/nvim/plugged/lightline.vim/autoload/lightline/colorscheme.vim
+063.744  000.726  000.586: sourcing /Users/david.dunn/.local/share/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/solarized.vim
+066.151  002.992: BufEnter autocommands
+066.154  000.002: editing files in windows
+066.598  000.331  000.331: sourcing /Users/david.dunn/.local/share/nvim/plugged/vim-gutentags/autoload/gutentags.vim
+066.691  000.207: VimEnter autocommands
+066.693  000.002: UIEnter autocommands
+066.694  000.001: before starting main loop
+067.676  000.982: first screen update
+067.678  000.002: --- NVIM STARTED ---

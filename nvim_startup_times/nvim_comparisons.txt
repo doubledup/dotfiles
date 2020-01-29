@@ -1,0 +1,4 @@
+          | none       | airline     | lightline
+none      | 16.5/64.15 | 119.3       | 67.7
+deoplete  | 245.8      | 324.7       | 245.3
+ycm       | 179.8      | 408.5       | 398.6
