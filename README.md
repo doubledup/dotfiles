@@ -4,6 +4,8 @@ Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 For machine-local zsh and neovim config, append '.local' to the normal config
 name and save it in the same place, eg. use `~/.zshrc.local` for zsh config you
 only want on your current machine.
+For local NeoVim plugs, use `~/.config/nvim/plugs.local.vim`. These are sourced
+at the end of the plug#begin call in the NeoVim init file.
 
 ## Linux
 

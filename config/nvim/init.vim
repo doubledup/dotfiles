@@ -216,6 +216,10 @@ Plug 'fatih/vim-go', {'for': 'go'}
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
+if !empty(glob("~/.config/nvim/plugs.local.vim"))
+  source ~/.config/nvim/plugs.local.vim
+endif
+
 " here vim-plug runs both
 " `filetype plugin indent on`
 " and
