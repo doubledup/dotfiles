@@ -146,12 +146,6 @@ nnoremap <Leader>p :ALEPreviousWrap<cr>
 Plug 'tpope/vim-commentary'
 
 " Dash/Zeal
-" let os = system('uname -s')
-if trim(system('uname -s')) ==? 'Darwin'
-  Plug 'rizzatti/dash.vim'
-else
-  Plug 'kabbamine/zeavim.vim'
-endif
 nmap <Leader>m <Plug>DashSearch
 
 " deoplete
@@ -215,6 +209,10 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
+
+if !empty(glob("~/.config/nvim/plugs.os.vim"))
+  source ~/.config/nvim/plugs.os.vim
+endif
 
 if !empty(glob("~/.config/nvim/plugs.local.vim"))
   source ~/.config/nvim/plugs.local.vim
