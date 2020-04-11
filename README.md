@@ -50,7 +50,7 @@ before reinstalling Python.
 
 ### "Smart" quotes
 
-- Disable "smart" quotes:
+Disable "smart" quotes:
 
 `defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false`
 
@@ -67,7 +67,7 @@ English:
 
 ## NeoVim
 
-- For NeoVim packages:
+For NeoVim packages:
   - Install [vim-plug](https://github.com/junegunn/vim-plug).
   - Install Python and get the `pynvim` package.
 
@@ -76,7 +76,7 @@ at the end of the plug#begin call in the NeoVim init file.
 
 ## Languages
 
-- Install any languages necessary, eg. Ruby with rbenv.
+Install any languages necessary, eg. Ruby with rbenv.
 
 ## SSH
 
