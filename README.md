@@ -100,8 +100,9 @@ Copy userChrome.css to your profile's `chrome` folder:
 Linux: `cp userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css`
 MacOS: `cp userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css`
 
-## `chsh: PAM authentication failed` when changing shells
+## Error when changing shells
 
-Mark zsh as an allowed login shell:
+If you get the error `chsh: PAM authentication failed` when changing shells,
+mark zsh as an allowed login shell:
 
 `echo "$(which zsh)" >> /etc/shells`
