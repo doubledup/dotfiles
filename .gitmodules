@@ -1,4 +1,0 @@
-[submodule "emacs.d"]
-	path = emacs.d
-	url = https://github.com/doubledup/prelude.git
-	branch = custom
