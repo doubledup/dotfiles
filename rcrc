@@ -1,2 +1,2 @@
-EXCLUDES="Brewfile LICENSE README.md"
+EXCLUDES="Brewfile emacs Eofile fix_terminfo.sh fehbg iterm2 nvim_startup_times LICENSE README.md todo.org userChrome.css"
 SYMLINK_DIRS="emacs.d zsh"
