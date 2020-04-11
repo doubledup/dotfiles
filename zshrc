@@ -31,36 +31,8 @@ fi
 # change highlight for dark theme
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 
-if [[ $(uname -s) == "Darwin" ]]; then
-  # use gnu utils by default
-  PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-  MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-  PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-  MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
-
-  [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
-else
-  if [ -f /usr/share/autojump/autojump.zsh ]; then
-    . /usr/share/autojump/autojump.zsh
-  elif [ -f "$(brew --prefix)"/share/autojump/autojump.zsh ]; then
-    . "$(brew --prefix)"/share/autojump/autojump.zsh
-  fi
-
-  # get extra info for VTE-based terminal emulators
-  # (lets new termainals open with the same dir as the current one)
-  if [ $VTE_VERSION ]; then
-    if [ -f /etc/profile.d/vte.sh ]; then
-      source /etc/profile.d/vte.sh
-    elif [ -f /usr/share/defaults/etc/profile.d/vte.sh ]; then
-      source /usr/share/defaults/etc/profile.d/vte.sh
-    fi
-  fi
-fi
-
 # when moving & deleting by word, [/_ .-] aren't considered as being in words
 WORDCHARS=$(echo $WORDCHARS | sed 's/[\/_ \.=-]//g' | sed 's/\$/|/g')
-
-eval `dircolors ~/.dir_colors`
 
 # prompt
 
@@ -211,4 +183,6 @@ alias zshrc="$EDITOR ~/.zshrc"
 
 alias :q=exit
 
+[[ -f "$HOME/.zshrc.linux" ]] && source ~/.zshrc.linux
+[[ -f "$HOME/.zshrc.mac" ]] && source ~/.zshrc.mac
 [[ -f "$HOME/.zshrc.local" ]] && source ~/.zshrc.local
