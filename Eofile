@@ -1391,5 +1391,7 @@ zlib
 zlib-32bit
 zlib-devel
 zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
 zstd
 zstd-32bit
