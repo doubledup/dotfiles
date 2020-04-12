@@ -165,7 +165,7 @@ nmap <Space> <Plug>(easymotion-overwin-f)
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>d :Gvdiff<cr>
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
