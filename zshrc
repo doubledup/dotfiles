@@ -94,6 +94,9 @@ export FZF_DEFAULT_OPTS="-i --bind alt-j:preview-down,alt-k:preview-up,alt-n:pre
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
+## thefuck
+eval $(thefuck --alias)
+
 ## git
 # The default less flags that git uses are FRX:
 #
