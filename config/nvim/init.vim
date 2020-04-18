@@ -46,26 +46,14 @@ let g:netrw_liststyle=3 " thin/long/wide/tree
 let g:netrw_browse_split=2 " horizontal/vertical/tab/window
 let g:netrw_winsize=25 " size as screen %
 
-let mapleader = ","
-let maplocalleader = ";"
-
-" quickfix
-" goto nth quickfix error
-nnoremap <Leader>q :cc
-
 " exit terminal-mode more easily
 tnoremap <Esc> <C-\><C-n>
 
 " sane window shifting shortcuts
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-
-nnoremap <c-n> :tabnext<cr>
-nnoremap <c-p> :tabprevious<cr>
-nnoremap <Leader>] :tabmove +1<cr>
-nnoremap <Leader>[ :tabmove -1<cr>
+noremap <c-j> <c-w>j
+noremap <c-k> <c-w>k
+noremap <c-h> <c-w>h
+noremap <c-l> <c-w>l
 
 " disable arrow keys.
 " don't be a peasant.
@@ -78,22 +66,65 @@ noremap <right> <nop>
 vnoremap // y/<c-r>"<cr>
 
 " clear search highlights
-nnoremap <cr> :noh<cr>
+nnoremap <esc> :noh<cr>
 
-" better ctag bindings
-nnoremap gd g<c-]>
-nnoremap <c-]> :tag<cr>
-nnoremap <c-[> :pop<cr>
+" leader key mappings
+
+" #Packages
+" ALE (lint): l
+" Dash/Zeal (doc): d
+" Fugitive (version control): v
+" FZF: {fbcwrs/*}
+
+" #Other
+" Quickfix: q
+" Reload file (get changes): g
+" Close other windows/tabs: o{wt}
+" Edit config/reload: e{cr}
+
+" Visual
+" FZF: r
+
+" filetype leader mappings
+" Execute file: x
+" Build (make): m
+" Test all/single file: t/tt
+
+" localleader mappings
+" Edit config/reload: e{cr}
+
+let mapleader = "\<space>"
+let maplocalleader = "\<c-space>"
+
+" windows
+nnoremap <Leader><c-j> <c-w>J
+nnoremap <Leader><c-k> <c-w>K
+nnoremap <Leader><c-h> <c-w>H
+nnoremap <Leader><c-l> <c-w>L
+
+" tabs
+nnoremap <Leader>] :tabn<cr>
+nnoremap <Leader>[ :tabp<cr>
+nnoremap <Leader>} :tabmove +1<cr>
+nnoremap <Leader>{ :tabmove -1<cr>
+
+" quickfix
+nnoremap <Leader>qc :cc
+nnoremap <Leader>qn :cn<cr>
+nnoremap <Leader>qp :cp<cr>
 
 " get new file changes from disk
 nnoremap <Leader>g :checktime<cr>
 
-" close all other windows
-nnoremap <Leader>x :on<cr>
+" close all other windows / tabs
+nnoremap <Leader>ow :on<cr>
+nnoremap <Leader>oW :on!<cr>
+nnoremap <Leader>ot :tabon<cr>
+nnoremap <Leader>oT :tabon!<cr>
 
 " NeoVim config
 nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
-nnoremap <Leader>ee :so ~/.config/nvim/init.vim<cr>
+nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
 
 " vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
@@ -135,18 +166,12 @@ let g:ale_fixers = {}
 let g:ale_fixers.javascripit = ['eslint', 'prettier']
 let g:ale_fixers.json = ['prettier']
 let g:ale_fixers.yaml = ['prettier']
-
-" info
-nnoremap <Leader>i :ALEDetail<cr>
-" lint
-nnoremap <Leader>l :ALEFix<cr>
-nnoremap <Leader>n :ALENextWrap<cr>
-nnoremap <Leader>p :ALEPreviousWrap<cr>
+nnoremap <Leader>ld :ALEDetail<cr>
+nnoremap <Leader>lf :ALEFix<cr>
+nnoremap <Leader>ln :ALENextWrap<cr>
+nnoremap <Leader>lp :ALEPreviousWrap<cr>
 
 Plug 'tpope/vim-commentary'
-
-" Dash/Zeal
-nmap <Leader>m <Plug>DashSearch
 
 " deoplete
 if has('nvim')
@@ -159,11 +184,11 @@ endif
 let g:deoplete#enable_at_startup = 1
 
 Plug 'easymotion/vim-easymotion'
-map <Space> <Plug>(easymotion-s)
-nmap <Space> <Plug>(easymotion-overwin-f)
+nmap <cr> <Plug>(easymotion-overwin-f)
 
 Plug 'tpope/vim-fugitive'
-nnoremap <Leader>d :Gvdiff<cr>
+nnoremap <Leader>vs :Gstatus<cr>
+nnoremap <Leader>vd :Gvdiff<cr>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
