@@ -191,6 +191,7 @@ nmap <cr> <Plug>(easymotion-overwin-f)
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>vs :Gstatus<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
+nnoremap <Leader>vb :Gblame<cr>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
