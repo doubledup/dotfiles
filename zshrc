@@ -21,13 +21,6 @@ zstyle ':completion:*' rehash true
 
 setopt menu_complete
 
-if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
 # change highlight for dark theme
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=2'
 
