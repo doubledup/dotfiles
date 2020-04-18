@@ -193,7 +193,7 @@ nnoremap <Leader>vs :Gstatus<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
 nnoremap <Leader>vb :Gblame<cr>
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
