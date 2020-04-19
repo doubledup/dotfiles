@@ -153,11 +153,11 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'itchyny/lightline.vim'
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'relativepath', 'modified' ] ],
       \ }
-let g:lightline.active = {
-      \ 'left': [ [ 'mode', 'paste' ],
-      \           [ 'readonly', 'relativepath', 'modified' ] ],
       \ }
 
 Plug 'w0rp/ale'
@@ -213,8 +213,7 @@ Plug 'aklt/plantuml-syntax'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'iCyMind/NeoSolarized'
-let g:neosolarized_contrast = 'high'
+Plug 'jnurmine/zenburn'
 
 " Plug 'honza/vim-snippets'
 
@@ -252,9 +251,9 @@ endif
 " `syntax enable`
 call plug#end()
 
-set background=dark
-set termguicolors
-colorscheme NeoSolarized
+" set background=dark
+" set termguicolors
+colorscheme zenburn
 
 if !empty(glob("~/.config/nvim/init.local.vim"))
   source ~/.config/nvim/init.local.vim
