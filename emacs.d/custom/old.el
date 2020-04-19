@@ -1,9 +1,3 @@
-;; set up ido mode
-(require 'ido)
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
-
 ;; set up org mode
 (setq org-startup-indented t)
 (setq org-startup-folded "overview")
@@ -11,12 +5,6 @@
 
 ;; set up fonts
 (set-face-attribute 'default nil :font "Inconsolata" :height 120)
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-
-;; disable that bloody audio ping
-;(setq ring-bell-function 'ignore)
 
 ;; set up ace-jump-mode
 ;; ace jump mode major function
@@ -55,20 +43,10 @@
     (and (> (point) (mark)) (exchange-point-and-mark))
     (outdent (mark))))
 
-;;
-;; set up packages from MELPA
-;;
-(require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
-;  (add-to-list 'package-archives (cons "melpa" url) t))
-  (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t))
 (when (< emacs-major-version 24)
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-(package-initialize)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
