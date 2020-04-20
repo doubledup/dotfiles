@@ -194,6 +194,8 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
+" Plug 'tpope/vim-endwise'
+
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>vs :Gstatus<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
@@ -219,15 +221,18 @@ Plug 'aklt/plantuml-syntax'
 
 Plug 'tpope/vim-repeat'
 
-Plug 'jnurmine/zenburn'
+" Plug 'jaxbot/semantic-highlight.vim'
 
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-surround'
 
 " Plug 'lervag/vimtex'
 
-" Plug 'sirver/ultisnips'
+Plug 'sirver/ultisnips'
+
+
+Plug 'jnurmine/zenburn'
 
 " elixir
 Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
