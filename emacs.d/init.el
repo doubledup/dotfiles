@@ -3,5 +3,5 @@
 
 (package-initialize)
 (load "~/.emacs.d/custom/global")
-(load "~/.emacs.d/custom/local")
 (load "~/.emacs.d/custom/customize")
+(load "~/.emacs.d/custom/local")
