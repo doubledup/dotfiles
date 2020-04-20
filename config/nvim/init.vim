@@ -71,6 +71,7 @@ nnoremap <esc> :noh<cr>
 " leader key mappings
 
 " #Packages
+" Plug: p
 " ALE (lint): l
 " Dash/Zeal (doc): d
 " Fugitive (version control): v
@@ -127,6 +128,11 @@ nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
 
 " vim-plug
+nnoremap <Leader>pu :PlugUpdate<cr>
+nnoremap <Leader>pg :PlugUpgrade<cr>
+nnoremap <Leader>pi :PlugInstall<cr>
+nnoremap <Leader>pc :PlugClean<cr>
+nnoremap <Leader>ps :PlugStatus<cr>
 call plug#begin('~/.local/share/nvim/plugged')
 
 " other plugins to check out:
