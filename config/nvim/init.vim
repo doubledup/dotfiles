@@ -200,6 +200,7 @@ Plug 'tpope/vim-fugitive'
 nnoremap <Leader>vs :Gstatus<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
 nnoremap <Leader>vb :Gblame<cr>
+nnoremap <Leader>vp :G pull<cr>
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
