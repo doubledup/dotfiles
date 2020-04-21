@@ -201,6 +201,8 @@ nnoremap <Leader>vs :Gstatus<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
 nnoremap <Leader>vb :Gblame<cr>
 nnoremap <Leader>vp :G pull<cr>
+nnoremap <Leader>vc :G checkout<space>
+nnoremap <Leader>vl :G clean<space>
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
