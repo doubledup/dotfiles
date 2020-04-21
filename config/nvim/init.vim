@@ -81,7 +81,7 @@ nnoremap <esc> :noh<cr>
 " Quickfix: q
 " Reload file (get changes): g
 " Close other windows/tabs: o{wt}
-" Edit config/reload: e{cr}
+" Editor config/reload: e{cr}
 
 " Visual
 " FZF: r
