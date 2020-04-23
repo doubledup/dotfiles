@@ -168,10 +168,9 @@ let g:lightline = {
 
 Plug 'w0rp/ale'
 let g:ale_fix_on_save = 0
-let g:ale_fixers = {}
-let g:ale_fixers.javascripit = ['eslint', 'prettier']
-let g:ale_fixers.json = ['prettier']
-let g:ale_fixers.yaml = ['prettier']
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines'],
+\}
 nnoremap <Leader>ld :ALEDetail<cr>
 nnoremap <Leader>lf :ALEFix<cr>
 nnoremap <Leader>ln :ALENextWrap<cr>

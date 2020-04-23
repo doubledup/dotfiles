@@ -1,5 +1,3 @@
-let b:ale_fixers = ['rubocop']
-
 nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/ruby.vim<cr>
 nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/ruby.vim<cr>
 
