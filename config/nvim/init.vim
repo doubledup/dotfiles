@@ -135,22 +135,23 @@ nnoremap <Leader>pc :PlugClean<cr>
 nnoremap <Leader>ps :PlugStatus<cr>
 call plug#begin('~/.local/share/nvim/plugged')
 
-" other plugins to check out:
-
-" neoclide/coc.nvim
-" autozimu/languageclient-neovim
-" tpope/vim-unimpaired
 " tpope/vim-endwise
-" vim-gitgutter
-" nelstrom/vim-markdown-folding
-" pangloss/vim-javascript
-" mattn/emmet-vim
+" tpope/vim-rails
+" autozimu/languageclient-neovim
+" jaxbot/semantic-highlight.vim
+" c9s/vikube.vim
 
 " ervandew/supertab
 " janko-m/vim-test
 " jremmen/vim-ripgrep
+" mattn/emmet-vim
+" nelstrom/vim-markdown-folding
+" neoclide/coc.nvim
+" pangloss/vim-javascript
 " tpope/vim-sleuth
+" tpope/vim-unimpaired
 " valloric/youcompleteme
+" vim-gitgutter
 
 " general
 
@@ -193,8 +194,6 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
-" Plug 'tpope/vim-endwise'
-
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>vs :Gstatus<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
@@ -232,7 +231,6 @@ Plug 'tpope/vim-surround'
 " Plug 'lervag/vimtex'
 
 Plug 'sirver/ultisnips'
-
 
 Plug 'jnurmine/zenburn'
 
