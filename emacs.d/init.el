@@ -27,5 +27,5 @@
 
 (evil-mode 1)
 
-(load "~/.emacs.d/custom/customize")
-(load "~/.emacs.d/custom/local")
+(load "~/.emacs.d/customize")
+(load "~/.emacs.d/local")
