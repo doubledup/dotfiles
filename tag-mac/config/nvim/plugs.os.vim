@@ -1,2 +1,2 @@
 Plug 'rizzatti/dash.vim'
-nnoremap <Leader>d <Plug>DashSearch
+nmap <silent> <Leader>d <Plug>DashSearch
