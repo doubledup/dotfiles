@@ -46,9 +46,6 @@ let g:netrw_liststyle=3 " thin/long/wide/tree
 let g:netrw_browse_split=2 " horizontal/vertical/tab/window
 let g:netrw_winsize=25 " size as screen %
 
-" exit terminal-mode more easily
-tnoremap <Esc> <C-\><C-n>
-
 " sane window shifting shortcuts
 noremap <c-j> <c-w>j
 noremap <c-k> <c-w>k
