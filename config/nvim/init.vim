@@ -211,6 +211,8 @@ nnoremap <Leader>/ :BLines<cr>
 nnoremap <Leader>* :BLines <c-r><c-w><cr>
 vnoremap <Leader>r y:Rg <c-r>"<cr>
 
+Plug 'roman/golden-ratio'
+
 Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'andrewradev/linediff.vim'
