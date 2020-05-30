@@ -1,1 +1,1 @@
-EXCLUDES='Brewfile Eofile fix_terminfo iterm2 nvim_startup_times LICENSE rcrc README.md todo.org userChrome.css'
+EXCLUDES='Brewfile fix_terminfo iterm2 nvim_startup_times LICENSE rcrc README.md todo.org userChrome.css'

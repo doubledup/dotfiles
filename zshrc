@@ -149,9 +149,6 @@ alias la='ls -al --color=auto'
 alias ll='ls -l --color=auto'
 alias sl='sl | lolcat'
 
-## eopkg
-alias eobundle="cat Eofile | tr '\n' ' ' | sed 's/.$/\n/' | xargs sudo eopkg install"
-
 ## git
 alias g=git
 alias gst='git status'
