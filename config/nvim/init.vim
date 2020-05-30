@@ -192,7 +192,7 @@ Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
 Plug 'tpope/vim-fugitive'
-nnoremap <Leader>vs :Gstatus<cr>
+nnoremap <Leader>vs :Git<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
 nnoremap <Leader>vb :Gblame<cr>
 nnoremap <Leader>vp :G pull<cr>
