@@ -117,7 +117,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ## exenv
 export PATH="$HOME/.exenv/bin:$PATH"
-eval "$(exenv init - --no-rehash)"
+[ -x "$command -v exenv" ] && eval "$(exenv init - --no-rehash)"
 
 ## go
 export GOPATH="$HOME/code/go"
@@ -125,17 +125,17 @@ export PATH="$GOPATH/bin:$PATH"
 
 ## nodenv
 export PATH="$HOME/.nodenv/bin:$PATH"
-eval "$(nodenv init - --no-rehash)"
+[ -x "$command -v nodenv" ] && eval "$(nodenv init - --no-rehash)"
 
 ## pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - --no-rehash)"
+[ -x "$command -v pyenv" ] && eval "$(pyenv init - --no-rehash)"
 export PIPENV_VENV_IN_PROJECT=1
 
 ## rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - --no-rehash)"
+[ -x "$command -v rbenv" ] && eval "$(rbenv init - --no-rehash)"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 
 ## rust
