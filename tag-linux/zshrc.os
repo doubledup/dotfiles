@@ -16,9 +16,12 @@ if [ -f /usr/share/autojump/autojump.zsh ]; then
   . /usr/share/autojump/autojump.zsh
 fi
 
-if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+syntax_plugin_file='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
+if [ -f "$syntax_plugin_file" ]; then
+  source "$syntax_plugin_file"
 fi
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+autosuggestions_plugin_file='/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh'
+if [ -f "$autosuggestions_plugin_file" ]; then
+  source "$autosuggestions_plugin_file"
 fi
