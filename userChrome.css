@@ -1,6 +1,6 @@
 /* hide regular tabs */
 #TabsToolbar {
-    visibility: collapse !important;
+  visibility: collapse !important;
 }
 
 /* hide TreeStyleTabs sidebar heading */

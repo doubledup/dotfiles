@@ -100,6 +100,9 @@ Copy userChrome.css to your profile's `chrome` folder:
 Linux: `cp userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css`
 MacOS: `cp userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css`
 
+In the about:config page, set
+toolkit.legacyUserProfileCustomizations.stylesheets to true.
+
 ## Error when changing shells
 
 If you get the error `chsh: PAM authentication failed` when changing shells,
