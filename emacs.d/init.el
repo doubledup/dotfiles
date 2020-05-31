@@ -28,4 +28,5 @@
 (evil-mode 1)
 
 (load "~/.emacs.d/customize")
-(load "~/.emacs.d/local")
+(if (file-exists-p "~/.emacs.d/local.el")
+    (load "~/.emacs.d/local"))
