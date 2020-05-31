@@ -183,5 +183,5 @@ alias zshrc="$EDITOR ~/.zshrc"
 
 alias :q=exit
 
-[[ -f "$HOME/.zshrc.os" ]] && source ~/.zshrc.os
-[[ -f "$HOME/.zshrc.local" ]] && source ~/.zshrc.local
+[ -f "$HOME/.zshrc.os" ] && source ~/.zshrc.os
+[ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
