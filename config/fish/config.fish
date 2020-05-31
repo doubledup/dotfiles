@@ -7,6 +7,7 @@ end
 ## fzf
 
 ## thefuck
+command -v thefuck >/dev/null; and thefuck --alias | source
 
 ## git
 # The default less flags that git uses are FRX:
