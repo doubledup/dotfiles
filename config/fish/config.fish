@@ -93,3 +93,6 @@ alias et='emacsclient -t'
 alias zshrc="$EDITOR ~/.zshrc"
 
 alias :q=exit
+
+test -e ~/.config/fish/config.fish.os; and source ~/.config/fish/config.fish.os
+test -e ~/.config/fish/config.fish.local; and source ~/.config/fish/config.fish.local
