@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (zenburn)))
- '(custom-file "~/.emacs.d/custom/customize.el")
+ '(custom-file "~/.emacs.d/customize.el")
  '(custom-safe-themes
    (quote
     ("84890723510d225c45aaff941a7e201606a48b973f0121cb9bcb0b9399be8cba" default))))
