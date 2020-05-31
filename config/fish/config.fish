@@ -7,6 +7,9 @@ end
 # Tools
 
 ## fzf
+set -x FZF_DEFAULT_OPTS "-i --bind alt-j:preview-down,alt-k:preview-up,alt-n:preview-page-down,alt-p:preview-page-up,ctrl-n:page-down,ctrl-p:page-up --height 50% --preview '(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -1000'"
+set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
+set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
 ## thefuck
 command -v thefuck >/dev/null; and thefuck --alias | source
