@@ -16,6 +16,9 @@ if [ -f /usr/share/autojump/autojump.zsh ]; then
   . /usr/share/autojump/autojump.zsh
 fi
 
+[[ -f '/usr/share/fzf/completion.zsh' && $- == *i* ]] && source '/usr/share/fzf/completion.zsh' 2> /dev/null
+[ -f '/usr/share/fzf/key-bindings.zsh' ] && source '/usr/share/fzf/key-bindings.zsh'
+
 syntax_plugin_file='/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh'
 if [ -f "$syntax_plugin_file" ]; then
   source "$syntax_plugin_file"
