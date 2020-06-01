@@ -14,6 +14,9 @@ set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 ## thefuck
 command -v thefuck >/dev/null; and thefuck --alias | source
 
+## vim & nvim
+set -x EDITOR 'nvim'
+
 ## git
 # The default less flags that git uses are FRX:
 #
@@ -70,6 +73,9 @@ alias la='ls -al --color=auto'
 alias ll='ls -l --color=auto'
 alias sl='sl | lolcat'
 
+## fish
+alias fishrc="$EDITOR ~/.config/fish/config.fish"
+
 ## git
 alias g=git
 alias gst='git status'
@@ -79,9 +85,6 @@ alias gc='git commit -v'
 alias gco='git checkout'
 alias grb='git rebase'
 alias glog='git log --oneline --decorate --graph'
-
-## vim & nvim
-set -x EDITOR 'nvim'
 
 alias v="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
