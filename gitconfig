@@ -15,3 +15,5 @@
 	ui = auto
 [github]
 	user = doubledup
+[pull]
+	ff = only
