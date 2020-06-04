@@ -436,7 +436,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>650 498 620 392 0 0 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 1200 1920 1057 0 1200 1920 1080 </string>
+	<string>1 1200 1920 1057 0 1200 1920 1057 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 676 1090 501 0 0 1920 1177 </string>
 	<key>NeverWarnAboutShortLivedSessions_2F0AC42C-0456-4351-A4D5-C9211360714C</key>
@@ -660,7 +660,7 @@
 			<key>Columns</key>
 			<integer>120</integer>
 			<key>Command</key>
-			<string>/usr/local/bin/zsh</string>
+			<string>/usr/local/bin/fish</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -693,7 +693,7 @@
 				<real>0.0</real>
 			</dict>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>Recycle</string>
 			<key>Default Bookmark</key>
@@ -1846,7 +1846,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>28C4FB9E-B74E-454B-B9D0-5583C7DCCF72</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>75</integer>
+	<integer>80</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2619,7 +2619,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-26T07:38:50Z</date>
+	<date>2020-06-02T06:29:57Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
@@ -2646,6 +2646,8 @@
 	<integer>3</integer>
 	<key>TabViewType</key>
 	<integer>1</integer>
+	<key>TabsHaveCloseButton</key>
+	<true/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WordCharacters</key>
