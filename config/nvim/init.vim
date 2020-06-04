@@ -79,6 +79,7 @@ nnoremap <esc> :noh<cr>
 " Reload file (get changes): g
 " Close other windows/tabs: o{wt}
 " Editor config/reload: e{cr}
+" Copy: y
 
 " Visual
 " FZF: r
@@ -123,6 +124,10 @@ nnoremap <Leader>oT :tabon!<cr>
 " NeoVim config
 nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
+
+" copy
+nnoremap <Leader>y "+y
+vnoremap <Leader>y "+y
 
 " vim-plug
 nnoremap <Leader>pu :PlugUpdate<cr>
