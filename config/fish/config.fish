@@ -35,32 +35,9 @@ set -x LESS -R
 ## binaries
 set -x PATH "$HOME/.local/bin:$PATH"
 
-## exenv
-if command -v exenv >/dev/null
-  # set -x PATH "$HOME/.exenv/bin:$PATH"
-  # eval "$(exenv init - --no-rehash)"
-end
-
 ## go
 set -x GOPATH "$HOME/code/go"
 set -x PATH "$GOPATH/bin:$PATH"
-
-## nodenv
-if command -v nodenv >/dev/null
-  # set -x PATH "$HOME/.nodenv/bin:$PATH"
-  # eval "$(nodenv init - --no-rehash)"
-end
-
-## pyenv
-if command -v pyenv >/dev/null
-  status --is-interactive; and source (pyenv init - --no-rehash|psub)
-  set -x PIPENV_VENV_IN_PROJECT 1
-end
-
-## rbenv
-if command -v rbenv >/dev/null
-  status --is-interactive; and source (rbenv init - --no-rehash|psub)
-end
 
 ## rust
 set -x PATH "$HOME/.cargo/bin:$PATH"
@@ -102,3 +79,27 @@ alias :q=exit
 
 test -e ~/.config/fish/config.fish.os; and source ~/.config/fish/config.fish.os
 test -e ~/.config/fish/config.fish.local; and source ~/.config/fish/config.fish.local
+
+## exenv
+if command -v exenv >/dev/null
+  # set -x PATH "$HOME/.exenv/bin:$PATH"
+  # eval "$(exenv init - --no-rehash)"
+end
+
+## rbenv
+
+if command -v rbenv >/dev/null
+  status --is-interactive; and source (rbenv init - --no-rehash|psub)
+end
+
+## nodenv
+if command -v nodenv >/dev/null
+  # set -x PATH "$HOME/.nodenv/bin:$PATH"
+  # eval "$(nodenv init - --no-rehash)"
+end
+
+## pyenv
+if command -v pyenv >/dev/null
+  status --is-interactive; and source (pyenv init - --no-rehash|psub)
+  set -x PIPENV_VENV_IN_PROJECT 1
+end
