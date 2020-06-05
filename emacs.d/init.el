@@ -1,13 +1,21 @@
 ;; Emacs init order:
 ;; site-start init default abbrevs packages after-init-time after-init-hook
 
-(package-initialize)
-
+; set up package system
 (setq package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (setq package-archive-priorities '(("melpa-stable" . 1)))
 (setq package-selected-packages '(org-evil evil zenburn-theme org))
+(package-initialize)
+
+; refresh archives, if necessary
+(unless package-archive-contents
+  (package-refresh-contents))
+; install all packages
+(dolist (package package-selected-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 (blink-cursor-mode 0)
 (setq display-line-numbers-type 'relative)
