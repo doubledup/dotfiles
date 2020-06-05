@@ -131,9 +131,12 @@ if [ -x "$command -v nodenv" ]; then
 fi
 
 ## pyenv
-if [ -x "$command -v pyenv" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
+PYENV_ROOT="$HOME/.pyenv"
+if [ -d $PYENV_ROOT ]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
+fi
+
+if [ -x "$command -v pyenv" -o -d $PYENV_ROOT ]; then
   eval "$(pyenv init - --no-rehash)"
   export PIPENV_VENV_IN_PROJECT=1
 fi
