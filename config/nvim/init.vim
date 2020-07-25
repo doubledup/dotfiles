@@ -240,7 +240,7 @@ Plug 'jnurmine/zenburn'
 
 " elixir
 Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
-Plug 'mhinz/vim-mix-format', {'for': 'elixir'}
+Plug 'slashmili/alchemist.vim', {'for': 'elixir'}
 
 " elm
 Plug 'doubledup/elm-vim', {'for': 'elm'}
