@@ -6,7 +6,7 @@
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (setq package-archive-priorities '(("melpa-stable" . 1)))
-(setq package-selected-packages '(org-evil evil zenburn-theme org))
+(setq package-selected-packages '(evil-org evil zenburn-theme org))
 (package-initialize)
 
 ; refresh archives, if necessary
