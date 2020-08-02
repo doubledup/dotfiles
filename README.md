@@ -2,23 +2,62 @@
 
 Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 
-For machine-local zsh and neovim config, append '.local' to the normal config
-name and save it in the same place, eg. use `~/.zshrc.local` for zsh config you
-only want on your current machine.
+For machine-local fish, zsh and neovim config, append '.local' to the normal
+config name and save it in the same place, eg. use `~/.zshrc.local` for zsh
+config you only want on your current machine.
 
 ## Linux
 
-Run these commands:
+### rcm
+
+Install [rcm](https://github.com/thoughtbot/rcm) and run `RCRC='./rcrc' rcup
+-t linux`.
+
+### pyenv
+
+Install `pyenv`, with
+[pyenv-installer](https://github.com/pyenv/pyenv-installer) if necessary.
+
+### Disable Bluetooth on startup
+
+Install TLP and set the following config:
 
 ```
-RCRC='./rcrc' rcup -t linux
-chsh -s /bin/zsh
+$ sudo -e /etc/tlp.conf
+DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
+```
+
+Neither of the following worked:
+
+```
+$ sudo -e /etc/bluetooth/main.conf
+AutoEnable=false
+```
+
+```
+$ sudo -e /etc/rc.local
+rfkill block bluetooth
+exit 0
+```
+
+### Set default commands (Debian only)
+
+To set a default command (eg. terminal emulator):
+
+```
+$ update-alternatives --display x-terminal-emulator
+```
+
+### GNOME terminal display tabs below
+
+```
+$ gsettings set org.gnome.Terminal.Legacy.Settings tab-position bottom
 ```
 
 ### feh
 
-If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER` in
-`~/.zshrc.local`.
+If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER`
+in `~/.zshrc.local` or `~/.config/fish/config.fish.local`.
 
 ## MacOS
 
@@ -82,9 +121,20 @@ Install any languages necessary, eg. Ruby with rbenv.
 
 Set up SSH keys:
 
+Zsh:
+
 ```
-ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
-eval "$(ssh-agent -s)"
+$ ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
+$ eval "$(ssh-agent -s)"
+$ ssh-add ~/.ssh/id_rsa
+```
+
+Fish:
+
+```
+$ ssh-keygen -t rsa -b 4096 -C (git config --global user.email)
+$ eval (ssh-agent -s)
+$ ssh-add ~/.ssh/id_rsa
 ```
 
 ## Firefox
