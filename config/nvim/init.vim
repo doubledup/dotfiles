@@ -162,7 +162,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'itchyny/lightline.vim'
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'relativepath', 'modified' ] ],
@@ -266,9 +266,9 @@ endif
 " `syntax enable`
 call plug#end()
 
-" set background=dark
-" set termguicolors
-colorscheme hybrid
+" set background=light
+set termguicolors
+colorscheme solarized8_light
 
 if !empty(glob("~/.config/nvim/init.local.vim"))
   source ~/.config/nvim/init.local.vim
