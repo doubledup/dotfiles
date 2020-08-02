@@ -236,7 +236,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'sirver/ultisnips'
 
-Plug 'jnurmine/zenburn'
+Plug 'flazz/vim-colorschemes'
 
 " elixir
 Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
@@ -268,7 +268,7 @@ call plug#end()
 
 " set background=dark
 " set termguicolors
-colorscheme zenburn
+colorscheme hybrid
 
 if !empty(glob("~/.config/nvim/init.local.vim"))
   source ~/.config/nvim/init.local.vim
