@@ -162,7 +162,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'itchyny/lightline.vim'
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
+      \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'relativepath', 'modified' ] ],
@@ -268,7 +268,7 @@ call plug#end()
 
 " set background=light
 set termguicolors
-colorscheme solarized8_light
+colorscheme Tomorrow-Night
 
 if !empty(glob("~/.config/nvim/init.local.vim"))
   source ~/.config/nvim/init.local.vim
