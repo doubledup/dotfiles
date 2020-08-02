@@ -80,26 +80,31 @@ alias :q=exit
 test -e ~/.config/fish/config.fish.os; and source ~/.config/fish/config.fish.os
 test -e ~/.config/fish/config.fish.local; and source ~/.config/fish/config.fish.local
 
-## exenv
-if command -v exenv >/dev/null
-  # set -x PATH "$HOME/.exenv/bin:$PATH"
-  # eval "$(exenv init - --no-rehash)"
-end
+# ## exenv
+# set -x PATH "$HOME/.exenv/bin" $PATH
+# if command -v exenv >/dev/null
+#   status --is-interactive; and source (exenv init - --no-rehash|psub)
+# end
 
-## rbenv
+# ## rbenv
+# set -x PATH "$HOME/.rbenv/bin" $PATH
+# if command -v rbenv >/dev/null
+#   status --is-interactive; and source (rbenv init - --no-rehash|psub)
+# end
 
-if command -v rbenv >/dev/null
-  status --is-interactive; and source (rbenv init - --no-rehash|psub)
-end
+# ## nodenv
+# set -x PATH "$HOME/.nodenv/bin" $PATH
+# if command -v nodenv >/dev/null
+#   status --is-interactive; and source (nodenv init - --no-rehash|psub)
+# end
 
-## nodenv
-if command -v nodenv >/dev/null
-  # set -x PATH "$HOME/.nodenv/bin:$PATH"
-  # eval "$(nodenv init - --no-rehash)"
-end
+# ## pyenv
+# set -x PATH "$HOME/.pyenv/bin" $PATH
+# if command -v pyenv >/dev/null
+#   status --is-interactive; and source (pyenv init - --no-rehash|psub)
+#   # status --is-interactive; and source (pyenv virtualenv-init - --no-rehash|psub)
 
-## pyenv
-if command -v pyenv >/dev/null
-  status --is-interactive; and source (pyenv init - --no-rehash|psub)
-  set -x PIPENV_VENV_IN_PROJECT 1
-end
+#   set -x PIPENV_VENV_IN_PROJECT 1
+# end
+
+source ~/.asdf/asdf.fish
