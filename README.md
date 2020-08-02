@@ -65,12 +65,12 @@ in `~/.zshrc.local` or `~/.config/fish/config.fish.local`.
 - Run these commands:
 
 ```
-brew bundle install
-RCRC='./rcrc' rcup -t mac
-chsh -s /bin/zsh
+$ brew bundle install
+$ RCRC='./rcrc' rcup -t mac
 ```
 
-- In iTerm2, open General -> Preferences and load config from ~/.dotfiles/iterm2.
+- In iTerm2, open General -> Preferences and load config from
+  ~/.dotfiles/iterm2.
 
 ### Homebrew
 
@@ -91,7 +91,9 @@ before reinstalling Python.
 
 Disable "smart" quotes:
 
-`defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false`
+```
+$ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+```
 
 ### Locale errors
 
@@ -102,7 +104,9 @@ If you see errors like this:
 add the following line to `~/.zshrc.local` to set all locale categories to US
 English:
 
-`export LC_ALL=en_US.UTF-8`
+```
+export LC_ALL=en_US.UTF-8
+```
 
 ## NeoVim
 
@@ -156,6 +160,5 @@ toolkit.legacyUserProfileCustomizations.stylesheets to true.
 ## Error when changing shells
 
 If you get the error `chsh: PAM authentication failed` when changing shells,
-mark zsh as an allowed login shell:
-
-`echo "$(which zsh)" >> /etc/shells`
+make sure that the shell is marked as an allowed login shell in `/etc/shells`:
+`echo "$(which zsh)" >> /etc/shells`.
