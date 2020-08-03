@@ -26,3 +26,5 @@ set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 # if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
 #   source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # fi
+
+source (brew --prefix asdf)/asdf.fish

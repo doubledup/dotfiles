@@ -7,3 +7,5 @@ if test -e $fzf_key_bindings_file
   source $fzf_key_bindings_file
   fzf_key_bindings
 end
+
+source ~/.asdf/asdf.fish

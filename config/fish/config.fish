@@ -106,5 +106,3 @@ test -e ~/.config/fish/config.fish.local; and source ~/.config/fish/config.fish.
 
 #   set -x PIPENV_VENV_IN_PROJECT 1
 # end
-
-source ~/.asdf/asdf.fish
