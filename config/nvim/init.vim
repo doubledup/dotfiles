@@ -236,7 +236,7 @@ Plug 'tpope/vim-surround'
 
 Plug 'sirver/ultisnips'
 
-Plug 'flazz/vim-colorschemes'
+Plug 'chriskempson/base16-vim'
 
 " elixir
 Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
@@ -266,9 +266,9 @@ endif
 " `syntax enable`
 call plug#end()
 
-" set background=light
+" set background=dark
 set termguicolors
-colorscheme Tomorrow-Night
+colorscheme base16-tomorrow-night
 
 if !empty(glob("~/.config/nvim/init.local.vim"))
   source ~/.config/nvim/init.local.vim
