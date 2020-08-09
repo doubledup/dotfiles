@@ -137,7 +137,7 @@ Fish:
 
 ```
 $ ssh-keygen -t rsa -b 4096 -C (git config --global user.email)
-$ eval (ssh-agent -s)
+$ eval (ssh-agent -c)
 $ ssh-add ~/.ssh/id_rsa
 ```
 
