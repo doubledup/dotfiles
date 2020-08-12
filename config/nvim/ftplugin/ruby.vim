@@ -6,3 +6,5 @@ vnoremap <Leader>x :!ruby<cr>
 nnoremap <Leader>m :!rake<cr>
 nnoremap <Leader>t :!bundle exec rake test<cr>
 nnoremap <Leader>tt :!bundle exec rake test TEST=<c-r>%<cr>
+
+let b:ale_fixers = ['rubocop']
