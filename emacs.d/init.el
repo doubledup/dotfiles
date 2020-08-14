@@ -26,6 +26,7 @@
 (scroll-bar-mode 0)
 (setq standard-indent 4)
 (tool-bar-mode 0)
+(setq default-directory "~/")
 
 ;; Note: no need to call require for packages, as package-initialize
 ;; in init.el takes care of this
