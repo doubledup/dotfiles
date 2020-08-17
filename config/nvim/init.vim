@@ -205,7 +205,7 @@ nnoremap <Leader>vp :G pull<cr>
 nnoremap <Leader>vc :G checkout<space>
 nnoremap <Leader>vl :G clean<space>
 
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
