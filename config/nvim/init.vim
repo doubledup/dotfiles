@@ -253,6 +253,10 @@ Plug 'fatih/vim-go', {'for': 'go'}
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
+" typescript
+Plug 'leafgarland/typescript-vim'
+" Plug 'quramy/tsuquyomi'
+
 if !empty(glob("~/.config/nvim/plugs.os.vim"))
   source ~/.config/nvim/plugs.os.vim
 endif
