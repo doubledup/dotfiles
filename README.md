@@ -48,10 +48,20 @@ To set a default command (eg. terminal emulator):
 $ update-alternatives --display x-terminal-emulator
 ```
 
-### GNOME terminal display tabs below
+### GNOME
+
+#### Terminal display tabs below
 
 ```
 $ gsettings set org.gnome.Terminal.Legacy.Settings tab-position bottom
+```
+
+#### Inactivity
+
+```
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 900
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
 ```
 
 ### feh
