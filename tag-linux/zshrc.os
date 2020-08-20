@@ -12,6 +12,8 @@ if [ $VTE_VERSION ]; then
   fi
 fi
 
+. "$(brew --prefix asdf)/asdf.sh"
+
 if [ -f /usr/share/autojump/autojump.zsh ]; then
   . /usr/share/autojump/autojump.zsh
 fi

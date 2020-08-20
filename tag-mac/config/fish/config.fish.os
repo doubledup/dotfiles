@@ -11,6 +11,8 @@ set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
 # eval `dircolors ~/.dir_colors`
 
+source (brew --prefix asdf)/asdf.fish
+
 [ -f (brew --prefix)/share/autojump/autojump.fish ]; and source (brew --prefix)/share/autojump/autojump.fish
 
 # if [[ -f "$(brew --prefix)/opt/fzf/bin" && ! "$PATH" == "*$(brew --prefix)/opt/fzf/bin*" ]]; then
@@ -26,5 +28,3 @@ set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 # if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
 #   source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # fi
-
-source (brew --prefix asdf)/asdf.fish

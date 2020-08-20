@@ -111,7 +111,6 @@ export LESS=-R
 
 # Path
 
-. "$(brew --prefix asdf)/asdf.sh"
 export PIPENV_VENV_IN_PROJECT=1
 
 ## binaries
@@ -132,6 +131,16 @@ alias la='ls -al --color=auto'
 alias ll='ls -l --color=auto'
 alias sl='sl | lolcat'
 
+## emacs
+alias e='emacsclient -c'
+alias et='emacsclient -t'
+
+## fish
+alias fishrc="$EDITOR ~/.config/fish/config.fish"
+
+alias f=fuck
+alias fucking=sudo
+
 ## git
 alias g=git
 alias gst='git status'
@@ -142,17 +151,13 @@ alias gco='git checkout'
 alias grb='git rebase'
 alias glog='git log --oneline --decorate --graph'
 
-## vim & nvim
+## vim & neovim
 export EDITOR='nvim'
-
 alias v="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
-
-alias e='emacsclient -c'
-alias et='emacsclient -t'
 
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"

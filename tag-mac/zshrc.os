@@ -8,6 +8,8 @@ MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
 eval `dircolors ~/.dir_colors`
 
+. "$(brew --prefix asdf)/asdf.sh"
+
 [ -f "$(brew --prefix)/etc/profile.d/autojump.sh" ] && . "$(brew --prefix)/etc/profile.d/autojump.sh"
 
 if [[ -f "$(brew --prefix)/opt/fzf/bin" && ! "$PATH" == "*$(brew --prefix)/opt/fzf/bin*" ]]; then

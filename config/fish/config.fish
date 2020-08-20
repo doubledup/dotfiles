@@ -14,9 +14,6 @@ set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 ## thefuck
 command -v thefuck >/dev/null; and thefuck --alias | source
 
-## vim & nvim
-set -x EDITOR 'nvim'
-
 ## git
 # The default less flags that git uses are FRX:
 #
@@ -31,6 +28,8 @@ set -x EDITOR 'nvim'
 set -x LESS -R
 
 # Path
+
+set -x PIPENV_VENV_IN_PROJECT 1
 
 ## binaries
 set -x PATH "$HOME/.local/bin:$PATH"
@@ -50,8 +49,15 @@ alias la='ls -al --color=auto'
 alias ll='ls -l --color=auto'
 alias sl='sl | lolcat'
 
+## emacs
+alias e='emacsclient -c'
+alias et='emacsclient -t'
+
 ## fish
 alias fishrc="$EDITOR ~/.config/fish/config.fish"
+
+alias f=fuck
+alias fucking=sudo
 
 ## git
 alias g=git
@@ -63,14 +69,13 @@ alias gco='git checkout'
 alias grb='git rebase'
 alias glog='git log --oneline --decorate --graph'
 
+## vim & neovim
+set -x EDITOR 'nvim'
 alias v="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
-
-alias e='emacsclient -c'
-alias et='emacsclient -t'
 
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"
@@ -79,30 +84,3 @@ alias :q=exit
 
 test -e ~/.config/fish/config.fish.os; and source ~/.config/fish/config.fish.os
 test -e ~/.config/fish/config.fish.local; and source ~/.config/fish/config.fish.local
-
-# ## exenv
-# set -x PATH "$HOME/.exenv/bin" $PATH
-# if command -v exenv >/dev/null
-#   status --is-interactive; and source (exenv init - --no-rehash|psub)
-# end
-
-# ## rbenv
-# set -x PATH "$HOME/.rbenv/bin" $PATH
-# if command -v rbenv >/dev/null
-#   status --is-interactive; and source (rbenv init - --no-rehash|psub)
-# end
-
-# ## nodenv
-# set -x PATH "$HOME/.nodenv/bin" $PATH
-# if command -v nodenv >/dev/null
-#   status --is-interactive; and source (nodenv init - --no-rehash|psub)
-# end
-
-# ## pyenv
-# set -x PATH "$HOME/.pyenv/bin" $PATH
-# if command -v pyenv >/dev/null
-#   status --is-interactive; and source (pyenv init - --no-rehash|psub)
-#   # status --is-interactive; and source (pyenv virtualenv-init - --no-rehash|psub)
-
-#   set -x PIPENV_VENV_IN_PROJECT 1
-# end
