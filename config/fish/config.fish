@@ -69,6 +69,9 @@ alias gco='git checkout'
 alias grb='git rebase'
 alias glog='git log --oneline --decorate --graph'
 
+## kubectl
+alias k=kubectl
+
 ## vim & neovim
 set -x EDITOR 'nvim'
 alias v="$EDITOR"
