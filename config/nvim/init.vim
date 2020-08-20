@@ -257,12 +257,12 @@ Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 Plug 'leafgarland/typescript-vim'
 " Plug 'quramy/tsuquyomi'
 
-if !empty(glob("~/.config/nvim/plugs.os.vim"))
-  source ~/.config/nvim/plugs.os.vim
+if !empty(glob("~/.config/nvim/plugs.vim.os"))
+  source ~/.config/nvim/plugs.vim.os
 endif
 
-if !empty(glob("~/.config/nvim/plugs.local.vim"))
-  source ~/.config/nvim/plugs.local.vim
+if !empty(glob("~/.config/nvim/plugs.vim.local"))
+  source ~/.config/nvim/plugs.vim.local
 endif
 
 " here vim-plug runs both
@@ -275,6 +275,9 @@ call plug#end()
 set termguicolors
 colorscheme base16-tomorrow-night
 
-if !empty(glob("~/.config/nvim/init.local.vim"))
-  source ~/.config/nvim/init.local.vim
+if !empty(glob("~/.config/nvim/init.vim.os"))
+  source ~/.config/nvim/init.vim.os
+endif
+if !empty(glob("~/.config/nvim/init.vim.local"))
+  source ~/.config/nvim/init.vim.local
 endif

@@ -2,9 +2,9 @@
 
 Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 
-For machine-local fish, zsh and neovim config, append '.local' to the normal
-config name and save it in the same place, eg. use `~/.zshrc.local` for zsh
-config you only want on your current machine.
+For machine-local kitty, fish, zsh and neovim config, append '.local' to the
+normal config name and save it in the same place, eg. use `~/.zshrc.local` for
+zsh config you only want on your current machine.
 
 ## Linux
 
