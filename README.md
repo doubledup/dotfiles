@@ -49,11 +49,6 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-tim
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
 ```
 
-### feh
-
-If using `feh` to set the background (eg. if using i3), set `$FEHBG_WALLPAPER`
-in `~/.zshrc.local` or `~/.config/fish/config.fish.local`.
-
 ## MacOS
 
 - Install [Homebrew](https://brew.sh/).

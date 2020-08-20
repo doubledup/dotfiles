@@ -31,6 +31,7 @@ exec xmodmap -e 'clear Lock' -e 'keycode 66 = Escape'
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman
 exec --no-startup-id /usr/lib64/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec feh --bg-center /home/strix/Pictures/wallpaper/DES_ECB_Tux.png
 
 ########## Keybindings ##########
 bindsym Mod4+Shift+s exec i3lock # Easier locking
