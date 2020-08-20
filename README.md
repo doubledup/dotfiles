@@ -10,34 +10,17 @@ zsh config you only want on your current machine.
 
 ### rcm
 
-Install [rcm](https://github.com/thoughtbot/rcm) and run `RCRC='./rcrc' rcup
--t linux`.
-
-### pyenv
-
-Install `pyenv`, with
-[pyenv-installer](https://github.com/pyenv/pyenv-installer) if necessary.
+Install [rcm](https://github.com/thoughtbot/rcm) and set up config with
+`RCRC='./rcrc' rcup -t linux`.
 
 ### Disable Bluetooth on startup
 
-Install TLP and set the following config:
+Install [tlp](https://linrunner.de/tlp) and set the following config:
 
 ```
-$ sudo -e /etc/tlp.conf
+sudo -e /etc/tlp.conf
+___
 DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
-```
-
-Neither of the following worked:
-
-```
-$ sudo -e /etc/bluetooth/main.conf
-AutoEnable=false
-```
-
-```
-$ sudo -e /etc/rc.local
-rfkill block bluetooth
-exit 0
 ```
 
 ### Set default commands (Debian only)
@@ -45,7 +28,7 @@ exit 0
 To set a default command (eg. terminal emulator):
 
 ```
-$ update-alternatives --display x-terminal-emulator
+update-alternatives --display x-terminal-emulator
 ```
 
 ### GNOME
@@ -53,10 +36,12 @@ $ update-alternatives --display x-terminal-emulator
 #### Terminal display tabs below
 
 ```
-$ gsettings set org.gnome.Terminal.Legacy.Settings tab-position bottom
+gsettings set org.gnome.Terminal.Legacy.Settings tab-position bottom
 ```
 
 #### Inactivity
+
+On AC, never suspend; on battery, suspend after 15 minutes:
 
 ```
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
@@ -72,15 +57,90 @@ in `~/.zshrc.local` or `~/.config/fish/config.fish.local`.
 ## MacOS
 
 - Install [Homebrew](https://brew.sh/).
-- Run these commands:
+- Install packages and set up config:
 
 ```
-$ brew bundle install
-$ RCRC='./rcrc' rcup -t mac
+brew bundle install
+RCRC='./rcrc' rcup -t mac
 ```
+
+### iTerm settings
 
 - In iTerm2, open General -> Preferences and load config from
   ~/.dotfiles/iterm2.
+
+### "Smart" quotes
+
+Disable "smart" quotes:
+
+```
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+```
+
+## asdf
+
+Use [asdf](https://asdf-vm.com) to set up languages.
+
+## NeoVim
+
+For NeoVim packages:
+  - Install [vim-plug](https://github.com/junegunn/vim-plug).
+  - Get the `pynvim` Python package: `python -m pip install pynvim`.
+
+To add NeoVim packages to the current machine only, add them to
+`~/.config/nvim/plugs.local.vim`. These are sourced at the end of the
+plug#begin call in the NeoVim init file, so a plain
+`Plug '<username>/<packagename>'` will work.
+
+## ssh
+
+Set up ssh keys:
+
+Zsh:
+
+```
+ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+
+Fish:
+
+```
+ssh-keygen -t rsa -b 4096 -C (git config --global user.email)
+eval (ssh-agent -c)
+ssh-add ~/.ssh/id_rsa
+```
+
+## Firefox
+
+To set up custom Firefox styling, make sure you have a "chrome" folder in your
+profile directory. Then copy userChrome.css to your profile's "chrome" folder:
+
+Linux:
+
+```
+mkdir ~/.mozilla/firefox/<profile name>/chrome
+cp userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css
+```
+
+MacOS:
+
+```
+mkdir ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome
+cp userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css
+```
+
+In the about:config page, set
+toolkit.legacyUserProfileCustomizations.stylesheets to true.
+
+## Troubleshooting
+
+### Error when changing shells
+
+If you get the error `chsh: PAM authentication failed` when changing shells,
+make sure that the shell is marked as an allowed login shell in `/etc/shells`:
+`echo "$(which zsh)" >> /etc/shells`.
 
 ### Homebrew
 
@@ -97,15 +157,7 @@ Reinstall the python version using `brew`'s zlib:
 Note: you might want to store the currently installed packages from `pip freeze`
 before reinstalling Python.
 
-### "Smart" quotes
-
-Disable "smart" quotes:
-
-```
-$ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
-```
-
-### Locale errors
+### MacOS Locale errors
 
 If you see errors like this:
 
@@ -117,58 +169,3 @@ English:
 ```
 export LC_ALL=en_US.UTF-8
 ```
-
-## NeoVim
-
-For NeoVim packages:
-  - Install [vim-plug](https://github.com/junegunn/vim-plug).
-  - Install Python and get the `pynvim` package.
-
-For local NeoVim packages, use `~/.config/nvim/plugs.local.vim`. These are sourced
-at the end of the plug#begin call in the NeoVim init file.
-
-## Languages
-
-Install any languages necessary, eg. Ruby with rbenv.
-
-## SSH
-
-Set up SSH keys:
-
-Zsh:
-
-```
-$ ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
-$ eval "$(ssh-agent -s)"
-$ ssh-add ~/.ssh/id_rsa
-```
-
-Fish:
-
-```
-$ ssh-keygen -t rsa -b 4096 -C (git config --global user.email)
-$ eval (ssh-agent -c)
-$ ssh-add ~/.ssh/id_rsa
-```
-
-## Firefox
-
-To set up Firefox styling, make sure you have a `chrome` folder in your profile
-directory.
-
-Linux: `mkdir ~/.mozilla/firefox/<profile name>/chrome`
-MacOS: `mkdir ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome`
-
-Copy userChrome.css to your profile's `chrome` folder:
-
-Linux: `cp userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css`
-MacOS: `cp userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css`
-
-In the about:config page, set
-toolkit.legacyUserProfileCustomizations.stylesheets to true.
-
-## Error when changing shells
-
-If you get the error `chsh: PAM authentication failed` when changing shells,
-make sure that the shell is marked as an allowed login shell in `/etc/shells`:
-`echo "$(which zsh)" >> /etc/shells`.

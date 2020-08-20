@@ -260,7 +260,6 @@ Plug 'leafgarland/typescript-vim'
 if !empty(glob("~/.config/nvim/plugs.vim.os"))
   source ~/.config/nvim/plugs.vim.os
 endif
-
 if !empty(glob("~/.config/nvim/plugs.vim.local"))
   source ~/.config/nvim/plugs.vim.local
 endif
