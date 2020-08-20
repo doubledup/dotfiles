@@ -111,42 +111,15 @@ export LESS=-R
 
 # Path
 
+. "$(brew --prefix asdf)/asdf.sh"
+export PIPENV_VENV_IN_PROJECT=1
+
 ## binaries
 export PATH="$HOME/.local/bin:$PATH"
-
-## exenv
-if [ -x "$command -v exenv" ]; then
-  export PATH="$HOME/.exenv/bin:$PATH"
-  eval "$(exenv init - --no-rehash)"
-fi
 
 ## go
 export GOPATH="$HOME/code/go"
 export PATH="$GOPATH/bin:$PATH"
-
-## nodenv
-if [ -x "$command -v nodenv" ]; then
-  export PATH="$HOME/.nodenv/bin:$PATH"
-  eval "$(nodenv init - --no-rehash)"
-fi
-
-## pyenv
-PYENV_ROOT="$HOME/.pyenv"
-if [ -d $PYENV_ROOT ]; then
-  export PATH="$PYENV_ROOT/bin:$PATH"
-fi
-
-if [ -x "$command -v pyenv" -o -d $PYENV_ROOT ]; then
-  eval "$(pyenv init - --no-rehash)"
-  export PIPENV_VENV_IN_PROJECT=1
-fi
-
-## rbenv
-if [ -x "$command -v rbenv" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
-  eval "$(rbenv init - --no-rehash)"
-  export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
-fi
 
 ## rust
 export PATH="$HOME/.cargo/bin:$PATH"
