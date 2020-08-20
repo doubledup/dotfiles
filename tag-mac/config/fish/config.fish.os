@@ -9,8 +9,6 @@ set -x MANPATH "/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 set -x PATH "/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
-# eval `dircolors ~/.dir_colors`
-
 source (brew --prefix asdf)/asdf.fish
 
 [ -f (brew --prefix)/share/autojump/autojump.fish ]; and source (brew --prefix)/share/autojump/autojump.fish

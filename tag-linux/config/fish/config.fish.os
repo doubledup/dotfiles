@@ -1,7 +1,5 @@
 #!/usr/bin/env fish
 
-# eval `dircolors ~/.dir_colors`
-
 # # get extra info for VTE-based terminal emulators
 # # (lets new termainals open with the same dir as the current one)
 # if [ $VTE_VERSION ]; then
