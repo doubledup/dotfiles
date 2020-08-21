@@ -2,6 +2,7 @@ asdf
 autojump
 cowsay
 ctags
+dbeaver
 emacs
 firefox
 fish
@@ -15,11 +16,15 @@ lolcat
 mc
 ncdu
 neovim
+postman
 rcm
 ripgrep
+scc
 sl
 slack
 spotify
 thefuck
+vscode
 zeal
+zoomus
 zsh
