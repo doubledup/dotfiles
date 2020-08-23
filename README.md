@@ -23,6 +23,12 @@ ___
 DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
 ```
 
+Without tlp:
+
+```
+sudo systemctl disable bluetooth.service
+```
+
 ### Set default commands (Debian only)
 
 To set a default command (eg. terminal emulator):
