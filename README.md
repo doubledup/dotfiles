@@ -39,20 +39,61 @@ update-alternatives --display x-terminal-emulator
 
 ### GNOME
 
-#### Terminal display tabs below
-
 ```
+# Display terminal tabs below:
 gsettings set org.gnome.Terminal.Legacy.Settings tab-position bottom
-```
 
-#### Inactivity
+# Show battery percentage in status bar:
+gsettings set org.gnome.desktop.interface show-battery-percentage true
 
-On AC, never suspend; on battery, suspend after 15 minutes:
-
-```
+# On AC, never suspend; on battery, suspend after 15 minutes:
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 900
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
+
+# Keyboard shortcuts:
+
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
+
+# switch windows
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
+
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
+
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Super><Shift>1']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-2 "['<Super><Shift>2']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-3 "['<Super><Shift>3']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-4 "['<Super><Shift>4']"
+
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Alt><Super>f']"
+gsettings set org.gnome.desktop.wm.keybindings minimize "['<Alt><Super>h']"
+
+# play/pause and skip forward & back
+gsettings set org.gnome.settings-daemon.plugins.media-keys play "['<Shift><Super>p']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Shift><Super>f']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys previous "['<Shift><Super>b']"
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys power "['<Shift><Alt><Super>asciitilde']"
+
+# custom keybindings
+# gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+
+# poweroff
+# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Shift><Alt><Super>asciitilde'
+# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'poweroff'
+# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Shut down'
+
+# reboot
+# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Alt><Super>grave'
+# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'reboot'
+# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Restart'
+
+# dconf bookmarks:
+gsettings set ca.desrt.dconf-editor.Bookmarks:/ca/desrt/dconf-editor/ bookmarks "['/org/gnome/desktop/wm/keybindings/', '/org/gnome/settings-daemon/plugins/media-keys/']"
 ```
 
 ## MacOS
