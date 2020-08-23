@@ -34,7 +34,7 @@ sudo systemctl disable bluetooth.service
 To set a default command (eg. terminal emulator):
 
 ```
-update-alternatives --display x-terminal-emulator
+sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
 ```
 
 ### GNOME
