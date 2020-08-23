@@ -79,19 +79,6 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys previous "['<Shift><S
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys power "['<Shift><Alt><Super>asciitilde']"
 
-# custom keybindings
-# gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
-
-# poweroff
-# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Shift><Alt><Super>asciitilde'
-# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'poweroff'
-# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Shut down'
-
-# reboot
-# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding '<Alt><Super>grave'
-# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command 'reboot'
-# gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name 'Restart'
-
 # dconf bookmarks:
 gsettings set ca.desrt.dconf-editor.Bookmarks:/ca/desrt/dconf-editor/ bookmarks "['/org/gnome/desktop/wm/keybindings/', '/org/gnome/settings-daemon/plugins/media-keys/']"
 ```
