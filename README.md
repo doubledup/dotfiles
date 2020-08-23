@@ -83,11 +83,6 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys power "['<Shift><Alt>
 gsettings set ca.desrt.dconf-editor.Bookmarks:/ca/desrt/dconf-editor/ bookmarks "['/org/gnome/desktop/wm/keybindings/', '/org/gnome/settings-daemon/plugins/media-keys/']"
 ```
 
-#### Extensions
-
-Always show Bluetooth icon in system menu:
-[Bluetooth quick connect](https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/)
-
 ## MacOS
 
 - Install [Homebrew](https://brew.sh/).
