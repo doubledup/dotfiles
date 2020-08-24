@@ -51,6 +51,9 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 900
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
 
+# Disable mouse acceleration
+gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
+
 # Keyboard shortcuts:
 
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
