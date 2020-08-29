@@ -39,6 +39,8 @@ To set a default command (eg. terminal emulator):
 sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
 ```
 
+### Set hostname
+
 ### GNOME
 
 ```
