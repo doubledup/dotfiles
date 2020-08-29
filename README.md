@@ -91,6 +91,15 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[
 gsettings set ca.desrt.dconf-editor.Bookmarks:/ca/desrt/dconf-editor/ bookmarks "['/org/gnome/desktop/wm/keybindings/', '/org/gnome/settings-daemon/plugins/media-keys/']"
 ```
 
+#### Extensions
+
+Always show Bluetooth icon in system menu:
+[Bluetooth quick connect](https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/)
+
+### Pop!_OS
+
+Set power profile: `system76-power profile battery`
+
 ## MacOS
 
 - Install [Homebrew](https://brew.sh/).
