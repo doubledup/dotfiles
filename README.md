@@ -13,6 +13,14 @@ zsh config you only want on your current machine.
 Install [rcm](https://github.com/thoughtbot/rcm) and set up config with
 `RCRC='./rcrc' rcup -t linux`.
 
+### packages
+
+Install packages from [packages.txt](packages.txt):
+
+```
+rg -vN '^\s*#' packages.txt | tr "\n" " " | xargs sudo apt install
+```
+
 ### Disable Bluetooth on startup
 
 Install [tlp](https://linrunner.de/tlp) and set the following config:
