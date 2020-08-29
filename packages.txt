@@ -2,7 +2,7 @@
 autojump
 cowsay
 ctags
-dbeaver-ce
+#dbeaver-ce
 ddgr
 docker.io
 #exercism
