@@ -34,10 +34,8 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
 ### GNOME
 
 ```
-# Display terminal tabs below:
 gsettings set org.gnome.Terminal.Legacy.Settings tab-position bottom
 
-# Show battery percentage in status bar:
 gsettings set org.gnome.desktop.interface show-battery-percentage true
 
 # On AC, never suspend; on battery, suspend after 15 minutes:
@@ -45,14 +43,11 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 900
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
 
-# Disable mouse acceleration
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
-
-# Keyboard shortcuts:
 
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
 
-# switch windows
+# switch windows and workspaces
 gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Alt>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
 
@@ -69,7 +64,7 @@ gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-4 "['<Super><Sh
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Alt><Super>f']"
 gsettings set org.gnome.desktop.wm.keybindings minimize "['<Alt><Super>h']"
 
-# play/pause and skip forward & back
+# media controls
 gsettings set org.gnome.settings-daemon.plugins.media-keys play "['<Shift><Super>p']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys next "['<Shift><Super>f']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys previous "['<Shift><Super>b']"
