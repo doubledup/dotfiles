@@ -250,12 +250,16 @@ let g:elm_setup_keybindings = 0
 " go
 Plug 'fatih/vim-go', {'for': 'go'}
 
+" javascript
+Plug 'pangloss/vim-javascript'
+
 " ruby
 Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
 
 " typescript
 Plug 'leafgarland/typescript-vim'
-" Plug 'quramy/tsuquyomi'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'quramy/tsuquyomi'
 
 if !empty(glob("~/.config/nvim/plugs.vim.os"))
   source ~/.config/nvim/plugs.vim.os
