@@ -135,6 +135,7 @@ nnoremap <Leader>pg :PlugUpgrade<cr>
 nnoremap <Leader>pi :PlugInstall<cr>
 nnoremap <Leader>pc :PlugClean<cr>
 nnoremap <Leader>ps :PlugStatus<cr>
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 " tpope/vim-endwise
@@ -157,18 +158,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " general
 
-" lightline
-
-Plug 'itchyny/lightline.vim'
-set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'relativepath', 'modified' ] ],
-      \ }
-      \ }
-
 Plug 'w0rp/ale'
 let g:ale_fix_on_save = 0
 let g:ale_fixers = {
@@ -179,6 +168,8 @@ nnoremap <Leader>lf :ALEFix<cr>
 nnoremap <Leader>ln :ALENextWrap<cr>
 nnoremap <Leader>lp :ALEPreviousWrap<cr>
 nnoremap <Leader>li :ALEInfo<cr>
+
+Plug 'chriskempson/base16-vim'
 
 Plug 'tpope/vim-commentary'
 
@@ -191,7 +182,6 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 let g:deoplete#enable_at_startup = 1
-
 Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 Plug 'easymotion/vim-easymotion'
@@ -221,25 +211,32 @@ Plug 'roman/golden-ratio'
 
 Plug 'ludovicchabant/vim-gutentags'
 
+Plug 'itchyny/lightline.vim'
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'relativepath', 'modified' ] ],
+      \ }
+      \ }
+
 Plug 'andrewradev/linediff.vim'
 
 Plug 'aklt/plantuml-syntax'
+
+Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-repeat'
 
 " Plug 'jaxbot/semantic-highlight.vim'
 
 Plug 'honza/vim-snippets'
+Plug 'sirver/ultisnips'
 
 Plug 'tpope/vim-surround'
 
 " Plug 'lervag/vimtex'
-
-Plug 'sirver/ultisnips'
-
-Plug 'chriskempson/base16-vim'
-
-Plug 'sheerun/vim-polyglot'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'quramy/tsuquyomi'
