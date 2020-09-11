@@ -239,25 +239,8 @@ Plug 'sirver/ultisnips'
 
 Plug 'chriskempson/base16-vim'
 
-" elixir
-Plug 'elixir-editors/vim-elixir', {'for': 'elixir'}
-Plug 'slashmili/alchemist.vim', {'for': 'elixir'}
+Plug 'sheerun/vim-polyglot'
 
-" elm
-Plug 'doubledup/elm-vim', {'for': 'elm'}
-let g:elm_setup_keybindings = 0
-
-" go
-Plug 'fatih/vim-go', {'for': 'go'}
-
-" javascript
-Plug 'pangloss/vim-javascript'
-
-" ruby
-Plug 'vim-ruby/vim-ruby', {'for': 'ruby'}
-
-" typescript
-Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'quramy/tsuquyomi'
 
