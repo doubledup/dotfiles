@@ -196,6 +196,7 @@ nnoremap <Leader>vc :G checkout<space>
 nnoremap <Leader>vl :G clean<space>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+let g:fzf_layout = { 'down': '40%' }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
