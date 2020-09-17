@@ -5,3 +5,5 @@ nnoremap <Leader>x :!node %<cr>
 " vnoremap <Leader>x :!node<cr>
 " nnoremap <Leader>m :!node %<cr>
 nnoremap <Leader>t :!yarn test<cr>
+
+let b:ale_fixers = ['eslint', 'prettier']
