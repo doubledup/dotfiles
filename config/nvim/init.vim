@@ -200,6 +200,7 @@ let g:fzf_layout = { 'down': '40%' }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
+nnoremap <Leader>h :History<cr>
 nnoremap <Leader>c :Commits<cr>
 nnoremap <Leader>w :Windows<cr>
 nnoremap <Leader>r :Rg<cr>
