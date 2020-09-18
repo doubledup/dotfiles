@@ -39,6 +39,8 @@ shellcheck
 sl
 #slack
 #spotify
+texlive
+texlive-fonts-extra
 thefuck
 tldr
 #vscode
