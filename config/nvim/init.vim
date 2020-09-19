@@ -240,7 +240,8 @@ Plug 'sirver/ultisnips'
 
 Plug 'tpope/vim-surround'
 
-" Plug 'lervag/vimtex'
+Plug 'lervag/vimtex'
+let g:tex_flavor = 'latex'
 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'quramy/tsuquyomi'
