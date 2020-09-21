@@ -261,7 +261,7 @@ call plug#end()
 
 " set background=dark
 set termguicolors
-colorscheme base16-tomorrow-night
+colorscheme base16-gruvbox-dark-pale
 
 if !empty(glob("~/.config/nvim/init.vim.os"))
   source ~/.config/nvim/init.vim.os
