@@ -23,6 +23,7 @@ kitty
 #kubectx
 lolcat
 mc
+#mdl
 #minikube
 ncdu
 neofetch
@@ -31,6 +32,7 @@ netcat
 #oni
 #postman
 plantuml
+#proselint
 #rcm
 ripgrep
 #scaffold
@@ -41,9 +43,11 @@ sl
 #spotify
 texlive
 texlive-fonts-extra
+#textlint
 thefuck
 tldr
 #vscode
+#write-good
 yamllint
 zeal
 #zoomus
