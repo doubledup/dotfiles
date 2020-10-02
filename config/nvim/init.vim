@@ -138,7 +138,7 @@ nnoremap <Leader>ps :PlugStatus<cr>
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" tpope/vim-endwise
+" tpope/vim-unimpaired
 " tpope/vim-rails
 " autozimu/languageclient-neovim
 " jaxbot/semantic-highlight.vim
@@ -152,7 +152,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " neoclide/coc.nvim
 " pangloss/vim-javascript
 " tpope/vim-sleuth
-" tpope/vim-unimpaired
 " valloric/youcompleteme
 " vim-gitgutter
 
@@ -187,6 +186,8 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
+Plug 'tpope/vim-endwise'
+
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>vs :Git<cr>
 nnoremap <Leader>vd :Gvdiff<cr>
@@ -213,7 +214,7 @@ Plug 'roman/golden-ratio'
 
 Plug 'fatih/vim-go', {'for': 'go'}
 
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'itchyny/lightline.vim'
 set noshowmode
