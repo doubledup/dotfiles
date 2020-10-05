@@ -13,7 +13,9 @@ gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
 gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
 
-# switch windows and workspaces
+# windows and workspaces
+gsettings set org.gnome.mutter dynamic-workspaces "false"
+
 gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Alt>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
 
