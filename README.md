@@ -50,6 +50,9 @@ Execute `gnome_settings` to restore GNOME desktop settings.
 Always show Bluetooth icon in system menu:
 [Bluetooth quick connect](https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/)
 
+Speed up shell animations:
+[Impatience](https://extensions.gnome.org/extension/277/impatience/)
+
 ### Pop!_OS
 
 Set power profile: `system76-power profile battery`
