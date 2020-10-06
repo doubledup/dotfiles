@@ -225,12 +225,24 @@ Plug 'fatih/vim-go', {'for': 'go'}
 
 Plug 'itchyny/lightline.vim'
 set noshowmode
+
 let g:lightline = {
       \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'relativepath', 'modified' ] ],
-      \ }
+      \             [ 'readonly', 'filename', 'modified' ],
+      \             [ 'git-branch-symbol', 'git-branch' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [  'fileformat', 'fileencoding', 'filetype', 'charvalue', 'charvaluehex' ] ]
+      \ },
+      \ 'component': {
+      \     'git-branch-symbol': '',
+      \     'charvaluehex': '0x%B'
+      \ },
+      \ 'component_function': {
+      \     'git-branch': 'FugitiveHead'
+      \ },
       \ }
 
 Plug 'andrewradev/linediff.vim'
