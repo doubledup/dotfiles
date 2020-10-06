@@ -215,6 +215,9 @@ nnoremap <Leader>/ :BLines<cr>
 nnoremap <Leader>* :BLines <c-r><c-w><cr>
 vnoremap <Leader>r y:Rg <c-r>"<cr>
 
+Plug 'airblade/vim-gitgutter'
+set updatetime=100
+
 Plug 'fatih/vim-go', {'for': 'go'}
 
 " Plug 'ludovicchabant/vim-gutentags'
