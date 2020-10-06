@@ -154,6 +154,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " tpope/vim-sleuth
 " valloric/youcompleteme
 " vim-gitgutter
+" jaxbot/semantic-highlight.vim
 
 " general
 
@@ -231,8 +232,6 @@ Plug 'aklt/plantuml-syntax'
 Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-repeat'
-
-" Plug 'jaxbot/semantic-highlight.vim'
 
 Plug 'honza/vim-snippets'
 Plug 'sirver/ultisnips'
