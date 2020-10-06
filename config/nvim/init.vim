@@ -138,23 +138,27 @@ nnoremap <Leader>ps :PlugStatus<cr>
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+" try next
 " tpope/vim-unimpaired
-" tpope/vim-rails
-" autozimu/languageclient-neovim
-" jaxbot/semantic-highlight.vim
-" c9s/vikube.vim
 
-" ervandew/supertab
-" janko-m/vim-test
-" jremmen/vim-ripgrep
-" mattn/emmet-vim
-" nelstrom/vim-markdown-folding
+" alternatives
 " neoclide/coc.nvim
-" pangloss/vim-javascript
-" tpope/vim-sleuth
 " valloric/youcompleteme
-" vim-gitgutter
+" autozimu/languageclient-neovim
+" mattn/emmet-vim
+" tomtom/tcomment_vim
+
+" language / framework / tool integration
+" tpope/vim-rails
+" pangloss/vim-javascript
+" c9s/vikube.vim
+" janko-m/vim-test
+
+" new
+" nelstrom/vim-markdown-folding
 " jaxbot/semantic-highlight.vim
+" ervandew/supertab
+" tpope/vim-sleuth
 
 " general
 
