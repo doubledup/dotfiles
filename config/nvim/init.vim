@@ -196,11 +196,14 @@ Plug 'tpope/vim-endwise'
 
 Plug 'tpope/vim-fugitive'
 nnoremap <Leader>vs :Git<cr>
-nnoremap <Leader>vd :Gvdiff<cr>
-nnoremap <Leader>vb :Gblame<cr>
-nnoremap <Leader>vp :G pull<cr>
-nnoremap <Leader>vc :G checkout<space>
-nnoremap <Leader>vl :G clean<space>
+nnoremap <Leader>vd :Gvdiffsplit<cr>
+nnoremap <Leader>vb :Git blame<cr>
+nnoremap <Leader>vf :Git fetch<cr>
+nnoremap <Leader>vp :Git pull<cr>
+nnoremap <Leader>vm :Git commit -v<cr>
+nnoremap <Leader>vc :Git checkout<space>
+nnoremap <Leader>vl :Git clean<space>
+nnoremap <Leader>vr :Git reset<space>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 let g:fzf_layout = { 'down': '40%' }
