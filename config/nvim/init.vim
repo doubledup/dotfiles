@@ -140,13 +140,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " try next
 " tpope/vim-unimpaired
+" tomtom/tcomment_vim
+" nelstrom/vim-markdown-folding
+" mattn/emmet-vim
 
 " alternatives
 " neoclide/coc.nvim
 " valloric/youcompleteme
 " autozimu/languageclient-neovim
-" mattn/emmet-vim
-" tomtom/tcomment_vim
 
 " language / framework / tool integration
 " tpope/vim-rails
