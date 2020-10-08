@@ -141,7 +141,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " try next
 " tpope/vim-unimpaired
 " tomtom/tcomment_vim
-" nelstrom/vim-markdown-folding
 " mattn/emmet-vim
 
 " alternatives
@@ -156,7 +155,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " janko-m/vim-test
 
 " new
-" nelstrom/vim-markdown-folding
 " jaxbot/semantic-highlight.vim
 " ervandew/supertab
 " tpope/vim-sleuth
@@ -249,6 +247,12 @@ let g:lightline = {
       \ }
 
 Plug 'andrewradev/linediff.vim'
+
+Plug 'nelstrom/vim-markdown-folding'
+set nocompatible
+if has("autocmd")
+  filetype plugin indent on
+endif
 
 Plug 'aklt/plantuml-syntax'
 
