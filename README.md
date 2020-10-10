@@ -87,6 +87,8 @@ Use [asdf](https://asdf-vm.com) to set up languages.
 Before installing Python, see
 [Prerequisites](https://github.com/pyenv/pyenv/wiki/Common-build-problems#prerequisites).
 
+If installing NodeJS, be sure to run `npm config set ignore-scripts true`.
+
 ## NeoVim
 
 For NeoVim packages:
