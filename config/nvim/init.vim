@@ -271,6 +271,13 @@ let g:tex_flavor = 'latex'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'quramy/tsuquyomi'
 
+Plug 'pangloss/vim-javascript', {'for': 'js'}
+Plug 'leafgarland/typescript-vim', {'for': 'ts'}
+" Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript', {'for': 'ts'}
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
+
 if !empty(glob("~/.config/nvim/plugs.vim.os"))
   source ~/.config/nvim/plugs.vim.os
 endif
