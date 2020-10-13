@@ -35,11 +35,14 @@ set -x PIPENV_VENV_IN_PROJECT 1
 set -x PATH "$HOME/.local/bin:$PATH"
 
 ## go
-set -x GOPATH "$HOME/code/go"
+set -x GOPATH "$HOME/.local/share/go"
 set -x PATH "$GOPATH/bin:$PATH"
 
+## pony
+set -x PATH "$HOME/.local/share/ponyup/bin:$PATH"
+
 ## rust
-set -x PATH "$HOME/.cargo/bin:$PATH"
+set -x PATH "$HOME/.local/share/cargo/bin:$PATH"
 
 # Aliases
 
