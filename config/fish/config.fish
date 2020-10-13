@@ -39,6 +39,8 @@ set -x GOPATH "$HOME/.local/share/go"
 set -x PATH "$GOPATH/bin:$PATH"
 
 ## pony
+set -x CC gcc
+set -x CXX g++
 set -x PATH "$HOME/.local/share/ponyup/bin:$PATH"
 
 ## rust
