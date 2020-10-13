@@ -231,8 +231,8 @@ let g:lightline = {
       \ 'colorscheme': 'Tomorrow_Night',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'relativepath', 'modified' ],
-      \             [ 'git-branch-symbol', 'git-branch' ] ],
+      \             [ 'git-branch-symbol', 'git-branch', 'readonly',  'modified' ],
+      \             [ 'relativepath' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
       \              [  'fileformat', 'fileencoding', 'filetype', 'charvalue', 'charvaluehex' ] ]
