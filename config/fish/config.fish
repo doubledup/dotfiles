@@ -74,6 +74,9 @@ alias gco='git checkout'
 alias grb='git rebase'
 alias glog='git log --oneline --decorate --graph'
 
+## kitty
+alias icat='kitty +kitten icat --align=left'
+
 ## kubectl
 alias k=kubectl
 
