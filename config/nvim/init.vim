@@ -64,6 +64,8 @@ vnoremap // y/<c-r>"<cr>
 " clear search highlights
 nnoremap <esc> :noh<cr>
 
+cnoreabbrev H vert h
+
 " leader key mappings
 
 " #Packages
