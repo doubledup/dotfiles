@@ -1,5 +1,4 @@
 set number
-set relativenumber
 
 " set up tabs
 " make existing tabs obvious
