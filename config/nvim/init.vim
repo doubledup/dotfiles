@@ -64,7 +64,7 @@ vnoremap // y/<c-r>"<cr>
 " clear search highlights
 nnoremap <esc> :noh<cr>
 
-cnoreabbrev H vert h
+cnoreabbrev H tab h
 
 " leader key mappings
 
@@ -201,7 +201,7 @@ nnoremap <Leader>vd :Gvdiffsplit<cr>
 nnoremap <Leader>vb :Git blame<cr>
 nnoremap <Leader>vf :Git fetch<cr>
 nnoremap <Leader>vp :Git pull<cr>
-nnoremap <Leader>vm :vert Git commit -v<cr>
+nnoremap <Leader>vm :tab Git commit -v<cr>
 nnoremap <Leader>vc :Git checkout<space>
 nnoremap <Leader>vl :Git clean<space>
 nnoremap <Leader>vr :Git reset<space>
