@@ -126,16 +126,18 @@ nnoremap <Leader>oT :tabon!<cr>
 nnoremap <Leader>ec :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
 
-" copy
+" copy/paste
 nnoremap <Leader>y "+y
 vnoremap <Leader>y "+y
+nnoremap <Leader>p "+p
+vnoremap <Leader>p "+p
 
-" vim-plug
-nnoremap <Leader>pu :PlugUpdate<cr>
-nnoremap <Leader>pg :PlugUpgrade<cr>
-nnoremap <Leader>pi :PlugInstall<cr>
-nnoremap <Leader>pc :PlugClean<cr>
-nnoremap <Leader>ps :PlugStatus<cr>
+" vim-plug / packages
+nnoremap <Leader>ku :PlugUpdate<cr>
+nnoremap <Leader>kg :PlugUpgrade<cr>
+nnoremap <Leader>ki :PlugInstall<cr>
+nnoremap <Leader>kc :PlugClean<cr>
+nnoremap <Leader>ks :PlugStatus<cr>
 
 call plug#begin('~/.local/share/nvim/plugged')
 
