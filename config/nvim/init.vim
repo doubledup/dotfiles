@@ -271,6 +271,8 @@ Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
 let g:tex_flavor = 'latex'
 
+Plug 'tpope/vim-unimpaired'
+
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'quramy/tsuquyomi'
 
