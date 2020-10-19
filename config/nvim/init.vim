@@ -225,7 +225,7 @@ set updatetime=100
 
 Plug 'fatih/vim-go', {'for': 'go'}
 
-" Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'itchyny/lightline.vim'
 set noshowmode
