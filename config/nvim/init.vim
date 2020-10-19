@@ -144,7 +144,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " try next
 " tpope/vim-unimpaired
 " tomtom/tcomment_vim
-" mattn/emmet-vim
 
 " alternatives
 " neoclide/coc.nvim
@@ -192,6 +191,8 @@ Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
+
+Plug 'mattn/emmet-vim'
 
 Plug 'tpope/vim-endwise'
 
