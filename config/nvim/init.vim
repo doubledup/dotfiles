@@ -189,6 +189,8 @@ endif
 let g:deoplete#enable_at_startup = 1
 Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
+Plug 'raimondi/delimitmate'
+
 Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
