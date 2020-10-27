@@ -130,6 +130,7 @@ nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
 nnoremap <Leader>y "+y
 vnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
 vnoremap <Leader>p "+p
 
 " vim-plug / packages
