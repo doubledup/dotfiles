@@ -143,8 +143,8 @@ nnoremap <Leader>ks :PlugStatus<cr>
 call plug#begin('~/.local/share/nvim/plugged')
 
 " try next
-" tpope/vim-unimpaired
 " tomtom/tcomment_vim
+" tpope/vim-sensible
 
 " alternatives
 " neoclide/coc.nvim
