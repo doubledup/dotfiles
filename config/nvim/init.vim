@@ -211,8 +211,8 @@ nnoremap <Leader>vl :Git clean<space>
 nnoremap <Leader>vr :Git reset<space>
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-let g:fzf_layout = { 'down': '40%' }
 Plug 'junegunn/fzf.vim'
+let g:fzf_layout = { 'up': '80%' }
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
 nnoremap <Leader>h :History<cr>
