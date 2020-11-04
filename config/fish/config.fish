@@ -1,7 +1,13 @@
 #!/usr/bin/env fish
 
 function fish_greeting
-  # fortune | cowsay
+  set fortune (command -v fortune)
+  set cowsay (command -v cowsay)
+  set lolcat (command -v lolcat)
+
+  if test -n "$fortune" -a -n "$cowsay" -a -n "$lolcat"
+    fortune | cowsay | lolcat
+  end
 end
 
 ## thefuck
