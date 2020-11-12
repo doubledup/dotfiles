@@ -86,8 +86,9 @@ alias glog='git log --oneline --decorate --graph'
 ## kitty
 alias icat='kitty +kitten icat --align=left'
 
-## kubectl
+## kubernetes
 alias k=kubectl
+alias mk=minikube
 
 ## vim & neovim
 set -x EDITOR 'nvim'
