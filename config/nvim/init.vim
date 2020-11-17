@@ -128,6 +128,7 @@ nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
 
 " copy/paste
 nnoremap <Leader>y "+y
+nnoremap <Leader>yc :let @+=@%<cr>
 vnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
