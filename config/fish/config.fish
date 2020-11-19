@@ -90,6 +90,9 @@ alias icat='kitty +kitten icat --align=left'
 alias k=kubectl
 alias mk=minikube
 
+## skaffold
+alias sk=skaffold
+
 ## vim & neovim
 set -x EDITOR 'nvim'
 alias v="$EDITOR"
