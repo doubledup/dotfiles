@@ -24,6 +24,10 @@ autocmd BufWritePre * :%s/\s\+$//e
 set ignorecase
 set smartcase
 
+" split below and to the right, leaving existing panes where they are
+set splitbelow
+set splitright
+
 " live on the edge!
 set noswapfile
 set autoread
