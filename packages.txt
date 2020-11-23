@@ -3,7 +3,7 @@ autojump
 cowsay
 ctags
 #dbeaver-ce
-ddgr
+#ddgr
 docker.io
 #exercism
 emacs
@@ -21,6 +21,7 @@ jq
 kitty
 #kubectl
 #kubectx
+#lens
 lolcat
 mc
 #mdl
@@ -35,7 +36,7 @@ plantuml
 #proselint
 #rcm
 ripgrep
-#scaffold
+#skaffold
 #scc
 shellcheck
 sl
@@ -51,6 +52,6 @@ tldr
 yamllint
 zeal
 #zoomus
-zsh
-zsh-autosuggestions
-zsh-syntax-highlighting
+#zsh
+#zsh-autosuggestions
+#zsh-syntax-highlighting
