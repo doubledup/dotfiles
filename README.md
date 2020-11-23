@@ -188,3 +188,8 @@ In the about:config page, set
 toolkit.legacyUserProfileCustomizations.stylesheets to true.
 
 See [Troubleshooting](Troubleshooting.md) for solutions to issues solved before.
+
+## Docker
+
+After installing Docker, add yourself to the docker group with
+`sudo usermod -aG docker doubledup` and restart.
