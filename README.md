@@ -21,6 +21,50 @@ Install packages from [packages.txt](packages.txt):
 rg -vN '^\s*#' packages.txt | tr "\n" " " | xargs sudo apt install
 ```
 
+#### Building software
+
+Some handy packages when compiling things:
+
+```
+sudo apt-get install -y --no-install-recommends \
+build-essential \
+curl \
+libbz2-dev \
+libffi-dev \
+liblzma-dev \
+libncurses5-dev \
+libreadline-dev \
+libsqlite3-dev \
+libssl-dev \
+libxml2-dev \
+libxmlsec1-dev \
+llvm \
+make \
+tk-dev \
+wget \
+xz-utils \
+zlib1g-dev
+```
+
+```
+sudo apt-get install -y
+autoconf
+dirmngr
+fop
+gpg
+libgl1-mesa-dev
+libglu1-mesa-dev
+libncurses-dev
+libpng-dev
+libssh-dev
+libwxgtk3.0-gtk3-dev
+libxml2-utils
+m4
+openjdk-11-jdk
+unixodbc-dev
+xsltproc
+```
+
 ### Disable Bluetooth on startup
 
 Install [tlp](https://linrunner.de/tlp) and set the following config:
