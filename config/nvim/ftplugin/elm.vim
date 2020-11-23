@@ -7,4 +7,4 @@ nnoremap <Leader>m :!elm make src/Main.elm --output=public/elm.js<cr>
 nnoremap <Leader>t :!elm-test<cr>
 nnoremap <Leader>tt :!elm-test %<cr>
 
-let g:ale_fixers = [ 'elm-format' ]
+let b:ale_fixers = [ 'elm-format' ]
