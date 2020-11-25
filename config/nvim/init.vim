@@ -1,6 +1,3 @@
-set number
-
-" set up tabs
 " make existing tabs obvious
 set tabstop=8
 " but edit with a different tab width
@@ -9,40 +6,39 @@ set softtabstop=2
 set shiftwidth=2
 " when tab is pressed, expand with spaces
 set expandtab
-
 " remove 2 spaces with backspace
 set backspace=2
 " automatically indent when adding a new line
 set autoindent
+
+" show line numbers
+set number
+
 " show extra whitespace
 set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
 set list
-" trim trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
 
 " ignore case unless there are upper-case characters
 set ignorecase
 set smartcase
-
 " split below and to the right, leaving existing panes where they are
 set splitbelow
 set splitright
-
 " live on the edge!
 set noswapfile
 set autoread
-
+" don't wrap long lines
 set nowrap
-
 " don't redraw while executing commands & using registers
 set lazyredraw
-
 " Highlight current column and line
 set cuc cul
-
 " incrementally highlight searches
 set incsearch
 set hlsearch
+
+" trim trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
 
 " netrw
 let g:netrw_liststyle=3 " thin/long/wide/tree
@@ -68,7 +64,17 @@ vnoremap // y/<c-r>"<cr>
 " clear search highlights
 nnoremap <esc> :noh<cr>
 
+" exit terminal
+" if has('nvim')
+"   tnoremap <Esc> <C-\><C-n>
+" endif
+
 cnoreabbrev H tab h
+
+" bindings
+" leader: general mnemonics
+" []: forward/backward
+" g: goto
 
 " leader key mappings
 
@@ -152,7 +158,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " tpope/vim-sensible
 
 " alternatives
-" neoclide/coc.nvim
 " valloric/youcompleteme
 " autozimu/languageclient-neovim
 
@@ -169,32 +174,36 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " general
 
-Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_fix_on_save = 0
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\}
-nnoremap <Leader>ld :ALEDetail<cr>
-nnoremap <Leader>lf :ALEFix<cr>
-nnoremap <Leader>ln :ALENextWrap<cr>
-nnoremap <Leader>lp :ALEPreviousWrap<cr>
-nnoremap <Leader>li :ALEInfo<cr>
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Plug 'w0rp/ale'
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_fix_on_save = 0
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \}
+" nnoremap <Leader>ld :ALEDetail<cr>
+" nnoremap <Leader>lf :ALEFix<cr>
+" nnoremap <Leader>ln :ALENextWrap<cr>
+" nnoremap <Leader>lp :ALEPreviousWrap<cr>
+" nnoremap <Leader>li :ALEInfo<cr>
 
 Plug 'chriskempson/base16-vim'
+
+" Plug 'omnisharp/omnisharp-vim'
 
 Plug 'tpope/vim-commentary'
 
 " deoplete
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" let g:deoplete#enable_at_startup = 1
+" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 Plug 'raimondi/delimitmate'
 
@@ -235,7 +244,7 @@ set updatetime=100
 
 Plug 'fatih/vim-go', {'for': 'go'}
 
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 
 Plug 'itchyny/lightline.vim'
 set noshowmode
@@ -283,15 +292,15 @@ let g:tex_flavor = 'latex'
 
 Plug 'tpope/vim-unimpaired'
 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'quramy/tsuquyomi'
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+" Plug 'quramy/tsuquyomi'
 
-Plug 'pangloss/vim-javascript', {'for': 'js'}
-Plug 'leafgarland/typescript-vim', {'for': 'ts'}
+" Plug 'pangloss/vim-javascript', {'for': 'js'}
+" Plug 'leafgarland/typescript-vim', {'for': 'ts'}
 " Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'peitalin/vim-jsx-typescript', {'for': 'ts'}
+" Plug 'peitalin/vim-jsx-typescript', {'for': 'ts'}
 " Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'jparise/vim-graphql'
+" Plug 'jparise/vim-graphql'
 
 if !empty(glob("~/.config/nvim/plugs.vim.os"))
   source ~/.config/nvim/plugs.vim.os
@@ -316,3 +325,132 @@ endif
 if !empty(glob("~/.config/nvim/init.vim.local"))
   source ~/.config/nvim/init.vim.local
 endif
+
+" CoC bindings
+
+let g:coc_global_extensions = [
+  \ 'coc-eslint',
+  \ 'coc-json',
+  \ 'coc-tabnine',
+  \ 'coc-tsserver',
+  \ ]
+"   " \ 'coc-snippets',
+"   " \ 'coc-pairs',
+"   " \ 'coc-prettier',
+"   " \ 'coc-fzf-preview',
+  " \ ]
+
+call coc#config('eslint.packageManager', 'npm')
+
+" set nobackup
+" set nowritebackup
+set updatetime=200
+" set cmdheight=2
+" set signcolumn=number
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Refactoring.
+nmap <leader>lr <Plug>(coc-refactor)
+
+" Formatting selected code.
+" xmap <leader>lf  <Plug>(coc-format-selected)
+" nmap <leader>lf  <Plug>(coc-format-selected)
+" nmap <leader>lf  <Plug>(coc-format)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+" xmap <leader>la  <Plug>(coc-codeaction-selected)
+" nmap <leader>la  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>la  <Plug>(coc-codeaction)
+" " Apply AutoFix to problem on the current line.
+nmap <leader>lf  <Plug>(coc-eslint-autofix)
+
+" " Map function and class text objects
+" " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
+
+" " Remap <C-f> and <C-b> for scroll float windows/popups.
+" " Note coc#float#scroll works on neovim >= 0.4.0 or vim >= 8.2.0750
+" nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+" inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+" " NeoVim-only mapping for visual mode scroll
+" " Useful on signatureHelp after jump placeholder of snippet expansion
+" if has('nvim')
+"   vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
+"   vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
+" endif
+
+" " Use CTRL-S for selections ranges.
+" " Requires 'textDocument/selectionRange' support of language server.
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" " Add `:Format` command to format current buffer.
+" command! -nargs=0 Format :call CocAction('format')
+
+" " Add `:Fold` command to fold current buffer.
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" " Add `:OR` command for organize imports of the current buffer.
+" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" " Add (Neo)Vim's native statusline support.
+" " NOTE: Please see `:h coc-status` for integrations with external plugins that
+" " provide custom statusline: lightline.vim, vim-airline.
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" " Mappings for CoCList
+" " Show all diagnostics.
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
