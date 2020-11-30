@@ -45,11 +45,11 @@ let g:netrw_liststyle=3 " thin/long/wide/tree
 let g:netrw_browse_split=2 " horizontal/vertical/tab/window
 let g:netrw_winsize=25 " size as screen %
 
-" sane window shifting shortcuts
-noremap <c-j> <c-w>j
-noremap <c-k> <c-w>k
-noremap <c-h> <c-w>h
-noremap <c-l> <c-w>l
+" quicker line movement
+nnoremap <c-j> :m .+1<CR>==
+nnoremap <c-k> :m .-2<CR>==
+vnoremap <c-j> :m '>+1<CR>gv=gv
+vnoremap <c-k> :m '<-2<CR>gv=gv
 
 " disable arrow keys.
 " don't be a peasant.
@@ -113,10 +113,10 @@ nnoremap <Leader><c-h> <c-w>H
 nnoremap <Leader><c-l> <c-w>L
 
 " tabs
-nnoremap <Leader>] :tabn<cr>
-nnoremap <Leader>[ :tabp<cr>
-nnoremap <Leader>} :tabmove +1<cr>
-nnoremap <Leader>{ :tabmove -1<cr>
+nnoremap <c-l> :tabn<cr>
+nnoremap <c-h> :tabp<cr>
+nnoremap <Leader><c-l> :tabmove +1<cr>
+nnoremap <Leader><c-h> :tabmove -1<cr>
 
 " quickfix
 nnoremap <Leader>qc :cc
