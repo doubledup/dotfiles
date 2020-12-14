@@ -4,5 +4,5 @@ fortune_file=$(mktemp)
 fortune > "$fortune_file"
 # -e 'òō' -T 'U'
 cowsay -W 80 -f duck < "$fortune_file" | lolcat -t
-espeak -v english < "$fortune_file"
+# espeak -v english < "$fortune_file"
 rm "${fortune_file}"
