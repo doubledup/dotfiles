@@ -138,7 +138,7 @@ nnoremap <Leader>er :so ~/.config/nvim/init.vim<cr>
 
 " copy/paste
 nnoremap <Leader>y "+y
-nnoremap <Leader>yc :let @+=@%<cr>
+nnoremap <Leader>yf :let @+=@%<cr>
 vnoremap <Leader>y "+y
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
@@ -211,6 +211,7 @@ Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
 Plug 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<c-x>'
 
 Plug 'tpope/vim-endwise'
 
@@ -236,6 +237,7 @@ nnoremap <Leader>w :Windows<cr>
 nnoremap <Leader>r :Rg<cr>
 nnoremap <Leader>s :Lines<cr>
 nnoremap <Leader>/ :BLines<cr>
+vnoremap <Leader>/ y:BLines <c-r>"<cr>
 nnoremap <Leader>* :BLines <c-r><c-w><cr>
 vnoremap <Leader>r y:Rg <c-r>"<cr>
 
