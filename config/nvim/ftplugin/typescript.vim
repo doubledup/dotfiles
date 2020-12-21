@@ -1,8 +1,8 @@
 nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/typescript.vim<cr>
 nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/typescript.vim<cr>
 
-nnoremap <Leader>x :!ts-node %<cr>
-vnoremap <Leader>x :!ts-node<cr>
+nnoremap <Leader>x :!ts-node --script-mode %<cr>
+vnoremap <Leader>x :!ts-node --dir $(dirname %)<cr>
 nnoremap <Leader>m :!tsc %<cr>
 nnoremap <Leader>t :!yarn test<cr>
 
