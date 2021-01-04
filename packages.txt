@@ -1,5 +1,7 @@
 #asdf
 autojump
+brave-browser
+clamav
 cowsay
 ctags
 #dbeaver-ce
