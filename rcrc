@@ -1,1 +1,1 @@
-EXCLUDES='Brewfile fix_terminfo gnome_settings iterm2 LICENSE nvim_startup_times old_configs packages.txt rcrc README.md Troubleshooting.md tsconfig.json unused userChrome.css'
+EXCLUDES='Brewfile fix_terminfo gnome_settings iterm2 LICENSE nvim_startup_times old_configs packages rcrc README.md Troubleshooting.md tsconfig.json unused userChrome.css'
