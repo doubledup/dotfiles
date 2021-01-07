@@ -15,6 +15,10 @@ cat ~/.dotfiles/packages/apt | xargs sudo apt install -y
 #asdf
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
 . ~/.asdf/asdf.sh
+asdf plugin add nodejs
+bash -c '${ASDF_DATA_DIR:=$HOME/.asdf}/plugins/nodejs/bin/import-release-team-keyring'
+asdf install nodejs 14.15.4
+asdf global nodejs 14.15.4
 
 # flatpaks
 
