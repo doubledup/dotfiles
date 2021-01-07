@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+rm -Rf ~/.dotfiles
+
+cat ~/.dotfiles/packages/apt | xargs sudo apt remove -y
+sudo apt autoremove -y
