@@ -1,10 +1,13 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+sudo echo 'Ran sudo'
 
 git clone https://github.com/doubledup/dotfiles.git ~/.dotfiles
 
 # packages
 
 sudo apt update
+sudo apt upgrade -y
 cat ~/.dotfiles/packages/apt | xargs sudo apt install -y
 
 # custom installs
