@@ -2,10 +2,19 @@
 
 git clone https://github.com/doubledup/dotfiles.git ~/.dotfiles
 
+# packages
+
 sudo apt update
 cat ~/.dotfiles/packages/apt | xargs sudo apt install -y
 
+# custom installs
+
 #asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.0
+. ~/.asdf/asdf.sh
+
+# flatpaks
+
 #brave-browser
 #exercism
 #keybase
