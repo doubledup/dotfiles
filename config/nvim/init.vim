@@ -370,7 +370,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Refactoring.
 nmap <leader>lr <Plug>(coc-refactor)
@@ -390,13 +390,13 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-" xmap <leader>la  <Plug>(coc-codeaction-selected)
+xmap <leader>la  <Plug>(coc-codeaction-selected)
 " nmap <leader>la  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>la  <Plug>(coc-codeaction)
 " " Apply AutoFix to problem on the current line.
-nmap <leader>lf  <Plug>(coc-eslint-autofix)
+" nmap <leader>lf  <Plug>(coc-eslint-autofix)
 
 " " Map function and class text objects
 " " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
