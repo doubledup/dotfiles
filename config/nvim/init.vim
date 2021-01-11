@@ -45,7 +45,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 " let g:netrw_banner=0 " disable banner, use `I` to toggle
 " let g:netrw_browse_split=4 " horizontal/vertical/tab/window
 " let g:netrw_altv = 1
-let g:netrw_winsize=70 " size as screen %
+" let g:netrw_winsize=70 " size as screen %
 " augroup ProjectDrawer
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
@@ -302,7 +302,11 @@ let g:tex_flavor = 'latex'
 
 Plug 'tpope/vim-unimpaired'
 
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
+Plug 'preservim/nerdtree'
+let NERDTreeWinSize=90
+nnoremap - :NERDTreeToggle<cr>
+nnoremap _ :NERDTreeFind<cr>
 
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'quramy/tsuquyomi'
