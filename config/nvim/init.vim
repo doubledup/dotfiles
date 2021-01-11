@@ -41,9 +41,15 @@ set hlsearch
 autocmd BufWritePre * :%s/\s\+$//e
 
 " netrw
-let g:netrw_liststyle=3 " thin/long/wide/tree
-let g:netrw_browse_split=2 " horizontal/vertical/tab/window
-let g:netrw_winsize=25 " size as screen %
+" let g:netrw_liststyle=3 " thin/long/wide/tree
+" let g:netrw_banner=0 " disable banner, use `I` to toggle
+" let g:netrw_browse_split=4 " horizontal/vertical/tab/window
+" let g:netrw_altv = 1
+let g:netrw_winsize=70 " size as screen %
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
 
 " quicker line movement
 nnoremap <c-j> :m .+1<CR>==
@@ -295,6 +301,8 @@ Plug 'lervag/vimtex'
 let g:tex_flavor = 'latex'
 
 Plug 'tpope/vim-unimpaired'
+
+Plug 'tpope/vim-vinegar'
 
 " Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Plug 'quramy/tsuquyomi'
