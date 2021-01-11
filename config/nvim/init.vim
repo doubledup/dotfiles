@@ -57,7 +57,7 @@ nnoremap <c-k> :m .-2<CR>==
 vnoremap <c-j> :m '>+1<CR>gv=gv
 vnoremap <c-k> :m '<-2<CR>gv=gv
 
-nnoremap <tab> zA
+" nnoremap <tab> zA
 
 " disable arrow keys.
 " don't be a peasant.
