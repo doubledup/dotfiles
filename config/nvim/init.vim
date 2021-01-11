@@ -347,6 +347,7 @@ endif
 let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-json',
+  \ 'coc-omnisharp',
   \ 'coc-solargraph',
   \ 'coc-tabnine',
   \ 'coc-tsserver',
