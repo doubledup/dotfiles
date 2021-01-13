@@ -16,7 +16,7 @@ command -v thefuck >/dev/null; and thefuck --alias | source
 ## fzf
 set FZF_KEYBINDINGS 'alt-o:toggle-preview,alt-j:preview-down,alt-k:preview-up,alt-n:preview-page-down,alt-p:preview-page-up,ctrl-n:page-down,ctrl-p:page-up'
 set FZF_PREVIEW '(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -1000'
-set FZF_PREVIEW_WINDOW 'right:70%:noborder:wrap:hidden'
+set FZF_PREVIEW_WINDOW 'right:70%:noborder:wrap' #:hidden
 set -x FZF_DEFAULT_OPTS "-i --bind $FZF_KEYBINDINGS --height 80% --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
 set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
