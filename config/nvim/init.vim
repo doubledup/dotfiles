@@ -198,8 +198,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'chriskempson/base16-vim'
 
-" Plug 'omnisharp/omnisharp-vim'
-
 Plug 'tpope/vim-commentary'
 
 " deoplete
@@ -252,10 +250,6 @@ vnoremap <Leader>r y:Rg <c-r>"<cr>
 Plug 'airblade/vim-gitgutter'
 set updatetime=100
 
-Plug 'fatih/vim-go', {'for': 'go'}
-
-" Plug 'ludovicchabant/vim-gutentags'
-
 Plug 'itchyny/lightline.vim'
 set noshowmode
 
@@ -302,7 +296,6 @@ let g:tex_flavor = 'latex'
 
 Plug 'tpope/vim-unimpaired'
 
-" Plug 'tpope/vim-vinegar'
 Plug 'preservim/nerdtree'
 let NERDTreeWinSize=60
 nnoremap - :NERDTreeToggle<cr>
