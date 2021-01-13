@@ -1,38 +1,41 @@
-autojump
-clamav
-cowsay
-exuberant-ctags
-dbeaver-ce
-ddgr
-docker.io
-emacs
-fish
-fonts-hack
-fortune-mod
-fzf
-gnome-shell-extension-bluetooth-quick-connect
-highlight
-htop
-imagemagick
-jq
-kitty
-lolcat
-mc
-ncdu
-neofetch
-neovim
-netcat
-plantuml
-rcm
-ripgrep
-shellcheck
-sl
-texlive
-texlive-fonts-extra
-thefuck
-tldr
-yamllint
-zeal
-zsh
-zsh-autosuggestions
-zsh-syntax-highlighting
+#!/usr/bin/env sh
+
+sudo apt install -y \
+  autojump \
+  clamav \
+  cowsay \
+  exuberant-ctags \
+  ddgr \
+  docker.io \
+  emacs \
+  espeak \
+  fish \
+  fonts-hack \
+  fortune-mod \
+  fzf \
+  gnome-shell-extension-bluetooth-quick-connect \
+  highlight \
+  htop \
+  imagemagick \
+  jq \
+  kitty \
+  lolcat \
+  mc \
+  ncdu \
+  neofetch \
+  neovim \
+  netcat \
+  plantuml \
+  rcm \
+  ripgrep \
+  shellcheck \
+  sl \
+  texlive \
+  texlive-fonts-extra \
+  thefuck \
+  tldr \
+  yamllint \
+  zeal \
+  zsh \
+  zsh-autosuggestions \
+  zsh-syntax-highlighting \

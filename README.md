@@ -6,63 +6,37 @@ For machine-local kitty, fish, zsh and neovim config, append '.local' to the
 normal config name and save it in the same place, eg. use `~/.zshrc.local` for
 zsh config you only want on your current machine.
 
-## Linux
-
-### rcm
-
-Install [rcm](https://github.com/thoughtbot/rcm) and set up config with
-`RCRC='./rcrc' rcup -t linux`.
+## Linux/Debian
 
 ### packages
 
-Install packages from [packages.txt](packages.txt):
+Install packages from [packages/apt](packages/apt):
 
 ```
-rg -vN '^\s*#' packages.txt | tr "\n" " " | xargs sudo apt install
+./packages/apt
 ```
 
-#### Building software
+### rcm
+
+Bring up config
+
+```
+RCRC='./rcrc' rcup -t linux
+```
+
+### vim-plug for NeoVim
+
+```
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+### Building software
 
 Some handy packages when compiling things:
 
 ```
-sudo apt-get install -y --no-install-recommends \
-build-essential \
-curl \
-libbz2-dev \
-libffi-dev \
-liblzma-dev \
-libncurses5-dev \
-libreadline-dev \
-libsqlite3-dev \
-libssl-dev \
-libxml2-dev \
-libxmlsec1-dev \
-llvm \
-make \
-tk-dev \
-wget \
-xz-utils \
-zlib1g-dev
-```
-
-```
-sudo apt-get install -y
-autoconf
-dirmngr
-fop
-gpg
-libgl1-mesa-dev
-libglu1-mesa-dev
-libncurses-dev
-libpng-dev
-libssh-dev
-libwxgtk3.0-gtk3-dev
-libxml2-utils
-m4
-openjdk-11-jdk
-unixodbc-dev
-xsltproc
+./packages/apt-deps
 ```
 
 ### Disable Bluetooth on startup
@@ -75,7 +49,7 @@ ___
 DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
 ```
 
-### Set default commands (Debian only)
+### Set default commands
 
 To set a default command (eg. terminal emulator):
 
@@ -85,7 +59,7 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
 
 ### GNOME
 
-Execute `gnome_settings` to restore GNOME desktop settings.
+Run `./gnome_settings` to restore GNOME desktop settings.
 
 #### Extensions
 
@@ -94,10 +68,6 @@ Always show Bluetooth icon in system menu:
 
 Speed up shell animations:
 [Impatience](https://extensions.gnome.org/extension/277/impatience/)
-
-### Pop!_OS
-
-Set power profile: `system76-power profile battery`
 
 ## MacOS
 
