@@ -304,7 +304,7 @@ Plug 'tpope/vim-unimpaired'
 
 " Plug 'tpope/vim-vinegar'
 Plug 'preservim/nerdtree'
-let NERDTreeWinSize=90
+let NERDTreeWinSize=60
 nnoremap - :NERDTreeToggle<cr>
 nnoremap _ :NERDTreeFind<cr>
 
