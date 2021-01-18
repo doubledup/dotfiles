@@ -1,2 +1,6 @@
-snap install \
+#!/usr/bin/env sh
+
+sudo snap install \
   dbeaver-ce \
+  slack \
+  spotify
