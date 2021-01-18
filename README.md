@@ -103,11 +103,6 @@ If installing NodeJS, be sure to run `npm config set ignore-scripts true`.
 
 ## NeoVim
 
-For NeoVim packages:
-
-- Install [vim-plug](https://github.com/junegunn/vim-plug).
-- Get the `pynvim` Python package: `python -m pip install pynvim`.
-
 To add NeoVim packages to the current machine only, add them to
 `~/.config/nvim/plugs.local.vim`. vim-plug sources these at the end of the
 plug#begin call in the NeoVim init file, so a plain
