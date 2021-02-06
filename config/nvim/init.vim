@@ -196,8 +196,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " nnoremap <Leader>lp :ALEPreviousWrap<cr>
 " nnoremap <Leader>li :ALEInfo<cr>
 
-Plug 'chriskempson/base16-vim'
-
 Plug 'tpope/vim-commentary'
 
 " deoplete
@@ -250,11 +248,13 @@ vnoremap <Leader>r y:Rg <c-r>"<cr>
 Plug 'airblade/vim-gitgutter'
 set updatetime=100
 
+Plug 'morhetz/gruvbox'
+
 Plug 'itchyny/lightline.vim'
 set noshowmode
 
 let g:lightline = {
-      \ 'colorscheme': 'Tomorrow_Night',
+      \ 'colorscheme': 'jellybeans',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'git-branch-symbol', 'git-branch', 'readonly',  'modified' ],
@@ -324,9 +324,9 @@ endif
 " `syntax enable`
 call plug#end()
 
-" set background=dark
+set background=dark
 set termguicolors
-colorscheme base16-tomorrow-night
+colorscheme gruvbox
 
 if !empty(glob("~/.config/nvim/init.vim.os"))
   source ~/.config/nvim/init.vim.os
