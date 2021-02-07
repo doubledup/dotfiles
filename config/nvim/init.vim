@@ -149,13 +149,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " tomtom/tcomment_vim
 " tpope/vim-sensible
 
-" alternatives
-" valloric/youcompleteme
-" autozimu/languageclient-neovim
-
 " language / framework / tool integration
-" tpope/vim-rails
-" pangloss/vim-javascript
 " c9s/vikube.vim
 " janko-m/vim-test
 
@@ -285,16 +279,6 @@ let NERDTreeWinSize=60
 nnoremap - :NERDTreeToggle<cr>
 nnoremap _ :NERDTreeFind<cr>
 
-" Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-" Plug 'quramy/tsuquyomi'
-
-" Plug 'pangloss/vim-javascript', {'for': 'js'}
-" Plug 'leafgarland/typescript-vim', {'for': 'ts'}
-" Plug 'MaxMEllon/vim-jsx-pretty'
-" Plug 'peitalin/vim-jsx-typescript', {'for': 'ts'}
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-" Plug 'jparise/vim-graphql'
-
 if !empty(glob("~/.config/nvim/plugs.vim.os"))
   source ~/.config/nvim/plugs.vim.os
 endif
@@ -337,11 +321,6 @@ let g:coc_global_extensions = [
 
 call coc#config('eslint.packageManager', 'npm')
 
-" set nobackup
-" set nowritebackup
-set updatetime=200
-" set cmdheight=2
-" set signcolumn=number
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
