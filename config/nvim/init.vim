@@ -274,22 +274,31 @@ colorscheme gruvbox
 
 " CoC settings
 
-let g:coc_global_extensions = [
-  \ 'coc-eslint',
-  \ 'coc-json',
-  \ 'coc-omnisharp',
-  \ 'coc-solargraph',
-  \ 'coc-tabnine',
-  \ 'coc-tsserver',
-  \ ]
-"   " \ 'coc-snippets',
-"   " \ 'coc-pairs',
-"   " \ 'coc-prettier',
-"   " \ 'coc-fzf-preview',
-  " \ ]
+" don't unload buffers when leaving them
+set hidden
 
-call coc#config('eslint.packageManager', 'npm')
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
 
+set updatetime=100
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() :
+      \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" code & diagnostic navigation
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
 nmap <silent> ]e <Plug>(coc-diagnostic-next)
 nmap <silent> gd <Plug>(coc-definition)
@@ -297,6 +306,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" use K to show documentation
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -308,15 +318,16 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Refactoring.
-nmap <leader>lr <Plug>(coc-refactor)
+" Symbol renaming.
+nmap <leader>ln <Plug>(coc-rename)
 
 " Formatting selected code.
-" xmap <leader>lf  <Plug>(coc-format-selected)
-" nmap <leader>lf  <Plug>(coc-format-selected)
-" nmap <leader>lf  <Plug>(coc-format)
+xmap <leader>lf <Plug>(coc-format-selected)
+nmap <leader>lf <Plug>(coc-format-selected)
+nmap <leader>lf <Plug>(coc-format)
 
 augroup mygroup
   autocmd!
@@ -328,13 +339,32 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>la  <Plug>(coc-codeaction-selected)
-" nmap <leader>la  <Plug>(coc-codeaction-selected)
+xmap <leader>la <Plug>(coc-codeaction-selected)
+nmap <leader>la <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>la  <Plug>(coc-codeaction)
+nmap <leader>lb <Plug>(coc-codeaction)
 " " Apply AutoFix to problem on the current line.
-" nmap <leader>lf  <Plug>(coc-eslint-autofix)
+nmap <leader>lx <Plug>(coc-fix-current)
+
+let g:coc_global_extensions = [
+  \ 'coc-eslint',
+  \ 'coc-json',
+  \ 'coc-omnisharp',
+  \ 'coc-solargraph',
+  \ 'coc-tabnine',
+  \ 'coc-tsserver',
+  \ ]
+"   " \ 'coc-pairs',
+"   " \ 'coc-prettier',
+"   " \ 'coc-snippets',
+"   " \ 'coc-fzf-preview',
+  " \ ]
+
+call coc#config('eslint.packageManager', 'npm')
+
+" Refactoring.
+nmap <leader>lr <Plug>(coc-refactor)
 
 " " Map function and class text objects
 " " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -382,21 +412,21 @@ nmap <leader>la  <Plug>(coc-codeaction)
 
 " " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <leader>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <leader>a :<C-u>CocList diagnostics<cr>
 " " Manage extensions.
-" nnoremap <silent><nowait> <leader>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <leader>e :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <c-p>  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <c-p> :<C-u>CocList commands<cr>
 " " Find symbol of current document.
-" nnoremap <silent><nowait> <leader>o  :<C-u>CocList outline<cr>
+" nnoremap <silent><nowait> <leader>o :<C-u>CocList outline<cr>
 " " Search workspace symbols.
-" nnoremap <silent><nowait> <leader>s  :<C-u>CocList -I symbols<cr>
+" nnoremap <silent><nowait> <leader>s :<C-u>CocList -I symbols<cr>
 " " Do default action for next item.
-" nnoremap <silent><nowait> <leader>j  :<C-u>CocNext<CR>
+" nnoremap <silent><nowait> <leader>j :<C-u>CocNext<CR>
 " " Do default action for previous item.
-" nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
+" nnoremap <silent><nowait> <leader>k :<C-u>CocPrev<CR>
 " " Resume latest coc list.
-" nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
+" nnoremap <silent><nowait> <leader>p :<C-u>CocListResume<CR>
 
 if !empty(glob("~/.config/nvim/init.vim.os"))
   source ~/.config/nvim/init.vim.os
