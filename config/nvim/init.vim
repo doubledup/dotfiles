@@ -296,14 +296,7 @@ set background=dark
 set termguicolors
 colorscheme gruvbox
 
-if !empty(glob("~/.config/nvim/init.vim.os"))
-  source ~/.config/nvim/init.vim.os
-endif
-if !empty(glob("~/.config/nvim/init.vim.local"))
-  source ~/.config/nvim/init.vim.local
-endif
-
-" CoC bindings
+" CoC settings
 
 let g:coc_global_extensions = [
   \ 'coc-eslint',
@@ -428,3 +421,10 @@ nnoremap <silent><nowait> <c-p>  :<C-u>CocList commands<cr>
 " nnoremap <silent><nowait> <leader>k  :<C-u>CocPrev<CR>
 " " Resume latest coc list.
 " nnoremap <silent><nowait> <leader>p  :<C-u>CocListResume<CR>
+
+if !empty(glob("~/.config/nvim/init.vim.os"))
+  source ~/.config/nvim/init.vim.os
+endif
+if !empty(glob("~/.config/nvim/init.vim.local"))
+  source ~/.config/nvim/init.vim.local
+endif
