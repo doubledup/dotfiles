@@ -61,11 +61,6 @@ vnoremap // y/<c-r>"<cr>
 " clear search highlights
 nnoremap <esc> :noh<cr>
 
-" exit terminal
-" if has('nvim')
-"   tnoremap <Esc> <C-\><C-n>
-" endif
-
 cnoreabbrev H tab h
 
 " bindings
