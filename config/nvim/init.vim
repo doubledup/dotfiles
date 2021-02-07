@@ -162,30 +162,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Plug 'w0rp/ale'
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_fix_on_save = 0
-" let g:ale_fixers = {
-" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \}
-" nnoremap <Leader>ld :ALEDetail<cr>
-" nnoremap <Leader>lf :ALEFix<cr>
-" nnoremap <Leader>ln :ALENextWrap<cr>
-" nnoremap <Leader>lp :ALEPreviousWrap<cr>
-" nnoremap <Leader>li :ALEInfo<cr>
-
 Plug 'tpope/vim-commentary'
-
-" deoplete
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-" let g:deoplete#enable_at_startup = 1
-" Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 Plug 'raimondi/delimitmate'
 
