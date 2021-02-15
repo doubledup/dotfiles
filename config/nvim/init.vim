@@ -354,10 +354,12 @@ let g:coc_global_extensions = [
   \ 'coc-tabnine',
   \ 'coc-tsserver',
   \ ]
+"   " \ 'coc-diagnostic',
+"   " \ 'coc-fzf-preview',
+"   " \ 'coc-graphql',
 "   " \ 'coc-pairs',
 "   " \ 'coc-prettier',
 "   " \ 'coc-snippets',
-"   " \ 'coc-fzf-preview',
   " \ ]
 
 call coc#config('eslint.packageManager', 'npm')
