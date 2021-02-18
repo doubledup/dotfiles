@@ -201,7 +201,7 @@ vnoremap <Leader>r y:Rg <c-r>"<cr>
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
 
 Plug 'itchyny/lightline.vim'
 set noshowmode
@@ -269,7 +269,7 @@ call plug#end()
 
 set background=dark
 set termguicolors
-colorscheme gruvbox
+colorscheme base16-gruvbox-dark-medium
 
 " CoC settings
 
