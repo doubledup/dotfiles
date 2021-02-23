@@ -63,15 +63,15 @@ nnoremap <esc> :noh<cr>
 
 " bindings
 " leader: general mnemonics
-" []: forward/backward
+" ]: forward
+" [: backward
 " g: goto
 
 " leader key mappings
 
 " #Packages
-" Plug: p
-" ALE (lint): l
-" Dash/Zeal (doc): d
+" Plug: k
+" CoC (language server): l
 " Fugitive (version control): v
 " FZF: {fbcwrs/*}
 
@@ -90,7 +90,7 @@ nnoremap <esc> :noh<cr>
 " Build (make): m
 " Test all/single file: t/tt
 
-" localleader mappings
+" local leader mappings
 " Edit config/reload: e{cr}
 
 let mapleader = "\<space>"
