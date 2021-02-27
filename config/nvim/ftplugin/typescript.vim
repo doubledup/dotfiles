@@ -1,10 +1,10 @@
-nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/typescript.vim<cr>
-nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/typescript.vim<cr>
+nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/typescript.vim<cr>
+nnoremap <localleader>er :so ~/.config/nvim/ftplugin/typescript.vim<cr>
 
-nnoremap <Leader>x :!ts-node --script-mode %<cr>
-vnoremap <Leader>x :!ts-node --dir $(dirname %)<cr>
-nnoremap <Leader>m :!tsc %<cr>
-nnoremap <Leader>t :!yarn test<cr>
+nnoremap <localleader>x :!ts-node --script-mode %<cr>
+vnoremap <localleader>x :!ts-node --dir $(dirname %)<cr>
+nnoremap <localleader>m :!tsc %<cr>
+nnoremap <localleader>t :!yarn test<cr>
 
 let b:ale_fixers = ['eslint', 'prettier']
 

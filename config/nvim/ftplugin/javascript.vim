@@ -1,9 +1,9 @@
-nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/javascript.vim<cr>
-nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/javascript.vim<cr>
+nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/javascript.vim<cr>
+nnoremap <localleader>er :so ~/.config/nvim/ftplugin/javascript.vim<cr>
 
-nnoremap <Leader>x :!node %<cr>
-" vnoremap <Leader>x :!node<cr>
-" nnoremap <Leader>m :!node %<cr>
-nnoremap <Leader>t :!yarn test<cr>
+nnoremap <localleader>x :!node %<cr>
+" vnoremap <localleader>x :!node<cr>
+" nnoremap <localleader>m :!node %<cr>
+nnoremap <localleader>t :!yarn test<cr>
 
 let b:ale_fixers = ['eslint', 'prettier']

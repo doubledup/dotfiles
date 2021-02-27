@@ -8,5 +8,5 @@
 
 " au BufNewFile,BufRead,BufReadPost *.json set syntax=javascript
 
-" nnoremap <Leader>x :echo "found json"<cr>
-nnoremap <Leader>n :set syntax=javascript<cr>
+" nnoremap <localleader>x :echo "found json"<cr>
+nnoremap <localleader>n :set syntax=javascript<cr>

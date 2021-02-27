@@ -1,10 +1,10 @@
-nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/ruby.vim<cr>
-nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/ruby.vim<cr>
+nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/ruby.vim<cr>
+nnoremap <localleader>er :so ~/.config/nvim/ftplugin/ruby.vim<cr>
 
-nnoremap <Leader>x :!ruby %<cr>
-vnoremap <Leader>x :!ruby<cr>
-nnoremap <Leader>m :!rake<cr>
-nnoremap <Leader>t :!bundle exec rake test<cr>
-nnoremap <Leader>tt :!bundle exec rake test TEST=<c-r>%<cr>
+nnoremap <localleader>x :!ruby %<cr>
+vnoremap <localleader>x :!ruby<cr>
+nnoremap <localleader>m :!rake<cr>
+nnoremap <localleader>t :!bundle exec rake test<cr>
+nnoremap <localleader>tt :!bundle exec rake test TEST=<c-r>%<cr>
 
 let b:ale_fixers = [ 'rubocop' ]

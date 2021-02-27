@@ -1,4 +1,4 @@
-nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/tex.vim<cr>
-nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/tex.vim<cr>
+nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/tex.vim<cr>
+nnoremap <localleader>er :so ~/.config/nvim/ftplugin/tex.vim<cr>
 
-nnoremap <Leader>m :!pdflatex %<cr>
+nnoremap <localleader>m :!pdflatex %<cr>

@@ -1,7 +1,7 @@
-nnoremap <LocalLeader>ec :tabnew ~/.config/nvim/ftplugin/elixir.vim<cr>
-nnoremap <LocalLeader>er :so ~/.config/nvim/ftplugin/elixir.vim<cr>
+nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/elixir.vim<cr>
+nnoremap <localleader>er :so ~/.config/nvim/ftplugin/elixir.vim<cr>
 
-nnoremap <Leader>x :!elixir %<cr>
-nnoremap <Leader>m :!mix escript.build<cr>
-nnoremap <Leader>t :!mix test<cr>
-nnoremap <Leader>tt :!mix test %<cr>
+nnoremap <localleader>x :!elixir %<cr>
+nnoremap <localleader>m :!mix escript.build<cr>
+nnoremap <localleader>t :!mix test<cr>
+nnoremap <localleader>tt :!mix test %<cr>
