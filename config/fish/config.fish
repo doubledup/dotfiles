@@ -110,5 +110,5 @@ function plz
     eval sudo $history[1]
 end
 
-test -e ~/.config/fish/config.fish.os; and source ~/.config/fish/config.fish.os
-test -e ~/.config/fish/config.fish.local; and source ~/.config/fish/config.fish.local
+test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
+test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish

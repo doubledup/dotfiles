@@ -2,9 +2,10 @@
 
 Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 
-For machine-local kitty, fish, zsh and neovim config, append '.local' to the
+For machine-local kitty, fish, zsh and neovim config, add '.local' to the
 normal config name and save it in the same place, eg. use `~/.zshrc.local` for
-zsh config you only want on your current machine.
+zsh config you only want on your current machine, or
+`~/.config/nvim/init.local.vim` for NeoVim config.
 
 ## Linux/Debian
 

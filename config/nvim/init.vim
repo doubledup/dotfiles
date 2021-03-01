@@ -408,9 +408,9 @@ let g:coc_snippet_prev = '<c-p>'
 " " provide custom statusline: lightline.vim, vim-airline.
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-if !empty(glob("~/.config/nvim/init.vim.os"))
-  source ~/.config/nvim/init.vim.os
+if !empty(glob("~/.config/nvim/init.os.vim"))
+  source ~/.config/nvim/init.os.vim
 endif
-if !empty(glob("~/.config/nvim/init.vim.local"))
-  source ~/.config/nvim/init.vim.local
+if !empty(glob("~/.config/nvim/init.local.vim"))
+  source ~/.config/nvim/init.local.vim
 endif
