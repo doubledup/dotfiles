@@ -300,7 +300,7 @@ nmap <localleader>a <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <localleader>l <Plug>(coc-fix-current)
 " Applying codeAction to the selected region.
-" Example: `<localleader>aip` for current paragraph
+" Example: `<localleader>sip` for current paragraph
 xmap <localleader>s <Plug>(coc-codeaction-selected)
 nmap <localleader>s <Plug>(coc-codeaction-selected)
 
