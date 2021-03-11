@@ -130,7 +130,7 @@ Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
 Plug 'mattn/emmet-vim'
-let g:user_emmet_leader_key='<c-/>'
+let g:user_emmet_leader_key='<c-\>'
 
 Plug 'tpope/vim-endwise'
 
