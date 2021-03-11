@@ -308,6 +308,7 @@ let g:coc_global_extensions = [
   \ 'coc-eslint',
   \ 'coc-json',
   \ 'coc-omnisharp',
+  \ 'coc-snippets',
   \ 'coc-solargraph',
   \ 'coc-tabnine',
   \ 'coc-tsserver',
@@ -317,7 +318,6 @@ let g:coc_global_extensions = [
 "   " \ 'coc-graphql',
 "   " \ 'coc-pairs',
 "   " \ 'coc-prettier',
-"   " \ 'coc-snippets',
   " \ ]
 
 call coc#config('eslint.packageManager', 'npm')
