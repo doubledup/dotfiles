@@ -78,7 +78,7 @@ nnoremap <Leader><c-h> :tabmove -1<cr>
 nnoremap <Leader>q :c
 
 " get new file changes from disk
-nnoremap <Leader>g :checktime<cr>
+nnoremap <Leader>d :checktime<cr>
 
 " close all other windows / tabs
 nnoremap <Leader>ow :on<cr>
@@ -87,8 +87,8 @@ nnoremap <Leader>ot :tabon<cr>
 nnoremap <Leader>oT :tabon!<cr>
 
 " NeoVim config
-nnoremap <Leader>e :so ~/.config/nvim/init.vim<cr>
-nnoremap <Leader>ee :tabnew ~/.config/nvim/init.vim<cr>
+nnoremap <Leader>c :tabnew ~/.config/nvim/init.vim<cr>
+nnoremap <Leader>cc :so ~/.config/nvim/init.vim<cr>
 
 " copy/paste
 nnoremap Y "+y
@@ -152,7 +152,7 @@ let g:fzf_layout = { 'up': '80%' }
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
 nnoremap <Leader>h :History<cr>
-nnoremap <Leader>c :Commits<cr>
+nnoremap <Leader>m :Commits<cr>
 nnoremap <Leader>w :Windows<cr>
 nnoremap <Leader>r :Rg<cr>
 nnoremap <Leader>s :Lines<cr>
@@ -277,10 +277,10 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <localleader>r <Plug>(coc-rename)
+nmap <localleader>n <Plug>(coc-rename)
 
 " Refactoring.
-nmap <localleader>c <Plug>(coc-refactor)
+nmap <localleader>r <Plug>(coc-refactor)
 
 " Formatting selected code.
 xmap <localleader>f <Plug>(coc-format-selected)
@@ -336,7 +336,7 @@ inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm()
 " Show all diagnostics.
 nnoremap <silent><nowait> <localleader>d :<c-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <localleader>e :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <localleader>x :<c-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <c-k> :<c-u>CocList commands<cr>
 " Find symbol of current document.

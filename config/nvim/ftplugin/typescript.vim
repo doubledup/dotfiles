@@ -1,5 +1,5 @@
-nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/typescript.vim<cr>
-nnoremap <localleader>er :so ~/.config/nvim/ftplugin/typescript.vim<cr>
+nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/typescript.vim<cr>
+nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/typescript.vim<cr>
 
 nnoremap <localleader>x :!ts-node --script-mode %<cr>
 vnoremap <localleader>x :!ts-node --dir $(dirname %)<cr>

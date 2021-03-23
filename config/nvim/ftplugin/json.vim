@@ -1,3 +1,6 @@
+nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/json.vim<cr>
+nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/json.vim<cr>
+
 " setlocal syntax=javascript
 " set syntax=javascript
 

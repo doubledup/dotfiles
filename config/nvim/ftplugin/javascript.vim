@@ -1,5 +1,5 @@
-nnoremap <localleader>ec :tabnew ~/.config/nvim/ftplugin/javascript.vim<cr>
-nnoremap <localleader>er :so ~/.config/nvim/ftplugin/javascript.vim<cr>
+nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/javascript.vim<cr>
+nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/javascript.vim<cr>
 
 nnoremap <localleader>x :!node %<cr>
 " vnoremap <localleader>x :!node<cr>
