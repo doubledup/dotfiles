@@ -120,6 +120,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " general
 
+Plug 'tpope/vim-abolish'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'tpope/vim-commentary'
@@ -310,6 +312,7 @@ let g:coc_global_extensions = [
   \ 'coc-omnisharp',
   \ 'coc-snippets',
   \ 'coc-solargraph',
+  \ 'coc-sql',
   \ 'coc-tabnine',
   \ 'coc-tsserver',
   \ ]
