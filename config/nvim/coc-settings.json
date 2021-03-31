@@ -1,4 +1,12 @@
 {
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"]
+    }
+  },
+  "codeLens.enable": true,
   "typescript.preferences.quoteStyle": "single",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
