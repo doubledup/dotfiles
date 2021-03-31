@@ -308,6 +308,7 @@ nmap <localleader>s <Plug>(coc-codeaction-selected)
 
 let g:coc_global_extensions = [
   \ 'coc-eslint',
+  \ 'coc-html',
   \ 'coc-json',
   \ 'coc-omnisharp',
   \ 'coc-snippets',
