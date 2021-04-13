@@ -93,7 +93,7 @@ alias sk=skaffold
 
 ## vim & neovim
 set -x EDITOR 'nvim'
-alias v="$EDITOR"
+alias nv="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
