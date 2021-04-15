@@ -29,7 +29,10 @@ sudo apt-get install -y \
   libncurses-dev \
   libpng-dev \
   libssh-dev \
+  libssl-dev \
   libwxgtk3.0-gtk3-dev \
+  libxcursor-dev \
+  libxi-dev \
   libxml2-utils \
   m4 \
   openjdk-11-jdk \
