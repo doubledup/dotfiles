@@ -340,7 +340,7 @@ inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm()
 " Show all diagnostics.
 nnoremap <silent><nowait> <localleader>d :<c-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <localleader>x :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <localleader>e :<c-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <c-k> :<c-u>CocList commands<cr>
 " Find symbol of current document.
