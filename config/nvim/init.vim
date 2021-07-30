@@ -48,7 +48,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 vnoremap <c-j> :m '>+1<cr>gv=gv
 vnoremap <c-k> :m '<-2<cr>gv=gv
 
-" nnoremap <tab> zA
+" terminal remappings
+tnoremap <c-q> <C-\><C-n>
 
 " disable arrow keys.
 " don't be a peasant.
