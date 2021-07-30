@@ -237,7 +237,7 @@ call plug#end()
 
 set background=dark
 set termguicolors
-colorscheme base16-gruvbox-dark-medium
+colorscheme base16-monokai
 
 if !empty(glob("~/.config/nvim/coc-settings.vim"))
   source ~/.config/nvim/coc-settings.vim
