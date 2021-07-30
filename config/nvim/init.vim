@@ -125,25 +125,50 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " general
 
-Plug 'tpope/vim-abolish'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'tpope/vim-commentary'
-
-Plug 'raimondi/delimitmate'
-
+Plug 'airblade/vim-gitgutter'
+Plug 'andrewradev/linediff.vim'
+Plug 'chriskempson/base16-vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'honza/vim-snippets'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mattn/emmet-vim'
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'preservim/nerdtree'
+Plug 'raimondi/delimitmate'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'wellle/targets.vim'
+
+if !empty(glob("~/.config/nvim/plugs.vim.os"))
+  source ~/.config/nvim/plugs.vim.os
+endif
+if !empty(glob("~/.config/nvim/plugs.vim.local"))
+  source ~/.config/nvim/plugs.vim.local
+endif
+
+" here vim-plug runs both
+" `filetype plugin indent on`
+" and
+" `syntax enable`
+call plug#end()
+
+" easymotion
 nmap <cr> <Plug>(easymotion-overwin-f)
 
-Plug 'editorconfig/editorconfig-vim'
-
-Plug 'mattn/emmet-vim'
+" emmet
 let g:user_emmet_leader_key='<c-\>'
 
-Plug 'tpope/vim-endwise'
-
-Plug 'tpope/vim-fugitive'
+" fugitive
 nnoremap <Leader>vs :vert Git<cr>
 nnoremap <Leader>vd :Gvdiffsplit<cr>
 nnoremap <Leader>vb :Git blame<cr>
@@ -155,8 +180,7 @@ nnoremap <Leader>vc :Git checkout<space>
 nnoremap <Leader>vl :Git clean<space>
 nnoremap <Leader>vr :Git reset<space>
 
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+" fzf
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
 nnoremap <Leader>h :History<cr>
@@ -169,13 +193,8 @@ vnoremap <Leader>/ y:BLines <c-r>"<cr>
 nnoremap <Leader>* :BLines <c-r><c-w><cr>
 vnoremap <Leader>r y:Rg <c-r>"<cr>
 
-Plug 'airblade/vim-gitgutter'
-
-Plug 'chriskempson/base16-vim'
-
-Plug 'itchyny/lightline.vim'
+" lightline
 set noshowmode
-
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
       \ 'active': {
@@ -195,44 +214,19 @@ let g:lightline = {
       \ },
       \ }
 
-Plug 'andrewradev/linediff.vim'
-
-Plug 'nelstrom/vim-markdown-folding'
-set nocompatible
-if has("autocmd")
-  filetype plugin indent on
-endif
-
-Plug 'sheerun/vim-polyglot'
-
-Plug 'tpope/vim-repeat'
-
-Plug 'honza/vim-snippets'
-
-Plug 'tpope/vim-surround'
-
-Plug 'wellle/targets.vim'
-
-Plug 'tpope/vim-unimpaired'
-
-Plug 'preservim/nerdtree'
+" NERDTree
 let NERDTreeWinSize=60
 let NERDTreeShowHidden=1
 nnoremap - :NERDTreeToggle<cr>
 nnoremap _ :NERDTreeFind<cr>
 
-if !empty(glob("~/.config/nvim/plugs.vim.os"))
-  source ~/.config/nvim/plugs.vim.os
-endif
-if !empty(glob("~/.config/nvim/plugs.vim.local"))
-  source ~/.config/nvim/plugs.vim.local
-endif
-
-" here vim-plug runs both
-" `filetype plugin indent on`
-" and
-" `syntax enable`
-call plug#end()
+" vim-markdown-folding
+set nocompatible
+" Already set up by vim-plug. Uncomment this if switching to a package
+" manager that doesn't run it.
+" if has("autocmd")
+"   filetype plugin indent on
+" endif
 
 set background=dark
 set termguicolors
