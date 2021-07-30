@@ -151,7 +151,7 @@ nnoremap <Leader>vc :Git checkout<space>
 nnoremap <Leader>vl :Git clean<space>
 nnoremap <Leader>vr :Git reset<space>
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 let g:fzf_layout = { 'up': '80%' }
 nnoremap <Leader>f :Files<cr>
