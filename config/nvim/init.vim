@@ -132,6 +132,8 @@ Plug 'raimondi/delimitmate'
 Plug 'easymotion/vim-easymotion'
 nmap <cr> <Plug>(easymotion-overwin-f)
 
+Plug 'editorconfig/editorconfig-vim'
+
 Plug 'mattn/emmet-vim'
 let g:user_emmet_leader_key='<c-\>'
 
