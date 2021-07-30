@@ -218,6 +218,7 @@ Plug 'tpope/vim-unimpaired'
 
 Plug 'preservim/nerdtree'
 let NERDTreeWinSize=60
+let NERDTreeShowHidden=1
 nnoremap - :NERDTreeToggle<cr>
 nnoremap _ :NERDTreeFind<cr>
 
