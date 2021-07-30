@@ -209,6 +209,8 @@ Plug 'honza/vim-snippets'
 
 Plug 'tpope/vim-surround'
 
+Plug 'wellle/targets.vim'
+
 Plug 'lervag/vimtex'
 let g:tex_flavor = 'latex'
 
