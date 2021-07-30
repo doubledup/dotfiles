@@ -78,9 +78,6 @@ nnoremap <c-h> :tabp<cr>
 nnoremap <Leader><c-l> :tabmove +1<cr>
 nnoremap <Leader><c-h> :tabmove -1<cr>
 
-" quickfix
-nnoremap <Leader>q :c
-
 " get new file changes from disk
 nnoremap <Leader>d :checktime<cr>
 
