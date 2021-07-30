@@ -10,6 +10,10 @@
 #   fi
 # fi
 
+alias ls='ls --color=auto'
+alias la='ls -al --color=auto'
+alias ll='ls -l --color=auto'
+
 source ~/.asdf/asdf.fish
 
 [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
