@@ -14,9 +14,10 @@ command -v thefuck >/dev/null; and thefuck --alias | source
 # Environment variables
 
 ## fzf
+# set --universal FZF_DEFAULT_COMMAND 'fd'
 set FZF_KEYBINDINGS 'alt-o:toggle-preview,alt-j:preview-down,alt-k:preview-up,alt-n:preview-page-down,alt-p:preview-page-up,ctrl-n:page-down,ctrl-p:page-up'
-set FZF_PREVIEW '(highlight -O ansi -l {} || cat {}) 2> /dev/null | head -1000'
-set FZF_PREVIEW_WINDOW 'right:70%:noborder:wrap' #:hidden
+set FZF_PREVIEW 'highlight -O ansi -l {} || cat {} | head -1000 2> /dev/null'
+set FZF_PREVIEW_WINDOW 'right:60%:wrap' #:noborder:hidden
 set -x FZF_DEFAULT_OPTS "-i --bind $FZF_KEYBINDINGS --height 80% --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
 set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
@@ -32,33 +33,28 @@ set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 #
 # Removing these makes the behaviour of `git diff` consistent: it *always*
 # opens less and *never* leaves its output lying around in the terminal.
-set -x LESS -R
+set -x LESS -Rix4
 
 # Path
 
 set -x PIPENV_VENV_IN_PROJECT 1
 
 ## binaries
-set -x PATH "$HOME/.local/bin:$PATH"
+set -x PATH $PATH $HOME/.local/bin
+
+## dotnet-core
+alias dn='dotnet'
 
 ## go
 set -x GOPATH "$HOME/.local/share/go"
-set -x PATH "$GOPATH/bin:$PATH"
-
-## pony
-set -x CC gcc
-set -x CXX g++
-set -x PATH "$HOME/.local/share/ponyup/bin:$PATH"
+set -x PATH $PATH $GOPATH/bin
 
 ## rust
-set -x PATH "$HOME/.local/share/cargo/bin:$PATH"
+set -x PATH $PATH $HOME/.cargo/bin
 
 # Aliases
 
 ## builtins
-alias ls='ls --color=auto'
-alias la='ls -al --color=auto'
-alias ll='ls -l --color=auto'
 alias sl='sl | lolcat'
 
 ## emacs
@@ -98,6 +94,9 @@ alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
+
+## vscode
+alias c='code'
 
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"
