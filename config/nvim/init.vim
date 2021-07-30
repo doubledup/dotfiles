@@ -51,6 +51,9 @@ vnoremap <c-k> :m '<-2<cr>gv=gv
 " terminal remappings
 tnoremap <c-q> <C-\><C-n>
 
+nnoremap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
+vnoremap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
+
 " disable arrow keys.
 " don't be a peasant.
 noremap <up> <nop>
