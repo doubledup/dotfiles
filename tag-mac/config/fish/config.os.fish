@@ -1,15 +1,23 @@
 #!/usr/bin/env fish
 
-# Homebrew binaries
-set -x PATH "/usr/local/bin:$PATH"
+# Rosetta/x86 Homebrew binaries
+set -x PATH $PATH "/usr/local/bin"
 
-# use gnu utils by default
-set -x PATH "/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-set -x MANPATH "/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-set -x PATH "/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+# ARM Homebrew binaries
+[ -f /opt/homebrew/bin/brew ]; and eval (/opt/homebrew/bin/brew shellenv)
 
-source (brew --prefix asdf)/asdf.fish
+alias ibrew='arch -x86_64 /usr/local/bin/brew'
+
+# # use gnu utils by default
+# set -x PATH "/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# set -x MANPATH "/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+# set -x PATH "/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+# set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+
+[ -f (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish ]; and source (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish
+[ -f (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish ]; and source (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish
+
+[ -f ~/.asdf/plugins/dotnet-core/set-dotnet-home.fish ]; and source ~/.asdf/plugins/dotnet-core/set-dotnet-home.fish
 
 [ -f (brew --prefix)/share/autojump/autojump.fish ]; and source (brew --prefix)/share/autojump/autojump.fish
 
