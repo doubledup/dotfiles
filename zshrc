@@ -117,7 +117,7 @@ export PIPENV_VENV_IN_PROJECT=1
 export PATH="$HOME/.local/bin:$PATH"
 
 ## go
-export GOPATH="$HOME/code/go"
+export GOPATH="$HOME/.local/share/go"
 export PATH="$GOPATH/bin:$PATH"
 
 ## rust
@@ -169,3 +169,5 @@ alias :q=exit
 
 [ -f "$HOME/.zshrc.os" ] && source ~/.zshrc.os
 [ -f "$HOME/.zshrc.local" ] && source ~/.zshrc.local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
