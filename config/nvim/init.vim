@@ -106,18 +106,22 @@ nnoremap <Leader>t :PlugStatus<cr>
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" try next
-" tomtom/tcomment_vim
-" tpope/vim-sensible
+" new plugins to try
+" Plug 'tomtom/tcomment_vim'
+" Plug 'tpope/vim-sensible'
+" Plug 'jaxbot/semantic-highlight.vim'
+" Plug 'ervandew/supertab'
+" Plug 'tpope/vim-sleuth'
+" Plug 'c9s/vikube.vim'
+" Plug 'janko-m/vim-test'
+" Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'michaeljsmith/vim-indent-object'
 
-" language / framework / tool integration
-" c9s/vikube.vim
-" janko-m/vim-test
-
-" new
-" jaxbot/semantic-highlight.vim
-" ervandew/supertab
-" tpope/vim-sleuth
+" enable as needed
+" Plug 'tpope/vim-dadbod'
+" Plug 'lervag/vimtex'
+" let g:tex_flavor = 'latex'
+" Plug 'aklt/plantuml-syntax'
 
 " general
 
@@ -199,8 +203,6 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
-Plug 'aklt/plantuml-syntax'
-
 Plug 'sheerun/vim-polyglot'
 
 Plug 'tpope/vim-repeat'
@@ -210,9 +212,6 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 
 Plug 'wellle/targets.vim'
-
-Plug 'lervag/vimtex'
-let g:tex_flavor = 'latex'
 
 Plug 'tpope/vim-unimpaired'
 
