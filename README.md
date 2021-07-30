@@ -76,8 +76,32 @@ Speed up shell animations:
 - Install packages and set up config:
 
 ```
-brew bundle install
+brew bundle install --file packages/Brewfile
 RCRC='./rcrc' rcup -t mac
+```
+
+### Rosetta
+
+```
+sudo softwareupdate --install-rosetta
+```
+
+With x86 Homebrew installed as `ibrew`, install using the x86 brewfile:
+
+```
+brew bundle install --file packages/Brewfile-x86
+```
+
+### Xcode CLI
+
+```
+xcode-select --install
+```
+
+### Remove packages not in Brewfile
+
+```
+brew bundle cleanup --force --file packages/Brewfile
 ```
 
 ### iTerm settings
@@ -124,9 +148,10 @@ ssh-add ~/.ssh/id_rsa
 Fish:
 
 ```
-ssh-keygen -t rsa -b 4096 -C (git config --global user.email)
+ssh-keygen -t ed25519 -C (git config --global user.email)
 eval (ssh-agent -c)
-ssh-add ~/.ssh/id_rsa
+ssh-add -K ~/.ssh/id_ed25519
+gh auth login # possibly also gh ssh-key add
 ```
 
 ## Firefox
