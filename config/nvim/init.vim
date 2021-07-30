@@ -140,7 +140,7 @@ let g:user_emmet_leader_key='<c-\>'
 Plug 'tpope/vim-endwise'
 
 Plug 'tpope/vim-fugitive'
-nnoremap <Leader>vs :Git<cr>
+nnoremap <Leader>vs :vert Git<cr>
 nnoremap <Leader>vd :Gvdiffsplit<cr>
 nnoremap <Leader>vb :Git blame<cr>
 nnoremap <Leader>vf :Git fetch<cr>
