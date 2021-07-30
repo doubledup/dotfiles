@@ -153,7 +153,6 @@ nnoremap <Leader>vr :Git reset<space>
 
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-let g:fzf_layout = { 'up': '80%' }
 nnoremap <Leader>f :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
 nnoremap <Leader>h :History<cr>
