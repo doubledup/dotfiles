@@ -36,8 +36,8 @@ set cuc cul
 " incrementally highlight searches
 set incsearch
 set hlsearch
-" highlight column 81
-set colorcolumn=81
+" highlight column 140
+set colorcolumn=140
 
 " trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
