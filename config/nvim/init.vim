@@ -1,23 +1,5 @@
-" make existing tabs obvious
-set tabstop=8
-" but edit with a different tab width
-set softtabstop=2
-" when indenting with '>'
-set shiftwidth=2
-" when tab is pressed, expand with spaces
-set expandtab
-" remove 2 spaces with backspace
-set backspace=2
-" automatically indent when adding a new line
-set autoindent
-
 " show line numbers
 set number
-
-" show extra whitespace
-set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
-set list
-
 " ignore case unless there are upper-case characters
 set ignorecase
 set smartcase
@@ -40,6 +22,44 @@ set hlsearch
 set textwidth=140
 set colorcolumn=140
 
+" make existing tabs obvious
+set tabstop=8
+" but edit with a different tab width
+set softtabstop=2
+" when indenting with '>'
+set shiftwidth=2
+" when tab is pressed, expand with spaces
+set expandtab
+" remove 2 spaces with backspace
+set backspace=2
+" automatically indent when adding a new line
+set autoindent
+" show extra whitespace
+set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
+set list
+
+" " quicker line movement
+" nnoremap <c-j> :m .+1<cr>==
+" nnoremap <c-k> :m .-2<cr>==
+vnoremap <c-j> :m '>+1<cr>gv=gv
+vnoremap <c-k> :m '<-2<cr>gv=gv
+" disable arrow keys. don't be a peasant.
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+" leave terminal mode
+tnoremap <c-q> <C-\><C-n>
+" search for selected text
+vnoremap // y/<c-r>"<cr>
+" clear search highlights
+nnoremap <c-c> :noh<cr>
+" save all
+nnoremap <c-s> :wall<cr>
+" search
+nnoremap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
+vnoremap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
+
 " help command abbrevs
 " open help in a vertical split
 cnoreabbrev h vert h
@@ -49,33 +69,7 @@ cnoreabbrev H tab h
 " trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-" " quicker line movement
-" nnoremap <c-j> :m .+1<cr>==
-" nnoremap <c-k> :m .-2<cr>==
-vnoremap <c-j> :m '>+1<cr>gv=gv
-vnoremap <c-k> :m '<-2<cr>gv=gv
-
-" terminal remappings
-tnoremap <c-q> <C-\><C-n>
-
-nnoremap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
-vnoremap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
-
-" disable arrow keys.
-" don't be a peasant.
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-
-" search for selected text
-vnoremap // y/<c-r>"<cr>
-
-" clear search highlights
-nnoremap <c-c> :noh<cr>
-
-nnoremap <c-s> :wall<cr>
-
+" leader key mappings
 let mapleader = "\<space>"
 let maplocalleader = ","
 
