@@ -36,7 +36,8 @@ set cuc cul
 " incrementally highlight searches
 set incsearch
 set hlsearch
-" highlight column 140
+" wrap & highlight column @ 140
+set textwidth=140
 set colorcolumn=140
 
 " trim trailing whitespace on save
