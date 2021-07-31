@@ -40,6 +40,12 @@ set hlsearch
 set textwidth=140
 set colorcolumn=140
 
+" help command abbrevs
+" open help in a vertical split
+cnoreabbrev h vert h
+" use H to open help in a new tab
+cnoreabbrev H tab h
+
 " trim trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -175,7 +181,6 @@ nnoremap <Leader>vd :Gvdiffsplit<cr>
 nnoremap <Leader>vb :Git blame<cr>
 nnoremap <Leader>vf :Git fetch<cr>
 nnoremap <Leader>vp :Git pull<cr>
-cnoreabbrev H tab h
 nnoremap <Leader>vm :tab Git commit -v<cr>
 nnoremap <Leader>vc :Git checkout<space>
 nnoremap <Leader>vl :Git clean<space>
