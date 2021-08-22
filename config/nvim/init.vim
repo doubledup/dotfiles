@@ -1,63 +1,58 @@
 " show line numbers
 set number
 " ignore case unless there are upper-case characters
-set ignorecase
-set smartcase
+set ignorecase smartcase
 " split below and to the right, leaving existing panes where they are
-set splitbelow
-set splitright
+set splitbelow splitright
 " live on the edge!
-set noswapfile
-set autoread
-" don't wrap long lines
-set nowrap
+set noswapfile nobackup nowritebackup autoread
+" don't wrap long lines by default, but be more sensible when wrapping is on
+set nowrap linebreak
 " don't redraw while executing commands & using registers
 set lazyredraw
 " Highlight current column and line
 set cuc cul
 " incrementally highlight searches
-set incsearch
-set hlsearch
-" wrap & highlight column @ 140
-set textwidth=140
-set colorcolumn=140
+set incsearch hlsearch
+" wrap command & highlight column @ 140 chars
+set textwidth=140 colorcolumn=140
+" use global clipboard by default
+set clipboard+=unnamed
+" fold on indents; don't fold when opening files
+set foldmethod=indent nofoldenable
+" leave some space around the cursor when moving
+set scrolloff=5 sidescroll=20 sidescrolloff=1
+" ignore modelines due to security concerns
+set modelines=0 nomodeline
 
-" make existing tabs obvious
-set tabstop=8
-" but edit with a different tab width
-set softtabstop=2
-" when indenting with '>'
-set shiftwidth=2
-" when tab is pressed, expand with spaces
-set expandtab
-" remove 2 spaces with backspace
-set backspace=2
+" make existing tabs an obnoxious 8 chars; use 2-space indentation by default
+set ts=8 sts=2 sw=2 et
 " automatically indent when adding a new line
-set autoindent
-" show extra whitespace
-set listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
-set list
+set autoindent smartindent
 
-" " quicker line movement
+" show extra whitespace
+set list listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
+
+" quicker line movement
 " nnoremap <c-j> :m .+1<cr>==
 " nnoremap <c-k> :m .-2<cr>==
 vnoremap <c-j> :m '>+1<cr>gv=gv
 vnoremap <c-k> :m '<-2<cr>gv=gv
-" disable arrow keys. don't be a peasant.
+" disable arrow keys; don't be a peasant.
 noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 " leave terminal mode
-tnoremap <c-q> <C-\><C-n>
+tnoremap <c-q> <c-\><c-n>
 " search for selected text
 vnoremap // y/<c-r>"<cr>
 " clear search highlights
-nnoremap <c-c> :noh<cr>
+nnoremap <esc> :noh<cr>
 " save all
 nnoremap <c-s> :wall<cr>
 " search
-nnoremap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
+" nnoremap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
 vnoremap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
 
 " help command abbrevs
@@ -67,7 +62,7 @@ cnoreabbrev h vert h
 cnoreabbrev H tab h
 
 " trim trailing whitespace on save
-autocmd BufWritePre * :%s/\s\+$//e
+au BufWritePre * :%s/\s\+$//e
 
 " leader key mappings
 let mapleader = "\<space>"
@@ -92,11 +87,7 @@ nnoremap <Leader>oT :tabon!<cr>
 nnoremap <Leader>c :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <Leader>cc :so ~/.config/nvim/init.vim<cr>
 
-" copy/paste
-nnoremap Y "+y
-vnoremap Y "+y
-nnoremap P "+p
-vnoremap P "+p
+" copy filename
 nnoremap <Leader>n :let @+=@%<cr>
 
 " vim-plug / packages
@@ -126,6 +117,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " general
 
+" endwise & delimitmate seem similar
 Plug 'airblade/vim-gitgutter'
 Plug 'andrewradev/linediff.vim'
 Plug 'chriskempson/base16-vim'
@@ -133,12 +125,14 @@ Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
+" Plug 'jreybert/vimagit'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 Plug 'nelstrom/vim-markdown-folding'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
+" TODO: fix {<cr> behaviour
 Plug 'raimondi/delimitmate'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-abolish'
@@ -164,7 +158,7 @@ endif
 call plug#end()
 
 " easymotion
-nmap <cr> <Plug>(easymotion-overwin-f)
+nmap ' <Plug>(easymotion-overwin-f)
 
 " emmet
 let g:user_emmet_leader_key='<c-\>'
@@ -220,8 +214,10 @@ let NERDTreeShowHidden=1
 nnoremap - :NERDTreeToggle<cr>
 nnoremap _ :NERDTreeFind<cr>
 
+" vimagit
+" nmap <Leader>v :Magit<cr>
+
 " vim-markdown-folding
-set nocompatible
 " Already set up by vim-plug. Uncomment this if switching to a package
 " manager that doesn't run it.
 " if has("autocmd")
@@ -232,12 +228,12 @@ set background=dark
 set termguicolors
 colorscheme base16-monokai
 
-if !empty(glob("~/.config/nvim/coc-settings.vim"))
+if filereadable(expand("~/.config/nvim/coc-settings.vim"))
   source ~/.config/nvim/coc-settings.vim
 endif
-if !empty(glob("~/.config/nvim/init.os.vim"))
+if filereadable(expand("~/.config/nvim/init.os.vim"))
   source ~/.config/nvim/init.os.vim
 endif
-if !empty(glob("~/.config/nvim/init.local.vim"))
+if filereadable(expand("~/.config/nvim/init.local.vim"))
   source ~/.config/nvim/init.local.vim
 endif
