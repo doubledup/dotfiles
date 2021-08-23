@@ -46,7 +46,7 @@ noremap <right> <nop>
 " leave terminal mode
 tnoremap <c-q> <c-\><c-n>
 " search for selected text
-vnoremap // y/<c-r>"<cr>
+vnoremap * y/<c-r>"<cr>
 " clear search highlights
 nnoremap <esc> :noh<cr>
 " save all
@@ -175,7 +175,7 @@ nnoremap <Leader>vl :Git clean<space>
 nnoremap <Leader>vr :Git reset<space>
 
 " fzf
-nnoremap <Leader>f :Files<cr>
+nnoremap <c-k> :Files<cr>
 nnoremap <Leader>b :Buffers<cr>
 nnoremap <Leader>h :History<cr>
 nnoremap <Leader>m :Commits<cr>
