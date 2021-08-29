@@ -1,11 +1,10 @@
-" CoC settings
-
 " don't unload buffers when leaving them
 set hidden
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+" Already set in main config
+" " Some servers have issues with backup files, see #649.
+" set nobackup
+" set nowritebackup
 
 set updatetime=100
 
@@ -15,6 +14,39 @@ set shortmess+=c
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 set signcolumn=yes
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+let g:coc_global_extensions = [
+  \ 'coc-eslint',
+  \ 'coc-html',
+  \ 'coc-json',
+  \ 'coc-omnisharp',
+  \ 'coc-rust-analyzer',
+  \ 'coc-snippets',
+  \ 'coc-solargraph',
+  \ 'coc-sql',
+  \ 'coc-tabnine',
+  \ 'coc-tsserver',
+  \ ]
+"   " \ 'coc-diagnostic',
+"   " \ 'coc-fzf-preview',
+"   " \ 'coc-graphql',
+"   " \ 'coc-pairs',
+"   " \ 'coc-prettier',
+"   " \ 'coc-yaml',
+  " \ ]
+
+call coc#config('eslint.packageManager', 'npm')
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -39,89 +71,55 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
+" Refactoring.
+nmap <localleader>r <Plug>(coc-refactor)
 " Symbol renaming.
 nmap <localleader>n <Plug>(coc-rename)
 
-" Refactoring.
-nmap <localleader>r <Plug>(coc-refactor)
-
-" Formatting selected code.
-xmap <localleader>f <Plug>(coc-format-selected)
-nmap <localleader>f <Plug>(coc-format-selected)
-nmap <localleader>f <Plug>(coc-format)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" Format code. (p)rettify
+xmap <localleader>p <Plug>(coc-format-selected)
+nmap <localleader>p <Plug>(coc-format)
 
 " Apply codeAction to the current buffer.
 nmap <localleader>a <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <localleader>l <Plug>(coc-fix-current)
+nmap <localleader>f <Plug>(coc-fix-current)
 " Applying codeAction to the selected region.
 " Example: `<localleader>sip` for current paragraph
 xmap <localleader>s <Plug>(coc-codeaction-selected)
 nmap <localleader>s <Plug>(coc-codeaction-selected)
-
-let g:coc_global_extensions = [
-  \ 'coc-eslint',
-  \ 'coc-html',
-  \ 'coc-json',
-  \ 'coc-omnisharp',
-  \ 'coc-rust-analyzer',
-  \ 'coc-snippets',
-  \ 'coc-solargraph',
-  \ 'coc-sql',
-  \ 'coc-tabnine',
-  \ 'coc-tsserver',
-  \ ]
-"   " \ 'coc-diagnostic',
-"   " \ 'coc-fzf-preview',
-"   " \ 'coc-graphql',
-"   " \ 'coc-pairs',
-"   " \ 'coc-prettier',
-"   " \ 'coc-yaml',
-  " \ ]
-
-call coc#config('eslint.packageManager', 'npm')
 
 " Use c-q for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <c-q> <Plug>(coc-range-select)
 xmap <silent> <c-q> <Plug>(coc-range-select)
 
-" " Make <c-j> auto-select the first completion item and notify coc.nvim to
-" " format on enter, <c-j> could be remapped by other vim plugin
-" inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm()
-"                               \: "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<c-j>"
-
+" use tab to:
+" select current autocomplete item, if visible; or
+" expand the snippet, if current word is a snippet; or
+" increase indentation, if cursor is preceded by whitespace; or
+" trigger the completion menu
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+" TODO: also use tab to navigate snippets
+" let g:coc_snippet_next = '<tab>'
+" let g:coc_snippet_prev = '<s-tab>'
 
-let g:coc_snippet_next = '<tab>'
+" " Make <c-j> auto-select the first completion item and notify coc.nvim to
+" " format on enter, <c-j> could be remapped by other vim plugin
+" inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm()
+"                               \: "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<c-j>"
 
-" Use <c-n> to jump to the next placeholder
-let g:coc_snippet_next = '<c-j>'
-" Use <c-p> to jump to the previous placeholder
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <c-l> for trigger snippet expand.
 imap <c-l> <Plug>(coc-snippets-expand)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
 
 " " Use <c-j> for select text for visual placeholder of snippet.
 " vmap <c-j> <Plug>(coc-snippets-select)
@@ -139,14 +137,14 @@ nnoremap <silent><nowait> <localleader>d :<c-u>CocList diagnostics<cr>
 nnoremap <silent><nowait> <localleader>e :<c-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <c-j> :<c-u>CocList commands<cr>
-" Find symbol of current document.
+" Show symbol outline for current document.
 nnoremap <silent><nowait> <localleader>o :<c-u>CocList outline<cr>
 " Search workspace symbols.
 nnoremap <silent><nowait> <localleader>y :<c-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent><nowait> <localleader>j :<c-u>CocNext<cr>
-" " Do default action for previous item.
-" nnoremap <silent><nowait> <leader>k :<c-u>CocPrev<cr>
+" " Do fix and move to next item.
+" nnoremap <silent> ]d <Plug>(coc-fix-current)<Plug>(coc-diagnostic-next)
+" " Do fix and move to previous item.
+" nnoremap <silent> [d <Plug>(coc-fix-current)<Plug>(coc-diagnostic-prev)
 " " Resume latest coc list.
 " nnoremap <silent><nowait> <localleader>p :<c-u>CocListResume<cr>
 

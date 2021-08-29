@@ -33,68 +33,8 @@ set autoindent smartindent
 " show extra whitespace
 set list listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
 
-" quicker line movement
-" nnoremap <c-j> :m .+1<cr>==
-" nnoremap <c-k> :m .-2<cr>==
-vnoremap <c-j> :m '>+1<cr>gv=gv
-vnoremap <c-k> :m '<-2<cr>gv=gv
-" disable arrow keys; don't be a peasant.
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-" leave terminal mode
-tnoremap <c-q> <c-\><c-n>
-" search for selected text
-vnoremap * y/<c-r>"<cr>
-" clear search highlights
-nnoremap <esc> :noh<cr>
-" save all
-nnoremap <c-s> :wall<cr>
-" search
-" nnoremap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
-vnoremap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
-
-" help command abbrevs
-" open help in a vertical split
-cnoreabbrev h vert h
-" use H to open help in a new tab
-cnoreabbrev H tab h
-
 " trim trailing whitespace on save
 au BufWritePre * :%s/\s\+$//e
-
-" leader key mappings
-let mapleader = "\<space>"
-let maplocalleader = ","
-
-" tabs
-nnoremap <c-l> :tabn<cr>
-nnoremap <c-h> :tabp<cr>
-nnoremap <Leader><c-l> :tabmove +1<cr>
-nnoremap <Leader><c-h> :tabmove -1<cr>
-
-" get new file changes from disk
-nnoremap <Leader>d :checktime<cr>
-
-" close all other windows / tabs
-nnoremap <Leader>ow :on<cr>
-nnoremap <Leader>oW :on!<cr>
-nnoremap <Leader>ot :tabon<cr>
-nnoremap <Leader>oT :tabon!<cr>
-
-" NeoVim config
-nnoremap <Leader>c :tabnew ~/.config/nvim/init.vim<cr>
-nnoremap <Leader>cc :so ~/.config/nvim/init.vim<cr>
-
-" copy filename
-nnoremap <Leader>n :let @+=@%<cr>
-
-" vim-plug / packages
-nnoremap <Leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>:CocCommand tabnine.updateTabNine<cr>
-nnoremap <Leader>i :PlugInstall<cr>
-nnoremap <Leader>l :PlugClean<cr>
-nnoremap <Leader>t :PlugStatus<cr>
 
 call plug#begin('~/.local/share/nvim/plugged')
 
@@ -157,37 +97,17 @@ endif
 " `syntax enable`
 call plug#end()
 
-" easymotion
-nmap ' <Plug>(easymotion-overwin-f)
+" vim-markdown-folding
+" Already set up by vim-plug. Uncomment this if switching to a package
+" manager that doesn't run it.
+" if has("autocmd")
+"   filetype plugin indent on
+" endif
 
-" emmet
-let g:user_emmet_leader_key='<c-\>'
+set background=dark
+set termguicolors
+colorscheme base16-monokai
 
-" fugitive
-nnoremap <Leader>vs :vert Git<cr>
-nnoremap <Leader>vd :Gvdiffsplit<cr>
-nnoremap <Leader>vb :Git blame<cr>
-nnoremap <Leader>vf :Git fetch<cr>
-nnoremap <Leader>vp :Git pull<cr>
-nnoremap <Leader>vm :tab Git commit -v<cr>
-nnoremap <Leader>vc :Git checkout<space>
-nnoremap <Leader>vl :Git clean<space>
-nnoremap <Leader>vr :Git reset<space>
-
-" fzf
-nnoremap <c-k> :Files<cr>
-nnoremap <Leader>b :Buffers<cr>
-nnoremap <Leader>h :History<cr>
-nnoremap <Leader>m :Commits<cr>
-nnoremap <Leader>w :Windows<cr>
-nnoremap <Leader>r :Rg<cr>
-nnoremap <Leader>s :Lines<cr>
-nnoremap <Leader>/ :BLines<cr>
-vnoremap <Leader>/ y:BLines <c-r>"<cr>
-nnoremap <Leader>* :BLines <c-r><c-w><cr>
-vnoremap <Leader>r y:Rg <c-r>"<cr>
-
-" lightline
 set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'jellybeans',
@@ -208,25 +128,100 @@ let g:lightline = {
       \ },
       \ }
 
-" NERDTree
 let NERDTreeWinSize=60
 let NERDTreeShowHidden=1
-nnoremap - :NERDTreeToggle<cr>
-nnoremap _ :NERDTreeFind<cr>
 
-" vimagit
+let mapleader = "\<space>"
+let maplocalleader = ","
+let g:user_emmet_leader_key='<c-\>'
+
+" disable arrow keys; don't be a peasant.
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" leave terminal mode
+tmap <c-q> <c-\><c-n>
+
+" help command abbrevs
+" open help in a vertical split
+cnoreabbrev hv vert h
+" use H to open help in a new tab
+cnoreabbrev ht tab h
+
+
+" clear search highlights
+nmap <esc> :noh<cr>
+" save all
+nmap <c-s> :wall<cr>
+
+" nmap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
+" nmap <c-j> :m .+1<cr>==
+" nmap <c-k> :m .-2<cr>==
+nmap <c-l> :tabn<cr>
+nmap <c-h> :tabp<cr>
+nmap <Leader><c-l> :tabmove +1<cr>
+nmap <Leader><c-h> :tabmove -1<cr>
+
+" get new file changes from disk
+nmap <Leader>d :checktime<cr>
+
+nmap <Leader>ow :on<cr>
+nmap <Leader>oW :on!<cr>
+nmap <Leader>ot :tabon<cr>
+nmap <Leader>oT :tabon!<cr>
+
+nmap <Leader>c :tabnew ~/.config/nvim/init.vim<cr>
+nmap <Leader>cc :so ~/.config/nvim/init.vim<cr>
+
+" copy filename
+nmap <Leader>n :let @+=@%<cr>
+
+nmap <Leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>:CocCommand tabnine.updateTabNine<cr>
+nmap <Leader>i :PlugInstall<cr>
+nmap <Leader>l :PlugClean<cr>
+nmap <Leader>t :PlugStatus<cr>
+
+nmap ' <Plug>(easymotion-overwin-f)
+
+" fugitive
+nmap <Leader>vs :vert Git<cr>
+nmap <Leader>vd :Gvdiffsplit<cr>
+nmap <Leader>vb :Git blame<cr>
+nmap <Leader>vf :Git fetch<cr>
+nmap <Leader>vp :Git pull<cr>
+nmap <Leader>vm :tab Git commit -v<cr>
+nmap <Leader>vc :Git checkout<space>
+nmap <Leader>vl :Git clean<space>
+nmap <Leader>vr :Git reset<space>
+
+" fzf
+nmap <c-k> :Files<cr>
+nmap <Leader>b :Buffers<cr>
+nmap <Leader>h :History<cr>
+nmap <Leader>m :Commits<cr>
+nmap <Leader>w :Windows<cr>
+nmap <Leader>r :Rg<cr>
+nmap <Leader>s :Lines<cr>
+nmap <Leader>/ :BLines<cr>
+nmap <Leader>* :BLines <c-r><c-w><cr>
+
+nmap - :NERDTreeToggle<cr>
+nmap _ :NERDTreeFind<cr>
+
 " nmap <Leader>v :Magit<cr>
 
-" vim-markdown-folding
-" Already set up by vim-plug. Uncomment this if switching to a package
-" manager that doesn't run it.
-" if has("autocmd")
-"   filetype plugin indent on
-" endif
 
-set background=dark
-set termguicolors
-colorscheme base16-monokai
+vmap <c-j> :m '>+1<cr>gv=gv
+vmap <c-k> :m '<-2<cr>gv=gv
+" search for selected text
+vmap * y/<c-r>"<cr>
+" search
+" vmap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
+vmap <Leader>/ y:BLines <c-r>"<cr>
+vmap <Leader>r y:Rg <c-r>"<cr>
+
 
 if filereadable(expand("~/.config/nvim/coc-settings.vim"))
   source ~/.config/nvim/coc-settings.vim
