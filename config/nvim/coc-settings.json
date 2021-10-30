@@ -6,9 +6,15 @@
       "rootPatterns": ["elm.json"]
     }
   },
+  "diagnostic-languageserver.filetypes": {
+    "sh": "shellcheck"
+  },
   "codeLens.enable": true,
   "typescript.preferences.quoteStyle": "single",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "eslint.workingDirectories": [
+    { "mode": "location" }
+  ]
 }

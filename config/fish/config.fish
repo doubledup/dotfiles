@@ -1,5 +1,7 @@
 #!/usr/bin/env fish
 
+set -x EDITOR 'nvim'
+
 function fish_greeting
   set csf (command -v cowspeakfortune)
 
@@ -14,13 +16,13 @@ command -v thefuck >/dev/null; and thefuck --alias | source
 # Environment variables
 
 ## fzf
-# set --universal FZF_DEFAULT_COMMAND 'fd'
-set FZF_KEYBINDINGS 'alt-o:toggle-preview,alt-j:preview-down,alt-k:preview-up,alt-n:preview-page-down,alt-p:preview-page-up,ctrl-n:page-down,ctrl-p:page-up'
-set FZF_PREVIEW 'highlight -O ansi -l {} || cat {} | head -1000 2> /dev/null'
-set FZF_PREVIEW_WINDOW 'right:60%:wrap' #:noborder:hidden
-set -x FZF_DEFAULT_OPTS "-i --bind $FZF_KEYBINDINGS --height 80% --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
-set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*" 2> /dev/null'
-set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+# ctrl-y:execute-silent(echo {} | pbcopy)+abort,
+set FZF_KEYBINDINGS 'ctrl-o:toggle-all,alt-o:toggle-preview,alt-n:preview-page-down,alt-p:preview-page-up,alt-d:preview-half-page-down,alt-u:preview-half-page-up,alt-j:preview-down,alt-k:preview-up,ctrl-n:page-down,ctrl-p:page-up,ctrl-d:half-page-down,ctrl-u:half-page-up'
+set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
+set FZF_PREVIEW_WINDOW 'right:60%:wrap:hidden' #:noborder
+set -x FZF_DEFAULT_OPTS "--height 70% --bind $FZF_KEYBINDINGS --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
+set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
+set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
 
 ## git
 # The default less flags that git uses are FRX:
@@ -34,6 +36,9 @@ set -x FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 # Removing these makes the behaviour of `git diff` consistent: it *always*
 # opens less and *never* leaves its output lying around in the terminal.
 set -x LESS -Rix4
+
+# See https://github.com/dandavison/delta/issues/582
+set -x DELTA_PAGER "/usr/bin/less $LESS"
 
 # Path
 
@@ -88,8 +93,8 @@ alias mk=minikube
 alias sk=skaffold
 
 ## vim & neovim
-set -x EDITOR 'nvim'
 alias nv="$EDITOR"
+alias vn="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
 alias vimrc="$EDITOR ~/.vimrc"

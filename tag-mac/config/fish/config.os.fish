@@ -14,12 +14,12 @@ alias ibrew='arch -x86_64 /usr/local/bin/brew'
 # set -x PATH "/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
 # set -x MANPATH "/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
-[ -f (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish ]; and source (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish
-[ -f (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish ]; and source (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish
-
-[ -f ~/.asdf/plugins/dotnet-core/set-dotnet-home.fish ]; and source ~/.asdf/plugins/dotnet-core/set-dotnet-home.fish
-
-[ -f (brew --prefix)/share/autojump/autojump.fish ]; and source (brew --prefix)/share/autojump/autojump.fish
+# [ -f (brew --prefix)/share/autojump/autojump.fish ]; and source (brew --prefix)/share/autojump/autojump.fish
+zoxide init --cmd j fish | source
+# type zoxide > /dev/null
+# if test $status -eq 0
+#   zoxide init fish | source
+# end
 
 # if [[ -f "$(brew --prefix)/opt/fzf/bin" && ! "$PATH" == "*$(brew --prefix)/opt/fzf/bin*" ]]; then
 #   export PATH="${PATH:+${PATH}:}$(brew --prefix)/opt/fzf/bin"
@@ -34,3 +34,7 @@ alias ibrew='arch -x86_64 /usr/local/bin/brew'
 # if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
 #   source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # fi
+
+# [ -f (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish ]; and source (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish
+[ -f (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish ]; and source (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish
+# [ -f ~/.asdf/plugins/dotnet-core/set-dotnet-home.fish ]; and source ~/.asdf/plugins/dotnet-core/set-dotnet-home.fish

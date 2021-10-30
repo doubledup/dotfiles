@@ -27,24 +27,31 @@ augroup mygroup
 augroup end
 
 let g:coc_global_extensions = [
+  \ 'coc-diagnostic',
+  \ 'coc-elixir',
   \ 'coc-eslint',
   \ 'coc-html',
   \ 'coc-json',
   \ 'coc-omnisharp',
+  \ 'coc-prettier',
   \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-solargraph',
   \ 'coc-sql',
-  \ 'coc-tabnine',
   \ 'coc-tsserver',
+  \ 'coc-yaml',
   \ ]
-"   " \ 'coc-diagnostic',
-"   " \ 'coc-fzf-preview',
-"   " \ 'coc-graphql',
-"   " \ 'coc-pairs',
-"   " \ 'coc-prettier',
-"   " \ 'coc-yaml',
+  " \ 'coc-fzf-preview',
+  " \ 'coc-graphql',
+  " \ 'coc-pairs',
+  " \ 'coc-tabnine',
   " \ ]
+
+" To move to built-in LSP, need a replacement for
+" - linters
+" - formatters
+" - data formats
+" - snippets
 
 call coc#config('eslint.packageManager', 'npm')
 
@@ -70,6 +77,8 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+nmap <localleader>q :CocRestart<cr>
 
 " Refactoring.
 nmap <localleader>r <Plug>(coc-refactor)
@@ -136,7 +145,7 @@ nnoremap <silent><nowait> <localleader>d :<c-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <localleader>e :<c-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <c-j> :<c-u>CocList commands<cr>
+nnoremap <silent><nowait> <localleader>j :<c-u>CocList commands<cr>
 " Show symbol outline for current document.
 nnoremap <silent><nowait> <localleader>o :<c-u>CocList outline<cr>
 " Search workspace symbols.

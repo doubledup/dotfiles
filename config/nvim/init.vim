@@ -14,8 +14,8 @@ set lazyredraw
 set cuc cul
 " incrementally highlight searches
 set incsearch hlsearch
-" wrap command & highlight column @ 140 chars
-set textwidth=140 colorcolumn=140
+" wrap @140 chars, highlight @80 chars
+set textwidth=140 colorcolumn=80
 " use global clipboard by default
 set clipboard+=unnamed
 " fold on indents; don't fold when opening files
@@ -141,7 +141,12 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
-" leave terminal mode
+" terminal mode
+" open new splits
+nmap <leader>t :sp \| te<cr>
+nmap <leader>T :tabnew \| te<cr>
+" nmap <c-:> :sp \| te<cr>
+" quit
 tmap <c-q> <c-\><c-n>
 
 " help command abbrevs
@@ -150,25 +155,23 @@ cnoreabbrev hv vert h
 " use H to open help in a new tab
 cnoreabbrev ht tab h
 
-
 " clear search highlights
 nmap <esc> :noh<cr>
 " save all
 nmap <c-s> :wall<cr>
 
 " nmap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
-" nmap <c-j> :m .+1<cr>==
-" nmap <c-k> :m .-2<cr>==
+nmap <c-j> :m .+1<cr>==
+nmap <c-k> :m .-2<cr>==
+vmap <c-j> :m '>+1<cr>gv=gv
+vmap <c-k> :m '<-2<cr>gv=gv
 nmap <c-l> :tabn<cr>
 nmap <c-h> :tabp<cr>
-nmap <Leader><c-l> :tabmove +1<cr>
-nmap <Leader><c-h> :tabmove -1<cr>
+nmap gt :tabmove<space>
 
 " get new file changes from disk
 nmap <Leader>d :checktime<cr>
 
-nmap <Leader>ow :on<cr>
-nmap <Leader>oW :on!<cr>
 nmap <Leader>ot :tabon<cr>
 nmap <Leader>oT :tabon!<cr>
 
@@ -178,10 +181,15 @@ nmap <Leader>cc :so ~/.config/nvim/init.vim<cr>
 " copy filename
 nmap <Leader>n :let @+=@%<cr>
 
-nmap <Leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>:CocCommand tabnine.updateTabNine<cr>
-nmap <Leader>i :PlugInstall<cr>
-nmap <Leader>l :PlugClean<cr>
-nmap <Leader>t :PlugStatus<cr>
+" base64 encoding
+nmap [dd !!base64<cr>
+nmap ]dd !!base64 -d<cr>
+vmap [d c<c-r>=system("echo '<c-r>"' \| base64 \| tr -d '\n'")<cr><esc>
+vmap ]d c<c-r>=system("echo '<c-r>"' \| base64 -d \| tr -d '\n'")<cr><esc>
+
+" vim-plug
+nmap <Leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>
+" :CocCommand tabnine.updateTabNine<cr>
 
 nmap ' <Plug>(easymotion-overwin-f)
 
@@ -197,7 +205,8 @@ nmap <Leader>vl :Git clean<space>
 nmap <Leader>vr :Git reset<space>
 
 " fzf
-nmap <c-k> :Files<cr>
+nmap <c-p> :Files<cr>
+" TODO: buffer deletion
 nmap <Leader>b :Buffers<cr>
 nmap <Leader>h :History<cr>
 nmap <Leader>m :Commits<cr>
@@ -212,9 +221,6 @@ nmap _ :NERDTreeFind<cr>
 
 " nmap <Leader>v :Magit<cr>
 
-
-vmap <c-j> :m '>+1<cr>gv=gv
-vmap <c-k> :m '<-2<cr>gv=gv
 " search for selected text
 vmap * y/<c-r>"<cr>
 " search

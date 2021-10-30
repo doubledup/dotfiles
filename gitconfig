@@ -19,3 +19,13 @@
 	ff = only
 [init]
 	defaultBranch = main
+[pager]
+	diff = delta
+	log = delta
+	; reflog = delta
+	show = delta
+[interactive]
+	diffFilter = delta --color-only --features-interactive
+[delta]
+	line-numbers = true
+	paging = always
