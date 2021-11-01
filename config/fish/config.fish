@@ -2,6 +2,10 @@
 
 set -x EDITOR 'nvim'
 
+bind \ck nvim
+bind \cs 'echo; git status; commandline -f repaint'
+bind \cg 'echo; git diff; commandline -f repaint'
+
 function fish_greeting
   set csf (command -v cowspeakfortune)
 
