@@ -60,7 +60,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 " endwise & delimitmate seem similar
 Plug 'airblade/vim-gitgutter'
 Plug 'andrewradev/linediff.vim'
-Plug 'chriskempson/base16-vim'
+Plug 'flazz/vim-colorschemes'
+" Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
+" Plug 'chriskempson/base16-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'honza/vim-snippets'
@@ -106,11 +108,11 @@ call plug#end()
 
 set background=dark
 set termguicolors
-colorscheme base16-monokai
+colorscheme hybrid
 
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'git-branch-symbol', 'git-branch', 'readonly',  'modified' ],
