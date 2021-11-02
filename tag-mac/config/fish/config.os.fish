@@ -1,7 +1,10 @@
 #!/usr/bin/env fish
 
 # Rosetta/x86 Homebrew binaries
-set -x PATH $PATH "/usr/local/bin"
+set -x PATH $PATH '/usr/local/bin'
+
+# goku config file
+set -x GOKU_EDN_CONFIG_FILE "$HOME/.config/goku.edn"
 
 # ARM Homebrew binaries
 [ -f /opt/homebrew/bin/brew ]; and eval (/opt/homebrew/bin/brew shellenv)

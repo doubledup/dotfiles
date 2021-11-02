@@ -1,0 +1,30 @@
+{:simlayers {
+ :window-mode {:key :w}
+ :open-mode {:key :o}
+ :space-mode {:key :spacebar}}
+ :main [
+        {:des   "Caps Lock: tap for Escape, hold for Control."
+         :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
+        {:des   "Control: tap for Caps Lock, hold for 'Hyper Key'."
+         :rules [[:##left_control [:left_control :left_option :left_command :left_shift] nil {:alone :caps_lock}]]}
+        ; {:des   "Modifiers in home row, like Miryoku."
+        ;  :rules [
+        ;          [:##a :left_gui nil {:alone :a}]
+        ;          [:##s :left_option nil {:alone :s}]
+        ;          [:##d :left_control nil {:alone :d}]
+        ;          [:##f :left_shift nil {:alone :f}]
+        ;          [:##j :right_shift nil {:alone :j}]
+        ;          [:##k :right_control nil {:alone :k}]
+        ;          [:##l :right_option nil {:alone :l}]
+        ;          [:##semicolon :right_gui nil {:alone :semicolon}]
+        ;          ]}
+        {:des   "Space mode: arrows, return, etc."
+         :rules [:space-mode
+                 [:##i :up_arrow :space-mode]
+                 [:##j :left_arrow :space-mode]
+                 [:##k :down_arrow :space-mode]
+                 [:##l :right_arrow :space-mode]
+                 [:##m :return_or_enter :space-mode]
+                 ]}
+       ]
+}
