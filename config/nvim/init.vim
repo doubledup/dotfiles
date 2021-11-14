@@ -17,7 +17,7 @@ set incsearch hlsearch
 " wrap @140 chars, highlight @80 chars
 set textwidth=140 colorcolumn=80
 " use global clipboard by default
-set clipboard+=unnamed
+set clipboard^=unnamedplus
 " fold on indents; don't fold when opening files
 set foldmethod=indent nofoldenable
 " leave some space around the cursor when moving
@@ -169,19 +169,21 @@ vmap <c-j> :m '>+1<cr>gv=gv
 vmap <c-k> :m '<-2<cr>gv=gv
 nmap <c-l> :tabn<cr>
 nmap <c-h> :tabp<cr>
+nmap <leader><c-l> :tabmove +1<cr>
+nmap <leader><c-h> :tabmove -1<cr>
 nmap gt :tabmove<space>
 
 " get new file changes from disk
-nmap <Leader>d :checktime<cr>
+nmap <leader>d :checktime<cr>
 
-nmap <Leader>ot :tabon<cr>
-nmap <Leader>oT :tabon!<cr>
+nmap <leader>ot :tabon<cr>
+nmap <leader>oT :tabon!<cr>
 
-nmap <Leader>c :tabnew ~/.config/nvim/init.vim<cr>
-nmap <Leader>cc :so ~/.config/nvim/init.vim<cr>
+nmap <leader>c :tabnew ~/.config/nvim/init.vim<cr>
+nmap <leader>cc :so ~/.config/nvim/init.vim<cr>
 
 " copy filename
-nmap <Leader>n :let @+=@%<cr>
+nmap <leader>n :let @+=@%<cr>
 
 " base64 encoding
 nmap [dd !!base64<cr>
@@ -190,45 +192,45 @@ vmap [d c<c-r>=system("echo '<c-r>"' \| base64 \| tr -d '\n'")<cr><esc>
 vmap ]d c<c-r>=system("echo '<c-r>"' \| base64 -d \| tr -d '\n'")<cr><esc>
 
 " vim-plug
-nmap <Leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>
+nmap <leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>
 " :CocCommand tabnine.updateTabNine<cr>
 
 nmap ' <Plug>(easymotion-overwin-f)
 
 " fugitive
-nmap <Leader>vs :vert Git<cr>
-nmap <Leader>vd :Gvdiffsplit<cr>
-nmap <Leader>vb :Git blame<cr>
-nmap <Leader>vf :Git fetch<cr>
-nmap <Leader>vp :Git pull<cr>
-nmap <Leader>vm :tab Git commit -v<cr>
-nmap <Leader>vc :Git checkout<space>
-nmap <Leader>vl :Git clean<space>
-nmap <Leader>vr :Git reset<space>
+nmap <leader>vs :vert Git<cr>
+nmap <leader>vd :Gvdiffsplit<cr>
+nmap <leader>vb :Git blame<cr>
+nmap <leader>vf :Git fetch<cr>
+nmap <leader>vp :Git pull<cr>
+nmap <leader>vm :tab Git commit -v<cr>
+nmap <leader>vc :Git checkout<space>
+nmap <leader>vl :Git clean<space>
+nmap <leader>vr :Git reset<space>
 
 " fzf
 nmap <c-p> :Files<cr>
 " TODO: buffer deletion
-nmap <Leader>b :Buffers<cr>
-nmap <Leader>h :History<cr>
-nmap <Leader>m :Commits<cr>
-nmap <Leader>w :Windows<cr>
-nmap <Leader>r :Rg<cr>
-nmap <Leader>s :Lines<cr>
-nmap <Leader>/ :BLines<cr>
-nmap <Leader>* :BLines <c-r><c-w><cr>
+nmap <leader>b :Buffers<cr>
+nmap <leader>h :History<cr>
+nmap <leader>m :Commits<cr>
+nmap <leader>w :Windows<cr>
+nmap <leader>r :Rg<cr>
+nmap <leader>s :Lines<cr>
+nmap <leader>/ :BLines<cr>
+nmap <leader>* :BLines <c-r><c-w><cr>
 
 nmap - :NERDTreeToggle<cr>
 nmap _ :NERDTreeFind<cr>
 
-" nmap <Leader>v :Magit<cr>
+" nmap <leader>v :Magit<cr>
 
 " search for selected text
 vmap * y/<c-r>"<cr>
 " search
 " vmap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
-vmap <Leader>/ y:BLines <c-r>"<cr>
-vmap <Leader>r y:Rg <c-r>"<cr>
+vmap <leader>/ y:BLines <c-r>"<cr>
+vmap <leader>r y:Rg <c-r>"<cr>
 
 
 if filereadable(expand("~/.config/nvim/coc-settings.vim"))
