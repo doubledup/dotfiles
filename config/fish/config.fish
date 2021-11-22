@@ -21,7 +21,7 @@ command -v thefuck >/dev/null; and thefuck --alias | source
 
 ## fzf
 # ctrl-y:execute-silent(echo {} | pbcopy)+abort,
-set FZF_KEYBINDINGS 'ctrl-o:toggle-all,alt-o:toggle-preview,alt-n:preview-page-down,alt-p:preview-page-up,alt-d:preview-half-page-down,alt-u:preview-half-page-up,alt-j:preview-down,alt-k:preview-up,ctrl-n:page-down,ctrl-p:page-up,ctrl-d:half-page-down,ctrl-u:half-page-up'
+set FZF_KEYBINDINGS 'ctrl-o:toggle-all,alt-o:toggle-preview,alt-n:preview-page-down,alt-p:preview-page-up,alt-d:preview-half-page-down,alt-u:preview-half-page-up,alt-j:preview-down,alt-k:preview-up,ctrl-n:page-down,ctrl-p:page-up'
 set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
 set FZF_PREVIEW_WINDOW 'right:60%:wrap:hidden' #:noborder
 set -x FZF_DEFAULT_OPTS "--height 70% --bind $FZF_KEYBINDINGS --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
