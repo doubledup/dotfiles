@@ -2,11 +2,12 @@
  :window-mode {:key :w}
  :open-mode {:key :o}
  :space-mode {:key :spacebar}}
+ :templates {:launch "open -g hammerspoon://open%s"}
  :main [
         {:des   "Caps Lock: tap for Escape, hold for Control."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
-        {:des   "Control: tap for Caps Lock, hold for 'Hyper Key'."
-         :rules [[:##left_control [:left_control :left_option :left_command :left_shift] nil {:alone :caps_lock}]]}
+        ; {:des   "Control: tap for Caps Lock, hold for 'Hyper Key'."
+        ;  :rules [[:##left_control [:left_control :left_option :left_command :left_shift] nil {:alone :caps_lock}]]}
         ; {:des   "Modifiers in home row, like Miryoku."
         ;  :rules [
         ;          [:##a :left_gui nil {:alone :a}]
@@ -20,11 +21,19 @@
         ;          ]}
         {:des   "Space mode: arrows, return, etc."
          :rules [:space-mode
-                 [:##i :up_arrow :space-mode]
-                 [:##j :left_arrow :space-mode]
-                 [:##k :down_arrow :space-mode]
+                 [:##h :left_arrow :space-mode]
+                 [:##j :down_arrow :space-mode]
+                 [:##k :up_arrow :space-mode]
                  [:##l :right_arrow :space-mode]
                  [:##m :return_or_enter :space-mode]
+                 ]}
+        {:des   "Window mode: switch to common applications"
+         :rules [:window-mode
+                 [:##j [:launch "Kitty"] :window-mode]
+                 [:##k [:launch "Brave"] :window-mode]
+                 [:##l [:launch "Slack"] :window-mode]
+                 [:##i [:launch "Signal"] :window-mode]
+                 [:##m [:launch "Spotify"] :window-mode]
                  ]}
        ]
 }
