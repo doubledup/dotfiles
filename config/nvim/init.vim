@@ -60,9 +60,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 " endwise & delimitmate seem similar
 Plug 'airblade/vim-gitgutter'
 Plug 'andrewradev/linediff.vim'
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
 " Plug 'https://gitlab.com/protesilaos/tempus-themes-vim.git'
-" Plug 'chriskempson/base16-vim'
+Plug 'chriskempson/base16-vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'honza/vim-snippets'
@@ -108,7 +108,7 @@ call plug#end()
 
 set background=dark
 set termguicolors
-colorscheme hybrid
+colorscheme base16-monokai
 
 set noshowmode
 let g:lightline = {
