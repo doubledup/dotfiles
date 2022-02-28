@@ -34,6 +34,7 @@
                  [:##l [:launch "Slack"] :window-mode]
                  [:##i [:launch "Signal"] :window-mode]
                  [:##m [:launch "Spotify"] :window-mode]
+                 [:##semicolon [:launch "Emacs"] :window-mode]
                  ]}
        ]
 }

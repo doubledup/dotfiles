@@ -36,3 +36,7 @@ end)
 hs.urlevent.bind("openSignal", function(eventName, params)
     hs.application.launchOrFocus("Signal")
 end)
+
+hs.urlevent.bind("openEmacs", function(eventName, params)
+    hs.application.launchOrFocus("Emacs")
+end)

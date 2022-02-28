@@ -2,6 +2,7 @@
 
 set -x EDITOR 'nvim'
 
+# TODO: open files on command line in editor here
 bind \ck nvim
 bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'echo; git diff; commandline -f repaint'

@@ -6,7 +6,7 @@
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (setq package-archive-priorities '(("melpa-stable" . 1)))
-(setq package-selected-packages '(color-theme-sanityinc-tomorrow evil-org evil zenburn-theme org))
+(setq package-selected-packages '(color-theme-sanityinc-tomorrow evil-org evil org))
 (package-initialize)
 
 ; refresh archives, if necessary
@@ -18,16 +18,23 @@
     (package-install package)))
 
 (blink-cursor-mode 0)
-(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
+(scroll-bar-mode 0)
+(tool-bar-mode 0)
+;; auto-revert-mode
+
+(setq default-directory "~/")
+;; (setq display-line-numbers-type 'relative)
 (setq indent-tabs-mode nil)
 (setq inhibit-startup-screen t)
-(setq ring-bell-function 'ignore)
-(scroll-bar-mode 0)
-(setq standard-indent 4)
-(tool-bar-mode 0)
-(setq default-directory "~/")
 (setq make-backup-files nil)
+(setq ring-bell-function 'ignore)
+(setq standard-indent 4)
+(setq vc-follow-symlinks t)
+
+(setq org-startup-folded t)
+
+; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
 
 ;; Note: no need to call require for packages, as package-initialize
 ;; in init.el takes care of this
@@ -38,5 +45,7 @@
 (evil-mode 1)
 
 (load "~/.emacs.d/customize")
-(if (file-exists-p "~/.emacs.d/local.el")
-    (load "~/.emacs.d/local"))
+(if (file-exists-p "~/.emacs.d/init.os.el")
+    (load "~/.emacs.d/init.os"))
+(if (file-exists-p "~/.emacs.d/init.local.el")
+    (load "~/.emacs.d/init.local"))
