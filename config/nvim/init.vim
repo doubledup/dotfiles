@@ -48,6 +48,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'janko-m/vim-test'
 " Plug 'HerringtonDarkholme/yats.vim'
 " Plug 'michaeljsmith/vim-indent-object'
+" Plug 'kien/ctrlp.vim'
+" Plug 'dbeecham/ctrlp-commandpalette.vim'
+" Plug 'ggandor/lightspeed.nvim'
 
 " enable as needed
 " Plug 'tpope/vim-dadbod'
