@@ -28,23 +28,23 @@ augroup end
 
 let g:coc_global_extensions = [
   \ 'coc-diagnostic',
-  \ 'coc-elixir',
   \ 'coc-eslint',
   \ 'coc-html',
   \ 'coc-json',
-  \ 'coc-omnisharp',
-  \ 'coc-prettier',
   \ 'coc-rust-analyzer',
   \ 'coc-snippets',
-  \ 'coc-solargraph',
   \ 'coc-sql',
-  \ 'coc-tsserver',
   \ 'coc-yaml',
   \ ]
+  " \ 'coc-elixir',
   " \ 'coc-fzf-preview',
   " \ 'coc-graphql',
+  " \ 'coc-omnisharp',
   " \ 'coc-pairs',
+  " \ 'coc-prettier',
+  " \ 'coc-solargraph',
   " \ 'coc-tabnine',
+  " \ 'coc-tsserver',
   " \ ]
 
 " To move to built-in LSP, need a replacement for

@@ -195,7 +195,7 @@ vmap [d c<c-r>=system("echo '<c-r>"' \| base64 \| tr -d '\n'")<cr><esc>
 vmap ]d c<c-r>=system("echo '<c-r>"' \| base64 -d \| tr -d '\n'")<cr><esc>
 
 " vim-plug
-nmap <leader>u :PlugUpgrade<cr>:PlugUpdate<cr>:CocUpdate<cr>
+nmap <leader>u :CocUpdate<cr>:PlugUpgrade<cr>:PlugUpdate<cr>
 " :CocCommand tabnine.updateTabNine<cr>
 
 nmap ' <Plug>(easymotion-overwin-f)
