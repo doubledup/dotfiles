@@ -3,6 +3,7 @@
 sudo apt install -y \
   autojump \
   clamav \
+  corectrl \
   cowsay \
   exuberant-ctags \
   ddgr \

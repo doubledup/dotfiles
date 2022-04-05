@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+flatpak install \
+  "com.discordapp.Discord" \
+  "com.dropbox.Client" \
+  "com.slack.Slack" \
+  "com.spotify.Client" \
+  "com.transmissionbt.Transmission" \
+  "io.dbeaver.DBeaverCommunity" \
+  "org.kde.okular" \
+  "org.signal.Signal" \
+  "us.zoom.Zoom"
