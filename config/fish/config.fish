@@ -6,6 +6,7 @@ set -x EDITOR 'nvim'
 bind \ck nvim
 bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'echo; git diff; commandline -f repaint'
+# bind \ca 'echo; ls -al; commandline -f repaint'
 
 function fish_greeting
   set csf (command -v cowspeakfortune)
@@ -26,8 +27,8 @@ set FZF_KEYBINDINGS 'ctrl-o:toggle-all,alt-o:toggle-preview,alt-n:preview-page-d
 set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
 set FZF_PREVIEW_WINDOW 'right:60%:wrap:hidden' #:noborder
 set -x FZF_DEFAULT_OPTS "--height 70% --bind $FZF_KEYBINDINGS --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
-set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
-set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
+set -x FZF_DEFAULT_COMMAND 'fdfind --type f --hidden --follow --exclude .git'
+set -x FZF_CTRL_T_COMMAND "fdfind --type f --hidden --follow --exclude .git . \$dir"
 
 ## git
 # The default less flags that git uses are FRX:
