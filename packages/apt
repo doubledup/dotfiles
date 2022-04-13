@@ -2,6 +2,7 @@
 
 sudo apt install -y \
   autojump \
+  bat \
   clamav \
   corectrl \
   cowsay \
