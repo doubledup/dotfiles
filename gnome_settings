@@ -11,7 +11,7 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-typ
 
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
-gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
+gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 
 # windows and workspaces
 gsettings set org.gnome.mutter dynamic-workspaces "false"

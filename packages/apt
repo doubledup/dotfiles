@@ -36,6 +36,7 @@ sudo apt install -y \
   texlive-fonts-extra \
   thefuck \
   tldr \
+  xcape \
   yamllint \
   zeal \
   zsh \
