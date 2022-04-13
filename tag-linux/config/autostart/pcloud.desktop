@@ -2,7 +2,7 @@
 Type=Application
 Version=1.0
 Name=pcloud
-Comment=pcloudstartup script
+Comment=pCloud startup script
 Exec=/home/doubledup/.local/bin/pcloud
 StartupNotify=false
 Terminal=false
