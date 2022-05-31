@@ -30,7 +30,7 @@
         {:des   "Window mode: switch to common applications"
          :rules [:window-mode
                  [:##j [:launch "Kitty"] :window-mode]
-                 [:##k [:launch "Brave"] :window-mode]
+                 [:##k [:launch "Browser"] :window-mode]
                  [:##l [:launch "Slack"] :window-mode]
                  [:##i [:launch "Signal"] :window-mode]
                  [:##m [:launch "Spotify"] :window-mode]
