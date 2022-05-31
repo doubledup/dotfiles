@@ -25,13 +25,6 @@ Bring up config
 RCRC='./rcrc' rcup -t linux
 ```
 
-### vim-plug for NeoVim
-
-```
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-```
-
 ### Building software
 
 Some handy packages when compiling things:
@@ -132,6 +125,15 @@ To add NeoVim packages to the current machine only, add them to
 `~/.config/nvim/plugs.local.vim`. vim-plug sources these at the end of the
 plug#begin call in the NeoVim init file, so a plain
 `Plug '<username>/<packagename>'` will work.
+
+### vim-plug for NeoVim
+
+```
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+Install NodeJs for CoC.
 
 ## ssh
 
