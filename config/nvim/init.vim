@@ -142,11 +142,11 @@ let mapleader = "\<space>"
 let maplocalleader = ","
 let g:user_emmet_leader_key='<c-\>'
 
-" disable arrow keys; don't be a peasant.
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
+" " disable arrow keys; don't be a peasant.
+" noremap <up> <nop>
+" noremap <down> <nop>
+" noremap <left> <nop>
+" noremap <right> <nop>
 
 " terminal mode
 " open new splits
