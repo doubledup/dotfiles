@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 
 # # get extra info for VTE-based terminal emulators
-# # (lets new termainals open with the same dir as the current one)
+# # (lets new terminals open with the same dir as the current one)
 # if [ $VTE_VERSION ]; then
 #   if [ -f /etc/profile.d/vte.sh ]; then
 #     source /etc/profile.d/vte.sh
@@ -22,6 +22,7 @@ alias fd=fdfind
 
 source ~/.asdf/asdf.fish
 
+# TODO: replace with zoxide
 [ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
 
 set fzf_key_bindings_file /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
