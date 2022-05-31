@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-set -x EDITOR 'nvim'
+# Key bindings
 
 # TODO: open files on command line in editor here
 bind \ck nvim
@@ -8,18 +8,9 @@ bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'echo; git diff; commandline -f repaint'
 # bind \ca 'echo; ls -al; commandline -f repaint'
 
-function fish_greeting
-  set csf (command -v cowspeakfortune)
-
-  if test -n "$csf"
-    cowspeakfortune
-  end
-end
-
-## thefuck
-command -v thefuck >/dev/null; and thefuck --alias | source
-
 # Environment variables
+
+set -x EDITOR 'nvim'
 
 ## fzf
 # ctrl-y:execute-silent(echo {} | pbcopy)+abort,
@@ -46,17 +37,14 @@ set -x LESS -Rix4
 # See https://github.com/dandavison/delta/issues/582
 set -x DELTA_PAGER "/usr/bin/less $LESS"
 
-# Path
-
 set -x PIPENV_VENV_IN_PROJECT 1
 
-## binaries
+## Path
+
+### binaries
 set -x PATH $PATH $HOME/.local/bin
 
-## dotnet-core
-alias dn='dotnet'
-
-## go
+### go
 set -x GOPATH "$HOME/.local/share/go"
 set -x PATH $PATH $GOPATH/bin
 
@@ -66,7 +54,11 @@ set -x PATH $PATH $HOME/.cargo/bin
 # Aliases
 
 ## builtins
+alias :q=exit
 alias sl='sl | lolcat'
+
+## dotnet-core
+alias dn='dotnet'
 
 ## emacs
 alias e='emacsclient -c'
@@ -112,13 +104,25 @@ alias c='code'
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"
 
-alias :q=exit
-
 # Functions
 
 function plz
     eval sudo $history[1]
 end
 
+function fish_greeting
+  set csf (command -v cowspeakfortune)
+
+  if test -n "$csf"
+    cowspeakfortune
+  end
+end
+
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
+
+# direnv
+direnv hook fish | source
+
+## thefuck
+command -v thefuck >/dev/null; and thefuck --alias | source
