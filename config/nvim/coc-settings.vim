@@ -34,6 +34,7 @@ let g:coc_global_extensions = [
   \ 'coc-rust-analyzer',
   \ 'coc-snippets',
   \ 'coc-sql',
+  \ 'coc-tsserver',
   \ 'coc-yaml',
   \ ]
   " \ 'coc-elixir',
@@ -44,7 +45,6 @@ let g:coc_global_extensions = [
   " \ 'coc-prettier',
   " \ 'coc-solargraph',
   " \ 'coc-tabnine',
-  " \ 'coc-tsserver',
   " \ ]
 
 " To move to built-in LSP, need a replacement for
