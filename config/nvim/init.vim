@@ -36,6 +36,8 @@ set list listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
 " trim trailing whitespace on save
 au BufWritePre * :%s/\s\+$//e
 
+let g:python3_host_prog = 'python3'
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 " new plugins to try
