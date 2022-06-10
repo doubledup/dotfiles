@@ -1,5 +1,5 @@
-nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/python.vim<cr>
-nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/python.vim<cr>
+nnoremap <leader>,f :tabnew ~/.config/nvim/ftplugin/python.vim<cr>
+nnoremap <leader>,ff :so ~/.config/nvim/ftplugin/python.vim<cr>
 
-nnoremap <localleader>x :!python %<cr>
-vnoremap <localleader>x :!python<cr>
+nnoremap <leader>x :!python %<cr>
+vnoremap <leader>x :!python<cr>

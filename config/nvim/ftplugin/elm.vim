@@ -1,9 +1,9 @@
-nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/elm.vim<cr>
-nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/elm.vim<cr>
+nnoremap <leader>,f :tabnew ~/.config/nvim/ftplugin/elm.vim<cr>
+nnoremap <leader>,ff :so ~/.config/nvim/ftplugin/elm.vim<cr>
 
-nnoremap <localleader>m :!elm make src/Main.elm --output=public/elm.js<cr>
-nnoremap <localleader>t :!elm-test<cr>
-nnoremap <localleader>tt :!elm-test %<cr>
+nnoremap <leader>m :!elm make src/Main.elm --output=public/elm.js<cr>
+nnoremap <leader>t :!elm-test<cr>
+nnoremap <leader>tt :!elm-test %<cr>
 
 " edit elm with tabs at width 4
 setlocal noet ts=4 sw=4 sts=4

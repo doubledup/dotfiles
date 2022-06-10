@@ -9,11 +9,9 @@
   "diagnostic-languageserver.filetypes": {
     "sh": "shellcheck"
   },
-  "codeLens.enable": true,
-  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
-  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "eslint.workingDirectories": [
     { "mode": "location" }
   ]

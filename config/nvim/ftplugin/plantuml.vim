@@ -1,4 +1,4 @@
-nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/plantuml.vim<cr>
-nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/plantuml.vim<cr>
+nnoremap <leader>,f :tabnew ~/.config/nvim/ftplugin/plantuml.vim<cr>
+nnoremap <leader>,ff :so ~/.config/nvim/ftplugin/plantuml.vim<cr>
 
-nnoremap <localleader>m :!plantuml %<cr>
+nnoremap <leader>m :!plantuml %<cr>

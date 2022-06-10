@@ -1,8 +1,8 @@
-nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/haskell.vim<cr>
-nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/haskell.vim<cr>
+nnoremap <leader>,f :tabnew ~/.config/nvim/ftplugin/haskell.vim<cr>
+nnoremap <leader>,ff :so ~/.config/nvim/ftplugin/haskell.vim<cr>
 
-nnoremap <localleader>x :!stack runghc --cwd "$(dirname %)" "$(basename %)"<cr>
-" vnoremap <localleader>x :!haskell<cr>
-nnoremap <localleader>m :!stack build<cr>
-" nnoremap <localleader>t :!<cr>
-" nnoremap <localleader>tt :!<c-r>%<cr>
+nnoremap <leader>x :!stack runghc --cwd "$(dirname %)" "$(basename %)"<cr>
+" vnoremap <leader>x :!haskell<cr>
+nnoremap <leader>m :!stack build<cr>
+" nnoremap <leader>t :!<cr>
+" nnoremap <leader>tt :!<c-r>%<cr>

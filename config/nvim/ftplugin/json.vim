@@ -1,5 +1,5 @@
-nnoremap <localleader>c :tabnew ~/.config/nvim/ftplugin/json.vim<cr>
-nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/json.vim<cr>
+nnoremap <leader>,f :tabnew ~/.config/nvim/ftplugin/json.vim<cr>
+nnoremap <leader>,ff :so ~/.config/nvim/ftplugin/json.vim<cr>
 
 " setlocal syntax=javascript
 " set syntax=javascript
@@ -10,6 +10,3 @@ nnoremap <localleader>cc :so ~/.config/nvim/ftplugin/json.vim<cr>
 " augroup END
 
 " au BufNewFile,BufRead,BufReadPost *.json set syntax=javascript
-
-" nnoremap <localleader>x :echo "found json"<cr>
-nnoremap <localleader>n :set syntax=javascript<cr>
