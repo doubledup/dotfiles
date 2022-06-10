@@ -53,6 +53,13 @@ set -x PATH $PATH $HOME/.cargo/bin
 
 # Aliases
 
+if type -q batcat
+  alias bat=batcat
+end
+if type -q fdfind
+  alias fd=fdfind
+end
+
 ## builtins
 alias :q=exit
 alias sl='sl | lolcat'
@@ -82,6 +89,7 @@ alias glog='git log --oneline --decorate --graph'
 
 ## kitty
 alias icat='kitty +kitten icat --align=left'
+alias kssh='kitty +kitten ssh'
 
 ## kubernetes
 alias k=kubectl
@@ -99,7 +107,7 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
 
 ## vscode
-alias c='code'
+alias co='code'
 
 ## zsh
 alias zshrc="$EDITOR ~/.zshrc"

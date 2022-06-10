@@ -14,12 +14,6 @@ alias ls='ls --color=auto'
 alias la='ls -al --color=auto'
 alias ll='ls -l --color=auto'
 
-if type -q batcat
-  alias bat=batcat
-end
-
-alias fd=fdfind
-
 source ~/.asdf/asdf.fish
 
 # TODO: replace with zoxide
