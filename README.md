@@ -9,11 +9,13 @@ zsh config you only want on your current machine, or
 
 ## Linux/Debian
 
+<!-- TODO: try out https://github.com/rbreaves/kinto -->
+
 ### packages
 
 Install packages from [packages/apt](packages/apt):
 
-```
+```sh
 ./packages/apt
 ```
 
@@ -21,7 +23,7 @@ Install packages from [packages/apt](packages/apt):
 
 Bring up config
 
-```
+```sh
 RCRC='./rcrc' rcup -t linux
 ```
 
@@ -29,25 +31,23 @@ RCRC='./rcrc' rcup -t linux
 
 Some handy packages when compiling things:
 
-```
+```sh
 ./packages/apt-deps
 ```
 
 ### Disable Bluetooth on startup
 
-Install [tlp](https://linrunner.de/tlp) and set the following config:
+Install [tlp](https://linrunner.de/tlp) and add `DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"` on a new line
 
-```
+```sh
 sudo -e /etc/tlp.conf
-___
-DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"
 ```
 
 ### Set default commands
 
 To set a default command (eg. terminal emulator):
 
-```
+```sh
 sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
 ```
 
@@ -68,32 +68,32 @@ Speed up shell animations:
 - Install [Homebrew](https://brew.sh/).
 - Install packages and set up config:
 
-```
+```sh
 brew bundle install --file packages/Brewfile
 RCRC='./rcrc' rcup -t mac
 ```
 
 ### Rosetta
 
-```
+```sh
 sudo softwareupdate --install-rosetta
 ```
 
 With x86 Homebrew installed as `ibrew`, install using the x86 brewfile:
 
-```
+```sh
 brew bundle install --file packages/Brewfile-x86
 ```
 
 ### Xcode CLI
 
-```
+```sh
 xcode-select --install
 ```
 
 ### Remove packages not in Brewfile
 
-```
+```sh
 brew bundle cleanup --force --file packages/Brewfile
 ```
 
@@ -106,7 +106,7 @@ brew bundle cleanup --force --file packages/Brewfile
 
 Disable "smart" quotes:
 
-```
+```sh
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 ```
 
@@ -128,7 +128,7 @@ plug#begin call in the NeoVim init file, so a plain
 
 ### vim-plug for NeoVim
 
-```
+```sh
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
@@ -141,7 +141,7 @@ Set up ssh keys:
 
 Zsh:
 
-```
+```sh
 ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
@@ -149,7 +149,7 @@ ssh-add ~/.ssh/id_rsa
 
 Fish:
 
-```
+```sh
 ssh-keygen -t ed25519 -C (git config --global user.email)
 eval (ssh-agent -c)
 ssh-add -K ~/.ssh/id_ed25519
@@ -163,14 +163,14 @@ profile directory. Then copy userChrome.css to your profile's "chrome" folder:
 
 Linux:
 
-```
+```sh
 mkdir ~/.mozilla/firefox/<profile name>/chrome
 cp userChrome.css ~/.mozilla/firefox/<profile name>/chrome/userChrome.css
 ```
 
 MacOS:
 
-```
+```sh
 mkdir ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome
 cp userChrome.css ~/Library/Application\ Support/Firefox/Profiles/<profile name>/chrome/userChrome.css
 ```
