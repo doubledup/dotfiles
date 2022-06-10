@@ -1,24 +1,23 @@
 {:simlayers {
- :window-mode {:key :f}
- :space-mode {:key :spacebar}}
- :templates {:launch "open -g hammerspoon://open%s"}
+         :window-mode {:key :f}
+         :bluetooth-mode {:key :b}
+         :space-mode {:key :spacebar}
+         :backtick-mode {:key :grave_accent_and_tilde}
+ }
+ :templates {:hammerspoon "open -g hammerspoon://%s"}
  :main [
+        {:des   "control-m to enter"
+         :rules [[:!Tm :return_or_enter]]}
+        {:des   "`-m to control-m, just in case 😉"
+         :rules [:backtick-mode [:##m :!Tm :backtick-mode]]}
         {:des   "caps lock: hold for control, tap for escape."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
-        {:des   "left shift: hold for shift, tap for backspace."
-         :rules [[:##left_shift :left_shift nil {:alone :return_or_enter}]]}
         {:des   "tab: hold for option, tap for tab."
          :rules [[:##tab :left_option nil {:alone :tab}]]}
-        {:des   "right command: hold for right command, tap for enter"
+        {:des   "right command: hold for right command, tap for backspace"
          :rules [[:##right_command :right_command nil {:alone :delete_or_backspace}]]}
-        ; {:des   "open bracket: hold for left option, tap for open bracket"
-        ;  :rules [[:##open_bracket :left_option nil {:alone :open_bracket}]]}
-        ; {:des   "single quote: hold for left control, tap for single quote"
-        ;  :rules [[:##quote :left_control nil {:alone :quote}]]}
         {:des   "right shift: hold for right shift, tap for caps lock"
          :rules [[:##right_shift :right_shift nil {:alone :caps_lock}]]}
-        ; {:des   "Control: hold for 'Hyper Key', tap for Caps Lock."
-        ;  :rules [[:##left_control [:left_control :left_option :left_command :left_shift] nil {:alone :caps_lock}]]}
         {:des   "Space mode: arrows, return, etc."
          :rules [:space-mode
                  [:##j :left_arrow :space-mode]
@@ -28,12 +27,18 @@
                  ]}
         {:des   "Window mode: switch to common applications"
          :rules [:window-mode
-                 [:##j [:launch "Browser"] :window-mode]
-                 [:##k [:launch "Kitty"] :window-mode]
-                 [:##l [:launch "Slack"] :window-mode]
-                 [:##i [:launch "Signal"] :window-mode]
-                 [:##m [:launch "Spotify"] :window-mode]
-                 [:##semicolon [:launch "Emacs"] :window-mode]
+                 [:##j [:hammerspoon "openBrowser"] :window-mode]
+                 [:##k [:hammerspoon "openKitty"] :window-mode]
+                 [:##l [:hammerspoon "openSlack"] :window-mode]
+                 [:##i [:hammerspoon "openSignal"] :window-mode]
+                 [:##m [:hammerspoon "openSpotify"] :window-mode]
+                 [:##semicolon [:hammerspoon "openEmacs"] :window-mode]
+                 [:##o [:hammerspoon "openCode"] :window-mode]
+                 ]}
+        {:des   "Bluetooth mode"
+         :rules [:bluetooth-mode
+                 [:##t [:hammerspoon "bluetoothToggle"] :bluetooth-mode]
+                 [:##c [:hammerspoon "bluetoothConnect"] :bluetooth-mode]
                  ]}
        ]
 }

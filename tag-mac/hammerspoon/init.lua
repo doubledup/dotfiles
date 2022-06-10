@@ -40,3 +40,15 @@ end)
 hs.urlevent.bind("openEmacs", function(eventName, params)
     hs.application.launchOrFocus("Emacs")
 end)
+
+hs.urlevent.bind("openCode", function(eventName, params)
+    hs.application.launchOrFocus("Visual Studio Code")
+end)
+
+hs.urlevent.bind("bluetoothToggle", function(eventName, params)
+    hs.execute("/opt/homebrew/bin/blueutil --power toggle")
+end)
+
+hs.urlevent.bind("bluetoothConnect", function(eventName, params)
+    hs.execute("/opt/homebrew/bin/blueutil --paired | /usr/bin/sed -E 's/^address: ([0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}).*/\\1/' | xargs /opt/homebrew/bin/blueutil --connect")
+end)
