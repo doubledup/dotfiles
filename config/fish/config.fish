@@ -12,11 +12,14 @@ bind \cg 'echo; git diff; commandline -f repaint'
 
 set -x EDITOR 'nvim'
 
+## bat
+set -x BAT_THEME 'TwoDark'
+
 ## fzf
 # ctrl-y:execute-silent(echo {} | pbcopy)+abort,
 set FZF_KEYBINDINGS 'ctrl-o:toggle-all,alt-o:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,alt-j:preview-down,alt-k:preview-up,alt-d:preview-half-page-down,alt-u:preview-half-page-up'
 set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
-set FZF_PREVIEW_WINDOW 'right:wrap' #:noborder :hidden :60%
+set FZF_PREVIEW_WINDOW 'down:wrap' #:noborder :hidden :60%
 set -x FZF_DEFAULT_OPTS "--height 70% --bind $FZF_KEYBINDINGS --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
