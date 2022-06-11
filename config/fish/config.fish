@@ -1,13 +1,5 @@
 #!/usr/bin/env fish
 
-# Key bindings
-
-# TODO: open files on command line in editor here
-bind \ck nvim
-bind \cs 'echo; git status; commandline -f repaint'
-bind \cg 'echo; git diff; commandline -f repaint'
-# bind \ca 'echo; ls -al; commandline -f repaint'
-
 # Environment variables
 
 set -x EDITOR 'nvim'
@@ -128,6 +120,16 @@ function fish_greeting
     cowspeakfortune
   end
 end
+
+# Key bindings
+# not using a fish_user_key_bindings function, since that seems to be used by fzf
+bind \cj "$EDITOR"
+bind \co 'fish_commandline_prepend $EDITOR'
+bind \eL 'echo; ls -l; commandline -f repaint'
+bind \ea 'echo; ls -a; commandline -f repaint'
+bind \eA 'echo; ls -al; commandline -f repaint'
+bind \cs 'echo; git status; commandline -f repaint'
+bind \cg 'git diff; commandline -f repaint'
 
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
