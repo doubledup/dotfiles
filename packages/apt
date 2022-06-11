@@ -8,6 +8,7 @@ sudo apt install -y \
   cowsay \
   exuberant-ctags \
   ddgr \
+  direnv \
   docker.io \
   emacs \
   espeak \
@@ -39,6 +40,7 @@ sudo apt install -y \
   xcape \
   yamllint \
   zeal \
+  zoxide \
   zsh \
   zsh-autosuggestions \
   zsh-syntax-highlighting \

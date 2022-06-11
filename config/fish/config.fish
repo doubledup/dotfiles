@@ -3,16 +3,15 @@
 # Environment variables
 
 set -x EDITOR 'nvim'
-
-## bat
 set -x BAT_THEME 'TwoDark'
+set -x PIPENV_VENV_IN_PROJECT 1
 
 ## fzf
 # ctrl-y:execute-silent(echo {} | pbcopy)+abort,
 set FZF_KEYBINDINGS 'ctrl-o:toggle-all,alt-o:toggle-preview,ctrl-d:half-page-down,ctrl-u:half-page-up,alt-j:preview-down,alt-k:preview-up,alt-d:preview-half-page-down,alt-u:preview-half-page-up'
 set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
 set FZF_PREVIEW_WINDOW 'down:wrap' #:noborder :hidden :60%
-set -x FZF_DEFAULT_OPTS "--height 70% --bind $FZF_KEYBINDINGS --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'"
+set -x FZF_DEFAULT_OPTS "--height 100% --bind $FZF_KEYBINDINGS --preview '$FZF_PREVIEW' --preview-window '$FZF_PREVIEW_WINDOW'" # --ansi
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
 
@@ -27,12 +26,9 @@ set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
 #
 # Removing these makes the behaviour of `git diff` consistent: it *always*
 # opens less and *never* leaves its output lying around in the terminal.
+# -i: ignore case in searches
+# -x4: tabs are 4 characters wide
 set -x LESS -Rix4
-
-# See https://github.com/dandavison/delta/issues/582
-set -x DELTA_PAGER "/usr/bin/less $LESS"
-
-set -x PIPENV_VENV_IN_PROJECT 1
 
 ## Path
 
@@ -57,6 +53,9 @@ end
 
 ## builtins
 alias :q=exit
+alias la='ls -al --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
 alias sl='sl | lolcat'
 
 ## dotnet-core
@@ -69,6 +68,7 @@ alias et='emacsclient -t'
 ## fish
 alias fishrc="$EDITOR ~/.config/fish/config.fish"
 
+## thefuck
 alias f=fuck
 alias fucking=sudo
 
@@ -134,8 +134,6 @@ bind \cg 'git diff; commandline -f repaint'
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
 
-# direnv
-direnv hook fish | source
-
-## thefuck
-command -v thefuck >/dev/null; and thefuck --alias | source
+[ -f (command -v zoxide) ]; and zoxide init --cmd j fish | source
+[ -f (command -v direnv) ]; and direnv hook fish | source
+[ -f (command -v thefuck) ]; and thefuck --alias | source

@@ -10,14 +10,7 @@
 #   fi
 # fi
 
-alias ls='ls --color=auto'
-alias la='ls -al --color=auto'
-alias ll='ls -l --color=auto'
-
-source ~/.asdf/asdf.fish
-
-# TODO: replace with zoxide
-[ -f /usr/share/autojump/autojump.fish ]; and source /usr/share/autojump/autojump.fish
+[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
 
 set fzf_key_bindings_file /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
 if test -e $fzf_key_bindings_file
