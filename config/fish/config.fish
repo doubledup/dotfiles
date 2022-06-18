@@ -58,6 +58,8 @@ alias ll='ls -l --color=auto'
 alias ls='ls --color=auto'
 alias sl='sl | lolcat'
 
+alias c=cargo
+
 ## dotnet-core
 alias dn='dotnet'
 
