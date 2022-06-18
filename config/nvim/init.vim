@@ -15,7 +15,7 @@ set cul
 " incrementally highlight searches
 set incsearch hlsearch
 " wrap @140 chars, highlight @80 chars
-set textwidth=140 colorcolumn=80
+set textwidth=140 colorcolumn=+0,-20,-40,-60
 " fold on indents; don't fold when opening files
 set foldmethod=indent nofoldenable
 " leave some space around the cursor when moving
