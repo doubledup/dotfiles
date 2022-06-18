@@ -2,8 +2,9 @@
 
 # Environment variables
 
-set -x EDITOR 'nvim'
 set -x BAT_THEME 'TwoDark'
+set -x EDITOR 'nvim'
+set -x GTI_SPEED 3000
 set -x PIPENV_VENV_IN_PROJECT 1
 
 ## fzf
@@ -56,7 +57,7 @@ alias :q=exit
 alias la='ls -al --color=auto'
 alias ll='ls -l --color=auto'
 alias ls='ls --color=auto'
-alias sl='sl | lolcat'
+alias sl='sl -aF | lolcat'
 
 alias c=cargo
 
@@ -83,6 +84,16 @@ alias gc='git commit -v'
 alias gco='git checkout'
 alias grb='git rebase'
 alias glog='git log --oneline --decorate --graph'
+function git_wrapper
+  if test "$argv" = "stash poop"
+    echo '💩'
+    sleep 2
+    command git stash pop
+  else
+    command git $argv
+  end
+end
+alias git=git_wrapper
 
 ## kitty
 alias icat='kitty +kitten icat --align=left'
