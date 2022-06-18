@@ -66,7 +66,7 @@ Plug 'sheerun/vim-polyglot'
 " TODO: try builtin LSP or natebosch/vim-lsc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'easymotion/vim-easymotion'
+Plug 'phaazon/hop.nvim', { 'branch': 'v1.3' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
@@ -240,8 +240,13 @@ vmap * y/<c-r>"<cr>
 " vim-plug
 nmap <leader>u :CocUpdate<cr>:PlugUpgrade<cr>:PlugUpdate<cr>
 
-nmap ' <Plug>(easymotion-overwin-f2)
-omap z <Plug>(easymotion-f)
+let g:vimsyn_embed = 'l'
+lua <<EOF
+require'hop'.setup()
+vim.api.nvim_set_keymap('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
+vim.api.nvim_set_keymap('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
+vim.api.nvim_set_keymap('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
+EOF
 
 " delimitmate
 let delimitMate_balance_matchpairs = 1
