@@ -224,6 +224,9 @@ nmap <leader>P "+P
 nmap <leader>y "+y
 vmap <leader>y "+y
 nmap <leader>Y "+Y
+nmap <leader>x "+x
+vmap <leader>x "+x
+nmap <leader>X "+X
 
 " encoding / decoding, similar to unimpaired
 nmap [44 !!base64<cr>

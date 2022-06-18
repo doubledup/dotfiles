@@ -154,7 +154,7 @@ let g:coc_snippet_prev = '<c-k>'
 " TODO: show diagnostics inline
 nnoremap <silent><nowait> <leader>d :<c-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <leader>x :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <leader>t :<c-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <leader>c :<c-u>CocList commands<cr>
 " Show symbol outline for current document.
