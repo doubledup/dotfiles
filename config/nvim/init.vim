@@ -25,13 +25,15 @@ set modelines=0 nomodeline
 " always show file tabs
 set showtabline=2
 
-" use 4-space indentation by default, leaving ts at default of 8
-set et sts=4 sw=4
+" use 4-space indentation by default
+set et ts=4 sw=4
 " automatically indent when adding a new line
 set autoindent smartindent
 
 " show extra whitespace
 set list listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
+" trim trailing whitespace on save
+au BufWritePre * :%s/\s\+$//e
 
 " include hyphens in words
 set iskeyword=@,48-57,_,192-255,-
@@ -108,17 +110,17 @@ Plug 'tpope/vim-fugitive'
 " Plug 'kien/ctrlp.vim'
 " Plug 'dbeecham/ctrlp-commandpalette.vim'
 function! UpdateRemotePlugins(...)
-  " Needed to refresh runtime files
-  let &rtp=&rtp
-  UpdateRemotePlugins
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
 endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 if !empty(glob("~/.config/nvim/plugs.vim.os"))
-  source ~/.config/nvim/plugs.vim.os
+    source ~/.config/nvim/plugs.vim.os
 endif
 if !empty(glob("~/.config/nvim/plugs.vim.local"))
-  source ~/.config/nvim/plugs.vim.local
+    source ~/.config/nvim/plugs.vim.local
 endif
 
 " here vim-plug runs both
@@ -153,7 +155,7 @@ let g:lightline = {
       \ }
 
 function! LightlineFiletype()
-  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
 let NERDTreeWinSize=60
@@ -341,11 +343,11 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
       \ }))
 
 if filereadable(expand("~/.config/nvim/coc-settings.vim"))
-  source ~/.config/nvim/coc-settings.vim
+    source ~/.config/nvim/coc-settings.vim
 endif
 if filereadable(expand("~/.config/nvim/init.os.vim"))
-  source ~/.config/nvim/init.os.vim
+    source ~/.config/nvim/init.os.vim
 endif
 if filereadable(expand("~/.config/nvim/init.local.vim"))
-  source ~/.config/nvim/init.local.vim
+    source ~/.config/nvim/init.local.vim
 endif

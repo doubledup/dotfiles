@@ -22,32 +22,32 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 let g:coc_disable_transparent_cursor = 1
 
 augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder.
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
 let g:coc_global_extensions = [
-  \ 'coc-diagnostic',
-  \ 'coc-snippets',
-  \ 'coc-elixir',
-  \ 'coc-eslint',
-  \ 'coc-fzf-preview',
-  \ 'coc-graphql',
-  \ 'coc-html',
-  \ 'coc-json',
-  \ 'coc-omnisharp',
-  \ 'coc-prettier',
-  \ 'coc-pyright',
-  \ 'coc-rust-analyzer',
-  \ 'coc-solargraph',
-  \ 'coc-sql',
-  \ 'coc-tsserver',
-  \ 'coc-yaml',
-  \ ]
-  " \ 'coc-tabnine',
+    \ 'coc-diagnostic',
+    \ 'coc-snippets',
+    \ 'coc-elixir',
+    \ 'coc-eslint',
+    \ 'coc-fzf-preview',
+    \ 'coc-graphql',
+    \ 'coc-html',
+    \ 'coc-json',
+    \ 'coc-omnisharp',
+    \ 'coc-prettier',
+    \ 'coc-pyright',
+    \ 'coc-rust-analyzer',
+    \ 'coc-solargraph',
+    \ 'coc-sql',
+    \ 'coc-tsserver',
+    \ 'coc-yaml',
+    \ ]
+    " \ 'coc-tabnine',
 
 " To move to built-in LSP, need a replacement for
 " - linters
@@ -77,13 +77,13 @@ nmap <silent> gr <Plug>(coc-references)
 " use K to show documentation
 nnoremap <silent> K :call <sid>show_documentation()<cr>
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
 endfunction
 
 " Refactoring.
@@ -124,8 +124,8 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " TODO: also use tab to navigate snippets
 " let g:coc_snippet_next = '<tab>'
