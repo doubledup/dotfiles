@@ -46,22 +46,21 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " new plugins to try
 " Plug 'ervandew/supertab'
-" Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'janko-m/vim-test'
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'ggandor/lightspeed.nvim'
 " Plug 'tpope/vim-sensible'
 " TODO: add indent object to wellle/targets.vim?
 " Plug 'michaeljsmith/vim-indent-object'
-" Plug 'tpope/vim-sleuth'
-" Plug 'janko-m/vim-test'
 " Plug 'kannokanno/previm'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " enable as needed
 " Plug 'tpope/vim-dadbod'
 " Plug 'lervag/vimtex'
 " let g:tex_flavor = 'latex'
 
-" TODO: treesitter
 Plug 'sheerun/vim-polyglot'
 " TODO: try builtin LSP or natebosch/vim-lsc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
