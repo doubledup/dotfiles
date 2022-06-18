@@ -122,6 +122,14 @@ endif
 " `syntax enable`
 call plug#end()
 
+" TODO: go through https://www.youtube.com/watch?v=434tljD-5C8
+nmap <leader>Q :bufdo bdelete<cr>
+map gf :edit <cfile><cr>
+imap ;; <esc>A;<esc>
+imap ,, <esc>A,<esc>
+" nmap <c-e> 5<c-e>
+" nmap <c-y> 5<c-y>
+
 set background=dark
 set notermguicolors
 colorscheme custom-scheme
