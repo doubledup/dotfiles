@@ -78,17 +78,12 @@ Plug 'wellle/targets.vim'
 Plug 'mhinz/vim-signify'
 Plug 'andrewradev/linediff.vim'
 
-" TODO: Also try these for OneDark support
-" joshdick/onedark.vim
-" navarasu/onedark.nvim
-Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ap/vim-css-color'
-
 " included for folding
 Plug 'preservim/vim-markdown'
 
@@ -129,8 +124,8 @@ endif
 call plug#end()
 
 set background=dark
-set termguicolors
-colorscheme base16-onedark
+set notermguicolors
+colorscheme custom-scheme
 
 set noshowmode
 let g:lightline = {

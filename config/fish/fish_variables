@@ -3,12 +3,12 @@
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:white
 SETUVAR fish_color_cancel:\x2dr
-SETUVAR fish_color_command:brgreen
+SETUVAR fish_color_command:magenta
 SETUVAR fish_color_comment:brmagenta
 SETUVAR fish_color_cwd:green
 SETUVAR fish_color_cwd_root:red
 SETUVAR fish_color_end:brmagenta
-SETUVAR fish_color_error:brred
+SETUVAR fish_color_error:red
 SETUVAR fish_color_escape:brcyan
 SETUVAR fish_color_history_current:\x2d\x2dbold
 SETUVAR fish_color_host:normal
