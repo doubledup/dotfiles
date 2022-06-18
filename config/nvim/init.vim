@@ -75,6 +75,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
+Plug 'mhinz/vim-signify'
+Plug 'andrewradev/linediff.vim'
 
 " TODO: Also try these for OneDark support
 " joshdick/onedark.vim
@@ -98,9 +100,6 @@ Plug 'raimondi/delimitmate'
 " TODO: compare commentary to tomtom/tcomment_vim
 Plug 'tpope/vim-commentary'
 
-" TODO: compare gitgutter to mhinz/vim-signify
-Plug 'airblade/vim-gitgutter'
-Plug 'andrewradev/linediff.vim'
 " " TODO: compare blamer to f-person/git-blame.nvim
 " Plug 'APZelos/blamer.nvim'
 " TODO: compare fugitive to jreybert/vimagit
@@ -258,17 +257,22 @@ let delimitMate_jump_expansion = 1
 let delimitMate_excluded_regions = "String"
 let delimitMate_excluded_ft = ""
 
-" fugitive
-" status
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" fugitive/signify
+set updatetime=100
 nmap <leader>g<space> :Git<space>
 nmap <leader>gs :Git<cr>
 nmap <leader>gd :Gvdiffsplit<cr>
 nmap <leader>gb :Git blame<cr>
-" inline preview
-nmap <leader>gi <Plug>(GitGutterPreviewHunk)
-" add hunk
-nmap <leader>ga <Plug>(GitGutterStageHunk)
-nmap <leader>gu <Plug>(GitGutterUndoHunk)
+nmap <leader>gi :SignifyHunkDiff<cr>
+omap id <plug>(signify-motion-inner-pending)
+xmap id <plug>(signify-motion-inner-visual)
+omap ad <plug>(signify-motion-outer-pending)
+xmap ad <plug>(signify-motion-outer-visual)
+" add/undo hunk under the cursor hack
+nmap <leader>ga :Gdiffsplit<cr>do:wq<cr>
+nmap <leader>gu :Gdiffsplit<cr>dp:wq<cr>
 nmap <leader>gm :tab Git commit -v<cr>
 nmap <leader>gz :Git stash<space>
 nmap <leader>gf :Git fetch<cr>
@@ -296,11 +300,6 @@ vmap <leader>/ y:BLines! <c-r>"<cr>
 nmap <leader>* :BLines! <c-r><c-w><cr>
 vmap <leader>* y:BLines! <c-r>"<cr>
 nmap <leader>: :Commands!<cr>
-
-" gitgutter
-" let g:gitgutter_map_keys = 0
-nmap [c <Plug>(GitGutterPrevHunk)
-nmap ]c <Plug>(GitGutterNextHunk)
 
 " " LineDiff
 " vmap <leader>l :LineDiff<cr>
