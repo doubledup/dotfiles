@@ -70,26 +70,10 @@ Speed up shell animations:
 - Install packages and set up config:
 
 ```sh
+sudo softwareupdate --install-rosetta
+xcode-select --install
 brew bundle install --file packages/Brewfile
 RCRC='./rcrc' rcup -t mac
-```
-
-### Rosetta
-
-```sh
-sudo softwareupdate --install-rosetta
-```
-
-With x86 Homebrew installed as `ibrew`, install using the x86 brewfile:
-
-```sh
-brew bundle install --file packages/Brewfile-x86
-```
-
-### Xcode CLI
-
-```sh
-xcode-select --install
 ```
 
 ### Remove packages not in Brewfile

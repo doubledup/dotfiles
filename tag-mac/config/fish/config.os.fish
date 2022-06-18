@@ -2,12 +2,8 @@
 
 # ARM Homebrew binaries
 [ -f /opt/homebrew/bin/brew ]; and eval (/opt/homebrew/bin/brew shellenv)
-# Rosetta/x86 Homebrew
-set -x PATH $PATH '/usr/local/bin'
-alias ibrew='arch -x86_64 /usr/local/bin/brew'
 
 [ -f (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish ]; and source (/opt/homebrew/bin/brew --prefix asdf)/asdf.fish
-# [ -f (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish ]; and source (arch -x86_64 /usr/local/bin/brew --prefix asdf)/asdf.fish
 
 set -x GOKU_EDN_CONFIG_FILE "$HOME/.config/goku.edn"
 
