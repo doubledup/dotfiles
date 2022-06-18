@@ -10,6 +10,7 @@ zsh config you only want on your current machine, or
 ## Linux/Debian
 
 <!-- TODO: try out https://github.com/rbreaves/kinto -->
+<!-- TODO: use treesitter for all syntax highlighting -->
 
 ### packages
 
