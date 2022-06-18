@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# Some handy packages when compiling
+
 sudo apt install -y --no-install-recommends \
   build-essential \
   curl \

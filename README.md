@@ -14,39 +14,23 @@ zsh config you only want on your current machine, or
 
 ### packages
 
-Install packages from [packages/apt](packages/apt):
-
-```sh
-./packages/apt
-```
-
-### rcm
-
-Bring up config
-
-```sh
-RCRC='./rcrc' rcup -t linux
-```
-
-### Building software
-
-Some handy packages when compiling things:
+Install packages and set up config:
 
 ```sh
 ./packages/apt-deps
+./packages/apt
+RCRC='./rcrc' rcup -t linux
 ```
 
 ### Disable Bluetooth on startup
 
-Install [tlp](https://linrunner.de/tlp) and add `DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"` on a new line
+Install [tlp](https://linrunner.de/tlp). Then set `DEVICES_TO_DISABLE_ON_STARTUP`:
 
 ```sh
-sudo -e /etc/tlp.conf
+echo 'DEVICES_TO_DISABLE_ON_STARTUP="bluetooth wwan"' | sudo tee -a /etc/tlp.conf >/dev/null
 ```
 
-### Set default commands
-
-To set a default command (eg. terminal emulator):
+### Set default commands (eg. terminal emulator)
 
 ```sh
 sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
@@ -126,7 +110,7 @@ Set up ssh keys:
 
 Zsh:
 
-```sh
+```zsh
 ssh-keygen -t rsa -b 4096 -C "$(git config --global user.email)"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
@@ -134,7 +118,7 @@ ssh-add ~/.ssh/id_rsa
 
 Fish:
 
-```sh
+```fish
 ssh-keygen -t ed25519 -C (git config --global user.email)
 eval (ssh-agent -c)
 ssh-add -K ~/.ssh/id_ed25519
