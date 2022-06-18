@@ -218,11 +218,26 @@ nmap <leader>y "+y
 vmap <leader>y "+y
 nmap <leader>Y "+Y
 
-" base64 encoding
-nmap [dd !!base64<cr>
-nmap ]dd !!base64 -d<cr>
-vmap [d c<c-r>=system("echo '<c-r>"' \| base64 \| tr -d '\n'")<cr><esc>
-vmap ]d c<c-r>=system("echo '<c-r>"' \| base64 -d \| tr -d '\n'")<cr><esc>
+" encoding / decoding, similar to unimpaired
+nmap [44 !!base64<cr>
+nmap ]44 !!base64 -d<cr>
+vmap [4 "4c<c-r>=system("echo '<c-r>4' \| base64 \| tr -d '\n'")<cr><esc>
+vmap ]4 "4c<c-r>=system("echo '<c-r>4' \| base64 -d \| tr -d '\n'")<cr><esc>
+
+nmap [66 !!sed -E 's/(.*)/obase=16;\1/' \| bc<cr>
+nmap ]66 !!sed -E 's/(.*)/ibase=16;\1/' \| bc<cr>
+vmap [6 "6c<c-r>=system("echo 'obase=16;<c-r>6' \| bc \| tr -d '\n'")<cr><esc>
+vmap ]6 "6c<c-r>=system("echo 'ibase=16;<c-r>6' \| bc \| tr -d '\n'")<cr><esc>
+
+nmap [88 !!sed -E 's/(.*)/obase=8;\1/' \| bc<cr>
+nmap ]88 !!sed -E 's/(.*)/ibase=8;\1/' \| bc<cr>
+vmap [8 "8c<c-r>=system("echo 'obase=8;<c-r>8' \| bc \| tr -d '\n'")<cr><esc>
+vmap ]8 "8c<c-r>=system("echo 'ibase=8;<c-r>8' \| bc \| tr -d '\n'")<cr><esc>
+
+nmap [22 !!sed -E 's/(.*)/obase=2;\1/' \| bc<cr>
+nmap ]22 !!sed -E 's/(.*)/ibase=2;\1/' \| bc<cr>
+vmap [2 "2c<c-r>=system("echo 'obase=2;<c-r>2' \| bc \| tr -d '\n'")<cr><esc>
+vmap ]2 "2c<c-r>=system("echo 'ibase=2;<c-r>2' \| bc \| tr -d '\n'")<cr><esc>
 
 " split line before/after cursor
 nmap [<cr> i<cr><esc>
