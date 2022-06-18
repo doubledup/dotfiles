@@ -152,9 +152,6 @@ function! LightlineFiletype()
     return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
-let NERDTreeWinSize=60
-let NERDTreeShowHidden=1
-
 let mapleader = "\<space>"
 let g:user_emmet_leader_key='<c-\>'
 
@@ -309,8 +306,10 @@ let g:vim_markdown_folding_level = 2
 let g:vim_markdown_no_default_key_mappings = 1
 
 " NERDTree
-nmap \\ :NERDTreeToggle<cr>
-nmap \. :NERDTreeFind<cr>
+let NERDTreeWinSize=45
+let NERDTreeShowHidden=1
+nmap \ :NERDTreeToggle<cr>
+nmap <leader>\ :NERDTreeFind<cr>
 
 " wilder
 set nowildmenu
