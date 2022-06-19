@@ -76,6 +76,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 Plug 'mhinz/vim-signify'
 Plug 'andrewradev/linediff.vim'
+Plug 'pbrisbin/vim-mkdir'
 
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
