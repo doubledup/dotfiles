@@ -110,11 +110,11 @@ function! UpdateRemotePlugins(...)
 endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
-if !empty(glob("~/.config/nvim/plugs.vim.os"))
-    source ~/.config/nvim/plugs.vim.os
+if !empty(glob("~/.config/nvim/plugs.os.vim"))
+    source ~/.config/nvim/plugs.os.vim
 endif
-if !empty(glob("~/.config/nvim/plugs.vim.local"))
-    source ~/.config/nvim/plugs.vim.local
+if !empty(glob("~/.config/nvim/plugs.local.vim"))
+    source ~/.config/nvim/plugs.local.vim
 endif
 
 " here vim-plug runs both
