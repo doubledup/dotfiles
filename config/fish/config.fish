@@ -144,6 +144,8 @@ bind \eA 'echo; ls -al; commandline -f repaint'
 bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'git diff; commandline -f repaint'
 
+[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
+
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
 

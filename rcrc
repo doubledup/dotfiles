@@ -1,1 +1,1 @@
-EXCLUDES='gnome_settings LICENSE packages/* README.md userChrome.css'
+EXCLUDES='gnome_settings install LICENSE packages README.md userChrome.css'

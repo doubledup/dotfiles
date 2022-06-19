@@ -40,7 +40,7 @@ set iskeyword=@,48-57,_,192-255,-
 
 " set encoding=utf8
 
-let g:python3_host_prog = 'python3'
+let g:python3_host_prog = '~/.asdf/shims/python'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
