@@ -63,8 +63,7 @@ set_up_ssh () {
     rm ssh_key_name
     passphrase="$(bw generate -ulns --length 64)"
 
-    bw_login_output="$(bw login)"
-    if [ ! "$?" -eq 0 ]; then echo -e '\x1b[0;31mbw login failed. Exiting.\x1b[0m'; exit 1; fi
+    if  bw_login_output="$(bw login)" ; then echo -e '\x1b[0;31mbw login failed. Exiting.\x1b[0m'; exit 1; fi
     session_key="$(echo "$bw_login_output" | grep '$ export BW_SESSION="' | sed -E 's/.*"(.*)".*/\1/')"
 
     login_json="$(bw get template item.login --session "$session_key"  | jq ".username=\"$ssh_key_name\" | .password=\"$passphrase\" | .totp=null")"
@@ -102,20 +101,18 @@ shared_setup () {
 os_name="$(uname -s)"
 echo "Setting up $os_name..."
 
-if [ $os_name = "Darwin" ]; then
+if [ "$os_name" = "Darwin" ]; then
     if [ ! "$(xcode-select --version)" = "" ]; then
         echo -e '\x1b[0;32mXCode is already installed.\x1b[0m'
     else
-        xcode-select --install
-        if [ "$?" -eq 0 ]; then
+        if xcode-select --install; then
             echo -e '\x1b[0;32mInstalled XCode.\x1b[0m'
         else
             echo -e '\x1b[0;31mFailed to install XCode. Exiting.\x1b[0m' && exit 1
         fi
     fi
 
-    sudo softwareupdate --install-rosetta --agree-to-license
-    if [ "$?" -eq 0 ]; then
+    if sudo softwareupdate --install-rosetta --agree-to-license; then
         echo -e '\x1b[0;32mInstalled Rosetta.\x1b[0m'
     else
         echo -e '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m' && exit 1
@@ -142,7 +139,7 @@ if [ $os_name = "Darwin" ]; then
     fi
 
     shared_setup
-elif [ os_name = "Linux" ]; then
+elif [ "$os_name" = "Linux" ]; then
     echo '\x1b[0;31mUpdate the install script for Linux!\x1b[0m'
 #     TODO: install software
 #     RCRC="$HOME"/.dotfiles/rcrc rcup -d ~/.dotfiles -t linux
