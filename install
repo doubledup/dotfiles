@@ -117,6 +117,8 @@ if [ "$os_name" = "Darwin" ]; then
     else
         echo -e '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m' && exit 1
     fi
+    sudo softwareupdate -ir
+    echo -e '\x1b[0;32mAttempted to install recommended updates.\x1b[0m'
 
     if [ ! -d /opt/homebrew/ ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
