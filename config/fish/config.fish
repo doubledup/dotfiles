@@ -54,9 +54,9 @@ end
 
 ## builtins
 alias :q=exit
-alias la='ls -al --color=auto'
-alias ll='ls -l --color=auto'
-alias ls='ls --color=auto'
+alias la='ls -alh --color=auto'
+alias ll='ls -lh --color=auto'
+alias ls='ls -h --color=auto'
 alias sl='sl -aF | lolcat'
 
 alias c=cargo
