@@ -130,11 +130,10 @@ if [ "$os_name" = "Darwin" ]; then
     # disable "smart" quotes:
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-    profile="$(ls "$HOME"/Library/Application\ Support/Firefox/Profiles/ | grep 'default-release')"
-    chromedir="$HOME/Library/Application\ Support/Firefox/Profiles/$profile/chrome"
+    chromedir="$(echo "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release/chrome)"
     mkdir -p chromedir
     if [ ! -f "$chromedir/userChrome.css" ]; then
-        ln -s "$chromedir/userChrome.css" userChrome.css
+        ln -s userChrome.css "$chromedir/userChrome.css"
         echo -e '\x1b[0;32mFirefox styling applied.\x1b[0m'
     else
         echo -e '\x1b[0;33mFirefox styling already exists.\x1b[0m'
