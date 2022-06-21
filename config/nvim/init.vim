@@ -261,7 +261,12 @@ vmap * y/<c-r>"<cr>
 " vmap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
 
 " vim-plug
-nmap <leader>u :CocUpdate<cr>:PlugUpgrade<cr>:PlugUpdate<cr>
+func! UpdateAll ()
+    exec 'PlugUpgrade'
+    exec 'PlugUpdate'
+    exec 'CocUpdate'
+endfunc
+nmap <leader>u :call UpdateAll()<cr>
 
 let g:vimsyn_embed = 'l'
 lua <<EOF

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+brew upgrade
+rustup update
+asdf plugin update --all
+nvim -c 'call UpdateAll()'
+sudo softwareupdate -ir
