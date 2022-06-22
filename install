@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 change_shell () {
     if [ "$(echo "$SHELL" | xargs basename)" != "fish" ]; then
@@ -25,12 +25,12 @@ set_up_asdf () {
         echo "$plugin" | sed -E 's/^(.*) .*/\1/' | xargs asdf plugin add
     done < "$HOME"/.tool-versions
 
-    cd "$HOME" || { echo -e '\x1b[0;31mCould not go to home directory. Exiting.\x1b[0m'; exit 1; }
+    cd "$HOME" || { echo '\x1b[0;31mCould not go to home directory. Exiting.\x1b[0m'; exit 1; }
     asdf install
     # run a second time because node-build doesn't alias its lts version the
     # first time you try to install
     asdf install
-    cd - >/dev/null || { echo -e '\x1b[0;31mCould not return to dotfiles directory. Exiting.\x1b[0m'; exit 1; }
+    cd - >/dev/null || { echo '\x1b[0;31mCould not return to dotfiles directory. Exiting.\x1b[0m'; exit 1; }
 
     python -m pip install --upgrade pip
     npm install -g npm
@@ -41,9 +41,9 @@ set_up_vim () {
     if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]; then
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        echo -e '\x1b[0;32mVim-plug has been installed.\x1b[0m'
+        echo '\x1b[0;32mVim-plug has been installed.\x1b[0m'
     else
-        echo -e '\x1b[0;33mVim-plug is already installed.\x1b[0m'
+        echo '\x1b[0;33mVim-plug is already installed.\x1b[0m'
     fi
 
     python -m pip install pynvim
@@ -53,49 +53,10 @@ set_up_vim () {
     echo 'Wait for CoC to install its plugins before exiting.' | nvim -R -
 }
 
-set_up_ssh () {
-    echo 'Replace this line with an ssh key name.' > ssh_key_name
-    vi ssh_key_name
-    current_date="$(date "+%Y-%m-%d")"
-    # LC_ALL=C is necessary for Mac's tr to accept bytes
-    random_extension="$(LC_ALL=C tr -dc '[:alnum:]' < /dev/urandom | head -c 4; echo '')"
-    ssh_key_name="$(cat ssh_key_name)""_$current_date""_$random_extension"
-    rm ssh_key_name
-    passphrase="$(bw generate -ulns --length 64)"
-
-    if  bw_login_output="$(bw login)" ; then echo -e '\x1b[0;31mbw login failed. Exiting.\x1b[0m'; exit 1; fi
-    session_key="$(echo "$bw_login_output" | grep '$ export BW_SESSION="' | sed -E 's/.*"(.*)".*/\1/')"
-
-    login_json="$(bw get template item.login --session "$session_key"  | jq ".username=\"$ssh_key_name\" | .password=\"$passphrase\" | .totp=null")"
-    bw get template item --session "$session_key" | \
-        jq ".name=\"ssh key $ssh_key_name\" | .login=$login_json | .notes=\"\"" | \
-        bw encode | \
-        bw create item --session "$session_key"
-    if [ "$?" -eq 0 ]; then
-        echo -e '\x1b[0;32mssh key passphrase saved.\x1b[0m'
-    else
-        echo -e '\x1b[0;31mssh key passphrase failed to save. Exiting.\x1b[0m'
-        exit 1
-    fi
-    bw logout
-
-    ssh-keygen \
-        -t ed25519 \
-        -N "$passphrase" \
-        -C "26876072+doubledup@users.noreply.github.com" \
-        -f "$HOME"/.ssh/"$ssh_key_name"
-
-    # log in to github cli to add public key
-    # ideally the path to the key would go here and it'd reuse the key's name
-    gh auth login --git-protocol ssh -h github.com
-    gh auth logout
-}
-
 shared_setup () {
     change_shell
     set_up_asdf
     set_up_vim
-    set_up_ssh
 }
 
 os_name="$(uname -s)"
@@ -103,40 +64,40 @@ echo "Setting up $os_name..."
 
 if [ "$os_name" = "Darwin" ]; then
     if [ ! "$(xcode-select --version)" = "" ]; then
-        echo -e '\x1b[0;32mXCode is already installed.\x1b[0m'
+        echo '\x1b[0;32mXCode is already installed.\x1b[0m'
     else
         if xcode-select --install; then
-            echo -e '\x1b[0;32mInstalled XCode.\x1b[0m'
+            echo '\x1b[0;32mInstalled XCode.\x1b[0m'
         else
-            echo -e '\x1b[0;31mFailed to install XCode. Exiting.\x1b[0m' && exit 1
+            echo '\x1b[0;31mFailed to install XCode. Exiting.\x1b[0m' && exit 1
         fi
     fi
 
     if sudo softwareupdate --install-rosetta --agree-to-license; then
-        echo -e '\x1b[0;32mInstalled Rosetta.\x1b[0m'
+        echo '\x1b[0;32mInstalled Rosetta.\x1b[0m'
     else
-        echo -e '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m' && exit 1
+        echo '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m' && exit 1
     fi
     sudo softwareupdate -ir
-    echo -e '\x1b[0;32mAttempted to install recommended updates.\x1b[0m'
+    echo '\x1b[0;32mAttempted to install recommended updates.\x1b[0m'
 
     if [ ! -d /opt/homebrew/ ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    brew bundle install --file packages/Brewfile
+    brew bundle install --file Brewfile
 
-    RCRC="$HOME"/.dotfiles/rcrc rcup -d ~/.dotfiles -t mac
+    RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
-    # disable "smart" quotes:
+    # disable "smart" quotes
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
     chromedir="$(echo "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release/chrome)"
     mkdir -p chromedir
     if [ ! -f "$chromedir/userChrome.css" ]; then
         ln -s "$HOME"/.dotfiles/userChrome.css "$chromedir"/userChrome.css
-        echo -e '\x1b[0;32mFirefox styling applied.\x1b[0m'
+        echo '\x1b[0;32mFirefox styling applied.\x1b[0m'
     else
-        echo -e '\x1b[0;33mFirefox styling already exists.\x1b[0m'
+        echo '\x1b[0;33mFirefox styling already exists.\x1b[0m'
     fi
 
     shared_setup
@@ -148,7 +109,7 @@ elif [ "$os_name" = "Linux" ]; then
 #     TODO: Firefox styling
 #     shared_setup
 else
-    echo -e "\x1b[0;31mNo installation set up for $os_name yet\x1b[0m"
+    echo "\x1b[0;31mNo installation set up for $os_name yet\x1b[0m"
 fi
 
 echo 'Setup complete!'
