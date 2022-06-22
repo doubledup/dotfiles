@@ -1,5 +1,9 @@
 #!/usr/bin/env fish
 
+if [ -f ~/.local/share/fish/vendor_conf.d/nix.fish ]
+  source ~/.local/share/fish/vendor_conf.d/nix.fish
+end
+
 # Environment variables
 
 set -x BAT_THEME 'TwoDark'
