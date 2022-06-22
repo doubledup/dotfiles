@@ -69,7 +69,11 @@ alias e='emacsclient -c'
 alias et='emacsclient -t'
 
 ## fish
-alias fishrc="$EDITOR ~/.config/fish/config.fish"
+function fishrc
+  cd ~/.dotfiles
+  $EDITOR config/fish/config.fish
+  cd -
+end
 
 ## thefuck
 alias f=fuck
@@ -111,14 +115,21 @@ alias nv="$EDITOR"
 alias vn="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
-alias vimrc="$EDITOR ~/.vimrc"
-alias nvimrc="$EDITOR ~/.config/nvim/init.vim"
+function nvimrc
+  cd ~/.dotfiles
+  $EDITOR config/nvim/init.vim
+  cd -
+end
 
 ## vscode
 alias co='code'
 
 ## zsh
-alias zshrc="$EDITOR ~/.zshrc"
+function zshrc
+  cd ~/.dotfiles
+  $EDITOR zshrc
+  cd -
+end
 
 # Functions
 
@@ -137,6 +148,7 @@ end
 # Key bindings
 # not using a fish_user_key_bindings function, since that seems to be used by fzf
 bind \cj "$EDITOR"
+bind \e, fishrc
 bind \co 'fish_commandline_prepend $EDITOR'
 bind \el 'echo; exa; commandline -f repaint'
 bind \eL 'echo; exa -l; commandline -f repaint'
