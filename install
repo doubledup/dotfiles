@@ -133,7 +133,7 @@ if [ "$os_name" = "Darwin" ]; then
     chromedir="$(echo "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release/chrome)"
     mkdir -p chromedir
     if [ ! -f "$chromedir/userChrome.css" ]; then
-        ln -s userChrome.css "$chromedir/userChrome.css"
+        ln -s "$HOME"/.dotfiles/userChrome.css "$chromedir"/userChrome.css
         echo -e '\x1b[0;32mFirefox styling applied.\x1b[0m'
     else
         echo -e '\x1b[0;33mFirefox styling already exists.\x1b[0m'
