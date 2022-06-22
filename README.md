@@ -2,9 +2,7 @@
 
 Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 
-## Usage
-
-For Linux:
+## Setup
 
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
@@ -12,18 +10,18 @@ cd ~/.dotfiles
 ./install
 ```
 
-For Mac:
-
-```sh
-git clone https://github.com/doubledup/dotfiles ~/.dotfiles
-cd ~/.dotfiles
-./install
-```
+[`mksshkey`](local/bin/mksshkey) will create an ssh key. To add it to Github,
+login via the CLI with `gh auth login --git-protocol ssh -h github.com`.
 
 For machine-local kitty, fish and neovim config, add '.local' before the file
 extension and save it in the same place, eg. use
-`~/.config/kitty/kitty.local.conf` for kitty config you only want on your current
-machine, or `~/.config/fish/config.local.fish` for NeoVim config.
+`~/.config/kitty/kitty.local.conf` for kitty config you only want on your
+current machine, or `~/.config/fish/config.local.fish` for NeoVim config.
+
+### Firefox
+
+To enable the custom stylesheet, open the about:config page and set
+`toolkit.legacyUserProfileCustomizations.stylesheets` to true.
 
 ## Linux/Debian
 
@@ -79,8 +77,3 @@ After installing Docker, add yourself to the docker group with
 ```sh
 brew bundle cleanup --force --file packages/Brewfile
 ```
-
-## Firefox
-
-To enable the custom stylesheet, open the about:config page and set
-`toolkit.legacyUserProfileCustomizations.stylesheets` to true.
