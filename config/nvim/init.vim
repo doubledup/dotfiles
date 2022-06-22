@@ -335,6 +335,8 @@ nmap <leader>: :Commands!<cr>
 " vim-markdown
 let g:vim_markdown_folding_level = 2
 let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_toc_autofit = 1
+autocmd BufEnter *{.md,.mdx} set wrap
 
 " NERDTree
 let NERDTreeWinSize=45
