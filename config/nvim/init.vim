@@ -51,10 +51,12 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'ggandor/lightspeed.nvim'
 " Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-vinegar'
 " TODO: add indent object to wellle/targets.vim?
 " Plug 'michaeljsmith/vim-indent-object'
 " Plug 'kannokanno/previm'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'powerman/vim-plugin-AnsiEsc'
 
 " enable as needed
 " Plug 'tpope/vim-dadbod'
