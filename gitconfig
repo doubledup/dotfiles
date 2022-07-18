@@ -11,6 +11,7 @@
 	enabled = false
 [diff]
 	tool = nvim -d
+	algorithm = histogram
 [color]
 	ui = auto
 [github]
