@@ -20,8 +20,12 @@ current machine, or `~/.config/fish/config.local.fish` for NeoVim config.
 
 ### Firefox
 
-To enable the custom stylesheet, open the about:config page and set
-`toolkit.legacyUserProfileCustomizations.stylesheets` to true.
+In the `about:config` page:
+- To enable the custom stylesheet, set
+  `toolkit.legacyUserProfileCustomizations.stylesheets` to true.
+- To disable loading tabs on demand, set
+  `browser.sessionstore.restore_on_demandbrowser.sessionstore.restore_on_demand`
+  to true
 
 ## Linux/Debian
 
