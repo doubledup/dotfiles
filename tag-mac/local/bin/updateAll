@@ -1,7 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 brew upgrade
+brew bundle dump --global --force
 rustup update
 asdf plugin update --all
+asdf update
+tldr --update
 nvim -c 'call UpdateAll()'
+mas upgrade
 sudo softwareupdate -ir
