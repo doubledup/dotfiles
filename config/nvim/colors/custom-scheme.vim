@@ -197,7 +197,7 @@ hi! link CocSem_variable          Identifier
 
 highlight CocHighlightRead  ctermfg=02 ctermbg=18
 highlight CocHighlightText  ctermfg=03 ctermbg=18
-highlight CocHighlightWrite  ctermfg=01 ctermbg=18
+highlight CocHighlightWrite  ctermfg=10 ctermbg=18
 highlight CocListMode  ctermfg=18 ctermbg=02 cterm=bold
 highlight CocListPath  ctermfg=18 ctermbg=02
 highlight CocSessionsName ctermfg=07
