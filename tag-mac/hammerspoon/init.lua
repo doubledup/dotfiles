@@ -22,7 +22,7 @@ hs.urlevent.bind("openKitty", function(eventName, params)
 end)
 
 hs.urlevent.bind("openBrowser", function(eventName, params)
-    hs.application.launchOrFocus("Firefox")
+    hs.application.launchOrFocus("Brave Browser")
 end)
 
 hs.urlevent.bind("openSlack", function(eventName, params)
