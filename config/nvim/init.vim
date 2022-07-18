@@ -339,10 +339,9 @@ let g:vim_markdown_toc_autofit = 1
 autocmd BufEnter *{.md,.mdx} set wrap
 
 " NERDTree
-let NERDTreeWinSize=45
 let NERDTreeShowHidden=1
-nmap \ :NERDTreeToggle<cr>
-nmap <leader>\ :NERDTreeFind<cr>
+nmap - :NERDTreeToggle<cr>
+nmap <leader>- :NERDTreeFind<cr>
 
 " wilder
 set nowildmenu
