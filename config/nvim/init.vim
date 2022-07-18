@@ -140,11 +140,11 @@ let g:lightline = {
       \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'git-branch-symbol', 'git-branch', 'readonly',  'modified' ],
-      \             [ 'relativepath' ] ],
+      \             [ 'git-branch-symbol', 'git-branch' ],
+      \             [ 'readonly', 'modified', 'relativepath' ] ],
       \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [  'fileformat', 'fileencoding', 'filetype', 'charvalue', 'charvaluehex' ] ]
+      \              [ 'fileformat', 'fileencoding', 'charvaluehex', 'percent' ],
+      \              [ 'filetype' ]]
       \ },
       \ 'component': {
       \     'git-branch-symbol': '',
