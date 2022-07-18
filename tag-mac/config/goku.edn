@@ -1,5 +1,5 @@
 {:simlayers {
-         :window-mode {:key :f}
+         :window-mode {:key :w}
          :bluetooth-mode {:key :b}
          :space-mode {:key :spacebar}
          :backtick-mode {:key :grave_accent_and_tilde}
