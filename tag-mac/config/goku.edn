@@ -1,5 +1,5 @@
 {:simlayers {
-         :window-mode {:key :w}
+         :window-mode {:key :g}
          :bluetooth-mode {:key :b}
          :space-mode {:key :spacebar}
          :backtick-mode {:key :grave_accent_and_tilde}
@@ -12,8 +12,6 @@
          :rules [:backtick-mode [:##m :!Tm :backtick-mode]]}
         {:des   "caps lock: hold for control, tap for escape."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
-        {:des   "tab: hold for option, tap for tab."
-         :rules [[:##tab :left_option nil {:alone :tab}]]}
         {:des   "right command: hold for right command, tap for backspace"
          :rules [[:##right_command :right_command nil {:alone :delete_or_backspace}]]}
         {:des   "right shift: hold for right shift, tap for caps lock"
@@ -29,11 +27,11 @@
          :rules [:window-mode
                  [:##j [:hammerspoon "openBrowser"] :window-mode]
                  [:##k [:hammerspoon "openKitty"] :window-mode]
-                 [:##l [:hammerspoon "openSlack"] :window-mode]
-                 [:##i [:hammerspoon "openSignal"] :window-mode]
-                 [:##m [:hammerspoon "openSpotify"] :window-mode]
-                 [:##semicolon [:hammerspoon "openEmacs"] :window-mode]
                  [:##o [:hammerspoon "openCode"] :window-mode]
+                 [:##l [:hammerspoon "openSlack"] :window-mode]
+                 [:##m [:hammerspoon "openSignal"] :window-mode]
+                 [:##u [:hammerspoon "openSpotify"] :window-mode]
+                 [:##semicolon [:hammerspoon "openEmacs"] :window-mode]
                  ]}
         {:des   "Bluetooth mode"
          :rules [:bluetooth-mode
