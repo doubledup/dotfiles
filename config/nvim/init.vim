@@ -62,6 +62,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'kannokanno/previm'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Plug 'powerman/vim-plugin-AnsiEsc'
+" Plug 'nathom/filetype.nvim'
+" Plug 'tpope/projectionist'
+" Plug 'justinmk/vim-dirvish'
 
 " enable as needed
 " Plug 'tpope/vim-dadbod'
