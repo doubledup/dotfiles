@@ -354,7 +354,7 @@ nmap <leader>/ :BLines!<cr>
 vmap <leader>/ y:BLines! <c-r>"<cr>
 nmap <leader>* :BLines! <c-r><c-w><cr>
 vmap <leader>* y:BLines! <c-r>"<cr>
-nmap <leader>: :Commands!<cr>
+nmap <leader>: :History:!<cr>
 
 " " LineDiff
 " vmap <leader>l :LineDiff<cr>
