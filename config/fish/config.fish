@@ -157,10 +157,10 @@ bind \eA 'echo; exa -al; commandline -f repaint'
 bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'git diff; commandline -f repaint'
 
-[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
-
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
+
+[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
 
 [ -f (command -v zoxide) ]; and zoxide init --cmd j fish | source
 [ -f (command -v direnv) ]; and direnv hook fish | source
