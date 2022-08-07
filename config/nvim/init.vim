@@ -278,9 +278,9 @@ vmap * y/<c-r>"<cr>
 
 " vim-plug
 func! UpdateAll ()
-    exec 'CocUpdateSync'
     exec 'PlugUpgrade'
     exec 'PlugUpdate'
+    exec 'CocUpdate'
 endfunc
 nmap <leader>u :call UpdateAll()<cr>
 
