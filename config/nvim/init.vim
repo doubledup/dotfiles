@@ -37,8 +37,8 @@ au BufWritePre * :%s/\s\+$//e
 
 " include hyphens in words
 set iskeyword=@,48-57,_,192-255,-
-
-" set encoding=utf8
+" continue comments on enter or o
+set formatoptions+=ro
 
 let g:python3_host_prog = '~/.asdf/shims/python'
 
