@@ -72,6 +72,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 " let g:tex_flavor = 'latex'
 
 Plug 'sheerun/vim-polyglot'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " TODO: try builtin LSP or natebosch/vim-lsc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -331,6 +332,17 @@ nmap <leader>f :Files!<cr>
 nmap <leader>b :Buffers!<cr>
 nmap <leader>h :History!<cr>
 nmap <leader>w :Windows!<cr>
+
+" fatih/vim-go
+let g:go_code_completion_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+let g:go_fmt_autosave = 0
+let g:go_def_mapping_enabled = 0
+let g:go_term_mode = "split"
+let g:go_term_reuse = 1
+let g:go_term_enabled = 1
+let g:go_term_close_on_exit = 0
+let g:go_gopls_enabled = 0
 
 " regex
 nmap <leader>e :Rg!<cr>

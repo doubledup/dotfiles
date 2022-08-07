@@ -49,7 +49,7 @@ set_up_vim () {
     python -m pip install pynvim
     npm install -g neovim
 
-    nvim -c PlugUpgrade -c PlugInstall -c qa
+    nvim -e -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "GoInstallBinaries" -c "qa"
     echo 'Wait for CoC to install its plugins before exiting.' | nvim -R -
 }
 
