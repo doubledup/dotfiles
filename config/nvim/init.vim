@@ -361,9 +361,22 @@ nmap <leader>: :History:!<cr>
 
 " vim-markdown
 let g:vim_markdown_folding_level = 2
-let g:vim_markdown_no_default_key_mappings = 1
 let g:vim_markdown_toc_autofit = 1
 autocmd BufEnter *{.md,.mdx} set wrap
+function! ToggleMdOutline() abort
+  let b:md_outline_present = get(b:, 'md_outline_present', 0)
+
+  if b:md_outline_present == 1
+    execute 'Toc'
+    execute 'bdelete %'
+    let b:md_outline_present = 0
+  else
+    execute 'Toc'
+    wincmd p
+    let b:md_outline_present = 1
+  endif
+endfunction
+autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
 
 " NERDTree
 let NERDTreeShowHidden=1
