@@ -147,6 +147,9 @@ set background=dark
 set termguicolors
 colorscheme base16-onedark
 
+" neovide
+set guifont=Hack\ Nerd\ Font\ Mono:h14
+
 set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'one',
