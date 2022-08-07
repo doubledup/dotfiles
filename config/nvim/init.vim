@@ -97,6 +97,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'ap/vim-css-color'
 " included for folding
 Plug 'preservim/vim-markdown'
+Plug 'chriskempson/base16-vim'
 
 " TODO: hunt down clever indentation inference
 Plug 'raimondi/delimitmate'
@@ -143,8 +144,8 @@ imap ,, <esc>A,<esc>
 " nmap <c-y> 5<c-y>
 
 set background=dark
-set notermguicolors
-colorscheme custom-scheme
+set termguicolors
+colorscheme base16-onedark
 
 set noshowmode
 let g:lightline = {
