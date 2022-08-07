@@ -158,12 +158,11 @@ let g:lightline = {
       \             [ 'git-branch-symbol', 'git-branch' ],
       \             [ 'readonly', 'modified', 'relativepath' ] ],
       \   'right': [ [ 'lineinfo' ],
-      \              [ 'fileformat', 'fileencoding', 'charvaluehex', 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'percent' ],
       \              [ 'filetype' ]]
       \ },
       \ 'component': {
-      \     'git-branch-symbol': '',
-      \     'charvaluehex': '0x%B'
+      \     'git-branch-symbol': ''
       \ },
       \ 'component_function': {
       \     'git-branch': 'FugitiveHead',
