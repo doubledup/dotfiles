@@ -1,4 +1,6 @@
 {
+  "outline.splitCommand": "vertical botright 30vs",
+  "outline.keepWindow": true,
   "languageserver": {
     "elmLS": {
       "command": "elm-language-server",
@@ -6,15 +8,22 @@
       "rootPatterns": ["elm.json"]
     }
   },
+  "diagnostic-languageserver.mergeConfig": true,
   "diagnostic-languageserver.filetypes": {
+    "go": "revive",
     "sh": "shellcheck"
   },
   "diagnostic-languageserver.formatFiletypes": {
     "sh": "shfmt"
   },
+  "diagnostic-languageserver.linters": {
+    "revive": {
+      "rootPatterns": ["go.mod", ".git"],
+      "args": ["-config", "./revive.toml", "%file"]
+    }
+  },
   "diagnostic-languageserver.formatters": {
     "shfmt": {
-      "command": "shfmt",
       "args": ["-i", "4"]
     }
   },
@@ -23,5 +32,6 @@
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "eslint.workingDirectories": [
     { "mode": "location" }
-  ]
+  ],
+  "coc.preferences.extensionUpdateCheck": "daily"
 }
