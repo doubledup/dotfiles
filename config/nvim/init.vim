@@ -10,7 +10,7 @@ set noswapfile nobackup nowritebackup autoread
 set nowrap linebreak
 " don't redraw while executing commands & using registers
 set lazyredraw
-" Highlight current column and line
+" Highlight current line
 set cul
 " incrementally highlight searches
 set incsearch hlsearch
@@ -24,17 +24,14 @@ set scrolloff=5 sidescroll=20 sidescrolloff=1
 set modelines=0 nomodeline
 " always show file tabs
 set showtabline=2
-
 " use 4-space indentation by default
 set et ts=4 sw=4
 " automatically indent when adding a new line
 set autoindent smartindent
-
 " show extra whitespace
 set list listchars=tab:▷\\x20,trail:⋅,nbsp:☺,extends:→,precedes:←
 " trim trailing whitespace on save
 au BufWritePre * :%s/\s\+$//e
-
 " include hyphens in words
 set iskeyword=@,48-57,_,192-255,-
 " continue comments on enter or o
@@ -129,10 +126,7 @@ if !empty(glob("~/.config/nvim/plugs.local.vim"))
     source ~/.config/nvim/plugs.local.vim
 endif
 
-" here vim-plug runs both
-" `filetype plugin indent on`
-" and
-" `syntax enable`
+" here vim-plug runs both `filetype plugin indent on` and `syntax enable`
 call plug#end()
 
 " TODO: go through https://www.youtube.com/watch?v=434tljD-5C8
@@ -189,8 +183,8 @@ tmap <c-q> <c-\><c-n>
 
 " " TODO: change these into a command
 " " open new splits
-" nmap <leader>t :sp \| te<cr>
-" nmap <leader>T :tabnew \| te<cr>
+" nmap <leader>` :sp \| te<cr>
+" nmap <leader>~ :tabnew \| te<cr>
 
 " TODO: fully close terminal on exit without interfering with fzf
 " autocmd TermClose * exe 'bdelete! '..expand('<abuf>')

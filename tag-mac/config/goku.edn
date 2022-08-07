@@ -10,6 +10,8 @@
          :rules [[:!Tm :return_or_enter]]}
         {:des   "`-m to control-m, just in case 😉"
          :rules [:backtick-mode [:##m :!Tm :backtick-mode]]}
+        ; {:des   "adjust keyboard backlight with fn-{-,=}"
+        ;  :rules [[:!Fhyphen :keyboard_brightness_decrement]]} ; [:!F= :increase_backlight]
         {:des   "caps lock: hold for control, tap for escape."
          :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
         {:des   "right command: hold for right command, tap for backspace"

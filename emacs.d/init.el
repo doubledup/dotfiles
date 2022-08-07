@@ -46,8 +46,8 @@
 ;; override evil mode binding for tab/c-i
 (global-set-key (kbd "<tab>") 'org-cycle)
 ;; (add-hook 'org-mode-hook
-          ;; (lambda ()
-            ;; (define-key org-mode-cycle (kbd "<tab>") 'org-cycle)))
+;;           (lambda ()
+;;             (define-key org-mode-cycle (kbd "<tab>") 'org-cycle)))
 
 (load "~/.emacs.d/customize")
 (if (file-exists-p "~/.emacs.d/init.os.el")
