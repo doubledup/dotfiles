@@ -1,11 +1,19 @@
 #!/usr/bin/env sh
 
+echo 'mas:'
+mas upgrade
+echo 'brew:'
 brew upgrade
 brew bundle dump --global --force
-rustup update
-asdf plugin update --all
+echo 'nvim:'
+nvim -e -u ~/.config/nvim/init.vim -i NONE -c "PlugUpgrade" -c "PlugUpdate" -c "CocUpdate" -c "qa"
+echo 'asdf:'
 asdf update
+asdf plugin update --all
+echo 'rustup:'
+rustup update
+echo 'tldr:'
 tldr --update
-nvim -c 'call UpdateAll()'
-mas upgrade
+
+echo 'softwareupdate:'
 sudo softwareupdate -ir
