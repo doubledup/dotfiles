@@ -25,26 +25,28 @@ set signcolumn=yes
 " expand the snippet, if current word is a snippet; or
 " increase indentation, if cursor is preceded by whitespace; or
 " trigger the completion menu
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+inoremap <silent><expr> <tab>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<c-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<cr>" :
+      \ <SID>check_back_space() ? "\<tab>" :
       \ coc#refresh()
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 " TODO: also use tab to navigate snippets
 " let g:coc_snippet_next = '<tab>'
 " let g:coc_snippet_prev = '<s-tab>'
+" TODO: prevent popups on snippet expansion
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Make <c-j> auto-select the first completion item and notify coc.nvim to
-" format on enter, <c-j> could be remapped by other vim plugin
-inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm()
-                              \: "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<c-j>"
+" " Make <c-j> auto-select the first completion item and notify coc.nvim to
+" " format on enter, <c-j> could be remapped by other vim plugin
+" inoremap <silent><expr> <c-j> pumvisible() ? coc#_select_confirm()
+"                               \: "\<c-g>u\<cr>\<c-r>=coc#on_enter()\<c-j>"
 
 " code & diagnostic navigation
 " replace spell checker
@@ -56,7 +58,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <silent> K :call ShowDocumentation()<cr>
 function! ShowDocumentation()
     if CocAction('hasProvider', 'hover')
         call CocActionAsync('doHover')
@@ -69,7 +71,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>n <Plug>(coc-rename)
+nmap <leader><leader>r <Plug>(coc-rename)
 
 " Format selected code
 xmap = <Plug>(coc-format-selected)
@@ -114,12 +116,13 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  let scrollLength = 15
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1, scrollLength) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0, scrollLength) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1, scrollLength)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0, scrollLength)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1, scrollLength) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0, scrollLength) : "\<C-b>"
 endif
 
 " Use c-q for selecting ranges.
@@ -146,19 +149,43 @@ command! -nargs=0 OrganizeImports :call CocAction('runCommand', 'editor.action.o
 " TODO: show diagnostics inline
 nnoremap <silent><nowait> <leader>d :<c-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <leader>t :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <leader><leader>x :<c-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <leader>c :<c-u>CocList commands<cr>
+
+let g:coc_max_treeview_width = 50
+
 " Show symbol outline for current document.
-nnoremap <silent><nowait> <leader>o :<c-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <leader>s :<c-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <leader>o  :call ToggleOutline()<cr>
+function! ToggleOutline() abort
+  let winid = coc#window#find('cocViewId', 'OUTLINE')
+  if winid == -1
+    call CocActionAsync('showOutline', 1)
+  else
+    call coc#window#close(winid)
+  endif
+endfunction
+
+" Automatically close outline when it's the last window
+autocmd BufEnter * call CheckOutline()
+function! CheckOutline() abort
+  if &filetype ==# 'coctree' && winnr('$') == 1
+    if tabpagenr('$') != 1
+      close
+    else
+      bdelete
+    endif
+  endif
+endfunction
+
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <leader>s :<c-u>CocList -I symbols<cr>
 " " Do default action for next item.
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<cr>
 " " Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<cr>
 " " Resume latest coc list.
-" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<cr>
 
 " ___
 
@@ -198,6 +225,7 @@ let g:coc_global_extensions = [
     \ 'coc-yaml',
     \ ]
     " \ 'coc-fzf-preview',
+    " \ 'coc-ltex',
     " \ 'coc-pyright',
     " \ 'coc-solargraph',
     " \ 'coc-tabnine',
