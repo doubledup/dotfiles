@@ -215,7 +215,9 @@ nmap <c-l> <c-w>l
 " nmap <leader>oT :tabon!<cr>
 
 nmap <leader>, :tabnew ~/.config/nvim/init.vim<cr>
-nmap <leader>,, :so ~/.config/nvim/init.vim<cr>
+nmap <leader><leader>, :so ~/.config/nvim/init.vim<cr>
+nmap <leader>; :execute 'tabnew ~/.config/nvim/ftplugin/' . &ft . '.vim'<cr>
+nmap <leader><leader>; :so %<cr>
 
 " copy filename
 nmap <leader>% :let @+=@%<cr>
