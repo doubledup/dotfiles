@@ -1,42 +1,41 @@
+" vim-sensible overrides
+" " automatically indent when adding a new line
+" set autoindent smartindent
+" leave some space around the cursor when moving
+set scrolloff=5
+" show extra whitespace
+set list listchars=tab:▷\ ,trail:⋅,nbsp:☺,extends:→,precedes:←
+" continue comments on new lines
+set formatoptions+=ro
+" live on the edge!
+set noswapfile
+
 " show line numbers
 set number
+" Highlight current line
+set cursorline
+" use 4-space indentation by default
+set expandtab tabstop=4 shiftwidth=4
+" wrap & highlight @140 chars
+set textwidth=140 colorcolumn=+0
+" don't wrap long lines by default, but be more sensible when wrapping is on
+set nowrap linebreak
 " ignore case unless there are upper-case characters
 set ignorecase smartcase
 " split below and to the right, leaving existing panes where they are
 set splitbelow splitright
-" live on the edge!
-set noswapfile nobackup nowritebackup autoread
-" don't wrap long lines by default, but be more sensible when wrapping is on
-set nowrap linebreak
-" don't redraw while executing commands & using registers
-set lazyredraw
-" Highlight current line
-set cul
-" incrementally highlight searches
-set incsearch hlsearch
-" wrap & highlight @140 chars
-set textwidth=140 colorcolumn=+0
-" fold on indents; don't fold when opening files
-set foldmethod=indent nofoldenable
-" leave some space around the cursor when moving
-set scrolloff=5 sidescroll=20 sidescrolloff=1
-" ignore modelines due to security concerns
-set modelines=0 nomodeline
 " always show file tabs
 set showtabline=2
-" use 4-space indentation by default
-set et ts=4 sw=4
-" automatically indent when adding a new line
-set autoindent smartindent
-" show extra whitespace
-set list listchars=tab:▷\\x20,trail:⋅,nbsp:☺,extends:→,precedes:←
-" trim trailing whitespace on save
-au BufWritePre * :%s/\s\+$//e
 " include hyphens in words
-set iskeyword=@,48-57,_,192-255,-
-" continue comments on enter or o
-set formatoptions+=ro
+set iskeyword^=-
+" don't redraw while executing commands & using registers
+set lazyredraw
+" fold on indents; don't fold when opening files
+set foldmethod=indent nofoldenable
+" ignore modelines due to security concerns
+set nomodeline modelines=0
 
+" wilder: point to asdf python for
 let g:python3_host_prog = '~/.asdf/shims/python'
 
 let data_dir = stdpath('data') . '/site'
@@ -52,8 +51,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'janko-m/vim-test'
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'ggandor/lightspeed.nvim'
-" Plug 'tpope/vim-sensible'
-" Plug 'tpope/vim-vinegar'
 " TODO: add indent object to wellle/targets.vim?
 " Plug 'michaeljsmith/vim-indent-object'
 " Plug 'kannokanno/previm'
@@ -68,6 +65,8 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'lervag/vimtex'
 " let g:tex_flavor = 'latex'
 
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-scriptease'
 Plug 'sheerun/vim-polyglot'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " TODO: try builtin LSP or natebosch/vim-lsc
@@ -128,6 +127,9 @@ endif
 
 " here vim-plug runs both `filetype plugin indent on` and `syntax enable`
 call plug#end()
+
+" trim trailing whitespace on save
+au BufWritePre * :%s/\s\+$//e
 
 " TODO: go through https://www.youtube.com/watch?v=434tljD-5C8
 nmap <leader>Q :bufdo bdelete<cr>
