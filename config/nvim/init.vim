@@ -31,7 +31,7 @@ set et ts=4 sw=4
 set autoindent smartindent
 
 " show extra whitespace
-set list listchars=tab:▷⋅,trail:⋅,nbsp:☺,extends:→,precedes:←
+set list listchars=tab:▷\\x20,trail:⋅,nbsp:☺,extends:→,precedes:←
 " trim trailing whitespace on save
 au BufWritePre * :%s/\s\+$//e
 
