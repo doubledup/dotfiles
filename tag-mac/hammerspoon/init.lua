@@ -17,32 +17,36 @@
 --     end
 -- end)
 
+hs.urlevent.bind("openBrowser", function(eventName, params)
+    hs.application.launchOrFocus("Brave Browser")
+end)
+
 hs.urlevent.bind("openKitty", function(eventName, params)
     hs.application.launchOrFocus("Kitty")
 end)
 
-hs.urlevent.bind("openBrowser", function(eventName, params)
-    hs.application.launchOrFocus("Brave Browser")
+hs.urlevent.bind("openNeovide", function(eventName, params)
+    hs.application.launchOrFocus("Neovide")
+end)
+
+hs.urlevent.bind("openCode", function(eventName, params)
+    hs.application.launchOrFocus("Visual Studio Code")
 end)
 
 hs.urlevent.bind("openSlack", function(eventName, params)
     hs.application.launchOrFocus("Slack")
 end)
 
-hs.urlevent.bind("openSpotify", function(eventName, params)
-    hs.application.launchOrFocus("Spotify")
-end)
-
 hs.urlevent.bind("openSignal", function(eventName, params)
     hs.application.launchOrFocus("Signal")
 end)
 
-hs.urlevent.bind("openEmacs", function(eventName, params)
-    hs.application.launchOrFocus("Emacs")
+hs.urlevent.bind("openSpotify", function(eventName, params)
+    hs.application.launchOrFocus("Spotify")
 end)
 
-hs.urlevent.bind("openCode", function(eventName, params)
-    hs.application.launchOrFocus("Visual Studio Code")
+hs.urlevent.bind("openEmacs", function(eventName, params)
+    hs.application.launchOrFocus("Emacs")
 end)
 
 hs.urlevent.bind("bluetoothToggle", function(eventName, params)

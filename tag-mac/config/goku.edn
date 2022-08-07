@@ -29,6 +29,7 @@
          :rules [:window-mode
                  [:##j [:hammerspoon "openBrowser"] :window-mode]
                  [:##k [:hammerspoon "openKitty"] :window-mode]
+                 [:##i [:hammerspoon "openNeovide"] :window-mode]
                  [:##o [:hammerspoon "openCode"] :window-mode]
                  [:##l [:hammerspoon "openSlack"] :window-mode]
                  [:##m [:hammerspoon "openSignal"] :window-mode]
