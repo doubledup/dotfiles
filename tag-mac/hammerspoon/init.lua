@@ -54,5 +54,5 @@ hs.urlevent.bind("bluetoothToggle", function(eventName, params)
 end)
 
 hs.urlevent.bind("bluetoothConnect", function(eventName, params)
-    hs.execute("/opt/homebrew/bin/blueutil --paired | /usr/bin/sed -E 's/^address: ([0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}).*/\\1/' | xargs /opt/homebrew/bin/blueutil --connect")
+    hs.execute("/opt/homebrew/bin/blueutil --paired | sed -E 's/^address: ([0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}).*name: \"WH-1000XM3\".*/\\1/' | head -1 | xargs /opt/homebrew/bin/blueutil --connect")
 end)
