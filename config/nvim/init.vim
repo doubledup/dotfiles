@@ -277,9 +277,6 @@ nmap ]<space> o<esc>k
 
 " search for selected text
 vmap * y/<c-r>"<cr>
-" search
-" nmap <c-n> :call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+<c-r><c-w>&ia=web"'<cr>
-" vmap <c-n> y:call setreg("s", &filetype)<cr>:!bash -c 'open "https://duckduckgo.com/?q=<c-r>s+$(echo <c-r>" \| sed '"'"'s/ /+/g'"'"')&ia=web"'<cr>
 
 " vim-plug
 func! UpdateAll ()
