@@ -287,14 +287,6 @@ func! UpdateAll ()
 endfunc
 nmap <leader>u :call UpdateAll()<cr>
 
-let g:vimsyn_embed = 'l'
-lua <<EOF
-require'hop'.setup()
-vim.api.nvim_set_keymap('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
-vim.api.nvim_set_keymap('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
-vim.api.nvim_set_keymap('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
-EOF
-
 " delimitmate
 let delimitMate_balance_matchpairs = 1
 let delimitMate_expand_cr = 2
@@ -361,6 +353,15 @@ nmap <leader>: :History:!<cr>
 
 " " LineDiff
 " vmap <leader>l :LineDiff<cr>
+
+" hop
+let g:vimsyn_embed = 'l'
+lua <<EOF
+require'hop'.setup()
+vim.api.nvim_set_keymap('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
+vim.api.nvim_set_keymap('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
+vim.api.nvim_set_keymap('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
+EOF
 
 " vim-markdown
 let g:vim_markdown_folding_level = 2
