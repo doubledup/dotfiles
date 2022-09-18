@@ -378,6 +378,10 @@ vim.api.nvim_set_keymap('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_li
 vim.api.nvim_set_keymap('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
 EOF
 
+" iswap
+nmap <leader>h :ISwapNodeWithLeft<cr>
+nmap <leader>l :ISwapNodeWithRight<cr>
+
 " vim-markdown
 let g:vim_markdown_folding_level = 2
 let g:vim_markdown_toc_autofit = 1
