@@ -20,6 +20,8 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
+let g:coc_node_path = '~/.asdf/shims/node'
+
 " use tab to:
 " select current autocomplete item, if visible; or
 " expand the snippet, if current word is a snippet; or
