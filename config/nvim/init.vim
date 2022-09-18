@@ -179,11 +179,24 @@ let g:user_emmet_leader_key='<c-\>'
 " terminal mode
 " quit
 tmap <c-q> <c-\><c-n>
+augroup terminal_settings
+  autocmd!
 
+  " BufWinEnter,
+  autocmd WinEnter,TermOpen term://* startinsert
+  autocmd BufLeave term://* stopinsert
+
+  " Ignore various filetypes as those will close terminal automatically
+  " Ignore fzf, ranger, coc
+  autocmd TermClose term://*
+        \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+        \   call nvim_input('<CR>')  |
+        \ endif
+augroup END
 " " TODO: change these into a command
 " " open new splits
-" nmap <leader>` :sp \| te<cr>
-" nmap <leader>~ :tabnew \| te<cr>
+nmap <leader>` :sp \| te<cr>
+nmap <leader>~ :-1tabnew \| te<cr>
 
 " TODO: fully close terminal on exit without interfering with fzf
 " autocmd TermClose * exe 'bdelete! '..expand('<abuf>')
