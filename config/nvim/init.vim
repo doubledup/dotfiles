@@ -298,7 +298,7 @@ let delimitMate_expand_cr = 2
 let delimitMate_expand_inside_quotes = 1
 let delimitMate_expand_space = 1
 let delimitMate_jump_expansion = 1
-let delimitMate_excluded_regions = "String"
+let delimitMate_excluded_regions = ""
 let delimitMate_excluded_ft = ""
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
