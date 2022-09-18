@@ -335,8 +335,16 @@ xmap ad <plug>(signify-motion-outer-visual)
 nmap <leader>f :Files!<cr>
 " TODO: buffer deletion
 nmap <leader>b :Buffers!<cr>
-nmap <leader>h :History!<cr>
+nmap <leader>i :History!<cr>
 nmap <leader>w :Windows!<cr>
+" regex commands
+nmap <leader>e :Rg!<cr>
+vmap <leader>e y:Rg! <c-r>"<cr>
+nmap <leader>/ :BLines!<cr>
+vmap <leader>/ y:BLines! <c-r>"<cr>
+nmap <leader>* :BLines! <c-r><c-w><cr>
+vmap <leader>* y:BLines! <c-r>"<cr>
+nmap <leader>: :History:!<cr>
 
 " fatih/vim-go
 let g:go_code_completion_enabled = 0
