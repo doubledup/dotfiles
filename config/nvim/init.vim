@@ -245,7 +245,8 @@ nmap <leader>p "+p
 vmap <leader>p "+p
 nmap <leader>P "+P
 
-" encoding / decoding, similar to unimpaired
+" unimpaired extensions
+"" encoding / decoding
 nmap [44 !!base64<cr>
 nmap ]44 !!base64 -d<cr>
 vmap [4 "4c<c-r>=system("echo '<c-r>4' \| base64 \| tr -d '\n'")<cr><esc>
@@ -266,9 +267,13 @@ nmap ]22 !!sed -E 's/(.*)/ibase=2;\1/' \| bc<cr>
 vmap [2 "2c<c-r>=system("echo 'obase=2;<c-r>2' \| bc \| tr -d '\n'")<cr><esc>
 vmap ]2 "2c<c-r>=system("echo 'ibase=2;<c-r>2' \| bc \| tr -d '\n'")<cr><esc>
 
-" split line before/after cursor
+"" split line before/after cursor
 nmap [<cr> i<cr><esc>
 nmap ]<cr> a<cr><esc>
+
+"" add blank lines, but respect existing auto-insertion like comments
+nmap [<space> O<esc>j
+nmap ]<space> o<esc>k
 
 " search for selected text
 vmap * y/<c-r>"<cr>
