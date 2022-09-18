@@ -283,6 +283,7 @@ func! UpdateAll ()
     exec 'PlugUpgrade'
     exec 'PlugUpdate'
     exec 'CocUpdate'
+    exec 'TSUpdate'
 endfunc
 nmap <leader>u :call UpdateAll()<cr>
 
