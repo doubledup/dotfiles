@@ -311,7 +311,7 @@ nmap <leader>gb :Git blame<cr>
 nmap <leader>gf :Git! fetch<cr>
 nmap <leader>gz :Git stash<space>
 nmap <leader>gp :Git! pull<space>
-nmap <leader>gu :Git! push<space>
+nmap <leader>gh :Git! push<space>
 nmap <leader>go :Git checkout<space>
 nmap <leader>gc :tab Git commit -v<cr>
 " fzf
