@@ -366,8 +366,8 @@ nmap <leader>* :BLines! <c-r><c-w><cr>
 vmap <leader>* y:BLines! <c-r>"<cr>
 nmap <leader>: :History:!<cr>
 
-" " LineDiff
-" vmap <leader>l :LineDiff<cr>
+" linediff
+vmap <leader>l :Linediff<cr>
 
 " hop
 let g:vimsyn_embed = 'l'
