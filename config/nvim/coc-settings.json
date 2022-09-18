@@ -1,14 +1,8 @@
 {
+  "coc.preferences.extensionUpdateCheck": "daily",
   "outline.splitCommand": "vertical botright 30vs",
   "outline.keepWindow": true,
-  "languageserver": {
-    "elmLS": {
-      "command": "elm-language-server",
-      "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"]
-    }
-  },
-  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic.refreshOnInsertMode": true,
   "diagnostic-languageserver.filetypes": {
     "go": "revive",
     "sh": "shellcheck"
@@ -16,22 +10,28 @@
   "diagnostic-languageserver.formatFiletypes": {
     "sh": "shfmt"
   },
+  "diagnostic-languageserver.formatters": {
+    "shfmt": {
+      "args": ["-i", "4"]
+    }
+  },
   "diagnostic-languageserver.linters": {
     "revive": {
       "rootPatterns": ["go.mod", ".git"],
       "args": ["-config", "./revive.toml", "%file"]
     }
   },
-  "diagnostic-languageserver.formatters": {
-    "shfmt": {
-      "args": ["-i", "4"]
+  "diagnostic-languageserver.mergeConfig": true,
+  "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"]
     }
   },
+  "eslint.workingDirectories": [{ "mode": "location" }],
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
-  "eslint.workingDirectories": [
-    { "mode": "location" }
-  ],
-  "coc.preferences.extensionUpdateCheck": "daily"
+  "rust-analyzer.diagnostics.experimental.enable": false
 }
