@@ -35,9 +35,6 @@ set foldmethod=indent nofoldenable
 " ignore modelines due to security concerns
 set nomodeline modelines=0
 
-" wilder: point to asdf python for
-let g:python3_host_prog = '~/.asdf/shims/python'
-
 let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -380,11 +377,14 @@ nmap - :NERDTreeToggle<cr>
 nmap <leader>- :NERDTreeFind<cr>
 
 " wilder
+let g:python3_host_prog = '~/.asdf/shims/python'
 set nowildmenu
 call wilder#setup({
       \ 'modes': [':', '/', '?'],
-      \ 'accept_key': '<c-y>',
-      \ 'reject_key': '<c-e>',
+      \ 'accept_key': '<c-e>',
+      \ 'reject_key': '<c-c>',
+      \ 'next_key': '<tab>',
+      \ 'previous_key': '<s-tab>',
       \ })
 call wilder#set_option('pipeline', [
       \   wilder#branch(
