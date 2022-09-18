@@ -238,18 +238,12 @@ nmap <leader>; :execute 'tabnew ~/.config/nvim/ftplugin/' . &ft . '.vim'<cr>
 nmap <leader><leader>. :so %<cr>
 
 " copy filename
-nmap <leader>% :let @+=@%<cr>
-
+nmap <leader>5 :let @+=@%<cr>
 " clipboard
+nmap <leader>' :let @+=@"<cr>
 nmap <leader>p "+p
 vmap <leader>p "+p
 nmap <leader>P "+P
-nmap <leader>y "+y
-vmap <leader>y "+y
-nmap <leader>Y "+Y
-nmap <leader>x "+x
-vmap <leader>x "+x
-nmap <leader>X "+X
 
 " encoding / decoding, similar to unimpaired
 nmap [44 !!base64<cr>
