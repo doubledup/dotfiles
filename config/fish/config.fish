@@ -51,7 +51,7 @@ set -x PATH $PATH $HOME/.cargo/bin
 # Aliases
 
 if type -q batcat
-  alias bat=batcat
+  alias bat='batcat --color=always'
 end
 if type -q fdfind
   alias fd=fdfind
