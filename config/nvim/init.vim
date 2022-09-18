@@ -137,7 +137,8 @@ nnoremap <c-y> 10<c-y>
 
 set background=dark
 set termguicolors
-colorscheme base16-onedark
+let ayucolor="mirage"
+colorscheme ayu
 
 " neovide
 set guifont=Hack\ Nerd\ Font\ Mono:h14
