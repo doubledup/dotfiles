@@ -221,6 +221,8 @@ let g:coc_global_extensions = [
     \ 'coc-go',
     \ 'coc-html',
     \ 'coc-json',
+    \ 'coc-ltex',
+    \ 'coc-lua',
     \ 'coc-prettier',
     \ 'coc-rust-analyzer',
     \ 'coc-solidity',
