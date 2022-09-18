@@ -35,11 +35,13 @@ set foldmethod=indent nofoldenable
 " ignore modelines due to security concerns
 set nomodeline modelines=0
 
+" install vim-plug if necessary
 let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-scriptease'
@@ -203,9 +205,8 @@ nmap <leader>~ :-1tabnew \| te<cr>
 " autocmd TermClose * if !v:event.status | exe 'bdelete! '..expand('<abuf>') | endif
 
 " help command abbrevs
-" open help in a vertical split
+" open help in a vertical split or tab
 cnoreabbrev hv vert h
-" use H to open help in a new tab
 cnoreabbrev ht tab h
 
 " clear search highlights
@@ -214,10 +215,6 @@ nmap <esc> :noh<cr>
 " TODO: run checktime before this?
 nmap <c-s> :wall<cr>
 
-" nmap <c-j> :m .+1<cr>==
-" nmap <c-k> :m .-2<cr>==
-vmap ]e :m '>+1<cr>gv=gv
-vmap [e :m '<-2<cr>gv=gv
 nmap <c-n> :tabn<cr>
 nmap <c-p> :tabp<cr>
 nmap <leader><c-n> :tabmove +1<cr>
@@ -301,6 +298,7 @@ let delimitMate_jump_expansion = 1
 let delimitMate_excluded_regions = ""
 let delimitMate_excluded_ft = ""
 
+" editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " git
@@ -382,7 +380,7 @@ EOF
 nmap <leader>h :ISwapNodeWithLeft<cr>
 nmap <leader>l :ISwapNodeWithRight<cr>
 
-" vim-markdown
+" markdown
 let g:vim_markdown_folding_level = 2
 let g:vim_markdown_toc_autofit = 1
 autocmd BufEnter *{.md,.mdx} set wrap
