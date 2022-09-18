@@ -20,6 +20,9 @@ set shortmess+=c
 " diagnostics appear/become resolved.
 set signcolumn=yes
 
+" Fix color of selected item in completion menu
+hi CocMenuSel ctermbg=237 guibg=#13354A
+
 let g:coc_node_path = '~/.asdf/shims/node'
 
 " use tab to:
