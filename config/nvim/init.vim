@@ -132,13 +132,8 @@ call plug#end()
 " trim trailing whitespace on save
 au BufWritePre * :%s/\s\+$//e
 
-" TODO: go through https://www.youtube.com/watch?v=434tljD-5C8
-nmap <leader>Q :bufdo bdelete<cr>
-map g<c-f> :edit <cfile><cr>
-imap ;; <esc>A;<esc>
-imap ,, <esc>A,<esc>
-" nmap <c-e> 5<c-e>
-" nmap <c-y> 5<c-y>
+nnoremap <c-e> 10<c-e>
+nnoremap <c-y> 10<c-y>
 
 set background=dark
 set termguicolors
