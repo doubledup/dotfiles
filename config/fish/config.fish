@@ -2,7 +2,8 @@
 
 # Environment variables
 
-set -x BAT_THEME 'TwoDark'
+set -x BAT_PAGER "less $LESS -n"
+set -x BAT_THEME 'Coldark-Dark'
 set -x EDITOR 'nvim'
 set -x GTI_SPEED 3000
 set -x PIPENV_VENV_IN_PROJECT 1
@@ -16,8 +17,8 @@ set -x FZF_DEFAULT_OPTS "--height 100% --bind $FZF_KEYBINDINGS --preview '$FZF_P
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
 
-## git
-# The default less flags that git uses are FRX:
+## less
+# The default less flags that bat & git use are FRX:
 #
 # F makes less exit if there's less than one page of diff. This makes `git
 # diff` inconsistent: sometimes it opens less, sometimes not.
@@ -25,11 +26,15 @@ set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
 # X prevents the less output from getting cleared when less exits. This
 # pollutes terminal output after scrolling multiple pages of diff.
 #
-# Removing these makes the behaviour of `git diff` consistent: it *always*
+# Removing these makes the behaviour of less consistent: it *always*
 # opens less and *never* leaves its output lying around in the terminal.
+#
+# N displays line numbers
+# R is needed to interpret ANSI colors correctly. (from bat's help for its
+# --pager flag)
 # -i: ignore case in searches
 # -x4: tabs are 4 characters wide
-set -x LESS -Rix4
+set -x LESS -RNix4
 
 ## Path
 
