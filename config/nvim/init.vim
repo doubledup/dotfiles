@@ -406,6 +406,13 @@ let NERDTreeShowHidden=1
 nmap - :NERDTreeToggle<cr>
 nmap <leader>- :NERDTreeFind<cr>
 
+" slime
+let g:slime_target = "neovim"
+let g:slime_no_mappings = 1
+xmap <leader>s <plug>SlimeRegionSend
+nmap <leader>s <plug>SlimeMotionSend
+nmap <leader><leader>s <plug>SlimeLineSend
+
 " wilder
 let g:python3_host_prog = '~/.asdf/shims/python'
 set nowildmenu
