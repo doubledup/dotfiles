@@ -1,6 +1,7 @@
 [user]
 	name = David Dunn
 	email = 26876072+doubledup@users.noreply.github.com
+	signingkey = 99F10972153A72B0!
 [core]
 	editor = nvim
 	ignorecase = true
@@ -30,3 +31,5 @@
 [delta]
 	line-numbers = true
 	paging = always
+[commit]
+	gpgsign = true
