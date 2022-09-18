@@ -303,28 +303,30 @@ let delimitMate_excluded_ft = ""
 
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" fugitive/signify
-set updatetime=100
-nmap <leader>g<space> :Git<space>
-nmap <leader>gs :Git<cr>
+" git
+" fugitive
+" set updatetime=100
+" :-1tab Git<cr> still opens after the current tab
+nmap <leader>gs :-1tabnew<cr>:Git<cr><c-w><c-o>
 nmap <leader>gd :Gvdiffsplit<cr>
 nmap <leader>gb :Git blame<cr>
+nmap <leader>gf :Git! fetch<cr>
+nmap <leader>gz :Git stash<space>
+nmap <leader>gp :Git! pull<space>
+nmap <leader>gu :Git! push<space>
+nmap <leader>go :Git checkout<space>
+nmap <leader>gc :tab Git commit -v<cr>
+" fzf
+nmap <leader>gl :Commits!<cr>
+" signify
 nmap <leader>gi :SignifyHunkDiff<cr>
+" hack to add/unstage hunk under the cursor
+nmap <leader>ga :Gdiffsplit<cr>do:wq<cr>
+nmap <leader>gu :Gdiffsplit<cr>dp:wq<cr>
 omap id <plug>(signify-motion-inner-pending)
 xmap id <plug>(signify-motion-inner-visual)
 omap ad <plug>(signify-motion-outer-pending)
 xmap ad <plug>(signify-motion-outer-visual)
-" add/undo hunk under the cursor hack
-nmap <leader>ga :Gdiffsplit<cr>do:wq<cr>
-nmap <leader>gu :Gdiffsplit<cr>dp:wq<cr>
-nmap <leader>gm :tab Git commit -v<cr>
-nmap <leader>gz :Git stash<space>
-nmap <leader>gf :Git fetch<cr>
-nmap <leader>gp :Git pull<space>
-nmap <leader>gc :Git checkout<space>
-nmap <leader>gg :Git<space>
-" git log
-nmap <leader>gl :Commits!<cr>
 
 " fzf
 " TODO: use fzf env vars for preview
