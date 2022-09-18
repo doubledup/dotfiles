@@ -41,14 +41,68 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-scriptease'
+Plug 'sheerun/vim-polyglot'
+" TODO: try builtin LSP or one of
+" Plug 'natebosch/vim-lsc'
+" Plug 'ms-jpq/coq_nvim'
+" Plug 'autozimu/LanguageClient-neovim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'editorconfig/editorconfig-vim'
+Plug 'mhinz/vim-signify'
+" TODO: vs jreybert/vimagit
+Plug 'tpope/vim-fugitive'
+
+" editing
+Plug 'andrewradev/linediff.vim'
+Plug 'honza/vim-snippets'
+" Plug 'mattn/emmet-vim'
+Plug 'pbrisbin/vim-mkdir'
+Plug 'phaazon/hop.nvim', { 'branch': 'v1.3' }
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+" TODO: add indent object to wellle/targets.vim?
+Plug 'wellle/targets.vim'
+Plug 'raimondi/delimitmate'
+
+" new editing
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'mizlan/iswap.nvim'
+Plug 'jpalardy/vim-slime'
+
+" ui
+Plug 'ap/vim-css-color'
+Plug 'Luxed/ayu-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+" TODO: vs Plug 'tpope/vim-vinegar'
+" TODO: vs Plug ms-jpq/chadtree
+Plug 'preservim/nerdtree'
+Plug 'preservim/vim-markdown' " included for folding
+Plug 'ryanoasis/vim-devicons'
+
+" Included separately from polyglot to get commands
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" TODO: vs Plug 'kien/ctrlp.vim'
+" TODO: vs Plug 'dbeecham/ctrlp-commandpalette.vim'
+function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+endfunction
+Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " new plugins to try
 " Plug 'ervandew/supertab'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'janko-m/vim-test'
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'ggandor/lightspeed.nvim'
-" TODO: add indent object to wellle/targets.vim?
 " Plug 'michaeljsmith/vim-indent-object'
 " Plug 'kannokanno/previm'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
@@ -56,64 +110,14 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'nathom/filetype.nvim'
 " Plug 'tpope/projectionist'
 " Plug 'justinmk/vim-dirvish'
+" Plug 'APZelos/blamer.nvim' vs Plug 'f-person/git-blame.nvim'
+" Plug 'sjl/gundo.vim'
+" Plug 'thaerkh/vim-workspace'
 
 " enable as needed
 " Plug 'tpope/vim-dadbod'
 " Plug 'lervag/vimtex'
 " let g:tex_flavor = 'latex'
-
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-scriptease'
-Plug 'sheerun/vim-polyglot'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" TODO: try builtin LSP or natebosch/vim-lsc
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-Plug 'phaazon/hop.nvim', { 'branch': 'v1.3' }
-Plug 'editorconfig/editorconfig-vim'
-Plug 'honza/vim-snippets'
-Plug 'mattn/emmet-vim'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'wellle/targets.vim'
-Plug 'mhinz/vim-signify'
-Plug 'andrewradev/linediff.vim'
-Plug 'pbrisbin/vim-mkdir'
-
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'ap/vim-css-color'
-" included for folding
-Plug 'preservim/vim-markdown'
-Plug 'chriskempson/base16-vim'
-
-" TODO: hunt down clever indentation inference
-Plug 'raimondi/delimitmate'
-" TODO: is it worth keeping endwise?
-" Plug 'tpope/vim-endwise'
-
-" TODO: compare commentary to tomtom/tcomment_vim
-Plug 'tpope/vim-commentary'
-
-" " TODO: compare blamer to f-person/git-blame.nvim
-" Plug 'APZelos/blamer.nvim'
-" TODO: compare fugitive to jreybert/vimagit
-Plug 'tpope/vim-fugitive'
-
-" TODO: compare wilder to ctrlp
-" Plug 'kien/ctrlp.vim'
-" Plug 'dbeecham/ctrlp-commandpalette.vim'
-function! UpdateRemotePlugins(...)
-    " Needed to refresh runtime files
-    let &rtp=&rtp
-    UpdateRemotePlugins
-endfunction
-Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 if !empty(glob("~/.config/nvim/plugs.os.vim"))
     source ~/.config/nvim/plugs.os.vim
