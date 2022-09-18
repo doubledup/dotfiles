@@ -149,11 +149,9 @@ end
 # not using a fish_user_key_bindings function, since that seems to be used by fzf
 bind \cj "$EDITOR"
 bind \e, fishrc
+bind \em accept-autosuggestion execute
 bind \co 'fish_commandline_prepend $EDITOR'
-bind \el 'echo; exa; commandline -f repaint'
-bind \eL 'echo; exa -l; commandline -f repaint'
-bind \ea 'echo; exa -a; commandline -f repaint'
-bind \eA 'echo; exa -al; commandline -f repaint'
+bind \ea 'echo; ls -al; commandline -f repaint'
 bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'git diff; commandline -f repaint'
 
