@@ -108,7 +108,6 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 " Plug 'michaeljsmith/vim-indent-object'
 " Plug 'kannokanno/previm'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-" Plug 'powerman/vim-plugin-AnsiEsc'
 " Plug 'nathom/filetype.nvim'
 " Plug 'tpope/projectionist'
 " Plug 'justinmk/vim-dirvish'
@@ -120,6 +119,7 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 " Plug 'tpope/vim-dadbod'
 " Plug 'lervag/vimtex'
 " let g:tex_flavor = 'latex'
+" Plug 'powerman/vim-plugin-AnsiEsc'
 
 if !empty(glob("~/.config/nvim/plugs.os.vim"))
     source ~/.config/nvim/plugs.os.vim

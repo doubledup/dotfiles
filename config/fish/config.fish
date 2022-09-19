@@ -30,11 +30,12 @@ set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
 # opens less and *never* leaves its output lying around in the terminal.
 #
 # N displays line numbers
+# Q keeps less quiet: terminal bells are never rung.
 # R is needed to interpret ANSI colors correctly. (from bat's help for its
 # --pager flag)
 # -i: ignore case in searches
 # -x4: tabs are 4 characters wide
-set -x LESS -RNix4
+set -x LESS -QRNix4
 
 ## Path
 
@@ -155,6 +156,10 @@ bind \cg 'git diff; commandline -f repaint'
 
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
+
+if type -q moar
+  set -x PAGER (command -v moar)
+end
 
 [ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
 
