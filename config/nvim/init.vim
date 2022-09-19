@@ -217,17 +217,16 @@ nmap <c-s> :wall<cr>
 
 nmap <c-n> :tabn<cr>
 nmap <c-p> :tabp<cr>
-nmap <leader><c-n> :tabmove +1<cr>
-nmap <leader><c-p> :tabmove -1<cr>
+nmap <c-.> :tabmove +1<cr>
+nmap <c-,> :tabmove -1<cr>
 nmap gt :tabmove<space>
+nmap gx :tabclose<cr>
+nmap gz :tabonly<cr>
 
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-l> <c-w>l
-
-" nmap <leader>ot :tabon<cr>
-" nmap <leader>oT :tabon!<cr>
 
 nmap <leader>, :tabnew<cr>:tcd ~/.dotfiles<cr>:e config/nvim/init.vim<cr>
 nmap <leader><leader>, :so ~/.config/nvim/init.vim<cr>
