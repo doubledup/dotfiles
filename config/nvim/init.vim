@@ -408,6 +408,8 @@ let NERDTreeShowHidden=1
 let NERDTreeWinSize=41
 nmap - :NERDTreeToggle<cr>
 nmap <leader>- :NERDTreeFind<cr>
+" quit when NERDTree is the last window
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " slime
 let g:slime_target = "neovim"
