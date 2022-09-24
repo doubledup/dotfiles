@@ -289,9 +289,9 @@ endfunc
 nmap <leader>u :call UpdateAll()<cr>
 
 " commentary
-imap <c-c> <esc>:Commentary<cr>a
-nmap <c-c> :Commentary<cr>
-xmap <c-c> :Commentary<cr>
+imap <c-/> <c-o>:Commentary<cr>
+nmap <c-/> :Commentary<cr>
+xmap <c-/> :Commentary<cr>
 
 " delimitmate
 let delimitMate_balance_matchpairs = 1
