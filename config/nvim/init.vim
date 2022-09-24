@@ -269,8 +269,8 @@ vmap [2 "2c<c-r>=system("echo 'obase=2;<c-r>2' \| bc \| tr -d '\n'")<cr><esc>
 vmap ]2 "2c<c-r>=system("echo 'ibase=2;<c-r>2' \| bc \| tr -d '\n'")<cr><esc>
 
 "" split line before/after cursor
-nmap [<cr> i<cr><esc>
-nmap ]<cr> a<cr><esc>
+nmap [<cr> ha<cr><esc>kg_
+nmap ]<cr> a<cr><esc>kg_
 
 "" add blank lines, but respect existing auto-insertion like comments
 nmap [<space> O<esc>j
