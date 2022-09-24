@@ -81,12 +81,19 @@ alias fucking=sudo
 ## git
 alias g=git
 alias gst='git status'
-alias gb='git branch'
-alias ga='git add'
-alias gc='git commit -v'
+alias gf='git fetch'
+alias gz='git stash'
+alias gp='git pull'
+alias gh='git push'
 alias gco='git checkout'
-alias grb='git rebase'
+alias gc='git commit -v'
+alias gb='git branch'
 alias glog='git log --oneline --decorate --graph'
+alias ga='git add'
+alias gr='git reset'
+
+alias grb='git rebase'
+
 function git_wrapper
   if test "$argv" = "stash poop"
     echo '💩'
