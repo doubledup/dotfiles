@@ -216,8 +216,7 @@ cnoreabbrev ht tab h
 " clear search highlights
 nmap <esc> :noh<cr>
 " save all
-" TODO: run checktime before this?
-nmap <c-s> :wall<cr>
+nmap <c-s> :checktime<cr>:wall<cr>
 
 nmap <c-n> :tabn<cr>
 nmap <c-p> :tabp<cr>
