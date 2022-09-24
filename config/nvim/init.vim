@@ -56,6 +56,10 @@ Plug 'mhinz/vim-signify'
 " TODO: vs jreybert/vimagit
 Plug 'tpope/vim-fugitive'
 
+" workaround for CursorHold, remove when the fix is merged:
+" https://github.com/neovim/neovim/commit/e63538f21c90112faafc65ae12766d1f9abd5bc0
+Plug 'antoinemadec/FixCursorHold.nvim'
+
 " editing
 Plug 'andrewradev/linediff.vim'
 Plug 'honza/vim-snippets'
