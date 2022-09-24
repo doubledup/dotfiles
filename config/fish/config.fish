@@ -153,13 +153,16 @@ end
 
 # Key bindings
 # not using a fish_user_key_bindings function, since that seems to be used by fzf
-bind \cj "$EDITOR"
 bind \e, fishrc
+# c-; opens $EDITOR; thanks fish_key_reader!
+bind \e\[59\;5u "$EDITOR"
 bind \em accept-autosuggestion execute
-bind \co 'fish_commandline_prepend $EDITOR'
+bind \ei "PAGER=$EDITOR __fish_preview_current_file"
 bind \ea 'echo; ls -al; commandline -f repaint'
 bind \cs 'echo; git status; commandline -f repaint'
 bind \cg 'git diff; commandline -f repaint'
+# Pass previous args to different command
+bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
 
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
