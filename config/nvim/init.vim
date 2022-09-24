@@ -195,10 +195,6 @@ tmap <c-q> <c-\><c-n>
 augroup terminal_settings
   autocmd!
 
-  " BufWinEnter,
-  autocmd WinEnter,TermOpen term://* startinsert
-  autocmd BufLeave term://* stopinsert
-
   " Ignore various filetypes as those will close terminal automatically
   " Ignore fzf, ranger, coc
   autocmd TermClose term://*
@@ -206,14 +202,11 @@ augroup terminal_settings
         \   call nvim_input('<CR>')  |
         \ endif
 augroup END
-" " TODO: change these into a command
-" " open new splits
-nmap <leader>` :sp \| te<cr>
-nmap <leader>~ :-1tabnew \| te<cr>
 
-" TODO: fully close terminal on exit without interfering with fzf
-" autocmd TermClose * exe 'bdelete! '..expand('<abuf>')
-" autocmd TermClose * if !v:event.status | exe 'bdelete! '..expand('<abuf>') | endif
+" open new splits
+nmap <leader>t :20sp \| te<cr>a
+nmap <leader>T :80vsp \| te<cr>a
+nmap <leader><c-t> :-1tabnew \| te<cr>a
 
 " help command abbrevs
 " open help in a vertical split or tab
