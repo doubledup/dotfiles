@@ -66,7 +66,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call ShowDocumentation()<cr>
 function! ShowDocumentation()
     if CocAction('hasProvider', 'hover')
-        call CocActionAsync('doHover')
+        call CocActionAsync('definitionHover')
     else
         call feedkeys('K', 'in')
     endif
