@@ -412,7 +412,7 @@ nmap <leader>- :NERDTreeFind<cr>
 " slime
 let g:slime_target = "neovim"
 let g:slime_no_mappings = 1
-xmap <leader>s <plug>SlimeRegionSend
+xmap <leader>s y:SlimeSend1 <c-r>"<cr>
 nmap <leader>s <plug>SlimeMotionSend
 nmap <leader><leader>s <plug>SlimeLineSend
 
