@@ -76,7 +76,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader><leader>r <Plug>(coc-rename)
+nmap <leader>n <Plug>(coc-rename)
 
 " Format selected code
 xmap = <Plug>(coc-format-selected)
@@ -101,7 +101,7 @@ augroup end
 nmap <leader>a <Plug>(coc-codeaction)
 
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>x  <Plug>(coc-fix-current)
 " " Apply AutoFix to problem on the current line.
 " nmap <leader>f <Plug>(coc-fix-current)
 
@@ -119,15 +119,15 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Remap <C-e> and <C-y> to scroll floating windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
   let scrollLength = 15
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1, scrollLength) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0, scrollLength) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1, scrollLength)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0, scrollLength)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1, scrollLength) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0, scrollLength) : "\<C-b>"
+  nnoremap <silent><nowait><expr> <C-e> coc#float#has_scroll() ? coc#float#scroll(1, scrollLength) : "\<C-e>"
+  nnoremap <silent><nowait><expr> <C-y> coc#float#has_scroll() ? coc#float#scroll(0, scrollLength) : "\<C-y>"
+  inoremap <silent><nowait><expr> <C-e> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1, scrollLength)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-y> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0, scrollLength)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-e> coc#float#has_scroll() ? coc#float#scroll(1, scrollLength) : "\<C-e>"
+  vnoremap <silent><nowait><expr> <C-y> coc#float#has_scroll() ? coc#float#scroll(0, scrollLength) : "\<C-y>"
 endif
 
 " Use c-q for selecting ranges.
