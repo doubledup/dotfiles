@@ -154,8 +154,7 @@ end
 # Key bindings
 # not using a fish_user_key_bindings function, since that seems to be used by fzf
 bind \e, fishrc
-# c-; opens $EDITOR; thanks fish_key_reader!
-bind \e\[59\;5u "$EDITOR"
+bind \cj "$EDITOR"
 bind \em accept-autosuggestion execute
 bind \ei "PAGER=$EDITOR __fish_preview_current_file"
 bind \ea 'echo; ls -al; commandline -f repaint'
