@@ -82,6 +82,7 @@ Plug 'jpalardy/vim-slime'
 
 " ui
 Plug 'folke/which-key.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'Luxed/ayu-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
