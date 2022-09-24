@@ -1,58 +1,28 @@
--- hs.hotkey.bind({"cmd", "alt", "ctrl"}, "W", function()
---   hs.alert.show("Hello World!")
--- end)
+require('util')
 
--- hs.hotkey.bind({"ctrl"}, ";", function()
---     local app = hs.application.get("kitty")
---     if app then
---         if not app:mainWindow() then
---             app:selectMenuItem({"kitty", "New OS window"})
---         elseif app:isFrontmost() then
---             app:hide()
---         else
---             app:activate()
---         end
---     else
---         hs.application.launchOrFocus("kitty")
---     end
--- end)
+MEH = {"cmd", "alt", "ctrl"}
+HYPER = {"cmd", "alt", "ctrl", "shift"}
 
-hs.urlevent.bind("openBrowser", function(eventName, params)
-    hs.application.launchOrFocus("Brave Browser")
+-- TODO: add keyboard backlight bindings
+
+hs.hotkey.bind(MEH, ".", function()
+  hs.reload()
 end)
+hs.notify.new({title = "Hammerspoon", informativeText = "Config loaded"}):send()
 
-hs.urlevent.bind("openKitty", function(eventName, params)
-    hs.application.launchOrFocus("Kitty")
-end)
-
-hs.urlevent.bind("openNeovide", function(eventName, params)
-    hs.application.launchOrFocus("Neovide")
-end)
-
-hs.urlevent.bind("openCode", function(eventName, params)
-    hs.application.launchOrFocus("Visual Studio Code")
-end)
-
-hs.urlevent.bind("openSlack", function(eventName, params)
-    hs.application.launchOrFocus("Slack")
-end)
-
-hs.urlevent.bind("openSignal", function(eventName, params)
-    hs.application.launchOrFocus("Signal")
-end)
-
-hs.urlevent.bind("openSpotify", function(eventName, params)
-    hs.application.launchOrFocus("Spotify")
-end)
-
-hs.urlevent.bind("openEmacs", function(eventName, params)
-    hs.application.launchOrFocus("Emacs")
-end)
-
-hs.urlevent.bind("bluetoothToggle", function(eventName, params)
+hs.hotkey.bind(HYPER, "b", "Bluetooth toggle", function(eventName, params)
     hs.execute("/opt/homebrew/bin/blueutil --power toggle")
 end)
-
-hs.urlevent.bind("bluetoothConnect", function(eventName, params)
-    hs.execute("/opt/homebrew/bin/blueutil --paired | sed -E 's/^address: ([0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}).*name: \"WH-1000XM3\".*/\\1/' | head -1 | xargs /opt/homebrew/bin/blueutil --connect")
+hs.hotkey.bind(HYPER, "c", "Bluetooth connect", function(eventName, params)
+    hs.execute("ID=$(/opt/homebrew/bin/blueutil --paired | grep 'WH-1000XM3' | sed -E 's/^address: ([0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}-[0-9a-f]{2}).*/\\1/'); /opt/homebrew/bin/blueutil --connect $ID")
 end)
+
+HyperPickWindow("j", "Brave Browser")
+HyperPickWindow("k", "Kitty")
+HyperPickWindow("o", "Visual Studio Code")
+HyperPickWindow("l", "Slack")
+HyperPickWindow("m", "Signal")
+HyperPickWindow("u", "Spotify")
+HyperPickWindow(";", "Emacs")
+
+SetRightCmdToHyper()

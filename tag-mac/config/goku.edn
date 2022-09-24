@@ -1,45 +1,23 @@
 {:simlayers {
-         :window-mode {:key :g}
-         :bluetooth-mode {:key :b}
          :space-mode {:key :spacebar}
          :backtick-mode {:key :grave_accent_and_tilde}
  }
  :templates {:hammerspoon "open -g hammerspoon://%s"}
  :main [
+        {:des   "caps lock: hold for control, tap for escape."
+         :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
+        {:des   "right shift: hold for right shift, tap for caps lock"
+         :rules [[:##right_shift :right_shift nil {:alone :caps_lock}]]}
         {:des   "control-m to enter"
          :rules [[:!Tm :return_or_enter]]}
         {:des   "`-m to control-m, just in case 😉"
          :rules [:backtick-mode [:##m :!Tm :backtick-mode]]}
-        ; {:des   "adjust keyboard backlight with fn-{-,=}"
-        ;  :rules [[:!Fhyphen :keyboard_brightness_decrement]]} ; [:!F= :increase_backlight]
-        {:des   "caps lock: hold for control, tap for escape."
-         :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
-        {:des   "right command: hold for right command, tap for backspace"
-         :rules [[:##right_command :right_command nil {:alone :delete_or_backspace}]]}
-        {:des   "right shift: hold for right shift, tap for caps lock"
-         :rules [[:##right_shift :right_shift nil {:alone :caps_lock}]]}
         {:des   "Space mode: arrows, return, etc."
          :rules [:space-mode
+                 [:##i :up_arrow :space-mode]
                  [:##j :left_arrow :space-mode]
                  [:##k :down_arrow :space-mode]
-                 [:##i :up_arrow :space-mode]
                  [:##l :right_arrow :space-mode]
-                 ]}
-        {:des   "Window mode: switch to common applications"
-         :rules [:window-mode
-                 [:##j [:hammerspoon "openBrowser"] :window-mode]
-                 [:##k [:hammerspoon "openKitty"] :window-mode]
-                 [:##i [:hammerspoon "openNeovide"] :window-mode]
-                 [:##o [:hammerspoon "openCode"] :window-mode]
-                 [:##l [:hammerspoon "openSlack"] :window-mode]
-                 [:##m [:hammerspoon "openSignal"] :window-mode]
-                 [:##u [:hammerspoon "openSpotify"] :window-mode]
-                 [:##semicolon [:hammerspoon "openEmacs"] :window-mode]
-                 ]}
-        {:des   "Bluetooth mode"
-         :rules [:bluetooth-mode
-                 [:##t [:hammerspoon "bluetoothToggle"] :bluetooth-mode]
-                 [:##c [:hammerspoon "bluetoothConnect"] :bluetooth-mode]
                  ]}
        ]
 }
