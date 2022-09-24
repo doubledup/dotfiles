@@ -310,25 +310,25 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " set updatetime=100
 " :-1tab Git<cr> still opens after the current tab
 nmap <leader>gs :-1tabnew<cr>:Git<cr><c-w><c-o>
-nmap <leader>gd :Gvdiffsplit<cr>
-nmap <leader>gb :Git blame<cr>
 nmap <leader>gf :Git! fetch<cr>
 nmap <leader>gz :Git stash<space>
 nmap <leader>gp :Git! pull<space>
 nmap <leader>gh :Git! push<space>
 nmap <leader>go :Git checkout<space>
 nmap <leader>gc :tab Git commit -v<cr>
-" fzf
+nmap <leader>gb :Git branch<space>
 nmap <leader>gl :Commits!<cr>
-" signify
-nmap <leader>gi :SignifyHunkDiff<cr>
-" hack to add/unstage hunk under the cursor
+" hack to add/reset hunk under the cursor
 nmap <leader>ga :Gdiffsplit<cr>do:wq<cr>
-nmap <leader>gu :Gdiffsplit<cr>dp:wq<cr>
+nmap <leader>gr :Gdiffsplit<cr>dp:wq<cr>
+
 omap id <plug>(signify-motion-inner-pending)
 xmap id <plug>(signify-motion-inner-visual)
 omap ad <plug>(signify-motion-outer-pending)
 xmap ad <plug>(signify-motion-outer-visual)
+nmap <leader>gd :Gvdiffsplit<cr>
+nmap <leader>gm :Git blame<cr>
+nmap <leader>gi :SignifyHunkDiff<cr>
 
 " fzf
 " TODO: use fzf env vars for preview
