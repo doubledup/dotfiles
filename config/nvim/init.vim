@@ -405,6 +405,7 @@ autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()
 
 " NERDTree
 let NERDTreeShowHidden=1
+let NERDTreeWinSize=41
 nmap - :NERDTreeToggle<cr>
 nmap <leader>- :NERDTreeFind<cr>
 
