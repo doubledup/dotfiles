@@ -223,9 +223,10 @@ nmap <c-n> :tabn<cr>
 nmap <c-p> :tabp<cr>
 nmap <c-.> :tabmove +1<cr>
 nmap <c-,> :tabmove -1<cr>
-nmap gt :tabmove<space>
-nmap gx :tabclose<cr>
-nmap gz :tabonly<cr>
+nmap gm :tabmove<space>
+nmap gq :q<cr>
+nmap gz :tabclose<cr>
+nmap go :tabonly<cr>
 
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
