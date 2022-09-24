@@ -164,8 +164,8 @@ bind \cg 'git diff; commandline -f repaint'
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
 
-if type -q moar
-  set -x PAGER (command -v moar)
+if type -q bat
+  set -x PAGER (command -v bat)
 end
 
 [ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
