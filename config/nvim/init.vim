@@ -81,7 +81,7 @@ Plug 'mizlan/iswap.nvim'
 Plug 'jpalardy/vim-slime'
 
 " ui
-Plug 'ap/vim-css-color'
+Plug 'folke/which-key.nvim'
 Plug 'Luxed/ayu-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf'
@@ -175,6 +175,12 @@ endfunction
 
 let mapleader = "\<space>"
 let g:user_emmet_leader_key='<c-\>'
+
+" which-key
+set timeoutlen=400
+lua << EOF
+require("which-key").setup {}
+EOF
 
 " " disable arrow keys; don't be a peasant.
 " noremap <up> <nop>
