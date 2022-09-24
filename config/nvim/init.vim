@@ -35,6 +35,9 @@ set foldmethod=indent nofoldenable
 " ignore modelines due to security concerns
 set nomodeline modelines=0
 
+" " TODO: find out why this only works after re-sourcing init
+" set keywordprg=:vert\ help
+
 " install vim-plug if necessary
 let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -85,6 +88,7 @@ Plug 'folke/which-key.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'Luxed/ayu-vim'
 Plug 'itchyny/lightline.vim'
+" Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " TODO: vs Plug 'tpope/vim-vinegar'
@@ -119,6 +123,7 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 " Plug 'APZelos/blamer.nvim' vs Plug 'f-person/git-blame.nvim'
 " Plug 'sjl/gundo.vim'
 " Plug 'thaerkh/vim-workspace'
+" Plug 'Konfekt/FastFold'
 
 " enable as needed
 " Plug 'tpope/vim-dadbod'
@@ -150,6 +155,7 @@ colorscheme ayu
 " neovide
 set guifont=Hack\ Nerd\ Font\ Mono:h14
 
+" lightline
 set noshowmode
 let g:lightline = {
       \ 'colorscheme': 'one',
