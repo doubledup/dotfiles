@@ -105,11 +105,11 @@ if [ "$os_name" = "Darwin" ]; then
     shared_setup
 elif [ "$os_name" = "Linux" ]; then
     echo '\x1b[0;31mUpdate the install script for Linux!\x1b[0m'
-#     TODO: install software
-#     RCRC="$HOME"/.dotfiles/rcrc rcup -d ~/.dotfiles -t linux
-#     TODO: settings
-#     TODO: Firefox styling
-#     shared_setup
+    # TODO: install software
+    # RCRC="$HOME"/.dotfiles/rcrc rcup -d ~/.dotfiles -t linux
+    # TODO: settings
+    # TODO: Firefox styling
+    # TODO: shared setup
 else
     echo "\x1b[0;31mNo installation set up for $os_name yet\x1b[0m"
 fi

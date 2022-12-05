@@ -4,6 +4,8 @@ Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 
 ## Setup
 
+<!-- TODO: KMonad -->
+
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
 cd ~/.dotfiles
@@ -75,6 +77,8 @@ After installing Docker, add yourself to the docker group with
 `sudo usermod -aG docker doubledup` and restart.
 
 ## MacOS
+
+<!-- TODO: add Raycast settings -->
 
 ### Remove packages not in Brewfile
 

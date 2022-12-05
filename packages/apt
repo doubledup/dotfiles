@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+# TODO: https://github.com/noisetorch/NoiseTorch
+
 sudo apt install -y \
   autojump \
   bat \
