@@ -196,6 +196,11 @@ EOF
 " noremap <left> <nop>
 " noremap <right> <nop>
 
+" set mouse=
+set mousescroll=hor:1
+map <ScrollWheelUp> <c-y>
+map <ScrollWheelDown> <c-e>
+
 " terminal mode
 " quit
 tmap <c-q> <c-\><c-n>
