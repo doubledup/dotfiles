@@ -68,7 +68,7 @@ alias e='emacsclient -c'
 alias et='emacsclient -t'
 
 ## fish
-function fishrc
+function fishrc --description "Edit Fish shell config";
   cd ~/.dotfiles
   $EDITOR config/fish/config.fish
   cd -
@@ -94,7 +94,7 @@ alias gr='git reset'
 
 alias grb='git rebase'
 
-function git_wrapper
+function git_wrapper --description "Toilet humour typo";
   if test "$argv" = "stash poop"
     echo '💩'
     sleep 2
@@ -121,7 +121,7 @@ alias nv="$EDITOR"
 alias vn="$EDITOR"
 alias vim!='vim -N -u NONE -U NONE'
 alias nvim!='nvim -N -u NONE -U NONE'
-function nvimrc
+function nvimrc --description "Edit NeoVim config";
   cd ~/.dotfiles
   $EDITOR config/nvim/init.vim
   cd -
@@ -130,20 +130,13 @@ end
 ## vscode
 alias co='code'
 
-## zsh
-function zshrc
-  cd ~/.dotfiles
-  $EDITOR zshrc
-  cd -
-end
-
 # Functions
 
-function plz
+function plz --description "Plz just do the thing (sudo)";
     eval sudo $history[1]
 end
 
-function fish_greeting
+function fish_greeting --description "Custom cow-powered greeting";
   set csf (command -v cowspeakfortune)
 
   if test -n "$csf"
