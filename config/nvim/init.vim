@@ -34,6 +34,8 @@ set lazyredraw
 set foldmethod=indent nofoldenable
 " ignore modelines due to security concerns
 set nomodeline modelines=0
+" show titlestring to terminal
+set title
 
 " " TODO: find out why this only works after re-sourcing init
 " set keywordprg=:vert\ help
@@ -151,9 +153,6 @@ set background=dark
 set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
-
-" neovide
-set guifont=Hack\ Nerd\ Font\ Mono:h14
 
 " lightline
 set noshowmode
