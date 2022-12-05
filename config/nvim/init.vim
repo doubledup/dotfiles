@@ -235,7 +235,13 @@ nmap <c-p> :tabp<cr>
 nmap <c-.> :tabmove +1<cr>
 nmap <c-,> :tabmove -1<cr>
 nmap gm :tabmove<space>
-nmap gq :q<cr>
+
+" Override gx for netrw & vim-markdown
+let g:netrw_nogx = 1
+" Override vim-markdown's gx
+map <Plug> <Plug>Markdown_OpenUrlUnderCursor
+nnoremap gx :q<cr>
+
 nmap gz :tabclose<cr>
 nmap go :tabonly<cr>
 
