@@ -49,6 +49,9 @@ set -x PATH $PATH $GOPATH/bin
 ## rust
 set -x PATH $PATH $HOME/.cargo/bin
 
+## yarn
+set -x PATH $PATH $HOME/.yarn/bin/
+
 # Aliases
 
 ## builtins
