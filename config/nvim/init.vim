@@ -95,6 +95,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 " TODO: vs Plug 'tpope/vim-vinegar'
 " TODO: vs Plug ms-jpq/chadtree
+" TODO: vs Plug luukvbaal/nnn.nvim
 Plug 'preservim/nerdtree'
 Plug 'preservim/vim-markdown' " included for folding
 Plug 'ryanoasis/vim-devicons'
@@ -112,6 +113,7 @@ endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " new plugins to try
+" Plug 'tpope/vim-obsession'
 " Plug 'ervandew/supertab'
 " Plug 'janko-m/vim-test'
 " Plug 'nvim-telescope/telescope.nvim'
@@ -131,7 +133,7 @@ Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 " Plug 'tpope/vim-dadbod'
 " Plug 'lervag/vimtex'
 " let g:tex_flavor = 'latex'
-" Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'powerman/vim-plugin-AnsiEsc'
 
 if !empty(glob("~/.config/nvim/plugs.os.vim"))
     source ~/.config/nvim/plugs.os.vim
