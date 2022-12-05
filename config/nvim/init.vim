@@ -294,7 +294,7 @@ nmap [<space> O<esc>j
 nmap ]<space> o<esc>k
 
 " search for selected text
-vmap * y/<c-r>"<cr>
+vmap * y/\V<c-r>"<cr>
 
 " vim-plug
 func! UpdateAll ()
