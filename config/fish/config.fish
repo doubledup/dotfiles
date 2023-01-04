@@ -42,9 +42,16 @@ set -x LESS -QRNix4
 ### binaries
 set -x PATH $PATH $HOME/.local/bin
 
+### foundry
+export PATH="$PATH:/Users/daviddunn/.foundry/bin"
+
 ### go
 set -x GOPATH "$HOME/.local/share/go"
 set -x PATH $PATH $GOPATH/bin
+
+# pnpm
+set -gx PNPM_HOME "/Users/daviddunn/Library/pnpm"
+set -gx PATH "$PNPM_HOME" $PATH
 
 ## rust
 set -x PATH $PATH $HOME/.cargo/bin

@@ -29,6 +29,8 @@
       "rootPatterns": ["elm.json"]
     }
   },
+  "eslint.packageManager": "pnpm",
+  "eslint.run": "onSave",
   "eslint.workingDirectories": [{ "mode": "location" }],
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
