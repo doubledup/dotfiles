@@ -7,7 +7,7 @@ echo 'brew:'
 brew upgrade
 brew bundle dump --global --force
 echo 'nvim:'
-nvim -e -u ~/.config/nvim/init.vim -i NONE -c "PlugUpgrade" -c "PlugUpdate" -c "CocUpdateSync" -c "TSUpdateSync" -c "qa"
+nvim -e -u ~/.config/nvim/init.vim -i NONE -c 'Update' -c "qa"
 echo 'asdf:'
 asdf update
 asdf plugin update --all

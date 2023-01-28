@@ -4,6 +4,7 @@
   "outline.keepWindow": true,
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic-languageserver.filetypes": {
+    "*": "typos",
     "go": "revive",
     "sh": "shellcheck"
   },
@@ -19,6 +20,11 @@
     "revive": {
       "rootPatterns": ["go.mod", ".git"],
       "args": ["-config", "./revive.toml", "%file"]
+    },
+    "typos": {
+      "command": "typos",
+      "rootPatterns": [".git"],
+      "args": ["%file"]
     }
   },
   "diagnostic-languageserver.mergeConfig": true,
@@ -27,7 +33,13 @@
       "command": "elm-language-server",
       "filetypes": ["elm"],
       "rootPatterns": ["elm.json"]
-    }
+    },
+    // "nix": {
+    //   "command": "rnix-lsp",
+    //   "filetypes": [
+    //     "nix"
+    //   ]
+    // }
   },
   "eslint.packageManager": "pnpm",
   "eslint.run": "onSave",
@@ -35,5 +47,6 @@
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
   "rust-analyzer.diagnostics.experimental.enable": false
 }
