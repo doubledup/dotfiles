@@ -1,9 +1,3 @@
-function HyperPickWindow(modifier, key, appName)
-    hs.hotkey.bind(modifier, key, appName, function()
-        hs.application.launchOrFocus(appName)
-    end)
-end
-
 function SetRightCmdToHyper()
     -- right cmd as hyper, cribbed from https://github.com/Hammerspoon/hammerspoon/issues/1025#issuecomment-1011435207
     -- we have to watch for flag changes *and* keyDown/Up since a command key (e.g. Cmd-C) is

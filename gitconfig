@@ -4,32 +4,35 @@
 	signingkey = 99F10972153A72B0!
 [core]
 	editor = nvim
+	pager = delta
 	ignorecase = true
 	excludesfile = ~/.gitignore
-[url "ssh://git@heroku.com/"]
-	insteadOf = https://git.heroku.com/
-[rerere]
-	enabled = false
-[diff]
-	tool = nvim -d
-	algorithm = histogram
 [color]
 	ui = auto
-[github]
-	user = doubledup
-[pull]
-	ff = only
-[init]
-	defaultBranch = main
-[pager]
-	diff = delta
-	log = delta
-	; reflog = delta
-	show = delta
 [interactive]
-	diffFilter = delta --color-only --features-interactive
-[delta]
-	line-numbers = true
-	paging = always
+	diffFilter = delta --color-only
+[url "ssh://git@heroku.com/"]
+	insteadOf = https://git.heroku.com/
+
 [commit]
 	gpgsign = true
+[diff]
+	algorithm = histogram
+	colorMoved = default
+	tool = nvimdiff
+[init]
+	defaultBranch = main
+[pull]
+	ff = only
+[rerere]
+	enabled = false
+
+[delta]
+	light = false
+	line-numbers = true
+	navigate = true
+	paging = always
+[ghq]
+	root = /Users/daviddunn/code/src
+[github]
+	user = doubledup

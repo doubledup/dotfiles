@@ -15,6 +15,10 @@ echo 'rustup:'
 rustup update
 echo 'tldr:'
 tldr --update
+echo 'dotfile submodules:'
+cd "$HOME/.dotfiles"
+git submodule update
+cd -
 
 echo 'softwareupdate:'
 sudo softwareupdate -ir

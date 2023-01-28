@@ -4,8 +4,8 @@
  }
  :templates {:hammerspoon "open -g hammerspoon://%s"}
  :main [
-        {:des   "caps lock: hold for control, tap for escape."
-         :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
+        ; {:des   "caps lock: hold for control, tap for escape."
+        ;  :rules [[:##caps_lock :left_control nil {:alone :escape}]]}
         {:des   "right shift: hold for right shift, tap for caps lock"
          :rules [[:##right_shift :right_shift nil {:alone :caps_lock}]]}
         {:des   "control-m to enter"

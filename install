@@ -88,6 +88,9 @@ if [ "$os_name" = "Darwin" ]; then
     fi
     brew bundle install --file Brewfile
 
+    git submodule init
+    git submodule update
+
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
     # disable "smart" quotes
