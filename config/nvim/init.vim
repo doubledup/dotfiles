@@ -1,3 +1,12 @@
+" TODO: see ins-completion
+" TODO: change listchars multispace when using spaces
+" TODO: find out why this only works after re-sourcing init
+" set keywordprg=:vert\ help
+" TODO: checkout https://github.com/NvChad/NvChad
+" TODO: add indent object to wellle/targets.vim?
+" TODO: add entire document object to wellle/targets.vim?
+" TODO: persist undo history like thaerkh/vim-workspace
+
 set expandtab tabstop=4 shiftwidth=4 " use 4-space indentation by default
 set formatoptions+=ro " continue comments on new lines
 set list listchars=tab:▷\ ,trail:⋅,nbsp:☺,extends:→,precedes:← " show extra whitespace
@@ -13,10 +22,9 @@ set noswapfile " live on the edge!
 set scrolloff=2 sidescrolloff=15 " leave some space around the cursor when moving
 set updatetime=300 " trigger CursorHold sooner
 
-set breakindent " indent when wrapping
-set breakindentopt=sbr " indicate indent when wrapping
+set breakindent breakindentopt=sbr showbreak=↪ " indent when wrapping with showbreak starting the line
 set cursorline " highlight current line
-set foldmethod=indent nofoldenable showbreak=↪ " fold on indents; don't fold when opening files
+set foldmethod=indent nofoldenable " fold on indents; don't fold when opening files
 set showtabline=2 " always show file tabs
 set splitbelow splitright " split below and to the right, leaving existing panes where they are
 
@@ -26,15 +34,6 @@ augroup insert_relativenumber " absolute line numbers in insert mode
     autocmd InsertEnter * set norelativenumber
     autocmd InsertLeave * set relativenumber
 augroup END
-
-" TODO: see ins-completion
-" TODO: change listchars multispace when using spaces
-" TODO: find out why this only works after re-sourcing init
-" set keywordprg=:vert\ help
-" TODO: checkout https://github.com/NvChad/NvChad
-" TODO: add indent object to wellle/targets.vim?
-" TODO: add entire document object to wellle/targets.vim?
-" TODO: persist undo history like thaerkh/vim-workspace
 
 let data_dir = stdpath('data') . '/site' " install vim-plug if necessary
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -173,7 +172,6 @@ function! Update ()
     execute('TSUpdate')
 endfunction
 
-set background=dark
 set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
