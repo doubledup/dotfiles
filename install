@@ -10,6 +10,12 @@ change_shell () {
     fi
 }
 
+set_up_fisher () {
+    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    fisher install laughedelic/pisces
+    fisher install gazorby/fish-abbreviation-tips
+}
+
 set_up_asdf () {
     if [ ! -d "$HOME"/.asdf ]; then
         git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch v0.10.2
@@ -57,6 +63,7 @@ set_up_vim () {
 
 shared_setup () {
     change_shell
+    set_up_fisher
     set_up_asdf
     set_up_vim
 }

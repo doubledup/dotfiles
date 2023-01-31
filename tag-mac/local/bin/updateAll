@@ -6,13 +6,15 @@ mas upgrade
 echo 'brew:'
 brew upgrade
 brew bundle dump --global --force
-echo 'nvim:'
-nvim -e -u ~/.config/nvim/init.vim -i NONE -c 'Update' -c "qa"
 echo 'asdf:'
 asdf update
 asdf plugin update --all
 echo 'rustup:'
 rustup update
+echo 'fisher:'
+fisher update
+echo 'nvim:'
+nvim -e -u ~/.config/nvim/init.vim -i NONE -c 'Update' -c "qa"
 echo 'tldr:'
 tldr --update
 echo 'dotfile submodules:'
