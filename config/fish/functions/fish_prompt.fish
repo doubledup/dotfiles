@@ -74,12 +74,24 @@ function fish_prompt --description 'Write out the prompt'
     echo -n (prompt_pwd)
     set_color normal
 
+    # VCS
     printf '%s ' (fish_vcs_prompt)
 
+    nix_shell_prompt
+
+    # Exit status
     set fish_color_status red
     set -l pipestatus_string (__fish_print_pipestatus "[" "] " "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_pipestatus)
     echo -n $pipestatus_string
     set_color normal
 
     echo -n "$suffix "
+end
+
+function nix_shell_prompt
+    if set -q IN_NIX_SHELL
+        set_color yellow
+        echo -n "[$IN_NIX_SHELL] "
+        set_color normal
+    end
 end
