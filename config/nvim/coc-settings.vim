@@ -20,6 +20,7 @@ let g:coc_global_extensions = [
     \ 'coc-lua',
     \ 'coc-prettier',
     \ 'coc-rust-analyzer',
+    \ 'coc-sh',
     \ 'coc-solidity',
     \ 'coc-snippets',
     \ 'coc-sql',
