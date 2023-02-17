@@ -90,7 +90,11 @@ end
 
 function nix_shell_prompt
     if set -q IN_NIX_SHELL
-        set_color yellow
+        if [ $IN_NIX_SHELL = "pure" ]
+            set_color green
+        else
+            set_color yellow
+        end
         echo -n "[$IN_NIX_SHELL] "
         set_color normal
     end
