@@ -83,6 +83,9 @@ set -x PATH $PATH $HOME/.local/bin
 ### foundry
 export PATH="$PATH:/Users/daviddunn/.foundry/bin"
 
+### homebrew
+export HOMEBREW_NO_ANALYTICS=1
+
 ### go
 set -x GOPATH "$HOME/.local/share/go"
 set -x PATH $PATH $GOPATH/bin
