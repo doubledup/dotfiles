@@ -43,10 +43,11 @@ end
 
 PickWindow("alt", "1", "Kitty")
 PickWindow("alt", "2", "Brave Browser")
-PickWindow("alt", "3", "Slack")
-PickWindow("alt", "4", "Spotify")
-PickWindow("alt", "5", "Signal")
+PickWindow("alt", "3", "Neovide")
+PickWindow("alt", "4", "Slack")
+PickWindow("alt", "5", "Spotify")
+PickWindow("alt", "6", "Signal")
+PickWindow("alt", "9", "Emacs")
 PickWindow("alt", "0", "Visual Studio Code")
-PickWindow("alt", ";", "Emacs")
 
 hs.loadSpoon('ControlEscape'):start() -- Load Hammerspoon bits from https://github.com/jasonrudolph/ControlEscape.spoon
