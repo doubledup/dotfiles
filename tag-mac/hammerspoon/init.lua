@@ -24,7 +24,7 @@ local hyper = {"cmd", "alt", "ctrl", "shift"}
 -- hs.hotkey.bind({}, 'F20', enterHyperMode, exitHyperMode)
 
 hs.notify.new({title = "Hammerspoon", informativeText = "Config loaded"}):send()
-hs.hotkey.bind(meh, ".", function()
+hs.hotkey.bind(meh, ",", function()
     hs.reload()
 end)
 
