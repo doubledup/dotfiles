@@ -230,7 +230,8 @@ if type -q bat
     set -x PAGER "$(command -v bat)"
 end
 
-[ -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
+[ -z "$IN_NIX_SHELL" -a -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
 
+# zoxide needs to be rerun in new shells
 [ -f (command -v zoxide) ]; and zoxide init --cmd j fish | source
-[ -f (command -v direnv) ]; and direnv hook fish | source
+[ -z "$IN_NIX_SHELL" -a -f (command -v direnv) ]; and direnv hook fish | source
