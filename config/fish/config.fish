@@ -201,7 +201,12 @@ end
 bind \ev nvimrc
 bind \e, fishrc
 
-bind \co "commandline -i ' $EDITOR '; commandline -f backward-kill-word beginning-of-line yank execute"
+function launch_editor
+    set -g __abbr_tips_used 1
+    commandline -i " $EDITOR "
+    commandline -f backward-kill-word beginning-of-line yank execute
+end
+bind \co launch_editor
 
 bind \em accept-autosuggestion execute
 bind \el 'echo; l -a; commandline -f repaint'
