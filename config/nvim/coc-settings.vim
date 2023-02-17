@@ -79,9 +79,9 @@ function! ShowDocumentation()
 endfunction
 
 " format selected code
-xmap = <Plug>(coc-format-selected)
+xmap <leader>= <Plug>(coc-format-selected)
 " nmap = <Plug>(coc-format-selected)
-nmap = <Plug>(coc-format)
+nmap <leader>= <Plug>(coc-format)
 
 imap <c-l> <Plug>(coc-snippets-expand)
 let g:coc_snippet_next = '<c-j>'
