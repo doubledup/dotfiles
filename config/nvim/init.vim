@@ -422,7 +422,7 @@ nmap <leader>k :ISwapNode<cr>
 " lightline
 set noshowmode
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'ayu_mirage',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'git-branch-symbol', 'git-branch' ],
