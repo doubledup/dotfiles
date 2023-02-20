@@ -22,7 +22,7 @@ set noswapfile " live on the edge!
 set scrolloff=2 sidescrolloff=15 " leave some space around the cursor when moving
 set updatetime=300 " trigger CursorHold sooner
 
-set breakindent breakindentopt=sbr showbreak=↪ " indent when wrapping with showbreak starting the line
+set breakindent breakindentopt=sbr showbreak=↪\  " indent when wrapping with showbreak starting the line
 set cursorline " highlight current line
 set foldmethod=indent nofoldenable " fold on indents; don't fold when opening files
 set showtabline=2 " always show file tabs
