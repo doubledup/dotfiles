@@ -523,6 +523,7 @@ function! SlimeSetTermId ()
     endif
 endfunction
 
+" TODO: contribute this to unimpaired
 " unimpaired extensions for encoding & decoding
 nmap [44 !!base64<cr>
 nmap ]44 !!base64 -d<cr>
@@ -543,6 +544,11 @@ nmap [22 !!sed -E 's/(.*)/obase=2;\1/' \| bc<cr>
 nmap ]22 !!sed -E 's/(.*)/ibase=2;\1/' \| bc<cr>
 vmap [2 "zc<c-r>=system("echo 'obase=2;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
 vmap ]2 "zc<c-r>=system("echo 'ibase=2;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
+
+" unimpaired extension for folding
+nmap [of :set foldenable<cr>
+nmap ]of :set nofoldenable<cr>
+" nmap yof :
 
 " wilder
 let g:python3_host_prog = '~/.asdf/shims/python'
