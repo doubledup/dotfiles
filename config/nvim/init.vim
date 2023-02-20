@@ -202,7 +202,7 @@ map <ScrollWheelUp> <c-y>
 map <ScrollWheelDown> <c-e>
 
 cnoreabbrev h vert h
-cnoreabbrev hx hor h
+cnoreabbrev hs hor h
 cnoreabbrev ht tab h
 
 nnoremap <esc> :nohlsearch<cr>
