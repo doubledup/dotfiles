@@ -1,3 +1,6 @@
+(load (expand-file-name "~/.quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
+
 ;; Emacs init order:
 ;; site-start init default abbrevs packages after-init-time after-init-hook
 
@@ -34,20 +37,22 @@
 
 (setq org-startup-folded t)
 
-;; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
+; ;; (define-key org-mode-map (kbd "C-c a") 'org-agenda)
 
-;; Note: no need to call require for packages, as package-initialize
-;; takes care of this
+; ;; Note: no need to call require for packages, as package-initialize
+; ;; takes care of this
+
+; interactive-do mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
 
-(evil-mode 1)
-;; override evil mode binding for tab/c-i
-(global-set-key (kbd "<tab>") 'org-cycle)
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (define-key org-mode-cycle (kbd "<tab>") 'org-cycle)))
+; (evil-mode 1)
+; ;; override evil mode binding for tab/c-i
+; (global-set-key (kbd "<tab>") 'org-cycle)
+; ;; (add-hook 'org-mode-hook
+; ;;           (lambda ()
+; ;;             (define-key org-mode-cycle (kbd "<tab>") 'org-cycle)))
 
 (load "~/.emacs.d/customize")
 (if (file-exists-p "~/.emacs.d/init.os.el")
