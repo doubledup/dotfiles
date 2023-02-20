@@ -54,7 +54,16 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sensible' " TODO: vs Plug 'nvim-lua/kickstart.nvim'
 
 " git
-" Plug 'mhinz/vim-signify' " enable for non-git repos
+" Plug 'mhinz/vim-signify' " switch to signify for non-git repos
+" hack to add/reset hunk under the cursor
+" nmap <leader>ga :Gdiffsplit<cr>do:wq<cr>
+" nmap <leader>gr :Gdiffsplit<cr>dp:wq<cr>
+" omap id <plug>(signify-motion-inner-pending)
+" xmap id <plug>(signify-motion-inner-visual)
+" omap ad <plug>(signify-motion-outer-pending)
+" xmap ad <plug>(signify-motion-outer-visual)
+" nmap <leader>gi :SignifyHunkDiff<cr>
+
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive' " TODO: vs Plug 'jreybert/vimagit'
 Plug 'tpope/vim-git'
@@ -377,9 +386,6 @@ nmap <leader>gb :Git branch<space>
 nmap <leader>gl :Commits!<cr>
 nmap <leader>gd :Gvdiffsplit<cr>
 nmap <leader>gm :Git blame<cr>
-" hack to add/reset hunk under the cursor
-nmap <leader>ga :Gdiffsplit<cr>do:wq<cr>
-nmap <leader>gr :Gdiffsplit<cr>dp:wq<cr>
 
 " fzf
 nmap <leader>f :Files!<cr>
@@ -501,13 +507,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " obsession
 nmap <leader>st :Obsession<cr>
 nmap <leader>sl :source Session.vim<cr>
-
-" signify
-omap id <plug>(signify-motion-inner-pending)
-xmap id <plug>(signify-motion-inner-visual)
-omap ad <plug>(signify-motion-outer-pending)
-xmap ad <plug>(signify-motion-outer-visual)
-nmap <leader>gi :SignifyHunkDiff<cr>
 
 " slime
 " TODO: choose from active terminals
