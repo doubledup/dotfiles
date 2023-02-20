@@ -54,7 +54,8 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sensible' " TODO: vs Plug 'nvim-lua/kickstart.nvim'
 
 " git
-Plug 'mhinz/vim-signify' " TODO: vs Plug 'lewis6991/gitsigns.nvim'
+" Plug 'mhinz/vim-signify' " enable for non-git repos
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive' " TODO: vs Plug 'jreybert/vimagit'
 Plug 'tpope/vim-git'
 
@@ -567,6 +568,57 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
 
 " sequester lua heredoc config due to vim parsing bug:
 " https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
+
+" gitsigns
+
+lua << EOF
+require('gitsigns').setup({
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    -- Actions
+    map({'n', 'v'}, '<leader>ga', ':Gitsigns stage_hunk<CR>')
+    map({'n', 'v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>gA', gs.stage_buffer)
+    map('n', '<leader>gR', gs.reset_buffer)
+    map('n', '<leader>gi', gs.preview_hunk)
+    map('n', '<leader>gv', gs.undo_stage_hunk)
+
+    -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    -- map('n', '<leader>tb', gs.toggle_current_line_blame)
+    -- map('n', '<leader>hd', gs.diffthis)
+    -- map('n', '<leader>hD', function() gs.diffthis('~') end)
+    -- map('n', '<leader>td', gs.toggle_deleted)
+
+    -- Text object
+    map({'o', 'x'}, 'id', ':<C-U>Gitsigns select_hunk<CR>')
+    -- omap id :<c-u>Gitsigns select_hunk<cr>
+    -- xmap id :<c-u>Gitsigns select_hunk<cr>
+    -- omap ad <plug>(signify-motion-outer-pending)
+    -- xmap ad <plug>(signify-motion-outer-visual)
+    -- nmap <leader>gi :SignifyHunkDiff<cr>
+  end
+})
+EOF
 
 " hop
 let g:vimsyn_embed = 'l'
