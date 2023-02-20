@@ -34,6 +34,11 @@ augroup insert_relativenumber " absolute line numbers in insert mode
     autocmd InsertLeave * set relativenumber
 augroup END
 
+syntax enable
+" https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
+let g:do_filetype_lua = 1
+let g:did_load_filetypes = 0
+
 let data_dir = stdpath('data') . '/site' " install vim-plug if necessary
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
