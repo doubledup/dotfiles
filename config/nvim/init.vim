@@ -26,7 +26,6 @@ set breakindent breakindentopt=sbr showbreak=↪\  " indent when wrapping with s
 set cursorline " highlight current line
 set foldmethod=indent nofoldenable " fold on indents; don't fold when opening files
 set showtabline=2 " always show file tabs
-set splitbelow splitright " split below and to the right, leaving existing panes where they are
 
 set number relativenumber " relative line numbers
 augroup insert_relativenumber " absolute line numbers in insert mode
