@@ -292,8 +292,13 @@ nmap ]<space> o<esc>k
 vmap * "zy/\V<c-r>z<cr>
 
 if exists("g:neovide")
+    set guifont=Hack\ Nerd\ Font:h12
+    let g:neovide_scroll_animation_length = 0.09
+    let g:neovide_cursor_animation_length = 0.09
+    let g:neovide_refresh_rate_idle = 1
+    let g:neovide_input_macos_alt_is_meta = v:true
     let g:neovide_cursor_vfx_mode = "ripple"
-    set guifont=Hack\ Nerd\ Font:h14
+    map <D-n> :silent !neovide --multigrid&<cr>
 endif
 
 let mapleader = " "
