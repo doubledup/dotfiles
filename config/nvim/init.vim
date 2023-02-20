@@ -328,15 +328,18 @@ xmap <leader>d "_d
 xmap <leader><c-p> "_dp
 
 " terminal
-" quit
-tmap <c-q> <c-\><c-n>
-nmap <leader>tx :25sp \| te<cr>a
-nmap <leader>tv :80vsp \| te<cr>a
-nmap <leader>tt :-1tabnew \| te<cr>a
+" TODO: nvr for avoiding nested terminals
+" quit, then move to start of line to preserve display of curses-like output
+tmap <c-q> <c-\><c-n>0
+nmap <leader>ts :25sp \| te<cr>a
+nmap <leader>tv :85vsp \| te<cr>a
+nmap <leader>tt :tabnew \| te<cr>a
 augroup terminal_settings
     autocmd!
+    " no line numbers in terminals
+    autocmd TermOpen term://* setlocal nonumber norelativenumber scrolloff=0
 
-    " Ignore various filetypes (fzf, ranger & coc) as those will close terminal automatically
+    " ignore various filetypes (fzf, ranger & coc) as those will close terminal automatically
     autocmd TermClose term://*
         \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
         \   call nvim_input('<CR>')  |
@@ -510,8 +513,8 @@ nmap <leader>gi :SignifyHunkDiff<cr>
 " TODO: choose from active terminals
 let g:slime_target = "neovim"
 let g:slime_no_mappings = 1
-xmap <leader>ts y:SlimeSend1 <c-r>"<cr>
-nmap <leader>ts <plug>SlimeMotionSend
+xmap <leader>tl y:SlimeSend1 <c-r>"<cr>
+nmap <leader>tl <plug>SlimeMotionSend
 " SlimeLineSend
 nmap <leader><leader>s <plug>SlimeConfig
 command SlimeSetTermId call SlimeSetTermId()
