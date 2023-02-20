@@ -181,6 +181,9 @@ set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
 
+" select everything
+nmap ^ ggVG
+
 nnoremap <c-e> 10<c-e>
 nnoremap <c-y> 10<c-y>
 
