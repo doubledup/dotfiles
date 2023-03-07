@@ -681,6 +681,32 @@ EOF
 " })
 " EOF
 
+" treesitter
+
+lua << EOF
+require('nvim-treesitter.configs').setup {
+  -- Add languages to be installed here that you want installed for treesitter
+  ensure_installed = {
+    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript', 'zig',
+    'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
+    'css', 'html', 'http', 'javascript', 'jsdoc',
+    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml', -- config formats
+    'bash', 'fish', 'jq', 'lua', --scripting
+    'graphql', 'sql', -- query languages
+    'regex',
+    'markdown', 'rst',
+    'help', 'vim'
+  },
+
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {'diff', 'git_rebase', 'gitcommit'},
+  },
+
+  indent = { enable = true, disable = { 'python' } },
+}
+EOF
+
 if filereadable(expand("~/.config/nvim/coc-settings.vim"))
     source ~/.config/nvim/coc-settings.vim
 endif
