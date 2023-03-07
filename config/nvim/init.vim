@@ -184,7 +184,6 @@ function! Update ()
     execute('PlugUpgrade')
     execute('PlugUpdate')
     execute('CocUpdate')
-    execute('TSUpdate')
 endfunction
 
 set termguicolors
