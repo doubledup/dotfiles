@@ -49,7 +49,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-sensible' " TODO: vs Plug 'nvim-lua/kickstart.nvim'
 
@@ -115,13 +115,13 @@ Plug 'ryanoasis/vim-devicons' " TODO: vs Plug 'nvim-tree/nvim-web-devicons'
 " Plug 'nvim-lualine/lualine.nvim'
 Plug 'itchyny/lightline.vim'
 
+Plug 'preservim/nerdtree'
 " TODO: vs one of
 " Plug 'tpope/vim-vinegar'
 " Plug 'justinmk/vim-dirvish'
 " Plug 'nvim-tree/nvim-tree.lua'
 " Plug 'ms-jpq/chadtree'
 " Plug 'luukvbaal/nnn.nvim'
-Plug 'preservim/nerdtree'
 
 function! UpdateRemotePlugins(...)
     let &rtp=&rtp " Needed to refresh runtime files
@@ -129,8 +129,9 @@ function! UpdateRemotePlugins(...)
 endfunction
 Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
-Plug 'preservim/vim-markdown' " included for folding
+" Plug 'preservim/vim-markdown' " included for folding
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " included separately from polyglot to get commands
+Plug 'ChrisWellsWood/roc.vim'
 
 " new plugins to try
 
