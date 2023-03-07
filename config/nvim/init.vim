@@ -117,7 +117,6 @@ Plug 'itchyny/lightline.vim'
 
 Plug 'preservim/nerdtree'
 " TODO: vs one of
-" Plug 'tpope/vim-vinegar'
 " Plug 'justinmk/vim-dirvish'
 " Plug 'nvim-tree/nvim-tree.lua'
 " Plug 'ms-jpq/chadtree'
