@@ -512,6 +512,7 @@ nmap <leader>sl :source Session.vim<cr>
 " TODO: choose from active terminals
 let g:slime_target = "neovim"
 let g:slime_no_mappings = 1
+nmap <leader>tc :SlimeConfig<cr>
 xmap <leader>tl y:SlimeSend1 <c-r>"<cr>
 nmap <leader>tl <plug>SlimeMotionSend
 " SlimeLineSend
