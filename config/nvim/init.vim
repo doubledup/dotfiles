@@ -301,7 +301,7 @@ nmap ]<space> o<esc>k
 vmap * "zy/\V<c-r>z<cr>
 
 if exists("g:neovide")
-    set guifont=Hack\ Nerd\ Font:h12
+    set guifont=Hack\ Nerd\ Font:h13
     let g:neovide_scroll_animation_length = 0.09
     let g:neovide_cursor_animation_length = 0.09
     let g:neovide_refresh_rate_idle = 1
