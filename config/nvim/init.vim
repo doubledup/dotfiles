@@ -27,12 +27,7 @@ set cursorline " highlight current line
 set foldmethod=indent nofoldenable " fold on indents; don't fold when opening files
 set showtabline=2 " always show file tabs
 
-set number relativenumber " relative line numbers
-augroup insert_relativenumber " absolute line numbers in insert mode
-    autocmd!
-    autocmd InsertEnter * set norelativenumber
-    autocmd InsertLeave * set relativenumber
-augroup END
+set number " show line numbers
 
 syntax enable
 " https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
