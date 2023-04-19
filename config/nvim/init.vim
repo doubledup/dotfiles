@@ -232,8 +232,8 @@ nnoremap gJ mzgJ`z
 vmap <c-j> :m '>+1<cr>gv=gv
 vmap <c-k> :m '<-2<cr>gv=gv
 
-command DeleteHiddenBuffers call DeleteHiddenBuffers()
-function! DeleteHiddenBuffers()
+command BuffersDeleteHidden call BuffersDeleteHidden()
+function! BuffersDeleteHidden()
     let shownBuffers = {}
     for i in range(1, tabpagenr('$'))
         for j in tabpagebuflist(i)
@@ -253,8 +253,8 @@ function! DeleteHiddenBuffers()
     endif
 endfunction
 
-command DeleteUnnamedBuffers call DeleteUnnamedBuffers()
-function! DeleteUnnamedBuffers()
+command BuffersDeleteUnnamed call BuffersDeleteUnnamed()
+function! BuffersDeleteUnnamed()
     let emptyBuffers = []
     for i in range(1, bufnr('$'))
         if buflisted(i) && bufexists(i) && bufname(i) == ''
