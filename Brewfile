@@ -147,7 +147,6 @@ cask "rectangle"
 cask "signal"
 cask "slack"
 cask "spotify"
-cask "steam"
 cask "visual-studio-code"
 cask "zulip"
 mas "Bitwarden", id: 1352778147
