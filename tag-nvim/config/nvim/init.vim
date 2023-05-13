@@ -146,6 +146,7 @@ Plug 'ChrisWellsWood/roc.vim'
 " Plug 'michaeljsmith/vim-indent-object'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
+" Plug 'tpope/vim-afterimage'
 " Plug 'tpope/vim-eunuch'
 " Plug 'folke/todo-comments.nvim'
 " Plug 'wfxr/minimap.vim'
@@ -190,7 +191,8 @@ nmap ^ ggVG
 nnoremap <c-e> 10<c-e>
 nnoremap <c-y> 10<c-y>
 
-nnoremap zh 40zh " horizontal scolling
+" horizontal scolling
+nnoremap zh 40zh
 nnoremap zl 40zl
 
 map gf :edit <cfile><cr>
