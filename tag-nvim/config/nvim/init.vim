@@ -278,7 +278,11 @@ nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-l> <c-w>l
 
-cmap <c-a> <c-b>
+cmap <c-a> <Home>
+cmap <c-b> <left>
+cmap <c-f> <right>
+cmap <esc>b <s-left>
+cmap <esc>f <s-right>
 
 nmap <c-s> :%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>
 " TODO: substitute selection xmap s :s/\v<<c-r><c-w>>/<c-r><c-w>/gI<left><left><left>
