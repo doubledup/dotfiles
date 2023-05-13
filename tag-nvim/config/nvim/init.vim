@@ -209,7 +209,8 @@ cnoreabbrev hs hor h
 cnoreabbrev ht tab h
 
 nnoremap <esc> :nohlsearch<cr>
-nnoremap <cr> :checktime<cr>:wall<cr>
+" enter to save all buffers, except in quickfix lists
+nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<cr>" : ":checktime\<cr>:wall\<cr>"
 
 augroup onsave
     autocmd!
