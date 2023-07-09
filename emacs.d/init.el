@@ -47,7 +47,7 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
-; (evil-mode 1)
+(evil-mode 1)
 ; ;; override evil mode binding for tab/c-i
 ; (global-set-key (kbd "<tab>") 'org-cycle)
 ; ;; (add-hook 'org-mode-hook
