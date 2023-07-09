@@ -12,8 +12,6 @@ let g:coc_disable_transparent_cursor = 1
 let g:coc_max_treeview_width = 50
 
 let g:coc_global_extensions = [
-    \ 'coc-diagnostic',
-    \ 'coc-eslint',
     \ 'coc-go',
     \ 'coc-html',
     \ 'coc-json',
@@ -27,6 +25,8 @@ let g:coc_global_extensions = [
     \ 'coc-tsserver',
     \ 'coc-yaml',
     \ ]
+    " \ 'coc-diagnostic',
+    " \ 'coc-eslint',
     " \ 'coc-fzf-preview',
     " \ 'coc-ltex',
     " \ 'coc-pyright',
