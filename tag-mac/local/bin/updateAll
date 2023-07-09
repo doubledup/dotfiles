@@ -10,6 +10,7 @@ echo 'asdf:'
 asdf update
 asdf plugin update --all
 echo 'rustup:'
+rustup self update
 rustup update
 echo 'fisher:'
 fish -c 'fisher update'
