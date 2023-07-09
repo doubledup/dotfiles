@@ -132,10 +132,13 @@ abbr gc 'git commit -v'
 abbr gb 'git branch'
 abbr gl 'git log --oneline --decorate --graph'
 abbr glp 'git log --patch --decorate --graph'
+abbr gs 'git show'
+abbr gsp 'git show --patch'
 abbr ga 'git add'
 abbr gr 'git reset'
 abbr grb 'git rebase'
 abbr gm 'git merge'
+abbr gcp 'git cherry-pick'
 
 function git_wrapper --description "Toilet humour typo";
     if test "$argv" = "stash poop"
