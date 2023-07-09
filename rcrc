@@ -1,1 +1,1 @@
-EXCLUDES='Brewfile gnome_settings install LICENSE packages README.md scratch Session.vim userChrome.css'
+EXCLUDES='gnome_settings install LICENSE packages README.md scratch Session.vim userChrome.css'
