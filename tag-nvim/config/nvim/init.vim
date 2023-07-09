@@ -76,9 +76,33 @@ Plug 'tpope/vim-git'
 " Plug 'ldelossa/litee.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" also replace completion
-" Plug 'hrsh7th/nvim-cmp'
-" Plug 'ervandew/supertab'
+" ui
+Plug 'Luxed/ayu-vim'
+Plug 'folke/which-key.nvim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'ryanoasis/vim-devicons' " TODO: vs Plug 'nvim-tree/nvim-web-devicons'
+
+" TODO: vs one of
+" Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+" Plug 'nvim-lualine/lualine.nvim'
+Plug 'itchyny/lightline.vim'
+
+" TODO: vs one of
+" Plug 'tpope/vim-vinegar'
+" Plug 'justinmk/vim-dirvish'
+" Plug 'nvim-tree/nvim-tree.lua'
+" Plug 'ms-jpq/chadtree'
+" Plug 'luukvbaal/nnn.nvim'
+Plug 'preservim/nerdtree'
+
+function! UpdateRemotePlugins(...)
+    let &rtp=&rtp " Needed to refresh runtime files
+    UpdateRemotePlugins
+endfunction
+Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 
 " editing
 Plug 'andrewradev/linediff.vim'
@@ -97,36 +121,17 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 
-" ui
-Plug 'folke/which-key.nvim'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'Luxed/ayu-vim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'ryanoasis/vim-devicons' " TODO: vs Plug 'nvim-tree/nvim-web-devicons'
-
-" TODO: vs one of
-" Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
-" Plug 'nvim-lualine/lualine.nvim'
-Plug 'itchyny/lightline.vim'
-
-Plug 'preservim/nerdtree'
-" TODO: vs one of
-" Plug 'justinmk/vim-dirvish'
-" Plug 'nvim-tree/nvim-tree.lua'
-" Plug 'ms-jpq/chadtree'
-" Plug 'luukvbaal/nnn.nvim'
-
-function! UpdateRemotePlugins(...)
-    let &rtp=&rtp " Needed to refresh runtime files
-    UpdateRemotePlugins
-endfunction
-Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-
 " Plug 'preservim/vim-markdown' " included for folding
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " included separately from polyglot to get commands
 Plug 'ChrisWellsWood/roc.vim'
+
+" as needed
+" Plug 'dstein64/vim-startuptime'
+" Plug 'mattn/emmet-vim'
+" Plug 'tpope/vim-dadbod'
+
+" Plug 'lervag/vimtex'
+" let g:tex_flavor = 'latex'
 
 " new plugins to try
 
@@ -156,14 +161,6 @@ Plug 'ChrisWellsWood/roc.vim'
 " Plug 'APZelos/blamer.nvim' vs Plug 'f-person/git-blame.nvim'
 " Plug 'sjl/gundo.vim'
 " Plug 'Konfekt/FastFold'
-
-" enable as needed
-" Plug 'dstein64/vim-startuptime'
-" Plug 'mattn/emmet-vim'
-" Plug 'tpope/vim-dadbod'
-
-" let g:tex_flavor = 'latex'
-" Plug 'lervag/vimtex'
 
 if !empty(glob("~/.config/nvim/plugs.os.vim"))
     source ~/.config/nvim/plugs.os.vim
