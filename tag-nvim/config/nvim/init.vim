@@ -502,20 +502,20 @@ nmap <leader>st :Obsession<cr>
 nmap <leader>sl :source Session.vim<cr>
 
 " slime
-" TODO: choose from active terminals
 let g:slime_target = "neovim"
 let g:slime_no_mappings = 1
-nmap <leader>tc :SlimeConfig<cr>
-xmap <leader>tl y:SlimeSend1 <c-r>"<cr>
-nmap <leader>tl <plug>SlimeMotionSend
-" SlimeLineSend
-nmap <leader><leader>s <plug>SlimeConfig
-command SlimeSetTermId call SlimeSetTermId()
-function! SlimeSetTermId ()
-    if b:terminal_job_id
-        SlimeConfig(b:terminal_job_id)
-    endif
-endfunction
+nmap <leader>tc <plug>SlimeConfig
+nmap <leader>tx <plug>SlimeMotionSend
+xmap <leader>tx <plug>SlimeRegionSend<cr>
+nmap <leader>tl <plug>SlimeLineSend
+" TODO: choose from active terminals
+" nmap <leader>ti :call SlimeGetTermId()<cr>
+" command SlimeGetTermId call SlimeGetTermId()
+" function! SlimeGetTermId ()
+"     if b:terminal_job_id
+"         echo b:terminal_job_id
+"     endif
+" endfunction
 
 " TODO: contribute this to unimpaired
 " unimpaired extensions for encoding & decoding
