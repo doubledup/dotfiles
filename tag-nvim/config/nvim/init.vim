@@ -29,7 +29,6 @@ set showtabline=2 " always show file tabs
 
 set number " show line numbers
 
-syntax enable
 " skip filetype.lua so that roc.vim's ftdetect works
 " https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
 " let g:do_filetype_lua = 1
