@@ -199,6 +199,11 @@ function fish_title
 end
 
 # Key bindings
+bind \e- cd_prev
+function cd_prev
+    cd -
+    commandline -f repaint
+end
 
 # not using a fish_user_key_bindings function, since that seems to be used by fzf
 bind \ev nvimrc
@@ -212,8 +217,8 @@ end
 bind \co launch_editor
 
 bind \em accept-autosuggestion execute
-bind \el 'echo; l -a; commandline -f repaint'
-bind \ea 'echo; ll -a; commandline -f repaint'
+bind \ea 'echo; l -a; commandline -f repaint'
+bind \el 'echo; ll -a; commandline -f repaint'
 
 # git
 bind \cs 'echo; git status; commandline -f repaint'
