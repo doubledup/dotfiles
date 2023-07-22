@@ -26,6 +26,7 @@ set breakindent breakindentopt=sbr showbreak=↪\  " indent when wrapping with s
 set cursorline " highlight current line
 set foldmethod=indent nofoldenable " fold on indents; don't fold when opening files
 set showtabline=2 " always show file tabs
+set cmdheight=2 " give more space for displaying messages
 
 set number " show line numbers
 

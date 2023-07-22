@@ -1,20 +1,11 @@
 {
   "coc.preferences.extensionUpdateCheck": "daily",
-  "outline.splitCommand": "vertical botright 30vs",
-  "outline.keepWindow": true,
+  "outline.detailAsDescription": false,
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic-languageserver.filetypes": {
     "*": "typos",
     "go": "revive",
     "sh": "shellcheck"
-  },
-  "diagnostic-languageserver.formatFiletypes": {
-    "sh": "shfmt"
-  },
-  "diagnostic-languageserver.formatters": {
-    "shfmt": {
-      "args": ["-i", "4"]
-    }
   },
   "diagnostic-languageserver.linters": {
     "revive": {
@@ -25,6 +16,14 @@
       "command": "typos",
       "rootPatterns": [".git"],
       "args": ["%file"]
+    }
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt"
+  },
+  "diagnostic-languageserver.formatters": {
+    "shfmt": {
+      "args": ["-i", "4"]
     }
   },
   "diagnostic-languageserver.mergeConfig": true,
@@ -47,6 +46,6 @@
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "rust-analyzer.diagnostics.experimental.enable": false,
   "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
-  "rust-analyzer.diagnostics.experimental.enable": false
 }
