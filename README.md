@@ -20,6 +20,16 @@ extension and save it in the same place, eg. use
 `~/.config/kitty/kitty.local.conf` for kitty config you only want on your
 current machine, or `~/.config/fish/config.local.fish` for NeoVim config.
 
+Install Cargo tools:
+```
+cargo install \
+  bacon \
+  cargo-audit \
+  cargo-cache \
+  cargo-fmt \
+  speedtest-rs
+```
+
 ### Firefox
 
 In the `about:config` page:
