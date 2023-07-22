@@ -195,7 +195,7 @@ end
 set fish_prompt_pwd_full_dirs 4
 function fish_title
     set -q argv[1]; or set argv fish
-    echo $argv: (prompt_pwd);
+    echo (string trim $argv): (prompt_pwd);
 end
 
 # Key bindings
