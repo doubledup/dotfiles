@@ -22,6 +22,11 @@ echo 'nvim:'
 nvim -e -u ~/.config/nvim/init.vim -i NONE -c 'Update' -c "qa"
 echo 'tldr:'
 tldr --update
+echo 'foundry completions:'
+forge completions fish > ~/.config/fish/completions/forge.fish
+cast completions fish > ~/.config/fish/completions/cast.fish
+anvil completions fish > ~/.config/fish/completions/anvil.fish
+
 echo 'dotfile submodules:'
 cd "$HOME/.dotfiles"
 git submodule update
