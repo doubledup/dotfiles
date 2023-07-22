@@ -96,6 +96,7 @@ Plug 'itchyny/lightline.vim'
 " Plug 'nvim-tree/nvim-tree.lua'
 " Plug 'ms-jpq/chadtree'
 " Plug 'luukvbaal/nnn.nvim'
+" Plug 'sidebar-nvim/sidebar.nvim'
 Plug 'preservim/nerdtree'
 
 function! UpdateRemotePlugins(...)
@@ -122,6 +123,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 
 " Plug 'preservim/vim-markdown' " included for folding
+" Plug 'elixir-tools/elixir-tools.nvim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " included separately from polyglot to get commands
 Plug 'ChrisWellsWood/roc.vim'
 
@@ -137,6 +139,7 @@ Plug 'ChrisWellsWood/roc.vim'
 
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'mbbill/undotree'
+" Plug 'her/central.vim'
 " Plug 'mfussenegger/nvim-dap'
 " Plug 'ThePrimeagen/harpoon'
 " Plug 'folke/trouble.nvim'
