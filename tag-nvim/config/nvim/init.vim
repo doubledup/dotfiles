@@ -182,55 +182,91 @@ set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
 
-" select everything
-nmap ^ ggVG
-
-nnoremap <c-e> 10<c-e>
-nnoremap <c-y> 10<c-y>
-
-" horizontal scolling
-nnoremap zh 40zh
-nnoremap zl 40zl
-
-map gf :edit <cfile><cr>
-
-noremap <up> :echo "All your arrow are belong to us!"<cr>
-noremap <down> :echo "All your arrow are belong to us!"<cr>
-noremap <left> :echo "All your arrow are belong to us!"<cr>
-noremap <right> :echo "All your arrow are belong to us!"<cr>
-
-set mousescroll=hor:1
-map <ScrollWheelUp> <c-y>
-map <ScrollWheelDown> <c-e>
-
-cnoreabbrev h vert h
-cnoreabbrev hs hor h
-cnoreabbrev ht tab h
-
-nnoremap <esc> :nohlsearch<cr>
-" enter to save all buffers, except in quickfix lists
-nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<cr>" : ":checktime\<cr>:wall\<cr>"
-
-augroup onsave
-    autocmd!
-    autocmd BufWrite * :%s/\s\+$//e " trim trailing whitespace on save
-    " TODO: autosave? See thaerkh/vim-workspace
-    " autocmd InsertLeave,TextChanged * :wall
-augroup END
-
 nmap <c-n> :tabn<cr>
 nmap <c-p> :tabp<cr>
 nmap <c-.> :tabmove +1<cr>
 nmap <c-,> :tabmove -1<cr>
 nmap gm :tabmove<space>
 
+nmap gz :q<cr>
+nmap gZ :tabclose<cr>
+nmap g<c-z> :qa<cr>
+nmap <c-w>t :tabonly<cr>
+
+nmap <c-h> <c-w>h
+nmap <c-j> <c-w>j
+nmap <c-k> <c-w>k
+nmap <c-l> <c-w>l
+
+" horizontal scolling
+nnoremap zh 40zh
+nnoremap zl 40zl
+
+" open file under cursor
+" TODO: interpret relative paths as relative to current file location
+nmap gf :edit <cfile><cr>
+
+" enter to save all buffers, except in quickfix lists
+nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<cr>" : ":checktime\<cr>:wall\<cr>"
+
 " keep cursor in place when joining lines
 nnoremap J mzJ`z
 nnoremap gJ mzgJ`z
 
+" split line before/after cursor
+nmap [<cr> ha<cr><esc>kg_
+nmap ]<cr> a<cr><esc>kg_
+" add blank lines, but respect existing auto-insertion like comments
+" TODO: make this work with .
+nmap [<space> O<esc>j
+nmap ]<space> o<esc>k
+
+" substitute: replace all, confirm and don't ignore case
+nmap <c-s> :%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>
+" TODO: substitute selection xmap s :s/\v<<c-r><c-w>>/<c-r><c-w>/gI<left><left><left>
+
+nnoremap <esc> :nohlsearch<cr>
+nmap ^ ggVG
+
 " move selected lines around
 vmap <c-j> :m '>+1<cr>gv=gv
 vmap <c-k> :m '<-2<cr>gv=gv
+
+" search for selected text
+vmap * "zy/\V<c-r>z<cr>
+
+cnoreabbrev h vert h
+cnoreabbrev hs hor h
+cnoreabbrev ht tab h
+
+" sacreligious bindings for command mode
+cmap <c-a> <Home>
+cmap <c-b> <left>
+cmap <c-f> <right>
+cmap <esc>b <s-left>
+cmap <esc>f <s-right>
+
+set mousescroll=hor:1
+noremap <ScrollWheelUp> <c-y>
+noremap <ScrollWheelDown> <c-e>
+
+if exists("g:neovide")
+    set guifont=Hack\ Nerd\ Font:h13
+    let g:neovide_scroll_animation_length = 0.09
+    let g:neovide_cursor_animation_length = 0.09
+    let g:neovide_refresh_rate_idle = 1
+    let g:neovide_input_macos_alt_is_meta = v:true
+    let g:neovide_cursor_vfx_mode = "ripple"
+    map <D-n> :silent !neovide --multigrid&<cr>
+endif
+
+augroup onsave
+    autocmd!
+    " trim trailing whitespace on save
+    autocmd BufWrite * :%s/\s\+$//e
+    " TODO: autosave? See thaerkh/vim-workspace
+    " autocmd InsertLeave,TextChanged * :wall
+augroup END
 
 command BuffersDeleteHidden call BuffersDeleteHidden()
 function! BuffersDeleteHidden()
@@ -266,47 +302,6 @@ function! BuffersDeleteUnnamed()
         exe 'bdelete' join(emptyBuffers)
     endif
 endfunction
-
-nmap gz :q<cr>
-nmap gZ :tabclose<cr>
-nmap g<c-z> :qa<cr>
-nmap <c-w>t :tabonly<cr>
-
-nmap <c-h> <c-w>h
-nmap <c-j> <c-w>j
-nmap <c-k> <c-w>k
-nmap <c-l> <c-w>l
-
-cmap <c-a> <Home>
-cmap <c-b> <left>
-cmap <c-f> <right>
-cmap <esc>b <s-left>
-cmap <esc>f <s-right>
-
-nmap <c-s> :%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>
-" TODO: substitute selection xmap s :s/\v<<c-r><c-w>>/<c-r><c-w>/gI<left><left><left>
-
-" split line before/after cursor
-nmap [<cr> ha<cr><esc>kg_
-nmap ]<cr> a<cr><esc>kg_
-
-" add blank lines, but respect existing auto-insertion like comments
-" TODO: make this work with .
-nmap [<space> O<esc>j
-nmap ]<space> o<esc>k
-
-" search for selected text
-vmap * "zy/\V<c-r>z<cr>
-
-if exists("g:neovide")
-    set guifont=Hack\ Nerd\ Font:h13
-    let g:neovide_scroll_animation_length = 0.09
-    let g:neovide_cursor_animation_length = 0.09
-    let g:neovide_refresh_rate_idle = 1
-    let g:neovide_input_macos_alt_is_meta = v:true
-    let g:neovide_cursor_vfx_mode = "ripple"
-    map <D-n> :silent !neovide --multigrid&<cr>
-endif
 
 let mapleader = " "
 
