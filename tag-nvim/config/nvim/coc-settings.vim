@@ -11,10 +11,11 @@ let g:coc_global_extensions = [
     \ 'coc-lua',
     \ 'coc-rust-analyzer',
     \ 'coc-sh',
-    \ 'coc-solidity',
     \ 'coc-snippets',
+    \ 'coc-solidity',
     \ 'coc-sql',
     \ 'coc-tsserver',
+    \ 'coc-typos',
     \ 'coc-yaml',
     \ ]
     " \ 'coc-fzf-preview',
