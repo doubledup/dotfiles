@@ -35,11 +35,11 @@ set -x PIPENV_VENV_IN_PROJECT 1
 # set FZF_HISTORY_FILE '~/.local/share/fzf/fzf_history'
 # --history $FZF_HISTORY_FILE
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
-set -x FZF_CTRL_T_COMMAND "fd --type f --hidden --follow --exclude .git . \$dir"
+set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
 set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
-set FZF_PREVIEW_WINDOW_VERT '62%,right,border-left,nowrap'
-set FZF_PREVIEW_WINDOW_HOR '62%,bottom,border-top,nowrap'
+set FZF_PREVIEW_WINDOW_VERT '60%,right,border-left,nowrap'
+set FZF_PREVIEW_WINDOW_HOR '60%,bottom,border-top,nowrap'
 set FZF_PREVIEW_WINDOW_VERT_CHANGE 'alt-l:change-preview-window(bottom,border-top|right,border-left)'
 set FZF_PREVIEW_WINDOW_HOR_CHANGE 'alt-l:change-preview-window(right,border-left|bottom,border-top)'
 
@@ -57,8 +57,8 @@ set FZF_KEYBINDINGS (string join "," -- \
     "alt-k:preview-up" \
     "ctrl-r:next-history" \
     "ctrl-s:prev-history" \
-    "$FZF_PREVIEW_WINDOW_VERT_CHANGE" \
-    "ctrl-y:execute-silent(echo {} | pbcopy)" \
+    "$FZF_PREVIEW_WINDOW_HOR_CHANGE" \
+    "ctrl-y:execute-silent(echo {} | fish_clipboard_copy)" \
 )
 
 set -x FZF_DEFAULT_OPTS (string join " " -- \
@@ -68,7 +68,7 @@ set -x FZF_DEFAULT_OPTS (string join " " -- \
     "--scrollbar █" \
     "--bind '$FZF_KEYBINDINGS'" \
     "--preview '$FZF_PREVIEW'" \
-    "--preview-window '$FZF_PREVIEW_WINDOW_VERT'" \
+    "--preview-window '$FZF_PREVIEW_WINDOW_HOR'" \
 )
 
 # set FZF_PS_COMMAND 'ps -ax -o tt,pid,user,%cpu,%mem,rss,start,command'
@@ -79,6 +79,9 @@ set -x FZF_DEFAULT_OPTS (string join " " -- \
 
 ### binaries
 set -x PATH $PATH $HOME/.local/bin
+
+### emacs (doom)
+set -x PATH $PATH $HOME/.config/emacs/bin
 
 ### foundry
 export PATH="$PATH:/Users/daviddunn/.foundry/bin"
