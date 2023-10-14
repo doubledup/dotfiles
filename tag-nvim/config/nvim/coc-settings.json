@@ -39,13 +39,21 @@
     //     "nix"
     //   ]
     // }
+    "solidity": {
+      "command": "/Users/daviddunn/.asdf/shims/solc",
+      "args": ["--lsp"],
+      "trace.server": "verbose",
+      "rootPatterns": ["foundry.toml", "remappings.txt"],
+      "filetypes": ["solidity"]
+    }
   },
   "eslint.packageManager": "pnpm",
   "eslint.run": "onSave",
   "eslint.workingDirectories": [{ "mode": "location" }],
+  "tsserver.useLocalTsdk": true,
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "rust-analyzer.diagnostics.experimental.enable": false,
-  "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
+  "rust-analyzer.rustfmt.extraArgs": ["+nightly"]
 }
