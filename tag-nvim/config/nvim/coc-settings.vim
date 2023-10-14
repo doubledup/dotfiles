@@ -125,7 +125,7 @@ nmap <leader>a <Plug>(coc-codeaction-selected)
 nmap <leader>a. <Plug>(coc-codeaction-cursor)
 
 " apply AutoFix to problem on the current line
-nmap <leader>ax <Plug>(coc-fix-current)
+nmap <leader>aj <Plug>(coc-fix-current)
 
 " refactor current symbol
 nmap <silent> <leader>ar <Plug>(coc-refactor)
@@ -178,11 +178,11 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 " show diagnostics in current buffer
 nnoremap <silent><nowait> <leader>e :<c-u>CocList diagnostics<cr>
 " manage extensions
-nnoremap <silent><nowait> <leader><leader>x :<c-u>CocList extensions<cr>
+nnoremap <silent><nowait> <leader>ax :<c-u>CocList extensions<cr>
 " search LSP commands
 nnoremap <silent><nowait> <c-;> :<c-u>CocList commands<cr>
 " search document outline
-nnoremap <silent><nowait> <space>ao  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <leader>ao  :<C-u>CocList outline<cr>
 " search workspace symbols
 nnoremap <silent><nowait> <leader>ay :<c-u>CocList -I symbols<cr>
 " do default action for next item
