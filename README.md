@@ -26,8 +26,8 @@ cargo install \
   bacon \
   cargo-audit \
   cargo-cache \
-  cargo-fmt \
-  speedtest-rs
+  speedtest-rs \
+  typos-cli
 ```
 
 ### Firefox
