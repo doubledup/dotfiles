@@ -583,9 +583,8 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
 " sequester lua heredoc config due to vim parsing bug:
 " https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
-" gitsigns
-
 lua << EOF
+-- gitsigns
 require('gitsigns').setup({
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
@@ -632,55 +631,16 @@ require('gitsigns').setup({
     -- nmap <leader>gi :SignifyHunkDiff<cr>
   end
 })
-EOF
 
-" hop
-let g:vimsyn_embed = 'l'
-lua << EOF
+-- hop
+vim.g.vimsyn_embed = 'l'
+
 require'hop'.setup()
 vim.keymap.set('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
 vim.keymap.set('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
 vim.keymap.set('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
-EOF
 
-" " leap
-" lua << EOF
-" require('leap').add_default_mappings()
-" EOF
-" " vim.keymap.set({ 'n' }, '\'', '<Plug>(leap-cross-window)')
-" " vim.keymap.set('o', 'z', "<Plug>(leap-forward-to)", { noremap = true })
-" " vim.keymap.set('v', 'z', "<Plug>(leap-forward-to)", { noremap = true })
-
-" which-key
-set timeoutlen=400
-lua << EOF
-require("which-key").setup {}
-EOF
-
-" " todo-comments
-" lua << EOF
-"     require("todo-comments").setup {
-"     -- your configuration comes here
-"     -- or leave it empty to use the default settings
-"     -- refer to the configuration section below
-"     }
-" EOF
-
-" " tabnine
-" lua << EOF
-" require('tabnine').setup({
-"   disable_auto_comment=true,
-"   accept_keymap="<c-]>",
-"   dismiss_keymap = "<c-\\>",
-"   debounce_ms = 300,
-"   suggestion_color = {gui = "#808080", cterm = 244},
-"   execlude_filetypes = {"TelescopePrompt"}
-" })
-" EOF
-
-" treesitter
-
-lua << EOF
+-- treesitter
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
@@ -702,6 +662,10 @@ require('nvim-treesitter.configs').setup {
 
   indent = { enable = true, disable = { 'python' } },
 }
+
+-- which-key
+vim.o.timeoutlen = 400
+require("which-key").setup {}
 EOF
 
 if filereadable(expand("~/.config/nvim/coc-settings.vim"))
