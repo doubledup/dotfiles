@@ -548,42 +548,58 @@ nmap [of :set foldenable<cr>
 nmap ]of :set nofoldenable<cr>
 " nmap yof :
 
-" wilder
-let g:python3_host_prog = '~/.asdf/shims/python'
-set nowildmenu
-call wilder#setup({
-      \ 'modes': [':', '/', '?'],
-      \ 'accept_key': '<c-e>',
-      \ 'reject_key': '<c-c>',
-      \ 'next_key': '<tab>',
-      \ 'previous_key': '<s-tab>',
-      \ })
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     wilder#cmdline_pipeline({
-      \       'fuzzy': 1,
-      \       'set_pcre2_pattern': 1,
-      \     }),
-      \     wilder#python_search_pipeline({
-      \       'pattern': 'fuzzy',
-      \     }),
-      \   ),
-      \ ])
-
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ 'left': [
-      \   ' ', wilder#popupmenu_devicons(),
-      \ ],
-      \ 'right': [
-      \   ' ', wilder#popupmenu_scrollbar(),
-      \ ],
-      \ }))
-
 " sequester lua heredoc config due to vim parsing bug:
 " https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
 lua << EOF
+
+-- wilder
+-- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
+vim.o.wildmenu = False
+local wilder = require('wilder')
+wilder.setup({
+    modes = { ':', '/', '?' },
+    accept_key = '<c-e>',
+    reject_key = '<c-c>',
+    next_key = '<tab>',
+    previous_key = '<s-tab>',
+})
+
+wilder.set_option('pipeline', {
+    wilder.branch(
+        wilder.python_file_finder_pipeline({
+            dir_command = { 'fd', '-td' },
+            file_command = function (_ctx, arg) return arg:sub(1, 1) == '.' and { 'fd', '-tf', '-H' } or { 'fd', '-tf' } end,
+        }),
+        wilder.python_search_pipeline({
+            pattern = 'fuzzy',
+        }),
+        wilder.substitute_pipeline({
+            pipeline = wilder.python_search_pipeline({
+                patter = 'fuzzy',
+            })
+        }),
+        wilder.cmdline_pipeline({
+            fuzzy = 2,
+        })
+    )
+})
+
+wilder.set_option('renderer', wilder.renderer_mux({
+    [':'] = wilder.popupmenu_renderer({
+        highlighter = wilder.basic_highlighter(),
+        left = { ' ', wilder.popupmenu_devicons() },
+        right = { ' ', wilder.popupmenu_scrollbar() },
+    }),
+    ['/'] = wilder.wildmenu_renderer(
+        wilder.wildmenu_lightline_theme({
+            highlights = { default = 'StatusLine' },
+            highlighter = wilder.basic_highlighter(),
+            separator = ' | ',
+        })
+    ),
+}))
+
 -- gitsigns
 require('gitsigns').setup({
   on_attach = function(bufnr)
