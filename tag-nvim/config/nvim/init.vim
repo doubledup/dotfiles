@@ -493,38 +493,31 @@ function! ToggleMdOutline() abort
 endfunction
 autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
 
-" NERDTree
-let NERDTreeShowHidden=1
-let NERDTreeWinSize=41
-nmap - :NERDTreeToggle<cr>
-nmap <leader>- :NERDTreeFind<cr>
-" quit when NERDTree is the last window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" obsession
-nmap <leader>st :Obsession<cr>
-nmap <leader>sl :source Session.vim<cr>
-
-" slime
-let g:slime_target = "neovim"
-let g:slime_no_mappings = 1
-nmap <leader>tc <plug>SlimeConfig
-nmap <leader>tx <plug>SlimeMotionSend
-xmap <leader>tx <plug>SlimeRegionSend<cr>
-nmap <leader>tl <plug>SlimeLineSend
-" TODO: choose from active terminals
-" nmap <leader>ti :call SlimeGetTermId()<cr>
-" command SlimeGetTermId call SlimeGetTermId()
-" function! SlimeGetTermId ()
-"     if b:terminal_job_id
-"         echo b:terminal_job_id
-"     endif
-" endfunction
-
 " sequester lua heredoc config due to vim parsing bug:
 " https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
 lua << EOF
+
+-- NERDTree
+vim.g.NERDTreeShowHidden = 1
+vim.g.NERDTreeWinSize = 41
+-- quit when NERDTree is the last window
+vim.cmd[[ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif ]]
+vim.keymap.set('n', '-', ':NERDTreeToggle<cr>')
+vim.keymap.set('n', '<leader>-', ':NERDTreeFind<cr>')
+
+-- obsession
+vim.keymap.set('n', '<leader>st', ':Obsession<cr>')
+vim.keymap.set('n', '<leader>sl', ':source Session.vim<cr>')
+
+-- slime
+vim.g.slime_target = "neovim"
+vim.g.slime_no_mappings = 1
+vim.keymap.set('n', '<leader>tc', '<plug>SlimeConfig')
+vim.keymap.set('n', '<leader>tx', '<plug>SlimeMotionSend')
+vim.keymap.set('x', '<leader>tx', '<plug>SlimeRegionSend')
+vim.keymap.set('n', '<leader>tl', '<plug>SlimeLineSend')
+-- TODO: choose from active terminals b:terminal_job_id
 
 -- TODO: contribute this to unimpaired
 -- unimpaired extensions for encoding & decoding
