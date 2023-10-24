@@ -257,54 +257,58 @@ if exists("g:neovide")
     map <D-n> :silent !neovide --multigrid&<cr>
 endif
 
-let mapleader = " "
-
-" config
-nmap <leader>, :tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.vim<cr>
-nmap <leader><leader>, :so ~/.config/nvim/init.vim<cr>
-nmap <leader>; :execute 'tabnew ~/.config/nvim/ftplugin/' . &ft . '.vim'<cr>
-nmap <leader><leader>. :so %<cr>
-
-" clipboard
-" copy filename to system clipboard
-nmap <leader>5 :let @+=@%<cr>
-" copy current register to system clipboard
-nmap <leader>" :let @+=@"<cr>
-nmap <leader>y "+y
-xmap <leader>y "+y
-nmap <leader>Y "+Y
-nmap <leader>p "+p
-xmap <leader>p "+p
-nmap <leader>P "+P
-" change, delete or paste  without touching the unnamed register
-nmap <leader>c "_c
-xmap <leader>c "_c
-nmap <leader>d "_d
-xmap <leader>d "_d
-xmap <leader><c-p> "_dp
-
-" terminal
-" TODO: nvr for avoiding nested terminals
-" quit, then move to start of line to preserve display of curses-like output
-tmap <c-q> <c-\><c-n>0
-nmap <leader>ts :25sp \| te<cr>a
-nmap <leader>tv :85vsp \| te<cr>a
-nmap <leader>tt :tabnew \| te<cr>a
-augroup terminal_settings
-    autocmd!
-    " no line numbers in terminals
-    autocmd TermOpen term://* setlocal nonumber norelativenumber scrolloff=0
-
-    " ignore various filetypes (fzf, ranger & coc) as those will close terminal automatically
-    autocmd TermClose term://*
-        \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-        \   call nvim_input('<CR>')  |
-        \ endif
-augroup END
-
 lua << EOF
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
+
+vim.g.mapleader = " "
+
+-- config
+vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.vim<cr>')
+vim.keymap.set('n', '<leader><leader>,', ':so ~/.config/nvim/init.vim<cr>')
+vim.keymap.set('n', '<leader>;', ':execute \'tabnew ~/.config/nvim/ftplugin/\' . &ft . \'.vim\'<cr>')
+vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
+
+-- clipboard
+-- copy filename to system clipboard
+vim.keymap.set('n', '<leader>5', ':let @+=@%<cr>')
+-- copy current register to system clipboard
+vim.keymap.set('n', '<leader>"', ':let @+=@"<cr>')
+vim.keymap.set('n', '<leader>y', '"+y')
+vim.keymap.set('x', '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>Y', '"+Y')
+vim.keymap.set('n', '<leader>p', '"+p')
+vim.keymap.set('x', '<leader>p', '"+p')
+vim.keymap.set('n', '<leader>P', '"+P')
+-- change, delete or paste  without touching the unnamed register
+vim.keymap.set('n', '<leader>c', '"_c')
+vim.keymap.set('x', '<leader>c', '"_c')
+vim.keymap.set('n', '<leader>d', '"_d')
+vim.keymap.set('x', '<leader>d', '"_d')
+vim.keymap.set('x', '<leader><c-p>', '"_dp')
+
+-- terminal
+-- TODO: nvr for avoiding nested terminals
+-- quit, then move to start of line to preserve display of curses-like output
+vim.keymap.set('t', '<c-q>', '<c-\\><c-n>0')
+vim.keymap.set('n', '<leader>ts', ':25sp | te<cr>a')
+vim.keymap.set('n', '<leader>tv', ':85vsp | te<cr>a')
+vim.keymap.set('n', '<leader>tt', ':tabnew | te<cr>a')
+vim.cmd[[
+    augroup terminal_settings
+        autocmd!
+        " no line numbers in terminals
+        autocmd TermOpen term://* setlocal nonumber norelativenumber scrolloff=0
+
+        " ignore various filetypes (fzf, ranger & coc) as those will close terminal automatically
+        autocmd TermClose term://*
+            \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+            \   call nvim_input('<CR>')  |
+            \ endif
+    augroup END
+]]
+
+-- commands & augroups
 
 function update()
     vim.cmd[[
