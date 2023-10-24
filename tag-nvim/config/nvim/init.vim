@@ -35,12 +35,12 @@ set number " show line numbers
 " let g:do_filetype_lua = 1
 " let g:did_load_filetypes = 0
 
-let data_dir = stdpath('data') . '/site' " install vim-plug if necessary
+" install vim-plug if necessary
+let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'editorconfig/editorconfig-vim'
