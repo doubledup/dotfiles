@@ -352,69 +352,68 @@ augroup terminal_settings
         \ endif
 augroup END
 
-" plugins
-
-" delimitmate
-let delimitMate_balance_matchpairs = 1
-let delimitMate_excluded_ft = ""
-let delimitMate_excluded_regions = ""
-let delimitMate_expand_cr = 2
-let delimitMate_expand_inside_quotes = 1
-let delimitMate_expand_space = 1
-let delimitMate_jump_expansion = 1
-
-" editorconfig
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" fugitive
-nmap <leader>gs :-1tab Git<cr>
-nmap <leader>gf :Git! fetch<cr>
-nmap <leader>gz :Git stash<space>
-nmap <leader>gp :Git! pull<space>
-nmap <leader>gu :Git! push<space>
-nmap <leader>go :Git checkout<space>
-nmap <leader>gc :tab Git commit -v<cr>
-nmap <leader>gb :Git branch<space>
-nmap <leader>gl :Commits!<cr>
-nmap <leader>gd :Gvdiffsplit<cr>
-nmap <leader>gm :Git blame<cr>
-
-" fzf
-nmap <leader>f :Files!<cr>
-" TODO: buffer deletion
-nmap <leader>b :Buffers!<cr>
-nmap <leader>i :History!<cr>
-nmap <leader>w :Windows!<cr>
-" regex commands
-nmap <leader>x :Rg!<cr>
-vmap <leader>x y:Rg! <c-r>"<cr>
-nmap <leader>/ :BLines!<cr>
-vmap <leader>/ y:BLines! <c-r>"<cr>
-nmap <leader>* :BLines! <c-r><c-w><cr>
-vmap <leader>* y:BLines! <c-r>"<cr>
-nmap <leader>: :History:!<cr>
-
-" go
-let g:go_code_completion_enabled = 0
-let g:go_doc_keywordprg_enabled = 0
-let g:go_fmt_autosave = 0
-let g:go_def_mapping_enabled = 0
-let g:go_term_mode = "split"
-let g:go_term_reuse = 1
-let g:go_term_enabled = 1
-let g:go_term_close_on_exit = 0
-let g:go_gopls_enabled = 0
-
-" iswap
-nmap <leader>h :ISwapNodeWithLeft<cr>
-nmap <leader>l :ISwapNodeWithRight<cr>
-nmap <leader>j :ISwapNodeWith<cr>
-nmap <leader>k :ISwapNode<cr>
-
 lua << EOF
 
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
+
+-- plugins
+
+-- delimitmate
+vim.g.delimitMate_balance_matchpairs = 1
+vim.g.delimitMate_excluded_ft = ""
+vim.g.delimitMate_excluded_regions = ""
+vim.g.delimitMate_expand_cr = 2
+vim.g.delimitMate_expand_inside_quotes = 1
+vim.g.delimitMate_expand_space = 1
+vim.g.delimitMate_jump_expansion = 1
+
+-- editorconfig
+vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
+-- fugitive
+vim.keymap.set('n', '<leader>gs', ':-1tab Git<cr>')
+vim.keymap.set('n', '<leader>gf', ':Git! fetch<cr>')
+vim.keymap.set('n', '<leader>gz', ':Git stash<space>')
+vim.keymap.set('n', '<leader>gp', ':Git! pull<space>')
+vim.keymap.set('n', '<leader>gu', ':Git! push<space>')
+vim.keymap.set('n', '<leader>go', ':Git checkout<space>')
+vim.keymap.set('n', '<leader>gc', ':tab Git commit -v<cr>')
+vim.keymap.set('n', '<leader>gb', ':Git branch<space>')
+vim.keymap.set('n', '<leader>gl', ':Commits!<cr>')
+vim.keymap.set('n', '<leader>gd', ':Gvdiffsplit<cr>')
+vim.keymap.set('n', '<leader>gm', ':Git blame<cr>')
+
+-- fzf
+vim.keymap.set('n', '<leader>f', ':Files!<cr>')
+-- TODO: buffer deletion
+vim.keymap.set('n', '<leader>b', ':Buffers!<cr>')
+vim.keymap.set('n', '<leader>i', ':History!<cr>')
+vim.keymap.set('n', '<leader>w', ':Windows!<cr>')
+-- regex commands
+vim.keymap.set('n', '<leader>x', ':Rg!<cr>')
+vim.keymap.set('v', '<leader>x', 'y:Rg! <c-r>"<cr>')
+vim.keymap.set('n', '<leader>/', ':BLines!<cr>')
+vim.keymap.set('v', '<leader>/', 'y:BLines! <c-r>"<cr>')
+vim.keymap.set('n', '<leader>*', ':BLines! <c-r><c-w><cr>')
+vim.keymap.set('v', '<leader>*', 'y:BLines! <c-r>"<cr>')
+vim.keymap.set('n', '<leader>:', ':History:!<cr>')
+
+-- go
+vim.g.go_code_completion_enabled = 0
+vim.g.go_doc_keywordprg_enabled = 0
+vim.g.go_fmt_autosave = 0
+vim.g.go_def_mapping_enabled = 0
+vim.g.go_term_mode = "split"
+vim.g.go_term_reuse = 1
+vim.g.go_term_enabled = 1
+vim.g.go_term_close_on_exit = 0
+vim.g.go_gopls_enabled = 0
+
+-- iswap
+vim.keymap.set('n', '<leader>h', ':ISwapNodeWithLeft<cr>')
+vim.keymap.set('n', '<leader>l', ':ISwapNodeWithRight<cr>')
+vim.keymap.set('n', '<leader>j', ':ISwapNodeWith<cr>')
+vim.keymap.set('n', '<leader>k', ':ISwapNode<cr>')
 
 -- lightline
 vim.o.showmode = false
