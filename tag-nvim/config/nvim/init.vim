@@ -521,37 +521,37 @@ nmap <leader>tl <plug>SlimeLineSend
 "     endif
 " endfunction
 
-" TODO: contribute this to unimpaired
-" unimpaired extensions for encoding & decoding
-nmap [44 !!base64<cr>
-nmap ]44 !!base64 -d<cr>
-vmap [4 "z<c-r>=system("echo '<c-r>z' \| base64 \| tr -d '\n'")<cr><esc>
-vmap ]4 "zc<c-r>=system("echo '<c-r>z' \| base64 -d \| tr -d '\n'")<cr><esc>
-
-nmap [66 VU!!sed -E 's/(.*)/obase=16;\1/' \| bc<cr>
-nmap ]66 VU!!sed -E 's/(.*)/ibase=16;\1/' \| bc<cr>
-vmap [6 Ugv"zc<c-r>=system("echo 'obase=16;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
-vmap ]6 Ugv"zc<c-r>=system("echo 'ibase=16;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
-
-nmap [88 !!sed -E 's/(.*)/obase=8;\1/' \| bc<cr>
-nmap ]88 !!sed -E 's/(.*)/ibase=8;\1/' \| bc<cr>
-vmap [8 "zc<c-r>=system("echo 'obase=8;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
-vmap ]8 "zc<c-r>=system("echo 'ibase=8;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
-
-nmap [22 !!sed -E 's/(.*)/obase=2;\1/' \| bc<cr>
-nmap ]22 !!sed -E 's/(.*)/ibase=2;\1/' \| bc<cr>
-vmap [2 "zc<c-r>=system("echo 'obase=2;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
-vmap ]2 "zc<c-r>=system("echo 'ibase=2;<c-r>z' \| bc \| tr -d '\n'")<cr><esc>
-
-" unimpaired extension for folding
-nmap [of :set foldenable<cr>
-nmap ]of :set nofoldenable<cr>
-" nmap yof :
-
 " sequester lua heredoc config due to vim parsing bug:
 " https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
 lua << EOF
+
+-- TODO: contribute this to unimpaired
+-- unimpaired extensions for encoding & decoding
+vim.keymap.set('n', '[44', '!!base64<cr>')
+vim.keymap.set('n', ']44', '!!base64 -d<cr>')
+vim.keymap.set('v', '[4', '"zc<c-r>=system("echo \'<c-r>z\' | base64 | tr -d \'\\n\'")<cr><esc>')
+vim.keymap.set('v', ']4', '"zc<c-r>=system("echo \'<c-r>z\' | base64 -d | tr -d \'\\n\'")<cr><esc>')
+
+vim.keymap.set('n', '[66', 'VU!!sed -E \'s/(.*)/obase=16;\\1/\' | bc<cr>')
+vim.keymap.set('n', ']66', 'VU!!sed -E \'s/(.*)/ibase=16;\\1/\' | bc<cr>')
+vim.keymap.set('v', '[6', 'Ugv"zc<c-r>=system("echo \'obase=16;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
+vim.keymap.set('v', ']6', 'Ugv"zc<c-r>=system("echo \'ibase=16;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
+
+vim.keymap.set('n', '[88', 'VU!!sed -E \'s/(.*)/obase=8;\\1/\' | bc<cr>')
+vim.keymap.set('n', ']88', 'VU!!sed -E \'s/(.*)/ibase=8;\\1/\' | bc<cr>')
+vim.keymap.set('v', '[8', 'Ugv"zc<c-r>=system("echo \'obase=8;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
+vim.keymap.set('v', ']8', 'Ugv"zc<c-r>=system("echo \'ibase=8;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
+
+vim.keymap.set('n', '[22', 'VU!!sed -E \'s/(.*)/obase=2;\\1/\' | bc<cr>')
+vim.keymap.set('n', ']22', 'VU!!sed -E \'s/(.*)/ibase=2;\\1/\' | bc<cr>')
+vim.keymap.set('v', '[2', 'Ugv"zc<c-r>=system("echo \'obase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
+vim.keymap.set('v', ']2', 'Ugv"zc<c-r>=system("echo \'ibase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
+
+-- unimpaired extension for folding
+vim.keymap.set('n', '[of', ':set foldenable<cr>')
+vim.keymap.set('n', ']of', ':set nofoldenable<cr>')
+vim.keymap.set('n', 'yof', ':set invfoldenable<cr>')
 
 -- wilder
 -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
