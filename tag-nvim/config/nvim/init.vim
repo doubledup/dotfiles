@@ -266,11 +266,9 @@ vim.keymap.set('v', '<c-k>', ':m \'<-2<cr>gv=gv')
 -- search for selected text
 vim.keymap.set('v', '*', '"zy/\\V<c-r>z<cr>')
 
-vim.cmd[[
-    cnoreabbrev h vert h
-    cnoreabbrev hs hor h
-    cnoreabbrev ht tab h
-]]
+vim.cmd.cnoreabbrev('h', 'vert h')
+vim.cmd.cnoreabbrev('hs', 'hor h')
+vim.cmd.cnoreabbrev('ht', 'tab h')
 
 -- sacrilegious bindings for command mode
 vim.keymap.set('c', '<c-a>', '<Home>')
@@ -344,11 +342,9 @@ vim.cmd[[
 -- commands & augroups
 
 function update()
-    vim.cmd[[
-        PlugUpgrade
-        PlugUpdate
-        CocUpdate
-    ]]
+    vim.cmd.PlugUpgrade()
+    vim.cmd.PlugUpdate()
+    vim.cmd.CocUpdate()
 end
 
 function buffers_delete_hidden()
@@ -367,7 +363,7 @@ function buffers_delete_hidden()
     end
 
     if #hiddenBuffers > 0 then
-        vim.cmd('bdelete ' .. table.concat(hiddenBuffers, ' '))
+        vim.cmd.bdelete(table.concat(hiddenBuffers, ' '))
     end
 end
 
@@ -380,7 +376,7 @@ function buffers_delete_unnamed()
     end
 
     if #emptyBuffers > 0 then
-        vim.cmd('bdelete ' .. table.concat(emptyBuffers, ' '))
+        vim.cmd.bdelete(table.concat(emptyBuffers, ' '))
     end
 end
 
