@@ -179,87 +179,90 @@ set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
 
-nmap <c-n> :tabn<cr>
-nmap <c-p> :tabp<cr>
-nmap <c-.> :tabmove +1<cr>
-nmap <c-,> :tabmove -1<cr>
-nmap gm :tabmove<space>
-
-nmap gz :q<cr>
-nmap gZ :tabclose<cr>
-nmap g<c-z> :qa<cr>
-nmap <c-w>t :tabonly<cr>
-
-nmap <c-h> <c-w>h
-nmap <c-j> <c-w>j
-nmap <c-k> <c-w>k
-nmap <c-l> <c-w>l
-
-" horizontal scrolling
-nnoremap zh 40zh
-nnoremap zl 40zl
-
-" open file under cursor
-" TODO: interpret relative paths as relative to current file location
-nmap gf :edit <cfile><cr>
-
-" enter to save all buffers, except in quickfix lists
-nnoremap <expr> <cr> &buftype ==# 'quickfix' ? "\<cr>" : ":checktime\<cr>:wall\<cr>"
-
-" keep cursor in place when joining lines
-nnoremap J mzJ`z
-nnoremap gJ mzgJ`z
-
-" split line before/after cursor
-nmap [<cr> ha<cr><esc>kg_
-nmap ]<cr> a<cr><esc>kg_
-" add blank lines, but respect existing auto-insertion like comments
-" TODO: make this work with . and keep cursor position
-nmap [<space> O<esc>j
-nmap ]<space> o<esc>k
-
-" substitute: replace all, confirm and don't ignore case
-nmap <c-s> :%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>
-xmap <c-s> :s/\v/gI<left><left><left>
-
-nnoremap <esc> :nohlsearch<cr>
-nmap ^ ggVG
-
-" move selected lines around
-vmap <c-j> :m '>+1<cr>gv=gv
-vmap <c-k> :m '<-2<cr>gv=gv
-
-" search for selected text
-vmap * "zy/\V<c-r>z<cr>
-
-cnoreabbrev h vert h
-cnoreabbrev hs hor h
-cnoreabbrev ht tab h
-
-" sacrilegious bindings for command mode
-cmap <c-a> <Home>
-cmap <c-b> <left>
-cmap <c-f> <right>
-cmap <esc>b <s-left>
-cmap <esc>f <s-right>
-
-set mousescroll=hor:1
-noremap <ScrollWheelUp> <c-y>
-noremap <ScrollWheelDown> <c-e>
-
-if exists("g:neovide")
-    set guifont=Hack\ Nerd\ Font:h13
-    let g:neovide_scroll_animation_length = 0.09
-    let g:neovide_cursor_animation_length = 0.09
-    let g:neovide_refresh_rate_idle = 1
-    let g:neovide_input_macos_alt_is_meta = v:true
-    let g:neovide_cursor_vfx_mode = "ripple"
-    map <D-n> :silent !neovide --multigrid&<cr>
-endif
-
 lua << EOF
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
+
+vim.keymap.set('n', '<c-n>', ':tabn<cr>')
+vim.keymap.set('n', '<c-p>', ':tabp<cr>')
+vim.keymap.set('n', '<c-.>', ':tabmove +1<cr>')
+vim.keymap.set('n', '<c-,>', ':tabmove -1<cr>')
+vim.keymap.set('n', 'gm', ':tabmove<space>')
+
+vim.keymap.set('n', 'gz', ':q<cr>')
+vim.keymap.set('n', 'gZ', ':tabclose<cr>')
+vim.keymap.set('n', 'g<c-z>', ':qa<cr>')
+vim.keymap.set('n', '<c-w>t', ':tabonly<cr>')
+
+vim.keymap.set('n', '<c-h>', '<c-w>h')
+vim.keymap.set('n', '<c-j>', '<c-w>j')
+vim.keymap.set('n', '<c-k>', '<c-w>k')
+vim.keymap.set('n', '<c-l>', '<c-w>l')
+
+-- horizontal scrolling
+vim.keymap.set('n', 'zh', '40zh', { remap = false })
+vim.keymap.set('n', 'zl', '40zl', { remap = false })
+
+-- open file under cursor
+-- TODO: interpret relative paths as relative to current file location
+vim.keymap.set('n', 'gf', ':edit <cfile><cr>')
+
+-- enter to save all buffers, except in quickfix lists
+vim.keymap.set('n', '<expr>', '<cr> &buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"', { remap = false })
+
+-- keep cursor in place when joining lines
+vim.keymap.set('n', 'J', 'mzJ`z', { remap = false })
+vim.keymap.set('n', 'gJ', 'mzgJ`z', { remap = false })
+
+-- split line before/after cursor
+vim.keymap.set('n', '[<cr>', 'ha<cr><esc>kg_')
+vim.keymap.set('n', ']<cr>', 'a<cr><esc>kg_')
+-- add blank lines, but respect existing auto-insertion like comments
+-- TODO: make this work with . and keep cursor position
+vim.keymap.set('n', '[<space>', 'O<esc>j')
+vim.keymap.set('n', ']<space>', 'o<esc>k')
+
+-- substitute: replace all, confirm and don't ignore case
+vim.keymap.set('n', '<c-s>', ':%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>')
+vim.keymap.set('x', '<c-s>', ':s/\v/gI<left><left><left>')
+
+vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { remap = false })
+vim.keymap.set('n', '^', 'ggVG')
+
+-- move selected lines around
+vim.keymap.set('v', '<c-j>', ':m \'>+1<cr>gv=gv')
+vim.keymap.set('v', '<c-k>', ':m \'<-2<cr>gv=gv')
+
+-- search for selected text
+vim.keymap.set('v', '*', '"zy/\\V<c-r>z<cr>')
+
+vim.cmd[[
+    cnoreabbrev h vert h
+    cnoreabbrev hs hor h
+    cnoreabbrev ht tab h
+]]
+
+-- sacrilegious bindings for command mode
+vim.keymap.set('c', '<c-a>', '<Home>')
+vim.keymap.set('c', '<c-b>', '<left>')
+vim.keymap.set('c', '<c-f>', '<right>')
+vim.keymap.set('c', '<esc>b', '<s-left>')
+vim.keymap.set('c', '<esc>f', '<s-right>')
+
+-- TODO:
+vim.g.mousescroll='hor:1'
+vim.keymap.set('n', '<ScrollWheelUp>', '<c-y>')
+vim.keymap.set('n', '<ScrollWheelDown>', '<c-e>')
+
+if vim.g.neovide then
+    vim.o.guifont='Hack Nerd Font:h13'
+    vim.g.neovide_scroll_animation_length = 0.09
+    vim.g.neovide_cursor_animation_length = 0.09
+    vim.g.neovide_refresh_rate_idle = 1
+    vim.g.neovide_input_macos_alt_is_meta = true
+    vim.g.neovide_cursor_vfx_mode = "ripple"
+    vim.keymap.set('', '<D-n>', ':silent !neovide --multigrid&<cr>')
+end
 
 vim.g.mapleader = " "
 
