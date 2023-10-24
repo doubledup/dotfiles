@@ -411,65 +411,97 @@ nmap <leader>l :ISwapNodeWithRight<cr>
 nmap <leader>j :ISwapNodeWith<cr>
 nmap <leader>k :ISwapNode<cr>
 
-" lightline
-set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'ayu_mirage',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'git-branch-symbol', 'git-branch' ],
-      \             [ 'readonly', 'modified', 'relativepath' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'fileformat', 'fileencoding', 'percent' ],
-      \              [ 'filetype' ]],
-      \ },
-      \ 'inactive': {
-      \   'left': [ [ 'relativepath' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'fileformat', 'fileencoding', 'percent' ],
-      \              [ 'filetype' ]],
-      \ },
-      \ 'component': {
-      \   'git-branch-symbol': '',
-      \ },
-      \ 'component_function': {
-      \   'git-branch': 'FugitiveHead',
-      \   'filetype': 'LightlineFiletype',
-      \ },
-      \ 'tab_component_function': {
-      \   'tabfileicon': 'LightlineTabFileicon',
-      \   'tabfilename': 'LightlineTabFilename',
-      \ },
-      \ 'tab': {
-      \   'active': [ 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' ],
-      \   'inactive': [ 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' ],
-      \ },
-      \ 'tabline': {
-      \   'left': [ [ 'tabs' ] ],
-      \   'right': [  ],
-      \ },
-      \ }
+lua << EOF
 
-function! CwdTrimmed(cwd)
-    return substitute(substitute(a:cwd,getenv('HOME'),'~',''),'\v.*/([^/]*/[^/]*/[^/]*/[^/]*)$','\1','g')
-endfunction
+-- sequester lua heredoc config due to vim parsing bug:
+-- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
+-- lightline
+vim.o.showmode = false
+vim.g.lightline = {
+    colorscheme = 'ayu_mirage',
+    active = {
+    left = { { 'mode', 'paste' },
+        { 'git-branch-symbol', 'git-branch' },
+        { 'readonly', 'modified', 'relativepath' } },
+    right = { { 'lineinfo' },
+        { 'fileformat', 'fileencoding', 'percent' },
+        { 'filetype' } },
+    },
+    inactive = {
+      left = { { 'relativepath' } },
+      right = { { 'lineinfo' },
+          { 'fileformat', 'fileencoding', 'percent' },
+          { 'filetype' } },
+    },
+    component = {
+      ['git-branch-symbol'] = '',
+    },
+    component_function = {
+      ['git-branch'] = 'FugitiveHead',
+      filetype = 'LightlineFiletype',
+    },
+    tab_component_function = {
+      tabfileicon = 'LightlineTabFileicon',
+      tabfilename = 'LightlineTabFilename',
+    },
+    tab = {
+      active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+      inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+    },
+    tabline = {
+      left = { { 'tabs' } },
+      right = {  },
+    },
+}
+
+function lightline_filetype()
+  if vim.fn.winwidth(0) > 70 then
+    if #vim.bo.filetype > 0 then
+      return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+    else
+      return 'no ft'
+    end
+  else
+    return ''
+  end
+end
+
+function lightline_tab_fileicon(tabnum)
+  local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+  if bufnr then
+    return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
+  else
+    return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
+  end
+end
+
+function cwd_trimmed(cwd)
+  local home = os.getenv('HOME')
+  cwd = cwd:gsub(home, '~')
+  return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
+end
+function lightline_tab_filename(tabnum)
+  local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+  if bufnr then
+    local filename = vim.fn.bufname(bufnr)
+    return cwd_trimmed(filename)
+  else
+    return ''
+  end
+end
+
+vim.cmd[[
 function! LightlineFiletype()
-    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  return luaeval('lightline_filetype()', {})
 endfunction
 function! LightlineTabFileicon(tabnum)
-    return WebDevIconsGetFileTypeSymbol(bufname(tabpagebuflist(a:tabnum)[tabpagewinnr(a:tabnum)-1]))
+  return luaeval('lightline_tab_fileicon(_A.tabnum)', {'tabnum': a:tabnum})
 endfunction
 function! LightlineTabFilename(tabnum)
-    let filename = bufname(tabpagebuflist(a:tabnum)[tabpagewinnr(a:tabnum)-1])
-    " let dirname = fnamemodify(filename, ":h")
-    return CwdTrimmed(filename)
+  return luaeval('lightline_tab_filename(_A.tabnum)', {'tabnum': a:tabnum})
 endfunction
-
-" sequester lua heredoc config due to vim parsing bug:
-" https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
-
-lua << EOF
+]]
 
 -- linediff
 vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
