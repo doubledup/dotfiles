@@ -202,7 +202,7 @@ nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-l> <c-w>l
 
-" horizontal scolling
+" horizontal scrolling
 nnoremap zh 40zh
 nnoremap zl 40zl
 
@@ -243,7 +243,7 @@ cnoreabbrev h vert h
 cnoreabbrev hs hor h
 cnoreabbrev ht tab h
 
-" sacreligious bindings for command mode
+" sacrilegious bindings for command mode
 cmap <c-a> <Home>
 cmap <c-b> <left>
 cmap <c-f> <right>
