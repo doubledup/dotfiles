@@ -227,7 +227,7 @@ nmap ]<space> o<esc>k
 
 " substitute: replace all, confirm and don't ignore case
 nmap <c-s> :%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>
-" TODO: substitute selection xmap s :s/\v<<c-r><c-w>>/<c-r><c-w>/gI<left><left><left>
+xmap <c-s> :s/\v/gI<left><left><left>
 
 nnoremap <esc> :nohlsearch<cr>
 nmap ^ ggVG
