@@ -1,40 +1,3 @@
-" TODO: see ins-completion
-" TODO: change listchars multispace when using spaces
-" TODO: find out why this only works after re-sourcing init
-" set keywordprg=:vert\ help
-" TODO: checkout https://github.com/NvChad/NvChad
-" TODO: add indent object to wellle/targets.vim?
-" TODO: add entire document object to wellle/targets.vim?
-" TODO: persist undo history like thaerkh/vim-workspace
-
-set expandtab tabstop=4 shiftwidth=4 " use 4-space indentation by default
-set formatoptions+=ro " continue comments on new lines
-set list listchars=tab:▷\ ,trail:⋅,nbsp:☺,extends:→,precedes:← " show extra whitespace
-set nowrap linebreak " don't wrap long lines by default, but be more sensible when wrapping is on
-set textwidth=120 colorcolumn=+0 " wrap & highlight @120 chars
-
-set ignorecase smartcase " ignore case unless there are upper-case characters
-set iskeyword^=- " include hyphens in words
-set jumpoptions+=stack " drop forward jumplist locations when moving to a new location
-set lazyredraw " don't redraw while executing commands & using registers
-set nomodeline modelines=0 " ignore modelines due to security concerns
-set noswapfile " live on the edge!
-set scrolloff=2 sidescrolloff=15 " leave some space around the cursor when moving
-set updatetime=300 " trigger CursorHold sooner
-
-set breakindent breakindentopt=sbr showbreak=↪\  " indent when wrapping with showbreak starting the line
-set cursorline " highlight current line
-set foldmethod=indent nofoldenable " fold on indents; don't fold when opening files
-set showtabline=2 " always show file tabs
-set cmdheight=2 " give more space for displaying messages
-
-set number " show line numbers
-
-" skip filetype.lua so that roc.vim's ftdetect works
-" https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
-" let g:do_filetype_lua = 1
-" let g:did_load_filetypes = 0
-
 " install vim-plug if necessary
 let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -175,13 +138,80 @@ endif
 " here vim-plug runs both `filetype plugin indent on` and `syntax enable`
 call plug#end()
 
-set termguicolors
-let ayucolor="mirage"
-colorscheme ayu
-
 lua << EOF
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
+
+-- TODO: see ins-completion
+-- TODO: change listchars multispace when using spaces
+-- TODO: find out why this only works after re-sourcing init
+-- set keywordprg=:vert\ help
+-- TODO: checkout https://github.com/NvChad/NvChad
+-- TODO: add indent object to wellle/targets.vim?
+-- TODO: add entire document object to wellle/targets.vim?
+-- TODO: persist undo history like thaerkh/vim-workspace
+
+-- use 4-space indentation by default
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+-- continue comments on new lines
+vim.o.formatoptions = vim.o.formatoptions and vim.o.formatoptions .. 'ro' or vim.o.formatoptions
+-- show extra whitespace
+vim.o.list = true
+vim.o.listchars = 'tab:▷\\ ,trail:⋅,nbsp:☺,extends:→,precedes:←'
+-- don't wrap long lines by default, but be more sensible when wrapping is on
+vim.o.wrap = false
+vim.o.linebreak = true
+-- wrap & highlight @120 chars
+vim.o.textwidth = 120
+vim.o.colorcolumn = '+0'
+
+-- ignore case unless there are upper-case characters
+vim.o.ignorecase = true
+vim.o.smartcase = true
+-- include hyphens in words
+vim.o.iskeyword = '-,' .. vim.o.iskeyword
+-- drop forward jumplist locations when moving to a new location
+vim.o.jumpoptions = vim.o.jumpoptions .. 'stack'
+-- don't redraw while executing commands & using registers
+vim.o.lazyredraw = true
+-- ignore modelines due to security concerns
+vim.o.modeline = false
+vim.o.modelines = 0
+-- live on the edge!
+vim.o.swapfile = false
+-- leave some space around the cursor when moving
+vim.o.scrolloff = 2
+vim.o.sidescrolloff = 15
+-- trigger CursorHold sooner
+vim.o.updatetime = 300
+
+-- indent when wrapping with showbreak starting the line
+vim.o.breakindent = true
+vim.o.breakindentopt = 'sbr'
+vim.o.showbreak = '↪ '
+-- highlight current line
+vim.o.cursorline = true
+-- fold on indents; don't fold when opening files
+vim.o.foldmethod = 'indent'
+vim.o.foldenable = false
+-- always show file tabs
+vim.o.showtabline = 2
+-- give more space for displaying messages
+vim.o.cmdheight = 2
+
+-- show line numbers
+vim.o.number = true
+
+-- skip filetype.lua so that roc.vim's ftdetect works
+-- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
+-- vim.g.do_filetype_lua = 1
+-- vim.g.did_load_filetypes = 0
+
+vim.o.termguicolors = true
+vim.g.ayucolor = 'mirage'
+vim.cmd.colorscheme('ayu')
 
 vim.keymap.set('n', '<c-n>', ':tabn<cr>')
 vim.keymap.set('n', '<c-p>', ':tabp<cr>')
