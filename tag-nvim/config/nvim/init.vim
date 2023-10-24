@@ -175,13 +175,6 @@ endif
 " here vim-plug runs both `filetype plugin indent on` and `syntax enable`
 call plug#end()
 
-command Update call Update()
-function! Update ()
-    execute('PlugUpgrade')
-    execute('PlugUpdate')
-    execute('CocUpdate')
-endfunction
-
 set termguicolors
 let ayucolor="mirage"
 colorscheme ayu
@@ -264,49 +257,6 @@ if exists("g:neovide")
     map <D-n> :silent !neovide --multigrid&<cr>
 endif
 
-augroup onsave
-    autocmd!
-    " trim trailing whitespace on save
-    autocmd BufWrite * :%s/\s\+$//e
-    " TODO: autosave? See thaerkh/vim-workspace
-    " autocmd InsertLeave,TextChanged * :wall
-augroup END
-
-command BuffersDeleteHidden call BuffersDeleteHidden()
-function! BuffersDeleteHidden()
-    let shownBuffers = {}
-    for i in range(1, tabpagenr('$'))
-        for j in tabpagebuflist(i)
-            let shownBuffers[j] = 1
-        endfor
-    endfor
-
-    let hiddenBuffers = []
-    for i in range(1, bufnr('$'))
-        if buflisted(i) && bufexists(i) && !has_key(shownBuffers, i)
-            call add(hiddenBuffers, i)
-        endif
-    endfor
-
-    if len(hiddenBuffers) > 0
-        exe 'bdelete' join(hiddenBuffers)
-    endif
-endfunction
-
-command BuffersDeleteUnnamed call BuffersDeleteUnnamed()
-function! BuffersDeleteUnnamed()
-    let emptyBuffers = []
-    for i in range(1, bufnr('$'))
-        if buflisted(i) && bufexists(i) && bufname(i) == ''
-            call add(emptyBuffers, i)
-        endif
-    endfor
-
-    if len(emptyBuffers) > 0
-        exe 'bdelete' join(emptyBuffers)
-    endif
-endfunction
-
 let mapleader = " "
 
 " config
@@ -353,9 +303,63 @@ augroup terminal_settings
 augroup END
 
 lua << EOF
-
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
+
+function update()
+    vim.cmd[[
+        PlugUpgrade
+        PlugUpdate
+        CocUpdate
+    ]]
+end
+
+function buffers_delete_hidden()
+    local shownBuffers = {}
+    for i = 1, vim.fn.tabpagenr('$') do
+        for _, j in pairs(vim.fn.tabpagebuflist(i)) do
+            shownBuffers[j] = true
+        end
+    end
+
+    local hiddenBuffers = {}
+    for i = 1, vim.fn.bufnr('$') do
+        if vim.fn.buflisted(i) and vim.fn.bufexists(i) and not shownBuffers[i] then
+            table.insert(hiddenBuffers, i)
+        end
+    end
+
+    if #hiddenBuffers > 0 then
+        vim.cmd('bdelete ' .. table.concat(hiddenBuffers, ' '))
+    end
+end
+
+function buffers_delete_unnamed()
+    local emptyBuffers = {}
+    for i = 1, vim.fn.bufnr('$') do
+        if vim.fn.buflisted(i) and vim.fn.bufexists(i) and vim.fn.bufname(i) == '' then
+            table.insert(emptyBuffers, i)
+        end
+    end
+
+    if #emptyBuffers > 0 then
+        vim.cmd('bdelete ' .. table.concat(emptyBuffers, ' '))
+    end
+end
+
+vim.cmd[[
+command! Update call luaeval('update()')
+command! BuffersDeleteHidden call luaeval('buffers_delete_hidden()')
+command! BuffersDeleteUnnamed call luaeval('buffers_delete_unnamed()')
+
+augroup onsave
+    autocmd!
+    " trim trailing whitespace on save
+    autocmd BufWrite * :%s/\s\+$//e
+    " TODO: autosave? See thaerkh/vim-workspace
+    " autocmd InsertLeave,TextChanged * :wall
+augroup END
+]]
 
 -- plugins
 
