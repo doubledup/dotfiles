@@ -398,6 +398,7 @@ vim.g.delimitMate_jump_expansion = 1
 
 -- editorconfig
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
+
 -- fugitive
 vim.keymap.set('n', '<leader>gs', ':-1tab Git<cr>')
 vim.keymap.set('n', '<leader>gf', ':Git! fetch<cr>')
@@ -417,7 +418,6 @@ vim.keymap.set('n', '<leader>f', ':Files!<cr>')
 vim.keymap.set('n', '<leader>b', ':Buffers!<cr>')
 vim.keymap.set('n', '<leader>i', ':History!<cr>')
 vim.keymap.set('n', '<leader>w', ':Windows!<cr>')
--- regex commands
 vim.keymap.set('n', '<leader>x', ':Rg!<cr>')
 vim.keymap.set('v', '<leader>x', 'y:Rg! <c-r>"<cr>')
 vim.keymap.set('n', '<leader>/', ':BLines!<cr>')
@@ -425,6 +425,54 @@ vim.keymap.set('v', '<leader>/', 'y:BLines! <c-r>"<cr>')
 vim.keymap.set('n', '<leader>*', ':BLines! <c-r><c-w><cr>')
 vim.keymap.set('v', '<leader>*', 'y:BLines! <c-r>"<cr>')
 vim.keymap.set('n', '<leader>:', ':History:!<cr>')
+
+-- gitsigns
+require('gitsigns').setup({
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    -- Actions
+    map({'n', 'v'}, '<leader>ga', ':Gitsigns stage_hunk<CR>')
+    map({'n', 'v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>gA', gs.stage_buffer)
+    map('n', '<leader>gR', gs.reset_buffer)
+    map('n', '<leader>gi', gs.preview_hunk)
+    map('n', '<leader>gv', gs.undo_stage_hunk)
+
+    -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    -- map('n', '<leader>tb', gs.toggle_current_line_blame)
+    -- map('n', '<leader>hd', gs.diffthis)
+    -- map('n', '<leader>hD', function() gs.diffthis('~') end)
+    -- map('n', '<leader>td', gs.toggle_deleted)
+
+    -- Text object
+    map({'o', 'x'}, 'id', ':<C-U>Gitsigns select_hunk<CR>')
+    -- omap id :<c-u>Gitsigns select_hunk<cr>
+    -- xmap id :<c-u>Gitsigns select_hunk<cr>
+    -- omap ad <plug>(signify-motion-outer-pending)
+    -- xmap ad <plug>(signify-motion-outer-visual)
+    -- nmap <leader>gi :SignifyHunkDiff<cr>
+  end
+})
 
 -- go
 vim.g.go_code_completion_enabled = 0
@@ -436,6 +484,14 @@ vim.g.go_term_reuse = 1
 vim.g.go_term_enabled = 1
 vim.g.go_term_close_on_exit = 0
 vim.g.go_gopls_enabled = 0
+
+-- hop
+vim.g.vimsyn_embed = 'l'
+
+require'hop'.setup()
+vim.keymap.set('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
+vim.keymap.set('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
+vim.keymap.set('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
 
 -- iswap
 vim.keymap.set('n', '<leader>h', ':ISwapNodeWithLeft<cr>')
@@ -575,8 +631,53 @@ vim.keymap.set('x', '<leader>tx', '<plug>SlimeRegionSend')
 vim.keymap.set('n', '<leader>tl', '<plug>SlimeLineSend')
 -- TODO: choose from active terminals b:terminal_job_id
 
--- TODO: contribute this to unimpaired
+-- tabnine
+-- require('tabnine').setup({
+--   disable_auto_comment=true,
+--   accept_keymap="<c-]>",
+--   dismiss_keymap = "<c-\\>",
+--   debounce_ms = 300,
+--   suggestion_color = {gui = "#808080", cterm = 244},
+--   execlude_filetypes = {"TelescopePrompt"}
+-- })
+
+-- todo-comments
+-- require("todo-comments").setup {
+-- -- your configuration comes here
+-- -- or leave it empty to use the default settings
+-- -- refer to the configuration section below
+-- }
+
+-- treesitter
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {
+    -- languages
+    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript', 'jsdoc', 'go',
+    'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript', 'zig',
+    -- version control
+    'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
+    -- web
+    'css', 'html', 'http',
+    -- config
+    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml',
+    -- scripting
+    'bash', 'fish', 'jq', 'lua', 'vim',
+    -- queries
+    'graphql', 'regex', 'sql',
+    -- docs
+    'help', 'markdown', 'rst'
+  },
+
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = {'diff', 'git_rebase', 'gitcommit'},
+  },
+
+  indent = { enable = true, disable = { 'python' } },
+}
+
 -- unimpaired extensions for encoding & decoding
+-- TODO: contribute this to unimpaired
 vim.keymap.set('n', '[44', '!!base64<cr>')
 vim.keymap.set('n', ']44', '!!base64 -d<cr>')
 vim.keymap.set('v', '[4', '"zc<c-r>=system("echo \'<c-r>z\' | base64 | tr -d \'\\n\'")<cr><esc>')
@@ -601,6 +702,10 @@ vim.keymap.set('v', ']2', 'Ugv"zc<c-r>=system("echo \'ibase=2;<c-r>z\' | bc | tr
 vim.keymap.set('n', '[of', ':set foldenable<cr>')
 vim.keymap.set('n', ']of', ':set nofoldenable<cr>')
 vim.keymap.set('n', 'yof', ':set invfoldenable<cr>')
+
+-- which-key
+vim.o.timeoutlen = 400
+require("which-key").setup {}
 
 -- wilder
 -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
@@ -649,93 +754,6 @@ wilder.set_option('renderer', wilder.renderer_mux({
     ),
 }))
 
--- gitsigns
-require('gitsigns').setup({
-  on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
-
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
-
-    -- Navigation
-    map('n', ']c', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    map('n', '[c', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    -- Actions
-    map({'n', 'v'}, '<leader>ga', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>gA', gs.stage_buffer)
-    map('n', '<leader>gR', gs.reset_buffer)
-    map('n', '<leader>gi', gs.preview_hunk)
-    map('n', '<leader>gv', gs.undo_stage_hunk)
-
-    -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-    -- map('n', '<leader>tb', gs.toggle_current_line_blame)
-    -- map('n', '<leader>hd', gs.diffthis)
-    -- map('n', '<leader>hD', function() gs.diffthis('~') end)
-    -- map('n', '<leader>td', gs.toggle_deleted)
-
-    -- Text object
-    map({'o', 'x'}, 'id', ':<C-U>Gitsigns select_hunk<CR>')
-    -- omap id :<c-u>Gitsigns select_hunk<cr>
-    -- xmap id :<c-u>Gitsigns select_hunk<cr>
-    -- omap ad <plug>(signify-motion-outer-pending)
-    -- xmap ad <plug>(signify-motion-outer-visual)
-    -- nmap <leader>gi :SignifyHunkDiff<cr>
-  end
-})
-
--- hop
-vim.g.vimsyn_embed = 'l'
-
-require'hop'.setup()
-vim.keymap.set('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
-vim.keymap.set('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
-vim.keymap.set('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
-
--- treesitter
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {
-    -- languages
-    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript', 'jsdoc', 'go',
-    'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript', 'zig',
-    -- version control
-    'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
-    -- web
-    'css', 'html', 'http',
-    -- config
-    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml',
-    -- scripting
-    'bash', 'fish', 'jq', 'lua', 'vim',
-    -- queries
-    'graphql', 'regex', 'sql',
-    -- docs
-    'help', 'markdown', 'rst'
-  },
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = {'diff', 'git_rebase', 'gitcommit'},
-  },
-
-  indent = { enable = true, disable = { 'python' } },
-}
-
--- which-key
-vim.o.timeoutlen = 400
-require("which-key").setup {}
 EOF
 
 if filereadable(expand("~/.config/nvim/coc-settings.vim"))
