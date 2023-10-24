@@ -354,11 +354,6 @@ augroup END
 
 " plugins
 
-" commentary
-imap <c-/> <c-o>:Commentary<cr>
-nmap <c-/> :Commentary<cr>
-xmap <c-/> :Commentary<cr>
-
 " delimitmate
 let delimitMate_balance_matchpairs = 1
 let delimitMate_excluded_ft = ""
