@@ -122,7 +122,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 
-" Plug 'preservim/vim-markdown' " included for folding
+Plug 'preservim/vim-markdown' " included for folding
 " Plug 'elixir-tools/elixir-tools.nvim'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " included separately from polyglot to get commands
 Plug 'ChrisWellsWood/roc.vim'
@@ -471,12 +471,18 @@ function! LightlineTabFilename(tabnum)
     return CwdTrimmed(filename)
 endfunction
 
-" linediff
-vmap <leader>l :Linediff<cr>
+" sequester lua heredoc config due to vim parsing bug:
+" https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
-" markdown
-let g:vim_markdown_folding_level = 2
-let g:vim_markdown_toc_autofit = 1
+lua << EOF
+
+-- linediff
+vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
+
+-- markdown
+vim.g.vim_markdown_folding_level = 2
+vim.g.vim_markdown_toc_autofit = 1
+vim.cmd[[
 autocmd BufEnter *{.md,.mdx} set wrap
 function! ToggleMdOutline() abort
     let b:md_outline_present = get(b:, 'md_outline_present', 0)
@@ -492,11 +498,7 @@ function! ToggleMdOutline() abort
     endif
 endfunction
 autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
-
-" sequester lua heredoc config due to vim parsing bug:
-" https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
-
-lua << EOF
+]]
 
 -- NERDTree
 vim.g.NERDTreeShowHidden = 1
