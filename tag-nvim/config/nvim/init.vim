@@ -221,7 +221,7 @@ nnoremap gJ mzgJ`z
 nmap [<cr> ha<cr><esc>kg_
 nmap ]<cr> a<cr><esc>kg_
 " add blank lines, but respect existing auto-insertion like comments
-" TODO: make this work with .
+" TODO: make this work with . and keep cursor position
 nmap [<space> O<esc>j
 nmap ]<space> o<esc>k
 
