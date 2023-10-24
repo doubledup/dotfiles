@@ -658,17 +658,22 @@ vim.keymap.set('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = tr
 
 -- treesitter
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = {
-    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript', 'zig',
+    -- languages
+    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript', 'jsdoc', 'go',
+    'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript', 'zig',
+    -- version control
     'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
-    'css', 'html', 'http', 'javascript', 'jsdoc',
-    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml', -- config formats
-    'bash', 'fish', 'jq', 'lua', --scripting
-    'graphql', 'sql', -- query languages
-    'regex',
-    'markdown', 'rst',
-    'help', 'vim'
+    -- web
+    'css', 'html', 'http',
+    -- config
+    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml',
+    -- scripting
+    'bash', 'fish', 'jq', 'lua', 'vim',
+    -- queries
+    'graphql', 'regex', 'sql',
+    -- docs
+    'help', 'markdown', 'rst'
   },
 
   highlight = {
