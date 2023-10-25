@@ -104,7 +104,7 @@ require("lazy").setup({
                 },
             }
 
-            function lightline_filetype()
+            function LightlineFiletype()
                 if vim.fn.winwidth(0) > 70 then
                     if #vim.bo.filetype > 0 then
                         return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
@@ -116,7 +116,7 @@ require("lazy").setup({
                 end
             end
 
-            function lightline_tab_fileicon(tabnum)
+            function LightlineTabFileicon(tabnum)
                 local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
                 if bufnr then
                     return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
@@ -125,16 +125,16 @@ require("lazy").setup({
                 end
             end
 
-            function cwd_trimmed(cwd)
+            function CwdTrimmed(cwd)
                 local home = os.getenv('HOME')
                 cwd = cwd:gsub(home, '~')
                 return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
             end
-            function lightline_tab_filename(tabnum)
+            function LightlineTabFilename(tabnum)
                 local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
                 if bufnr then
                     local filename = vim.fn.bufname(bufnr)
-                    return cwd_trimmed(filename)
+                    return CwdTrimmed(filename)
                 else
                     return ''
                 end
@@ -142,13 +142,13 @@ require("lazy").setup({
 
             vim.cmd[[
             function! LightlineFiletype()
-                return luaeval('lightline_filetype()', {})
+                return luaeval('LightlineFiletype()', {})
             endfunction
             function! LightlineTabFileicon(tabnum)
-                return luaeval('lightline_tab_fileicon(_A.tabnum)', {'tabnum': a:tabnum})
+                return luaeval('LightlineTabFileicon(_A.tabnum)', {'tabnum': a:tabnum})
             endfunction
             function! LightlineTabFilename(tabnum)
-                return luaeval('lightline_tab_filename(_A.tabnum)', {'tabnum': a:tabnum})
+                return luaeval('LightlineTabFilename(_A.tabnum)', {'tabnum': a:tabnum})
             endfunction
             ]]
         end
@@ -472,13 +472,13 @@ vim.cmd[[
 
 -- commands & augroups
 
-function update()
+function Update()
     vim.cmd.PlugUpgrade()
     vim.cmd.PlugUpdate()
     vim.cmd.CocUpdate()
 end
 
-function buffers_delete_hidden()
+function BuffersDeleteHidden()
     local shownBuffers = {}
     for i = 1, vim.fn.tabpagenr('$') do
         for _, j in pairs(vim.fn.tabpagebuflist(i)) do
@@ -498,7 +498,7 @@ function buffers_delete_hidden()
     end
 end
 
-function buffers_delete_unnamed()
+function BuffersDeleteUnnamed()
     local emptyBuffers = {}
     for i = 1, vim.fn.bufnr('$') do
         if vim.fn.buflisted(i) and vim.fn.bufexists(i) and vim.fn.bufname(i) == '' then
@@ -512,9 +512,9 @@ function buffers_delete_unnamed()
 end
 
 vim.cmd[[
-command! Update call luaeval('update()')
-command! BuffersDeleteHidden call luaeval('buffers_delete_hidden()')
-command! BuffersDeleteUnnamed call luaeval('buffers_delete_unnamed()')
+command! Update call luaeval('Update()')
+command! BuffersDeleteHidden call luaeval('BuffersDeleteHidden()')
+command! BuffersDeleteUnnamed call luaeval('BuffersDeleteUnnamed()')
 
 augroup onsave
     autocmd!
@@ -734,7 +734,7 @@ require("which-key").setup {}
 
 -- wilder
 -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
-vim.o.wildmenu = False
+vim.o.wildmenu = false
 local wilder = require('wilder')
 wilder.setup({
     modes = { ':', '/', '?' },
