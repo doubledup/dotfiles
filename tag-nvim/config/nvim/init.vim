@@ -506,85 +506,86 @@ vim.o.showmode = false
 vim.g.lightline = {
     colorscheme = 'ayu_mirage',
     active = {
-    left = { { 'mode', 'paste' },
-        { 'git-branch-symbol', 'git-branch' },
-        { 'readonly', 'modified', 'relativepath' } },
-    right = { { 'lineinfo' },
-        { 'fileformat', 'fileencoding', 'percent' },
-        { 'filetype' } },
+        left = { { 'mode', 'paste' },
+            { 'git-branch-symbol', 'git-branch' },
+            { 'readonly', 'modified', 'relativepath' } },
+        right = { { 'lineinfo' },
+            { 'fileformat', 'fileencoding', 'percent' },
+            { 'filetype' } },
     },
     inactive = {
-      left = { { 'relativepath' } },
-      right = { { 'lineinfo' },
-          { 'fileformat', 'fileencoding', 'percent' },
-          { 'filetype' } },
+        left = { { 'relativepath' } },
+        right = { { 'lineinfo' },
+            { 'fileformat', 'fileencoding', 'percent' },
+            { 'filetype' }
+        },
     },
     component = {
-      ['git-branch-symbol'] = '',
+        ['git-branch-symbol'] = '',
     },
     component_function = {
-      ['git-branch'] = 'FugitiveHead',
-      filetype = 'LightlineFiletype',
+        ['git-branch'] = 'FugitiveHead',
+        filetype = 'LightlineFiletype',
     },
     tab_component_function = {
-      tabfileicon = 'LightlineTabFileicon',
-      tabfilename = 'LightlineTabFilename',
+        tabfileicon = 'LightlineTabFileicon',
+        tabfilename = 'LightlineTabFilename',
     },
     tab = {
-      active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
-      inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+        active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+        inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
     },
     tabline = {
-      left = { { 'tabs' } },
-      right = {  },
+        left = { { 'tabs' } },
+        right = { },
     },
 }
 
 function lightline_filetype()
-  if vim.fn.winwidth(0) > 70 then
-    if #vim.bo.filetype > 0 then
-      return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+    if vim.fn.winwidth(0) > 70 then
+        if #vim.bo.filetype > 0 then
+            return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+        else
+            return 'no ft'
+        end
     else
-      return 'no ft'
+        return ''
     end
-  else
-    return ''
-  end
 end
 
 function lightline_tab_fileicon(tabnum)
-  local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-  if bufnr then
-    return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
-  else
-    return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
-  end
+    local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+    if bufnr then
+        return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
+    else
+        return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
+    end
 end
 
 function cwd_trimmed(cwd)
-  local home = os.getenv('HOME')
-  cwd = cwd:gsub(home, '~')
-  return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
+    local home = os.getenv('HOME')
+    cwd = cwd:gsub(home, '~')
+    return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
 end
 function lightline_tab_filename(tabnum)
-  local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-  if bufnr then
-    local filename = vim.fn.bufname(bufnr)
-    return cwd_trimmed(filename)
-  else
-    return ''
-  end
+    local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+    if bufnr then
+        local filename = vim.fn.bufname(bufnr)
+        return cwd_trimmed(filename)
+    else
+        return ''
+    end
 end
 
 vim.cmd[[
 function! LightlineFiletype()
-  return luaeval('lightline_filetype()', {})
+    return luaeval('lightline_filetype()', {})
 endfunction
 function! LightlineTabFileicon(tabnum)
-  return luaeval('lightline_tab_fileicon(_A.tabnum)', {'tabnum': a:tabnum})
+    return luaeval('lightline_tab_fileicon(_A.tabnum)', {'tabnum': a:tabnum})
 endfunction
 function! LightlineTabFilename(tabnum)
-  return luaeval('lightline_tab_filename(_A.tabnum)', {'tabnum': a:tabnum})
+    return luaeval('lightline_tab_filename(_A.tabnum)', {'tabnum': a:tabnum})
 endfunction
 ]]
 
