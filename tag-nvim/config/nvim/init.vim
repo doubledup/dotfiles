@@ -157,6 +157,8 @@ vim.o.linebreak = true
 -- wrap & highlight @120 chars
 vim.o.textwidth = 120
 vim.o.colorcolumn = '+0'
+-- always show signcolumn
+vim.o.signcolumn = 'yes'
 
 -- ignore case unless there are upper-case characters
 vim.o.ignorecase = true
