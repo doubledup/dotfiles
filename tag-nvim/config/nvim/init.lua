@@ -17,7 +17,8 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        -- latest stable release
+        "--branch=stable",
         lazypath,
     })
 end
@@ -34,7 +35,8 @@ require("lazy").setup({
     -- git
 
     'lewis6991/gitsigns.nvim',
-    'tpope/vim-fugitive', -- TODO: vs 'jreybert/vimagit',
+    -- TODO: vs 'jreybert/vimagit',
+    'tpope/vim-fugitive',
     'tpope/vim-git',
 
     -- TODO: vs builtin LSP or one of
@@ -57,7 +59,8 @@ require("lazy").setup({
     'junegunn/fzf.vim',
     'norcalli/nvim-colorizer.lua',
     'powerman/vim-plugin-AnsiEsc',
-    'ryanoasis/vim-devicons', -- TODO: vs 'nvim-tree/nvim-web-devicons',
+    -- TODO: vs 'nvim-tree/nvim-web-devicons',
+    'ryanoasis/vim-devicons',
 
     -- TODO: vs one of
     -- { 'akinsho/bufferline.nvim', tag = 'v2.*' }
@@ -100,7 +103,7 @@ require("lazy").setup({
                 },
                 tabline = {
                     left = { { 'tabs' } },
-                    right = { },
+                    right = {},
                 },
             }
 
@@ -130,6 +133,7 @@ require("lazy").setup({
                 cwd = cwd:gsub(home, '~')
                 return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
             end
+
             function LightlineTabFilename(tabnum)
                 local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
                 if bufnr then
@@ -140,7 +144,7 @@ require("lazy").setup({
                 end
             end
 
-            vim.cmd[[
+            vim.cmd [[
             function! LightlineFiletype()
                 return luaeval('LightlineFiletype()', {})
             endfunction
@@ -170,7 +174,7 @@ require("lazy").setup({
     -- 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     {
         'gelguy/wilder.nvim',
-        config = function ()
+        config = function()
             -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
             vim.o.wildmenu = false
             local wilder = require('wilder')
@@ -186,7 +190,13 @@ require("lazy").setup({
                 wilder.branch(
                     wilder.python_file_finder_pipeline({
                         dir_command = { 'fd', '-td' },
-                        file_command = function (_, arg) return arg:sub(1, 1) == '.' and { 'fd', '-tf', '-H' } or { 'fd', '-tf' } end,
+                        file_command = function(_, arg)
+                            if arg:sub(1, 1) == '.' then
+                                return { 'fd', '-tf', '-H' }
+                            else
+                                return { 'fd', '-tf' }
+                            end
+                        end,
                     }),
                     wilder.python_search_pipeline({
                         pattern = 'fuzzy',
@@ -221,7 +231,8 @@ require("lazy").setup({
 
     -- editing
     'andrewradev/linediff.vim',
-    'phaazon/hop.nvim', -- TODO: vs 'ggandor/leap.nvim',
+    -- TODO: vs 'ggandor/leap.nvim',
+    'phaazon/hop.nvim',
     'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
@@ -229,7 +240,7 @@ require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
-        config = function ()
+        config = function()
             require('nvim-treesitter.configs').setup({
                 ensure_installed = {
                     -- languages
@@ -253,7 +264,7 @@ require("lazy").setup({
                 sync_install = false,
                 highlight = {
                     enable = true,
-                    additional_vim_regex_highlighting = {'diff', 'git_rebase', 'gitcommit'},
+                    additional_vim_regex_highlighting = { 'diff', 'git_rebase', 'gitcommit' },
                 },
                 indent = {
                     enable = true,
@@ -261,7 +272,7 @@ require("lazy").setup({
                 },
             })
         end,
-     },
+    },
 
     'pbrisbin/vim-mkdir',
     'raimondi/delimitmate',
@@ -273,9 +284,11 @@ require("lazy").setup({
     'tpope/vim-unimpaired',
     'wellle/targets.vim',
 
-    'preservim/vim-markdown', -- included for folding
+    -- included for folding
+    'preservim/vim-markdown',
     -- 'elixir-tools/elixir-tools.nvim'
-    { 'fatih/vim-go', build = ':GoUpdateBinaries' }, -- included separately from polyglot to get commands
+    -- included separately from polyglot to get commands
+    { 'fatih/vim-go', build = ':GoUpdateBinaries' },
     'ChrisWellsWood/roc.vim',
 
     -- as needed
@@ -418,7 +431,8 @@ vim.keymap.set('n', 'zl', '40zl', { remap = false })
 vim.keymap.set('n', 'gf', ':edit <cfile><cr>')
 
 -- enter to save all buffers, except in quickfix lists
-vim.keymap.set('n', '<cr>', '&buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"', { expr = true, remap = false })
+vim.keymap.set('n', '<cr>', '&buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"',
+    { expr = true, remap = false })
 
 -- keep cursor in place when joining lines
 vim.keymap.set('n', 'J', 'mzJ`z', { remap = false })
@@ -458,12 +472,12 @@ vim.keymap.set('c', '<esc>b', '<s-left>')
 vim.keymap.set('c', '<esc>f', '<s-right>')
 
 -- TODO:
-vim.g.mousescroll='hor:1'
+vim.g.mousescroll = 'hor:1'
 vim.keymap.set('n', '<ScrollWheelUp>', '<c-y>')
 vim.keymap.set('n', '<ScrollWheelDown>', '<c-e>')
 
 if vim.g.neovide then
-    vim.o.guifont='Hack Nerd Font:h13'
+    vim.o.guifont = 'Hack Nerd Font:h13'
     vim.g.neovide_scroll_animation_length = 0.09
     vim.g.neovide_cursor_animation_length = 0.09
     vim.g.neovide_refresh_rate_idle = 1
@@ -505,7 +519,7 @@ vim.keymap.set('t', '<c-q>', '<c-\\><c-n>0')
 vim.keymap.set('n', '<leader>ts', ':25sp | te<cr>a')
 vim.keymap.set('n', '<leader>tv', ':85vsp | te<cr>a')
 vim.keymap.set('n', '<leader>tt', ':tabnew | te<cr>a')
-vim.cmd[[
+vim.cmd [[
     augroup terminal_settings
         autocmd!
         " no line numbers in terminals
@@ -560,7 +574,7 @@ function BuffersDeleteUnnamed()
     end
 end
 
-vim.cmd[[
+vim.cmd [[
 command! Update call luaeval('Update()')
 command! BuffersDeleteHidden call luaeval('BuffersDeleteHidden()')
 command! BuffersDeleteUnnamed call luaeval('BuffersDeleteUnnamed()')
@@ -617,50 +631,50 @@ vim.keymap.set('n', '<leader>:', ':History:!<cr>')
 
 -- gitsigns
 require('gitsigns').setup({
-  on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
+    on_attach = function(bufnr)
+        local gs = package.loaded.gitsigns
 
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
+        local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+            if vim.wo.diff then return ']c' end
+            vim.schedule(function() gs.next_hunk() end)
+            return '<Ignore>'
+        end, { expr = true })
+
+        map('n', '[c', function()
+            if vim.wo.diff then return '[c' end
+            vim.schedule(function() gs.prev_hunk() end)
+            return '<Ignore>'
+        end, { expr = true })
+
+        -- Actions
+        map({ 'n', 'v' }, '<leader>ga', ':Gitsigns stage_hunk<CR>')
+        map({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>')
+        map('n', '<leader>gA', gs.stage_buffer)
+        map('n', '<leader>gR', gs.reset_buffer)
+        map('n', '<leader>gi', gs.preview_hunk)
+        map('n', '<leader>gv', gs.undo_stage_hunk)
+
+        -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+        -- map('n', '<leader>tb', gs.toggle_current_line_blame)
+        -- map('n', '<leader>hd', gs.diffthis)
+        -- map('n', '<leader>hD', function() gs.diffthis('~') end)
+        -- map('n', '<leader>td', gs.toggle_deleted)
+
+        -- Text object
+        map({ 'o', 'x' }, 'id', ':<C-U>Gitsigns select_hunk<CR>')
+        -- omap id :<c-u>Gitsigns select_hunk<cr>
+        -- xmap id :<c-u>Gitsigns select_hunk<cr>
+        -- omap ad <plug>(signify-motion-outer-pending)
+        -- xmap ad <plug>(signify-motion-outer-visual)
+        -- nmap <leader>gi :SignifyHunkDiff<cr>
     end
-
-    -- Navigation
-    map('n', ']c', function()
-      if vim.wo.diff then return ']c' end
-      vim.schedule(function() gs.next_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    map('n', '[c', function()
-      if vim.wo.diff then return '[c' end
-      vim.schedule(function() gs.prev_hunk() end)
-      return '<Ignore>'
-    end, {expr=true})
-
-    -- Actions
-    map({'n', 'v'}, '<leader>ga', ':Gitsigns stage_hunk<CR>')
-    map({'n', 'v'}, '<leader>gr', ':Gitsigns reset_hunk<CR>')
-    map('n', '<leader>gA', gs.stage_buffer)
-    map('n', '<leader>gR', gs.reset_buffer)
-    map('n', '<leader>gi', gs.preview_hunk)
-    map('n', '<leader>gv', gs.undo_stage_hunk)
-
-    -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-    -- map('n', '<leader>tb', gs.toggle_current_line_blame)
-    -- map('n', '<leader>hd', gs.diffthis)
-    -- map('n', '<leader>hD', function() gs.diffthis('~') end)
-    -- map('n', '<leader>td', gs.toggle_deleted)
-
-    -- Text object
-    map({'o', 'x'}, 'id', ':<C-U>Gitsigns select_hunk<CR>')
-    -- omap id :<c-u>Gitsigns select_hunk<cr>
-    -- xmap id :<c-u>Gitsigns select_hunk<cr>
-    -- omap ad <plug>(signify-motion-outer-pending)
-    -- xmap ad <plug>(signify-motion-outer-visual)
-    -- nmap <leader>gi :SignifyHunkDiff<cr>
-  end
 })
 
 -- go
@@ -677,9 +691,10 @@ vim.g.go_gopls_enabled = 0
 -- hop
 vim.g.vimsyn_embed = 'l'
 
-require'hop'.setup()
+require 'hop'.setup()
 vim.keymap.set('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
-vim.keymap.set('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>", { noremap = true })
+vim.keymap.set('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>",
+    { noremap = true })
 vim.keymap.set('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
 
 -- iswap
@@ -694,7 +709,7 @@ vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
 -- markdown
 vim.g.vim_markdown_folding_level = 2
 vim.g.vim_markdown_toc_autofit = 1
-vim.cmd[[
+vim.cmd [[
 autocmd BufEnter *{.md,.mdx} set wrap
 function! ToggleMdOutline() abort
     let b:md_outline_present = get(b:, 'md_outline_present', 0)
@@ -716,7 +731,7 @@ autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()
 vim.g.NERDTreeShowHidden = 1
 vim.g.NERDTreeWinSize = 41
 -- quit when NERDTree is the last window
-vim.cmd[[ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif ]]
+vim.cmd [[ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif ]]
 vim.keymap.set('n', '-', ':NERDTreeToggle<cr>')
 vim.keymap.set('n', '<leader>-', ':NERDTreeFind<cr>')
 
