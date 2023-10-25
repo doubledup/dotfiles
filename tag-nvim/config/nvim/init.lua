@@ -168,7 +168,56 @@ require("lazy").setup({
     --     UpdateRemotePlugins
     -- endfunction
     -- 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-    'gelguy/wilder.nvim',
+    {
+        'gelguy/wilder.nvim',
+        config = function ()
+            -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
+            vim.o.wildmenu = false
+            local wilder = require('wilder')
+            wilder.setup({
+                modes = { ':', '/', '?' },
+                accept_key = '<c-e>',
+                reject_key = '<c-c>',
+                next_key = '<tab>',
+                previous_key = '<s-tab>',
+            })
+
+            wilder.set_option('pipeline', {
+                wilder.branch(
+                    wilder.python_file_finder_pipeline({
+                        dir_command = { 'fd', '-td' },
+                        file_command = function (_, arg) return arg:sub(1, 1) == '.' and { 'fd', '-tf', '-H' } or { 'fd', '-tf' } end,
+                    }),
+                    wilder.python_search_pipeline({
+                        pattern = 'fuzzy',
+                    }),
+                    wilder.substitute_pipeline({
+                        pipeline = wilder.python_search_pipeline({
+                            patter = 'fuzzy',
+                        })
+                    }),
+                    wilder.cmdline_pipeline({
+                        fuzzy = 2,
+                    })
+                )
+            })
+
+            wilder.set_option('renderer', wilder.renderer_mux({
+                [':'] = wilder.popupmenu_renderer({
+                    highlighter = wilder.basic_highlighter(),
+                    left = { ' ', wilder.popupmenu_devicons() },
+                    right = { ' ', wilder.popupmenu_scrollbar() },
+                }),
+                ['/'] = wilder.wildmenu_renderer(
+                    wilder.wildmenu_lightline_theme({
+                        highlights = { default = 'StatusLine' },
+                        highlighter = wilder.basic_highlighter(),
+                        separator = ' | ',
+                    })
+                ),
+            }))
+        end
+    },
 
     -- editing
     'andrewradev/linediff.vim',
@@ -731,53 +780,6 @@ vim.keymap.set('n', 'yof', ':set invfoldenable<cr>')
 -- which-key
 vim.o.timeoutlen = 400
 require("which-key").setup {}
-
--- wilder
--- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
-vim.o.wildmenu = false
-local wilder = require('wilder')
-wilder.setup({
-    modes = { ':', '/', '?' },
-    accept_key = '<c-e>',
-    reject_key = '<c-c>',
-    next_key = '<tab>',
-    previous_key = '<s-tab>',
-})
-
-wilder.set_option('pipeline', {
-    wilder.branch(
-        wilder.python_file_finder_pipeline({
-            dir_command = { 'fd', '-td' },
-            file_command = function (_, arg) return arg:sub(1, 1) == '.' and { 'fd', '-tf', '-H' } or { 'fd', '-tf' } end,
-        }),
-        wilder.python_search_pipeline({
-            pattern = 'fuzzy',
-        }),
-        wilder.substitute_pipeline({
-            pipeline = wilder.python_search_pipeline({
-                patter = 'fuzzy',
-            })
-        }),
-        wilder.cmdline_pipeline({
-            fuzzy = 2,
-        })
-    )
-})
-
-wilder.set_option('renderer', wilder.renderer_mux({
-    [':'] = wilder.popupmenu_renderer({
-        highlighter = wilder.basic_highlighter(),
-        left = { ' ', wilder.popupmenu_devicons() },
-        right = { ' ', wilder.popupmenu_scrollbar() },
-    }),
-    ['/'] = wilder.wildmenu_renderer(
-        wilder.wildmenu_lightline_theme({
-            highlights = { default = 'StatusLine' },
-            highlighter = wilder.basic_highlighter(),
-            separator = ' | ',
-        })
-    ),
-}))
 
 local coc_settings = vim.fn.expand("~/.config/nvim/coc-settings.vim")
 if vim.fn.filereadable(coc_settings) == 1 then
