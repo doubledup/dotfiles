@@ -1,6 +1,3 @@
--- sequester lua heredoc config due to vim parsing bug:
--- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
-
 -- TODO: see ins-completion
 -- TODO: change listchars multispace when using spaces
 -- TODO: find out why this only works after re-sourcing init
