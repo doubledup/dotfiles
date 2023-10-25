@@ -285,7 +285,7 @@ vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 -- continue comments on new lines
-vim.o.formatoptions = vim.o.formatoptions and vim.o.formatoptions .. 'ro' or vim.o.formatoptions
+vim.opt.formatoptions:append('ro')
 -- show extra whitespace
 vim.o.list = true
 vim.o.listchars = 'tab:▷\\ ,trail:⋅,nbsp:☺,extends:→,precedes:←'
@@ -302,9 +302,9 @@ vim.o.signcolumn = 'yes'
 vim.o.ignorecase = true
 vim.o.smartcase = true
 -- include hyphens in words
-vim.o.iskeyword = '-,' .. vim.o.iskeyword
+vim.opt.iskeyword:prepend('-')
 -- drop forward jumplist locations when moving to a new location
-vim.cmd.set('jumpoptions+=stack')
+vim.opt.jumpoptions:append('stack')
 -- don't redraw while executing commands & using registers
 vim.o.lazyredraw = true
 -- ignore modelines due to security concerns
