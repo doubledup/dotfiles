@@ -754,14 +754,17 @@ wilder.set_option('renderer', wilder.renderer_mux({
     ),
 }))
 
-EOF
+local coc_settings = vim.fn.expand("~/.config/nvim/coc-settings.vim")
+if vim.fn.filereadable(coc_settings) == 1 then
+    vim.cmd.source(coc_settings)
+end
+local os_settings = vim.fn.expand("~/.config/nvim/init.os.vim")
+if vim.fn.filereadable(os_settings) == 1 then
+    vim.cmd.source(os_settings)
+end
+local local_settings = vim.fn.expand("~/.config/nvim/init.local.vim")
+if vim.fn.filereadable(local_settings) == 1 then
+    vim.cmd.source(local_settings)
+end
 
-if filereadable(expand("~/.config/nvim/coc-settings.vim"))
-    source ~/.config/nvim/coc-settings.vim
-endif
-if filereadable(expand("~/.config/nvim/init.os.vim"))
-    source ~/.config/nvim/init.os.vim
-endif
-if filereadable(expand("~/.config/nvim/init.local.vim"))
-    source ~/.config/nvim/init.local.vim
-endif
+EOF
