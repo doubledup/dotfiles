@@ -166,7 +166,7 @@ vim.o.smartcase = true
 -- include hyphens in words
 vim.o.iskeyword = '-,' .. vim.o.iskeyword
 -- drop forward jumplist locations when moving to a new location
-vim.o.jumpoptions = vim.o.jumpoptions .. 'stack'
+vim.cmd.set('jumpoptions+=stack')
 -- don't redraw while executing commands & using registers
 vim.o.lazyredraw = true
 -- ignore modelines due to security concerns
