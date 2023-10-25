@@ -1,4 +1,3 @@
-lua << EOF
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
 
@@ -427,8 +426,8 @@ end
 vim.g.mapleader = " "
 
 -- config
-vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.vim<cr>')
-vim.keymap.set('n', '<leader><leader>,', ':so ~/.config/nvim/init.vim<cr>')
+vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>')
+vim.keymap.set('n', '<leader><leader>,', ':so ~/.config/nvim/init.lua<cr>')
 vim.keymap.set('n', '<leader>;', ':execute \'tabnew ~/.config/nvim/ftplugin/\' . &ft . \'.vim\'<cr>')
 vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
 
@@ -792,5 +791,3 @@ local local_settings = vim.fn.expand("~/.config/nvim/init.local.vim")
 if vim.fn.filereadable(local_settings) == 1 then
     vim.cmd.source(local_settings)
 end
-
-EOF
