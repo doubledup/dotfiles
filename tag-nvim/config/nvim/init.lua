@@ -748,7 +748,7 @@ wilder.set_option('pipeline', {
     wilder.branch(
         wilder.python_file_finder_pipeline({
             dir_command = { 'fd', '-td' },
-            file_command = function (_ctx, arg) return arg:sub(1, 1) == '.' and { 'fd', '-tf', '-H' } or { 'fd', '-tf' } end,
+            file_command = function (_, arg) return arg:sub(1, 1) == '.' and { 'fd', '-tf', '-H' } or { 'fd', '-tf' } end,
         }),
         wilder.python_search_pipeline({
             pattern = 'fuzzy',
