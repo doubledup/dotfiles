@@ -1,134 +1,3 @@
-" install vim-plug if necessary
-let data_dir = stdpath('data') . '/site'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'editorconfig/editorconfig-vim'
-Plug 'nvim-lua/plenary.nvim'
-" Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-scriptease'
-Plug 'tpope/vim-sensible' " TODO: vs Plug 'nvim-lua/kickstart.nvim'
-
-" git
-
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'tpope/vim-fugitive' " TODO: vs Plug 'jreybert/vimagit'
-Plug 'tpope/vim-git'
-
-" TODO: vs builtin LSP or one of
-" Plug 'williamboman/mason.nvim' " and
-" Plug 'williamboman/mason-lspconfig.nvim' " and
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'glepnir/lspsaga.nvim'
-" Plug 'natebosch/vim-lsc'
-" Plug 'ms-jpq/coq_nvim'
-" Plug 'autozimu/LanguageClient-neovim'
-" Plug 'jose-elias-alvarez/null-ls.nvim'
-" Plug 'ldelossa/litee.nvim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" ui
-Plug 'Luxed/ayu-vim'
-Plug 'folke/which-key.nvim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'ryanoasis/vim-devicons' " TODO: vs Plug 'nvim-tree/nvim-web-devicons'
-
-" TODO: vs one of
-" Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
-" Plug 'nvim-lualine/lualine.nvim'
-Plug 'itchyny/lightline.vim'
-
-" TODO: vs one of
-" Plug 'tpope/vim-vinegar'
-" Plug 'justinmk/vim-dirvish'
-" Plug 'nvim-tree/nvim-tree.lua'
-" Plug 'ms-jpq/chadtree'
-" Plug 'luukvbaal/nnn.nvim'
-" Plug 'sidebar-nvim/sidebar.nvim'
-Plug 'preservim/nerdtree'
-
-function! UpdateRemotePlugins(...)
-    let &rtp=&rtp " Needed to refresh runtime files
-    UpdateRemotePlugins
-endfunction
-Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-
-" editing
-Plug 'andrewradev/linediff.vim'
-Plug 'phaazon/hop.nvim' " TODO: vs Plug 'ggandor/leap.nvim'
-Plug 'honza/vim-snippets'
-Plug 'jpalardy/vim-slime'
-Plug 'mizlan/iswap.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'pbrisbin/vim-mkdir'
-Plug 'raimondi/delimitmate'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'wellle/targets.vim'
-
-Plug 'preservim/vim-markdown' " included for folding
-" Plug 'elixir-tools/elixir-tools.nvim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " included separately from polyglot to get commands
-Plug 'ChrisWellsWood/roc.vim'
-
-" as needed
-" Plug 'dstein64/vim-startuptime'
-" Plug 'mattn/emmet-vim'
-" Plug 'tpope/vim-dadbod'
-
-" Plug 'lervag/vimtex'
-" let g:tex_flavor = 'latex'
-
-" new plugins to try
-
-" Plug 'nvim-telescope/telescope.nvim'
-" Plug 'mbbill/undotree'
-" Plug 'her/central.vim'
-" Plug 'mfussenegger/nvim-dap'
-" Plug 'ThePrimeagen/harpoon'
-" Plug 'folke/trouble.nvim'
-" Plug 'tpope/vim-dispatch'
-" Plug 'janko-m/vim-test'
-" Plug 'tpope/vim-rhubarb'
-" Plug 'tpope/projectionist'
-" Plug 'codota/tabnine-nvim', { 'do': './dl_binaries.sh' }
-" Plug 'jameshiew/nvim-magic'
-" Plug 'rest-nvim/rest.nvim'
-" Plug 'kana/vim-textobj-entire'
-" Plug 'kana/vim-textobj-user'
-" Plug 'michaeljsmith/vim-indent-object'
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-
-" Plug 'tpope/vim-afterimage'
-" Plug 'tpope/vim-eunuch'
-" Plug 'folke/todo-comments.nvim'
-" Plug 'wfxr/minimap.vim'
-" Plug 'kannokanno/previm'
-" Plug 'nathom/filetype.nvim'
-" Plug 'APZelos/blamer.nvim' vs Plug 'f-person/git-blame.nvim'
-" Plug 'sjl/gundo.vim'
-" Plug 'Konfekt/FastFold'
-
-if !empty(glob("~/.config/nvim/plugs.os.vim"))
-    source ~/.config/nvim/plugs.os.vim
-endif
-if !empty(glob("~/.config/nvim/plugs.local.vim"))
-    source ~/.config/nvim/plugs.local.vim
-endif
-
-" here vim-plug runs both `filetype plugin indent on` and `syntax enable`
-call plug#end()
-
 lua << EOF
 -- sequester lua heredoc config due to vim parsing bug:
 -- https://github.com/neovim/neovim/issues/16136#issuecomment-950358277
@@ -141,6 +10,276 @@ lua << EOF
 -- TODO: add indent object to wellle/targets.vim?
 -- TODO: add entire document object to wellle/targets.vim?
 -- TODO: persist undo history like thaerkh/vim-workspace
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+
+    'editorconfig/editorconfig-vim',
+    'nvim-lua/plenary.nvim',
+    -- 'sheerun/vim-polyglot',
+    'tpope/vim-scriptease',
+    'tpope/vim-sensible',
+
+    -- git
+
+    'lewis6991/gitsigns.nvim',
+    'tpope/vim-fugitive', -- TODO: vs 'jreybert/vimagit',
+    'tpope/vim-git',
+
+    -- TODO: vs builtin LSP or one of
+    -- 'williamboman/mason.nvim' -- and
+    -- 'williamboman/mason-lspconfig.nvim' -- and
+    -- 'neovim/nvim-lspconfig'
+    --
+    -- 'glepnir/lspsaga.nvim',
+    -- 'natebosch/vim-lsc',
+    -- 'ms-jpq/coq_nvim',
+    -- 'autozimu/LanguageClient-neovim',
+    -- 'jose-elias-alvarez/null-ls.nvim',
+    -- 'ldelossa/litee.nvim',
+    { 'neoclide/coc.nvim', branch = 'release' },
+
+    -- ui
+    'Luxed/ayu-vim',
+    'folke/which-key.nvim',
+    'junegunn/fzf',
+    'junegunn/fzf.vim',
+    'norcalli/nvim-colorizer.lua',
+    'powerman/vim-plugin-AnsiEsc',
+    'ryanoasis/vim-devicons', -- TODO: vs 'nvim-tree/nvim-web-devicons',
+
+    -- TODO: vs one of
+    -- { 'akinsho/bufferline.nvim', tag = 'v2.*' }
+    -- 'nvim-lualine/lualine.nvim',
+    {
+        'itchyny/lightline.vim',
+        config = function()
+            vim.o.showmode = false
+            vim.g.lightline = {
+                colorscheme = 'ayu_mirage',
+                active = {
+                    left = { { 'mode', 'paste' },
+                        { 'git-branch-symbol', 'git-branch' },
+                        { 'readonly', 'modified', 'relativepath' } },
+                    right = { { 'lineinfo' },
+                        { 'fileformat', 'fileencoding', 'percent' },
+                        { 'filetype' } },
+                },
+                inactive = {
+                    left = { { 'relativepath' } },
+                    right = { { 'lineinfo' },
+                        { 'fileformat', 'fileencoding', 'percent' },
+                        { 'filetype' }
+                    },
+                },
+                component = {
+                    ['git-branch-symbol'] = '',
+                },
+                component_function = {
+                    ['git-branch'] = 'FugitiveHead',
+                    filetype = 'LightlineFiletype',
+                },
+                tab_component_function = {
+                    tabfileicon = 'LightlineTabFileicon',
+                    tabfilename = 'LightlineTabFilename',
+                },
+                tab = {
+                    active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+                    inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+                },
+                tabline = {
+                    left = { { 'tabs' } },
+                    right = { },
+                },
+            }
+
+            function lightline_filetype()
+                if vim.fn.winwidth(0) > 70 then
+                    if #vim.bo.filetype > 0 then
+                        return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+                    else
+                        return 'no ft'
+                    end
+                else
+                    return ''
+                end
+            end
+
+            function lightline_tab_fileicon(tabnum)
+                local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+                if bufnr then
+                    return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
+                else
+                    return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
+                end
+            end
+
+            function cwd_trimmed(cwd)
+                local home = os.getenv('HOME')
+                cwd = cwd:gsub(home, '~')
+                return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
+            end
+            function lightline_tab_filename(tabnum)
+                local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+                if bufnr then
+                    local filename = vim.fn.bufname(bufnr)
+                    return cwd_trimmed(filename)
+                else
+                    return ''
+                end
+            end
+
+            vim.cmd[[
+            function! LightlineFiletype()
+                return luaeval('lightline_filetype()', {})
+            endfunction
+            function! LightlineTabFileicon(tabnum)
+                return luaeval('lightline_tab_fileicon(_A.tabnum)', {'tabnum': a:tabnum})
+            endfunction
+            function! LightlineTabFilename(tabnum)
+                return luaeval('lightline_tab_filename(_A.tabnum)', {'tabnum': a:tabnum})
+            endfunction
+            ]]
+        end
+    },
+
+    -- TODO: vs one of
+    -- 'tpope/vim-vinegar',
+    -- 'justinmk/vim-dirvish',
+    -- 'nvim-tree/nvim-tree.lua',
+    -- 'ms-jpq/chadtree',
+    -- 'luukvbaal/nnn.nvim',
+    -- 'sidebar-nvim/sidebar.nvim',
+    'preservim/nerdtree',
+
+    -- function! UpdateRemotePlugins(...)
+    --     let &rtp=&rtp " Needed to refresh runtime files
+    --     UpdateRemotePlugins
+    -- endfunction
+    -- 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+    'gelguy/wilder.nvim',
+
+    -- editing
+    'andrewradev/linediff.vim',
+    'phaazon/hop.nvim', -- TODO: vs 'ggandor/leap.nvim',
+    'honza/vim-snippets',
+    'jpalardy/vim-slime',
+    'mizlan/iswap.nvim',
+
+    {
+        'nvim-treesitter/nvim-treesitter',
+        build = ':TSUpdate',
+        config = function ()
+            require('nvim-treesitter.configs').setup({
+                ensure_installed = {
+                    -- languages
+                    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript',
+                    'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript',
+                    'zig',
+                    -- version control
+                    'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
+                    -- web
+                    'css', 'html', 'http',
+                    -- config
+                    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml',
+                    -- scripting
+                    'bash', 'fish', 'jq', 'lua', 'vim',
+                    -- queries
+                    'graphql', 'regex', 'sql',
+                    -- docs 'help',
+                    'markdown', 'rst'
+                },
+
+                sync_install = false,
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = {'diff', 'git_rebase', 'gitcommit'},
+                },
+                indent = {
+                    enable = true,
+                    disable = { 'python' },
+                },
+            })
+        end,
+     },
+
+    'pbrisbin/vim-mkdir',
+    'raimondi/delimitmate',
+    'tpope/vim-abolish',
+    'tpope/vim-commentary',
+    'tpope/vim-obsession',
+    'tpope/vim-repeat',
+    'tpope/vim-surround',
+    'tpope/vim-unimpaired',
+    'wellle/targets.vim',
+
+    'preservim/vim-markdown', -- included for folding
+    -- 'elixir-tools/elixir-tools.nvim'
+    { 'fatih/vim-go', build = ':GoUpdateBinaries' }, -- included separately from polyglot to get commands
+    'ChrisWellsWood/roc.vim',
+
+    -- as needed
+    -- 'dstein64/vim-startuptime',
+    -- 'mattn/emmet-vim',
+    -- 'tpope/vim-dadbod',
+
+    -- 'lervag/vimtex', let g:tex_flavor = 'latex'
+
+    -- new plugins to try
+
+    -- 'nvim-telescope/telescope.nvim',
+    -- 'mbbill/undotree',
+    -- 'her/central.vim',
+    -- 'mfussenegger/nvim-dap',
+    -- 'ThePrimeagen/harpoon',
+    -- 'folke/trouble.nvim',
+    -- 'tpope/vim-dispatch',
+    -- 'janko-m/vim-test',
+    -- 'tpope/vim-rhubarb',
+    -- 'tpope/projectionist',
+    -- { 'codota/tabnine-nvim', build = './dl_binaries.sh' },
+    -- 'jameshiew/nvim-magic',
+    -- 'rest-nvim/rest.nvim',
+    -- 'kana/vim-textobj-entire',
+    -- 'kana/vim-textobj-user',
+    -- 'michaeljsmith/vim-indent-object',
+    -- { 'glacambre/firenvim', build = function() return vim.fn.firenvim.install(0) end },
+
+    -- 'tpope/vim-afterimage',
+    -- 'tpope/vim-eunuch',
+    -- 'folke/todo-comments.nvim',
+    -- 'wfxr/minimap.vim',
+    -- 'kannokanno/previm',
+    -- 'nathom/filetype.nvim',
+    -- 'APZelos/blamer.nvim',
+    -- 'f-person/git-blame.nvim',
+    -- 'sjl/gundo.vim',
+    -- 'Konfekt/FastFold',
+
+
+    -- if !empty(glob("~/.config/nvim/plugs.os.vim"))
+    --     source ~/.config/nvim/plugs.os.vim
+    -- endif
+    -- if !empty(glob("~/.config/nvim/plugs.local.vim"))
+    --     source ~/.config/nvim/plugs.local.vim
+    -- endif
+
+}, {})
+
+vim.cmd.filetype('plugin indent on')
+vim.cmd.syntax('enable')
 
 -- use 4-space indentation by default
 vim.o.expandtab = true
@@ -501,94 +640,6 @@ vim.keymap.set('n', '<leader>l', ':ISwapNodeWithRight<cr>')
 vim.keymap.set('n', '<leader>j', ':ISwapNodeWith<cr>')
 vim.keymap.set('n', '<leader>k', ':ISwapNode<cr>')
 
--- lightline
-vim.o.showmode = false
-vim.g.lightline = {
-    colorscheme = 'ayu_mirage',
-    active = {
-        left = { { 'mode', 'paste' },
-            { 'git-branch-symbol', 'git-branch' },
-            { 'readonly', 'modified', 'relativepath' } },
-        right = { { 'lineinfo' },
-            { 'fileformat', 'fileencoding', 'percent' },
-            { 'filetype' } },
-    },
-    inactive = {
-        left = { { 'relativepath' } },
-        right = { { 'lineinfo' },
-            { 'fileformat', 'fileencoding', 'percent' },
-            { 'filetype' }
-        },
-    },
-    component = {
-        ['git-branch-symbol'] = '',
-    },
-    component_function = {
-        ['git-branch'] = 'FugitiveHead',
-        filetype = 'LightlineFiletype',
-    },
-    tab_component_function = {
-        tabfileicon = 'LightlineTabFileicon',
-        tabfilename = 'LightlineTabFilename',
-    },
-    tab = {
-        active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
-        inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
-    },
-    tabline = {
-        left = { { 'tabs' } },
-        right = { },
-    },
-}
-
-function lightline_filetype()
-    if vim.fn.winwidth(0) > 70 then
-        if #vim.bo.filetype > 0 then
-            return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
-        else
-            return 'no ft'
-        end
-    else
-        return ''
-    end
-end
-
-function lightline_tab_fileicon(tabnum)
-    local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-    if bufnr then
-        return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
-    else
-        return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
-    end
-end
-
-function cwd_trimmed(cwd)
-    local home = os.getenv('HOME')
-    cwd = cwd:gsub(home, '~')
-    return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
-end
-function lightline_tab_filename(tabnum)
-    local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-    if bufnr then
-        local filename = vim.fn.bufname(bufnr)
-        return cwd_trimmed(filename)
-    else
-        return ''
-    end
-end
-
-vim.cmd[[
-function! LightlineFiletype()
-    return luaeval('lightline_filetype()', {})
-endfunction
-function! LightlineTabFileicon(tabnum)
-    return luaeval('lightline_tab_fileicon(_A.tabnum)', {'tabnum': a:tabnum})
-endfunction
-function! LightlineTabFilename(tabnum)
-    return luaeval('lightline_tab_filename(_A.tabnum)', {'tabnum': a:tabnum})
-endfunction
-]]
-
 -- linediff
 vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
 
@@ -650,34 +701,6 @@ vim.keymap.set('n', '<leader>tl', '<plug>SlimeLineSend')
 -- -- or leave it empty to use the default settings
 -- -- refer to the configuration section below
 -- }
-
--- treesitter
-require('nvim-treesitter.configs').setup {
-  ensure_installed = {
-    -- languages
-    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript', 'jsdoc', 'go',
-    'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript', 'zig',
-    -- version control
-    'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
-    -- web
-    'css', 'html', 'http',
-    -- config
-    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml',
-    -- scripting
-    'bash', 'fish', 'jq', 'lua', 'vim',
-    -- queries
-    'graphql', 'regex', 'sql',
-    -- docs
-    'help', 'markdown', 'rst'
-  },
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = {'diff', 'git_rebase', 'gitcommit'},
-  },
-
-  indent = { enable = true, disable = { 'python' } },
-}
 
 -- unimpaired extensions for encoding & decoding
 -- TODO: contribute this to unimpaired
