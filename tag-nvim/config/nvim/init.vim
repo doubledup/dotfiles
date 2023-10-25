@@ -231,7 +231,7 @@ vim.keymap.set('n', 'zl', '40zl', { remap = false })
 vim.keymap.set('n', 'gf', ':edit <cfile><cr>')
 
 -- enter to save all buffers, except in quickfix lists
-vim.keymap.set('n', '<expr>', '<cr> &buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"', { remap = false })
+vim.keymap.set('n', '<cr>', '&buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"', { expr = true, remap = false })
 
 -- keep cursor in place when joining lines
 vim.keymap.set('n', 'J', 'mzJ`z', { remap = false })
