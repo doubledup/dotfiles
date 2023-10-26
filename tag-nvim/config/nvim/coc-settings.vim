@@ -24,6 +24,9 @@ let g:coc_global_extensions = [
     " \ 'coc-pyright',
     " \ 'coc-solargraph',
 
+" pynvim required for UltiSnips support in coc-snippets
+let g:python3_host_prog = '~/.asdf/shims/python'
+
 " let g:coc_node_path = '~/.asdf/shims/node'
 " let g:coc_max_treeview_width = 50
 
