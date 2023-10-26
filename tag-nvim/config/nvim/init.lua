@@ -164,13 +164,14 @@ require("lazy").setup({
     -- 'sidebar-nvim/sidebar.nvim',
     'preservim/nerdtree',
 
-    -- function! UpdateRemotePlugins(...)
-    --     let &rtp=&rtp " Needed to refresh runtime files
-    --     UpdateRemotePlugins
-    -- endfunction
-    -- 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
     {
         'gelguy/wilder.nvim',
+        build = function ()
+            vim.cmd[[
+            let &rtp=&rtp " Needed to refresh runtime files
+            UpdateRemotePlugins
+            ]]
+        end,
         config = function()
             -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
             vim.o.wildmenu = false
