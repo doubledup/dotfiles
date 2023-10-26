@@ -68,25 +68,28 @@ require("lazy").setup({
             vim.g.lightline = {
                 colorscheme = 'ayu_mirage',
                 active = {
-                    left = { { 'mode', 'paste' },
-                        { 'git-branch-symbol', 'git-branch' },
-                        { 'readonly', 'modified', 'relativepath' } },
-                    right = { { 'lineinfo' },
-                        { 'fileformat', 'fileencoding', 'percent' },
-                        { 'filetype' } },
+                    left = {
+                        { 'mode', 'paste' },
+                        { 'readonly', 'modified', 'relativepath' },
+                        {},
+                    },
+                    right = {
+                        { 'lineinfo' },
+                        { 'filetype' },
+                        { 'fileformat', 'fileencoding' },
+                    },
                 },
                 inactive = {
                     left = { { 'relativepath' } },
-                    right = { { 'lineinfo' },
-                        { 'fileformat', 'fileencoding', 'percent' },
-                        { 'filetype' }
+                    right = {
+                        { 'lineinfo' },
+                        { 'filetype' },
+                        { 'fileformat', 'fileencoding' },
                     },
                 },
-                component = {
-                    ['git-branch-symbol'] = '',
-                },
+                -- component = {},
                 component_function = {
-                    ['git-branch'] = 'FugitiveHead',
+                    gitbranch = 'LightlineGitHead',
                     filetype = 'LightlineFiletype',
                 },
                 tab_component_function = {
@@ -99,9 +102,13 @@ require("lazy").setup({
                 },
                 tabline = {
                     left = { { 'tabs' } },
-                    right = {},
+                    right = { { 'gitbranch' } },
                 },
             }
+
+            function LightlineGitHead()
+                return ' ' .. vim.fn.FugitiveHead()
+            end
 
             function LightlineFiletype()
                 if vim.fn.winwidth(0) > 70 then
@@ -141,6 +148,9 @@ require("lazy").setup({
             end
 
             vim.cmd [[
+            function! LightlineGitHead()
+                return luaeval('LightlineGitHead()', {})
+            endfunction
             function! LightlineFiletype()
                 return luaeval('LightlineFiletype()', {})
             endfunction
