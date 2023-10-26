@@ -19,7 +19,7 @@ doom upgrade
 echo 'fisher:'
 fish -c 'fisher update'
 echo 'nvim:'
-nvim -e -u ~/.config/nvim/init.vim -i NONE -c 'Update' -c "qa"
+nvim -c 'Update' -c 'qa'
 echo 'tldr:'
 tldr --update
 echo 'foundry completions:'

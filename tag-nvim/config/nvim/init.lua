@@ -22,7 +22,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-
     'editorconfig/editorconfig-vim',
     'nvim-lua/plenary.nvim',
     -- 'sheerun/vim-polyglot',
@@ -534,8 +533,8 @@ vim.cmd [[
 -- commands & augroups
 
 function Update()
-    vim.cmd.PlugUpgrade()
-    vim.cmd.PlugUpdate()
+    -- TODO: update lazy itself
+    vim.cmd.Lazy('update')
     vim.cmd.CocUpdate()
 end
 
