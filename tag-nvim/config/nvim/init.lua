@@ -386,7 +386,7 @@ vim.o.swapfile = false
 vim.o.scrolloff = 2
 vim.o.sidescrolloff = 15
 -- trigger CursorHold sooner
-vim.o.updatetime = 300
+vim.o.updatetime = 200
 
 -- indent when wrapping with showbreak starting the line
 vim.o.breakindent = true
@@ -404,6 +404,12 @@ vim.o.cmdheight = 2
 
 -- show line numbers
 vim.o.number = true
+
+-- save undo history
+-- vim.o.undofile = true
+
+-- always show the popup menu and require manual selection
+-- vim.o.completeopt = 'menuone,noselect'
 
 -- skip filetype.lua so that roc.vim's ftdetect works
 -- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
