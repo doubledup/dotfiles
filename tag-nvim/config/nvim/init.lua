@@ -7,6 +7,9 @@
 -- TODO: add entire document object to wellle/targets.vim?
 -- TODO: persist undo history like thaerkh/vim-workspace
 
+--  NOTE: Must happen before plugins are required, otherwise wrong leader will be used
+vim.g.mapleader = ' '
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -499,8 +502,6 @@ if vim.g.neovide then
     vim.g.neovide_cursor_vfx_mode = "ripple"
     vim.keymap.set('', '<D-n>', ':silent !neovide --multigrid&<cr>')
 end
-
-vim.g.mapleader = " "
 
 -- config
 vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>')
