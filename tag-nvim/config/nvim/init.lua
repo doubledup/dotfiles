@@ -23,22 +23,21 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     'editorconfig/editorconfig-vim',
-    'nvim-lua/plenary.nvim',
-    -- 'sheerun/vim-polyglot',
-    'tpope/vim-scriptease',
 
     -- git
 
     'lewis6991/gitsigns.nvim',
     -- TODO: vs 'jreybert/vimagit',
     'tpope/vim-fugitive',
-    'tpope/vim-git',
+    -- 'tpope/vim-git',
+    -- 'tpope/vim-rhubarb'
 
     -- TODO: vs builtin LSP or one of
     -- 'williamboman/mason.nvim' -- and
     -- 'williamboman/mason-lspconfig.nvim' -- and
     -- 'neovim/nvim-lspconfig'
     --
+    -- 'folke/neodev.nvim'
     -- 'glepnir/lspsaga.nvim',
     -- 'natebosch/vim-lsc',
     -- 'ms-jpq/coq_nvim',
@@ -52,13 +51,14 @@ require("lazy").setup({
     'folke/which-key.nvim',
     'junegunn/fzf',
     'junegunn/fzf.vim',
+    -- { 'lukas-reineke/indent-blankline.nvim', config = function () require("ibl").setup() end },
     'norcalli/nvim-colorizer.lua',
     'powerman/vim-plugin-AnsiEsc',
     -- TODO: vs 'nvim-tree/nvim-web-devicons',
     'ryanoasis/vim-devicons',
 
     -- TODO: vs one of
-    -- { 'akinsho/bufferline.nvim', tag = 'v2.*' }
+    -- 'akinsho/bufferline.nvim'
     -- 'nvim-lualine/lualine.nvim',
     {
         'itchyny/lightline.vim',
@@ -239,7 +239,7 @@ require("lazy").setup({
     'andrewradev/linediff.vim',
     -- TODO: vs 'ggandor/leap.nvim',
     'phaazon/hop.nvim',
-    'honza/vim-snippets',
+    -- 'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
 
@@ -283,15 +283,17 @@ require("lazy").setup({
     'pbrisbin/vim-mkdir',
     'raimondi/delimitmate',
     'tpope/vim-abolish',
+    -- TODO: vs 'numToStr/Comment.nvim'
     'tpope/vim-commentary',
     'tpope/vim-obsession',
     'tpope/vim-repeat',
+    'tpope/vim-sleuth',
     'tpope/vim-surround',
     'tpope/vim-unimpaired',
     'wellle/targets.vim',
 
     -- included for folding
-    'preservim/vim-markdown',
+    -- 'preservim/vim-markdown',
     -- 'elixir-tools/elixir-tools.nvim'
     -- included separately from polyglot to get commands
     { 'fatih/vim-go', build = ':GoUpdateBinaries' },
