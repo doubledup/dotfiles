@@ -26,7 +26,6 @@ require("lazy").setup({
     'nvim-lua/plenary.nvim',
     -- 'sheerun/vim-polyglot',
     'tpope/vim-scriptease',
-    'tpope/vim-sensible',
 
     -- git
 
@@ -457,7 +456,7 @@ vim.keymap.set('n', ']<space>', 'o<esc>k')
 vim.keymap.set('n', '<c-s>', ':%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>')
 vim.keymap.set('x', '<c-s>', ':s/\v/gI<left><left><left>')
 
-vim.keymap.set('n', '<esc>', ':nohlsearch<cr>', { remap = false })
+vim.keymap.set('n', '<esc>', ":nohlsearch<c-r>=has('diff')?'<bar>diffupdate':''<cr><cr><esc>", { silent = true, remap = false })
 vim.keymap.set('n', '^', 'ggVG')
 
 -- move selected lines around
