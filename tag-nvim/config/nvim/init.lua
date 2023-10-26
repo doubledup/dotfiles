@@ -201,7 +201,7 @@ require("lazy").setup({
                     }),
                     wilder.substitute_pipeline({
                         pipeline = wilder.python_search_pipeline({
-                            patter = 'fuzzy',
+                            pattern = 'fuzzy',
                         })
                     }),
                     wilder.cmdline_pipeline({
