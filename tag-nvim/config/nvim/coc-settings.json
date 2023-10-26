@@ -47,13 +47,17 @@
       "filetypes": ["solidity"]
     }
   },
-  "eslint.packageManager": "pnpm",
+  "eslint.packageManager": "npm",
   "eslint.run": "onSave",
   "eslint.workingDirectories": [{ "mode": "location" }],
+  "Lua.diagnostics.globals": ["vim"],
   "tsserver.useLocalTsdk": true,
   "typescript.preferences.quoteStyle": "double",
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.preferences.importModuleSpecifierEnding": "minimal",
   "rust-analyzer.diagnostics.experimental.enable": false,
-  "rust-analyzer.rustfmt.extraArgs": ["+nightly"]
+  "rust-analyzer.rustfmt.extraArgs": [
+    "+nightly"
+  ],
+  "snippets.ultisnips.pythonPrompt": false
 }
