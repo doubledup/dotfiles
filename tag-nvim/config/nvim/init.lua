@@ -348,7 +348,12 @@ require("lazy").setup({
     --     source ~/.config/nvim/plugs.local.vim
     -- endif
 
-}, {})
+}, {
+    checker = {
+        enabled = true, -- automatically check for plugin updates
+        frequency = 86400, -- check for updates every day
+    },
+})
 
 vim.cmd.filetype('plugin indent on')
 vim.cmd.syntax('enable')
@@ -551,8 +556,6 @@ vim.cmd [[
 -- commands & augroups
 
 function Update()
-    -- TODO: update lazy itself
-    vim.cmd.Lazy('update')
     vim.cmd.CocUpdate()
 end
 
