@@ -273,7 +273,7 @@ require("lazy").setup({
                 sync_install = false,
                 highlight = {
                     enable = true,
-                    additional_vim_regex_highlighting = { 'diff', 'git_rebase', 'gitcommit' },
+                    additional_vim_regex_highlighting = false,
                 },
                 indent = {
                     enable = true,
