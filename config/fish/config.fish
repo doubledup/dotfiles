@@ -221,7 +221,6 @@ function launch_editor
 end
 bind \co launch_editor
 
-bind \em accept-autosuggestion execute
 bind \ea 'echo; l -a; commandline -f repaint'
 bind \el 'echo; ll -a; commandline -f repaint'
 
