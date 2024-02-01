@@ -71,7 +71,7 @@ require("lazy").setup({
                 colorscheme = 'ayu_mirage',
                 active = {
                     left = {
-                        { 'mode', 'paste' },
+                        { 'mode',     'paste' },
                         { 'readonly', 'modified', 'relativepath' },
                         {},
                     },
@@ -177,8 +177,8 @@ require("lazy").setup({
 
     {
         'gelguy/wilder.nvim',
-        build = function ()
-            vim.cmd[[
+        build = function()
+            vim.cmd [[
             let &rtp=&rtp " Needed to refresh runtime files
             UpdateRemotePlugins
             ]]
@@ -299,7 +299,7 @@ require("lazy").setup({
     -- 'preservim/vim-markdown',
     -- 'elixir-tools/elixir-tools.nvim'
     -- included separately from polyglot to get commands
-    { 'fatih/vim-go', build = ':GoUpdateBinaries' },
+    { 'fatih/vim-go',      build = ':GoUpdateBinaries' },
     'ChrisWellsWood/roc.vim',
 
     -- as needed
@@ -339,7 +339,6 @@ require("lazy").setup({
     -- 'f-person/git-blame.nvim',
     -- 'sjl/gundo.vim',
     -- 'Konfekt/FastFold',
-
 
     -- if !empty(glob("~/.config/nvim/plugs.os.vim"))
     --     source ~/.config/nvim/plugs.os.vim
