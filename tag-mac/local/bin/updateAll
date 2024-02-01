@@ -13,6 +13,21 @@ asdf plugin update --all
 echo 'rustup:'
 rustup self update
 rustup update
+cargo install \
+    cargo-audit \
+    cargo-bloat \
+    cargo-cache \
+    cargo-edit \
+    cargo-expand \
+    cargo-features-manager \
+    cargo-fuzz \
+    cargo-info \
+    cargo-machete \
+    cargo-outdated \
+    cargo-show-asm \
+    cargo-watch \
+    speedtest-rs \
+    typos-cli
 
 echo 'doom emacs:'
 doom upgrade
