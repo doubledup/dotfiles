@@ -36,3 +36,6 @@
 	root = /Users/daviddunn/code/src
 [github]
 	user = doubledup
+[diff "lockb"]
+	textconv = bun
+	binary = true

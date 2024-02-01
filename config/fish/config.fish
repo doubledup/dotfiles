@@ -243,6 +243,10 @@ end
 
 [ -z "$IN_NIX_SHELL" -a -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
 
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
 # zoxide needs to be rerun in new shells
 [ -f (command -v zoxide) ]; and zoxide init --cmd j fish | source
 [ -z "$IN_NIX_SHELL" -a -f (command -v direnv) ]; and direnv hook fish | source
