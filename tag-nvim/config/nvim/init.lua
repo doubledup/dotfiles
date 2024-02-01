@@ -370,8 +370,8 @@ vim.o.listchars = 'tab:▷\\ ,trail:⋅,nbsp:☺,extends:→,precedes:←'
 -- don't wrap long lines by default, but be more sensible when wrapping is on
 vim.o.wrap = false
 vim.o.linebreak = true
--- wrap & highlight @120 chars
-vim.o.textwidth = 120
+-- wrap & highlight @100 chars
+vim.o.textwidth = 100
 vim.o.colorcolumn = '+0'
 -- always show signcolumn
 vim.o.signcolumn = 'yes'
