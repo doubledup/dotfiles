@@ -66,7 +66,7 @@ function fish_prompt --description 'Write out the prompt'
             set suffix '#'
         case '*'
             set color_cwd $fish_color_cwd
-            set suffix '♠'
+            set suffix '$'
     end
 
     # PWD
