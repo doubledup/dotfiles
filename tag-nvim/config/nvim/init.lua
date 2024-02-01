@@ -253,9 +253,9 @@ require("lazy").setup({
             require('nvim-treesitter.configs').setup({
                 ensure_installed = {
                     -- languages
-                    'c', 'c_sharp', 'commonlisp', 'cpp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript',
-                    'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'solidity', 'tsx', 'typescript',
-                    'zig',
+                    'c', 'commonlisp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript',
+                    'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'tsx',
+                    'typescript', 'zig',
                     -- version control
                     'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
                     -- web
