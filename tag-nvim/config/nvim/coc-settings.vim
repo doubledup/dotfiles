@@ -118,7 +118,7 @@ augroup coc
 augroup end
 
 " apply code action to the current file
-" nmap <leader>a <Plug>(coc-codeaction)
+nmap <leader>ak <Plug>(coc-codeaction)
 " apply code action to the current buffer
 " nmap <leader>a <Plug>(coc-codeaction-source)
 " apply codeAction to the selected region, eg. `<leader>aap` for current paragraph
