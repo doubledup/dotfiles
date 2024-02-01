@@ -111,6 +111,7 @@ alias l='exa --icons --level=1'
 alias ll='exa -l --header --group --git --icons --level=1'
 alias la='ll -aa'
 abbr --position command - 'cd -'
+abbr --position command cdtemp 'cd (mktemp -d)'
 
 ## emacs
 abbr e 'emacsclient -c'
