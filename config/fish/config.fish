@@ -14,21 +14,20 @@
 # Removing these makes the behaviour of less consistent: it *always*
 # opens less and *never* leaves its output lying around in the terminal.
 #
-# -N displays line numbers
 # -Q keeps less quiet: terminal bells are never rung.
 # -R is needed to interpret ANSI colors correctly. (from bat's help for its --pager flag)
 # -i: ignore case in searches
 # -x4: tabs are 4 characters wide
-set -x LESS -NQRix4
+set -x LESS -QRix4
 
-# bat
-set -x BAT_PAGER "less $LESS"
-# set -x BAT_PAGER "moar --no-linenumbers"
-set -x BAT_THEME 'Coldark-Dark'
-set -x BAT_STYLE changes,header-filename
 set -x EDITOR 'nvim'
 set -x GTI_SPEED 3000
 set -x PIPENV_VENV_IN_PROJECT 1
+
+# bat
+set -x BAT_PAGER "less $LESS"
+set -x BAT_THEME 'Coldark-Dark'
+set -x BAT_STYLE changes,header-filename,numbers
 
 ## fzf
 # TODO: set up a history file
@@ -37,7 +36,7 @@ set -x PIPENV_VENV_IN_PROJECT 1
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
-set FZF_PREVIEW 'bat --style=numbers --color=always --line-range :1000 {} 2> /dev/null'
+set FZF_PREVIEW 'bat --color=always --line-range :1000 --style=numbers {} 2> /dev/null'
 set FZF_PREVIEW_WINDOW_VERT '60%,right,border-left,nowrap'
 set FZF_PREVIEW_WINDOW_HOR '60%,bottom,border-top,nowrap'
 set FZF_PREVIEW_WINDOW_VERT_CHANGE 'alt-l:change-preview-window(bottom,border-top|right,border-left)'
@@ -230,9 +229,8 @@ bind \cg 'git diff; commandline -f repaint'
 # Pass previous args to different command
 bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
 
-bind \eh 'MANWIDTH=(math $COLUMNS - 10) MANPAGER=\'bat --wrap never\' __fish_man_page'
-# bind \eP "$FZF_PS_COMMAND | fzf $FZF_PS_OPTS"
-bind \eP zenith
+bind \eh 'MANWIDTH=(math $COLUMNS - 5) MANPAGER=\'bat --style=numbers --wrap never\' __fish_man_page'
+bind \eP btm
 
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
