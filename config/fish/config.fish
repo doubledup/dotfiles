@@ -231,7 +231,7 @@ bind \cg 'git diff; commandline -f repaint'
 # Pass previous args to different command
 bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
 
-bind \eh 'MANWIDTH=(math $COLUMNS - 10) MANPAGER=\'bat --wrap never\' __fish_man_page'
+bind \eh 'MANWIDTH=(math $COLUMNS - 13) MANPAGER=\'bat --wrap never\' __fish_man_page'
 bind \eP btm
 
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
