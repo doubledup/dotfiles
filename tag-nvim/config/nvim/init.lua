@@ -471,7 +471,10 @@ vim.keymap.set('n', ']<space>', 'o<esc>k')
 vim.keymap.set('n', '<c-s>', ':%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>')
 vim.keymap.set('x', '<c-s>', ':s/\v/gI<left><left><left>')
 
-vim.keymap.set('n', '<esc>', ":nohlsearch<c-r>=has('diff')?'<bar>diffupdate':''<cr><cr><esc>", { silent = true, remap = false })
+vim.keymap.set('n', '<esc>', function()
+    vim.cmd('nohlsearch')
+    vim.cmd('echo ""')
+end, { remap = false })
 vim.keymap.set('n', '^', 'ggVG')
 
 -- move selected lines around
@@ -509,7 +512,12 @@ end
 
 -- config
 vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>')
-vim.keymap.set('n', '<leader><leader>,', ':so ~/.config/nvim/init.lua<cr>')
+vim.keymap.set('n', '<leader><leader>,', function()
+    vim.cmd('source ~/.config/nvim/init.lua')
+    -- suppress "Reloading your config is not supported" message as source does actually reload
+    -- (non-package) config
+    vim.cmd('echo ""')
+end)
 vim.keymap.set('n', '<leader>;', ':execute \'tabnew ~/.config/nvim/ftplugin/\' . &ft . \'.vim\'<cr>')
 vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
 
