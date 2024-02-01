@@ -26,7 +26,9 @@ set -x PIPENV_VENV_IN_PROJECT 1
 
 # bat
 set -x BAT_PAGER "less $LESS"
-set -x BAT_THEME 'Coldark-Dark'
+# ayu-mirage theme from
+# https://github.com/alin23/ayu/blob/0c5d548909bee59ced21a1a471bfb3b36bd02141/ayu-mirage.tmTheme
+set -x BAT_THEME 'ayu-mirage'
 set -x BAT_STYLE changes,header-filename
 
 ## fzf
