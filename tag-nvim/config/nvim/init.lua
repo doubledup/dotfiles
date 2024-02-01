@@ -653,6 +653,12 @@ vim.keymap.set('v', '<leader>/', 'y:BLines! <c-r>"<cr>')
 vim.keymap.set('n', '<leader>*', ':BLines! <c-r><c-w><cr>')
 vim.keymap.set('v', '<leader>*', 'y:BLines! <c-r>"<cr>')
 vim.keymap.set('n', '<leader>:', ':History:!<cr>')
+-- match <c-w> prefix
+vim.g.fzf_action = {
+    ['ctrl-s'] = 'split',
+    ['ctrl-v'] = 'vsplit',
+    ['ctrl-t'] = 'tab split'
+}
 
 -- gitsigns
 require('gitsigns').setup({
