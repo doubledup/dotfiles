@@ -824,7 +824,7 @@ vim.keymap.set('n', ']of', ':set nofoldenable<cr>')
 vim.keymap.set('n', 'yof', ':set invfoldenable<cr>')
 
 -- which-key
-vim.o.timeoutlen = 100
+vim.o.timeoutlen = 0
 require("which-key").setup {}
 
 local coc_settings = vim.fn.expand("~/.config/nvim/coc-settings.vim")
