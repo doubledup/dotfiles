@@ -436,7 +436,6 @@ vim.keymap.set('n', 'gm', ':tabmove<space>')
 
 vim.keymap.set('n', 'gz', ':q<cr>')
 vim.keymap.set('n', 'gZ', ':tabclose<cr>')
-vim.keymap.set('n', 'g<c-z>', ':qa<cr>')
 vim.keymap.set('n', '<c-w>t', ':tabonly<cr>')
 
 vim.keymap.set('n', '<c-h>', '<c-w>h')
