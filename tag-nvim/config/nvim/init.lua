@@ -753,7 +753,7 @@ autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()
 
 -- NERDTree
 vim.g.NERDTreeShowHidden = 1
-vim.g.NERDTreeWinSize = 41
+vim.g.webdevicons_enable_nerdtree = 0
 -- quit when NERDTree is the last window
 vim.cmd [[ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif ]]
 vim.keymap.set('n', '-', ':NERDTreeToggle<cr>')
