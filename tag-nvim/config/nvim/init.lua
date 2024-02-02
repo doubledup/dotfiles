@@ -40,6 +40,7 @@ require("lazy").setup({
     -- 'williamboman/mason-lspconfig.nvim' -- and
     -- 'neovim/nvim-lspconfig'
     --
+    -- 'VonHeikemen/lsp-zero.nvim'
     -- 'folke/neodev.nvim'
     -- 'glepnir/lspsaga.nvim',
     -- 'natebosch/vim-lsc',
@@ -57,7 +58,6 @@ require("lazy").setup({
     -- { 'lukas-reineke/indent-blankline.nvim', config = function () require("ibl").setup() end },
     'norcalli/nvim-colorizer.lua',
     'powerman/vim-plugin-AnsiEsc',
-    -- TODO: vs 'nvim-tree/nvim-web-devicons',
     'ryanoasis/vim-devicons',
 
     -- TODO: vs one of
@@ -166,14 +166,13 @@ require("lazy").setup({
         end
     },
 
+    'preservim/nerdtree',
     -- TODO: vs one of
+    -- 'luukvbaal/nnn.nvim',
+    -- 'nvim-tree/nvim-tree.lua',
+    -- 'nvim-tree/nvim-web-devicons',
     -- 'tpope/vim-vinegar',
     -- 'justinmk/vim-dirvish',
-    -- 'nvim-tree/nvim-tree.lua',
-    -- 'ms-jpq/chadtree',
-    -- 'luukvbaal/nnn.nvim',
-    -- 'sidebar-nvim/sidebar.nvim',
-    'preservim/nerdtree',
 
     {
         'gelguy/wilder.nvim',
