@@ -113,6 +113,9 @@ alias la='ll -aa'
 abbr --position command - 'cd -'
 abbr --position command cdtemp 'cd (mktemp -d)'
 
+## bat
+abbr bat! 'bat --pager "less $LESS -n" --style=default'
+
 ## emacs
 abbr e 'emacsclient -c'
 abbr et 'emacsclient -t'
