@@ -196,23 +196,9 @@ require("lazy").setup({
 
             wilder.set_option('pipeline', {
                 wilder.branch(
-                    wilder.python_file_finder_pipeline({
-                        dir_command = { 'fd', '-td' },
-                        file_command = function(_, arg)
-                            if arg:sub(1, 1) == '.' then
-                                return { 'fd', '-tf', '-H' }
-                            else
-                                return { 'fd', '-tf' }
-                            end
-                        end,
-                    }),
-                    wilder.python_search_pipeline({
-                        pattern = 'fuzzy',
-                    }),
+                    wilder.vim_search_pipeline({}),
                     wilder.substitute_pipeline({
-                        pipeline = wilder.python_search_pipeline({
-                            pattern = 'fuzzy',
-                        })
+                        pipeline = wilder.vim_search_pipeline({})
                     }),
                     wilder.cmdline_pipeline({
                         fuzzy = 2,
