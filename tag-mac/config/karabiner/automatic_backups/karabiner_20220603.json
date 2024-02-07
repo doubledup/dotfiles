@@ -1,0 +1,778 @@
+{
+  "global" : {
+    "check_for_updates_on_startup" : true,
+    "show_in_menu_bar" : true,
+    "show_profile_name_in_menu_bar" : false
+  },
+  "profiles" : [ {
+    "complex_modifications" : {
+      "parameters" : {
+        "basic.simultaneous_threshold_milliseconds" : 50,
+        "basic.to_delayed_action_delay_milliseconds" : 500,
+        "basic.to_if_alone_timeout_milliseconds" : 1000,
+        "basic.to_if_held_down_threshold_milliseconds" : 500
+      },
+      "rules" : [ {
+        "description" : "caps lock: hold for control, tap for escape.",
+        "manipulators" : [ {
+          "to_if_alone" : [ {
+            "key_code" : "escape"
+          } ],
+          "from" : {
+            "key_code" : "caps_lock",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "left_control"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "left shift: hold for shift, tap for backspace.",
+        "manipulators" : [ {
+          "to_if_alone" : [ {
+            "key_code" : "return_or_enter"
+          } ],
+          "from" : {
+            "key_code" : "left_shift",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "left_shift"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "tab: hold for option, tap for tab.",
+        "manipulators" : [ {
+          "to_if_alone" : [ {
+            "key_code" : "tab"
+          } ],
+          "from" : {
+            "key_code" : "tab",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "left_option"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "right command: hold for right command, tap for enter",
+        "manipulators" : [ {
+          "to_if_alone" : [ {
+            "key_code" : "delete_or_backspace"
+          } ],
+          "from" : {
+            "key_code" : "right_command",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "right_command"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "open bracket: hold for right option, tap for open bracket",
+        "manipulators" : [ {
+          "to_if_alone" : [ {
+            "key_code" : "open_bracket"
+          } ],
+          "from" : {
+            "key_code" : "open_bracket",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "right_option"
+          } ],
+          "type" : "basic"
+        } ]
+      }, {
+        "description" : "Space mode: arrows, return, etc.",
+        "manipulators" : [ {
+          "from" : {
+            "key_code" : "j",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "left_arrow"
+          } ],
+          "conditions" : [ {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "space-mode",
+              "value" : 1
+            }
+          }, {
+            "key_code" : "left_arrow"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "spacebar"
+            }, {
+              "key_code" : "j"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "space-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "k",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "down_arrow"
+          } ],
+          "conditions" : [ {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "space-mode",
+              "value" : 1
+            }
+          }, {
+            "key_code" : "down_arrow"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "spacebar"
+            }, {
+              "key_code" : "k"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "space-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "i",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "up_arrow"
+          } ],
+          "conditions" : [ {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "space-mode",
+              "value" : 1
+            }
+          }, {
+            "key_code" : "up_arrow"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "spacebar"
+            }, {
+              "key_code" : "i"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "space-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "l",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "right_arrow"
+          } ],
+          "conditions" : [ {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "space-mode",
+              "value" : 1
+            }
+          }, {
+            "key_code" : "right_arrow"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "spacebar"
+            }, {
+              "key_code" : "l"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "space-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "m",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "key_code" : "return_or_enter"
+          } ],
+          "conditions" : [ {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "space-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "space-mode",
+              "value" : 1
+            }
+          }, {
+            "key_code" : "return_or_enter"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "spacebar"
+            }, {
+              "key_code" : "m"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "space-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        } ]
+      }, {
+        "description" : "Window mode: switch to common applications",
+        "manipulators" : [ {
+          "from" : {
+            "key_code" : "j",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "open -g hammerspoon://openKitty"
+          } ],
+          "conditions" : [ {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "window-mode",
+              "value" : 1
+            }
+          }, {
+            "shell_command" : "open -g hammerspoon://openKitty"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "w"
+            }, {
+              "key_code" : "j"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "window-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "k",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "open -g hammerspoon://openBrowser"
+          } ],
+          "conditions" : [ {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "window-mode",
+              "value" : 1
+            }
+          }, {
+            "shell_command" : "open -g hammerspoon://openBrowser"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "w"
+            }, {
+              "key_code" : "k"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "window-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "l",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "open -g hammerspoon://openSlack"
+          } ],
+          "conditions" : [ {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "window-mode",
+              "value" : 1
+            }
+          }, {
+            "shell_command" : "open -g hammerspoon://openSlack"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "w"
+            }, {
+              "key_code" : "l"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "window-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "i",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "open -g hammerspoon://openSignal"
+          } ],
+          "conditions" : [ {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "window-mode",
+              "value" : 1
+            }
+          }, {
+            "shell_command" : "open -g hammerspoon://openSignal"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "w"
+            }, {
+              "key_code" : "i"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "window-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "m",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "open -g hammerspoon://openSpotify"
+          } ],
+          "conditions" : [ {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "window-mode",
+              "value" : 1
+            }
+          }, {
+            "shell_command" : "open -g hammerspoon://openSpotify"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "w"
+            }, {
+              "key_code" : "m"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "window-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        }, {
+          "from" : {
+            "key_code" : "semicolon",
+            "modifiers" : {
+              "optional" : [ "any" ]
+            }
+          },
+          "to" : [ {
+            "shell_command" : "open -g hammerspoon://openEmacs"
+          } ],
+          "conditions" : [ {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          }, {
+            "name" : "window-mode",
+            "value" : 1,
+            "type" : "variable_if"
+          } ],
+          "type" : "basic"
+        }, {
+          "type" : "basic",
+          "parameters" : {
+            "basic.simultaneous_threshold_milliseconds" : 250
+          },
+          "to" : [ {
+            "set_variable" : {
+              "name" : "window-mode",
+              "value" : 1
+            }
+          }, {
+            "shell_command" : "open -g hammerspoon://openEmacs"
+          } ],
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "w"
+            }, {
+              "key_code" : "semicolon"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : true,
+              "key_down_order" : "strict",
+              "key_up_order" : "strict_inverse",
+              "key_up_when" : "any",
+              "to_after_key_up" : [ {
+                "set_variable" : {
+                  "name" : "window-mode",
+                  "value" : 0
+                }
+              } ]
+            }
+          }
+        } ]
+      } ]
+    },
+    "devices" : [ ],
+    "fn_function_keys" : [ {
+      "from" : {
+        "key_code" : "f1"
+      },
+      "to" : [ {
+        "consumer_key_code" : "display_brightness_decrement"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f2"
+      },
+      "to" : [ {
+        "consumer_key_code" : "display_brightness_increment"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f3"
+      },
+      "to" : [ {
+        "apple_vendor_keyboard_key_code" : "mission_control"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f4"
+      },
+      "to" : [ {
+        "apple_vendor_keyboard_key_code" : "spotlight"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f5"
+      },
+      "to" : [ {
+        "consumer_key_code" : "dictation"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f6"
+      },
+      "to" : [ {
+        "key_code" : "f6"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f7"
+      },
+      "to" : [ {
+        "consumer_key_code" : "rewind"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f8"
+      },
+      "to" : [ {
+        "consumer_key_code" : "play_or_pause"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f9"
+      },
+      "to" : [ {
+        "consumer_key_code" : "fast_forward"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f10"
+      },
+      "to" : [ {
+        "consumer_key_code" : "mute"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f11"
+      },
+      "to" : [ {
+        "consumer_key_code" : "volume_decrement"
+      } ]
+    }, {
+      "from" : {
+        "key_code" : "f12"
+      },
+      "to" : [ {
+        "consumer_key_code" : "volume_increment"
+      } ]
+    } ],
+    "name" : "Default",
+    "parameters" : {
+      "delay_milliseconds_before_open_device" : 1000
+    },
+    "selected" : true,
+    "simple_modifications" : [ ],
+    "virtual_hid_keyboard" : {
+      "country_code" : 0,
+      "indicate_sticky_modifier_keys_state" : true,
+      "mouse_key_xy_scale" : 100
+    }
+  } ]
+}

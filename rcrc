@@ -1,1 +1,2 @@
 EXCLUDES='gnome_settings install LICENSE packages README.md scratch Session.vim userChrome.css'
+SYMLINK_DIRS='tag-mac/config/karabiner/'
