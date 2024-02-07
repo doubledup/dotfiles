@@ -44,7 +44,7 @@ anvil completions fish > ~/.config/fish/completions/anvil.fish
 
 echo 'dotfile submodules:'
 cd "$HOME/.dotfiles"
-git submodule update
+git submodule update --remote
 cd -
 
 echo 'softwareupdate:'

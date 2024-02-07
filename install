@@ -95,8 +95,7 @@ if [ "$os_name" = "Darwin" ]; then
     fi
     brew bundle install --file Brewfile
 
-    git submodule init
-    git submodule update
+    git submodule update --init
 
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
