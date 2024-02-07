@@ -23,7 +23,9 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 # set up cargo
-. "$HOME/.cargo/env"
+if [ -d "$HOME/.cargo" ] ; then
+    . "$HOME/.cargo/env"
+fi
 
 # start ssh agent on login
 if [ -f "$HOME/.ssh/profile" ]; then
