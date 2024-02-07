@@ -252,7 +252,12 @@ require("lazy").setup({
 
     -- new plugins to try
 
-    -- 'nvim-telescope/telescope.nvim',
+    -- {
+    --     'nvim-telescope/telescope.nvim',
+    --     branch = '0.1.x',
+    --     dependencies = { 'nvim-lua/plenary.nvim' }
+    -- }
+
     -- 'mbbill/undotree',
     -- 'her/central.vim',
     -- 'mfussenegger/nvim-dap',
