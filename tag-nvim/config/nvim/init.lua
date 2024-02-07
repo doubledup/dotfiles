@@ -246,6 +246,13 @@ require("lazy").setup({
     'mizlan/iswap.nvim',
 
     {
+        'numToStr/Comment.nvim',
+        opts = {
+        },
+        lazy = false,
+    },
+
+    {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         config = function()
@@ -285,8 +292,6 @@ require("lazy").setup({
     'pbrisbin/vim-mkdir',
     'raimondi/delimitmate',
     'tpope/vim-abolish',
-    -- TODO: vs 'numToStr/Comment.nvim'
-    'tpope/vim-commentary',
     'tpope/vim-obsession',
     'tpope/vim-repeat',
     'tpope/vim-sleuth',
