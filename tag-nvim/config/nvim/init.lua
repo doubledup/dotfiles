@@ -51,7 +51,7 @@ require("lazy").setup({
     { 'neoclide/coc.nvim', branch = 'release' },
 
     -- ui
-    'Luxed/ayu-vim',
+    'doubledup/ayu-vim',
     'folke/which-key.nvim',
     'junegunn/fzf',
     'junegunn/fzf.vim',
