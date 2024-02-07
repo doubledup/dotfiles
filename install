@@ -98,6 +98,7 @@ if [ "$os_name" = "Darwin" ]; then
     git submodule update --init
 
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
+    ln -s ~/.dotfiles/karabiner/ ~/.config/karabiner
 
     # disable "smart" quotes
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
