@@ -1,1 +1,1 @@
-EXCLUDES='Brewfile LICENSE README.md Session.vim gnome_settings install karabiner/ packages/ scratch/ userChrome.css'
+EXCLUDES='Brewfile LICENSE README.md Session.vim gnome_settings install karabiner packages scratch userChrome.css'
