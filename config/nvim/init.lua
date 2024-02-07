@@ -174,55 +174,6 @@ require("lazy").setup({
     -- 'tpope/vim-vinegar',
     -- 'justinmk/vim-dirvish',
 
-    {
-        'gelguy/wilder.nvim',
-        build = function()
-            vim.cmd [[
-            let &rtp=&rtp " Needed to refresh runtime files
-            UpdateRemotePlugins
-            ]]
-        end,
-        config = function()
-            -- TODO: add fzy https://github.com/gelguy/wilder.nvim#neovim-lua-only-config
-            vim.o.wildmenu = false
-            local wilder = require('wilder')
-            wilder.setup({
-                modes = { ':', '/', '?' },
-                accept_key = '<c-e>',
-                reject_key = '<c-c>',
-                next_key = '<tab>',
-                previous_key = '<s-tab>',
-            })
-
-            wilder.set_option('pipeline', {
-                wilder.branch(
-                    wilder.vim_search_pipeline({}),
-                    wilder.substitute_pipeline({
-                        pipeline = wilder.vim_search_pipeline({})
-                    }),
-                    wilder.cmdline_pipeline({
-                        fuzzy = 2,
-                    })
-                )
-            })
-
-            wilder.set_option('renderer', wilder.renderer_mux({
-                [':'] = wilder.popupmenu_renderer({
-                    highlighter = wilder.basic_highlighter(),
-                    left = { ' ', wilder.popupmenu_devicons() },
-                    right = { ' ', wilder.popupmenu_scrollbar() },
-                }),
-                ['/'] = wilder.wildmenu_renderer(
-                    wilder.wildmenu_lightline_theme({
-                        highlights = { default = 'StatusLine' },
-                        highlighter = wilder.basic_highlighter(),
-                        separator = ' | ',
-                    })
-                ),
-            }))
-        end
-    },
-
     -- editing
     'andrewradev/linediff.vim',
     -- TODO: vs 'ggandor/leap.nvim',
@@ -396,6 +347,12 @@ vim.o.cmdheight = 2
 
 -- show line numbers
 vim.o.number = true
+
+-- wildmenu
+vim.o.wildmode='longest,full'
+vim.o.wildoptions='fuzzy,pum,tagfile'
+vim.keymap.set('c', '<c-f>', '<space><bs><left>', { noremap = true })
+vim.keymap.set('c', '<c-b>', '<space><bs><right>', { noremap = true })
 
 -- save undo history
 -- vim.o.undofile = true
