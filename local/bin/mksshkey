@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
+bw_create_item() {
+    session_key=$1
+
+    bw get template item --session "$session_key" | \
+        jq ".name=\"ssh key $ssh_key_name\" | .login=$login_json | .notes=\"\"" | \
+        bw encode | \
+        bw create item --session "$session_key"
+}
+
 read -rp 'ssh key name: ' ssh_key_name
 current_date="$(date "+%Y-%m-%d")"
 # LC_ALL=C is necessary for Mac's tr to accept bytes
@@ -8,21 +19,18 @@ ssh_key_name="$(cat ssh_key_name)""_$current_date""_$random_extension"
 
 passphrase="$(bw generate -ulns --length 64)"
 
-if  bw_login_output="$(bw login)" ; then echo '\x1b[0;31mbw login failed. Exiting.\x1b[0m'; exit 1; fi
+if bw_login_output="$(bw login)"; then printf '\x1b[0;31mbw login failed. Exiting.\x1b[0m\n'; exit 1; fi
 session_key="$(echo "$bw_login_output" | grep '$ export BW_SESSION="' | sed -E 's/.*"(.*)".*/\1/')"
 
 login_json="$(bw get template item.login --session "$session_key"  | jq ".username=\"$ssh_key_name\" | .password=\"$passphrase\" | .totp=null")"
-bw get template item --session "$session_key" | \
-    jq ".name=\"ssh key $ssh_key_name\" | .login=$login_json | .notes=\"\"" | \
-    bw encode | \
-    bw create item --session "$session_key"
-if [ "$?" -eq 0 ]; then
-    echo '\x1b[0;32mssh key passphrase saved.\x1b[0m'
+if bw_create_item "$session_key"; then
+    printf '\x1b[0;32mssh key passphrase saved.\x1b[0m\n'
+    bw logout
 else
-    echo '\x1b[0;31mssh key passphrase failed to save. Exiting.\x1b[0m'
+    printf '\x1b[0;31mssh key passphrase failed to save. Exiting.\x1b[0m\n'
+    bw logout
     exit 1
 fi
-bw logout
 
 ssh-keygen \
     -t ed25519 \
