@@ -4,9 +4,9 @@ set -euo pipefail
 change_shell () {
     if [ "$(echo "$SHELL" | xargs basename)" != "fish" ]; then
         sudo chsh -s "$(command -v fish)" "$USER"
-        echo '\x1b[0;32mShell changed to fish.\x1b[0m'
+        printf '\x1b[0;32mShell changed to fish.\x1b[0m\n'
     else
-        echo '\x1b[0;33mShell already set to fish.\x1b[0m'
+        printf '\x1b[0;33mShell already set to fish.\x1b[0m\n'
     fi
 }
 
@@ -26,31 +26,31 @@ set_up_asdf () {
     fi
     . "$HOME"/.asdf/asdf.sh
     asdf update
-    echo '\x1b[0;32masdf is installed. Installing tools...\x1b[0m'
+    printf '\x1b[0;32masdf is installed. Installing tools...\x1b[0m\n'
 
     while IFS= read -r plugin; do
         echo "$plugin" | sed -E 's/^(.*) .*/\1/' | xargs asdf plugin add
     done < "$HOME"/.tool-versions
 
-    cd "$HOME" || { echo '\x1b[0;31mCould not go to home directory. Exiting.\x1b[0m'; exit 1; }
+    cd "$HOME" || { printf '\x1b[0;31mCould not go to home directory. Exiting.\x1b[0m\n'; exit 1; }
     asdf install
     # run a second time because node-build doesn't alias its lts version the
     # first time you try to install
     asdf install
-    cd - >/dev/null || { echo '\x1b[0;31mCould not return to dotfiles directory. Exiting.\x1b[0m'; exit 1; }
+    cd - >/dev/null || { printf '\x1b[0;31mCould not return to dotfiles directory. Exiting.\x1b[0m\n'; exit 1; }
 
     python -m pip install --upgrade pip
     npm install -g npm
-    echo '\x1b[0;32masdf tools installed.\x1b[0m'
+    printf '\x1b[0;32masdf tools installed.\x1b[0m\n'
 }
 
 set_up_vim () {
     if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]; then
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
            https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        echo '\x1b[0;32mVim-plug has been installed.\x1b[0m'
+        printf '\x1b[0;32mVim-plug has been installed.\x1b[0m\n'
     else
-        echo '\x1b[0;33mVim-plug is already installed.\x1b[0m'
+        printf '\x1b[0;33mVim-plug is already installed.\x1b[0m\n'
     fi
 
     python -m pip install pynvim
@@ -73,22 +73,22 @@ echo "Setting up $os_name..."
 
 if [ "$os_name" = "Darwin" ]; then
     if [ ! "$(xcode-select --version)" = "" ]; then
-        echo '\x1b[0;32mXCode is already installed.\x1b[0m'
+        printf '\x1b[0;32mXCode is already installed.\x1b[0m\n'
     else
         if xcode-select --install; then
-            echo '\x1b[0;32mInstalled XCode.\x1b[0m'
+            printf '\x1b[0;32mInstalled XCode.\x1b[0m\n'
         else
-            echo '\x1b[0;31mFailed to install XCode. Exiting.\x1b[0m' && exit 1
+            printf '\x1b[0;31mFailed to install XCode. Exiting.\x1b[0m\n' && exit 1
         fi
     fi
 
     if sudo softwareupdate --install-rosetta --agree-to-license; then
-        echo '\x1b[0;32mInstalled Rosetta.\x1b[0m'
+        printf '\x1b[0;32mInstalled Rosetta.\x1b[0m\n'
     else
-        echo '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m' && exit 1
+        printf '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m\n' && exit 1
     fi
     sudo softwareupdate -ir
-    echo '\x1b[0;32mAttempted to install recommended updates.\x1b[0m'
+    printf '\x1b[0;32mAttempted to install recommended updates.\x1b[0m\n'
 
     if [ ! -d /opt/homebrew/ ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -105,21 +105,21 @@ if [ "$os_name" = "Darwin" ]; then
     mkdir -p chromedir
     if [ ! -f "$chromedir/userChrome.css" ]; then
         ln -s "$HOME"/.dotfiles/userChrome.css "$chromedir"/userChrome.css
-        echo '\x1b[0;32mFirefox styling applied.\x1b[0m'
+        printf '\x1b[0;32mFirefox styling applied.\x1b[0m\n'
     else
-        echo '\x1b[0;33mFirefox styling already exists.\x1b[0m'
+        printf '\x1b[0;33mFirefox styling already exists.\x1b[0m\n'
     fi
 
     shared_setup
 elif [ "$os_name" = "Linux" ]; then
-    echo '\x1b[0;31mUpdate the install script for Linux!\x1b[0m'
+    printf '\x1b[0;31mUpdate the install script for Linux!\x1b[0m\n'
     # TODO: install software
     # RCRC="$HOME"/.dotfiles/rcrc rcup -d ~/.dotfiles -t linux
     # TODO: settings
     # TODO: Firefox styling
     # TODO: shared setup
 else
-    echo "\x1b[0;31mNo installation set up for $os_name yet\x1b[0m"
+    printf "\x1b[0;31mNo installation set up for $os_name yet\x1b[0m\n"
 fi
 
 echo 'Setup complete!'
