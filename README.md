@@ -10,6 +10,7 @@ Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 ./install
+updateAll
 ```
 
 [`mksshkey`](local/bin/mksshkey) will create an ssh key. To add it to Github,
@@ -29,6 +30,14 @@ In the `about:config` page:
 - To disable loading tabs on demand, set
   `browser.sessionstore.restore_on_demandbrowser.sessionstore.restore_on_demand`
   to true
+
+## MacOS
+
+Ensure only Brewfile packages are installed:
+
+```sh
+brew bundle install --cleanup --file ~/.dotfiles/Brewfile
+```
 
 ## Linux/Debian
 
@@ -76,13 +85,3 @@ Speed up shell animations:
 
 After installing Docker, add yourself to the docker group with
 `sudo usermod -aG docker doubledup` and restart.
-
-## MacOS
-
-<!-- TODO: add Raycast settings -->
-
-### Remove packages not in Brewfile
-
-```sh
-brew bundle cleanup --force --file packages/Brewfile
-```
