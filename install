@@ -4,15 +4,6 @@ set -euo pipefail
 
 ASDF_TAG='v0.14.0'
 
-change_shell () {
-    if [ "$(echo "$SHELL" | xargs basename)" != "fish" ]; then
-        sudo chsh -s "$(command -v fish)" "$USER"
-        printf '\x1b[0;32mShell changed to fish.\x1b[0m\n'
-    else
-        printf '\x1b[0;33mShell already set to fish.\x1b[0m\n'
-    fi
-}
-
 set_up_asdf () {
     if [ ! -d "$HOME"/.asdf ]; then
         git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch "$ASDF_TAG"
@@ -71,7 +62,6 @@ set_up_vim () {
 }
 
 shared_setup () {
-    change_shell
     set_up_asdf
     set_up_doom
     set_up_fisher
