@@ -42,11 +42,6 @@ forge completions fish > ~/.config/fish/completions/forge.fish
 cast completions fish > ~/.config/fish/completions/cast.fish
 anvil completions fish > ~/.config/fish/completions/anvil.fish
 
-echo 'dotfile submodules:'
-cd "$HOME/.dotfiles"
-git submodule update --remote
-cd -
-
 echo 'softwareupdate:'
 sudo softwareupdate -ir
 echo 'nix:'

@@ -95,8 +95,6 @@ if [ "$os_name" = "Darwin" ]; then
     fi
     brew bundle install --file Brewfile
 
-    git submodule update --init
-
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
     ln -s ~/.dotfiles/karabiner/ ~/.config/karabiner
 
