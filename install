@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
+
+ASDF_TAG='v0.14.0'
 
 change_shell () {
     if [ "$(echo "$SHELL" | xargs basename)" != "fish" ]; then
@@ -18,12 +21,13 @@ set_up_fisher () {
 
 set_up_asdf () {
     if [ ! -d "$HOME"/.asdf ]; then
-        git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch v0.10.2
+        git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch "$ASDF_TAG"
     fi
     mkdir -p "$HOME"/.config/fish/completions
     if [ ! -f "$HOME"/.config/fish/completions/asdf.fish ]; then
         ln -s "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
     fi
+    # shellcheck disable=SC1091
     . "$HOME"/.asdf/asdf.sh
     asdf update
     printf '\x1b[0;32masdf is installed. Installing tools...\x1b[0m\n'
