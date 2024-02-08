@@ -83,9 +83,6 @@ set -x PATH $PATH $HOME/.local/bin
 ### emacs (doom)
 set -x PATH $PATH $HOME/.config/emacs/bin
 
-### foundry
-export PATH="$PATH:/Users/daviddunn/.foundry/bin"
-
 ### homebrew
 export HOMEBREW_NO_ANALYTICS=1
 

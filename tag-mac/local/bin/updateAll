@@ -37,10 +37,6 @@ echo 'nvim:'
 nvim -c 'Update' -c 'qa'
 echo 'tldr:'
 tldr --update
-echo 'foundry completions:'
-forge completions fish > ~/.config/fish/completions/forge.fish
-cast completions fish > ~/.config/fish/completions/cast.fish
-anvil completions fish > ~/.config/fish/completions/anvil.fish
 
 echo 'softwareupdate:'
 sudo softwareupdate -ir
