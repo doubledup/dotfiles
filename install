@@ -13,12 +13,6 @@ change_shell () {
     fi
 }
 
-set_up_fisher () {
-    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-    fisher install laughedelic/pisces
-    fisher install gazorby/fish-abbreviation-tips
-}
-
 set_up_asdf () {
     if [ ! -d "$HOME"/.asdf ]; then
         git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch "$ASDF_TAG"
@@ -48,6 +42,17 @@ set_up_asdf () {
     printf '\x1b[0;32masdf tools installed.\x1b[0m\n'
 }
 
+set_up_doom() {
+    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
+    ~/.config/emacs/bin/doom install
+}
+
+set_up_fisher () {
+    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    fisher install laughedelic/pisces
+    fisher install gazorby/fish-abbreviation-tips
+}
+
 set_up_vim () {
     if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]; then
         sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -67,8 +72,9 @@ set_up_vim () {
 
 shared_setup () {
     change_shell
-    set_up_fisher
     set_up_asdf
+    set_up_doom
+    set_up_fisher
     set_up_vim
 }
 
@@ -126,4 +132,4 @@ else
     printf '\x1b[0;31mNo installation set up for %s yet\x1b[0m\n' "$os_name"
 fi
 
-echo 'Setup complete!'
+printf '\x1b[0;32mSetup complete!\x1b[0m\n'
