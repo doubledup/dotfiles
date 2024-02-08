@@ -22,16 +22,20 @@
 	tool = nvimdiff
 [init]
 	defaultBranch = main
+[merge]
+	conflictstyle = diff3
 [pull]
 	ff = only
 [rerere]
 	enabled = false
 
 [delta]
+	hyperlinks = true
 	light = false
 	line-numbers = true
 	navigate = true
 	paging = always
+	syntax-theme = ayu-mirage
 [ghq]
 	root = /Users/daviddunn/code/src
 [github]
