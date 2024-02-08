@@ -119,7 +119,7 @@ elif [ "$os_name" = "Linux" ]; then
     # TODO: Firefox styling
     # TODO: shared setup
 else
-    printf "\x1b[0;31mNo installation set up for $os_name yet\x1b[0m\n"
+    printf '\x1b[0;31mNo installation set up for %s yet\x1b[0m\n' "$os_name"
 fi
 
 echo 'Setup complete!'
