@@ -5,7 +5,7 @@ echo 'mas:'
 mas upgrade
 echo 'brew:'
 brew upgrade
-brew bundle dump --global --force
+brew bundle dump --file=~/.dotfiles/Brewfile --force --brews --taps --casks --mas
 
 echo 'asdf:'
 asdf update
