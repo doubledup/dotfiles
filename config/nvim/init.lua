@@ -414,8 +414,8 @@ vim.keymap.set('n', '[<space>', 'O<esc>j')
 vim.keymap.set('n', ']<space>', 'o<esc>k')
 
 -- substitute: replace all, confirm and don't ignore case
-vim.keymap.set('n', '<c-s>', ':%s/\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>')
-vim.keymap.set('x', '<c-s>', ':s/\v/gI<left><left><left>')
+vim.keymap.set('n', '<c-s>', ':%s/\\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>')
+vim.keymap.set('x', '<c-s>', ':s/\\v/gI<left><left><left>')
 
 vim.keymap.set('n', '<esc>', function()
     vim.cmd('nohlsearch')
