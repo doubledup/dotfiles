@@ -489,9 +489,9 @@ vim.keymap.set('x', '<leader><c-p>', '"_dp')
 -- TODO: nvr for avoiding nested terminals
 -- quit, then move to start of line to preserve display of curses-like output
 vim.keymap.set('t', '<c-q>', '<c-\\><c-n>0')
-vim.keymap.set('n', '<leader>ts', ':25sp | te<cr>a')
-vim.keymap.set('n', '<leader>tv', ':85vsp | te<cr>a')
-vim.keymap.set('n', '<leader>tt', ':tabnew | te<cr>a')
+vim.keymap.set('n', '<leader>ts', ':25sp | terminal fish<cr>a')
+vim.keymap.set('n', '<leader>tv', ':85vsp | terminal fish<cr>a')
+vim.keymap.set('n', '<leader>tt', ':tabnew | terminal fish<cr>a')
 vim.cmd [[
     augroup terminal_settings
         autocmd!
