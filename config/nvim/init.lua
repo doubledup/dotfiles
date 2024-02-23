@@ -510,6 +510,7 @@ vim.cmd [[
 
 function Update()
     vim.cmd.CocUpdate()
+    vim.cmd.Lazy("update")
 end
 
 function BuffersDeleteHidden()
