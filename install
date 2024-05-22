@@ -25,9 +25,6 @@ set_up_vim () {
         printf '\x1b[0;33mVim-plug is already installed.\x1b[0m\n'
     fi
 
-    python -m pip install pynvim
-    npm install -g neovim
-
     nvim -e -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "GoInstallBinaries" -c "qa"
     nvim -e -u ~/.config/nvim/init.vim -i NONE -c "TSInstall bash elm fish go javascript python ruby rust solidity typescript vim" -c "qa"
     echo 'Wait for CoC to install its plugins before exiting.' | nvim -R -
