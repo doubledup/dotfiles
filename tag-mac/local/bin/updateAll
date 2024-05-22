@@ -31,8 +31,6 @@ echo 'doom emacs:'
 doom upgrade
 echo 'nvim:'
 nvim -c 'Update' -c 'qa'
-echo 'tldr:'
-tldr --update
 
 echo 'softwareupdate:'
 sudo softwareupdate -ir
