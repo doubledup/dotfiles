@@ -9,7 +9,6 @@ brew upgrade
 brew bundle dump --file=~/.dotfiles/Brewfile --force --brews --taps --casks --mas
 
 echo 'rustup:'
-rustup self update
 rustup update
 cargo install \
     cargo-audit \
