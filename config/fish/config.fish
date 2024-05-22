@@ -214,7 +214,6 @@ bind \ev nvimrc
 bind \e, fishrc
 
 function launch_editor
-    set -g __abbr_tips_used 1
     commandline -i " $EDITOR "
     commandline -f backward-kill-word beginning-of-line yank execute
 end

@@ -7,12 +7,6 @@ set_up_doom() {
     ~/.config/emacs/bin/doom install
 }
 
-set_up_fisher () {
-    curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-    fisher install laughedelic/pisces
-    fisher install gazorby/fish-abbreviation-tips
-}
-
 set_up_languages () {
     npm i -g npm
     npm i -g @elm-tooling/elm-language-server elm-format elm-live elm-review elm-test

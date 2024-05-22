@@ -29,8 +29,6 @@ cargo install \
 
 echo 'doom emacs:'
 doom upgrade
-echo 'fisher:'
-fish -c 'fisher update'
 echo 'nvim:'
 nvim -c 'Update' -c 'qa'
 echo 'tldr:'
