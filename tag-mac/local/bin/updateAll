@@ -23,8 +23,7 @@ cargo install \
     cargo-outdated \
     cargo-show-asm \
     cargo-watch \
-    speedtest-rs \
-    typos-cli
+    speedtest-rs
 
 echo 'doom emacs:'
 doom upgrade
