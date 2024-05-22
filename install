@@ -2,37 +2,6 @@
 
 set -euo pipefail
 
-ASDF_TAG='v0.14.0'
-
-set_up_asdf () {
-    if [ ! -d "$HOME"/.asdf ]; then
-        git clone https://github.com/asdf-vm/asdf.git "$HOME"/.asdf --branch "$ASDF_TAG"
-    fi
-    mkdir -p "$HOME"/.config/fish/completions
-    if [ ! -f "$HOME"/.config/fish/completions/asdf.fish ]; then
-        ln -s "$HOME"/.asdf/completions/asdf.fish "$HOME"/.config/fish/completions
-    fi
-    # shellcheck disable=SC1091
-    . "$HOME"/.asdf/asdf.sh
-    asdf update
-    printf '\x1b[0;32masdf is installed. Installing tools...\x1b[0m\n'
-
-    while IFS= read -r plugin; do
-        echo "$plugin" | sed -E 's/^(.*) .*/\1/' | xargs asdf plugin add
-    done < "$HOME"/.tool-versions
-
-    cd "$HOME" || { printf '\x1b[0;31mCould not go to home directory. Exiting.\x1b[0m\n'; exit 1; }
-    asdf install
-    # run a second time because node-build doesn't alias its lts version the
-    # first time you try to install
-    asdf install
-    cd - >/dev/null || { printf '\x1b[0;31mCould not return to dotfiles directory. Exiting.\x1b[0m\n'; exit 1; }
-
-    python -m pip install --upgrade pip
-    npm install -g npm
-    printf '\x1b[0;32masdf tools installed.\x1b[0m\n'
-}
-
 set_up_doom() {
     git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
     ~/.config/emacs/bin/doom install
@@ -62,7 +31,6 @@ set_up_vim () {
 }
 
 shared_setup () {
-    set_up_asdf
     set_up_doom
     set_up_fisher
     set_up_vim

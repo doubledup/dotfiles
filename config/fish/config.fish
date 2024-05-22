@@ -240,8 +240,6 @@ if type -q bat
     set -x PAGER "$(command -v bat)"
 end
 
-[ -z "$IN_NIX_SHELL" -a -f ~/.asdf/asdf.fish ]; and source ~/.asdf/asdf.fish
-
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
