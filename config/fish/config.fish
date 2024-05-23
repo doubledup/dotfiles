@@ -102,10 +102,9 @@ set -x PATH $PATH $HOME/.yarn/bin/
 abbr :q exit
 alias ls='ls -Fh --color=auto'
 alias sl='sl -Fa | lolcat'
-alias exa='exa --icons'
-alias l='exa --icons --level=1'
-alias ll='exa -l --header --group --git --icons --level=1'
-alias la='ll -aa'
+abbr l 'ls'
+abbr ll 'ls -l'
+abbr la 'ls -al'
 abbr --position command - 'cd -'
 abbr --position command cdtemp 'cd (mktemp -d)'
 
@@ -219,8 +218,8 @@ function launch_editor
 end
 bind \co launch_editor
 
-bind \ea 'echo; l -a; commandline -f repaint'
-bind \el 'echo; ll -a; commandline -f repaint'
+bind \ea 'echo; ls -al; commandline -f repaint'
+bind \el 'echo; ls; commandline -f repaint'
 
 # git
 bind \cs 'echo; git status; commandline -f repaint'
