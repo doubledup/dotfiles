@@ -39,6 +39,20 @@ Ensure only Brewfile packages are installed:
 brew bundle install --cleanup --file ~/.dotfiles/Brewfile
 ```
 
+### Update Brewfile
+
+Prune explicitly installed packages, listed with:
+
+```sh
+brew leaves
+```
+
+Overwrite the Brewfile:
+
+```sh
+brew bundle dump --file=~/.dotfiles/Brewfile --force --brews --taps --casks --mas
+```
+
 ## Linux/Debian
 
 <!-- TODO: move this to the install script -->
