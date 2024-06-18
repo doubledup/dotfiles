@@ -10,6 +10,10 @@
 --  NOTE: Must happen before plugins are required, otherwise wrong leader will be used
 vim.g.mapleader = ' '
 
+-- disable netrw for nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -166,13 +170,8 @@ require("lazy").setup({
         end
     },
 
-    'preservim/nerdtree',
-    -- TODO: vs one of
-    -- 'luukvbaal/nnn.nvim',
-    -- 'nvim-tree/nvim-tree.lua',
-    -- 'nvim-tree/nvim-web-devicons',
-    -- 'tpope/vim-vinegar',
-    -- 'justinmk/vim-dirvish',
+    'nvim-tree/nvim-tree.lua',
+    'nvim-tree/nvim-web-devicons',
 
     -- editing
     'andrewradev/linediff.vim',
@@ -706,13 +705,31 @@ endfunction
 autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
 ]]
 
--- NERDTree
-vim.g.NERDTreeShowHidden = 1
-vim.g.webdevicons_enable_nerdtree = 0
--- quit when NERDTree is the last window
-vim.cmd [[ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif ]]
-vim.keymap.set('n', '-', ':NERDTreeToggle<cr>')
-vim.keymap.set('n', '<leader>-', ':NERDTreeFind<cr>')
+-- nvim-tree
+require("nvim-tree").setup({
+    on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+        local function opts(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+        api.config.mappings.default_on_attach(bufnr)
+
+        vim.keymap.set('n', '-', api.tree.toggle, opts('Toggle tree'))
+        vim.keymap.set('n', '<c-k>', api.tree.change_root_to_parent, opts('Up'))
+        vim.keymap.set('n', '<c-j>', api.tree.change_root_to_node, opts('Down'))
+    end,
+})
+-- quit when nvim-tree is the last window
+vim.api.nvim_create_autocmd('BufEnter', {
+    callback = function()
+        local api = require("nvim-tree.api")
+        if vim.fn.winnr("$") == 1 and api.tree.is_tree_buf() then
+            vim.cmd("q")
+        end
+    end
+})
+vim.keymap.set('n', '-', ':NvimTreeToggle<cr>')
+vim.keymap.set('n', '<leader>-', ':NvimTreeFindFileToggle<cr>')
 
 -- obsession
 vim.keymap.set('n', '<leader>st', ':Obsession<cr>')
