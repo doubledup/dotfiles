@@ -42,6 +42,8 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Dropbox/org/")
+;; (if (file-exists-p "~/Dropbox/org/todo.org")
+;;     (setq initial-buffer-choice "~/Dropbox/org/todo.org"))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
