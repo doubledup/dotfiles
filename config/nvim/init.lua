@@ -29,9 +29,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    'editorconfig/editorconfig-vim',
-
-    -- git
+    -- 'editorconfig/editorconfig-vim',
 
     'lewis6991/gitsigns.nvim',
     -- TODO: vs 'jreybert/vimagit',
@@ -175,8 +173,7 @@ require("lazy").setup({
 
     -- editing
     'andrewradev/linediff.vim',
-    -- TODO: vs 'ggandor/leap.nvim',
-    'phaazon/hop.nvim',
+    'smoka7/hop.nvim',
     -- 'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
@@ -195,15 +192,15 @@ require("lazy").setup({
             require('nvim-treesitter.configs').setup({
                 ensure_installed = {
                     -- languages
-                    'c', 'commonlisp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'javascript',
-                    'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby', 'rust', 'tsx',
-                    'typescript', 'zig',
+                    'c', 'commonlisp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'java',
+                    'javascript', 'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby',
+                    'rust', 'tsx', 'typescript', 'zig',
                     -- version control
                     'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
                     -- web
                     'css', 'html', 'http',
                     -- config
-                    'hcl', 'ini', 'json', 'nix', 'toml', 'yaml',
+                    'hcl', 'ini', 'json', 'nix', 'terraform', 'toml', 'yaml', 'xml',
                     -- scripting
                     'bash', 'fish', 'jq', 'lua', 'vim',
                     -- queries
@@ -238,7 +235,6 @@ require("lazy").setup({
     -- included for folding
     -- 'preservim/vim-markdown',
     -- 'elixir-tools/elixir-tools.nvim'
-    -- included separately from polyglot to get commands
     { 'fatih/vim-go',      build = ':GoUpdateBinaries' },
     'ChrisWellsWood/roc.vim',
 
@@ -301,19 +297,24 @@ vim.cmd.syntax('enable')
 vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
--- continue comments on new lines
-vim.opt.formatoptions:append('ro')
 -- show extra whitespace
 vim.o.list = true
 vim.o.listchars = 'tab:▷\\ ,trail:⋅,nbsp:☺,extends:→,precedes:←'
--- don't wrap long lines by default, but be more sensible when wrapping is on
-vim.o.wrap = false
-vim.o.linebreak = true
+
 -- wrap & highlight @100 chars
 vim.o.textwidth = 100
 vim.o.colorcolumn = '+0'
+-- don't wrap long lines by default, but be more sensible when wrapping is on
+vim.o.wrap = false
+vim.o.linebreak = true
+
+-- show line numbers
+vim.o.number = true
 -- always show signcolumn
 vim.o.signcolumn = 'yes'
+
+-- continue comments on new lines
+vim.opt.formatoptions:append('ro')
 
 -- ignore case unless there are upper-case characters
 vim.o.ignorecase = true
@@ -348,9 +349,6 @@ vim.o.foldenable = false
 vim.o.showtabline = 2
 -- give more space for displaying messages
 vim.o.cmdheight = 2
-
--- show line numbers
-vim.o.number = true
 
 -- wildmenu
 vim.o.wildmode='longest,full'
@@ -472,17 +470,17 @@ vim.keymap.set('n', '<leader>5', ':let @+=@%<cr>')
 -- copy current register to system clipboard
 vim.keymap.set('n', '<leader>"', ':let @+=@"<cr>')
 vim.keymap.set('n', '<leader>y', '"+y')
-vim.keymap.set('x', '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>Y', '"+Y')
+vim.keymap.set('x', '<leader>y', '"+y')
 vim.keymap.set('n', '<leader>p', '"+p')
-vim.keymap.set('x', '<leader>p', '"+p')
 vim.keymap.set('n', '<leader>P', '"+P')
--- change, delete or paste  without touching the unnamed register
-vim.keymap.set('n', '<leader>c', '"_c')
-vim.keymap.set('x', '<leader>c', '"_c')
-vim.keymap.set('n', '<leader>d', '"_d')
-vim.keymap.set('x', '<leader>d', '"_d')
-vim.keymap.set('x', '<leader><c-p>', '"_dp')
+vim.keymap.set('x', '<leader>p', '"+p')
+vim.keymap.set('n', '<leader>c', '"+c')
+vim.keymap.set('n', '<leader>C', '"+C')
+vim.keymap.set('x', '<leader>c', '"+c')
+vim.keymap.set('n', '<leader>d', '"+d')
+vim.keymap.set('n', '<leader>D', '"+D')
+vim.keymap.set('x', '<leader>d', '"+d')
 
 -- terminal
 -- TODO: nvr for avoiding nested terminals
@@ -572,7 +570,7 @@ vim.g.delimitMate_expand_space = 1
 vim.g.delimitMate_jump_expansion = 1
 
 -- editorconfig
-vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
+-- vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 
 -- fugitive
 vim.keymap.set('n', '<leader>gs', ':-1tab Git<cr>')
@@ -685,28 +683,31 @@ vim.keymap.set('n', '<leader>k', ':ISwapNode<cr>')
 vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
 
 -- markdown
-vim.g.vim_markdown_folding_level = 2
-vim.g.vim_markdown_toc_autofit = 1
-vim.cmd [[
-autocmd BufEnter *{.md,.mdx} set wrap
-function! ToggleMdOutline() abort
-    let b:md_outline_present = get(b:, 'md_outline_present', 0)
-
-    if b:md_outline_present == 1
-        execute 'Toc'
-        execute 'bdelete %'
-        let b:md_outline_present = 0
-    else
-        execute 'Toc'
-        wincmd p
-        let b:md_outline_present = 1
-    endif
-endfunction
-autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
-]]
+-- vim.g.vim_markdown_folding_level = 2
+-- vim.g.vim_markdown_toc_autofit = 1
+-- vim.cmd [[
+-- autocmd BufEnter *{.md,.mdx} set wrap
+-- function! ToggleMdOutline() abort
+--     let b:md_outline_present = get(b:, 'md_outline_present', 0)
+--
+--     if b:md_outline_present == 1
+--         execute 'Toc'
+--         execute 'bdelete %'
+--         let b:md_outline_present = 0
+--     else
+--         execute 'Toc'
+--         wincmd p
+--         let b:md_outline_present = 1
+--     endif
+-- endfunction
+-- autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
+-- ]]
 
 -- nvim-tree
 require("nvim-tree").setup({
+    view = {
+        width = 60,
+    },
     on_attach = function(bufnr)
         local api = require("nvim-tree.api")
         local function opts(desc)
@@ -729,7 +730,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
 })
 vim.keymap.set('n', '-', ':NvimTreeToggle<cr>')
-vim.keymap.set('n', '<leader>-', ':NvimTreeFindFileToggle<cr>')
+vim.keymap.set('n', '<leader>-', ':NvimTreeFindFile<cr>')
 
 -- obsession
 vim.keymap.set('n', '<leader>st', ':Obsession<cr>')
@@ -787,10 +788,6 @@ vim.keymap.set('v', ']2', 'Ugv"zc<c-r>=system("echo \'ibase=2;<c-r>z\' | bc | tr
 vim.keymap.set('n', '[of', ':set foldenable<cr>')
 vim.keymap.set('n', ']of', ':set nofoldenable<cr>')
 vim.keymap.set('n', 'yof', ':set invfoldenable<cr>')
-
--- which-key
-vim.o.timeoutlen = 0
-require("which-key").setup {}
 
 local coc_settings = vim.fn.expand("~/.config/nvim/coc-settings.vim")
 if vim.fn.filereadable(coc_settings) == 1 then

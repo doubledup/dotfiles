@@ -1,6 +1,14 @@
-set nobackup nowritebackup " some servers have issues with backup files, see https://github.com/neoclide/coc.nvim/issues/649
-set signcolumn=yes " always show the signcolumn, otherwise it would shifts the text each time diagnostics appear
-set shortmess+=c " don't pass messages to |ins-completion-menu|
+lua << EOF
+-- some servers have issues with backup files, see https://github.com/neoclide/coc.nvim/issues/649
+vim.o.backup = false
+vim.o.writebackup = false
+
+-- Having longer updatetime leads to noticeable delays and poor user experience
+-- vim.opt.updatetime = 300
+
+-- always show the signcolumn, otherwise it would shift the text each time diagnostics appear
+-- vim.o.signcolumn='yes'
+EOF
 
 let g:coc_global_extensions = [
     \ 'coc-diagnostic',
@@ -12,11 +20,11 @@ let g:coc_global_extensions = [
     \ 'coc-rust-analyzer',
     \ 'coc-sh',
     \ 'coc-snippets',
-    \ 'coc-solidity',
     \ 'coc-sql',
     \ 'coc-tsserver',
     \ 'coc-typos',
     \ 'coc-yaml',
+    \ 'coc-zig',
     \ ]
     " \ 'coc-fzf-preview',
     " \ 'coc-ltex',
