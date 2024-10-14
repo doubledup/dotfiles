@@ -1,7 +1,7 @@
 [user]
 	name = David Dunn
 	email = 26876072+doubledup@users.noreply.github.com
-	signingkey = 99F10972153A72B0!
+	signingkey = 3B61540A18A8828B
 [core]
 	editor = nvim
 	pager = delta
