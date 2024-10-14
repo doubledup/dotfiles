@@ -78,23 +78,23 @@ set -x FZF_DEFAULT_OPTS (string join " " -- \
 ## Path
 
 ### binaries
-set -x PATH $PATH $HOME/.local/bin
+set -x PATH $HOME/.local/bin $PATH
 
 ### emacs (doom)
-set -x PATH $PATH $HOME/.config/emacs/bin
+set -x PATH $HOME/.config/emacs/bin $PATH
 
 ### homebrew
 export HOMEBREW_NO_ANALYTICS=1
 
 ### go
 set -x GOPATH "$HOME/.local/share/go"
-set -x PATH $PATH $GOPATH/bin
+set -x PATH $GOPATH/bin $PATH
 
 ## rust
-set -x PATH $PATH $HOME/.cargo/bin
+set -x PATH $HOME/.cargo/bin $PATH
 
 ## yarn
-set -x PATH $PATH $HOME/.yarn/bin/
+# set -x PATH $PATH $HOME/.yarn/bin/
 
 # Aliases & abbreviations
 
@@ -239,8 +239,8 @@ if type -q bat
 end
 
 # bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+# set --export BUN_INSTALL "$HOME/.bun"
+# set --export PATH $BUN_INSTALL/bin $PATH
 
 # zoxide needs to be rerun in new shells
 [ -f (command -v zoxide) ]; and zoxide init --cmd j fish | source
