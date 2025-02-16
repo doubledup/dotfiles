@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-rm -Rf ~/.asdf
-
-cat ~/.dotfiles/packages/apt | xargs sudo apt remove -y
-sudo apt autoremove -y
-
-rm -Rf ~/.dotfiles
