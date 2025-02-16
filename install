@@ -39,7 +39,7 @@ if [ "$os_name" = "Darwin" ]; then
 
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
-    cp ~/.dotfiles/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
+    cp ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
 
     # disable "smart" quotes
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
