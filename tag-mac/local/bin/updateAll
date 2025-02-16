@@ -25,6 +25,9 @@ cargo install \
     cargo-watch \
     speedtest-rs
 
+echo 'tldr:'
+tldr --update
+
 echo 'nvim:'
 nvim -c 'Update' -c 'qa'
 
