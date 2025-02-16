@@ -174,7 +174,7 @@ require("lazy").setup({
     -- editing
     'andrewradev/linediff.vim',
     'smoka7/hop.nvim',
-    -- 'honza/vim-snippets',
+    'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
 
