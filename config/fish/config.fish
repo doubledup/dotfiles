@@ -169,7 +169,7 @@ abbr nvim! 'nvim -N -u NONE -U NONE'
 
 function nvimrc --description "Edit NeoVim config";
     cd ~/.dotfiles
-    $EDITOR config/nvim/init.vim
+    $EDITOR config/nvim/init.lua
     cd -
 end
 
