@@ -2,23 +2,11 @@
 
 set -euo pipefail
 
-set_up_languages () {
-    npm i -g npm
-    npm i -g @elm-tooling/elm-language-server elm-format elm-live elm-review elm-test
-
-    python -m pip install --upgrade pip
-
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-}
-
-shared_setup () {
-    set_up_languages
-}
-
 os_name="$(uname -s)"
 echo "Setting up $os_name..."
 
 if [ "$os_name" = "Darwin" ]; then
+    echo 'Installing XCode...'
     if [ ! "$(xcode-select --version)" = "" ]; then
         printf '\x1b[0;32mXCode is already installed.\x1b[0m\n'
     else
@@ -29,23 +17,25 @@ if [ "$os_name" = "Darwin" ]; then
         fi
     fi
 
-    sudo softwareupdate -ir
-    printf '\x1b[0;32mAttempted to install recommended updates.\x1b[0m\n'
-
+    echo 'Installing Homebrew...'
     if [ ! -d /opt/homebrew/ ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    brew bundle install --file Brewfile
+    brew bundle install --file "$HOME"/.dotfiles/Brewfile
 
+    echo 'Symlinking dotfiles...'
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
+    echo 'Copying Karabiner config...'
     cp ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
+    echo 'Copied Karabiner config, restart Karabiner now.'
 
-    # disable "smart" quotes
+    echo 'Disabling "smart" quotes...'
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-    chromedir="$(echo "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release/chrome)"
-    mkdir -p chromedir
+    echo 'Setting up Firefox styling'
+    chromedir=$(ls -d "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release)/chrome
+    mkdir -p "$chromedir"
     if [ ! -f "$chromedir/userChrome.css" ]; then
         ln -s "$HOME"/.dotfiles/userChrome.css "$chromedir"/userChrome.css
         printf '\x1b[0;32mFirefox styling applied.\x1b[0m\n'
@@ -53,11 +43,11 @@ if [ "$os_name" = "Darwin" ]; then
         printf '\x1b[0;33mFirefox styling already exists.\x1b[0m\n'
     fi
 
-    shared_setup
+    set_up_languages
 elif [ "$os_name" = "Linux" ]; then
     printf '\x1b[0;31mUpdate the install script for Linux!\x1b[0m\n'
     # TODO: install software
-    # RCRC="$HOME"/.dotfiles/rcrc rcup -d ~/.dotfiles -t linux
+    # RCRC="$HOME"/.dotfiles/rcrc rcup -t linux
     # TODO: settings
     # TODO: Firefox styling
     # TODO: shared setup
@@ -66,3 +56,11 @@ else
 fi
 
 printf '\x1b[0;32mSetup complete!\x1b[0m\n'
+
+set_up_languages () {
+    npm i -g npm
+    npm i -g @elm-tooling/elm-language-server elm-format elm-live elm-review elm-test
+
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+}
+
