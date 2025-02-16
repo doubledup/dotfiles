@@ -25,18 +25,18 @@
             "sourceName": "typos",
             "command": "typos",
             "args": [
+                "--format",
+                "sarif",
                 "%relativepath"
             ],
-            "formatLines": 2,
-            "formatPattern": [
-                "^([^:]+): (.+)\\n  --> (.+):(\\d+):(\\d+)",
-                {
-                    "line": 4,
-                    "column": 5,
-                    "message": 2,
-                    "security": 1
-                }
-            ]
+            "parseJson": {
+                "errorsRoot": "runs[0].results",
+                "line": "locations[0].physicalLocation.region.startLine",
+                "endLine": "locations[0].physicalLocation.region.endLine",
+                "column": "locations[0].physicalLocation.region.startColumn",
+                "endColumn": "locations[0].physicalLocation.region.endColumn",
+                "message": "${message.markdown}"
+            }
         }
     },
     "diagnostic-languageserver.formatFiletypes": {
