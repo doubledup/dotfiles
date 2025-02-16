@@ -1,110 +1,156 @@
 {
-  "coc.preferences": {
-    "extensionUpdateCheck": "daily"
-  },
-  "outline.detailAsDescription": false,
-  "diagnostic.refreshOnInsertMode": true,
-  "diagnostic-languageserver.filetypes": {
-    "*": "typos",
-    "go": "revive",
-    "java": "checkstyle",
-    "sh": "shellcheck"
-  },
-  "diagnostic-languageserver.linters": {
-    "checkstyle": {
-      "rootPatterns": ["pom.xml"],
-      "command": "mvn",
-      "args": ["checkstyle:check", "-Dcheckstyle.includes='%file'"],
-      "formatPattern": [
-        "^\\[([A-Z]+)\\]\\s[^:]+:\\[(\\d+),(\\d+)\\]\\s(.*)$",
-        {
-          "line": 2,
-          "column": 3,
-          "message": 4,
-          "security": 1
+    "diagnostic-languageserver.mergeConfig": true,
+    "diagnostic-languageserver.filetypes": {
+        "*": [
+            "typos"
+        ],
+        "go": "revive",
+    },
+    "diagnostic-languageserver.linters": {
+        // "revive": {
+        //   "sourceName": "revive",
+        //   "command": "revive",
+        //   "args": ["-config", "revive.toml", "-formatter", "json"],
+        //   "rootPatterns": ["go.mod"],
+        //   "parseJson": {
+        //     "line": "Position.Start.Line",
+        //     "column": "Position.Start.Column",
+        //     "endLine": "Position.End.Line",
+        //     "endColumn": "Position.End.Column",
+        //     "message": "${Failure} (${RuleName}; confidence ${Confidence})",
+        //     "security": "Severity",
+        //   }
+        // },
+        "typos": {
+            "sourceName": "typos",
+            "command": "typos",
+            "args": [
+                "%relativepath"
+            ],
+            "formatLines": 2,
+            "formatPattern": [
+                "^([^:]+): (.+)\\n  --> (.+):(\\d+):(\\d+)",
+                {
+                    "line": 4,
+                    "column": 5,
+                    "message": 2,
+                    "security": 1
+                }
+            ]
         }
-      ]
     },
-    "revive": {
-      "rootPatterns": ["go.mod", ".git"],
-      "args": ["-config", "./revive.toml", "%file"]
+    "diagnostic-languageserver.formatFiletypes": {
+        "*": [
+            "typos"
+        ],
+        "java": "google-java-format"
     },
-    "typos": {
-      "rootPatterns": [".git"],
-      "command": "typos",
-      "args": ["%file"]
-    }
-  },
-  "diagnostic-languageserver.formatFiletypes": {
-    "java": "google-java-format"
-  },
-  "diagnostic-languageserver.formatters": {
-    "google-java-format": {
-      "command": "google-java-format",
-      "args": ["%file"]
-    }
-  },
-  "diagnostic-languageserver.mergeConfig": true,
-  "languageserver": {
-    "elm": {
-      "command": "elm-language-server",
-      "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"]
+    "diagnostic-languageserver.formatters": {
+        "google-java-format": {
+            "command": "google-java-format",
+            "args": [
+                "--skip-javadoc-formatting",
+                "%file"
+            ]
+        },
+        // "typos": {
+        //   "command": "typos",
+        //   "args": ["--write-changes", "-"]
+        // }
     },
-    // "nix": {
-    //   "command": "rnix-lsp",
-    //   "filetypes": [
-    //     "nix"
-    //   ]
-    // }
-    "roc": {
-      "command": "roc_language_server",
-      "filetypes": ["roc"],
-      "rootPatterns": ["main.roc"]
+    "languageserver": {
+        // "csharp-ls": {
+        //   "command": "csharp-ls",
+        //   "filetypes": ["cs"],
+        //   "rootPatterns": ["*.csproj"]
+        // },
+        "elm": {
+            "command": "elm-language-server",
+            "filetypes": [
+                "elm"
+            ],
+            "rootPatterns": [
+                "elm.json"
+            ]
+        },
+        // "nix": {
+        //   "command": "rnix-lsp",
+        //   "filetypes": [
+        //     "nix"
+        //   ]
+        // }
+        "roc": {
+            "command": "roc_language_server",
+            "filetypes": [
+                "roc"
+            ],
+            "rootPatterns": [
+                "main.roc"
+            ]
+        },
+        "solidity": {
+            "command": "/Users/daviddunn/.asdf/shims/solc",
+            "args": [
+                "--lsp"
+            ],
+            "trace.server": "verbose",
+            "rootPatterns": [
+                "foundry.toml",
+                "remappings.txt"
+            ],
+            "filetypes": [
+                "solidity"
+            ]
+        }
     },
-    "solidity": {
-      "command": "/Users/daviddunn/.asdf/shims/solc",
-      "args": ["--lsp"],
-      "trace.server": "verbose",
-      "rootPatterns": ["foundry.toml", "remappings.txt"],
-      "filetypes": ["solidity"]
-    }
-  },
-  "eslint.packageManager": "npm",
-  "eslint.run": "onSave",
-  "eslint.workingDirectories": [{ "mode": "location" }],
-  "java.format.enabled": false,
-  "Lua.diagnostics.globals": ["vim"],
-  "tsserver.useLocalTsdk": true,
-  "typescript.preferences.quoteStyle": "double",
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.preferences.importModuleSpecifierEnding": "minimal",
-  "rust-analyzer.diagnostics.experimental.enable": false,
-  "rust-analyzer.rustfmt.extraArgs": ["+nightly"],
-  "snippets.ultisnips.pythonPrompt": false,
-  "yaml.customTags": [
-    "!And sequence",
-    "!Base64 scalar",
-    "!Cidr scalar",
-    "!Condition scalar",
-    "!Equals sequence",
-    "!FindInMap sequence",
-    "!GetAZs scalar",
-    "!GetAtt scalar",
-    "!GetAtt sequence",
-    "!If sequence",
-    "!ImportValue scalar",
-    "!Join sequence",
-    "!Not sequence",
-    "!Or sequence",
-    "!Ref scalar",
-    "!Select sequence",
-    "!Split sequence",
-    "!Sub scalar",
-    "!Transform mapping"
-  ],
-  "zig.enabled": true,
-  "zig.startUpMessage": true,
-  "zig.path": "/opt/homebrew/bin/zls",
-  "zig.debugLog": false
+    "eslint.packageManager": "npm",
+    "eslint.run": "onSave",
+    "eslint.workingDirectories": [
+        {
+            "mode": "location"
+        }
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.format.enabled": false,
+    "java.import.generatesMetadataFilesAtProjectRoot": false,
+    // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx8G -Xms100m -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx10G -Xms1G -Xlog:disable -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
+    // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -Xmx10G -Xms1G -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
+    "Lua.diagnostics.globals": [
+        "vim"
+    ],
+    "tsserver.useLocalTsdk": true,
+    "typescript.preferences.quoteStyle": "double",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifierEnding": "minimal",
+    "rust-analyzer.diagnostics.experimental.enable": false,
+    "rust-analyzer.rustfmt.extraArgs": [
+        "+nightly"
+    ],
+    "snippets.ultisnips.pythonPrompt": false,
+    "yaml.customTags": [
+        "!And sequence",
+        "!Base64 scalar",
+        "!Cidr scalar",
+        "!Condition scalar",
+        "!Equals sequence",
+        "!FindInMap sequence",
+        "!GetAZs scalar",
+        "!GetAtt scalar",
+        "!GetAtt sequence",
+        "!If sequence",
+        "!ImportValue scalar",
+        "!Join sequence",
+        "!Not sequence",
+        "!Or sequence",
+        "!Ref scalar",
+        "!Select sequence",
+        "!Split sequence",
+        "!Sub scalar",
+        "!Transform mapping"
+    ],
+    "zig.enabled": true,
+    "zig.startUpMessage": true,
+    "zig.path": "/opt/homebrew/bin/zls",
+    "zig.debugLog": false,
 }

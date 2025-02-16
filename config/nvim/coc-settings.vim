@@ -15,6 +15,7 @@ let g:coc_global_extensions = [
     \ 'coc-eslint',
     \ 'coc-go',
     \ 'coc-html',
+    \ 'coc-java',
     \ 'coc-json',
     \ 'coc-lua',
     \ 'coc-rust-analyzer',
@@ -22,7 +23,6 @@ let g:coc_global_extensions = [
     \ 'coc-snippets',
     \ 'coc-sql',
     \ 'coc-tsserver',
-    \ 'coc-typos',
     \ 'coc-yaml',
     \ 'coc-zig',
     \ ]
