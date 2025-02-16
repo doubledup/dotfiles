@@ -17,10 +17,11 @@ if [ "$os_name" = "Darwin" ]; then
         fi
     fi
 
-    echo 'Installing Homebrew...'
     if [ ! -d /opt/homebrew/ ]; then
+        echo 'Installing Homebrew...'
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
+    echo 'Homebrew found. Installing packages...'
     brew bundle install --file "$HOME"/.dotfiles/rcignore/Brewfile
 
     echo 'Symlinking dotfiles...'
@@ -28,12 +29,12 @@ if [ "$os_name" = "Darwin" ]; then
 
     echo 'Copying Karabiner config...'
     cp ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
-    echo 'Copied Karabiner config, restart Karabiner now.'
+    echo 'Copied Karabiner config. Restart Karabiner now.'
 
     echo 'Disabling "smart" quotes...'
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-    echo 'Setting up Firefox styling'
+    echo 'Setting up Firefox styling...'
     chromedir=$(ls -d "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release)/chrome
     mkdir -p "$chromedir"
     if [ ! -f "$chromedir/userChrome.css" ]; then
