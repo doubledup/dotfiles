@@ -7,25 +7,3 @@
 #sidebar-box #sidebar-header {
   display: none !important;
 }
-
-/* Possible MacOS workaround: */
-/* @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); */
-
-/* .treestyletab-tabbar-toolbar { */
-/*     opacity: 1.0 !important; */
-/* } */
-
-/* .tabbrowser-tabs[treestyletab-mode="vertical"] { */
-/*     opacity: 1.0 !important; */
-/* } */
-
-/* .tabbrowser-tabs[treestyletab-mode="vertical"] .tabbrowser-tab { */
-/*     opacity: 1.0 !important; */
-/*     text-shadow: 0px 0px 0px white !important; */
-/*     margin-top:    -2px !important; */
-/*     margin-bottom: -2px !important; */
-/* } */
-
-/* #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header { */
-/*   display: none; */
-/* } */
