@@ -200,7 +200,7 @@ require("lazy").setup({
                     -- web
                     'css', 'html', 'http',
                     -- config
-                    'hcl', 'ini', 'json', 'nix', 'terraform', 'toml', 'yaml', 'xml',
+                    'hcl', 'ini', 'json', 'jsonc', 'nix', 'terraform', 'toml', 'yaml', 'xml',
                     -- scripting
                     'bash', 'fish', 'jq', 'lua', 'vim',
                     -- queries
