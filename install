@@ -2,11 +2,6 @@
 
 set -euo pipefail
 
-set_up_doom() {
-    git clone --depth 1 https://github.com/doomemacs/doomemacs ~/.config/emacs
-    ~/.config/emacs/bin/doom install
-}
-
 set_up_languages () {
     npm i -g npm
     npm i -g @elm-tooling/elm-language-server elm-format elm-live elm-review elm-test
@@ -16,25 +11,8 @@ set_up_languages () {
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
 
-set_up_vim () {
-    if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]; then
-        sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-           https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-        printf '\x1b[0;32mVim-plug has been installed.\x1b[0m\n'
-    else
-        printf '\x1b[0;33mVim-plug is already installed.\x1b[0m\n'
-    fi
-
-    nvim -e -u ~/.config/nvim/init.vim -i NONE -c "PlugInstall" -c "GoInstallBinaries" -c "qa"
-    nvim -e -u ~/.config/nvim/init.vim -i NONE -c "TSInstall bash elm fish go javascript python ruby rust solidity typescript vim" -c "qa"
-    echo 'Wait for CoC to install its plugins before exiting.' | nvim -R -
-}
-
 shared_setup () {
-    set_up_doom
-    set_up_fisher
     set_up_languages
-    set_up_vim
 }
 
 os_name="$(uname -s)"
@@ -51,11 +29,6 @@ if [ "$os_name" = "Darwin" ]; then
         fi
     fi
 
-    if sudo softwareupdate --install-rosetta --agree-to-license; then
-        printf '\x1b[0;32mInstalled Rosetta.\x1b[0m\n'
-    else
-        printf '\x1b[0;31mFailed to install Rosetta. Exiting.\x1b[0m\n' && exit 1
-    fi
     sudo softwareupdate -ir
     printf '\x1b[0;32mAttempted to install recommended updates.\x1b[0m\n'
 
@@ -65,7 +38,8 @@ if [ "$os_name" = "Darwin" ]; then
     brew bundle install --file Brewfile
 
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
-    ln -s ~/.dotfiles/karabiner/ ~/.config/karabiner
+
+    cp ~/.dotfiles/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
 
     # disable "smart" quotes
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
