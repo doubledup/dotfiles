@@ -1,1 +1,1 @@
-EXCLUDES='Brewfile Brewfile.lock.json LICENSE Raycast.rayconfig README.md Session.vim gnome_settings install karabiner.json packages scratch userChrome.css'
+EXCLUDES='LICENSE README.md Session.vim rcignore'

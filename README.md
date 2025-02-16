@@ -9,7 +9,7 @@ Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./install
+./rcignore/install
 updateAll
 ```
 
@@ -36,7 +36,7 @@ In the `about:config` page:
 Ensure only Brewfile packages are installed:
 
 ```sh
-brew bundle install --cleanup --file ~/.dotfiles/Brewfile
+brew bundle install --cleanup --file ~/.dotfiles/rcignore/Brewfile
 ```
 
 ### Update Brewfile
@@ -50,7 +50,7 @@ brew leaves
 Overwrite the Brewfile:
 
 ```sh
-brew bundle dump --file=~/.dotfiles/Brewfile --force --brews --taps --casks --mas
+brew bundle dump --file=~/.dotfiles/rcignore/Brewfile --force --brews --taps --casks --mas
 ```
 
 ## Linux/Debian

@@ -21,7 +21,7 @@ if [ "$os_name" = "Darwin" ]; then
     if [ ! -d /opt/homebrew/ ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    brew bundle install --file "$HOME"/.dotfiles/Brewfile
+    brew bundle install --file "$HOME"/.dotfiles/rcignore/Brewfile
 
     echo 'Symlinking dotfiles...'
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac

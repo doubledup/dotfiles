@@ -6,7 +6,7 @@ echo 'mas:'
 mas upgrade
 echo 'brew:'
 brew upgrade
-brew bundle dump --file=~/.dotfiles/Brewfile --force --brews --taps --casks --mas
+brew bundle dump --file=~/.dotfiles/rcignore/Brewfile --force --brews --taps --casks --mas
 
 echo 'rustup:'
 rustup update
