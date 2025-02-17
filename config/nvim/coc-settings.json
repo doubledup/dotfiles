@@ -7,20 +7,6 @@
         "go": "revive",
     },
     "diagnostic-languageserver.linters": {
-        // "revive": {
-        //   "sourceName": "revive",
-        //   "command": "revive",
-        //   "args": ["-config", "revive.toml", "-formatter", "json"],
-        //   "rootPatterns": ["go.mod"],
-        //   "parseJson": {
-        //     "line": "Position.Start.Line",
-        //     "column": "Position.Start.Column",
-        //     "endLine": "Position.End.Line",
-        //     "endColumn": "Position.End.Column",
-        //     "message": "${Failure} (${RuleName}; confidence ${Confidence})",
-        //     "security": "Severity",
-        //   }
-        // },
         "typos": {
             "sourceName": "typos",
             "command": "typos",
