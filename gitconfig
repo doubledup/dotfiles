@@ -6,27 +6,25 @@
 	pager = delta
 	ignorecase = true
 	excludesfile = ~/.gitignore
+
 [color]
 	ui = auto
-[interactive]
-	diffFilter = delta --color-only
-[url "ssh://git@heroku.com/"]
-	insteadOf = https://git.heroku.com/
-
 [commit]
 	gpgsign = true
 [diff]
 	algorithm = histogram
 	colorMoved = default
-	tool = nvimdiff
+[diff "lockb"]
+	textconv = bun
+	binary = true
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	conflictstyle = diff3
 [pull]
 	ff = only
-[rerere]
-	enabled = false
 
 [delta]
 	hyperlinks = true
@@ -39,6 +37,3 @@
 	root = /Users/daviddunn/code/src
 [github]
 	user = doubledup
-[diff "lockb"]
-	textconv = bun
-	binary = true
