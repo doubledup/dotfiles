@@ -34,11 +34,32 @@ Run `updateAll` to update everything, including the Brewfile.
 
 Periodically list explicitly installed packages with `brew leaves` and uninstall unused ones.
 
+To list installed packages not in the Brewfile:
+
+```sh
+brew bundle install --cleanup --file ~/.dotfiles/rcignore/Brewfile
+```
+
 To ensure only Brewfile packages are installed:
 
 ```sh
 brew bundle install --cleanup --file ~/.dotfiles/rcignore/Brewfile
 ```
+
+When pulling updates, first run `rcdn` to remove all known symlinks:
+
+```sh
+cd ~/.dotfiles && rcdn -t mac && git pull && RCRC=~/.dotfiles/rcrc rcup -t mac && cd -
+```
+
+Detect broken symlinks potentially left behind by incorrect use of rcm:
+
+```sh
+find ~ -type l ! -exec test -e {} \; -print | rg -v '/Library/' | rg -v '/.cache/'
+```
+
+Verify that the symlinks are unused (e.g. chroots and containers can appear to contain broken
+symlinks) and remove them.
 
 ## Linux/Debian
 
