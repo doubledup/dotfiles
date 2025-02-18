@@ -18,6 +18,19 @@ extension and save it in the same place, eg. use
 `~/.config/kitty/kitty.local.conf` for kitty config you only want on your
 current machine, or `~/.config/fish/config.local.fish` for NeoVim config.
 
+### GPG commit signing keys
+
+After generating a GPG key, use it to sign commits by adding this to
+`~/.config/fish/config.local.fish`:
+
+```fish
+set GIT_SIGNINGKEY <signingkey>
+abbr gc 'git commit -v -S$GIT_SIGNINGKEY'
+```
+
+This avoids committing a key id as with the global gitconfig variable `user.signingkey`, but still
+sets a default for all repositories that you can override, e.g. with `direnv`.
+
 ### Firefox
 
 In the `about:config` page:
