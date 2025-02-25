@@ -1,41 +1,88 @@
--- TODO: see ins-completion
--- TODO: change listchars multispace when using spaces
--- TODO: find out why this only works after re-sourcing init
--- set keywordprg=:vert\ help
--- TODO: checkout https://github.com/NvChad/NvChad
--- TODO: add indent object to wellle/targets.vim?
--- TODO: add entire document object to wellle/targets.vim?
--- TODO: persist undo history like thaerkh/vim-workspace
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local out = vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--branch=stable",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath
+    })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
+-- TODO: `:checkhealth lazy` luarocks messages
 
---  NOTE: Must happen before plugins are required, otherwise wrong leader will be used
+--  NOTE: map leader key before plugins are required, else wrong leader will be used
 vim.g.mapleader = ' '
 
 -- disable netrw for nvim-tree
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        -- latest stable release
-        "--branch=stable",
-        lazypath,
-    })
-end
-vim.opt.rtp:prepend(lazypath)
-
 require("lazy").setup({
-    -- 'editorconfig/editorconfig-vim',
-
-    'lewis6991/gitsigns.nvim',
-    -- TODO: vs 'jreybert/vimagit',
-    'tpope/vim-fugitive',
+    'tpope/vim-fugitive', -- TODO: try 'jreybert/vimagit'
     -- 'tpope/vim-git',
     -- 'tpope/vim-rhubarb'
+
+    {
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            on_attach = function(bufnr)
+                local gs = package.loaded.gitsigns
+
+                local function map(mode, l, r, opts)
+                    opts = opts or {}
+                    opts.buffer = bufnr
+                    vim.keymap.set(mode, l, r, opts)
+                end
+
+                -- Navigation
+                map('n', ']d', function()
+                    if vim.wo.diff then return ']d' end
+                    vim.schedule(function() gs.next_hunk() end)
+                    return '<Ignore>'
+                end, { expr = true })
+
+                map('n', '[d', function()
+                    if vim.wo.diff then return '[d' end
+                    vim.schedule(function() gs.prev_hunk() end)
+                    return '<Ignore>'
+                end, { expr = true })
+
+                -- Actions
+                map({ 'n', 'v' }, '<leader>ga', ':Gitsigns stage_hunk<CR>')
+                map({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>')
+                map('n', '<leader>gA', gs.stage_buffer)
+                map('n', '<leader>gR', gs.reset_buffer)
+                map('n', '<leader>gi', gs.preview_hunk)
+                map('n', '<leader>gv', gs.undo_stage_hunk)
+
+                -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+                -- map('n', '<leader>tb', gs.toggle_current_line_blame)
+                -- map('n', '<leader>hd', gs.diffthis)
+                -- map('n', '<leader>hD', function() gs.diffthis('~') end)
+                -- map('n', '<leader>td', gs.toggle_deleted)
+
+                -- Text object
+                map({ 'o', 'x' }, 'id', ':<C-U>Gitsigns select_hunk<CR>')
+                -- omap id :<c-u>Gitsigns select_hunk<cr>
+                -- xmap id :<c-u>Gitsigns select_hunk<cr>
+                -- omap ad <plug>(signify-motion-outer-pending)
+                -- xmap ad <plug>(signify-motion-outer-visual)
+                -- nmap <leader>gi :SignifyHunkDiff<cr>
+            end
+        }
+    },
 
     -- TODO: vs builtin LSP or one of
     -- 'williamboman/mason.nvim' -- and
@@ -53,20 +100,26 @@ require("lazy").setup({
     { 'neoclide/coc.nvim', branch = 'release' },
 
     -- ui
-    'doubledup/ayu-vim',
+    {
+        'doubledup/ayu-vim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.o.termguicolors = true
+            vim.g.ayucolor = 'mirage'
+            vim.cmd.colorscheme('ayu')
+        end
+    },
     'folke/which-key.nvim',
     'junegunn/fzf',
     'junegunn/fzf.vim',
-    -- { 'lukas-reineke/indent-blankline.nvim', config = function () require("ibl").setup() end },
     'norcalli/nvim-colorizer.lua',
     'powerman/vim-plugin-AnsiEsc',
     'ryanoasis/vim-devicons',
 
-    -- TODO: vs one of
-    -- 'akinsho/bufferline.nvim'
-    -- 'nvim-lualine/lualine.nvim',
     {
-        'itchyny/lightline.vim',
+        -- https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
+        'itchyny/lightline.vim', -- TODO: vs 'nvim-lualine/lualine.nvim',
         config = function()
             vim.o.showmode = false
             vim.g.lightline = {
@@ -173,17 +226,12 @@ require("lazy").setup({
 
     -- editing
     'andrewradev/linediff.vim',
-    'smoka7/hop.nvim',
+    { 'smoka7/hop.nvim', opts = {}, },
     'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
 
-    {
-        'numToStr/Comment.nvim',
-        opts = {
-        },
-        lazy = false,
-    },
+    { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
 
     {
         'nvim-treesitter/nvim-treesitter',
@@ -235,14 +283,13 @@ require("lazy").setup({
     -- included for folding
     -- 'preservim/vim-markdown',
     -- 'elixir-tools/elixir-tools.nvim'
-    { 'fatih/vim-go',      build = ':GoUpdateBinaries' },
+    { 'fatih/vim-go', build = ':GoUpdateBinaries' },
     'ChrisWellsWood/roc.vim',
 
     -- as needed
     -- 'dstein64/vim-startuptime',
     -- 'mattn/emmet-vim',
     -- 'tpope/vim-dadbod',
-
     -- 'lervag/vimtex', let g:tex_flavor = 'latex'
 
     -- new plugins to try
@@ -253,6 +300,8 @@ require("lazy").setup({
     --     dependencies = { 'nvim-lua/plenary.nvim' }
     -- }
 
+    -- 'iamcco/markdown-preview.nvim'
+    -- 'tpope/vim-rsi'
     -- 'mbbill/undotree',
     -- 'her/central.vim',
     -- 'mfussenegger/nvim-dap',
@@ -260,7 +309,6 @@ require("lazy").setup({
     -- 'folke/trouble.nvim',
     -- 'tpope/vim-dispatch',
     -- 'janko-m/vim-test',
-    -- 'tpope/vim-rhubarb',
     -- 'tpope/projectionist',
     -- { 'codota/tabnine-nvim', build = './dl_binaries.sh' },
     -- 'jameshiew/nvim-magic',
@@ -333,7 +381,7 @@ vim.o.swapfile = false
 -- leave some space around the cursor when moving
 vim.o.scrolloff = 2
 vim.o.sidescrolloff = 15
--- trigger CursorHold sooner
+-- trigger CursorHold sooner; keep < 300
 vim.o.updatetime = 200
 
 -- indent when wrapping with showbreak starting the line
@@ -356,13 +404,6 @@ vim.o.wildoptions='fuzzy,pum,tagfile'
 vim.keymap.set('c', '<c-f>', '<space><bs><left>', { noremap = true })
 vim.keymap.set('c', '<c-b>', '<space><bs><right>', { noremap = true })
 
--- save undo history
--- vim.o.undofile = true
-
--- always show the popup menu and require manual selection
--- vim.o.completeopt = 'menuone,noselect'
-
--- skip filetype.lua so that roc.vim's ftdetect works
 -- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
 -- vim.g.do_filetype_lua = 1
 -- vim.g.did_load_filetypes = 0
@@ -392,7 +433,11 @@ vim.keymap.set('n', 'zl', '40zl', { remap = false })
 
 -- open file under cursor
 -- TODO: interpret relative paths as relative to current file location
+-- TODO: expand ~ to $HOME
 vim.keymap.set('n', 'gf', ':edit <cfile><cr>')
+
+-- show file format and encoding
+vim.keymap.set('n', 'gl', ':set fileformat? fileencoding?<cr>')
 
 -- enter to save all buffers, except in quickfix lists
 vim.keymap.set('n', '<cr>', '&buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"',
@@ -403,29 +448,27 @@ vim.keymap.set('n', 'J', 'mzJ`z', { remap = false })
 vim.keymap.set('n', 'gJ', 'mzgJ`z', { remap = false })
 
 -- split line before/after cursor
-vim.keymap.set('n', '[<cr>', 'ha<cr><esc>kg_')
+vim.keymap.set('n', '[<cr>', 'i<cr><esc>kg_')
 vim.keymap.set('n', ']<cr>', 'a<cr><esc>kg_')
--- add blank lines, but respect existing auto-insertion like comments
--- TODO: make this work with . and keep cursor position
-vim.keymap.set('n', '[<space>', 'O<esc>j')
-vim.keymap.set('n', ']<space>', 'o<esc>k')
 
--- substitute: replace all, confirm and don't ignore case
-vim.keymap.set('n', '<c-s>', ':%s/\\v<<c-r><c-w>>/<c-r><c-w>/gcI<left><left><left><left>')
-vim.keymap.set('x', '<c-s>', ':s/\\v/gI<left><left><left>')
+-- search for selected text
+vim.keymap.set('v', '*', '"zy/\\V\\c\\<<c-r>z\\><cr>')
+vim.keymap.set('v', 'g*', '"zy/\\V\\c<c-r>z<cr>')
 
+-- substitute: replace all, ask for confirmation and don't ignore case
+vim.keymap.set('n', '<c-s>', ':%s/\\V\\<<c-r><c-w>\\>/<c-r><c-w>/gcI<left><left><left><left>')
+vim.keymap.set('n', 'g<c-s>', ':%s/\\V<c-r><c-w>/<c-r><c-w>/gcI<left><left><left><left>')
+vim.keymap.set('x', '<c-s>', '"zy:%s/\\V\\<<c-r>z\\>/<c-r>z/gcI<left><left><left><left>')
+vim.keymap.set('x', 'g<c-s>', '"zy:%s/\\V<c-r>z/<c-r>z/gcI<left><left><left><left>')
+
+-- clear highlights
 vim.keymap.set('n', '<esc>', function()
     vim.cmd('nohlsearch')
     vim.cmd('echo ""')
 end, { remap = false })
+
+-- select all
 vim.keymap.set('n', '^', 'ggVG')
-
--- move selected lines around
-vim.keymap.set('v', '<c-j>', ':m \'>+1<cr>gv=gv')
-vim.keymap.set('v', '<c-k>', ':m \'<-2<cr>gv=gv')
-
--- search for selected text
-vim.keymap.set('v', '*', '"zy/\\V<c-r>z<cr>')
 
 vim.cmd.cnoreabbrev('h', 'vert h')
 vim.cmd.cnoreabbrev('hs', 'hor h')
@@ -438,7 +481,6 @@ vim.keymap.set('c', '<c-f>', '<right>')
 vim.keymap.set('c', '<esc>b', '<s-left>')
 vim.keymap.set('c', '<esc>f', '<s-right>')
 
--- TODO:
 vim.g.mousescroll = 'hor:1'
 vim.keymap.set('n', '<ScrollWheelUp>', '<c-y>')
 vim.keymap.set('n', '<ScrollWheelDown>', '<c-e>')
@@ -468,22 +510,10 @@ vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
 -- copy filename to system clipboard
 vim.keymap.set('n', '<leader>5', ':let @+=@%<cr>')
 -- copy current register to system clipboard
-vim.keymap.set('n', '<leader>"', ':let @+=@"<cr>')
-vim.keymap.set('n', '<leader>y', '"+y')
-vim.keymap.set('n', '<leader>Y', '"+Y')
-vim.keymap.set('x', '<leader>y', '"+y')
-vim.keymap.set('n', '<leader>p', '"+p')
-vim.keymap.set('n', '<leader>P', '"+P')
-vim.keymap.set('x', '<leader>p', '"+p')
-vim.keymap.set('n', '<leader>c', '"+c')
-vim.keymap.set('n', '<leader>C', '"+C')
-vim.keymap.set('x', '<leader>c', '"+c')
-vim.keymap.set('n', '<leader>d', '"+d')
-vim.keymap.set('n', '<leader>D', '"+D')
-vim.keymap.set('x', '<leader>d', '"+d')
+vim.keymap.set('n', '<leader>\'', '"+')
+vim.keymap.set('x', '<leader>\'', '"+')
 
 -- terminal
--- TODO: nvr for avoiding nested terminals
 -- quit, then move to start of line to preserve display of curses-like output
 vim.keymap.set('t', '<c-q>', '<c-\\><c-n>0')
 vim.keymap.set('n', '<leader>ts', ':25sp | terminal fish<cr>a')
@@ -562,15 +592,11 @@ augroup END
 
 -- delimitmate
 vim.g.delimitMate_balance_matchpairs = 1
-vim.g.delimitMate_excluded_ft = ""
 vim.g.delimitMate_excluded_regions = ""
 vim.g.delimitMate_expand_cr = 2
 vim.g.delimitMate_expand_inside_quotes = 1
 vim.g.delimitMate_expand_space = 1
 vim.g.delimitMate_jump_expansion = 1
-
--- editorconfig
--- vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }
 
 -- fugitive
 vim.keymap.set('n', '<leader>gs', ':-1tab Git<cr>')
@@ -605,54 +631,6 @@ vim.g.fzf_action = {
     ['ctrl-t'] = 'tab split'
 }
 
--- gitsigns
-require('gitsigns').setup({
-    on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-
-        local function map(mode, l, r, opts)
-            opts = opts or {}
-            opts.buffer = bufnr
-            vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Navigation
-        map('n', ']d', function()
-            if vim.wo.diff then return ']d' end
-            vim.schedule(function() gs.next_hunk() end)
-            return '<Ignore>'
-        end, { expr = true })
-
-        map('n', '[d', function()
-            if vim.wo.diff then return '[d' end
-            vim.schedule(function() gs.prev_hunk() end)
-            return '<Ignore>'
-        end, { expr = true })
-
-        -- Actions
-        map({ 'n', 'v' }, '<leader>ga', ':Gitsigns stage_hunk<CR>')
-        map({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>')
-        map('n', '<leader>gA', gs.stage_buffer)
-        map('n', '<leader>gR', gs.reset_buffer)
-        map('n', '<leader>gi', gs.preview_hunk)
-        map('n', '<leader>gv', gs.undo_stage_hunk)
-
-        -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-        -- map('n', '<leader>tb', gs.toggle_current_line_blame)
-        -- map('n', '<leader>hd', gs.diffthis)
-        -- map('n', '<leader>hD', function() gs.diffthis('~') end)
-        -- map('n', '<leader>td', gs.toggle_deleted)
-
-        -- Text object
-        map({ 'o', 'x' }, 'id', ':<C-U>Gitsigns select_hunk<CR>')
-        -- omap id :<c-u>Gitsigns select_hunk<cr>
-        -- xmap id :<c-u>Gitsigns select_hunk<cr>
-        -- omap ad <plug>(signify-motion-outer-pending)
-        -- xmap ad <plug>(signify-motion-outer-visual)
-        -- nmap <leader>gi :SignifyHunkDiff<cr>
-    end
-})
-
 -- go
 vim.g.go_code_completion_enabled = 0
 vim.g.go_doc_keywordprg_enabled = 0
@@ -665,13 +643,14 @@ vim.g.go_term_close_on_exit = 0
 vim.g.go_gopls_enabled = 0
 
 -- hop
-vim.g.vimsyn_embed = 'l'
-
-require 'hop'.setup()
-vim.keymap.set('n', '\'', '<cmd>HopChar2MW<cr>', { noremap = true })
-vim.keymap.set('o', 'z', "<cmd>lua require'hop'.hint_char1({ current_line_only = true, inclusive_jump = true })<cr>",
-    { noremap = true })
-vim.keymap.set('v', 'z', "<cmd>lua require'hop'.hint_char2({ inclusive_jump = true })<cr>", { noremap = true })
+local hop = require('hop')
+vim.keymap.set('n', '\'', function () hop.hint_char2() end, { noremap = true })
+vim.keymap.set('o', 'z', function ()
+    hop.hint_char1({ current_line_only = true, inclusive_jump = true })
+end, { noremap = true })
+vim.keymap.set('v', 'z', function ()
+    hop.hint_char2({ inclusive_jump = true })
+end , { noremap = true })
 
 -- iswap
 vim.keymap.set('n', '<leader>h', ':ISwapNodeWithLeft<cr>')
@@ -681,27 +660,6 @@ vim.keymap.set('n', '<leader>k', ':ISwapNode<cr>')
 
 -- linediff
 vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
-
--- markdown
--- vim.g.vim_markdown_folding_level = 2
--- vim.g.vim_markdown_toc_autofit = 1
--- vim.cmd [[
--- autocmd BufEnter *{.md,.mdx} set wrap
--- function! ToggleMdOutline() abort
---     let b:md_outline_present = get(b:, 'md_outline_present', 0)
---
---     if b:md_outline_present == 1
---         execute 'Toc'
---         execute 'bdelete %'
---         let b:md_outline_present = 0
---     else
---         execute 'Toc'
---         wincmd p
---         let b:md_outline_present = 1
---     endif
--- endfunction
--- autocmd BufEnter *{.md,.mdx} nnoremap <buffer> <leader>o :call ToggleMdOutline()<cr>
--- ]]
 
 -- nvim-tree
 require("nvim-tree").setup({
@@ -721,6 +679,8 @@ require("nvim-tree").setup({
         vim.keymap.set('n', '-', api.tree.toggle, opts('Toggle tree'))
         vim.keymap.set('n', '<c-k>', api.tree.change_root_to_parent, opts('Up'))
         vim.keymap.set('n', '<c-j>', api.tree.change_root_to_node, opts('Down'))
+        vim.keymap.del('n', '<c-x>', { buffer = bufnr })
+        vim.keymap.set('n', '<c-s>', api.node.open.horizontal, opts('Open: Horizontal Split'))
     end,
 })
 -- quit when nvim-tree is the last window
@@ -748,23 +708,6 @@ vim.keymap.set('x', '<leader>tx', '<plug>SlimeRegionSend')
 vim.keymap.set('n', '<leader>tl', '<plug>SlimeLineSend')
 -- TODO: choose from active terminals b:terminal_job_id
 
--- tabnine
--- require('tabnine').setup({
---   disable_auto_comment=true,
---   accept_keymap="<c-]>",
---   dismiss_keymap = "<c-\\>",
---   debounce_ms = 300,
---   suggestion_color = {gui = "#808080", cterm = 244},
---   execlude_filetypes = {"TelescopePrompt"}
--- })
-
--- todo-comments
--- require("todo-comments").setup {
--- -- your configuration comes here
--- -- or leave it empty to use the default settings
--- -- refer to the configuration section below
--- }
-
 -- unimpaired extensions for encoding & decoding
 -- TODO: contribute this to unimpaired
 vim.keymap.set('n', '[44', '!!base64<cr>')
@@ -786,11 +729,6 @@ vim.keymap.set('n', '[22', 'VU!!sed -E \'s/(.*)/obase=2;\\1/\' | bc<cr>')
 vim.keymap.set('n', ']22', 'VU!!sed -E \'s/(.*)/ibase=2;\\1/\' | bc<cr>')
 vim.keymap.set('v', '[2', 'Ugv"zc<c-r>=system("echo \'obase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
 vim.keymap.set('v', ']2', 'Ugv"zc<c-r>=system("echo \'ibase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
-
--- unimpaired extension for folding
-vim.keymap.set('n', '[of', ':set foldenable<cr>')
-vim.keymap.set('n', ']of', ':set nofoldenable<cr>')
-vim.keymap.set('n', 'yof', ':set invfoldenable<cr>')
 
 local coc_settings = vim.fn.expand("~/.config/nvim/coc-settings.vim")
 if vim.fn.filereadable(coc_settings) == 1 then
