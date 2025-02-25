@@ -655,7 +655,7 @@ vim.g.go_gopls_enabled = 0
 
 -- hop
 local hop = require('hop')
-vim.keymap.set('n', '\'', function () hop.hint_char2() end, { noremap = true })
+vim.keymap.set('n', 's', function () hop.hint_char2() end, { noremap = true })
 vim.keymap.set('o', 'z', function ()
     hop.hint_char1({ current_line_only = true, inclusive_jump = true })
 end, { noremap = true })
