@@ -519,19 +519,30 @@ vim.keymap.set('t', '<c-q>', '<c-\\><c-n>0')
 vim.keymap.set('n', '<leader>ts', ':25sp | terminal fish<cr>a')
 vim.keymap.set('n', '<leader>tv', ':85vsp | terminal fish<cr>a')
 vim.keymap.set('n', '<leader>tt', ':tabnew | terminal fish<cr>a')
-vim.cmd [[
-    augroup terminal_settings
-        autocmd!
-        " no line numbers in terminals
-        autocmd TermOpen term://* setlocal nonumber norelativenumber scrolloff=0
 
-        " ignore various filetypes (fzf, ranger & coc) as those will close terminal automatically
-        autocmd TermClose term://*
-            \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-            \   call nvim_input('<CR>')  |
-            \ endif
-    augroup END
-]]
+local terminal_settings_augroup = vim.api.nvim_create_augroup('terminal_settings', {})
+-- no line numbers in terminals
+vim.api.nvim_create_autocmd("TermOpen", {
+    group = terminal_settings_augroup,
+    pattern = 'term://*',
+    command = 'setlocal nonumber norelativenumber scrolloff=0'
+})
+-- close terminal without return key
+vim.api.nvim_create_autocmd("TermClose", {
+    group = terminal_settings_augroup,
+    pattern = 'term://*',
+    callback = function() -- event_args
+        vim.fn.call('nvim_input', {'<cr>'})
+
+        -- ignore fzf & coc filetypes as those will close terminal automatically
+        -- local expanded_file = vim.fn.expand(event_args.file)
+        -- local is_autoclose_file = string.match(expanded_file, "fzf")
+        --     or string.match(expanded_file, "coc")
+        -- if not is_autoclose_file then
+        --     vim.fn.call('nvim_input', {'<cr>'})
+        -- end
+    end
+})
 
 -- commands & augroups
 
