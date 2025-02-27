@@ -589,15 +589,14 @@ vim.cmd [[
 command! Update call luaeval('Update()')
 command! BuffersDeleteHidden call luaeval('BuffersDeleteHidden()')
 command! BuffersDeleteUnnamed call luaeval('BuffersDeleteUnnamed()')
-
-augroup onsave
-    autocmd!
-    " trim trailing whitespace on save
-    autocmd BufWrite * :%s/\s\+$//e
-    " TODO: autosave? See thaerkh/vim-workspace
-    " autocmd InsertLeave,TextChanged * :wall
-augroup END
 ]]
+
+local onsave_augroup = vim.api.nvim_create_augroup('trim_whitespace_on_bufwrite', {})
+vim.api.nvim_create_autocmd('BufWrite', {
+    group = onsave_augroup,
+    pattern = '*',
+    command = ':%s/\\s\\+$//e',
+})
 
 -- plugins
 
