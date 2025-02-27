@@ -329,10 +329,10 @@ require("lazy").setup({
     -- 'sjl/gundo.vim',
     -- 'Konfekt/FastFold',
 
-    -- if !empty(glob("~/.config/nvim/plugs.os.vim"))
+    -- if !empty(glob('~/.config/nvim/plugs.os.vim'))
     --     source ~/.config/nvim/plugs.os.vim
     -- endif
-    -- if !empty(glob("~/.config/nvim/plugs.local.vim"))
+    -- if !empty(glob('~/.config/nvim/plugs.local.vim'))
     --     source ~/.config/nvim/plugs.local.vim
     -- endif
 
@@ -440,7 +440,7 @@ vim.keymap.set('n', 'gf', ':edit <cfile><cr>')
 vim.keymap.set('n', 'gl', ':set fileformat? fileencoding?<cr>')
 
 -- enter to save all buffers, except in quickfix lists
-vim.keymap.set('n', '<cr>', '&buftype ==# \'quickfix\' ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"',
+vim.keymap.set('n', '<cr>', '&buftype ==# "quickfix" ? "\\<cr>" : ":checktime\\<cr>:wall\\<cr>"',
     { expr = true, remap = false })
 
 -- keep cursor in place when joining lines
@@ -491,7 +491,7 @@ if vim.g.neovide then
     vim.g.neovide_cursor_animation_length = 0.09
     vim.g.neovide_refresh_rate_idle = 1
     vim.g.neovide_input_macos_alt_is_meta = true
-    vim.g.neovide_cursor_vfx_mode = "ripple"
+    vim.g.neovide_cursor_vfx_mode = 'ripple'
     vim.keymap.set('', '<D-n>', ':silent !neovide --multigrid&<cr>')
 end
 
@@ -499,7 +499,7 @@ end
 vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>')
 vim.keymap.set('n', '<leader><leader>,', function()
     vim.cmd('source ~/.config/nvim/init.lua')
-    -- suppress "Reloading your config is not supported" message as source does actually reload
+    -- suppress 'Reloading your config is not supported' message as source does actually reload
     -- (non-package) config
     vim.cmd('echo ""')
 end)
@@ -522,13 +522,13 @@ vim.keymap.set('n', '<leader>tt', ':tabnew | terminal fish<cr>a')
 
 local terminal_settings_augroup = vim.api.nvim_create_augroup('terminal_settings', {})
 -- no line numbers in terminals
-vim.api.nvim_create_autocmd("TermOpen", {
+vim.api.nvim_create_autocmd('TermOpen', {
     group = terminal_settings_augroup,
     pattern = 'term://*',
-    command = 'setlocal nonumber norelativenumber scrolloff=0'
+    command = 'setlocal nonumber norelativenumber scrolloff=0',
 })
 -- close terminal without return key
-vim.api.nvim_create_autocmd("TermClose", {
+vim.api.nvim_create_autocmd('TermClose', {
     group = terminal_settings_augroup,
     pattern = 'term://*',
     callback = function() -- event_args
@@ -536,8 +536,8 @@ vim.api.nvim_create_autocmd("TermClose", {
 
         -- ignore fzf & coc filetypes as those will close terminal automatically
         -- local expanded_file = vim.fn.expand(event_args.file)
-        -- local is_autoclose_file = string.match(expanded_file, "fzf")
-        --     or string.match(expanded_file, "coc")
+        -- local is_autoclose_file = string.match(expanded_file, 'fzf')
+        --     or string.match(expanded_file, 'coc')
         -- if not is_autoclose_file then
         --     vim.fn.call('nvim_input', {'<cr>'})
         -- end
@@ -548,7 +548,7 @@ vim.api.nvim_create_autocmd("TermClose", {
 
 function Update()
     vim.cmd.CocUpdate()
-    vim.cmd.Lazy("update")
+    vim.cmd.Lazy('update')
     vim.cmd.TSUpdate()
 end
 
@@ -602,7 +602,7 @@ vim.api.nvim_create_autocmd('BufWrite', {
 
 -- delimitmate
 vim.g.delimitMate_balance_matchpairs = 1
-vim.g.delimitMate_excluded_regions = ""
+vim.g.delimitMate_excluded_regions = ''
 vim.g.delimitMate_expand_cr = 2
 vim.g.delimitMate_expand_inside_quotes = 1
 vim.g.delimitMate_expand_space = 1
@@ -646,7 +646,7 @@ vim.g.go_code_completion_enabled = 0
 vim.g.go_doc_keywordprg_enabled = 0
 vim.g.go_fmt_autosave = 0
 vim.g.go_def_mapping_enabled = 0
-vim.g.go_term_mode = "split"
+vim.g.go_term_mode = 'split'
 vim.g.go_term_reuse = 1
 vim.g.go_term_enabled = 1
 vim.g.go_term_close_on_exit = 0
@@ -672,7 +672,7 @@ vim.keymap.set('n', '<leader>k', ':ISwapNode<cr>')
 vim.keymap.set('v', '<leader>l', ':Linediff<cr>')
 
 -- nvim-tree
-require("nvim-tree").setup({
+require('nvim-tree').setup({
     view = {
         width = 60,
     },
@@ -680,9 +680,9 @@ require("nvim-tree").setup({
         group_empty = true,
     },
     on_attach = function(bufnr)
-        local api = require("nvim-tree.api")
+        local api = require('nvim-tree.api')
         local function opts(desc)
-          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
         api.config.mappings.default_on_attach(bufnr)
 
@@ -696,9 +696,9 @@ require("nvim-tree").setup({
 -- quit when nvim-tree is the last window
 vim.api.nvim_create_autocmd('BufEnter', {
     callback = function()
-        local api = require("nvim-tree.api")
-        if vim.fn.winnr("$") == 1 and api.tree.is_tree_buf() then
-            vim.cmd("q")
+        local api = require('nvim-tree.api')
+        if vim.fn.winnr('$') == 1 and api.tree.is_tree_buf() then
+            vim.cmd('q')
         end
     end
 })
@@ -710,7 +710,7 @@ vim.keymap.set('n', '<leader>st', ':Obsession<cr>')
 vim.keymap.set('n', '<leader>sl', ':source Session.vim<cr>')
 
 -- slime
-vim.g.slime_target = "neovim"
+vim.g.slime_target = 'neovim'
 vim.g.slime_no_mappings = 1
 vim.keymap.set('n', '<leader>tc', '<plug>SlimeConfig')
 vim.keymap.set('n', '<leader>tx', '<plug>SlimeMotionSend')
@@ -740,15 +740,15 @@ vim.keymap.set('n', ']22', 'VU!!sed -E \'s/(.*)/ibase=2;\\1/\' | bc<cr>')
 vim.keymap.set('v', '[2', 'Ugv"zc<c-r>=system("echo \'obase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
 vim.keymap.set('v', ']2', 'Ugv"zc<c-r>=system("echo \'ibase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
 
-local coc_settings = vim.fn.expand("~/.config/nvim/coc-settings.vim")
+local coc_settings = vim.fn.expand('~/.config/nvim/coc-settings.vim')
 if vim.fn.filereadable(coc_settings) == 1 then
     vim.cmd.source(coc_settings)
 end
-local os_settings = vim.fn.expand("~/.config/nvim/init.os.vim")
+local os_settings = vim.fn.expand('~/.config/nvim/init.os.vim')
 if vim.fn.filereadable(os_settings) == 1 then
     vim.cmd.source(os_settings)
 end
-local local_settings = vim.fn.expand("~/.config/nvim/init.local.vim")
+local local_settings = vim.fn.expand('~/.config/nvim/init.local.vim')
 if vim.fn.filereadable(local_settings) == 1 then
     vim.cmd.source(local_settings)
 end
