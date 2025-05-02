@@ -521,14 +521,15 @@ vim.keymap.set('n', '<leader>tv', ':85vsp | terminal fish<cr>a')
 vim.keymap.set('n', '<leader>tt', ':tabnew | terminal fish<cr>a')
 
 local terminal_settings_augroup = vim.api.nvim_create_augroup('terminal_settings', {})
--- no line numbers in terminals
 vim.api.nvim_create_autocmd('TermOpen', {
+    desc = 'Remove line numbers in terminals',
     group = terminal_settings_augroup,
     pattern = 'term://*',
-    command = 'setlocal nonumber norelativenumber scrolloff=0',
+    command = 'setlocal nonumber norelativenumber scrolloff=0'
 })
--- close terminal without return key
+
 vim.api.nvim_create_autocmd('TermClose', {
+    desc = 'Close terminals without pressing the return key',
     group = terminal_settings_augroup,
     pattern = 'term://*',
     callback = function() -- event_args
@@ -592,6 +593,7 @@ vim.api.nvim_create_user_command('BuffersDeleteUnnamed',
 
 local onsave_augroup = vim.api.nvim_create_augroup('trim_whitespace_on_bufwrite', {})
 vim.api.nvim_create_autocmd('BufWrite', {
+    desc = 'Trim trailing whitespace on save',
     group = onsave_augroup,
     pattern = '*',
     command = ':%s/\\s\\+$//e',
@@ -709,6 +711,7 @@ require('nvim-tree').setup({
 })
 -- quit when nvim-tree is the last window
 vim.api.nvim_create_autocmd('BufEnter', {
+    desc = 'Quit when nvim-tree is the last window',
     callback = function()
         local api = require('nvim-tree.api')
         if vim.fn.winnr('$') == 1 and api.tree.is_tree_buf() then
