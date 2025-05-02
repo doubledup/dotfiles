@@ -546,50 +546,49 @@ vim.api.nvim_create_autocmd('TermClose', {
 
 -- commands & augroups
 
-function Update()
-    vim.cmd.CocUpdate()
-    vim.cmd.Lazy('update')
-    vim.cmd.TSUpdate()
-end
+vim.api.nvim_create_user_command('Update',
+    function ()
+        vim.cmd.CocUpdate()
+        vim.cmd.Lazy('update')
+        vim.cmd.TSUpdate()
+    end, {})
 
-function BuffersDeleteHidden()
-    local shownBuffers = {}
-    for i = 1, vim.fn.tabpagenr('$') do
-        for _, j in pairs(vim.fn.tabpagebuflist(i)) do
-            shownBuffers[j] = true
+vim.api.nvim_create_user_command('BuffersDeleteHidden',
+    function()
+        local shownBuffers = {}
+        for i = 1, vim.fn.tabpagenr('$') do
+            for _, j in pairs(vim.fn.tabpagebuflist(i)) do
+                shownBuffers[j] = true
+            end
         end
-    end
 
-    local hiddenBuffers = {}
-    for i = 1, vim.fn.bufnr('$') do
-        if vim.fn.buflisted(i) and vim.fn.bufexists(i) and not shownBuffers[i] then
-            table.insert(hiddenBuffers, i)
+        local hiddenBuffers = {}
+        for i = 1, vim.fn.bufnr('$') do
+            if vim.fn.buflisted(i) and vim.fn.bufexists(i) and not shownBuffers[i] then
+                table.insert(hiddenBuffers, i)
+            end
         end
-    end
 
-    if #hiddenBuffers > 0 then
-        vim.cmd.bdelete(table.concat(hiddenBuffers, ' '))
-    end
-end
-
-function BuffersDeleteUnnamed()
-    local emptyBuffers = {}
-    for i = 1, vim.fn.bufnr('$') do
-        if vim.fn.buflisted(i) and vim.fn.bufexists(i) and vim.fn.bufname(i) == '' then
-            table.insert(emptyBuffers, i)
+        if #hiddenBuffers > 0 then
+            vim.cmd.bdelete(table.concat(hiddenBuffers, ' '))
         end
-    end
+    end, {}
+)
 
-    if #emptyBuffers > 0 then
-        vim.cmd.bdelete(table.concat(emptyBuffers, ' '))
-    end
-end
+vim.api.nvim_create_user_command('BuffersDeleteUnnamed',
+    function ()
+        local emptyBuffers = {}
+        for i = 1, vim.fn.bufnr('$') do
+            if vim.fn.buflisted(i) and vim.fn.bufexists(i) and vim.fn.bufname(i) == '' then
+                table.insert(emptyBuffers, i)
+            end
+        end
 
-vim.cmd [[
-command! Update call luaeval('Update()')
-command! BuffersDeleteHidden call luaeval('BuffersDeleteHidden()')
-command! BuffersDeleteUnnamed call luaeval('BuffersDeleteUnnamed()')
-]]
+        if #emptyBuffers > 0 then
+            vim.cmd.bdelete(table.concat(emptyBuffers, ' '))
+        end
+    end, {}
+)
 
 local onsave_augroup = vim.api.nvim_create_augroup('trim_whitespace_on_bufwrite', {})
 vim.api.nvim_create_autocmd('BufWrite', {
