@@ -552,7 +552,7 @@ vim.api.nvim_create_user_command('Update',
         vim.cmd.CocUpdate()
         vim.cmd.Lazy('update')
         vim.cmd.TSUpdate()
-    end, {})
+    end, { desc = 'Run all update commands' })
 
 vim.api.nvim_create_user_command('BuffersDeleteHidden',
     function()
@@ -573,7 +573,7 @@ vim.api.nvim_create_user_command('BuffersDeleteHidden',
         if #hiddenBuffers > 0 then
             vim.cmd.bdelete(table.concat(hiddenBuffers, ' '))
         end
-    end, {}
+    end, { desc = 'Delete all "hidden" / not-shown buffers' }
 )
 
 vim.api.nvim_create_user_command('BuffersDeleteUnnamed',
@@ -588,7 +588,7 @@ vim.api.nvim_create_user_command('BuffersDeleteUnnamed',
         if #emptyBuffers > 0 then
             vim.cmd.bdelete(table.concat(emptyBuffers, ' '))
         end
-    end, {}
+    end, { desc = 'Delete all unnamed buffers' }
 )
 
 local onsave_augroup = vim.api.nvim_create_augroup('trim_whitespace_on_bufwrite', {})
