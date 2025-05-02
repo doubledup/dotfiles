@@ -709,9 +709,11 @@ require('nvim-tree').setup({
         vim.keymap.set('n', '<c-s>', api.node.open.horizontal, opts('Open: Horizontal Split'))
     end,
 })
--- quit when nvim-tree is the last window
+
+local nvimtree_augroup = vim.api.nvim_create_augroup('NvimTree', {})
 vim.api.nvim_create_autocmd('BufEnter', {
     desc = 'Quit when nvim-tree is the last window',
+    group = nvimtree_augroup,
     callback = function()
         local api = require('nvim-tree.api')
         if vim.fn.winnr('$') == 1 and api.tree.is_tree_buf() then
