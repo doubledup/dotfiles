@@ -463,8 +463,8 @@ vim.keymap.set('x', 'g<c-s>', '"zy:%s/\\V<c-r>z/<c-r>z/gcI<left><left><left><lef
 
 -- clear highlights
 vim.keymap.set('n', '<esc>', function()
-    vim.cmd('nohlsearch')
-    vim.cmd('echo ""')
+    vim.cmd.nohlsearch()
+    vim.cmd.echo()
 end, { remap = false })
 
 -- select all
@@ -498,10 +498,10 @@ end
 -- config
 vim.keymap.set('n', '<leader>,', ':tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>')
 vim.keymap.set('n', '<leader><leader>,', function()
-    vim.cmd('source ~/.config/nvim/init.lua')
+    vim.cmd.source('~/.config/nvim/init.lua')
     -- suppress 'Reloading your config is not supported' message as source does actually reload
     -- (non-package) config
-    vim.cmd('echo ""')
+    vim.cmd.echo()
 end)
 vim.keymap.set('n', '<leader>;', ':execute \'tabnew ~/.config/nvim/ftplugin/\' . &ft . \'.vim\'<cr>')
 vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
@@ -712,7 +712,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     callback = function()
         local api = require('nvim-tree.api')
         if vim.fn.winnr('$') == 1 and api.tree.is_tree_buf() then
-            vim.cmd('q')
+            vim.cmd.q()
         end
     end
 })
