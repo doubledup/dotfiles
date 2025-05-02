@@ -1,7 +1,7 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local out = vim.fn.system({
+    local out = vim.fn.system({
         "git",
         "clone",
         "--filter=blob:none",
@@ -9,15 +9,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         "https://github.com/folke/lazy.nvim.git",
         lazypath
     })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
+    if vim.v.shell_error ~= 0 then
+        vim.api.nvim_echo({
+            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+            { out,                            "WarningMsg" },
+            { "\nPress any key to exit..." },
+        }, true, {})
+        vim.fn.getchar()
+        os.exit(1)
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 -- TODO: `:checkhealth lazy` luarocks messages
@@ -226,12 +226,16 @@ require("lazy").setup({
 
     -- editing
     'andrewradev/linediff.vim',
-    { 'smoka7/hop.nvim', opts = {}, },
+    {
+        'smoka7/hop.nvim', opts = {},
+    },
     'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
 
-    { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
+    {
+        'numToStr/Comment.nvim', opts = {}, lazy = false,
+    },
 
     {
         'nvim-treesitter/nvim-treesitter',
@@ -283,7 +287,9 @@ require("lazy").setup({
     -- included for folding
     -- 'preservim/vim-markdown',
     -- 'elixir-tools/elixir-tools.nvim'
-    { 'fatih/vim-go', build = ':GoUpdateBinaries' },
+    {
+        'fatih/vim-go', build = ':GoUpdateBinaries'
+    },
     'ChrisWellsWood/roc.vim',
 
     -- as needed
@@ -399,8 +405,8 @@ vim.o.showtabline = 2
 vim.o.cmdheight = 2
 
 -- wildmenu
-vim.o.wildmode='longest,full'
-vim.o.wildoptions='fuzzy,pum,tagfile'
+vim.o.wildmode = 'longest,full'
+vim.o.wildoptions = 'fuzzy,pum,tagfile'
 vim.keymap.set('c', '<c-f>', '<space><bs><left>')
 vim.keymap.set('c', '<c-b>', '<space><bs><right>')
 
@@ -533,7 +539,7 @@ vim.api.nvim_create_autocmd('TermClose', {
     group = terminal_settings_augroup,
     pattern = 'term://*',
     callback = function() -- event_args
-        vim.fn.call('nvim_input', {'<cr>'})
+        vim.fn.call('nvim_input', { '<cr>' })
 
         -- ignore fzf & coc filetypes as those will close terminal automatically
         -- local expanded_file = vim.fn.expand(event_args.file)
@@ -548,7 +554,7 @@ vim.api.nvim_create_autocmd('TermClose', {
 -- commands & augroups
 
 vim.api.nvim_create_user_command('Update',
-    function ()
+    function()
         vim.cmd.CocUpdate()
         vim.cmd.Lazy('update')
         vim.cmd.TSUpdate()
@@ -577,7 +583,7 @@ vim.api.nvim_create_user_command('BuffersDeleteHidden',
 )
 
 vim.api.nvim_create_user_command('BuffersDeleteUnnamed',
-    function ()
+    function()
         local emptyBuffers = {}
         for i = 1, vim.fn.bufnr('$') do
             if vim.fn.buflisted(i) and vim.fn.bufexists(i) and vim.fn.bufname(i) == '' then
@@ -670,11 +676,11 @@ vim.g.go_gopls_enabled = 0
 
 -- hop
 local hop = require('hop')
-vim.keymap.set('n', 's', function () hop.hint_char2() end)
-vim.keymap.set('o', 'z', function ()
+vim.keymap.set('n', 's', function() hop.hint_char2() end)
+vim.keymap.set('o', 'z', function()
     hop.hint_char1({ current_line_only = true, inclusive_jump = true })
 end)
-vim.keymap.set('v', 'z', function ()
+vim.keymap.set('v', 'z', function()
     hop.hint_char2({ inclusive_jump = true })
 end)
 
@@ -698,7 +704,7 @@ require('nvim-tree').setup({
     on_attach = function(bufnr)
         local api = require('nvim-tree.api')
         local function opts(desc)
-          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, silent = true, nowait = true }
+            return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, silent = true, nowait = true }
         end
         api.config.mappings.default_on_attach(bufnr)
 
