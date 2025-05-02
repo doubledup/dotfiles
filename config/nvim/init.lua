@@ -401,8 +401,8 @@ vim.o.cmdheight = 2
 -- wildmenu
 vim.o.wildmode='longest,full'
 vim.o.wildoptions='fuzzy,pum,tagfile'
-vim.keymap.set('c', '<c-f>', '<space><bs><left>', { noremap = true })
-vim.keymap.set('c', '<c-b>', '<space><bs><right>', { noremap = true })
+vim.keymap.set('c', '<c-f>', '<space><bs><left>')
+vim.keymap.set('c', '<c-b>', '<space><bs><right>')
 
 -- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
 -- vim.g.do_filetype_lua = 1
@@ -670,13 +670,13 @@ vim.g.go_gopls_enabled = 0
 
 -- hop
 local hop = require('hop')
-vim.keymap.set('n', 's', function () hop.hint_char2() end, { noremap = true })
+vim.keymap.set('n', 's', function () hop.hint_char2() end)
 vim.keymap.set('o', 'z', function ()
     hop.hint_char1({ current_line_only = true, inclusive_jump = true })
-end, { noremap = true })
+end)
 vim.keymap.set('v', 'z', function ()
     hop.hint_char2({ inclusive_jump = true })
-end , { noremap = true })
+end)
 
 -- iswap
 vim.keymap.set('n', '<leader>h', ':ISwapNodeWithLeft<cr>')
@@ -698,7 +698,7 @@ require('nvim-tree').setup({
     on_attach = function(bufnr)
         local api = require('nvim-tree.api')
         local function opts(desc)
-          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+          return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, silent = true, nowait = true }
         end
         api.config.mappings.default_on_attach(bufnr)
 
