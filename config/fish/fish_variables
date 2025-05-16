@@ -1,38 +1,42 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export ABBR_TIPS_PROMPT:\x5cn\U0001f4a1\x20\x5ce\x5b1m\x7b\x7b\x20\x2eabbr\x20\x7d\x7d\x5ce\x5b0m\x20\x3d\x3e\x20\x7b\x7b\x20\x2ecmd\x20\x7d\x7d
-SETUVAR --export ABBR_TIPS_REGEXES:\x28\x5e\x28\x5cw\x2b\x5cs\x2b\x29\x2b\x28\x2d\x7b1\x2c2\x7d\x29\x5cw\x2b\x29\x28\x5cs\x5cS\x2b\x29\x1e\x28\x5e\x28\x5cs\x3f\x28\x5cw\x2d\x3f\x29\x2b\x29\x7b3\x7d\x29\x2e\x2a\x1e\x28\x5e\x28\x5cs\x3f\x28\x5cw\x2d\x3f\x29\x2b\x29\x7b2\x7d\x29\x2e\x2a\x1e\x28\x5e\x28\x5cs\x3f\x28\x5cw\x2d\x3f\x29\x2b\x29\x7b1\x7d\x29\x2e\x2a
-SETUVAR --export __ABBR_TIPS_KEYS:\x3aq\x1e\x2d\x1ecdtemp\x1ebat\x21\x1ee\x1eet\x1eg\x1egst\x1egf\x1egz\x1egp\x1egu\x1egd\x1egco\x1egc\x1egb\x1egl\x1eglp\x1egs\x1egsp\x1ega\x1egr\x1egrb\x1egm\x1egcp\x1ekssh\x1ec\x1env\x1evn\x1evim\x21\x1envim\x21\x1eco\x1edotdot\x1ess\x1ea__exa\x1ea__git\x1ea__icat\x1ea__j\x1ea__ji\x1ea__l\x1ea__la\x1ea__ll\x1ea__ls\x1ea__sl
-SETUVAR --export __ABBR_TIPS_VALUES:exit\x1ecd\x20\x2d\x1ecd\x20\x28mktemp\x20\x2dd\x29\x1ebat\x20\x2d\x2dpager\x20\x22less\x20\x24LESS\x20\x2dn\x22\x20\x2d\x2dstyle\x3ddefault\x1eemacsclient\x20\x2dc\x1eemacsclient\x20\x2dt\x1egit\x1egit\x20status\x1egit\x20fetch\x1egit\x20stash\x1egit\x20pull\x1egit\x20push\x1egit\x20diff\x1egit\x20checkout\x1egit\x20commit\x20\x2dv\x1egit\x20branch\x1egit\x20log\x20\x2d\x2doneline\x20\x2d\x2ddecorate\x20\x2d\x2dgraph\x1egit\x20log\x20\x2d\x2dpatch\x20\x2d\x2ddecorate\x20\x2d\x2dgraph\x1egit\x20show\x1egit\x20show\x20\x2d\x2dpatch\x1egit\x20add\x1egit\x20reset\x1egit\x20rebase\x1egit\x20merge\x1egit\x20cherry\x2dpick\x1ekitty\x20\x2bkitten\x20ssh\x1ecargo\x1envim\x1envim\x1evim\x20\x2dN\x20\x2du\x20NONE\x20\x2dU\x20NONE\x1envim\x20\x2dN\x20\x2du\x20NONE\x20\x2dU\x20NONE\x1ecode\x1e\x1e\x2e/scripts/start\x2dservices\x2esh\x1eexa\x20\x2d\x2dicons\x1egit_wrapper\x1ekitty\x20\x2bkitten\x20icat\x20\x2d\x2dalign\x3dleft\x1e__zoxide_z\x1e__zoxide_zi\x1eexa\x20\x2d\x2dicons\x20\x2d\x2dlevel\x3d1\x1ell\x20\x2daa\x1eexa\x20\x2dl\x20\x2d\x2dheader\x20\x2d\x2dgroup\x20\x2d\x2dgit\x20\x2d\x2dicons\x20\x2d\x2dlevel\x3d1\x1els\x20\x2dFh\x20\x2d\x2dcolor\x3dauto\x1esl\x20\x2dFa\x20\x7c\x20lolcat
-SETUVAR __fish_initialized:3400
-SETUVAR fish_color_autosuggestion:white
-SETUVAR fish_color_cancel:\x2dr
-SETUVAR fish_color_command:magenta
-SETUVAR fish_color_comment:brmagenta
-SETUVAR fish_color_cwd:green
+SETUVAR __fish_initialized:3800
+SETUVAR fish_color_autosuggestion:707A8C
+SETUVAR fish_color_cancel:\x2d\x2dreverse
+SETUVAR fish_color_command:5CCFE6
+SETUVAR fish_color_comment:5C6773
+SETUVAR fish_color_cwd:73D0FF
 SETUVAR fish_color_cwd_root:red
-SETUVAR fish_color_end:brmagenta
-SETUVAR fish_color_error:red
-SETUVAR fish_color_escape:brcyan
+SETUVAR fish_color_end:F29E74
+SETUVAR fish_color_error:FF3333
+SETUVAR fish_color_escape:95E6CB
 SETUVAR fish_color_history_current:\x2d\x2dbold
 SETUVAR fish_color_host:normal
 SETUVAR fish_color_host_remote:yellow
-SETUVAR fish_color_match:\x2d\x2dbackground\x3dbrblue
-SETUVAR fish_color_normal:normal
-SETUVAR fish_color_operator:cyan
-SETUVAR fish_color_param:brblue
-SETUVAR fish_color_quote:yellow
-SETUVAR fish_color_redirection:bryellow
-SETUVAR fish_color_search_match:bryellow\x20\x2d\x2dbackground\x3dbrblack
-SETUVAR fish_color_selection:white\x20\x2d\x2dbold\x20\x2d\x2dbackground\x3dbrblack
+SETUVAR fish_color_keyword:5CCFE6
+SETUVAR fish_color_match:F28779
+SETUVAR fish_color_normal:CBCCC6
+SETUVAR fish_color_operator:FFCC66
+SETUVAR fish_color_option:CBCCC6
+SETUVAR fish_color_param:CBCCC6
+SETUVAR fish_color_quote:BAE67E
+SETUVAR fish_color_redirection:D4BFFF
+SETUVAR fish_color_search_match:\x2d\x2dbackground\x3dFFCC66
+SETUVAR fish_color_selection:\x2d\x2dbackground\x3dFFCC66
 SETUVAR fish_color_status:red
 SETUVAR fish_color_user:brgreen
 SETUVAR fish_color_valid_path:\x2d\x2dunderline
-SETUVAR fish_greeting:Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell\x0aType\x20\x60help\x60\x20for\x20instructions\x20on\x20how\x20to\x20use\x20fish
 SETUVAR fish_key_bindings:fish_default_key_bindings
+SETUVAR fish_pager_color_background:\x1d
 SETUVAR fish_pager_color_completion:normal
-SETUVAR fish_pager_color_description:yellow
-SETUVAR fish_pager_color_prefix:white\x20\x2d\x2dbold\x20\x2d\x2dunderline
-SETUVAR fish_pager_color_progress:brwhite\x20\x2d\x2dbackground\x3dcyan
-SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR pisces_pairs:\x28\x2c\x29\x1e\x5b\x2c\x5d\x1e\x7b\x2c\x7d\x1e\x22\x2c\x22\x1e\x27\x2c\x27\x1e\x3c\x2c\x3e\x1e\x60\x2c\x60\x1e\u00ab\x2c\u00bb
+SETUVAR fish_pager_color_description:B3A06D
+SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
+SETUVAR fish_pager_color_secondary_background:\x1d
+SETUVAR fish_pager_color_secondary_completion:\x1d
+SETUVAR fish_pager_color_secondary_description:\x1d
+SETUVAR fish_pager_color_secondary_prefix:\x1d
+SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3dFFCC66
+SETUVAR fish_pager_color_selected_completion:\x1d
+SETUVAR fish_pager_color_selected_description:\x1d
+SETUVAR fish_pager_color_selected_prefix:\x1d
