@@ -39,7 +39,7 @@ set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 
 set FZF_PREVIEW 'bat --color always --line-range :1000 --style numbers {} 2> /dev/null'
-set FZF_PREVIEW_WINDOW_HOR '70%,bottom,border-top,nowrap,hidden'
+set FZF_PREVIEW_WINDOW_HOR '70%,bottom,border-top,nowrap'
 # set FZF_PREVIEW_WINDOW_VERT '60%,right,border-left,nowrap,hidden'
 # set FZF_PREVIEW_WINDOW_HOR_CHANGE 'alt-l:change-preview-window(right,border-left|bottom,border-top|hidden)'
 # set FZF_PREVIEW_WINDOW_VERT_CHANGE 'alt-l:change-preview-window(bottom,border-top|right,border-left|hidden)'
