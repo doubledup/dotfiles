@@ -4,6 +4,35 @@
             "complex_modifications": {
                 "rules": [
                     {
+                      "description": "control-m to enter, hyper-m to control-m",
+                      "manipulators": [
+                        {
+                          "from": {
+                            "key_code": "m",
+                            "modifiers": { "mandatory": ["left_control"] }
+                          },
+                          "to": [{ "key_code": "enter" }]
+                        },
+                        {
+                          "from": {
+                            "key_code": "m",
+                            "modifiers": {
+                              "mandatory": [
+                                "left_control",
+                                "left_option",
+                                "left_command",
+                                "left_shift"
+                              ]
+                            }
+                          },
+                          "to": [
+                            { "key_code": "m", "modifiers": { "mandatory": ["left_control"] } }
+                          ],
+                          "type": "basic"
+                        }
+                      ]
+                    },
+                    {
                         "description": "insert to apple fn",
                         "manipulators": [
                             {
