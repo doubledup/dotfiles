@@ -85,7 +85,6 @@ set -x DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -x PATH $HOME/.dotnet/tools $PATH
 
 ### homebrew
-set -x HOMEBREW_BUNDLE_FILE_GLOBAL '~/.dotfiles/rcignore/Brewfile'
 set -x HOMEBREW_NO_ANALYTICS 1
 
 ### go
