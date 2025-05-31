@@ -2,66 +2,71 @@
 
 set -euo pipefail
 
+endcolor='\x1b[0m'
+blue='\x1b[0;34m'
+green='\x1b[0;32m'
+red='\x1b[0;31m'
+yellow='\x1b[0;33m'
+
 os_name="$(uname -s)"
-echo "Setting up $os_name..."
+printf "%bSetting up %s...%b\n" "$blue" "$os_name" "$endcolor"
 
 if [ "$os_name" = "Darwin" ]; then
-    echo 'Installing XCode...'
+    printf '%bInstalling XCode...%b\n' "$blue" "$endcolor"
     if [ ! "$(xcode-select --version)" = "" ]; then
-        printf '\x1b[0;32mXCode is already installed.\x1b[0m\n'
+        printf '%bXCode is already installed.%b\n' "$green" "$endcolor"
     else
         if xcode-select --install; then
-            printf '\x1b[0;32mInstalled XCode.\x1b[0m\n'
+            printf '%bInstalled XCode.%b\n' "$green" "$endcolor"
         else
-            printf '\x1b[0;31mFailed to install XCode. Exiting.\x1b[0m\n' && exit 1
+            printf '%bFailed to install XCode. Exiting.%b\n' "$red" "$endcolor" && exit 1
         fi
     fi
 
     if [ ! -d /opt/homebrew/ ]; then
-        echo 'Installing Homebrew...'
+        printf '%bInstalling Homebrew...%b\n' "$blue" "$endcolor"
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
-    echo 'Homebrew found. Installing packages...'
+    printf '%bHomebrew is ready. Installing packages...%b\n' "$blue" "$endcolor"
     brew bundle install --file "$HOME"/.dotfiles/rcignore/Brewfile
 
-    echo 'Symlinking dotfiles...'
+    printf '%bSymlinking dotfiles...%b\n' "$blue" "$endcolor"
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
-    echo 'Copying Karabiner config...'
+    printf '%bCopying Karabiner config...%b\n' "$blue" "$endcolor"
     cp ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
-    echo 'Copied Karabiner config. Restart Karabiner now.'
+    printf '%bCopied Karabiner config. Restart Karabiner now.%b\n' "$blue" "$endcolor"
 
-    echo 'Disabling "smart" quotes...'
+    printf '%bDisabling "smart" quotes...%b\n' "$blue" "$endcolor"
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-    echo 'Setting up Firefox styling...'
+    printf '%bSetting up Firefox styling...%b\n' "$blue" "$endcolor"
     chromedir=$(ls -d "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release)/chrome
     mkdir -p "$chromedir"
     if [ ! -f "$chromedir/userChrome.css" ]; then
         ln -s "$HOME"/.dotfiles/userChrome.css "$chromedir"/userChrome.css
-        printf '\x1b[0;32mFirefox styling applied.\x1b[0m\n'
+        printf '%bFirefox styling applied.%b\n' "$green" "$endcolor"
     else
-        printf '\x1b[0;33mFirefox styling already exists.\x1b[0m\n'
+        printf '%bFirefox styling already exists.%b\n' "$yellow" "$endcolor"
     fi
 
     set_up_languages
 elif [ "$os_name" = "Linux" ]; then
-    printf '\x1b[0;31mUpdate the install script for Linux!\x1b[0m\n'
+    printf '%bUpdate the install script for Linux!%b\n' "$red" "$endcolor"
     # TODO: install software
     # RCRC="$HOME"/.dotfiles/rcrc rcup -t linux
     # TODO: settings
     # TODO: Firefox styling
     # TODO: shared setup
 else
-    printf '\x1b[0;31mNo installation set up for %s yet\x1b[0m\n' "$os_name"
+    printf '%bNo installation set up for %s yet%b\n' "$red" "$os_name" "$endcolor"
 fi
 
-printf '\x1b[0;32mSetup complete!\x1b[0m\n'
+printf '%bSetup complete!%b\n' "$green" "$endcolor"
 
-set_up_languages () {
+set_up_languages() {
     npm i -g npm
     npm i -g @elm-tooling/elm-language-server elm-format elm-live elm-review elm-test
 
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 }
-
