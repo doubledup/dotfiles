@@ -8,7 +8,7 @@ Install and set up config:
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
 cd ~/.dotfiles
-./rcignore/install
+./rcignore/setup.sh
 ```
 
 Create an ssh key for the machine, add it to Github and switch the repo to ssh:
