@@ -4,10 +4,15 @@ Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 
 ## Setup
 
+Install and set up config:
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 ./rcignore/install
+```
+
+Create an ssh key for the machine, add it to Github and switch the repo to ssh:
+```sh
 mksshkey
 gh auth login --git-protocol ssh --hostname github.com
 git remote set-url origin git@github.com:doubledup/dotfiles.git
@@ -27,38 +32,47 @@ set GIT_SIGNINGKEY <signingkey>
 abbr gc 'git commit -v -S$GIT_SIGNINGKEY'
 ```
 
-This avoids committing a key id as with the global gitconfig variable `user.signingkey`, but still
-sets a default for all repositories that you can override, e.g. with `direnv`.
+This avoids committing a key id in the global gitconfig variable `user.signingkey`, but still sets a
+default for all repositories that you can override, e.g. with `direnv`.
 
 ### Firefox
 
-In the `about:config` page:
-
-- To enable the custom stylesheet, set
-  `toolkit.legacyUserProfileCustomizations.stylesheets` to true.
-- To disable loading tabs on demand, set
-  `browser.sessionstore.restore_on_demandbrowser.sessionstore.restore_on_demand`
-  to true
+To enable the custom stylesheet, go to the `about:config` page and set
+`toolkit.legacyUserProfileCustomizations.stylesheets` to true.
 
 ## MacOS
 
-Run `updateAll` to update everything, including the Brewfile.
+Run `updateAll` to update everything.
 
-Periodically list explicitly installed packages with `brew leaves` and uninstall unused ones.
+MacOS packages are managed with a global `Brewfile`. This replaces imperative commands like `brew
+install` with 2 steps: update the `Brewfile`, then ensure that exactly the packages in the
+`Brewfile` are installed.
 
-To list installed packages not in the Brewfile:
+To edit the global `Brewfile`:
 
-```sh
-brew bundle install --cleanup --file ~/.dotfiles/rcignore/Brewfile
-```
-
-To ensure only Brewfile packages are installed:
+- Add a package:
 
 ```sh
-brew bundle install --cleanup --file ~/.dotfiles/rcignore/Brewfile
+brew bundle --global add package
 ```
 
-When pulling updates, first run `rcdn` to remove all known symlinks:
+- Remove unused packages:
+
+```sh
+brew bundle --global remove package
+```
+
+Then ensure all Brewfile packages, and only those packages, are installed:
+
+```sh
+brew bundle --global --cleanup
+```
+
+List explicitly installed packages with `brew leaves` or review the `Brewfile`.
+
+### Updates with rcm
+
+When pulling updates, run `rcdn` to remove all known symlinks, then pull updates, then run `rcup`:
 
 ```sh
 cd ~/.dotfiles && rcdn -t mac && git pull && RCRC=~/.dotfiles/rcrc rcup -t mac && cd -
@@ -75,7 +89,7 @@ symlinks) and remove them.
 
 ## Linux/Debian
 
-<!-- TODO: try out https://github.com/rbreaves/kinto -->
+<!-- TODO: https://github.com/rbreaves/kinto -->
 
 ### Set default terminal emulator
 
