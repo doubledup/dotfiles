@@ -5,8 +5,7 @@ set -euo pipefail
 echo 'mas:'
 mas upgrade
 echo 'brew:'
-brew upgrade
-brew bundle dump --file=~/.dotfiles/rcignore/Brewfile --force --brews --taps --casks --mas
+brew bundle --global upgrade
 
 echo 'rustup:'
 rustup update
