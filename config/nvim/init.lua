@@ -399,8 +399,6 @@ vim.o.cursorline = true
 -- fold on indents; don't fold when opening files
 vim.o.foldmethod = 'indent'
 vim.o.foldenable = false
--- always show file tabs
-vim.o.showtabline = 2
 -- give more space for displaying messages
 vim.o.cmdheight = 2
 
