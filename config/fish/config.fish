@@ -21,8 +21,6 @@
 set -x LESS -NQRix4
 
 set -x EDITOR 'nvim'
-set -x GTI_SPEED 3000
-set -x PIPENV_VENV_IN_PROJECT 1
 
 # bat
 set -x BAT_PAGER "less $LESS"
@@ -108,10 +106,6 @@ abbr --position command cdtemp 'cd (mktemp -d)'
 
 ## bat
 abbr bat! 'bat --pager "less $LESS -n" --style=default'
-
-## emacs
-abbr e 'emacsclient -c'
-abbr et 'emacsclient -t'
 
 ## fish
 function fishrc --description "Edit Fish shell config";
