@@ -107,6 +107,10 @@ abbr --position command cdtemp 'cd (mktemp -d)'
 ## bat
 abbr bat! 'bat --pager "less $LESS -n" --style=default'
 
+## brew
+abbr b brew
+abbr bb brew bundle
+
 ## fish
 function fishrc --description "Edit Fish shell config";
     cd ~/.dotfiles
@@ -154,8 +158,7 @@ abbr kssh 'kitty +kitten ssh'
 abbr c cargo
 
 ## vim & neovim
-abbr nv "$EDITOR"
-abbr vn "$EDITOR"
+abbr v "$EDITOR"
 abbr vim! 'vim -N -u NONE -U NONE'
 abbr nvim! 'nvim -N -u NONE -U NONE'
 
