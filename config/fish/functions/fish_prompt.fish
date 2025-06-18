@@ -11,7 +11,7 @@ function fish_prompt --description 'Write out the prompt'
         set -g __fish_git_prompt_color_branch magenta --bold
     end
     if not set -q __fish_git_prompt_showupstream
-        set -g __fish_git_prompt_showupstream "informative"
+        set -g __fish_git_prompt_showupstream informative
     end
     if not set -q __fish_git_prompt_char_upstream_ahead
         set -g __fish_git_prompt_char_upstream_ahead "↑"
@@ -90,7 +90,7 @@ end
 
 function nix_shell_prompt
     if set -q IN_NIX_SHELL
-        if [ $IN_NIX_SHELL = "pure" ]
+        if [ $IN_NIX_SHELL = pure ]
             set_color green
         else
             set_color yellow
