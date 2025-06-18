@@ -655,11 +655,20 @@ vim.keymap.set('n', '<leader>*', ':BLines! <c-r><c-w><cr>')
 vim.keymap.set('v', '<leader>*', 'y:BLines! <c-r>"<cr>')
 vim.keymap.set('n', '<leader>:', ':History:!<cr>')
 -- match <c-w> prefix
-vim.g.fzf_action = {
-    ['ctrl-s'] = 'split',
-    ['ctrl-v'] = 'vsplit',
-    ['ctrl-t'] = 'tab split'
-}
+
+vim.cmd [[
+    function! s:build_quickfix_list(lines)
+      call setqflist(map(copy(a:lines), '{ "filename": v:val, "lnum": 1 }'))
+      copen
+      cc
+    endfunction
+
+    let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit',
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-q': function('s:build_quickfix_list') }
+]]
 
 -- go
 vim.g.go_code_completion_enabled = 0
