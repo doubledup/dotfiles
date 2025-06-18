@@ -29,9 +29,16 @@
         "*": [
             "typos"
         ],
+        "fish": "fish_indent",
         "java": "google-java-format"
     },
     "diagnostic-languageserver.formatters": {
+        "fish_indent": {
+            "command": "fish_indent",
+            "args": [
+                "%file"
+            ]
+        },
         "google-java-format": {
             "command": "google-java-format",
             "args": [

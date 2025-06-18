@@ -20,13 +20,13 @@
 # -x4: tabs are 4 characters wide
 set -x LESS -NQRix4
 
-set -x EDITOR 'nvim'
+set -x EDITOR nvim
 
 # bat
 set -x BAT_PAGER "less $LESS"
 # ayu-mirage theme from
 # https://github.com/alin23/ayu/blob/0c5d548909bee59ced21a1a471bfb3b36bd02141/ayu-mirage.tmTheme
-set -x BAT_THEME 'ayu-mirage'
+set -x BAT_THEME ayu-mirage
 set -x BAT_STYLE changes,header-filename
 
 ## fzf
@@ -98,7 +98,7 @@ set -x SAM_CLI_TELEMETRY 0
 abbr :q exit
 alias ls='ls -Fh --color=auto'
 alias sl='sl -Fa | lolcat'
-abbr l 'ls'
+abbr l ls
 abbr ll 'ls -l'
 abbr la 'ls -al'
 abbr --position command - 'cd -'
@@ -112,7 +112,7 @@ abbr b brew
 abbr bb brew bundle
 
 ## fish
-function fishrc --description "Edit Fish shell config";
+function fishrc --description "Edit Fish shell config"
     cd ~/.dotfiles
     $EDITOR config/fish/config.fish
     cd -
@@ -139,7 +139,7 @@ abbr grb 'git rebase'
 abbr gm 'git merge'
 abbr gcp 'git cherry-pick'
 
-function git_wrapper --description "Toilet humour typo";
+function git_wrapper --description "Toilet humour typo"
     if test "$argv" = "stash poop"
         echo '💩'
         sleep 2
@@ -162,14 +162,14 @@ abbr v "$EDITOR"
 abbr vim! 'vim -N -u NONE -U NONE'
 abbr nvim! 'nvim -N -u NONE -U NONE'
 
-function nvimrc --description "Edit NeoVim config";
+function nvimrc --description "Edit NeoVim config"
     cd ~/.dotfiles
     $EDITOR config/nvim/init.lua
     cd -
 end
 
 ## vscode
-abbr co 'code'
+abbr co code
 
 # Functions
 
@@ -178,22 +178,23 @@ function multicd
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
 
-function plz --description "Plz do the thing (sudo)";
+function plz --description "Plz do the thing (sudo)"
     eval sudo $history[1]
 end
 
-function fish_greeting --description "Custom cow-powered greeting";
+function fish_greeting --description "Custom cow-powered greeting"
     set csf (command -v cowspeakfortune)
 
     if test -n "$csf"
-      cowspeakfortune
+        cowspeakfortune
     end
 end
 
 set fish_prompt_pwd_full_dirs 4
 function fish_title
     set -q argv[1]; or set argv fish
-    echo (string trim $argv): (prompt_pwd);
+    echo (string trim $argv): (prompt_pwd)
+
 end
 
 # Key bindings
