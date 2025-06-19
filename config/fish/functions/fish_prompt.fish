@@ -59,6 +59,18 @@ function fish_prompt --description 'Write out the prompt'
     echo -n $prompt_status
     set_color normal
 
+    set -l duration "$cmd_duration$CMD_DURATION"
+    if test $duration -gt 100
+        set duration (set_color brgrey)(math $duration / 1000)s(set_color normal)
+    else
+        set duration (set_color brgrey)(echo $duration)ms(set_color normal)
+    end
+
+    set -l date (set_color brgrey)\[(date "+%R")\](set_color normal)
+
+    echo -n $duration $date
+
+    echo
     echo -n "$suffix "
 end
 
