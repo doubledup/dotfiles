@@ -2,35 +2,17 @@
 
 # Environment variables
 
-## less
-# The default less flags are FRX:
-#
-# F makes less exit if there's less than one page of diff. This makes `git
-# diff` inconsistent: sometimes it opens less, sometimes not.
-#
-# X prevents the less output from getting cleared when less exits. This
-# pollutes terminal output after scrolling multiple pages of diff.
-#
-# Removing these makes the behaviour of less consistent: it *always*
-# opens less and *never* leaves its output lying around in the terminal.
-#
-# -Q keeps less quiet: terminal bells are never rung.
-# -R is needed to interpret ANSI colors correctly. (from bat's help for its --pager flag)
-# -i: ignore case in searches
-# -x4: tabs are 4 characters wide
-set -x LESS -NQRix4
-
-set -x EDITOR nvim
-
-# bat
 set -x BAT_PAGER "less $LESS"
 # ayu-mirage theme from
 # https://github.com/alin23/ayu/blob/0c5d548909bee59ced21a1a471bfb3b36bd02141/ayu-mirage.tmTheme
 set -x BAT_THEME ayu-mirage
 set -x BAT_STYLE changes,header-filename
 
-## fzf
-# TODO: set up a history file
+set -x EDITOR nvim
+
+set -U fish_greeting
+
+# TODO: set up an fzf history file
 # set FZF_HISTORY_FILE '~/.local/share/fzf/fzf_history'
 # --history $FZF_HISTORY_FILE
 set -x FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
@@ -69,9 +51,23 @@ set -x FZF_DEFAULT_OPTS (string join " " -- \
     "--preview-window '$FZF_PREVIEW_WINDOW_HOR'" \
 )
 
-# set FZF_PS_COMMAND 'ps -ax -o tt,pid,user,%cpu,%mem,rss,start,command'
-# set FZF_PS_KEYBINDINGS 'alt-v:ignore,alt-h:ignore'
-# set FZF_PS_OPTS "--no-preview --bind $FZF_PS_KEYBINDINGS"
+## less
+# The default less flags are FRX:
+#
+# F makes less exit if there's less than one page of diff. This makes `git
+# diff` inconsistent: sometimes it opens less, sometimes not.
+#
+# X prevents the less output from getting cleared when less exits. This
+# pollutes terminal output after scrolling multiple pages of diff.
+#
+# Removing these makes the behaviour of less consistent: it *always*
+# opens less and *never* leaves its output lying around in the terminal.
+#
+# -Q keeps less quiet: terminal bells are never rung.
+# -R is needed to interpret ANSI colors correctly. (from bat's help for its --pager flag)
+# -i: ignore case in searches
+# -x4: tabs are 4 characters wide
+set -x LESS -NQRix4
 
 ## Path
 
@@ -96,11 +92,11 @@ set -x SAM_CLI_TELEMETRY 0
 
 ## builtins
 abbr :q exit
+abbr l ls
+abbr la 'ls -al'
+abbr ll 'ls -l'
 alias ls='ls -Fh --color=auto'
 alias sl='sl -Fa | lolcat'
-abbr l ls
-abbr ll 'ls -l'
-abbr la 'ls -al'
 abbr --position command - 'cd -'
 abbr --position command cdtemp 'cd (mktemp -d)'
 
@@ -139,17 +135,6 @@ abbr grb 'git rebase'
 abbr gm 'git merge'
 abbr gcp 'git cherry-pick'
 
-function git_wrapper --description "Toilet humour typo"
-    if test "$argv" = "stash poop"
-        echo '💩'
-        sleep 2
-        command git stash pop
-    else
-        command git $argv
-    end
-end
-alias git=git_wrapper
-
 ## kitty
 alias icat='kitty +kitten icat --align=left'
 abbr kssh 'kitty +kitten ssh'
@@ -178,19 +163,7 @@ function multicd
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
 
-function plz --description "Plz do the thing (sudo)"
-    eval sudo $history[1]
-end
-
-function fish_greeting --description "Custom cow-powered greeting"
-    set csf (command -v cowspeakfortune)
-
-    if test -n "$csf"
-        cowspeakfortune
-    end
-end
-
-set fish_prompt_pwd_full_dirs 4
+set fish_prompt_pwd_full_dirs 3
 function fish_title
     set -q argv[1]; or set argv fish
     echo (string trim $argv): (prompt_pwd)
@@ -215,7 +188,6 @@ end
 bind \co launch_editor
 
 bind \ea 'echo; ls -al; commandline -f repaint'
-bind \el 'echo; ls; commandline -f repaint'
 
 # git
 bind \cs 'echo; git status; commandline -f repaint'
