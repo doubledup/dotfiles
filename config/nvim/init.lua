@@ -1,14 +1,8 @@
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local out = vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "--branch=stable",
-        "https://github.com/folke/lazy.nvim.git",
-        lazypath
-    })
+    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
@@ -20,7 +14,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     end
 end
 vim.opt.rtp:prepend(lazypath)
--- TODO: `:checkhealth lazy` luarocks messages
 
 --  NOTE: map leader key before plugins are required, else wrong leader will be used
 vim.g.mapleader = ' '
@@ -30,6 +23,10 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("lazy").setup({
+    rocks = {
+        enabled = false,
+    },
+    spec = {
     'tpope/vim-fugitive', -- TODO: try 'jreybert/vimagit'
     -- 'tpope/vim-git',
     -- 'tpope/vim-rhubarb'
