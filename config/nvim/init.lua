@@ -27,15 +27,16 @@ require("lazy").setup({
         enabled = false,
     },
     spec = {
-    'tpope/vim-fugitive', -- TODO: try 'jreybert/vimagit'
+    -- 'jreybert/vimagit'
     -- 'tpope/vim-git',
     -- 'tpope/vim-rhubarb'
+    'tpope/vim-fugitive',
 
     {
         'lewis6991/gitsigns.nvim',
         opts = {
             on_attach = function(bufnr)
-                local gs = package.loaded.gitsigns
+                local gitsigns = package.loaded.gitsigns
 
                 local function map(mode, l, r, opts)
                     opts = opts or {}
@@ -45,55 +46,48 @@ require("lazy").setup({
 
                 -- Navigation
                 map('n', ']d', function()
-                    if vim.wo.diff then return ']d' end
-                    vim.schedule(function() gs.next_hunk() end)
-                    return '<Ignore>'
-                end, { expr = true })
+                    if vim.wo.diff then
+                        vim.cmd.normal({']d', bang = true})
+                    else
+                        gitsigns.nav_hunk('next')
+                    end
+                end)
 
                 map('n', '[d', function()
-                    if vim.wo.diff then return '[d' end
-                    vim.schedule(function() gs.prev_hunk() end)
-                    return '<Ignore>'
-                end, { expr = true })
+                  if vim.wo.diff then
+                    vim.cmd.normal({'[d', bang = true})
+                  else
+                    gitsigns.nav_hunk('prev')
+                  end
+                end)
 
                 -- Actions
-                map({ 'n', 'v' }, '<leader>ga', ':Gitsigns stage_hunk<CR>')
-                map({ 'n', 'v' }, '<leader>gr', ':Gitsigns reset_hunk<CR>')
-                map('n', '<leader>gA', gs.stage_buffer)
-                map('n', '<leader>gR', gs.reset_buffer)
-                map('n', '<leader>gi', gs.preview_hunk)
-                map('n', '<leader>gv', gs.undo_stage_hunk)
+                map('n', '<leader>ga', gitsigns.stage_hunk)
+                map('v', '<leader>ga', function()
+                  gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end)
+                map('n', '<leader>gr', gitsigns.reset_hunk)
+                map('v', '<leader>gr', function()
+                  gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                end)
 
-                -- map('n', '<leader>hb', function() gs.blame_line{full=true} end)
-                -- map('n', '<leader>tb', gs.toggle_current_line_blame)
-                -- map('n', '<leader>hd', gs.diffthis)
-                -- map('n', '<leader>hD', function() gs.diffthis('~') end)
-                -- map('n', '<leader>td', gs.toggle_deleted)
+                map('n', '<leader>gA', gitsigns.stage_buffer)
+                map('n', '<leader>gR', gitsigns.reset_buffer)
+                map('n', '<leader>gi', gitsigns.preview_hunk_inline)
+                map('n', '<leader>gv', gitsigns.undo_stage_hunk)
 
                 -- Text object
-                map({ 'o', 'x' }, 'id', ':<C-U>Gitsigns select_hunk<CR>')
-                -- omap id :<c-u>Gitsigns select_hunk<cr>
-                -- xmap id :<c-u>Gitsigns select_hunk<cr>
-                -- omap ad <plug>(signify-motion-outer-pending)
-                -- xmap ad <plug>(signify-motion-outer-visual)
-                -- nmap <leader>gi :SignifyHunkDiff<cr>
+                map({ 'o', 'x' }, 'id', gitsigns.select_hunk)
             end
         }
     },
 
-    -- TODO: vs builtin LSP or one of
     -- 'williamboman/mason.nvim' -- and
     -- 'williamboman/mason-lspconfig.nvim' -- and
     -- 'neovim/nvim-lspconfig'
     --
-    -- 'VonHeikemen/lsp-zero.nvim'
-    -- 'folke/neodev.nvim'
-    -- 'glepnir/lspsaga.nvim',
-    -- 'natebosch/vim-lsc',
     -- 'ms-jpq/coq_nvim',
     -- 'autozimu/LanguageClient-neovim',
-    -- 'jose-elias-alvarez/null-ls.nvim',
-    -- 'ldelossa/litee.nvim',
     { 'neoclide/coc.nvim', branch = 'release' },
 
     -- ui
