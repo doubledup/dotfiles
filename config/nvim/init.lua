@@ -92,11 +92,12 @@ require("lazy").setup({
 
     -- ui
     {
-        'doubledup/ayu-vim',
+        'Luxed/ayu-vim',
         lazy = false,
         priority = 1000,
         config = function()
             vim.o.termguicolors = true
+            vim.o.background = 'dark'
             vim.g.ayucolor = 'mirage'
             vim.cmd.colorscheme('ayu')
         end
