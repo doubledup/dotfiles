@@ -102,6 +102,7 @@ require("lazy").setup({
             vim.cmd.colorscheme('ayu')
         end
     },
+
     'folke/which-key.nvim',
     'junegunn/fzf',
     'junegunn/fzf.vim',
@@ -111,7 +112,8 @@ require("lazy").setup({
 
     {
         -- https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
-        'itchyny/lightline.vim', -- TODO: vs 'nvim-lualine/lualine.nvim',
+        -- 'nvim-lualine/lualine.nvim'
+        'itchyny/lightline.vim',
         config = function()
             vim.o.showmode = false
             vim.g.lightline = {
@@ -218,16 +220,11 @@ require("lazy").setup({
 
     -- editing
     'andrewradev/linediff.vim',
-    {
-        'smoka7/hop.nvim', opts = {},
-    },
+    { 'smoka7/hop.nvim', opts = {}, },
     'honza/vim-snippets',
     'jpalardy/vim-slime',
     'mizlan/iswap.nvim',
-
-    {
-        'numToStr/Comment.nvim', opts = {}, lazy = false,
-    },
+    { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
 
     {
         'nvim-treesitter/nvim-treesitter',
