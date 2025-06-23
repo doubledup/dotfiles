@@ -363,9 +363,12 @@ vim.o.listchars = 'tab:▷\\ ,trail:⋅,nbsp:☺,extends:→,precedes:←'
 -- wrap & highlight @100 chars
 vim.o.textwidth = 100
 vim.o.colorcolumn = '+0'
--- don't wrap long lines by default, but be more sensible when wrapping is on
-vim.o.wrap = false
+-- use sensible boundaries when wrapping text display
 vim.o.linebreak = true
+-- indent when wrapping with showbreak starting the line
+vim.o.breakindent = true
+vim.o.breakindentopt = 'sbr'
+vim.o.showbreak = '↪ '
 
 -- show line numbers
 vim.o.number = true
@@ -395,10 +398,6 @@ vim.o.sidescrolloff = 15
 -- trigger CursorHold sooner; keep < 300
 vim.o.updatetime = 200
 
--- indent when wrapping with showbreak starting the line
-vim.o.breakindent = true
-vim.o.breakindentopt = 'sbr'
-vim.o.showbreak = '↪ '
 -- highlight current line
 vim.o.cursorline = true
 -- fold on indents; don't fold when opening files
