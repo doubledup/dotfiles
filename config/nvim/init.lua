@@ -403,8 +403,6 @@ vim.o.cursorline = true
 -- fold on indents; don't fold when opening files
 vim.o.foldmethod = 'indent'
 vim.o.foldenable = false
--- give more space for displaying messages
-vim.o.cmdheight = 2
 
 -- wildmenu
 vim.o.wildmode = 'longest,full'
