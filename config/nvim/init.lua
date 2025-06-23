@@ -518,9 +518,9 @@ vim.keymap.set('x', '<leader>\'', '"+')
 -- terminal
 -- quit, then move to start of line to preserve display of curses-like output
 vim.keymap.set('t', '<c-/>', '<c-\\><c-n>0')
-vim.keymap.set('n', '<leader>ts', ':25sp | terminal fish<cr>a')
-vim.keymap.set('n', '<leader>tv', ':85vsp | terminal fish<cr>a')
-vim.keymap.set('n', '<leader>tt', ':tabnew | terminal fish<cr>a')
+vim.keymap.set('n', '<leader>ts', ':25sp | terminal fish<cr>a', { desc = 'Terminal [s]plit horizontally' })
+vim.keymap.set('n', '<leader>tv', ':85vsp | terminal fish<cr>a', { desc = 'Terminal split [v]ertically' })
+vim.keymap.set('n', '<leader>tt', ':tabnew | terminal fish<cr>a', { desc = 'Terminal [t]ab' })
 
 local terminal_settings_augroup = vim.api.nvim_create_augroup('terminal_settings', {})
 vim.api.nvim_create_autocmd('TermOpen', {
