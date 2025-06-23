@@ -352,10 +352,6 @@ require("lazy").setup({
 vim.cmd.filetype('plugin indent on')
 vim.cmd.syntax('enable')
 
--- use 4-space indentation by default
-vim.o.expandtab = true
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
 -- show extra whitespace
 vim.o.list = true
 vim.o.listchars = 'tab:▷\\ ,trail:⋅,nbsp:☺,extends:→,precedes:←'
