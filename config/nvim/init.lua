@@ -480,8 +480,8 @@ vim.cmd.cnoreabbrev('ht', 'tab h')
 vim.keymap.set('c', '<c-a>', '<Home>')
 vim.keymap.set('c', '<c-b>', '<left>')
 vim.keymap.set('c', '<c-f>', '<right>')
-vim.keymap.set('c', '<esc>b', '<s-left>')
-vim.keymap.set('c', '<esc>f', '<s-right>')
+vim.keymap.set('c', '<m-b>', '<s-left>')
+vim.keymap.set('c', '<m-f>', '<s-right>')
 
 vim.g.mousescroll = 'hor:1'
 vim.keymap.set('n', '<ScrollWheelUp>', '<c-y>')
