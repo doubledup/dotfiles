@@ -215,6 +215,8 @@ require("lazy").setup({
         end
     },
 
+    -- less jank: nvim-neo-tree/neo-tree.nvim
+    -- edit filesystem in buffer: stevearc/oil.nvim
     'nvim-tree/nvim-tree.lua',
     'nvim-tree/nvim-web-devicons',
 
