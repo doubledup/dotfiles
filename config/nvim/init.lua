@@ -632,7 +632,7 @@ vim.g.delimitMate_expand_space = 1
 vim.g.delimitMate_jump_expansion = 1
 
 -- fugitive
-vim.keymap.set('n', '<leader>gs', ':-1tab Git<cr>')
+vim.keymap.set('n', '<leader>gs', ':Git<cr>')
 vim.keymap.set('n', '<leader>gf', ':Git! fetch<cr>')
 vim.keymap.set('n', '<leader>gz', ':Git stash<space>')
 vim.keymap.set('n', '<leader>gp', ':Git! pull<space>')
