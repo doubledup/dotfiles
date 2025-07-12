@@ -726,7 +726,7 @@ require('nvim-tree').setup({
     end,
 })
 
-local nvimtree_augroup = vim.api.nvim_create_augroup('NvimTree', {})
+local nvimtree_augroup = vim.api.nvim_create_augroup('NvimTree', { clear = false })
 vim.api.nvim_create_autocmd('BufEnter', {
     desc = 'Quit when nvim-tree is the last window',
     group = nvimtree_augroup,
