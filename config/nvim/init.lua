@@ -509,6 +509,11 @@ vim.keymap.set('n', '<leader>;', ':execute \'tabnew ~/.config/nvim/ftplugin/\' .
 vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
 
 -- clipboard
+-- Sync clipboard between OS and Neovim.
+-- Schedule the setting after `UiEnter` because it can increase startup time.
+vim.schedule(function ()
+    vim.o.clipboard = 'unnamedplus'
+end)
 -- copy filename to system clipboard
 vim.keymap.set('n', '<leader>5', ':let @+=@%<cr>')
 -- copy current register to system clipboard
