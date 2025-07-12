@@ -23,6 +23,10 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("lazy").setup({
+    checker = {
+        enabled = true,
+        frequency = 60 * 60 * 24 * 7,
+    },
     spec = {
     -- 'jreybert/vimagit'
     -- 'tpope/vim-git',
@@ -556,8 +560,6 @@ vim.api.nvim_create_autocmd('TermClose', {
 vim.api.nvim_create_user_command('Update',
     function()
         vim.cmd.CocUpdate()
-        -- TODO: this fails when running `nvim -c 'Update'` as nvim can't find the `Lazy` command
-        -- vim.cmd.Lazy('update')
         vim.cmd.TSUpdate()
     end, { desc = 'Run all update commands' })
 
