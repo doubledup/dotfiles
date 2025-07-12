@@ -20,7 +20,6 @@ let g:coc_global_extensions = [
     \ 'coc-lua',
     \ 'coc-rust-analyzer',
     \ 'coc-sh',
-    \ 'coc-snippets',
     \ 'coc-sql',
     \ 'coc-tsserver',
     \ 'coc-yaml',
@@ -30,41 +29,33 @@ let g:coc_global_extensions = [
     " \ 'coc-ltex',
     " \ 'coc-prettier',
     " \ 'coc-pyright',
-    " \ 'coc-solargraph',
+    " \ 'coc-snippets',
 
-" let g:coc_node_path = '~/.asdf/shims/node'
-" let g:coc_max_treeview_width = 50
-
-" use <c-space> to trigger completion
-" TODO: also trigger diagnostic popups
+" trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" use control-c to:
+" use c-c to:
 " exit autocomplete menu, if visible; or
 " exit insert mode
-" TODO: also cancel diagnostic popups
 inoremap <silent><expr><c-c>
     \ coc#pum#visible() ? coc#pum#cancel() :
     \ "<esc>"
 
 " use tab to:
-" select current autocomplete item, if visible; or
-" expand the snippet, if current word is a snippet; or
-" increase indentation, if cursor is preceded by whitespace; or
-" trigger the completion menu
+" - select current autocomplete item, if visible; or
+" - expand the snippet, if current word is a snippet; or
+" - move to the next position when in a snippet; or
+" - increase indentation
 inoremap <silent><expr> <tab>
     \ coc#pum#visible() ? coc#_select_confirm() :
     \ coc#expandableOrJumpable() ? "\<c-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<cr>" :
-    \ <SID>SpaceBeforeCursor() ? "\<tab>" :
-    \ coc#refresh()
+    \ "\<tab>"
 let g:coc_snippet_next = '<tab>'
 
 " use shift-tab to:
-" select current autocomplete item, if visible; or
-" backspace, if cursor is preceded by whitespace; or
-" nothing
+" - move to the previous position when in a snippet; or
+" - backspace, if cursor is preceded by whitespace; or
 inoremap <expr><s-tab>
-    \ coc#pum#visible() ? coc#_select_confirm() :
     \ <SID>SpaceBeforeCursor() ? "\<c-h>" :
     \ ""
 let g:coc_snippet_prev = '<s-tab>'
@@ -98,11 +89,10 @@ function! ShowDocumentation()
 endfunction
 
 " highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
-" augroup highlight
-"   autocmd!
-"   autocmd CursorHold * silent call CocActionAsync('highlight')
-" augroup END
+augroup highlight
+  autocmd!
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
 
 " rename symbol
 nmap <leader>an <Plug>(coc-rename)
@@ -114,13 +104,13 @@ nmap <leader>an <Plug>(coc-rename)
 " format current buffer
 nmap <leader>= <Plug>(coc-format)
 
-augroup coc
-    autocmd!
-    " setup formatexpr for gq<motion>
-    " autocmd FileType go,html,javascript,json,lua,rust,sh,solidity,sql,typescript,yaml setl formatexpr=CocAction('formatSelected')
-    " show signature help on completion
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" augroup coc
+"     autocmd!
+"     " setup formatexpr for gq<motion>
+"     " autocmd FileType go,html,javascript,json,lua,rust,sh,solidity,sql,typescript,yaml setl formatexpr=CocAction('formatSelected')
+"     " show signature help on completion
+"     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
 
 " apply code action to the current file
 nmap <leader>ak <Plug>(coc-codeaction)
@@ -128,7 +118,7 @@ nmap <leader>ak <Plug>(coc-codeaction)
 " nmap <leader>a <Plug>(coc-codeaction-source)
 " apply codeAction to the selected region, eg. `<leader>aap` for current paragraph
 xmap <leader>a <Plug>(coc-codeaction-selected)
-nmap <leader>a <Plug>(coc-codeaction-selected)
+" nmap <leader>a <Plug>(coc-codeaction-selected)
 " apply code action to the cursor position
 nmap <leader>a. <Plug>(coc-codeaction-cursor)
 
