@@ -557,7 +557,8 @@ vim.api.nvim_create_autocmd('TermClose', {
 vim.api.nvim_create_user_command('Update',
     function()
         vim.cmd.CocUpdate()
-        vim.cmd.Lazy('update')
+        -- TODO: this fails when running `nvim -c 'Update'` as nvim can't find the `Lazy` command
+        -- vim.cmd.Lazy('update')
         vim.cmd.TSUpdate()
     end, { desc = 'Run all update commands' })
 
