@@ -23,9 +23,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("lazy").setup({
-    rocks = {
-        enabled = false,
-    },
     spec = {
     -- 'jreybert/vimagit'
     -- 'tpope/vim-git',
