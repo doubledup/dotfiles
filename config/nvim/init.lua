@@ -350,7 +350,7 @@ require("lazy").setup({
     --     source ~/.config/nvim/plugs.local.vim
     -- endif
 
-}, {})
+}}, {})
 
 vim.cmd.filetype('plugin indent on')
 vim.cmd.syntax('enable')
