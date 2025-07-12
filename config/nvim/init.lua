@@ -28,178 +28,178 @@ require("lazy").setup({
         frequency = 60 * 60 * 24 * 7,
     },
     spec = {
-    -- 'jreybert/vimagit'
-    -- 'tpope/vim-git',
-    -- 'tpope/vim-rhubarb'
-    'tpope/vim-fugitive',
+        -- 'jreybert/vimagit'
+        -- 'tpope/vim-git',
+        -- 'tpope/vim-rhubarb'
+        'tpope/vim-fugitive',
 
-    {
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            on_attach = function(bufnr)
-                local gitsigns = package.loaded.gitsigns
+        {
+            'lewis6991/gitsigns.nvim',
+            opts = {
+                on_attach = function(bufnr)
+                    local gitsigns = package.loaded.gitsigns
 
-                local function map(mode, l, r, opts)
-                    opts = opts or {}
-                    opts.buffer = bufnr
-                    vim.keymap.set(mode, l, r, opts)
-                end
-
-                -- Navigation
-                map('n', ']d', function()
-                    if vim.wo.diff then
-                        vim.cmd.normal({']d', bang = true})
-                    else
-                        gitsigns.nav_hunk('next')
+                    local function map(mode, l, r, opts)
+                        opts = opts or {}
+                        opts.buffer = bufnr
+                        vim.keymap.set(mode, l, r, opts)
                     end
-                end)
 
-                map('n', '[d', function()
-                  if vim.wo.diff then
-                    vim.cmd.normal({'[d', bang = true})
-                  else
-                    gitsigns.nav_hunk('prev')
-                  end
-                end)
+                    -- Navigation
+                    map('n', ']d', function()
+                        if vim.wo.diff then
+                            vim.cmd.normal({ ']d', bang = true })
+                        else
+                            gitsigns.nav_hunk('next')
+                        end
+                    end)
 
-                -- Actions
-                map('n', '<leader>ga', gitsigns.stage_hunk)
-                map('v', '<leader>ga', function()
-                  gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                end)
-                map('n', '<leader>gr', gitsigns.reset_hunk)
-                map('v', '<leader>gr', function()
-                  gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
-                end)
+                    map('n', '[d', function()
+                        if vim.wo.diff then
+                            vim.cmd.normal({ '[d', bang = true })
+                        else
+                            gitsigns.nav_hunk('prev')
+                        end
+                    end)
 
-                map('n', '<leader>gA', gitsigns.stage_buffer)
-                map('n', '<leader>gR', gitsigns.reset_buffer)
-                map('n', '<leader>gi', gitsigns.preview_hunk_inline)
-                map('n', '<leader>gv', gitsigns.undo_stage_hunk)
+                    -- Actions
+                    map('n', '<leader>ga', gitsigns.stage_hunk)
+                    map('v', '<leader>ga', function()
+                        gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                    end)
+                    map('n', '<leader>gr', gitsigns.reset_hunk)
+                    map('v', '<leader>gr', function()
+                        gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
+                    end)
 
-                -- Text object
-                map({ 'o', 'x' }, 'id', gitsigns.select_hunk)
-            end
-        }
-    },
+                    map('n', '<leader>gA', gitsigns.stage_buffer)
+                    map('n', '<leader>gR', gitsigns.reset_buffer)
+                    map('n', '<leader>gi', gitsigns.preview_hunk_inline)
+                    map('n', '<leader>gv', gitsigns.undo_stage_hunk)
 
-    -- 'williamboman/mason.nvim' -- and
-    -- 'williamboman/mason-lspconfig.nvim' -- and
-    -- 'neovim/nvim-lspconfig'
-    --
-    -- 'ms-jpq/coq_nvim',
-    -- 'autozimu/LanguageClient-neovim',
-    { 'neoclide/coc.nvim', branch = 'release' },
-
-    -- ui
-    {
-        'Luxed/ayu-vim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.o.termguicolors = true
-            vim.o.background = 'dark'
-            vim.g.ayucolor = 'mirage'
-            vim.cmd.colorscheme('ayu')
-        end
-    },
-
-    'folke/which-key.nvim',
-    'junegunn/fzf',
-    'junegunn/fzf.vim',
-    'norcalli/nvim-colorizer.lua',
-    'powerman/vim-plugin-AnsiEsc',
-    'ryanoasis/vim-devicons',
-
-    {
-        -- https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
-        -- 'nvim-lualine/lualine.nvim'
-        'itchyny/lightline.vim',
-        config = function()
-            vim.o.showmode = false
-            vim.g.lightline = {
-                colorscheme = 'ayu_mirage',
-                active = {
-                    left = {
-                        { 'mode',     'paste' },
-                        { 'readonly', 'modified', 'relativepath' },
-                        {},
-                    },
-                    right = {
-                        { 'lineinfo' },
-                        { 'filetype' },
-                        { 'fileformat', 'fileencoding' },
-                    },
-                },
-                inactive = {
-                    left = { { 'relativepath' } },
-                    right = {
-                        { 'lineinfo' },
-                        { 'filetype' },
-                        { 'fileformat', 'fileencoding' },
-                    },
-                },
-                -- component = {},
-                component_function = {
-                    gitbranch = 'LightlineGitHead',
-                    filetype = 'LightlineFiletype',
-                },
-                tab_component_function = {
-                    tabfileicon = 'LightlineTabFileicon',
-                    tabfilename = 'LightlineTabFilename',
-                },
-                tab = {
-                    active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
-                    inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
-                },
-                tabline = {
-                    left = { { 'tabs' } },
-                    right = { { 'gitbranch' } },
-                },
+                    -- Text object
+                    map({ 'o', 'x' }, 'id', gitsigns.select_hunk)
+                end
             }
+        },
 
-            function LightlineGitHead()
-                return ' ' .. vim.fn.FugitiveHead()
+        -- 'williamboman/mason.nvim' -- and
+        -- 'williamboman/mason-lspconfig.nvim' -- and
+        -- 'neovim/nvim-lspconfig'
+        --
+        -- 'ms-jpq/coq_nvim',
+        -- 'autozimu/LanguageClient-neovim',
+        { 'neoclide/coc.nvim', branch = 'release' },
+
+        -- ui
+        {
+            'Luxed/ayu-vim',
+            lazy = false,
+            priority = 1000,
+            config = function()
+                vim.o.termguicolors = true
+                vim.o.background = 'dark'
+                vim.g.ayucolor = 'mirage'
+                vim.cmd.colorscheme('ayu')
             end
+        },
 
-            function LightlineFiletype()
-                if vim.fn.winwidth(0) > 70 then
-                    if #vim.bo.filetype > 0 then
-                        return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+        'folke/which-key.nvim',
+        'junegunn/fzf',
+        'junegunn/fzf.vim',
+        'norcalli/nvim-colorizer.lua',
+        'powerman/vim-plugin-AnsiEsc',
+        'ryanoasis/vim-devicons',
+
+        {
+            -- https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
+            -- 'nvim-lualine/lualine.nvim'
+            'itchyny/lightline.vim',
+            config = function()
+                vim.o.showmode = false
+                vim.g.lightline = {
+                    colorscheme = 'ayu_mirage',
+                    active = {
+                        left = {
+                            { 'mode',     'paste' },
+                            { 'readonly', 'modified', 'relativepath' },
+                            {},
+                        },
+                        right = {
+                            { 'lineinfo' },
+                            { 'filetype' },
+                            { 'fileformat', 'fileencoding' },
+                        },
+                    },
+                    inactive = {
+                        left = { { 'relativepath' } },
+                        right = {
+                            { 'lineinfo' },
+                            { 'filetype' },
+                            { 'fileformat', 'fileencoding' },
+                        },
+                    },
+                    -- component = {},
+                    component_function = {
+                        gitbranch = 'LightlineGitHead',
+                        filetype = 'LightlineFiletype',
+                    },
+                    tab_component_function = {
+                        tabfileicon = 'LightlineTabFileicon',
+                        tabfilename = 'LightlineTabFilename',
+                    },
+                    tab = {
+                        active = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+                        inactive = { 'tabfileicon', 'tabnum', 'readonly', 'tabfilename', 'modified' },
+                    },
+                    tabline = {
+                        left = { { 'tabs' } },
+                        right = { { 'gitbranch' } },
+                    },
+                }
+
+                function LightlineGitHead()
+                    return ' ' .. vim.fn.FugitiveHead()
+                end
+
+                function LightlineFiletype()
+                    if vim.fn.winwidth(0) > 70 then
+                        if #vim.bo.filetype > 0 then
+                            return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+                        else
+                            return 'no ft'
+                        end
                     else
-                        return 'no ft'
+                        return ''
                     end
-                else
-                    return ''
                 end
-            end
 
-            function LightlineTabFileicon(tabnum)
-                local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-                if bufnr then
-                    return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
-                else
-                    return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
+                function LightlineTabFileicon(tabnum)
+                    local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+                    if bufnr then
+                        return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
+                    else
+                        return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
+                    end
                 end
-            end
 
-            function CwdTrimmed(cwd)
-                local home = os.getenv('HOME')
-                cwd = cwd:gsub(home, '~')
-                return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
-            end
-
-            function LightlineTabFilename(tabnum)
-                local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-                if bufnr then
-                    local filename = vim.fn.bufname(bufnr)
-                    return CwdTrimmed(filename)
-                else
-                    return ''
+                function CwdTrimmed(cwd)
+                    local home = os.getenv('HOME')
+                    cwd = cwd:gsub(home, '~')
+                    return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
                 end
-            end
 
-            vim.cmd [[
+                function LightlineTabFilename(tabnum)
+                    local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
+                    if bufnr then
+                        local filename = vim.fn.bufname(bufnr)
+                        return CwdTrimmed(filename)
+                    else
+                        return ''
+                    end
+                end
+
+                vim.cmd [[
             function! LightlineGitHead()
                 return luaeval('LightlineGitHead()', {})
             endfunction
@@ -213,144 +213,145 @@ require("lazy").setup({
                 return luaeval('LightlineTabFilename(_A.tabnum)', {'tabnum': a:tabnum})
             endfunction
             ]]
-        end
-    },
-
-    -- less jank: nvim-neo-tree/neo-tree.nvim
-    -- edit filesystem in buffer: stevearc/oil.nvim
-    'nvim-tree/nvim-tree.lua',
-    'nvim-tree/nvim-web-devicons',
-
-    -- editing
-    'andrewradev/linediff.vim',
-    { 'smoka7/hop.nvim', opts = {}, },
-    'honza/vim-snippets',
-
-    {
-        "jpalardy/vim-slime",
-        init = function()
-            vim.g.slime_no_mappings = 1
-        end
-    },
-
-    'mizlan/iswap.nvim',
-    { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
-
-    {
-        'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate',
-        config = function()
-            require('nvim-treesitter.configs').setup({
-                ensure_installed = {
-                    -- languages
-                    'c', 'commonlisp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'java',
-                    'javascript', 'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby',
-                    'rust', 'tsx', 'typescript', 'zig',
-                    -- version control
-                    'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
-                    -- web
-                    'css', 'html', 'http',
-                    -- config
-                    'hcl', 'ini', 'json', 'jsonc', 'nix', 'terraform', 'toml', 'yaml', 'xml',
-                    -- scripting
-                    'bash', 'fish', 'jq', 'lua', 'vim',
-                    -- queries
-                    'graphql', 'regex', 'sql',
-                    -- docs 'help',
-                    'markdown', 'rst'
-                },
-
-                sync_install = false,
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = false,
-                },
-                indent = {
-                    enable = true,
-                    disable = { 'python' },
-                },
-            })
-        end,
-    },
-
-    {
-        "olimorris/codecompanion.nvim",
-        opts = {},
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
+            end
         },
-    },
 
-    'pbrisbin/vim-mkdir',
-    'raimondi/delimitmate',
-    'tpope/vim-abolish',
-    'tpope/vim-obsession',
-    'tpope/vim-repeat',
-    'tpope/vim-sleuth',
-    'tpope/vim-surround',
-    'tpope/vim-unimpaired',
-    'wellle/targets.vim',
+        -- less jank: nvim-neo-tree/neo-tree.nvim
+        -- edit filesystem in buffer: stevearc/oil.nvim
+        'nvim-tree/nvim-tree.lua',
+        'nvim-tree/nvim-web-devicons',
 
-    -- included for folding
-    -- 'preservim/vim-markdown',
-    -- 'elixir-tools/elixir-tools.nvim'
-    {
-        'fatih/vim-go', build = ':GoUpdateBinaries'
-    },
-    'ChrisWellsWood/roc.vim',
+        -- editing
+        'andrewradev/linediff.vim',
+        { 'smoka7/hop.nvim',   opts = {}, },
+        'honza/vim-snippets',
 
-    -- as needed
-    -- 'dstein64/vim-startuptime',
-    -- 'mattn/emmet-vim',
-    -- 'tpope/vim-dadbod',
-    -- 'lervag/vimtex', let g:tex_flavor = 'latex'
+        {
+            "jpalardy/vim-slime",
+            init = function()
+                vim.g.slime_no_mappings = 1
+            end
+        },
 
-    -- new plugins to try
+        'mizlan/iswap.nvim',
+        { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
 
-    -- {
-    --     'nvim-telescope/telescope.nvim',
-    --     branch = '0.1.x',
-    --     dependencies = { 'nvim-lua/plenary.nvim' }
-    -- }
+        {
+            'nvim-treesitter/nvim-treesitter',
+            build = ':TSUpdate',
+            config = function()
+                require('nvim-treesitter.configs').setup({
+                    ensure_installed = {
+                        -- languages
+                        'c', 'commonlisp', 'dockerfile', 'eex', 'elixir', 'elm', 'erlang', 'java',
+                        'javascript', 'jsdoc', 'go', 'gomod', 'gowork', 'heex', 'python', 'ruby',
+                        'rust', 'tsx', 'typescript', 'zig',
+                        -- version control
+                        'diff', 'git_rebase', 'gitattributes', 'gitcommit', 'gitignore',
+                        -- web
+                        'css', 'html', 'http',
+                        -- config
+                        'hcl', 'ini', 'json', 'jsonc', 'nix', 'terraform', 'toml', 'yaml', 'xml',
+                        -- scripting
+                        'bash', 'fish', 'jq', 'lua', 'vim',
+                        -- queries
+                        'graphql', 'regex', 'sql',
+                        -- docs 'help',
+                        'markdown', 'rst'
+                    },
 
-    -- 'iamcco/markdown-preview.nvim'
-    -- 'tpope/vim-rsi'
-    -- 'mbbill/undotree',
-    -- 'her/central.vim',
-    -- 'mfussenegger/nvim-dap',
-    -- 'ThePrimeagen/harpoon',
-    -- 'folke/trouble.nvim',
-    -- 'tpope/vim-dispatch',
-    -- 'janko-m/vim-test',
-    -- 'tpope/projectionist',
-    -- { 'codota/tabnine-nvim', build = './dl_binaries.sh' },
-    -- 'jameshiew/nvim-magic',
-    -- 'rest-nvim/rest.nvim',
-    -- 'kana/vim-textobj-entire',
-    -- 'kana/vim-textobj-user',
-    -- 'michaeljsmith/vim-indent-object',
-    -- { 'glacambre/firenvim', build = function() return vim.fn.firenvim.install(0) end },
+                    sync_install = false,
+                    highlight = {
+                        enable = true,
+                        additional_vim_regex_highlighting = false,
+                    },
+                    indent = {
+                        enable = true,
+                        disable = { 'python' },
+                    },
+                })
+            end,
+        },
 
-    -- 'tpope/vim-afterimage',
-    -- 'tpope/vim-eunuch',
-    -- 'folke/todo-comments.nvim',
-    -- 'wfxr/minimap.vim',
-    -- 'kannokanno/previm',
-    -- 'nathom/filetype.nvim',
-    -- 'APZelos/blamer.nvim',
-    -- 'f-person/git-blame.nvim',
-    -- 'sjl/gundo.vim',
-    -- 'Konfekt/FastFold',
+        {
+            "olimorris/codecompanion.nvim",
+            opts = {},
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-treesitter/nvim-treesitter",
+            },
+        },
 
-    -- if !empty(glob('~/.config/nvim/plugs.os.vim'))
-    --     source ~/.config/nvim/plugs.os.vim
-    -- endif
-    -- if !empty(glob('~/.config/nvim/plugs.local.vim'))
-    --     source ~/.config/nvim/plugs.local.vim
-    -- endif
+        'pbrisbin/vim-mkdir',
+        'raimondi/delimitmate',
+        'tpope/vim-abolish',
+        'tpope/vim-obsession',
+        'tpope/vim-repeat',
+        'tpope/vim-sleuth',
+        'tpope/vim-surround',
+        'tpope/vim-unimpaired',
+        'wellle/targets.vim',
 
-}}, {})
+        -- included for folding
+        -- 'preservim/vim-markdown',
+        -- 'elixir-tools/elixir-tools.nvim'
+        {
+            'fatih/vim-go', build = ':GoUpdateBinaries'
+        },
+        'ChrisWellsWood/roc.vim',
+
+        -- as needed
+        -- 'dstein64/vim-startuptime',
+        -- 'mattn/emmet-vim',
+        -- 'tpope/vim-dadbod',
+        -- 'lervag/vimtex', let g:tex_flavor = 'latex'
+
+        -- new plugins to try
+
+        -- {
+        --     'nvim-telescope/telescope.nvim',
+        --     branch = '0.1.x',
+        --     dependencies = { 'nvim-lua/plenary.nvim' }
+        -- }
+
+        -- 'iamcco/markdown-preview.nvim'
+        -- 'tpope/vim-rsi'
+        -- 'mbbill/undotree',
+        -- 'her/central.vim',
+        -- 'mfussenegger/nvim-dap',
+        -- 'ThePrimeagen/harpoon',
+        -- 'folke/trouble.nvim',
+        -- 'tpope/vim-dispatch',
+        -- 'janko-m/vim-test',
+        -- 'tpope/projectionist',
+        -- { 'codota/tabnine-nvim', build = './dl_binaries.sh' },
+        -- 'jameshiew/nvim-magic',
+        -- 'rest-nvim/rest.nvim',
+        -- 'kana/vim-textobj-entire',
+        -- 'kana/vim-textobj-user',
+        -- 'michaeljsmith/vim-indent-object',
+        -- { 'glacambre/firenvim', build = function() return vim.fn.firenvim.install(0) end },
+
+        -- 'tpope/vim-afterimage',
+        -- 'tpope/vim-eunuch',
+        -- 'folke/todo-comments.nvim',
+        -- 'wfxr/minimap.vim',
+        -- 'kannokanno/previm',
+        -- 'nathom/filetype.nvim',
+        -- 'APZelos/blamer.nvim',
+        -- 'f-person/git-blame.nvim',
+        -- 'sjl/gundo.vim',
+        -- 'Konfekt/FastFold',
+
+        -- if !empty(glob('~/.config/nvim/plugs.os.vim'))
+        --     source ~/.config/nvim/plugs.os.vim
+        -- endif
+        -- if !empty(glob('~/.config/nvim/plugs.local.vim'))
+        --     source ~/.config/nvim/plugs.local.vim
+        -- endif
+
+    }
+}, {})
 
 vim.cmd.filetype('plugin indent on')
 vim.cmd.syntax('enable')
@@ -514,7 +515,7 @@ vim.keymap.set('n', '<leader><leader>.', ':so %<cr>')
 -- clipboard
 -- Sync clipboard between OS and Neovim.
 -- Schedule the setting after `UiEnter` because it can increase startup time.
-vim.schedule(function ()
+vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
 -- copy filename to system clipboard
