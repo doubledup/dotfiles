@@ -163,11 +163,11 @@ function multicd
 end
 abbr --add dotdot --regex '^\.\.+$' --function multicd
 
-set fish_prompt_pwd_full_dirs 3
+set fish_prompt_pwd_full_dirs 2
 function fish_title
     set -q argv[1]; or set argv fish
-    echo (string trim $argv): (prompt_pwd)
-
+    set command_name (string split ' ' $argv[1])[1]
+    echo $command_name:(prompt_pwd | xargs basename)
 end
 
 # Key bindings
