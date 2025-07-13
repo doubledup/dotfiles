@@ -406,8 +406,6 @@ vim.o.smartcase = true
 vim.opt.iskeyword:prepend('-')
 -- drop forward jumplist locations when moving to a new location
 vim.opt.jumpoptions:append('stack')
--- don't redraw while executing commands & using registers
-vim.o.lazyredraw = true
 -- ignore modelines due to security concerns
 vim.o.modeline = false
 vim.o.modelines = 0
