@@ -205,7 +205,7 @@ require('lazy').setup({
                 function CwdTrimmed(cwd)
                     local home = os.getenv('HOME')
                     cwd = cwd:gsub(home, '~')
-                    return cwd:gsub('.*/([^/]*/[^/]*/[^/]*/[^/]*)$', '%1')
+                    return cwd:gsub('.*/([^/]*/[^/]*/[^/]*)$', '%1')
                 end
 
                 function LightlineTabFilename(tabnum)
