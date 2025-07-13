@@ -725,10 +725,10 @@ vim.keymap.set('v', 's', function()
     hop.hint_char2({ inclusive_jump = true })
 end)
 local directions = require('hop.hint').HintDirection
-vim.keymap.set('', 'z', function()
+vim.keymap.set('o', 'z', function()
     hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
 end, { remap = true })
-vim.keymap.set('', 'Z', function()
+vim.keymap.set('o', 'Z', function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, { remap = true })
 
