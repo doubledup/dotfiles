@@ -1,1 +1,1 @@
-nnoremap <buffer> <leader>m :!plantuml %<cr>
+" nnoremap <buffer> <leader>m :!plantuml %<cr>

@@ -1,1 +1,1 @@
-nnoremap <buffer> <leader>m :!pdflatex %<cr>
+" nnoremap <buffer> <leader>m :!pdflatex %<cr>
