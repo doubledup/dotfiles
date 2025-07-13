@@ -271,7 +271,7 @@ require('lazy').setup({
                         -- queries
                         'graphql', 'regex', 'sql',
                         -- docs 'help',
-                        'markdown', 'rst'
+                        'markdown', 'markdown_inline', 'rst'
                     },
 
                     sync_install = false,
