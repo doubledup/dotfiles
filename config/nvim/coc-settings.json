@@ -123,9 +123,9 @@
     ],
     "java.format.enabled": false,
     // "java.import.generatesMetadataFilesAtProjectRoot": false,
-    // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx8G -Xms100m -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
-    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx10G -Xms1G -Xlog:disable -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
-    // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -Xmx10G -Xms1G -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
+    // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx8G -Xms100m -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar",
+    "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx10G -Xms1G -Xlog:disable -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar",
+    // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -Xmx10G -Xms1G -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar",
     "Lua.diagnostics.globals": [
         "vim"
     ],
