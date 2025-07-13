@@ -521,11 +521,11 @@ vim.keymap.set('n', '<ScrollWheelUp>', '<c-y>')
 vim.keymap.set('n', '<ScrollWheelDown>', '<c-e>')
 
 if vim.g.neovide then
-    vim.o.guifont = 'Hack Nerd Font:h13'
-    vim.g.neovide_scroll_animation_length = 0.09
-    vim.g.neovide_cursor_animation_length = 0.09
+    vim.o.guifont = 'Hack Nerd Font:h14'
+    vim.g.neovide_scroll_animation_length = 0.2
+    -- vim.g.neovide_cursor_animation_length = 0.09
     vim.g.neovide_refresh_rate_idle = 1
-    vim.g.neovide_input_macos_alt_is_meta = true
+    vim.g.neovide_input_macos_option_key_is_meta = true
     vim.g.neovide_cursor_vfx_mode = 'ripple'
     vim.keymap.set('', '<D-n>', ':silent !neovide --multigrid&<cr>')
 end
