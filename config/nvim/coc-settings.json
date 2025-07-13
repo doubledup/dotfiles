@@ -93,6 +93,13 @@
             "filetypes": [
                 "solidity"
             ]
+        },
+        "terraform": {
+            "command": "terraform-ls",
+            "args": [
+                "serve"
+            ],
+            "filetypes": ["terraform"]
         }
     },
     "eslint.packageManager": "npm",
