@@ -147,7 +147,7 @@ require('lazy').setup({
                         },
                         right = {
                             { 'lineinfo' },
-                            { 'filetype' },
+                            { 'filetype', 'gitbranch' },
                             { 'fileformat', 'fileencoding' },
                         },
                     },
@@ -156,7 +156,7 @@ require('lazy').setup({
                         right = {
                             { 'lineinfo' },
                             { 'filetype' },
-                            { 'fileformat', 'fileencoding' },
+                            {},
                         },
                     },
                     -- component = {},
@@ -174,7 +174,6 @@ require('lazy').setup({
                     },
                     tabline = {
                         left = { { 'tabs' } },
-                        right = { { 'gitbranch' } },
                     },
                 }
 
