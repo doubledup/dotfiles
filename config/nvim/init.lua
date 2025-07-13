@@ -293,12 +293,27 @@ require('lazy').setup({
             end,
         },
 
+        { 'zbirenbaum/copilot.lua', opts = {} },
         {
             'olimorris/codecompanion.nvim',
-            opts = {},
             dependencies = {
                 'nvim-lua/plenary.nvim',
                 'nvim-treesitter/nvim-treesitter',
+            },
+            opts = {
+                adapters = {
+                    copilot = function ()
+                        return require('codecompanion.adapters').extend('copilot', {
+                            schema = {
+                                model = {
+                                    default = function ()
+                                        return 'claude-sonnet-4'
+                                    end
+                                }
+                            }
+                        })
+                    end
+                }
             },
         },
 
