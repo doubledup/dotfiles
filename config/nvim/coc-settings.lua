@@ -117,37 +117,35 @@ keyset("o", "ic", "<Plug>(coc-classobj-i)", opts)
 keyset("x", "ac", "<Plug>(coc-classobj-a)", opts)
 keyset("o", "ac", "<Plug>(coc-classobj-a)", opts)
 
--- Remap <c-e> and <c-y> to scroll float windows/popups
+-- Remap <c-f> and <c-b> to scroll float windows/popups
 ---@diagnostic disable-next-line: redefined-local
 local opts = { silent = true, nowait = true, expr = true }
 local scroll_length = 10
-keyset('n', '<c-e>',
-    string.format('coc#float#has_scroll() ? coc#float#scroll(1, %d) : %d"<C-f>"',
+keyset('n', '<c-f>',
+    string.format('coc#float#has_scroll() ? coc#float#scroll(1, %d) : "<c-f>"',
+        scroll_length
+    ), opts)
+keyset('n', '<c-b>',
+        string.format('coc#float#has_scroll() ? coc#float#scroll(0, %d) : "<c-b>"',
+        scroll_length
+    ), opts)
+keyset('i', '<c-f>',
+    string.format('coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1, %d)<cr>" : "<right>"',
         scroll_length,
         scroll_length
     ), opts)
-keyset('n', '<c-y>',
-        string.format('coc#float#has_scroll() ? coc#float#scroll(0, %d) : %d"<C-b>"',
+keyset('i', '<c-b>',
+        string.format('coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0, %d)<cr>" : "<left>"',
         scroll_length,
         scroll_length
     ), opts)
-keyset('i', '<c-e>',
-    string.format('coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1, %d)<cr>" : %d"<right>"',
+keyset('v', '<c-f>',
+    string.format('coc#float#has_scroll() ? coc#float#scroll(1, %d) : "<c-f>"',
         scroll_length,
         scroll_length
     ), opts)
-keyset('i', '<c-y>',
-        string.format('coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0, %d)<cr>" : %d"<left>"',
-        scroll_length,
-        scroll_length
-    ), opts)
-keyset('v', '<c-e>',
-    string.format('coc#float#has_scroll() ? coc#float#scroll(1, %d) : %d"<C-f>"',
-        scroll_length,
-        scroll_length
-    ), opts)
-keyset('v', '<c-y>',
-        string.format('coc#float#has_scroll() ? coc#float#scroll(0, %d) : %d"<C-b>"',
+keyset('v', '<c-b>',
+        string.format('coc#float#has_scroll() ? coc#float#scroll(0, %d) : "<c-b>"',
         scroll_length,
         scroll_length
     ), opts)

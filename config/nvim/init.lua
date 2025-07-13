@@ -22,6 +22,9 @@ vim.g.mapleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- disable slime default mappings: must run before slime loads
+vim.g.slime_no_mappings = 1
+
 require('lazy').setup({
     checker = {
         enabled = true,
@@ -248,12 +251,7 @@ require('lazy').setup({
         { 'smoka7/hop.nvim',   opts = {}, },
         'honza/vim-snippets',
 
-        {
-            'jpalardy/vim-slime',
-            init = function()
-                vim.g.slime_no_mappings = 1
-            end
-        },
+        'jpalardy/vim-slime',
 
         'mizlan/iswap.nvim',
         { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
@@ -779,7 +777,7 @@ vim.keymap.set('n', '<leader>st', ':Obsession<cr>')
 vim.keymap.set('n', '<leader>sl', ':source Session.vim<cr>')
 
 -- slime
-vim.g.slime_target = 'neovim'
+vim.g.slime_target = 'kitty'
 vim.g.slime_no_mappings = 1
 vim.keymap.set('n', '<leader>tc', '<plug>SlimeConfig')
 vim.keymap.set('n', '<leader>tx', '<plug>SlimeMotionSend')
