@@ -809,9 +809,9 @@ vim.keymap.set('n', ']22', 'VU!!sed -E \'s/(.*)/ibase=2;\\1/\' | bc<cr>')
 vim.keymap.set('v', '[2', 'Ugv"zc<c-r>=system("echo \'obase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
 vim.keymap.set('v', ']2', 'Ugv"zc<c-r>=system("echo \'ibase=2;<c-r>z\' | bc | tr -d \'\\n\'")<cr><esc>')
 
-local coc_settings = vim.fn.expand('~/.config/nvim/coc-settings.vim')
+local coc_settings = vim.fn.stdpath('config') .. '/coc-settings.lua'
 if vim.fn.filereadable(coc_settings) == 1 then
-    vim.cmd.source(coc_settings)
+    vim.cmd('luafile ' .. coc_settings)
 end
 local os_settings = vim.fn.expand('~/.config/nvim/init.os.vim')
 if vim.fn.filereadable(os_settings) == 1 then
