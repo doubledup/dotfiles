@@ -22,7 +22,8 @@ cargo install \
     cargo-outdated \
     cargo-show-asm \
     cargo-watch \
-    speedtest-rs
+    speedtest-rs \
+    zeitfetch
 
 echo 'tldr:'
 tldr --update
