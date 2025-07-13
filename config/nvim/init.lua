@@ -122,14 +122,15 @@ require('lazy').setup({
         {
             'folke/snacks.nvim',
             opts = {
-                bigfile = {}
-            }
+                bigfile = {},
+            },
         },
         'folke/which-key.nvim',
         'junegunn/fzf',
         'junegunn/fzf.vim',
         'norcalli/nvim-colorizer.lua',
-        'powerman/vim-plugin-AnsiEsc',
+        -- TODO: disable <leader>rwp
+        -- 'powerman/vim-plugin-AnsiEsc',
         'ryanoasis/vim-devicons',
 
         {
@@ -489,6 +490,7 @@ vim.keymap.set('x', 'g<c-s>', '"zy:%s/\\V<c-r>z/<c-r>z/gcI<left><left><left><lef
 -- clear highlights
 vim.keymap.set('n', '<esc>', function()
     vim.cmd.nohlsearch()
+    -- TODO: dismiss gitsigns inline diff. Use kj for now.
     vim.cmd.echo()
 end, { remap = false })
 
