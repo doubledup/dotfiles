@@ -711,12 +711,22 @@ vim.g.go_gopls_enabled = 0
 -- hop
 local hop = require('hop')
 vim.keymap.set('n', 's', function() hop.hint_char2() end)
-vim.keymap.set('o', 'z', function()
-    hop.hint_char1({ current_line_only = true, inclusive_jump = true })
-end)
-vim.keymap.set('v', 'z', function()
+vim.keymap.set('v', 's', function()
     hop.hint_char2({ inclusive_jump = true })
 end)
+local directions = require('hop.hint').HintDirection
+vim.keymap.set('', 'f', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('', 'F', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('', 't', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+end, {remap=true})
+vim.keymap.set('', 'T', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+end, {remap=true})
 
 -- iswap
 vim.keymap.set('n', '<leader>h', ':ISwapNodeWithLeft<cr>')
