@@ -37,11 +37,6 @@ local keyset = vim.keymap.set
 -- Use <c-space> to trigger completion
 keyset("i", "<c-space>", "coc#refresh()", { silent = true, expr = true })
 
-local opts = { silent = true, noremap = true, expr = true, replace_keycodes = false }
-keyset('i', '<c-n>', 'coc#pum#visible() ? coc#pum#next(1) : coc#refresh()', opts)
-keyset('i', '<c-p>', 'coc#pum#visible() ? coc#pum#prev(1) : ""', opts)
-keyset('i', '<c-y>', 'coc#pum#visible() ? coc#pum#confirm() : ""', opts)
-keyset('i', '<c-c>', 'coc#pum#visible() ? coc#pum#cancel() : "<esc>"', opts)
 vim.g.coc_snippet_next = '<tab>'
 vim.g.coc_snippet_prev = '<s-tab>'
 
