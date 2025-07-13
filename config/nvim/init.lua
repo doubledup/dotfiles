@@ -35,6 +35,8 @@ require('lazy').setup({
         -- 'tpope/vim-git',
         -- 'tpope/vim-rhubarb'
         'tpope/vim-fugitive',
+        -- Github code reviews
+        -- pwntester/octo.nvim
 
         {
             'lewis6991/gitsigns.nvim',
@@ -147,7 +149,7 @@ require('lazy').setup({
                         },
                         right = {
                             { 'lineinfo' },
-                            { 'filetype', 'gitbranch' },
+                            { 'filetype',   'gitbranch' },
                             { 'fileformat', 'fileencoding' },
                         },
                     },
@@ -248,7 +250,7 @@ require('lazy').setup({
         'jpalardy/vim-slime',
 
         'mizlan/iswap.nvim',
-        { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
+        { 'numToStr/Comment.nvim',  opts = {}, lazy = false, },
 
         {
             'nvim-treesitter/nvim-treesitter',
@@ -296,11 +298,11 @@ require('lazy').setup({
             },
             opts = {
                 adapters = {
-                    copilot = function ()
+                    copilot = function()
                         return require('codecompanion.adapters').extend('copilot', {
                             schema = {
                                 model = {
-                                    default = function ()
+                                    default = function()
                                         return 'claude-sonnet-4'
                                     end
                                 }
