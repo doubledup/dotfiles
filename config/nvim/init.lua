@@ -99,12 +99,7 @@ require('lazy').setup({
             'Luxed/ayu-vim',
             lazy = false,
             priority = 1000,
-            config = function()
-                vim.o.termguicolors = true
-                vim.o.background = 'dark'
-                vim.g.ayucolor = 'mirage'
-                vim.cmd.colorscheme('ayu')
-            end
+            config = function() end
         },
 
         {
@@ -448,6 +443,7 @@ vim.keymap.set('c', '<c-b>', '<space><bs><right>')
 -- vim.g.did_load_filetypes = 0
 
 vim.o.termguicolors = true
+vim.o.background = 'dark'
 vim.g.ayucolor = 'mirage'
 vim.cmd.colorscheme('ayu')
 
