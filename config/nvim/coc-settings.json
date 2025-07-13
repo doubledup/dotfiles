@@ -40,9 +40,8 @@
             ]
         },
         "google-java-format": {
-            "command": "google-java-format",
+            "command": "google-java-format_darwin-arm64",
             "args": [
-                "--skip-javadoc-formatting",
                 "%file"
             ]
         },
@@ -104,8 +103,19 @@
         }
     ],
     "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-21",
+            "path": "/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home/",
+            "default": true
+        },
+        {
+            "name": "JavaSE-11",
+            "path": "/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home/"
+        }
+    ],
     "java.format.enabled": false,
-    "java.import.generatesMetadataFilesAtProjectRoot": false,
+    // "java.import.generatesMetadataFilesAtProjectRoot": false,
     // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx8G -Xms100m -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
     "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Xmx10G -Xms1G -Xlog:disable -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
     // "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=50 -XX:+UseStringDeduplication -XX:+OptimizeStringConcat -Xmx10G -Xms1G -Xlog:disable -javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar",
