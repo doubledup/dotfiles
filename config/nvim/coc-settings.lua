@@ -117,7 +117,7 @@ keyset("o", "ac", "<Plug>(coc-classobj-a)", opts)
 -- Remap <c-f> and <c-b> to scroll float windows/popups
 ---@diagnostic disable-next-line: redefined-local
 local opts = { silent = true, nowait = true, expr = true }
-local scroll_length = 10
+local scroll_length = 5
 keyset('n', '<c-f>',
     string.format('coc#float#has_scroll() ? coc#float#scroll(1, %d) : "<c-f>"',
         scroll_length
