@@ -463,6 +463,9 @@ vim.keymap.set('n', '<c-j>', '<c-w>j')
 vim.keymap.set('n', '<c-k>', '<c-w>k')
 vim.keymap.set('n', '<c-l>', '<c-w>l')
 
+vim.keymap.set('n', '<c-e>', '5<c-e>')
+vim.keymap.set('n', '<c-y>', '5<c-y>')
+
 -- horizontal scrolling
 vim.keymap.set('n', 'zh', '40zh', { remap = false })
 vim.keymap.set('n', 'zl', '40zl', { remap = false })
