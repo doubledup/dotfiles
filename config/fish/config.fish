@@ -188,11 +188,11 @@ function launch_editor
 end
 bind \co launch_editor
 
-bind \ea 'echo; ls -al; commandline -f repaint'
+bind \ea 'echo; ls -al; echo; commandline -f repaint'
 
 # git
-bind \cs 'echo; git status; commandline -f repaint'
-bind \cg 'git diff; commandline -f repaint'
+bind \cs 'echo; git status; echo; commandline -f repaint'
+bind \cg 'git diff'
 
 # Pass previous args to different command
 bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
