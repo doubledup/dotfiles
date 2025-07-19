@@ -221,19 +221,19 @@ require('lazy').setup({
                 end
 
                 vim.cmd [[
-            function! LightlineGitHead()
-                return luaeval('LightlineGitHead()', {})
-            endfunction
-            function! LightlineFiletype()
-                return luaeval('LightlineFiletype()', {})
-            endfunction
-            function! LightlineTabFileicon(tabnum)
-                return luaeval('LightlineTabFileicon(_A.tabnum)', {'tabnum': a:tabnum})
-            endfunction
-            function! LightlineTabFilename(tabnum)
-                return luaeval('LightlineTabFilename(_A.tabnum)', {'tabnum': a:tabnum})
-            endfunction
-            ]]
+                    function! LightlineGitHead()
+                        return luaeval('LightlineGitHead()', {})
+                    endfunction
+                    function! LightlineFiletype()
+                        return luaeval('LightlineFiletype()', {})
+                    endfunction
+                    function! LightlineTabFileicon(tabnum)
+                        return luaeval('LightlineTabFileicon(_A.tabnum)', {'tabnum': a:tabnum})
+                    endfunction
+                    function! LightlineTabFilename(tabnum)
+                        return luaeval('LightlineTabFilename(_A.tabnum)', {'tabnum': a:tabnum})
+                    endfunction
+                ]]
             end
         },
 
