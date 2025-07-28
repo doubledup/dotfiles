@@ -21,7 +21,11 @@
                 "endLine": "locations[0].physicalLocation.region.endLine",
                 "column": "locations[0].physicalLocation.region.startColumn",
                 "endColumn": "locations[0].physicalLocation.region.endColumn",
+                "security": "level",
                 "message": "${message.markdown}"
+            },
+            "securities": {
+                "error": "error"
             }
         }
     },
