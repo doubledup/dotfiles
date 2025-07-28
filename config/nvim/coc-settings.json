@@ -26,9 +26,6 @@
         }
     },
     "diagnostic-languageserver.formatFiletypes": {
-        "*": [
-            "typos"
-        ],
         "fish": "fish_indent",
         "java": "google-java-format"
     },

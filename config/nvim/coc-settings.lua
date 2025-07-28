@@ -28,7 +28,6 @@ vim.g.coc_global_extensions = {
   'coc-sql',
   'coc-terraform',
   -- 'coc-tsserver',
-  'coc-typos',
   'coc-yaml',
   'coc-xml',
   -- 'coc-zig',
