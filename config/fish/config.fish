@@ -3,15 +3,12 @@
 # Environment variables
 
 set -x BAT_PAGER "less $LESS"
-# ayu-mirage theme from
-# https://github.com/alin23/ayu/blob/0c5d548909bee59ced21a1a471bfb3b36bd02141/ayu-mirage.tmTheme
 set -x BAT_THEME ayu-mirage
 set -x BAT_STYLE changes,header-filename
 
 set -x EDITOR nvim
 
 set -U fish_greeting
-
 # TODO: set up an fzf history file
 # set FZF_HISTORY_FILE '~/.local/share/fzf/fzf_history'
 # --history $FZF_HISTORY_FILE
@@ -30,12 +27,12 @@ set FZF_KEYBINDINGS (string join "," -- \
     "alt-o:toggle-preview" \
     "alt-h:reload($FZF_DEFAULT_COMMAND --no-ignore-vcs)" \
     "alt-a:reload($FZF_DEFAULT_COMMAND --ignore-vcs)" \
-    "ctrl-n:half-page-down" \
-    "ctrl-p:half-page-up" \
-    "alt-n:preview-half-page-down" \
-    "alt-p:preview-half-page-up" \
-    "alt-j:preview-down" \
-    "alt-k:preview-up" \
+    "ctrl-j:half-page-down" \
+    "ctrl-k:half-page-up" \
+    "alt-j:preview-half-page-down" \
+    "alt-k:preview-half-page-up" \
+    "alt-n:preview-down" \
+    "alt-p:preview-up" \
     "ctrl-r:next-history" \
     "ctrl-s:prev-history" \
     # "$FZF_PREVIEW_WINDOW_HOR_CHANGE" \
