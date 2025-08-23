@@ -29,7 +29,9 @@ echo 'tldr:'
 tldr --update
 
 echo 'nvim:'
-nvim -c 'Update' -c 'qa'
+nvim --headless +CocUpdateSync +qa
+nvim --headless +TSUpdateSync +qa
+nvim --headless "+Lazy! sync" +qa
 
 echo 'softwareupdate:'
 sudo softwareupdate -ir

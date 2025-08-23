@@ -595,12 +595,6 @@ vim.api.nvim_create_autocmd('TermClose', {
 
 -- commands & augroups
 
-vim.api.nvim_create_user_command('Update',
-    function()
-        vim.cmd.CocUpdate()
-        vim.cmd.TSUpdate()
-    end, { desc = 'Run all update commands' })
-
 vim.api.nvim_create_user_command('BuffersDeleteHidden',
     function()
         local shownBuffers = {}
