@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 abbr g git
 abbr gst 'git status'
 abbr gf 'git fetch'

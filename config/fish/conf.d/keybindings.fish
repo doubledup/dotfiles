@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 bind \ea 'echo; ls -al; echo; commandline -f repaint'
 
 # pass previous args to different command

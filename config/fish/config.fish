@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 # Environment variables
 
 set -x BAT_PAGER "less $LESS"

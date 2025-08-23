@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 abbr :q exit
 abbr --position command - 'cd -'
 abbr --position command cdtemp 'cd (mktemp -d)'

@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 function extract --description "Extract any archive"
     switch $argv[1]
         case "*.tar.bz2"

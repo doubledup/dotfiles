@@ -1,5 +1,3 @@
-#!/usr/bin/env fish
-
 # TODO: set up an fzf history file
 # set FZF_HISTORY_FILE '~/.local/share/fzf/fzf_history'
 # --history $FZF_HISTORY_FILE
