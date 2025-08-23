@@ -25,6 +25,9 @@ vim.g.loaded_netrwPlugin = 1
 -- disable slime default mappings: must run before slime loads
 vim.g.slime_no_mappings = 1
 
+-- set termguicolors here for norcalli/nvim-colorizer.lua
+vim.o.termguicolors = true
+
 require('lazy').setup({
     checker = {
         enabled = true,
@@ -250,7 +253,7 @@ require('lazy').setup({
         'jpalardy/vim-slime',
 
         'mizlan/iswap.nvim',
-        { 'numToStr/Comment.nvim',  opts = {}, lazy = false, },
+        { 'numToStr/Comment.nvim', opts = {}, lazy = false, },
 
         {
             'nvim-treesitter/nvim-treesitter',
@@ -289,7 +292,8 @@ require('lazy').setup({
             end,
         },
 
-        { 'zbirenbaum/copilot.lua', opts = {} },
+        -- Enable for one-off setup. See its README for auth.
+        -- { 'zbirenbaum/copilot.lua', opts = {} },
         {
             'olimorris/codecompanion.nvim',
             dependencies = {
@@ -443,7 +447,6 @@ vim.keymap.set('c', '<c-b>', '<space><bs><right>')
 -- vim.g.do_filetype_lua = 1
 -- vim.g.did_load_filetypes = 0
 
-vim.o.termguicolors = true
 vim.o.background = 'dark'
 vim.g.ayucolor = 'mirage'
 vim.cmd.colorscheme('ayu')
