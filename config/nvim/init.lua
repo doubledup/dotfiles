@@ -171,7 +171,7 @@ require('lazy').setup({
                 function LightlineFiletype()
                     if vim.fn.winwidth(0) > 70 then
                         if #vim.bo.filetype > 0 then
-                            return vim.bo.filetype .. ' ' .. vim.fn.WebDevIconsGetFileTypeSymbol()
+                            return vim.fn.WebDevIconsGetFileTypeSymbol() .. ' ' .. vim.bo.filetype
                         else
                             return 'no ft'
                         end
