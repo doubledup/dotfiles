@@ -7,8 +7,8 @@ set -x BAT_THEME ayu-mirage
 set -x BAT_STYLE changes,header-filename
 
 set -x EDITOR nvim
-
 set -U fish_greeting
+
 # TODO: set up an fzf history file
 # set FZF_HISTORY_FILE '~/.local/share/fzf/fzf_history'
 # --history $FZF_HISTORY_FILE
@@ -150,9 +150,6 @@ function nvimrc --description "Edit NeoVim config"
     $EDITOR config/nvim/init.lua
     cd -
 end
-
-## vscode
-abbr co code
 
 # Functions
 
