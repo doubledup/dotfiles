@@ -1,0 +1,43 @@
+#!/usr/bin/env fish
+
+bind \ea 'echo; ls -al; echo; commandline -f repaint'
+
+# pass previous args to different command
+bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
+
+bind \eh 'MANWIDTH=(math $COLUMNS - 13) MANPAGER=\'bat --wrap never\' __fish_man_page'
+bind \eP btm
+
+function cd_prev --description "Go to previous directory (and repaint)"
+    cd -
+    commandline -f repaint
+end
+bind \e- cd_prev
+
+function fishrc --description "Edit Fish shell config"
+    if not test -d ~/.dotfiles
+        echo "Dotfiles directory not found"
+        return 1
+    end
+    cd ~/.dotfiles || return 1
+    $EDITOR config/fish/config.fish
+    cd - >/dev/null
+end
+bind \e, fishrc
+
+function nvimrc --description "Edit NeoVim config"
+    if not test -d ~/.dotfiles
+        echo "Dotfiles directory not found"
+        return 1
+    end
+    cd ~/.dotfiles || return 1
+    $EDITOR config/nvim/init.lua
+    cd - >/dev/null
+end
+bind \ev nvimrc
+
+function launch_editor --description "Launch editor on current command"
+    commandline -i " $EDITOR "
+    commandline -f backward-kill-word beginning-of-line yank execute
+end
+bind \co launch_editor
