@@ -46,6 +46,13 @@ set -x SAM_CLI_TELEMETRY 0
 
 set fish_prompt_pwd_full_dirs 2
 
+# EDITOR / {neo,}vim abbrs
+# kept here so they have access to EDITOR (aliases.fish loads before config.fish)
+abbr v "$EDITOR"
+abbr vim! 'vim -N -u NONE -U NONE'
+abbr nvim! 'nvim -N -u NONE -U NONE'
+abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
+
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
 

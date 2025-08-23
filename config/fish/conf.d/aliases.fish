@@ -31,9 +31,3 @@ abbr ll 'ls -l'
 
 # rust
 abbr c cargo
-
-# {neo,}vim
-abbr v "$EDITOR"
-abbr vim! 'vim -N -u NONE -U NONE'
-abbr nvim! 'nvim -N -u NONE -U NONE'
-abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
