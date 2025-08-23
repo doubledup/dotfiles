@@ -103,6 +103,10 @@ abbr bat! 'bat --pager "less $LESS -n" --style=default'
 ## brew
 abbr b brew
 abbr bb brew bundle
+abbr bi brew info
+abbr bs brew search
+abbr bu brew uninstall
+abbr bwh brew which-formula
 
 ## fish
 function fishrc --description "Edit Fish shell config"
