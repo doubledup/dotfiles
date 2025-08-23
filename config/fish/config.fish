@@ -144,6 +144,7 @@ abbr c cargo
 abbr v "$EDITOR"
 abbr vim! 'vim -N -u NONE -U NONE'
 abbr nvim! 'nvim -N -u NONE -U NONE'
+abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
 
 function nvimrc --description "Edit NeoVim config"
     cd ~/.dotfiles
