@@ -29,10 +29,6 @@ vim.g.slime_no_mappings = 1
 vim.o.termguicolors = true
 
 require('lazy').setup({
-    checker = {
-        enabled = true,
-        frequency = 60 * 60 * 24 * 7,
-    },
     spec = {
         -- 'jreybert/vimagit'
         -- 'tpope/vim-git',
