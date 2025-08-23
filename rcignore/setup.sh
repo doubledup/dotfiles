@@ -34,6 +34,9 @@ if [ "$os_name" = "Darwin" ]; then
     printf '%bHomebrew is ready. Installing packages...%b\n' "$blue" "$endcolor"
     brew bundle install --file "$HOME"/.dotfiles/rcignore/Brewfile
 
+    # Update claude with Homebrew, not with claude
+    claude config set -g autoUpdates false
+
     printf '%bSymlinking dotfiles...%b\n' "$blue" "$endcolor"
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
