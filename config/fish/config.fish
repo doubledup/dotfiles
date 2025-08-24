@@ -8,19 +8,10 @@ set -x EDITOR nvim
 set -U fish_greeting
 
 ## less
-# The default less flags are FRX:
-#
-# F makes less exit if there's less than one page of diff. This makes `git
-# diff` inconsistent: sometimes it opens less, sometimes not.
-#
-# X prevents the less output from getting cleared when less exits. This
-# pollutes terminal output after scrolling multiple pages of diff.
-#
-# Removing these makes the behaviour of less consistent: it *always*
-# opens less and *never* leaves its output lying around in the terminal.
-#
-# -Q keeps less quiet: terminal bells are never rung.
-# -R is needed to interpret ANSI colors correctly. (from bat's help for its --pager flag)
+# -N: show line numbers
+# -Q: keep less quiet, so the terminal bell is never rung. Use a visual bell if it exists.
+# -R: output ANSI colors and OSC 8 hyperlinks in "raw" form, allowing the terminal emulator to
+# handle them correctly. (from bat's help for its --pager flag)
 # -i: ignore case in searches
 # -x4: tabs are 4 characters wide
 set -x LESS -NQRix4
