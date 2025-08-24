@@ -15,6 +15,7 @@ set -U fish_greeting
 # -i: ignore case in searches
 # -x4: tabs are 4 characters wide
 set -x LESS -NQRix4
+set -x LESSOPEN '|bat --color=always --paging=never %s'
 
 ## Path
 
