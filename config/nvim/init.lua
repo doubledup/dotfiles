@@ -623,14 +623,14 @@ vim.api.nvim_create_autocmd('BufWrite', {
 })
 
 vim.filetype.add({
-  extension = {
-    avsc = "json",
-    prettierrc = "jsonc",
-  },
-  filename = {
-    ["coc-settings.json"] = "jsonc",
-    ["tsconfig.json"] = "jsonc",
-  },
+    extension = {
+        avsc = "json",
+        prettierrc = "jsonc",
+    },
+    filename = {
+        ["coc-settings.json"] = "jsonc",
+        ["tsconfig.json"] = "jsonc",
+    },
 })
 
 -- plugins
