@@ -533,7 +533,7 @@ vim.keymap.set("n", "gl", ":set fileformat? fileencoding?<cr>")
 vim.keymap.set(
     "n",
     "<cr>",
-    "&buftype ==# 'quickfix' ? '\\<cr>' : ':checktime\\<cr>:wall\\<cr>'",
+    "&buftype ==# 'quickfix' ? '<cr>' : ':checktime<cr>:wall<cr>'",
     { expr = true, remap = false }
 )
 
