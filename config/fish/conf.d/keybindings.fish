@@ -8,10 +8,12 @@ bind \eP btm
 
 function prevd_with_prompt
     prevd
+    echo
     commandline -f repaint
 end
 function nextd_with_prompt
     nextd
+    echo
     commandline -f repaint
 end
 bind alt-\{ prevd_with_prompt
@@ -19,6 +21,7 @@ bind alt-\} nextd_with_prompt
 
 function cd_prev --description "Go to previous directory (and repaint)"
     cd -
+    echo
     commandline -f repaint
 end
 bind \e- cd_prev
@@ -31,6 +34,8 @@ function fishrc --description "Edit Fish shell config"
     cd ~/.dotfiles || return 1
     $EDITOR config/fish/config.fish
     cd - >/dev/null
+    echo
+    commandline -f repaint
 end
 bind \e, fishrc
 
@@ -42,6 +47,8 @@ function nvimrc --description "Edit NeoVim config"
     cd ~/.dotfiles || return 1
     $EDITOR config/nvim/init.lua
     cd - >/dev/null
+    echo
+    commandline -f repaint
 end
 bind \ev nvimrc
 
