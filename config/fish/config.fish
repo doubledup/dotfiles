@@ -7,6 +7,7 @@ set -x EDITOR nvim
 # abbr kept here so it has access to EDITOR (aliases.fish loads before config.fish)
 abbr v "$EDITOR"
 abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
+abbr vg 'NVIM_APPNAME=nvim-golf nvim'
 abbr nvim! 'nvim -N -u NONE -U NONE'
 
 # less
