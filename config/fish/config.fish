@@ -16,7 +16,7 @@ abbr nvim! 'nvim -N -u NONE -U NONE'
 # handle them correctly. (from bat's help for its --pager flag)
 # -i: ignore case in searches
 # -x4: tabs are 4 characters wide
-set -x LESS -NQRix4
+set -x LESS '-NQRix4 --line-num-width 3'
 set -x LESSOPEN '|bat --color=always --paging=never %s'
 
 # bat (after less so that $LESS is set)
