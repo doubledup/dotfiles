@@ -9,10 +9,6 @@ abbr v "$EDITOR"
 abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
 abbr nvim! 'nvim -N -u NONE -U NONE'
 
-set -x BAT_PAGER "less $LESS"
-set -x BAT_STYLE changes
-set -x BAT_THEME ayu-mirage
-
 # less
 # -N: show line numbers
 # -Q: keep less quiet, so the terminal bell is never rung. Use a visual bell if it exists.
@@ -22,6 +18,11 @@ set -x BAT_THEME ayu-mirage
 # -x4: tabs are 4 characters wide
 set -x LESS -NQRix4
 set -x LESSOPEN '|bat --color=always --paging=never %s'
+
+# bat (after less so that $LESS is set)
+set -x BAT_PAGER "less $LESS"
+set -x BAT_STYLE changes
+set -x BAT_THEME ayu-mirage
 
 # path
 
