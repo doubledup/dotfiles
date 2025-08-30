@@ -16,14 +16,14 @@ set FZF_KEYBINDINGS (string join "," -- \
     "alt-o:toggle-preview" \
     "alt-h:reload($FZF_DEFAULT_COMMAND --no-ignore-vcs)" \
     "alt-a:reload($FZF_DEFAULT_COMMAND --ignore-vcs)" \
-    "ctrl-j:half-page-down" \
-    "ctrl-k:half-page-up" \
-    "alt-j:preview-half-page-down" \
-    "alt-k:preview-half-page-up" \
-    "alt-n:preview-down" \
-    "alt-p:preview-up" \
-    "ctrl-r:next-history" \
-    "ctrl-s:prev-history" \
+    "ctrl-n:half-page-down" \
+    "ctrl-p:half-page-up" \
+    "alt-j:preview-down" \
+    "alt-k:preview-up" \
+    "alt-n:preview-half-page-down" \
+    "alt-p:preview-half-page-up" \
+    # "ctrl-r:next-history" \
+    # "ctrl-s:prev-history" \
     # "$FZF_PREVIEW_WINDOW_HOR_CHANGE" \
     "ctrl-y:execute-silent(echo {} | fish_clipboard_copy)" \
 )
