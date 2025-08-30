@@ -2,3 +2,9 @@
 ba = "ba" # fish shell Homebrew abbr
 gti = "gti" # Homebrew package
 wrk = "wrk" # Homebrew package
+
+[files]
+extend-exclude = [
+    "config/nvim-kickstart/init.lua",
+    "gitconfig",
+]
