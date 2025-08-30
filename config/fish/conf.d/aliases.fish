@@ -18,6 +18,9 @@ abbr bs brew search
 abbr bu brew uninstall
 abbr bwh brew which-formula
 
+# just (execute)
+abbr e just
+
 # kitty
 alias icat='kitty +kitten icat --align=left'
 abbr kssh 'kitty +kitten ssh'
