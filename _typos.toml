@@ -1,4 +1,4 @@
 [default.extend-words]
-ba = "ba"
-gti = "gti"
-wrk = "wrk"
+ba = "ba" # fish shell Homebrew abbr
+gti = "gti" # Homebrew package
+wrk = "wrk" # Homebrew package
