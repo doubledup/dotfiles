@@ -10,7 +10,7 @@ abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
 abbr nvim! 'nvim -N -u NONE -U NONE'
 
 set -x BAT_PAGER "less $LESS"
-set -x BAT_STYLE changes,header-filename
+set -x BAT_STYLE changes
 set -x BAT_THEME ayu-mirage
 
 # less
