@@ -13,9 +13,13 @@ abbr bat! 'bat --pager "less $LESS -n" --style=default'
 # homebrew
 abbr b brew
 abbr bb brew bundle
-abbr bi brew info
+abbr ba brew bundle add
+abbr br brew bundle remove
+abbr bf brew info
 abbr bs brew search
+abbr bi brew install
 abbr bu brew uninstall
+# avoid conflicts with Bitwarden CLI
 abbr bwh brew which-formula
 
 # just (execute)
