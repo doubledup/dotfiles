@@ -6,6 +6,17 @@ bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
 bind \eh 'MANWIDTH=(math $COLUMNS - 13) MANPAGER=\'bat --wrap never\' __fish_man_page'
 bind \eP btm
 
+function prevd_with_prompt
+    prevd
+    commandline -f repaint
+end
+function nextd_with_prompt
+    nextd
+    commandline -f repaint
+end
+bind alt-\{ prevd_with_prompt
+bind alt-\} nextd_with_prompt
+
 function cd_prev --description "Go to previous directory (and repaint)"
     cd -
     commandline -f repaint
