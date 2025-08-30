@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+check_broken_symlinks() {
+    local search_dir="${1:-$HOME}"
+    local remove_broken=false
+
+    # Parse flags
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -r|--remove)
+                remove_broken=true
+                shift
+                ;;
+            *)
+                search_dir="$1"
+                shift
+                ;;
+        esac
+    done
+
+    echo "Checking for broken symlinks in $search_dir..."
+    echo
+
+    local broken_symlinks
+    broken_symlinks=$(
+        fd . "$search_dir" --type symlink --hidden \
+            --exclude ".cache" \
+            --exclude "Library/" \
+            --exclude "code/" \
+            2>/dev/null |
+            while IFS= read -r symlink; do
+                if [[ -L "$symlink" ]] && [[ ! -e "$symlink" ]]; then
+                    echo "$symlink"
+                fi
+            done
+    )
+
+    if [[ -n "$broken_symlinks" ]]; then
+        echo "Found broken symlinks:"
+        echo "$broken_symlinks" | while IFS= read -r symlink; do
+            echo "  $symlink -> $(readlink "$symlink")"
+        done
+        echo
+
+        if [[ "$remove_broken" == true ]]; then
+            echo "Removing broken symlinks..."
+            echo "$broken_symlinks" | while IFS= read -r symlink; do
+                if rm "$symlink" 2>/dev/null; then
+                    echo "  Removed: $symlink"
+                else
+                    echo "  Failed to remove: $symlink"
+                fi
+            done
+        else
+            echo "To clean up broken symlinks, run:"
+            echo "  $0 --remove $search_dir"
+        fi
+    else
+        echo "No broken symlinks found"
+    fi
+}
+
+main() {
+    check_broken_symlinks "$@"
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
