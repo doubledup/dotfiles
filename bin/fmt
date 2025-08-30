@@ -8,13 +8,13 @@ echo "Checking fish syntax..."
 find config -name "*.fish" -exec fish -n {} \;
 
 echo "Formatting Lua files..."
-find config -name "*.lua" -exec stylua --check {} \;
+find config -name "*.lua" -exec stylua {} \;
 
 echo "Checking shell scripts..."
-find . -name "*.sh" -exec shellcheck {} \;
+find . -name "*.sh" -exec shellcheck {} \;  # shellcheck only checks, doesn't format
 
 echo "Formatting shell scripts..."
 find . -name "*.sh" -exec shfmt -w {} \;
 
 echo "Formatting Markdown..."
-find . -name "*.md" -exec prettier --check {} \;
+find . -name "*.md" -exec prettier --write {} \;
