@@ -24,6 +24,7 @@
   "vim-abolish": { "branch": "master", "commit": "dcbfe065297d31823561ba787f51056c147aa682" },
   "vim-devicons": { "branch": "master", "commit": "71f239af28b7214eebb60d4ea5bd040291fb7e33" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
+  "vim-go": { "branch": "master", "commit": "06ac99359b0b1a7de1e213447d92fd0a46cb4cd0" },
   "vim-mkdir": { "branch": "master", "commit": "f0ba7a7dc190a0cedf1d827958c99f3718109cf0" },
   "vim-obsession": { "branch": "master", "commit": "ed9dfc7c2cc917ace8b24f4f9f80a91e05614b63" },
   "vim-plugin-AnsiEsc": { "branch": "master", "commit": "690f820d20b6e3a79ba20499874eb7333aa4ca5c" },
