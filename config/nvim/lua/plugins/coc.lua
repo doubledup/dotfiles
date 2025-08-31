@@ -1,0 +1,246 @@
+return {
+    "neoclide/coc.nvim",
+    -- TODO: See `:h coc-status` for integration with lightline.
+    branch = "release",
+    event = { "BufReadPost", "BufNewFile" },
+
+    cmd = {
+        "CocCommand",
+        "CocConfig",
+        "CocDiagnostics",
+        "CocDisable",
+        "CocEnable",
+        "CocFirst",
+        "CocInfo",
+        "CocInstall",
+        "CocLast",
+        "CocList",
+        "CocListCancel",
+        "CocListResume",
+        "CocLocalConfig",
+        "CocNext",
+        "CocOpenLog",
+        "CocOutline",
+        "CocPrev",
+        "CocPrintErrors",
+        "CocRestart",
+        "CocSearch",
+        "CocStart",
+        "CocUninstall",
+        "CocUpdate",
+        "CocUpdateSync",
+        "CocWatch",
+    },
+
+    keys = {
+        -- Use <c-space> to trigger completion
+        { "<c-space>", "coc#refresh()", desc = "Trigger completion", mode = "i", expr = true, silent = true },
+
+        -- Use `[s` and `]s` to navigate diagnostics (replace spell checker)
+        { "[s", "<Plug>(coc-diagnostic-prev)", desc = "Previous diagnostic", silent = true },
+        { "]s", "<Plug>(coc-diagnostic-next)", desc = "Next diagnostic", silent = true },
+
+        { "gd", "<Plug>(coc-definition)", desc = "Go to definition", silent = true },
+        { "gy", "<Plug>(coc-type-definition)", desc = "Go to type definition", silent = true },
+        { "gi", "<Plug>(coc-implementation)", desc = "Go to implementation", silent = true },
+        { "gr", "<Plug>(coc-references)", desc = "Go to references", silent = true },
+
+        {
+            "K",
+            function()
+                _G.show_docs()
+            end,
+            desc = "Show documentation",
+            silent = true,
+        },
+
+        { "<leader>an", "<Plug>(coc-rename)", desc = "Rename symbol", silent = true },
+
+        { "<leader>=", "<Plug>(coc-format)", desc = "Format", mode = "n", silent = true },
+        { "<leader>=", "<Plug>(coc-format-selected)", desc = "Format selection", mode = "x", silent = true },
+
+        { "<leader>ac", "<Plug>(coc-codeaction-cursor)", desc = "Code action at cursor", silent = true, nowait = true },
+        {
+            "<leader>a",
+            "<Plug>(coc-codeaction-selected)",
+            desc = "Code action on selection",
+            mode = "x",
+            silent = true,
+            nowait = true,
+        },
+        { "<leader>ak", "<Plug>(coc-codeaction)", desc = "Code action for file", silent = true, nowait = true },
+        { "<leader>al", "<Plug>(coc-codeaction-line)", desc = "Code action for line", silent = true, nowait = true },
+        { "<leader>af", "<Plug>(coc-fix-current)", desc = "Fix current", silent = true, nowait = true },
+        { "<leader>as", "<Plug>(coc-codeaction-source)", desc = "Source code action", silent = true, nowait = true },
+        { "<leader>ar", "<Plug>(coc-codeaction-refactor)", desc = "Refactor", silent = true },
+        -- vim.keymap.set("x", "<leader>r", "<Plug>(coc-codeaction-refactor-selected)", { silent = true })
+
+        -- vim.keymap.set("n", "<leader>r", "<Plug>(coc-refactor)", { silent = true })
+
+        -- Run the Code Lens actions on the current line
+        -- vim.keymap.set("n", "<leader>ae", "<Plug>(coc-codelens-action)", opts)
+
+        -- Range selection
+        -- Requires "textDocument/selectionRange" support from the language server
+        { "<c-q>", "<Plug>(coc-range-select)", desc = "Range select", mode = { "n", "x" }, silent = true },
+
+        -- CocList
+        { "<leader>e", ":<c-u>CocList diagnostics<cr>", desc = "List diagnostics", silent = true, nowait = true },
+        { "<leader>ax", ":<c-u>CocList extensions<cr>", desc = "List extensions", silent = true, nowait = true },
+        { "<c-;>", ":<c-u>CocList commands<cr>", desc = "List commands", silent = true, nowait = true },
+        { "<leader>ao", ":<c-u>CocList outline<cr>", desc = "List outline", silent = true, nowait = true },
+        { "<leader>ay", ":<c-u>CocList -I symbols<cr>", desc = "List symbols", silent = true, nowait = true },
+        -- -- Do default action for next item
+        -- vim.keymap.set("n", "<leader>j", ":<c-u>CocNext<cr>", opts)
+        -- -- Do default action for previous item
+        -- vim.keymap.set("n", "<leader>k", ":<c-u>CocPrev<cr>", opts)
+        -- -- Resume latest coc list
+        -- vim.keymap.set("n", "<leader>p", ":<c-u>CocListResume<cr>", opts)
+
+        -- Custom outline toggle
+        {
+            "<leader>o",
+            function()
+                local winid = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
+                if winid == -1 then
+                    vim.fn.CocActionAsync("showOutline", 1)
+                else
+                    vim.fn["coc#window#close"](winid)
+                end
+            end,
+            desc = "Toggle outline",
+            silent = true,
+            nowait = true,
+        },
+    },
+
+    init = function()
+        -- Extensions to install automatically
+        vim.g.coc_global_extensions = {
+            "coc-diagnostic",
+            -- "coc-eslint",
+            -- "coc-fzf-preview",
+            -- "coc-go",
+            "coc-html",
+            "coc-java",
+            "coc-json",
+            -- "coc-ltex",
+            "coc-lua",
+            "coc-prettier",
+            -- "coc-pyright",
+            "coc-rust-analyzer",
+            "coc-sh",
+            -- "coc-snippets",
+            "coc-sql",
+            "coc-terraform",
+            -- "coc-tsserver",
+            "coc-yaml",
+            "coc-xml",
+            -- "coc-zig",
+        }
+
+        -- Snippet navigation
+        vim.g.coc_snippet_next = "<tab>"
+        vim.g.coc_snippet_prev = "<s-tab>"
+    end,
+
+    config = function()
+        -- some servers have issues with backup files, see
+        -- https://github.com/neoclide/coc.nvim/issues/649
+        vim.o.backup = false
+        vim.o.writebackup = false
+
+        -- Having longer updatetime leads to noticeable delays and poor user experience
+        -- Already set to <300 in options.lua, setting again to ensure it's low
+        vim.opt.updatetime = 200
+
+        -- always show the signcolumn, otherwise it would shift the text each time diagnostics
+        -- appear
+        -- Already set in init.lua, setting again to keep it on
+        vim.o.signcolumn = "yes"
+
+        -- Use K to show documentation in preview window (replace keywordprg)
+        function _G.show_docs()
+            local cw = vim.fn.expand("<cword>")
+            if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
+                vim.api.nvim_command("h " .. cw)
+            elseif vim.api.nvim_eval("coc#rpc#ready()") then
+                vim.fn.CocActionAsync("doHover")
+            else
+                vim.api.nvim_command("!" .. vim.o.keywordprg .. " " .. cw)
+            end
+        end
+
+        -- Highlight the symbol and its references on a CursorHold event (cursor is idle)
+        local coc_augroup = vim.api.nvim_create_augroup("CocGroup", {})
+        vim.api.nvim_create_autocmd("CursorHold", {
+            group = coc_augroup,
+            command = "silent call CocActionAsync('highlight')",
+            desc = "Highlight symbol under cursor on CursorHold",
+        })
+
+        -- Auto close outline when last window
+        vim.api.nvim_create_autocmd("BufEnter", {
+            pattern = "*",
+            callback = function()
+                if vim.bo.filetype == "coctree" and vim.fn.winnr("$") == 1 then
+                    if vim.fn.tabpagenr("$") ~= 1 then
+                        vim.cmd("close")
+                    else
+                        vim.cmd("bdelete")
+                    end
+                end
+            end,
+            desc = "Auto close outline when last window",
+        })
+
+        -- Float window scrolling
+        local scroll_length = 5
+        local scroll_opts = { silent = true, nowait = true, expr = true }
+
+        vim.keymap.set(
+            "n",
+            "<c-f>",
+            string.format("coc#float#has_scroll() ? coc#float#scroll(1, %d) : '<c-f>'", scroll_length),
+            scroll_opts
+        )
+        vim.keymap.set(
+            "n",
+            "<c-b>",
+            string.format("coc#float#has_scroll() ? coc#float#scroll(0, %d) : '<c-b>'", scroll_length),
+            scroll_opts
+        )
+        vim.keymap.set(
+            "i",
+            "<c-f>",
+            string.format("coc#float#has_scroll() ? '<c-r>=coc#float#scroll(1, %d)<cr>' : '<right>'", scroll_length),
+            scroll_opts
+        )
+        vim.keymap.set(
+            "i",
+            "<c-b>",
+            string.format("coc#float#has_scroll() ? '<c-r>=coc#float#scroll(0, %d)<cr>' : '<left>'", scroll_length),
+            scroll_opts
+        )
+        vim.keymap.set(
+            "v",
+            "<c-f>",
+            string.format("coc#float#has_scroll() ? coc#float#scroll(1, %d) : '<c-f>'", scroll_length),
+            scroll_opts
+        )
+        vim.keymap.set(
+            "v",
+            "<c-b>",
+            string.format("coc#float#has_scroll() ? coc#float#scroll(0, %d) : '<c-b>'", scroll_length),
+            scroll_opts
+        )
+
+        -- Text objects for functions and classes
+        -- NOTE: Requires "textDocument.documentSymbol" support from the language server
+        local text_obj_opts = { silent = true, nowait = true }
+        vim.keymap.set({ "x", "o" }, "if", "<Plug>(coc-funcobj-i)", text_obj_opts)
+        vim.keymap.set({ "x", "o" }, "af", "<Plug>(coc-funcobj-a)", text_obj_opts)
+        vim.keymap.set({ "x", "o" }, "ic", "<Plug>(coc-classobj-i)", text_obj_opts)
+        vim.keymap.set({ "x", "o" }, "ac", "<Plug>(coc-classobj-a)", text_obj_opts)
+    end,
+}

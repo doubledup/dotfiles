@@ -27,7 +27,7 @@ return {
     --
     -- "ms-jpq/coq_nvim",
     -- "autozimu/LanguageClient-neovim",
-    { "neoclide/coc.nvim", branch = "release" },
+    -- { "neoclide/coc.nvim", branch = "release" }, -- moved to lua/plugins/coc.lua
 
     -- ui
     {

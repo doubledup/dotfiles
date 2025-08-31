@@ -89,11 +89,12 @@ vim.o.wildoptions = "fuzzy,pum,tagfile"
 vim.keymap.set("c", "<c-f>", "<space><bs><left>")
 vim.keymap.set("c", "<c-b>", "<space><bs><right>")
 
--- coc, os and local config
-local coc_settings = vim.fn.stdpath("config") .. "/coc-settings.lua"
-if vim.fn.filereadable(coc_settings) == 1 then
-    vim.cmd("luafile " .. coc_settings)
-end
+-- local coc_settings = vim.fn.stdpath("config") .. "/coc-settings.lua"
+-- if vim.fn.filereadable(coc_settings) == 1 then
+--     vim.cmd("luafile " .. coc_settings)
+-- end
+
+-- os and local config
 local os_settings = vim.fn.expand("~/.config/nvim/init.os.vim")
 if vim.fn.filereadable(os_settings) == 1 then
     vim.cmd.source(os_settings)

@@ -3,7 +3,7 @@ vim.o.backup = false
 vim.o.writebackup = false
 
 -- Having longer updatetime leads to noticeable delays and poor user experience
--- Already set to <300 in init.lua, setting again to keep it low
+-- Already set to <300 in options.lua, setting again to ensure it's low
 vim.opt.updatetime = 200
 
 -- always show the signcolumn, otherwise it would shift the text each time diagnostics appear
@@ -64,7 +64,7 @@ end
 
 keyset("n", "K", "<cmd>lua _G.show_docs()<cr>", { noremap = true, silent = true }) -- noremap?
 
--- Highlight the symbol and its references on a CursorHold event(cursor is idle)
+-- Highlight the symbol and its references on a CursorHold event (cursor is idle)
 vim.api.nvim_create_augroup("CocGroup", {})
 vim.api.nvim_create_autocmd("CursorHold", {
     group = "CocGroup",
