@@ -270,19 +270,23 @@ vim.filetype.add({
 
 -- hop
 local hop = require("hop")
+local directions = require("hop.hint").HintDirection
+
 vim.keymap.set("n", "s", function()
     hop.hint_char2()
-end)
+end, { desc = "Hop to 2 characters" })
+
 vim.keymap.set("v", "s", function()
     hop.hint_char2({ inclusive_jump = true })
-end)
-local directions = require("hop.hint").HintDirection
+end, { desc = "Hop to 2 characters (inclusive)" })
+
 vim.keymap.set("o", "z", function()
     hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-end, { remap = true })
+end, { desc = "Hop forward on line", remap = true })
+
 vim.keymap.set("o", "Z", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-end, { remap = true })
+end, { desc = "Hop backward on line", remap = true })
 
 -- linediff
 vim.keymap.set("v", "<leader>l", ":Linediff<cr>")

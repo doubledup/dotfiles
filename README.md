@@ -5,6 +5,7 @@ Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
 ## Setup
 
 Install and set up config:
+
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
 cd ~/.dotfiles
@@ -12,6 +13,7 @@ cd ~/.dotfiles
 ```
 
 Create an ssh key for the machine, add it to Github and switch the repo to ssh:
+
 ```sh
 mksshkey
 gh auth login --git-protocol ssh --hostname github.com
