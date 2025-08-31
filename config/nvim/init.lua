@@ -399,6 +399,41 @@ require("lazy").setup({
                     },
                 },
             },
+            cmd = {
+                "CodeCompanion",
+                "CodeCompanionCmd",
+                "CodeCompanionChat",
+                "CodeCompanionActions",
+            },
+            keys = {
+                {
+                    mode = { "n", "v" },
+                    "<leader>n",
+                    "<cmd>CodeCompanionActions<cr>",
+                    noremap = true,
+                    silent = true,
+                },
+                {
+                    mode = { "n", "v" },
+                    "<leader>m",
+                    "<cmd>CodeCompanionChat Toggle<cr>",
+                    noremap = true,
+                    silent = true,
+                },
+                {
+                    mode = { "v" },
+                    "ga",
+                    "<cmd>CodeCompanionChat Add<cr>",
+                    noremap = true,
+                    silent = true,
+                },
+                -- vim.keymap.set("n", "<leader>ai", ":CodeCompanion<cr>")
+                -- vim.keymap.set("n", "<leader>ac", ":CodeCompanionChat Toggle<cr>")
+                -- vim.keymap.set("v", "<leader>ac", ":CodeCompanionChat Toggle<cr>")
+                -- vim.keymap.set("n", "<leader>am", ":CodeCompanionCmd<cr>")
+                -- vim.keymap.set("n", "<leader>at", ":CodeCompanionActions<cr>")
+                -- vim.keymap.set("v", "<leader>at", ":CodeCompanionActions<cr>")
+            },
         },
 
         "pbrisbin/vim-mkdir",
@@ -737,19 +772,8 @@ vim.filetype.add({
 -- plugins
 
 -- codecompanion
-vim.keymap.set({ "n", "v" }, "<leader>n", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>m", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
-vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
-
--- Expand "cc" into "CodeCompanion" in the command line
-vim.cmd([[cab cc CodeCompanion]])
-
--- vim.keymap.set("n", "<leader>ai", ":CodeCompanion<cr>")
--- vim.keymap.set("n", "<leader>ac", ":CodeCompanionChat Toggle<cr>")
--- vim.keymap.set("v", "<leader>ac", ":CodeCompanionChat Toggle<cr>")
--- vim.keymap.set("n", "<leader>am", ":CodeCompanionCmd<cr>")
--- vim.keymap.set("n", "<leader>at", ":CodeCompanionActions<cr>")
--- vim.keymap.set("v", "<leader>at", ":CodeCompanionActions<cr>")
+-- Expand "c" into "CodeCompanion" in the command line
+vim.cmd([[cab c CodeCompanion]])
 
 -- delimitmate
 vim.g.delimitMate_balance_matchpairs = 1
