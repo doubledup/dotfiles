@@ -5,7 +5,7 @@
   "codecompanion.nvim": { "branch": "main", "commit": "dfd894a3888a87725eb6285b97bb69f7d8e07824" },
   "copilot.lua": { "branch": "master", "commit": "e73fe7c43c68aeb84fbeed12ee6cc60a29e78fbb" },
   "delimitmate": { "branch": "master", "commit": "becbd2d353a2366171852387288ebb4b33a02487" },
-  "fzf": { "branch": "master", "commit": "5546c65491a26c7cd01e08d4ecc65eaab89b3363" },
+  "fzf": { "branch": "master", "commit": "416aff86e9d550d0a34af9d3cc12dfede25354c3" },
   "fzf.vim": { "branch": "master", "commit": "3725f364ccd25b85a91970720ba9bc2931861910" },
   "gitsigns.nvim": { "branch": "main", "commit": "6e3c66548035e50db7bd8e360a29aec6620c3641" },
   "hop.nvim": { "branch": "master", "commit": "707049feaca9ae65abb3696eff9aefc7879e66aa" },
