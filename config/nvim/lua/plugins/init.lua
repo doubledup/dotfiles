@@ -63,7 +63,7 @@ return {
         },
     },
 
-    { "numToStr/Comment.nvim", opts = {}, lazy = false },
+    { "numToStr/Comment.nvim", keys = { "gc", "gb" } },
     "pbrisbin/vim-mkdir",
 
     {
@@ -92,7 +92,7 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-sleuth",
     "tpope/vim-surround",
-    "tpope/vim-unimpaired",
+    { "tpope/vim-unimpaired", event = "VeryLazy" },
     "wellle/targets.vim",
 
     -- included for folding
