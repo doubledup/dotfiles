@@ -11,7 +11,7 @@ echo "Formatting Lua files..."
 find config -name "*.lua" -exec stylua {} \;
 
 echo "Checking shell scripts..."
-find . -name "*.sh" -exec shellcheck {} \;  # shellcheck only checks, doesn't format
+find . -name "*.sh" -exec shellcheck {} \;  # shellcheck only checks, doesn't fix
 
 echo "Formatting shell scripts..."
 find . -name "*.sh" -exec shfmt -w {} \;
