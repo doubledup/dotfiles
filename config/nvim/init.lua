@@ -3,16 +3,44 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 
--- wildmenu
-vim.o.wildmode = "longest,full"
-vim.o.wildoptions = "fuzzy,pum,tagfile"
-vim.keymap.set("c", "<c-f>", "<space><bs><left>")
-vim.keymap.set("c", "<c-b>", "<space><bs><right>")
+-- filetype
+vim.filetype.add({
+    extension = {
+        avsc = "json",
+        prettierrc = "jsonc",
+    },
+    filename = {
+        ["coc-settings.json"] = "jsonc",
+        ["tsconfig.json"] = "jsonc",
+    },
+})
 
+-- hop
+local hop = require("hop")
+local directions = require("hop.hint").HintDirection
+
+vim.keymap.set("n", "s", function()
+    hop.hint_char2()
+end, { desc = "Hop to 2 characters" })
+
+vim.keymap.set("v", "s", function()
+    hop.hint_char2({ inclusive_jump = true })
+end, { desc = "Hop to 2 characters (inclusive)" })
+
+vim.keymap.set("o", "z", function()
+    hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+end, { desc = "Hop forward on line", remap = true })
+
+vim.keymap.set("o", "Z", function()
+    hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+end, { desc = "Hop backward on line", remap = true })
+
+-- mouse
 vim.g.mousescroll = "hor:1"
 vim.keymap.set("n", "<ScrollWheelUp>", "<c-y>")
 vim.keymap.set("n", "<ScrollWheelDown>", "<c-e>")
 
+-- neovide
 if vim.g.neovide then
     vim.o.guifont = "Hack Nerd Font:h14"
     vim.g.neovide_scroll_animation_length = 0.2
@@ -55,36 +83,11 @@ vim.api.nvim_create_autocmd("TermClose", {
     end,
 })
 
-vim.filetype.add({
-    extension = {
-        avsc = "json",
-        prettierrc = "jsonc",
-    },
-    filename = {
-        ["coc-settings.json"] = "jsonc",
-        ["tsconfig.json"] = "jsonc",
-    },
-})
-
--- hop
-local hop = require("hop")
-local directions = require("hop.hint").HintDirection
-
-vim.keymap.set("n", "s", function()
-    hop.hint_char2()
-end, { desc = "Hop to 2 characters" })
-
-vim.keymap.set("v", "s", function()
-    hop.hint_char2({ inclusive_jump = true })
-end, { desc = "Hop to 2 characters (inclusive)" })
-
-vim.keymap.set("o", "z", function()
-    hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-end, { desc = "Hop forward on line", remap = true })
-
-vim.keymap.set("o", "Z", function()
-    hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-end, { desc = "Hop backward on line", remap = true })
+-- wildmenu
+vim.o.wildmode = "longest,full"
+vim.o.wildoptions = "fuzzy,pum,tagfile"
+vim.keymap.set("c", "<c-f>", "<space><bs><left>")
+vim.keymap.set("c", "<c-b>", "<space><bs><right>")
 
 -- coc, os and local config
 local coc_settings = vim.fn.stdpath("config") .. "/coc-settings.lua"
