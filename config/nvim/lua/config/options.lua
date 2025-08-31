@@ -1,0 +1,2 @@
+-- Neovim options and settings
+-- This file will contain all vim.opt.*, vim.g.*, vim.o.* settings

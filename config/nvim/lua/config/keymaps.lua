@@ -1,0 +1,2 @@
+-- Global keymaps
+-- This file will contain vim.keymap.set() calls for global (non-plugin-specific) keymaps

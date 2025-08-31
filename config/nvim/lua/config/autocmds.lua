@@ -1,0 +1,2 @@
+-- Autocommands and user commands
+-- This file will contain vim.api.nvim_create_autocmd(), vim.api.nvim_create_user_command(), etc.
