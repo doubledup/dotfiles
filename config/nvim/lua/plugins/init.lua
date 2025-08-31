@@ -189,7 +189,12 @@ return {
     },
 
     -- editing
-    "andrewradev/linediff.vim",
+    {
+        "andrewradev/linediff.vim",
+        keys = {
+            { "<leader>l", ":Linediff<cr>", desc = "Line diff", mode = "v" },
+        },
+    },
     { "smoka7/hop.nvim", opts = {} },
     -- "honza/vim-snippets",
 
@@ -221,7 +226,13 @@ return {
         end,
     },
     "tpope/vim-abolish",
-    "tpope/vim-obsession",
+    {
+        "tpope/vim-obsession",
+        keys = {
+            { "<leader>st", ":Obsession<cr>", desc = "Start session tracking" },
+            { "<leader>sl", ":source Session.vim<cr>", desc = "Load session" },
+        },
+    },
     "tpope/vim-repeat",
     "tpope/vim-sleuth",
     "tpope/vim-surround",

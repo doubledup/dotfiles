@@ -288,22 +288,6 @@ vim.keymap.set("o", "Z", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, { desc = "Hop backward on line", remap = true })
 
--- linediff
-vim.keymap.set("v", "<leader>l", ":Linediff<cr>")
-
--- obsession
-vim.keymap.set("n", "<leader>st", ":Obsession<cr>")
-vim.keymap.set("n", "<leader>sl", ":source Session.vim<cr>")
-
--- slime
-vim.g.slime_target = "kitty"
-vim.g.slime_no_mappings = 1
-vim.keymap.set("n", "<leader>tc", "<plug>SlimeConfig")
-vim.keymap.set("n", "<leader>tx", "<plug>SlimeMotionSend")
-vim.keymap.set("x", "<leader>tx", "<plug>SlimeRegionSend")
-vim.keymap.set("n", "<leader>tl", "<plug>SlimeLineSend")
--- TODO: choose from active terminals b:terminal_job_id
-
 -- unimpaired extensions for encoding & decoding
 -- TODO: contribute this to unimpaired
 vim.keymap.set("n", "[44", "!!base64<cr>")
