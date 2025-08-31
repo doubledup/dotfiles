@@ -40,4 +40,3 @@ vim.api.nvim_create_autocmd("BufWrite", {
     pattern = "*",
     command = ":%s/\\s\\+$//e",
 })
-

@@ -1,56 +1,25 @@
 return {
-    -- Github code reviews
-    -- "pwntester/octo.nvim"
-
     {
-        "lewis6991/gitsigns.nvim",
-        opts = {
-            on_attach = function(bufnr)
-                local gitsigns = package.loaded.gitsigns
-
-                local function map(mode, l, r, opts)
-                    opts = opts or {}
-                    opts.buffer = bufnr
-                    vim.keymap.set(mode, l, r, opts)
-                end
-
-                -- Navigation
-                map("n", "]d", function()
-                    if vim.wo.diff then
-                        vim.cmd.normal({ "]d", bang = true })
-                    else
-                        gitsigns.nav_hunk("next")
-                    end
-                end)
-
-                map("n", "[d", function()
-                    if vim.wo.diff then
-                        vim.cmd.normal({ "[d", bang = true })
-                    else
-                        gitsigns.nav_hunk("prev")
-                    end
-                end)
-
-                -- Actions
-                map("n", "<leader>ga", gitsigns.stage_hunk)
-                map("v", "<leader>ga", function()
-                    gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                end)
-                map("n", "<leader>gr", gitsigns.reset_hunk)
-                map("v", "<leader>gr", function()
-                    gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                end)
-
-                map("n", "<leader>gA", gitsigns.stage_buffer)
-                map("n", "<leader>gR", gitsigns.reset_buffer)
-                map("n", "<leader>gi", gitsigns.preview_hunk_inline)
-                map("n", "<leader>gv", gitsigns.undo_stage_hunk)
-
-                -- Text object
-                map({ "o", "x" }, "id", gitsigns.select_hunk)
-            end,
+        -- "jreybert/vimagit"
+        -- "tpope/vim-git",
+        -- "tpope/vim-rhubarb"
+        "tpope/vim-fugitive",
+        keys = {
+            { "<leader>gs", ":vert Git<cr>:vert resize 100<cr>", desc = "Git status" },
+            { "<leader>gf", ":Git! fetch<cr>", desc = "Git fetch" },
+            { "<leader>gz", ":Git stash<space>", desc = "Git stash" },
+            { "<leader>gp", ":Git! pull<space>", desc = "Git pull" },
+            { "<leader>gu", ":Git! push<space>", desc = "Git push" },
+            { "<leader>go", ":Git checkout<space>", desc = "Git checkout" },
+            { "<leader>gc", ":tab Git commit -v<cr>", desc = "Git commit" },
+            { "<leader>gb", ":Git branch<space>", desc = "Git branch" },
+            { "<leader>gd", ":Gvdiffsplit<cr>", desc = "Git diff split" },
+            { "<leader>gm", ":Git blame<cr>", desc = "Git blame" },
         },
     },
+
+    -- Github code reviews
+    -- "pwntester/octo.nvim"
 
     -- "williamboman/mason.nvim" -- and
     -- "williamboman/mason-lspconfig.nvim" -- and
@@ -73,120 +42,12 @@ return {
             bigfile = {},
         },
     },
+
     "folke/which-key.nvim",
     "norcalli/nvim-colorizer.lua",
     -- TODO: disable <leader>rwp
     "powerman/vim-plugin-AnsiEsc",
     "ryanoasis/vim-devicons",
-
-    {
-        -- https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
-        -- "nvim-lualine/lualine.nvim"
-        "itchyny/lightline.vim",
-
-        dependencies = {
-            "tpope/vim-fugitive",
-        },
-
-        config = function()
-            vim.o.showmode = false
-            vim.g.lightline = {
-                colorscheme = "ayu_mirage",
-                active = {
-                    left = {
-                        { "mode", "paste" },
-                        { "readonly", "modified", "relativepath" },
-                        {},
-                    },
-                    right = {
-                        { "lineinfo" },
-                        { "filetype", "gitbranch" },
-                        { "fileformat", "fileencoding" },
-                    },
-                },
-                inactive = {
-                    left = { { "relativepath" } },
-                    right = {
-                        { "lineinfo" },
-                        { "filetype" },
-                        {},
-                    },
-                },
-                -- component = {},
-                component_function = {
-                    gitbranch = "LightlineGitHead",
-                    filetype = "LightlineFiletype",
-                },
-                tab_component_function = {
-                    tabfileicon = "LightlineTabFileicon",
-                    tabfilename = "LightlineTabFilename",
-                },
-                tab = {
-                    active = { "tabfileicon", "tabnum", "readonly", "tabfilename", "modified" },
-                    inactive = { "tabfileicon", "tabnum", "readonly", "tabfilename", "modified" },
-                },
-                tabline = {
-                    left = { { "tabs" } },
-                },
-            }
-
-            function LightlineGitHead()
-                return " " .. vim.fn.FugitiveHead()
-            end
-
-            function LightlineFiletype()
-                if vim.fn.winwidth(0) > 70 then
-                    if #vim.bo.filetype > 0 then
-                        return vim.fn.WebDevIconsGetFileTypeSymbol() .. " " .. vim.bo.filetype
-                    else
-                        return "no ft"
-                    end
-                else
-                    return ""
-                end
-            end
-
-            function LightlineTabFileicon(tabnum)
-                local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-                if bufnr then
-                    return vim.fn.WebDevIconsGetFileTypeSymbol(vim.fn.bufname(bufnr))
-                else
-                    return vim.fn.WebDevIconsGetFileTypeSymbol(nil)
-                end
-            end
-
-            function CwdTrimmed(cwd)
-                local home = os.getenv("HOME")
-                cwd = cwd:gsub(home, "~")
-                return cwd:gsub(".*/([^/]*/[^/]*/[^/]*)$", "%1")
-            end
-
-            function LightlineTabFilename(tabnum)
-                local bufnr = vim.fn.tabpagebuflist(tabnum)[vim.fn.tabpagewinnr(tabnum)]
-                if bufnr then
-                    local filename = vim.fn.bufname(bufnr)
-                    return CwdTrimmed(filename)
-                else
-                    return ""
-                end
-            end
-
-            vim.cmd([[
-                    function! LightlineGitHead()
-                    return luaeval("LightlineGitHead()", {})
-                    endfunction
-                    function! LightlineFiletype()
-                    return luaeval("LightlineFiletype()", {})
-                    endfunction
-                    function! LightlineTabFileicon(tabnum)
-                    return luaeval("LightlineTabFileicon(_A.tabnum)", {"tabnum": a:tabnum})
-                    endfunction
-                    function! LightlineTabFilename(tabnum)
-                    return luaeval("LightlineTabFilename(_A.tabnum)", {"tabnum": a:tabnum})
-                    endfunction
-                    ]])
-        end,
-    },
 
     -- editing
     {
@@ -195,9 +56,9 @@ return {
             { "<leader>l", ":Linediff<cr>", desc = "Line diff", mode = "v" },
         },
     },
-    { "smoka7/hop.nvim", opts = {} },
-    -- "honza/vim-snippets",
 
+    { "smoka7/hop.nvim", opts = {} }, -- opts ensures that setup() gets called
+    -- "honza/vim-snippets",
     "jpalardy/vim-slime",
 
     {
@@ -211,8 +72,8 @@ return {
     },
 
     { "numToStr/Comment.nvim", opts = {}, lazy = false },
-
     "pbrisbin/vim-mkdir",
+
     {
         "raimondi/delimitmate",
         event = "InsertEnter",
@@ -225,7 +86,9 @@ return {
             vim.g.delimitMate_jump_expansion = 1
         end,
     },
+
     "tpope/vim-abolish",
+
     {
         "tpope/vim-obsession",
         keys = {
@@ -233,6 +96,7 @@ return {
             { "<leader>sl", ":source Session.vim<cr>", desc = "Load session" },
         },
     },
+
     "tpope/vim-repeat",
     "tpope/vim-sleuth",
     "tpope/vim-surround",
