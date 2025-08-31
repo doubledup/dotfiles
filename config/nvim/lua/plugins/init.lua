@@ -1,10 +1,6 @@
 return {
-    -- "jreybert/vimagit"
-    -- "tpope/vim-git",
-    -- "tpope/vim-rhubarb"
-    "tpope/vim-fugitive",
     -- Github code reviews
-    -- pwntester/octo.nvim
+    -- "pwntester/octo.nvim"
 
     {
         "lewis6991/gitsigns.nvim",
@@ -78,8 +74,6 @@ return {
         },
     },
     "folke/which-key.nvim",
-    "junegunn/fzf",
-    "junegunn/fzf.vim",
     "norcalli/nvim-colorizer.lua",
     -- TODO: disable <leader>rwp
     "powerman/vim-plugin-AnsiEsc",
@@ -89,6 +83,11 @@ return {
         -- https://zignar.net/2022/01/21/a-boring-statusline-for-neovim/
         -- "nvim-lualine/lualine.nvim"
         "itchyny/lightline.vim",
+
+        dependencies = {
+            "tpope/vim-fugitive",
+        },
+
         config = function()
             vim.o.showmode = false
             vim.g.lightline = {
@@ -209,7 +208,18 @@ return {
     { "numToStr/Comment.nvim", opts = {}, lazy = false },
 
     "pbrisbin/vim-mkdir",
-    "raimondi/delimitmate",
+    {
+        "raimondi/delimitmate",
+        event = "InsertEnter",
+        init = function(_)
+            vim.g.delimitMate_balance_matchpairs = 1
+            vim.g.delimitMate_excluded_regions = ""
+            vim.g.delimitMate_expand_cr = 2
+            vim.g.delimitMate_expand_inside_quotes = 1
+            vim.g.delimitMate_expand_space = 1
+            vim.g.delimitMate_jump_expansion = 1
+        end,
+    },
     "tpope/vim-abolish",
     "tpope/vim-obsession",
     "tpope/vim-repeat",
