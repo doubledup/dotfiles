@@ -265,7 +265,16 @@ require("lazy").setup({
 
         "jpalardy/vim-slime",
 
-        "mizlan/iswap.nvim",
+        {
+            "mizlan/iswap.nvim",
+            keys = {
+                { "<leader>h", ":ISwapNodeWithLeft<cr>", desc = "Swap with left node" },
+                { "<leader>l", ":ISwapNodeWithRight<cr>", desc = "Swap with right node" },
+                { "<leader>j", ":ISwapNodeWith<cr>", desc = "Swap with selected node" },
+                { "<leader>k", ":ISwapNode<cr>", desc = "Swap node" },
+            },
+        },
+
         { "numToStr/Comment.nvim", opts = {}, lazy = false },
 
         {
@@ -818,12 +827,6 @@ end, { remap = true })
 vim.keymap.set("o", "Z", function()
     hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
 end, { remap = true })
-
--- iswap
-vim.keymap.set("n", "<leader>h", ":ISwapNodeWithLeft<cr>")
-vim.keymap.set("n", "<leader>l", ":ISwapNodeWithRight<cr>")
-vim.keymap.set("n", "<leader>j", ":ISwapNodeWith<cr>")
-vim.keymap.set("n", "<leader>k", ":ISwapNode<cr>")
 
 -- linediff
 vim.keymap.set("v", "<leader>l", ":Linediff<cr>")
