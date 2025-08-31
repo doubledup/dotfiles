@@ -21,14 +21,6 @@ return {
     -- Github code reviews
     -- "pwntester/octo.nvim"
 
-    -- "williamboman/mason.nvim" -- and
-    -- "williamboman/mason-lspconfig.nvim" -- and
-    -- "neovim/nvim-lspconfig"
-    --
-    -- "ms-jpq/coq_nvim",
-    -- "autozimu/LanguageClient-neovim",
-    -- { "neoclide/coc.nvim", branch = "release" }, -- moved to lua/plugins/coc.lua
-
     -- ui
     {
         "Luxed/ayu-vim",

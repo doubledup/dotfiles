@@ -1,4 +1,11 @@
 return {
+    -- "williamboman/mason.nvim" -- and
+    -- "williamboman/mason-lspconfig.nvim" -- and
+    -- "neovim/nvim-lspconfig"
+    --
+    -- "ms-jpq/coq_nvim",
+    -- "autozimu/LanguageClient-neovim",
+
     "neoclide/coc.nvim",
     -- TODO: See `:h coc-status` for integration with lightline.
     branch = "release",
