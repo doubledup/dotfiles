@@ -24,10 +24,7 @@ return {
             api.config.mappings.default_on_attach(bufnr)
 
             vim.keymap.set("n", "-", api.tree.toggle, opts("Toggle tree"))
-            vim.keymap.set("n", "<c-h>", api.tree.change_root_to_parent, opts("Up"))
-            vim.keymap.set("n", "<c-l>", api.tree.change_root_to_node, opts("Down"))
-            -- swap c-x for c-s in default bindings so horizontal split is consistent with c-w
-            -- window keys
+            -- swap default c-x for c-s so horizontal split is consistent with c-w window keys
             vim.keymap.del("n", "<c-x>", { buffer = bufnr })
             vim.keymap.set("n", "<c-s>", api.node.open.horizontal, opts("Open: Horizontal Split"))
         end,
