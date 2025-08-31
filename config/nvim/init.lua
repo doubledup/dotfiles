@@ -268,10 +268,6 @@ vim.filetype.add({
 
 -- plugins
 
--- codecompanion
--- Expand "c" into "CodeCompanion" in the command line
-vim.cmd([[cab c CodeCompanion]])
-
 -- delimitmate
 vim.g.delimitMate_balance_matchpairs = 1
 vim.g.delimitMate_excluded_regions = ""
