@@ -34,6 +34,8 @@ vim.g.slime_no_mappings = 1
 -- set termguicolors here for norcalli/nvim-colorizer.lua
 vim.o.termguicolors = true
 
+vim.keymap.set("n", "<leader>p", ":Lazy<cr>", { desc = "Open lazy.nvim menu" })
+
 -- Load configuration modules
 require("lazy").setup({
     spec = { import = "plugins" },
