@@ -348,21 +348,6 @@ end, { remap = true })
 -- linediff
 vim.keymap.set("v", "<leader>l", ":Linediff<cr>")
 
--- nvim-tree
-local nvimtree_augroup = vim.api.nvim_create_augroup("NvimTree", { clear = false })
-vim.api.nvim_create_autocmd("BufEnter", {
-    desc = "Quit when nvim-tree is the last window",
-    group = nvimtree_augroup,
-    callback = function()
-        local api = require("nvim-tree.api")
-        if vim.fn.winnr("$") == 1 and api.tree.is_tree_buf() then
-            vim.cmd.q()
-        end
-    end,
-})
-vim.keymap.set("n", "-", ":NvimTreeToggle<cr>")
-vim.keymap.set("n", "<leader>-", ":NvimTreeFindFile<cr>")
-
 -- obsession
 vim.keymap.set("n", "<leader>st", ":Obsession<cr>")
 vim.keymap.set("n", "<leader>sl", ":source Session.vim<cr>")
