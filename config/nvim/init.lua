@@ -105,8 +105,7 @@ require("lazy").setup({
         {
             "Luxed/ayu-vim",
             lazy = false,
-            priority = 1000,
-            config = function() end,
+            priority = 1000, -- load before other plugins
         },
 
         {
@@ -231,8 +230,10 @@ require("lazy").setup({
         -- edit filesystem in buffer: stevearc/oil.nvim
         {
             "nvim-tree/nvim-tree.lua",
+            dependencies = {
+                "nvim-tree/nvim-web-devicons",
+            },
             opts = {
-
                 view = {
                     width = 60,
                 },
@@ -247,14 +248,11 @@ require("lazy").setup({
                     api.config.mappings.default_on_attach(bufnr)
 
                     vim.keymap.set("n", "-", api.tree.toggle, opts("Toggle tree"))
-                    vim.keymap.set("n", "<c-k>", api.tree.change_root_to_parent, opts("Up"))
-                    vim.keymap.set("n", "<c-j>", api.tree.change_root_to_node, opts("Down"))
-                    vim.keymap.del("n", "<c-x>", { buffer = bufnr })
+                    -- vim.keymap.set("n", "<c-k>", api.tree.change_root_to_parent, opts("Up"))
+                    -- vim.keymap.set("n", "<c-j>", api.tree.change_root_to_node, opts("Down"))
+                    -- vim.keymap.del("n", "<c-x>", { buffer = bufnr })
                     vim.keymap.set("n", "<c-s>", api.node.open.horizontal, opts("Open: Horizontal Split"))
                 end,
-            },
-            dependencies = {
-                "nvim-tree/nvim-web-devicons",
             },
         },
 
