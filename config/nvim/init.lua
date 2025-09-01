@@ -86,8 +86,8 @@ vim.api.nvim_create_autocmd("TermClose", {
 -- wildmenu
 vim.o.wildmode = "longest,full"
 vim.o.wildoptions = "fuzzy,pum,tagfile"
-vim.keymap.set("c", "<c-f>", "<space><bs><left>")
-vim.keymap.set("c", "<c-b>", "<space><bs><right>")
+vim.keymap.set("c", "<c-f>", "<space><bs><right>")
+vim.keymap.set("c", "<c-b>", "<space><bs><left>")
 
 -- os and local config
 local os_settings = vim.fn.expand("~/.config/nvim/init.os.vim")
