@@ -6,24 +6,28 @@ return {
         -- Enable for one-off setup. See its README for auth.
         "zbirenbaum/copilot.lua",
     },
+
     init = function(_)
         vim.cmd("cabbrev c CodeCompanion")
     end,
+
     opts = {
-        strategies = {
-            chat = {
-                adapter = {
-                    name = "anthropic",
-                    model = "claude-sonnet-4-20250514",
-                },
-            },
-            inline = {
-                adapter = {
-                    name = "anthropic",
-                    model = "claude-sonnet-4-20250514",
-                },
-            },
-        },
+        -- strategies = {
+        --     chat = {
+        --         adapter = {
+        --             name = "anthropic",
+        --             model = "claude-sonnet-4",
+        --         },
+        --     },
+        --
+        --     inline = {
+        --         adapter = {
+        --             name = "anthropic",
+        --             model = "claude-sonnet-4",
+        --         },
+        --     },
+        -- },
+
         adapters = {
             http = {
                 -- anthropic = function()
@@ -33,6 +37,7 @@ return {
                 --         },
                 --     })
                 -- end,
+
                 copilot = function()
                     return require("codecompanion.adapters").extend("copilot", {
                         schema = {
@@ -47,12 +52,14 @@ return {
             },
         },
     },
+
     cmd = {
         "CodeCompanion",
         "CodeCompanionCmd",
         "CodeCompanionChat",
         "CodeCompanionActions",
     },
+
     keys = {
         {
             mode = { "n", "v" },
@@ -75,6 +82,7 @@ return {
             noremap = true,
             silent = true,
         },
+
         -- vim.keymap.set("n", "<leader>ai", ":CodeCompanion<cr>")
         -- vim.keymap.set("n", "<leader>ac", ":CodeCompanionChat Toggle<cr>")
         -- vim.keymap.set("v", "<leader>ac", ":CodeCompanionChat Toggle<cr>")
