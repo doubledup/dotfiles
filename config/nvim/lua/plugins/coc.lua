@@ -209,45 +209,45 @@ return {
             "n",
             "<c-f>",
             string.format("coc#float#has_scroll() ? coc#float#scroll(1, %d) : '<c-f>'", scroll_length),
-            scroll_opts
+            vim.tbl_extend("force", scroll_opts, { desc = "Scroll float window down or page down" })
         )
         vim.keymap.set(
             "n",
             "<c-b>",
             string.format("coc#float#has_scroll() ? coc#float#scroll(0, %d) : '<c-b>'", scroll_length),
-            scroll_opts
+            vim.tbl_extend("force", scroll_opts, { desc = "Scroll float window up or page up" })
         )
         vim.keymap.set(
             "i",
             "<c-f>",
             string.format("coc#float#has_scroll() ? '<c-r>=coc#float#scroll(1, %d)<cr>' : '<right>'", scroll_length),
-            scroll_opts
+            vim.tbl_extend("force", scroll_opts, { desc = "Scroll float window down or move right" })
         )
         vim.keymap.set(
             "i",
             "<c-b>",
             string.format("coc#float#has_scroll() ? '<c-r>=coc#float#scroll(0, %d)<cr>' : '<left>'", scroll_length),
-            scroll_opts
+            vim.tbl_extend("force", scroll_opts, { desc = "Scroll float window up or move left" })
         )
         vim.keymap.set(
             "v",
             "<c-f>",
             string.format("coc#float#has_scroll() ? coc#float#scroll(1, %d) : '<c-f>'", scroll_length),
-            scroll_opts
+            vim.tbl_extend("force", scroll_opts, { desc = "Scroll float window down or page down" })
         )
         vim.keymap.set(
             "v",
             "<c-b>",
             string.format("coc#float#has_scroll() ? coc#float#scroll(0, %d) : '<c-b>'", scroll_length),
-            scroll_opts
+            vim.tbl_extend("force", scroll_opts, { desc = "Scroll float window up or page up" })
         )
 
         -- Text objects for functions and classes
         -- NOTE: Requires "textDocument.documentSymbol" support from the language server
         local text_obj_opts = { silent = true, nowait = true }
-        vim.keymap.set({ "x", "o" }, "if", "<Plug>(coc-funcobj-i)", text_obj_opts)
-        vim.keymap.set({ "x", "o" }, "af", "<Plug>(coc-funcobj-a)", text_obj_opts)
-        vim.keymap.set({ "x", "o" }, "ic", "<Plug>(coc-classobj-i)", text_obj_opts)
-        vim.keymap.set({ "x", "o" }, "ac", "<Plug>(coc-classobj-a)", text_obj_opts)
+        vim.keymap.set({ "x", "o" }, "if", "<Plug>(coc-funcobj-i)", vim.tbl_extend("force", text_obj_opts, { desc = "Inside function text object" }))
+        vim.keymap.set({ "x", "o" }, "af", "<Plug>(coc-funcobj-a)", vim.tbl_extend("force", text_obj_opts, { desc = "Around function text object" }))
+        vim.keymap.set({ "x", "o" }, "ic", "<Plug>(coc-classobj-i)", vim.tbl_extend("force", text_obj_opts, { desc = "Inside class text object" }))
+        vim.keymap.set({ "x", "o" }, "ac", "<Plug>(coc-classobj-a)", vim.tbl_extend("force", text_obj_opts, { desc = "Around class text object" }))
     end,
 }

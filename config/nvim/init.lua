@@ -37,8 +37,8 @@ end, { desc = "Hop backward on line", remap = true })
 
 -- mouse
 vim.g.mousescroll = "hor:1"
-vim.keymap.set("n", "<ScrollWheelUp>", "<c-y>")
-vim.keymap.set("n", "<ScrollWheelDown>", "<c-e>")
+vim.keymap.set("n", "<ScrollWheelUp>", "<c-y>", { desc = "Scroll up with mouse wheel" })
+vim.keymap.set("n", "<ScrollWheelDown>", "<c-e>", { desc = "Scroll down with mouse wheel" })
 
 -- neovide
 if vim.g.neovide then
@@ -48,12 +48,12 @@ if vim.g.neovide then
     vim.g.neovide_refresh_rate_idle = 1
     vim.g.neovide_input_macos_option_key_is_meta = true
     vim.g.neovide_cursor_vfx_mode = "ripple"
-    vim.keymap.set("", "<D-n>", ":silent !neovide --multigrid&<cr>")
+    vim.keymap.set("", "<D-n>", ":silent !neovide --multigrid&<cr>", { desc = "Open new Neovide window" })
 end
 
 -- terminal
 -- quit, then move to start of line to preserve display of curses-like output
-vim.keymap.set("t", "<c-/>", "<c-\\><c-n>0")
+vim.keymap.set("t", "<c-/>", "<c-\\><c-n>0", { desc = "Exit terminal mode and go to line start" })
 vim.keymap.set("n", "<leader>ts", ":25sp | terminal fish<cr>a", { desc = "Terminal [s]plit horizontally" })
 vim.keymap.set("n", "<leader>tv", ":85vsp | terminal fish<cr>a", { desc = "Terminal split [v]ertically" })
 vim.keymap.set("n", "<leader>tt", ":tabnew | terminal fish<cr>a", { desc = "Terminal [t]ab" })
@@ -86,8 +86,8 @@ vim.api.nvim_create_autocmd("TermClose", {
 -- wildmenu
 vim.o.wildmode = "longest,full"
 vim.o.wildoptions = "fuzzy,pum,tagfile"
-vim.keymap.set("c", "<c-f>", "<space><bs><right>")
-vim.keymap.set("c", "<c-b>", "<space><bs><left>")
+vim.keymap.set("c", "<c-f>", "<space><bs><right>", { desc = "Move cursor right" })
+vim.keymap.set("c", "<c-b>", "<space><bs><left>", { desc = "Move cursor left" })
 
 -- os and local config
 local os_settings = vim.fn.expand("~/.config/nvim/init.os.vim")
