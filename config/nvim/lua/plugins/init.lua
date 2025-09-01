@@ -63,7 +63,7 @@ return {
         },
     },
 
-    { "numToStr/Comment.nvim", keys = { "gc", "gb" } },
+    "numToStr/Comment.nvim",
     "pbrisbin/vim-mkdir",
 
     {
