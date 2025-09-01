@@ -85,8 +85,6 @@ vim.keymap.set("n", "<leader><leader>,", function()
     -- (non-package) config
     vim.cmd.echo()
 end, { desc = "Reload nvim config" })
-vim.keymap.set("n", "<leader>;", ":execute 'tabnew ~/.config/nvim/ftplugin/' . &ft . '.vim'<cr>", { desc = "Open filetype plugin config" })
-vim.keymap.set("n", "<leader><leader>.", ":so %<cr>", { desc = "Source current file" })
 
 -- copy filename to system clipboard
 vim.keymap.set("n", "<leader>5", ":let @+=@%<cr>", { desc = "Copy filename to clipboard" })
