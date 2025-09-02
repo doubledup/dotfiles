@@ -245,9 +245,29 @@ return {
         -- Text objects for functions and classes
         -- NOTE: Requires "textDocument.documentSymbol" support from the language server
         local text_obj_opts = { silent = true, nowait = true }
-        vim.keymap.set({ "x", "o" }, "if", "<Plug>(coc-funcobj-i)", vim.tbl_extend("force", text_obj_opts, { desc = "Inside function text object" }))
-        vim.keymap.set({ "x", "o" }, "af", "<Plug>(coc-funcobj-a)", vim.tbl_extend("force", text_obj_opts, { desc = "Around function text object" }))
-        vim.keymap.set({ "x", "o" }, "ic", "<Plug>(coc-classobj-i)", vim.tbl_extend("force", text_obj_opts, { desc = "Inside class text object" }))
-        vim.keymap.set({ "x", "o" }, "ac", "<Plug>(coc-classobj-a)", vim.tbl_extend("force", text_obj_opts, { desc = "Around class text object" }))
+        vim.keymap.set(
+            { "x", "o" },
+            "if",
+            "<Plug>(coc-funcobj-i)",
+            vim.tbl_extend("force", text_obj_opts, { desc = "Inside function text object" })
+        )
+        vim.keymap.set(
+            { "x", "o" },
+            "af",
+            "<Plug>(coc-funcobj-a)",
+            vim.tbl_extend("force", text_obj_opts, { desc = "Around function text object" })
+        )
+        vim.keymap.set(
+            { "x", "o" },
+            "ic",
+            "<Plug>(coc-classobj-i)",
+            vim.tbl_extend("force", text_obj_opts, { desc = "Inside class text object" })
+        )
+        vim.keymap.set(
+            { "x", "o" },
+            "ac",
+            "<Plug>(coc-classobj-a)",
+            vim.tbl_extend("force", text_obj_opts, { desc = "Around class text object" })
+        )
     end,
 }

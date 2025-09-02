@@ -51,10 +51,30 @@ vim.keymap.set("v", "*", '"zy/\\V\\c\\<<c-r>z\\><cr>', { desc = "Search for sele
 vim.keymap.set("v", "g*", '"zy/\\V\\c<c-r>z<cr>', { desc = "Search for selected text (partial match)" })
 
 -- substitute: replace all, ask for confirmation and don't ignore case
-vim.keymap.set("n", "<c-s>", ":%s/\\V\\<<c-r><c-w>\\>/<c-r><c-w>/gcI<left><left><left><left>", { desc = "Substitute word under cursor (whole word)" })
-vim.keymap.set("n", "g<c-s>", ":%s/\\V<c-r><c-w>/<c-r><c-w>/gcI<left><left><left><left>", { desc = "Substitute word under cursor (partial match)" })
-vim.keymap.set("x", "<c-s>", '"zy:%s/\\V\\<<c-r>z\\>/<c-r>z/gcI<left><left><left><left>', { desc = "Substitute selected text (whole word)" })
-vim.keymap.set("x", "g<c-s>", '"zy:%s/\\V<c-r>z/<c-r>z/gcI<left><left><left><left>', { desc = "Substitute selected text (partial match)" })
+vim.keymap.set(
+    "n",
+    "<c-s>",
+    ":%s/\\V\\<<c-r><c-w>\\>/<c-r><c-w>/gcI<left><left><left><left>",
+    { desc = "Substitute word under cursor (whole word)" }
+)
+vim.keymap.set(
+    "n",
+    "g<c-s>",
+    ":%s/\\V<c-r><c-w>/<c-r><c-w>/gcI<left><left><left><left>",
+    { desc = "Substitute word under cursor (partial match)" }
+)
+vim.keymap.set(
+    "x",
+    "<c-s>",
+    '"zy:%s/\\V\\<<c-r>z\\>/<c-r>z/gcI<left><left><left><left>',
+    { desc = "Substitute selected text (whole word)" }
+)
+vim.keymap.set(
+    "x",
+    "g<c-s>",
+    '"zy:%s/\\V<c-r>z/<c-r>z/gcI<left><left><left><left>',
+    { desc = "Substitute selected text (partial match)" }
+)
 
 -- clear highlights
 vim.keymap.set("n", "<esc>", function()
@@ -78,7 +98,12 @@ vim.keymap.set("c", "<m-b>", "<s-left>", { desc = "Move word backward" })
 vim.keymap.set("c", "<m-f>", "<s-right>", { desc = "Move word forward" })
 
 -- config
-vim.keymap.set("n", "<leader>,", ":tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>", { desc = "Open nvim config" })
+vim.keymap.set(
+    "n",
+    "<leader>,",
+    ":tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>",
+    { desc = "Open nvim config" }
+)
 vim.keymap.set("n", "<leader><leader>,", function()
     vim.cmd.source("~/.config/nvim/init.lua")
     -- suppress "Reloading your config is not supported" message as source does actually reload
@@ -98,23 +123,68 @@ vim.keymap.set("x", "<leader>'", '"+', { desc = "Access system clipboard registe
 -- Base64 encoding/decoding
 vim.keymap.set("n", "[44", "!!base64<cr>", { desc = "Base64 encode current line" })
 vim.keymap.set("n", "]44", "!!base64 -d<cr>", { desc = "Base64 decode current line" })
-vim.keymap.set("v", "[4", "\"zc<c-r>=system(\"echo '<c-r>z' | base64 | tr -d '\\n'\")<cr><esc>", { desc = "Base64 encode selection" })
-vim.keymap.set("v", "]4", "\"zc<c-r>=system(\"echo '<c-r>z' | base64 -d | tr -d '\\n'\")<cr><esc>", { desc = "Base64 decode selection" })
+vim.keymap.set(
+    "v",
+    "[4",
+    "\"zc<c-r>=system(\"echo '<c-r>z' | base64 | tr -d '\\n'\")<cr><esc>",
+    { desc = "Base64 encode selection" }
+)
+vim.keymap.set(
+    "v",
+    "]4",
+    "\"zc<c-r>=system(\"echo '<c-r>z' | base64 -d | tr -d '\\n'\")<cr><esc>",
+    { desc = "Base64 decode selection" }
+)
 
 -- Hexadecimal conversion
-vim.keymap.set("n", "[66", "VU!!sed -E 's/(.*)/obase=16;\\1/' | bc<cr>", { desc = "Convert (decimal) line to hexadecimal" })
+vim.keymap.set(
+    "n",
+    "[66",
+    "VU!!sed -E 's/(.*)/obase=16;\\1/' | bc<cr>",
+    { desc = "Convert (decimal) line to hexadecimal" }
+)
 vim.keymap.set("n", "]66", "VU!!sed -E 's/(.*)/ibase=16;\\1/' | bc<cr>", { desc = "Convert hex line to decimal" })
-vim.keymap.set("v", "[6", "Ugv\"zc<c-r>=system(\"echo 'obase=16;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>", { desc = "Convert (decimal) selection to hexadecimal" })
-vim.keymap.set("v", "]6", "Ugv\"zc<c-r>=system(\"echo 'ibase=16;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>", { desc = "Convert hex selection to decimal" })
+vim.keymap.set(
+    "v",
+    "[6",
+    "Ugv\"zc<c-r>=system(\"echo 'obase=16;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>",
+    { desc = "Convert (decimal) selection to hexadecimal" }
+)
+vim.keymap.set(
+    "v",
+    "]6",
+    "Ugv\"zc<c-r>=system(\"echo 'ibase=16;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>",
+    { desc = "Convert hex selection to decimal" }
+)
 
 -- Octal conversion
 vim.keymap.set("n", "[88", "VU!!sed -E 's/(.*)/obase=8;\\1/' | bc<cr>", { desc = "Convert (decimal) line to octal" })
 vim.keymap.set("n", "]88", "VU!!sed -E 's/(.*)/ibase=8;\\1/' | bc<cr>", { desc = "Convert octal line to decimal" })
-vim.keymap.set("v", "[8", "Ugv\"zc<c-r>=system(\"echo 'obase=8;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>", { desc = "Convert (decimal) selection to octal" })
-vim.keymap.set("v", "]8", "Ugv\"zc<c-r>=system(\"echo 'ibase=8;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>", { desc = "Convert octal selection to decimal" })
+vim.keymap.set(
+    "v",
+    "[8",
+    "Ugv\"zc<c-r>=system(\"echo 'obase=8;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>",
+    { desc = "Convert (decimal) selection to octal" }
+)
+vim.keymap.set(
+    "v",
+    "]8",
+    "Ugv\"zc<c-r>=system(\"echo 'ibase=8;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>",
+    { desc = "Convert octal selection to decimal" }
+)
 
 -- Binary conversion
 vim.keymap.set("n", "[22", "VU!!sed -E 's/(.*)/obase=2;\\1/' | bc<cr>", { desc = "Convert (decimal) line to binary" })
 vim.keymap.set("n", "]22", "VU!!sed -E 's/(.*)/ibase=2;\\1/' | bc<cr>", { desc = "Convert binary line to decimal" })
-vim.keymap.set("v", "[2", "Ugv\"zc<c-r>=system(\"echo 'obase=2;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>", { desc = "Convert (decimal) selection to binary" })
-vim.keymap.set("v", "]2", "Ugv\"zc<c-r>=system(\"echo 'ibase=2;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>", { desc = "Convert binary selection to decimal" })
+vim.keymap.set(
+    "v",
+    "[2",
+    "Ugv\"zc<c-r>=system(\"echo 'obase=2;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>",
+    { desc = "Convert (decimal) selection to binary" }
+)
+vim.keymap.set(
+    "v",
+    "]2",
+    "Ugv\"zc<c-r>=system(\"echo 'ibase=2;<c-r>z' | bc | tr -d '\\n'\")<cr><esc>",
+    { desc = "Convert binary selection to decimal" }
+)
