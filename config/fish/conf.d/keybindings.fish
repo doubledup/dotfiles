@@ -16,8 +16,8 @@ function nextd_with_prompt
     echo
     commandline -f repaint
 end
-bind alt-\{ prevd_with_prompt
-bind alt-\} nextd_with_prompt
+bind alt-\[ prevd_with_prompt
+bind alt-\] nextd_with_prompt
 
 function cd_prev --description "Go to previous directory (and repaint)"
     cd -
