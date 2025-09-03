@@ -14,7 +14,7 @@ return {
             { "<leader>/", 'y:BLines! <c-r>"<cr>', desc = "Find selection in current buffer", mode = "v" },
             { "<leader>*", ":BLines! <c-r><c-w><cr>", desc = "Find word under cursor in buffer" },
             { "<leader>*", 'y:BLines! <c-r>"<cr>', desc = "Find selection in current buffer", mode = "v" },
-            { "<leader>:", ":History:!<cr>", desc = "Command history" },
+            { "<leader>:", ":History:!<cr>", desc = "Run command from history" },
             { "<leader>gl", ":Commits!<cr>", desc = "Git log (fzf)" },
         },
         config = function()
