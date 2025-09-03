@@ -9,6 +9,7 @@ abbr v "$EDITOR"
 abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
 abbr vg 'NVIM_APPNAME=nvim-golf nvim'
 abbr nvim! 'nvim -N -u NONE -U NONE'
+abbr nv neovide
 
 # less
 # -N: show line numbers
