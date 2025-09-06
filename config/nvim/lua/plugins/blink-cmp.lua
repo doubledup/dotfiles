@@ -38,8 +38,8 @@ return {
                         { "kind_icon" },
                         { "label", "label_description", gap = 1 },
                         -- Uncomment when needed for more info
-                        { "kind" } --, "source_name", gap = 1 }
-                    } ,
+                        { "kind" }, --, "source_name", gap = 1 }
+                    },
 
                     -- TODO: xzbdmw/colorful-menu.nvim
                     treesitter = { "lsp" },

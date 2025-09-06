@@ -24,7 +24,7 @@ return {
     -- ui
     { "Luxed/ayu-vim", lazy = false, priority = 1000 }, -- load before other plugins
 
-    { "folke/snacks.nvim", opts = { bigfile = {}, }, },
+    { "folke/snacks.nvim", opts = { bigfile = {} } },
 
     "folke/which-key.nvim",
     "norcalli/nvim-colorizer.lua",
