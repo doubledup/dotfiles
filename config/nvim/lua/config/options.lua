@@ -19,7 +19,7 @@ vim.o.showbreak = "↪ "
 
 -- show line numbers
 vim.o.number = true
--- always show signcolumn
+-- always show signcolumn, otherwise it would shift the text each time diagnostics appear
 vim.o.signcolumn = "yes"
 
 -- continue comments on new lines
@@ -62,3 +62,8 @@ vim.cmd.colorscheme("ayu")
 vim.schedule(function()
     vim.o.clipboard = "unnamedplus"
 end)
+
+-- some language servers have issues with backup files, see
+-- https://github.com/neoclide/coc.nvim/issues/649
+vim.o.backup = false
+vim.o.writebackup = false
