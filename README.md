@@ -40,7 +40,8 @@ default for all repositories that you can override, e.g. with `direnv`.
 ### Firefox
 
 To enable the custom stylesheet, go to the `about:config` page and set
-`toolkit.legacyUserProfileCustomizations.stylesheets` to true.
+`toolkit.legacyUserProfileCustomizations.stylesheets` to true. To also remove the remaining
+sidebar UI, set `sidebar.revamp` to false.
 
 ## MacOS
 
