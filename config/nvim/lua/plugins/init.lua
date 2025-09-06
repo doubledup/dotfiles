@@ -122,7 +122,11 @@ return {
         },
     },
 
-    "ChrisWellsWood/roc.vim",
+    {
+        "ChrisWellsWood/roc.vim",
+        ft = "roc",
+        opts = {},
+    },
 
     -- as needed
     -- "dstein64/vim-startuptime",
