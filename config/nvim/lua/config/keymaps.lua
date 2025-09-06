@@ -101,7 +101,7 @@ vim.keymap.set("c", "<m-f>", "<s-right>", { desc = "Move word forward" })
 vim.keymap.set(
     "n",
     "<leader>,",
-    ":tabnew<cr>:tcd ~/.dotfiles<cr>:e ~/.config/nvim/init.lua<cr>",
+    ":tabnew<cr>:tcd ~/.dotfiles<cr>:e config/nvim/init.lua<cr>",
     { desc = "Open nvim config" }
 )
 vim.keymap.set("n", "<leader><leader>,", function()
