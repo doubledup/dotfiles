@@ -8,7 +8,7 @@ set -x EDITOR nvim
 abbr v "$EDITOR"
 abbr vk 'NVIM_APPNAME=nvim-kickstart nvim'
 abbr vg 'NVIM_APPNAME=nvim-golf nvim'
-abbr nvim! 'nvim -N -u NONE -U NONE'
+abbr nvim! 'nvim -u NONE'
 abbr nv neovide
 
 # less
