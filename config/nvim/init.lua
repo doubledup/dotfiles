@@ -43,7 +43,7 @@ vim.keymap.set("n", "<ScrollWheelDown>", "<c-e>", { desc = "Scroll down with mou
 -- neovide
 if vim.g.neovide then
     vim.o.guifont = "Hack Nerd Font:h14"
-    vim.o.linespace = 10
+    vim.o.linespace = 14
 
     vim.g.neovide_scroll_animation_length = 0.2
     -- vim.g.neovide_cursor_animation_length = 0.09
