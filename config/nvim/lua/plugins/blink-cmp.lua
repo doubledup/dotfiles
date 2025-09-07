@@ -54,7 +54,11 @@ return {
 
         -- TODO: https://cmp.saghen.dev/configuration/sources.html#community-sources
         sources = {
-            default = { "path", "lsp", "snippets", "buffer", "lazydev" },
+            default = { "lsp", "path", "snippets", "buffer" },
+
+            per_filetype = {
+                lua = { inherit_defaults = true, "lazydev" }
+            },
 
             providers = {
                 lazydev = {
