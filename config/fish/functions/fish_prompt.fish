@@ -9,7 +9,7 @@ function fish_prompt --description 'Write out the prompt'
         set -g __fish_git_prompt_hide_untrackedfiles 1
     end
     if not set -q __fish_git_prompt_color_branch
-        set -g __fish_git_prompt_color_branch magenta --bold
+        set -g __fish_git_prompt_color_branch cyan --bold
     end
     if not set -q __fish_git_prompt_showupstream
         set -g __fish_git_prompt_showupstream informative
@@ -59,14 +59,14 @@ function fish_prompt --description 'Write out the prompt'
     echo -n $prompt_status
     set_color normal
 
+    set -l times_color (set_color $fish_color_comment)
     set -l duration "$cmd_duration$CMD_DURATION"
     if test $duration -gt 100
-        set duration (set_color brgrey)(math $duration / 1000)s(set_color normal)
+        set duration "$times_color"(math $duration / 1000)s(set_color normal)
     else
-        set duration (set_color brgrey)(echo $duration)ms(set_color normal)
+        set duration "$times_color"(echo $duration)ms(set_color normal)
     end
-
-    set -l date (set_color brgrey)\[(date "+%R")\](set_color normal)
+    set -l date "$times_color"\[(date "+%R")\](set_color normal)
 
     echo -n $duration $date
 

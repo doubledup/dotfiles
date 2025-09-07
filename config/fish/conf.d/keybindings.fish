@@ -1,7 +1,9 @@
 bind \ea 'echo; ls -al; echo; commandline -f repaint'
 
-# pass previous args to different command
+# Pass previous args to a different command
 bind \ek 'commandline -f history-search-backward beginning-of-line kill-word'
+# TODO: pass previous last arg to different command
+# bind \ek 'commandline -f history-search-backward end-of-line backward-bigword clear-commandline insert space yank beginning-of-line'
 
 bind \eh 'MANWIDTH=(math $COLUMNS - 13) MANPAGER=\'bat --wrap never\' __fish_man_page'
 bind \eP btm
