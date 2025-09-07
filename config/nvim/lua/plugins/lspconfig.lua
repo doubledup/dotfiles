@@ -35,7 +35,6 @@ return {
                 map("[s", vim.diagnostic.goto_prev, "Previous diagnostic")
                 map("]s", vim.diagnostic.goto_next, "Next diagnostic")
 
-                -- Navigation keybindings (CoC style)
                 map("gd", function()
                     local ok, telescope = pcall(require, "telescope.builtin")
                     if ok then
@@ -75,7 +74,12 @@ return {
                     if vim.fn.index({ "vim", "help" }, vim.bo.filetype) >= 0 then
                         vim.api.nvim_command("h " .. cw)
                     else
-                        vim.lsp.buf.hover()
+                        -- TODO: hidden text still adds a lot of whitespace in doc windows
+                        -- TODO: add esc to dismiss hover doc window
+                        vim.lsp.buf.hover({
+                            max_height = 20,
+                            max_width = 80,
+                        })
                     end
                 end, "Show documentation")
 

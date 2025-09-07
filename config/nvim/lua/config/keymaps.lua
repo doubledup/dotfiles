@@ -86,6 +86,7 @@ end, { remap = false, desc = "Clear search highlights" })
 -- select all
 vim.keymap.set("n", "^", "ggVG", { desc = "Select all text" })
 
+-- TODO: resize to 80 chars after opening help
 vim.cmd.cnoreabbrev("h", "vert h")
 vim.cmd.cnoreabbrev("hs", "hor h")
 vim.cmd.cnoreabbrev("ht", "tab h")
