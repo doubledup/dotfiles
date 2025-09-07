@@ -8,6 +8,28 @@ return {
 
     ---@diagnostic disable-next-line: unused-local
     config = function(opts)
+        local home = os.getenv("HOME")
+        local root_markers = { "gradlew", ".git", "mvnw" }
+        local root_dir = require("jdtls.setup").find_root(root_markers)
+
+        local function remove_first_dir(path)
+            local parts = {}
+            local i = 1
+            for part in string.gmatch(path, "[^/]+") do
+                if i > 0 then
+                    i = i - 1
+                else
+                    table.insert(parts, part)
+                end
+            end
+
+            return table.concat(parts, "/")
+        end
+
+        local workspace_folder = home
+            .. "/.local/share/jdtls/"
+            .. remove_first_dir(vim.fn.fnamemodify(root_dir, ":~"))
+
         -- TODO: `:h jdtls`
         -- https://github.com/mfussenegger/nvim-jdtls/wiki/Sample-Configurations
         vim.lsp.config("jdtls", {
@@ -22,7 +44,9 @@ return {
             cmd = {
                 "jdtls",
                 "-data",
-                vim.fn.getcwd() .. "/.jdtls",
+                workspace_folder,
+                -- vim.fn.getcwd() .. "/.jdtls",
+                "--jvm-arg=-javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar",
             },
 
             -- `root_dir` must point to the root of your project.
