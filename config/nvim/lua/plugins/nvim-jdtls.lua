@@ -43,6 +43,8 @@ return {
             -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
             cmd = {
                 "jdtls",
+                "--java-executable",
+                vim.trim(vim.fn.system("/usr/libexec/java_home", "-v 21")) .. "/bin/java",
                 "-data",
                 workspace_folder,
                 -- vim.fn.getcwd() .. "/.jdtls",
