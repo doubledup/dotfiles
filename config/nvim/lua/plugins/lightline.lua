@@ -10,7 +10,7 @@ return {
     config = function()
         vim.o.showmode = false
         vim.g.lightline = {
-            colorscheme = "ayu_mirage",
+            colorscheme = "tokyonight",
             active = {
                 left = {
                     { "mode", "paste" },

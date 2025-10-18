@@ -23,8 +23,6 @@ set -x LESSOPEN '|bat --color=always --paging=never %s'
 
 # bat (after less so that $LESS is set)
 set -x BAT_PAGER "less $LESS"
-set -x BAT_STYLE changes
-set -x BAT_THEME ayu-mirage
 
 # path
 

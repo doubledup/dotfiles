@@ -22,7 +22,13 @@ return {
     -- "pwntester/octo.nvim"
 
     -- ui
-    { "Luxed/ayu-vim", lazy = false, priority = 1000 }, -- load before other plugins
+
+    {
+      "folke/tokyonight.nvim",
+      lazy = false,
+      priority = 1000,
+      opts = {},
+    },
 
     { "folke/snacks.nvim", opts = { bigfile = {} } },
 

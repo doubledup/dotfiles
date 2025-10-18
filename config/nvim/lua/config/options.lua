@@ -53,10 +53,6 @@ vim.o.foldenable = false
 -- vim.g.do_filetype_lua = 1
 -- vim.g.did_load_filetypes = 0
 
-vim.o.background = "dark"
-vim.g.ayucolor = "mirage"
-vim.cmd.colorscheme("ayu")
-
 -- Sync clipboard between OS and Neovim.
 -- Schedule the setting after `UiEnter` because it can increase startup time.
 vim.schedule(function()
