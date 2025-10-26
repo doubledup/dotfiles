@@ -91,18 +91,18 @@ return {
                 map("<leader>an", vim.lsp.buf.rename, "Rename symbol")
 
                 -- Format code
-                map("<leader>=", function()
-                    vim.lsp.buf.format({ async = true })
-                end, "Format")
-                map("<leader>=", function()
-                    vim.lsp.buf.format({
-                        async = true,
-                        range = {
-                            start = vim.api.nvim_buf_get_mark(0, "<"),
-                            ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
-                        },
-                    })
-                end, "Format selection", "x")
+                -- map("<leader>=", function()
+                --     vim.lsp.buf.format({ async = true })
+                -- end, "Format")
+                -- map("<leader>=", function()
+                --     vim.lsp.buf.format({
+                --         async = true,
+                --         range = {
+                --             start = vim.api.nvim_buf_get_mark(0, "<"),
+                --             ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
+                --         },
+                --     })
+                -- end, "Format selection", "x")
 
                 -- Code actions
                 -- TODO: targeted code actions
