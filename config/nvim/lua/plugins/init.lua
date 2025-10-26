@@ -65,7 +65,10 @@ return {
         },
     },
 
-    "numToStr/Comment.nvim",
+    {
+        "numToStr/Comment.nvim",
+        opts = {}
+    },
     "pbrisbin/vim-mkdir",
 
     {
