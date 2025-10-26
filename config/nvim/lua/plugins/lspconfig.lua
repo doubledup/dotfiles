@@ -76,6 +76,7 @@ return {
                     else
                         -- TODO: hidden text still adds a lot of whitespace in doc windows
                         -- TODO: add esc to dismiss hover doc window
+                        -- TODO: c-{f,b} to scroll docs
                         vim.lsp.buf.hover({
                             max_height = 20,
                             max_width = 80,

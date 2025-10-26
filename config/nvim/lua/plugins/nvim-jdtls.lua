@@ -1,4 +1,7 @@
 return {
+    -- TODO: turn off automatic project builds and add manual trigger. Maven doesn't coordinate
+    -- operations on the same module across processes, so LSP builds can clobber CLI commands and
+    -- vice versa.
     "mfussenegger/nvim-jdtls",
     ft = "java",
 

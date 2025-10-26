@@ -65,6 +65,8 @@ return {
             "rst",
         },
 
+        -- TODO: associate jsonc with json
+
         sync_install = false,
 
         highlight = {
