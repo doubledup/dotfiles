@@ -5,6 +5,11 @@ require("config.autocmds")
 
 vim.cmd[[colorscheme tokyonight]]
 
+-- firenvim
+if vim.g.started_by_firenvim == true then
+    vim.o.guifont = "Hack Nerd Font:h18"
+end
+
 -- filetype
 vim.filetype.add({
     extension = {

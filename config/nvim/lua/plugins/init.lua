@@ -46,6 +46,11 @@ return {
         },
     },
 
+    {
+        "glacambre/firenvim",
+        build = ":call firenvim#install(0)"
+    },
+
     { "smoka7/hop.nvim", opts = {} }, -- opts ensures that setup() gets called
     -- "honza/vim-snippets",
     "jpalardy/vim-slime",
