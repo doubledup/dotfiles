@@ -62,3 +62,9 @@ set -x FZF_DEFAULT_OPTS (string join " " -- \
   --color=separator:#ff966c \
   --color=spinner:#ff007c \
 )
+
+# disable preview for history search
+set -x FZF_CTRL_R_OPTS "--preview ''"
+
+# disable preview for directory jump
+set -x FZF_ALT_C_OPTS "--preview ''"
