@@ -148,27 +148,26 @@ return {
     --     dependencies = { "nvim-lua/plenary.nvim" }
     -- }
 
+    -- "ThePrimeagen/harpoon",
+    -- "folke/trouble.nvim",
+    -- "mfussenegger/nvim-dap",
+    -- "folke/todo-comments.nvim",
+
     -- "iamcco/markdown-preview.nvim"
     -- "tpope/vim-rsi"
     -- "mbbill/undotree",
     -- "her/central.vim",
-    -- "mfussenegger/nvim-dap",
-    -- "ThePrimeagen/harpoon",
-    -- "folke/trouble.nvim",
     -- "tpope/vim-dispatch",
     -- "janko-m/vim-test",
     -- "tpope/projectionist",
-    -- { "codota/tabnine-nvim", build = "./dl_binaries.sh" },
     -- "jameshiew/nvim-magic",
     -- "rest-nvim/rest.nvim",
     -- "kana/vim-textobj-entire",
     -- "kana/vim-textobj-user",
     -- "michaeljsmith/vim-indent-object",
-    -- { "glacambre/firenvim", build = function() return vim.fn.firenvim.install(0) end },
 
     -- "tpope/vim-afterimage",
     -- "tpope/vim-eunuch",
-    -- "folke/todo-comments.nvim",
     -- "wfxr/minimap.vim",
     -- "kannokanno/previm",
     -- "nathom/filetype.nvim",
