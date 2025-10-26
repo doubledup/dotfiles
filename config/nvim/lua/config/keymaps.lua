@@ -1,7 +1,7 @@
 -- non-plugin keymaps
 
-vim.keymap.set("n", "<c-n>", ":tabn<cr>", { desc = "Next tab" })
-vim.keymap.set("n", "<c-p>", ":tabp<cr>", { desc = "Previous tab" })
+vim.keymap.set("n", "<c-n>", "gt", { desc = "Next tab" })
+vim.keymap.set("n", "<c-p>", "gT", { desc = "Previous tab" })
 vim.keymap.set("n", "<c-.>", ":tabmove +1<cr>", { desc = "Move tab right" })
 vim.keymap.set("n", "<c-,>", ":tabmove -1<cr>", { desc = "Move tab left" })
 vim.keymap.set("n", "gm", ":tabmove<space>", { desc = "Move tab to position" })
