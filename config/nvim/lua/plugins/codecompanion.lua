@@ -43,7 +43,7 @@ return {
                         schema = {
                             model = {
                                 default = function()
-                                    return "claude-sonnet-4"
+                                    return "claude-sonnet-4.5"
                                 end,
                             },
                         },
