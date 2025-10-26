@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    sudo dscacheutil -flushcache
+    sudo killall -HUP mDNSResponder
+
+    echo "DNS cache entries cleared"
+    exit 0
+else
+    echo "OS not supported"
+    exit 1
+fi
