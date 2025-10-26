@@ -26,6 +26,9 @@ current machine, or `~/.config/fish/config.local.fish` for fish shell config.
 
 Machine-local nvim config lives in `~/.config/nvim/lua/config/local.lua`
 
+OS-specific config lives in `./tag-{os}/` and follows the same convention as local config,
+replacing "local" with "os" in filenames.
+
 ### GPG commit signing keys
 
 After generating a GPG key, use it to sign commits by adding this to
