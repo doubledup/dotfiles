@@ -29,7 +29,7 @@ echo 'tldr:'
 tldr --update
 
 echo 'nvim:'
-nvim --headless +CocUpdateSync +qa
+nvim --headless +MasonToolsUpdateSync +qa
 nvim --headless +TSUpdateSync +qa
 nvim --headless "+Lazy! sync" +qa
 
