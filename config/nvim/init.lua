@@ -98,7 +98,7 @@ local os_config = vim.fn.expand("~/.config/nvim/lua/config/os.lua")
 if vim.fn.filereadable(os_config) == 1 then
     require("config.os")
 end
-local local_settings = vim.fn.expand("~/.config/nvim/init.local.vim")
-if vim.fn.filereadable(local_settings) == 1 then
-    vim.cmd.source(local_settings)
+local local_config = vim.fn.expand("~/.config/nvim/lua/config/local.lua")
+if vim.fn.filereadable(local_config) == 1 then
+    vim.cmd.source(local_config)
 end

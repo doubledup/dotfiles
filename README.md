@@ -20,9 +20,11 @@ gh auth login --git-protocol ssh --hostname github.com
 git remote set-url origin git@github.com:doubledup/dotfiles.git
 ```
 
-For machine-local kitty, fish and neovim config, add '.local' before the file extension and save it
-in the same place. eg. use `~/.config/kitty/kitty.local.conf` for kitty config you only want on your
+For machine-local kitty or fish config, add '.local' before the file extension and save it in the
+same place. eg. use `~/.config/kitty/kitty.local.conf` for kitty config you only want on your
 current machine, or `~/.config/fish/config.local.fish` for fish shell config.
+
+Machine-local nvim config lives in `~/.config/nvim/lua/config/local.lua`
 
 ### GPG commit signing keys
 
