@@ -94,9 +94,9 @@ vim.keymap.set("c", "<c-f>", "<space><bs><right>", { desc = "Move cursor right" 
 vim.keymap.set("c", "<c-b>", "<space><bs><left>", { desc = "Move cursor left" })
 
 -- os and local config
-local os_settings = vim.fn.expand("~/.config/nvim/init.os.vim")
-if vim.fn.filereadable(os_settings) == 1 then
-    vim.cmd.source(os_settings)
+local os_config = vim.fn.expand("~/.config/nvim/lua/config/os.lua")
+if vim.fn.filereadable(os_config) == 1 then
+    require("config.os")
 end
 local local_settings = vim.fn.expand("~/.config/nvim/init.local.vim")
 if vim.fn.filereadable(local_settings) == 1 then
