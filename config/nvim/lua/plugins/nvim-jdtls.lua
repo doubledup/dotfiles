@@ -29,9 +29,7 @@ return {
             return table.concat(parts, "/")
         end
 
-        local workspace_folder = home
-            .. "/.local/share/jdtls/"
-            .. remove_first_dir(vim.fn.fnamemodify(root_dir, ":~"))
+        local workspace_folder = home .. "/.local/share/jdtls/" .. remove_first_dir(vim.fn.fnamemodify(root_dir, ":~"))
 
         -- TODO: `:h jdtls`
         -- https://github.com/mfussenegger/nvim-jdtls/wiki/Sample-Configurations
@@ -62,7 +60,38 @@ return {
             -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
             -- for a list of options
             settings = {
-                java = {},
+                java = {
+                    -- TODO: disable build-on-save. This doesn't fully disable it.
+                    autobuild = false,
+                    configuration = {
+                        -- maven = {},
+                        runtimes = {},
+                        updateBuildConfiguration = "automatic",
+                    },
+                    maven = {
+                        downloadSources = true,
+                        updateSnapshots = true,
+                    },
+                    format = { enabled = false },
+                    import = {
+                        gradle = { enabled = false },
+                        maven = {
+                            enabled = true,
+                            offline = { enabled = true },
+                        },
+                    },
+                    -- TODO: set up inlayHints
+                    -- inlayHints = {
+                    --     parameterNames = {
+                    --         enabled = "all",
+                    --     }
+                    -- },
+                    diagnostic = {
+                        nullAnalysis = {
+                            mode = "automatic",
+                        },
+                    },
+                },
             },
 
             -- This sets the `initializationOptions` sent to the language server
