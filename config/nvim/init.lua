@@ -8,7 +8,7 @@ vim.cmd[[colorscheme tokyonight]]
 -- filetype
 vim.filetype.add({
     extension = {
-        avsc = "json",
+        avsc = "jsonc",
         prettierrc = "jsonc",
     },
     filename = {
