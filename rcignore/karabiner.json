@@ -135,7 +135,17 @@
             "description": "right shift to f16 for dictation",
             "manipulators": [
               {
-                "from": { "key_code": "right_shift" },
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [
+                      "left_control",
+                      "left_option",
+                      "left_command",
+                      "left_shift"
+                    ]
+                  }
+                },
                 "to": [{ "key_code": "f16" }],
                 "type": "basic"
               }
