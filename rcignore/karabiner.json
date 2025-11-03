@@ -48,20 +48,6 @@
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "non_us_backslash"
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "tab",
-                                        "modifiers": [
-                                            "left_command"
-                                        ]
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
                                     "key_code": "1",
                                     "modifiers": {
                                         "mandatory": [
