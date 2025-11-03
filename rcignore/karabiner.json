@@ -150,6 +150,41 @@
                 "type": "basic"
               }
             ]
+          },
+          {
+            "description": "right command to hyper (Apple keyboards only)",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1452
+                      },
+                      {
+                        "vendor_id": 76
+                      }
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "left_control",
+                    "modifiers": [
+                      "left_option",
+                      "left_shift",
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
           }
         ]
       },
