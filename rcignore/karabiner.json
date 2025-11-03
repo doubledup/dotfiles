@@ -120,7 +120,7 @@
             ]
           },
           {
-            "description": "right shift to f16 for dictation",
+            "description": "hyper+d to f16 (for dictation)",
             "manipulators": [
               {
                 "from": {
