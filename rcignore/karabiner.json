@@ -89,7 +89,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "open -a 'Obsidian'"
+                                        "shell_command": "open -a 'Slack'"
                                     }
                                 ],
                                 "type": "basic"
@@ -105,7 +105,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "open -a 'Slack'"
+                                        "shell_command": "open -a 'Obsidian'"
                                     }
                                 ],
                                 "type": "basic"
