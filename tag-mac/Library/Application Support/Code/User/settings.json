@@ -1,0 +1,12 @@
+{
+    "workbench.colorTheme": "Tokyo Night Storm",
+    "terminal.integrated.defaultProfile.osx": "fish",
+    "terminal.integrated.macOptionIsMeta": true,
+    "[java]": {
+        "editor.defaultFormatter": "josevseb.google-java-format-for-vs-code"
+    },
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "editor.fontSize": 13
+}
