@@ -99,7 +99,7 @@
             ]
           },
           {
-            "description": "rsi keys",
+            "description": "readline keys",
             "manipulators": [
               {
                 "from": {
@@ -111,22 +111,10 @@
               },
               {
                 "from": {
-                  "key_code": "m",
-                  "modifiers": {
-                    "mandatory": [
-                      "left_control",
-                      "left_option",
-                      "left_command",
-                      "left_shift"
-                    ]
-                  }
+                  "key_code": "h",
+                  "modifiers": { "mandatory": ["left_control"] }
                 },
-                "to": [
-                  {
-                    "key_code": "m",
-                    "modifiers": "left_control"
-                  }
-                ],
+                "to": [{ "key_code": "delete_or_backspace" }],
                 "type": "basic"
               }
             ]
@@ -180,6 +168,36 @@
                       "left_shift",
                       "left_command"
                     ]
+                  }
+                ],
+                "type": "basic"
+              }
+            ]
+          },
+          {
+            "description": "left control to right control (Apple keyboards only)",
+            "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1452
+                      },
+                      {
+                        "vendor_id": 76
+                      }
+                    ]
+                  }
+                ],
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [
+                  {
+                    "key_code": "right_control"
                   }
                 ],
                 "type": "basic"
