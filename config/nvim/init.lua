@@ -18,6 +18,7 @@ vim.filetype.add({
     },
     filename = {
         ["coc-settings.json"] = "jsonc",
+        ["karabiner.json"] = "jsonc",
         ["tsconfig.json"] = "jsonc",
     },
 })
