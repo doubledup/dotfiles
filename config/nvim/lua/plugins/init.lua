@@ -4,6 +4,9 @@ return {
         -- "tpope/vim-git",
         -- "tpope/vim-rhubarb"
         "tpope/vim-fugitive",
+        dependencies = {
+            "tpope/vim-rhubarb",
+        },
         keys = {
             { "<leader>gs", ":vert Git<cr>:vert resize 100<cr>", desc = "Git status" },
             { "<leader>gf", ":Git! fetch<cr>", desc = "Git fetch" },
@@ -15,6 +18,7 @@ return {
             { "<leader>gb", ":Git branch<space>", desc = "Git branch" },
             { "<leader>gd", ":Gvdiffsplit<cr>", desc = "Git diff split" },
             { "<leader>gm", ":Git blame<cr>", desc = "Git blame" },
+            { "<leader>g.", ":GBrowse<cr>", desc = "Git browse", mode = { "n", "v" } },
         },
     },
 
