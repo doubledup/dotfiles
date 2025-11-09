@@ -1,1 +1,3 @@
 command = /opt/homebrew/bin/fish
+
+macos-option-as-alt = true
