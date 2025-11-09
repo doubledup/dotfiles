@@ -232,7 +232,7 @@
                         ]
                     },
                     {
-                        "description": "right command to hyper (Apple keyboards only)",
+                        "description": "right command to hyper (Apple & Keychron keyboards only)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -244,6 +244,9 @@
                                             },
                                             {
                                                 "vendor_id": 76
+                                            },
+                                            {
+                                                "vendor_id": 13364
                                             }
                                         ]
                                     }
