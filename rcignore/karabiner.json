@@ -314,7 +314,7 @@
                         ]
                     },
                     {
-                        "description": "left control to right control (Apple keyboards only)",
+                        "description": "left control to caps lock (Apple keyboards only)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -343,7 +343,7 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "right_control"
+                                        "key_code": "caps_lock"
                                     }
                                 ],
                                 "type": "basic"
