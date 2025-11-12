@@ -276,12 +276,16 @@
                                         "type": "device_if",
                                         "identifiers": [
                                             {
+                                                "is_built_in_keyboard": true
+                                            },
+                                            {
                                                 "vendor_id": 1452
                                             },
                                             {
                                                 "vendor_id": 76
                                             },
                                             {
+                                                // Keychron
                                                 "vendor_id": 13364
                                             }
                                         ]
@@ -317,6 +321,9 @@
                                     {
                                         "type": "device_if",
                                         "identifiers": [
+                                            {
+                                                "is_built_in_keyboard": true
+                                            },
                                             {
                                                 "vendor_id": 1452
                                             },
@@ -473,6 +480,7 @@
                         "is_keyboard": true,
                         "is_pointing_device": true,
                         "product_id": 707,
+                        // Keychron
                         "vendor_id": 13364
                     },
                     "ignore": false
