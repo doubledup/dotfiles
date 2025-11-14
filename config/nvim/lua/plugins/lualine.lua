@@ -6,18 +6,32 @@ return {
     opts = {
         options = {
             theme = "tokyonight",
+            component_separators = { left = "", right = "" },
+            section_separators = { left = "", right = "" },
             always_show_tabline = false,
+            globalstatus = true,
         },
 
         sections = {
-            lualine_a = { "mode" },
+            lualine_a = {
+                {
+                    "mode",
+                    separator = { left = "", right = "" },
+                },
+            },
             lualine_b = { "filename" },
             lualine_c = { "diff", "diagnostics", "lsp_status" },
 
-            lualine_x = { "encoding", "fileformat", "filetype" },
+            lualine_x = { "filetype" },
             lualine_y = { "branch" },
-            lualine_z = { "searchcount", "selectioncount", "progress", "location" },
+            lualine_z = {
+                "searchcount",
+                "selectioncount",
+                "progress",
+                { "location", separator = { right = "" } },
+            },
         },
+
         inactive_sections = {
             lualine_a = {},
             lualine_b = { "filename" },
@@ -26,11 +40,16 @@ return {
             lualine_y = {},
             lualine_z = { "location" },
         },
+
         tabline = {
             lualine_a = {},
             lualine_b = {
                 {
                     "tabs",
+                    -- TODO: set up consistent padding in the first tab when inactive vs when
+                    -- active, so that separators don't appear when the first tab is active and
+                    -- shift the other tabs.
+                    -- separator = { left = "", right = "" },
                     max_length = function()
                         -- using a function here sets max_length dynamically so that the tabline
                         -- handles resizing
@@ -39,7 +58,7 @@ return {
                     mode = 2,
                     path = 1,
                     fmt = function(_, context) -- name and context
-                        -- prepend filetype icon to tab name
+                        -- prepend filetype icon to tab name and abbreviate $HOME & file path
                         local buflist = vim.fn.tabpagebuflist(context.tabnr)
                         local winnr = vim.fn.tabpagewinnr(context.tabnr)
                         local bufnr = buflist[winnr]
@@ -61,6 +80,7 @@ return {
                 },
             },
             lualine_c = {},
+
             lualine_x = {},
             lualine_y = {},
             lualine_z = {},
