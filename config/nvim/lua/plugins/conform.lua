@@ -63,6 +63,7 @@ return {
         -- end,
 
         formatters_by_ft = {
+            fish = { "fish_indent" },
             java = { "google-java-format" },
             lua = { "stylua" },
             -- Conform can also run multiple formatters sequentially

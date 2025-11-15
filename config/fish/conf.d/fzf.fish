@@ -7,8 +7,10 @@ set -x FZF_ALT_C_OPTS "--preview ''"
 set FZF_PREVIEW 'bat --color always --line-range :2000 --style numbers {} 2> /dev/null'
 set FZF_PREVIEW_WINDOW_HOR '70%,bottom,border-top,nowrap'
 # set FZF_PREVIEW_WINDOW_VERT '60%,right,border-left,nowrap,hidden'
-# set FZF_PREVIEW_WINDOW_HOR_CHANGE 'alt-l:change-preview-window(right,border-left|bottom,border-top|hidden)'
-# set FZF_PREVIEW_WINDOW_VERT_CHANGE 'alt-l:change-preview-window(bottom,border-top|right,border-left|hidden)'
+# set FZF_PREVIEW_WINDOW_HOR_CHANGE \
+#     'alt-l:change-preview-window(right,border-left|bottom,border-top|hidden)' set
+# FZF_PREVIEW_WINDOW_VERT_CHANGE \
+#     'alt-l:change-preview-window(bottom,border-top|right,border-left|hidden)'
 
 # TODO: make separate ignore-vcs bindings for fzf's cd shortcut \ec
 set FZF_KEYBINDINGS (string join "," -- \
