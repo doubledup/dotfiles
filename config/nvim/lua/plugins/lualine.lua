@@ -53,8 +53,10 @@ return {
                 },
                 lualine_b = {
                     {
-                        elided_filepath,
-                        icon = "",
+                        "filename",
+                        path = 1,
+                        -- elided_filepath,
+                        -- icon = "",
                     },
                 },
                 lualine_c = { "diff", "diagnostics", "lsp_status" },
@@ -72,8 +74,10 @@ return {
             inactive_sections = {
                 lualine_a = {
                     {
-                        elided_filepath,
-                        icon = "",
+                        "filename",
+                        path = 1,
+                        -- elided_filepath,
+                        -- icon = "",
                     },
                 },
                 lualine_b = { "diff", "diagnostics" },
