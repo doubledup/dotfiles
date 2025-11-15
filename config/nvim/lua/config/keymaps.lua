@@ -30,14 +30,6 @@ vim.keymap.set("n", "gf", ":edit <cfile><cr>", { desc = "Edit file under cursor"
 -- show file format and encoding
 vim.keymap.set("n", "gl", ":set fileformat? fileencoding?<cr>", { desc = "Show file format and encoding" })
 
--- enter to save all buffers, except in quickfix lists
-vim.keymap.set(
-    "n",
-    "<cr>",
-    "&buftype ==# 'quickfix' ? '<cr>' : ':checktime<cr>:wall<cr>'",
-    { expr = true, remap = false, desc = "Save all buffers (except in quickfix)" }
-)
-
 -- keep cursor in place when joining lines
 vim.keymap.set("n", "J", "mzJ`z", { remap = false, desc = "Join lines keeping cursor position" })
 vim.keymap.set("n", "gJ", "mzgJ`z", { remap = false, desc = "Join lines without spaces, keeping cursor position" })
