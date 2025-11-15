@@ -3,7 +3,7 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd([[colorscheme tokyonight]])
 
 -- firenvim
 if vim.g.started_by_firenvim == true then

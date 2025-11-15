@@ -28,10 +28,10 @@ return {
     -- ui
 
     {
-      "folke/tokyonight.nvim",
-      lazy = false,
-      priority = 1000,
-      opts = {},
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
     },
 
     {
@@ -70,11 +70,10 @@ return {
 
     {
         "glacambre/firenvim",
-        build = ":call firenvim#install(0)"
+        build = ":call firenvim#install(0)",
     },
 
     { "smoka7/hop.nvim", opts = {} }, -- opts ensures that setup() gets called
-    -- "honza/vim-snippets",
     "jpalardy/vim-slime",
 
     {
@@ -89,7 +88,7 @@ return {
 
     {
         "numToStr/Comment.nvim",
-        opts = {}
+        opts = {},
     },
     "pbrisbin/vim-mkdir",
 
@@ -178,10 +177,13 @@ return {
     --     dependencies = { "nvim-lua/plenary.nvim" }
     -- }
 
+    -- https://github.com/ThePrimeagen/harpoon/tree/harpoon2
     -- "ThePrimeagen/harpoon",
     -- "folke/trouble.nvim",
     -- "mfussenegger/nvim-dap",
     -- "folke/todo-comments.nvim",
+    -- https://github.com/lukas-reineke/indent-blankline.nvim?tab=readme-ov-file#scope
+    -- "lukas-reineke/indent-blankline.nvim"
 
     -- "iamcco/markdown-preview.nvim"
     -- "tpope/vim-rsi"

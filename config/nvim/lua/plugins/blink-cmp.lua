@@ -6,6 +6,7 @@ return {
             version = "2.*",
             build = "make install_jsregexp",
             dependencies = {
+                -- "honza/vim-snippets",
                 {
                     "rafamadriz/friendly-snippets",
                     config = function()
