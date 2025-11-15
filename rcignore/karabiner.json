@@ -20,7 +20,7 @@
                         ]
                     },
                     {
-                        "description": "bluetooth",
+                        "description": "bluetooth toggle & headphones connection",
                         "manipulators": [
                             {
                                 "from": {
@@ -37,6 +37,44 @@
                                 "to": [
                                     {
                                         "shell_command": "/opt/homebrew/bin/blueutil --power toggle"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "/opt/homebrew/bin/blueutil --connect \"$(/opt/homebrew/bin/blueutil --paired | grep 'WH-1000XM3' | sed -E 's/^address: (([0-9a-f]{2}-){5}[0-9a-f]{2}).*/\\1/')\" > /tmp/blueutil-out 2>&1"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "x",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "/opt/homebrew/bin/blueutil --disconnect \"$(/opt/homebrew/bin/blueutil --paired | grep 'WH-1000XM3' | sed -E 's/^address: (([0-9a-f]{2}-){5}[0-9a-f]{2}).*/\\1/')\""
                                     }
                                 ],
                                 "type": "basic"
