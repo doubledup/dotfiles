@@ -91,6 +91,24 @@ return {
         vim.o.showmode = false
         vim.o.showtabline = 1
 
-        require("lualine").setup(opts)
+        -- set lualine theme based on background, preserving existing options
+        local function update_lualine_theme()
+            local theme = vim.o.background == "dark" and "tokyonight" or "tokyonight-day"
+
+            local new_opts = vim.deepcopy(opts)
+            new_opts.options.theme = theme
+
+            require("lualine").setup(new_opts)
+        end
+
+        update_lualine_theme()
+
+        -- Listen for auto-dark-mode.nvim changes
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "AutoDarkModeChanged",
+            group = vim.api.nvim_create_augroup("LualineThemeSync", { clear = true }),
+            callback = update_lualine_theme,
+            desc = "Update lualine theme when system appearance changes",
+        })
     end,
 }
