@@ -91,6 +91,25 @@ return {
         vim.o.showmode = false
         vim.o.showtabline = 1
 
+        -- Make window separators more visible with globalstatus
+        local winsep_augroup = vim.api.nvim_create_augroup("window_separator", {})
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            desc = "Make window separators more visible",
+            group = winsep_augroup,
+            pattern = "*",
+            callback = function()
+                local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+
+                vim.api.nvim_set_hl(0, "WinSeparator", {
+                    fg = "#545c7e",
+                    bg = normal_bg,
+                })
+            end,
+        })
+
+        -- Apply immediately on startup
+        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545c7e" })
+
         -- set lualine theme based on background, preserving existing options
         local function update_lualine_theme()
             local theme = vim.o.background == "dark" and "tokyonight" or "tokyonight-day"
