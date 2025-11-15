@@ -27,10 +27,10 @@ return {
                 return relpath
             end
 
-            -- Keep top 1, bottom 3 dirs + filename, elide middle
+            -- Keep top 1, bottom 2 dirs + filename, elide middle
             local result = table.concat({ parts[1] }, "/")
                 .. "/…/"
-                .. table.concat({ parts[#parts - 3], parts[#parts - 2], parts[#parts - 1], parts[#parts] }, "/")
+                .. table.concat({ parts[#parts - 2], parts[#parts - 1], parts[#parts] }, "/")
 
             return result
         end
