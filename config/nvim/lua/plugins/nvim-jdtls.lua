@@ -29,7 +29,9 @@ return {
             return table.concat(parts, "/")
         end
 
-        local workspace_folder = home .. "/.local/share/jdtls/" .. remove_first_dir(vim.fn.fnamemodify(root_dir, ":~"))
+        local workspace_folder = home
+            .. "/.local/share/jdtls/"
+            .. remove_first_dir(vim.fn.fnamemodify(root_dir, ":~"))
 
         -- TODO: `:h jdtls`
         -- https://github.com/mfussenegger/nvim-jdtls/wiki/Sample-Configurations

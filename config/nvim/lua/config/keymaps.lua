@@ -28,19 +28,39 @@ vim.keymap.set("n", "zl", "40zl", { remap = false, desc = "Scroll right 40 colum
 vim.keymap.set("n", "gf", ":edit <cfile><cr>", { desc = "Edit file under cursor" })
 
 -- show file format and encoding
-vim.keymap.set("n", "gl", ":set fileformat? fileencoding?<cr>", { desc = "Show file format and encoding" })
+vim.keymap.set(
+    "n",
+    "gl",
+    ":set fileformat? fileencoding?<cr>",
+    { desc = "Show file format and encoding" }
+)
 
 -- keep cursor in place when joining lines
 vim.keymap.set("n", "J", "mzJ`z", { remap = false, desc = "Join lines keeping cursor position" })
-vim.keymap.set("n", "gJ", "mzgJ`z", { remap = false, desc = "Join lines without spaces, keeping cursor position" })
+vim.keymap.set(
+    "n",
+    "gJ",
+    "mzgJ`z",
+    { remap = false, desc = "Join lines without spaces, keeping cursor position" }
+)
 
 -- split line before/after cursor
 vim.keymap.set("n", "[<cr>", "i<cr><esc>kg_", { desc = "Split line before cursor" })
 vim.keymap.set("n", "]<cr>", "a<cr><esc>kg_", { desc = "Split line after cursor" })
 
 -- search for selected text
-vim.keymap.set("v", "*", '"zy/\\V\\c\\<<c-r>z\\><cr>', { desc = "Search for selected text (whole word)" })
-vim.keymap.set("v", "g*", '"zy/\\V\\c<c-r>z<cr>', { desc = "Search for selected text (partial match)" })
+vim.keymap.set(
+    "v",
+    "*",
+    '"zy/\\V\\c\\<<c-r>z\\><cr>',
+    { desc = "Search for selected text (whole word)" }
+)
+vim.keymap.set(
+    "v",
+    "g*",
+    '"zy/\\V\\c<c-r>z<cr>',
+    { desc = "Search for selected text (partial match)" }
+)
 
 -- substitute: replace all, ask for confirmation and don't ignore case
 vim.keymap.set(
@@ -136,7 +156,12 @@ vim.keymap.set(
     "VU!!sed -E 's/(.*)/obase=16;\\1/' | bc<cr>",
     { desc = "Convert (decimal) line to hexadecimal" }
 )
-vim.keymap.set("n", "]66", "VU!!sed -E 's/(.*)/ibase=16;\\1/' | bc<cr>", { desc = "Convert hex line to decimal" })
+vim.keymap.set(
+    "n",
+    "]66",
+    "VU!!sed -E 's/(.*)/ibase=16;\\1/' | bc<cr>",
+    { desc = "Convert hex line to decimal" }
+)
 vim.keymap.set(
     "v",
     "[6",
@@ -151,8 +176,18 @@ vim.keymap.set(
 )
 
 -- Octal conversion
-vim.keymap.set("n", "[88", "VU!!sed -E 's/(.*)/obase=8;\\1/' | bc<cr>", { desc = "Convert (decimal) line to octal" })
-vim.keymap.set("n", "]88", "VU!!sed -E 's/(.*)/ibase=8;\\1/' | bc<cr>", { desc = "Convert octal line to decimal" })
+vim.keymap.set(
+    "n",
+    "[88",
+    "VU!!sed -E 's/(.*)/obase=8;\\1/' | bc<cr>",
+    { desc = "Convert (decimal) line to octal" }
+)
+vim.keymap.set(
+    "n",
+    "]88",
+    "VU!!sed -E 's/(.*)/ibase=8;\\1/' | bc<cr>",
+    { desc = "Convert octal line to decimal" }
+)
 vim.keymap.set(
     "v",
     "[8",
@@ -167,8 +202,18 @@ vim.keymap.set(
 )
 
 -- Binary conversion
-vim.keymap.set("n", "[22", "VU!!sed -E 's/(.*)/obase=2;\\1/' | bc<cr>", { desc = "Convert (decimal) line to binary" })
-vim.keymap.set("n", "]22", "VU!!sed -E 's/(.*)/ibase=2;\\1/' | bc<cr>", { desc = "Convert binary line to decimal" })
+vim.keymap.set(
+    "n",
+    "[22",
+    "VU!!sed -E 's/(.*)/obase=2;\\1/' | bc<cr>",
+    { desc = "Convert (decimal) line to binary" }
+)
+vim.keymap.set(
+    "n",
+    "]22",
+    "VU!!sed -E 's/(.*)/ibase=2;\\1/' | bc<cr>",
+    { desc = "Convert binary line to decimal" }
+)
 vim.keymap.set(
     "v",
     "[2",

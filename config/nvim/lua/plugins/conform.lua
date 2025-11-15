@@ -2,6 +2,7 @@ return {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
+
     keys = {
         {
             "<leader>=",
@@ -12,6 +13,7 @@ return {
                 require("conform").format({ async = true, lsp_format = "fallback" })
             end,
         },
+
         {
             "<cr>",
             mode = "n",
@@ -20,7 +22,12 @@ return {
             function()
                 if vim.bo.buftype == "quickfix" then
                     -- In quickfix, leave <cr> behavior as-is
-                    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<cr>", true, false, true), "n", false)
+
+                    vim.api.nvim_feedkeys(
+                        vim.api.nvim_replace_termcodes("<cr>", true, false, true),
+                        "n",
+                        false
+                    )
                 else
                     vim.cmd.checktime()
 
@@ -31,6 +38,7 @@ return {
                             conform.format({ async = false, lsp_format = "fallback", bufnr = buf })
                         end
                     end
+
                     vim.cmd.wall()
                 end
             end,
@@ -71,7 +79,10 @@ return {
                         "/opt/homebrew/bin/google-java-format",
                     }, "google-java-format"),
                     env = {
-                        JAVA_HOME = vim.system({ "/usr/libexec/java_home", "-v", "21" }, { text = true })
+                        JAVA_HOME = vim.system(
+                            { "/usr/libexec/java_home", "-v", "21" },
+                            { text = true }
+                        )
                             :wait().stdout
                             :gsub("\n$", ""),
                     },

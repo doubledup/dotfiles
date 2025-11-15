@@ -160,9 +160,13 @@ return {
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
                 if
                     client
-                    and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
+                    and client:supports_method(
+                        vim.lsp.protocol.Methods.textDocument_documentHighlight,
+                        event.buf
+                    )
                 then
-                    local highlight_augroup = vim.api.nvim_create_augroup("lspconfig-lsp-highlight", { clear = false })
+                    local highlight_augroup =
+                        vim.api.nvim_create_augroup("lspconfig-lsp-highlight", { clear = false })
                     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                         buffer = event.buf,
                         group = highlight_augroup,
@@ -176,17 +180,31 @@ return {
                     })
 
                     vim.api.nvim_create_autocmd("LspDetach", {
-                        group = vim.api.nvim_create_augroup("lspconfig-lsp-detach", { clear = true }),
+                        group = vim.api.nvim_create_augroup(
+                            "lspconfig-lsp-detach",
+                            { clear = true }
+                        ),
                         callback = function(event2)
                             vim.lsp.buf.clear_references()
-                            vim.api.nvim_clear_autocmds({ group = "lspconfig-lsp-highlight", buffer = event2.buf })
+                            vim.api.nvim_clear_autocmds({
+                                group = "lspconfig-lsp-highlight",
+                                buffer = event2.buf,
+                            })
                         end,
                     })
                 end
 
-                if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
+                if
+                    client
+                    and client:supports_method(
+                        vim.lsp.protocol.Methods.textDocument_inlayHint,
+                        event.buf
+                    )
+                then
                     map("<leader>ah", function()
-                        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+                        vim.lsp.inlay_hint.enable(
+                            not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
+                        )
                     end, "[T]oggle Inlay [H]ints")
                 end
             end,
@@ -288,7 +306,8 @@ return {
                     -- This handles overriding only values explicitly passed
                     -- by the server configuration above. Useful when disabling
                     -- certain features of an LSP (for example, turning off formatting for ts_ls)
-                    server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+                    server.capabilities =
+                        vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
                     require("lspconfig")[server_name].setup(server)
                 end,
             },

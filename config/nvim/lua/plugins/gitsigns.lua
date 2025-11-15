@@ -38,11 +38,21 @@ return {
 
             vim.keymap.set("n", "<leader>gA", gitsigns.stage_buffer, opts("Stage buffer"))
             vim.keymap.set("n", "<leader>gR", gitsigns.reset_buffer, opts("Reset buffer"))
-            vim.keymap.set("n", "<leader>gi", gitsigns.preview_hunk_inline, opts("Preview hunk inline"))
+            vim.keymap.set(
+                "n",
+                "<leader>gi",
+                gitsigns.preview_hunk_inline,
+                opts("Preview hunk inline")
+            )
             vim.keymap.set("n", "<leader>gv", gitsigns.undo_stage_hunk, opts("Undo stage hunk"))
 
             -- Text object
-            vim.keymap.set({ "o", "x" }, "id", gitsigns.select_hunk, opts("Select hunk text object"))
+            vim.keymap.set(
+                { "o", "x" },
+                "id",
+                gitsigns.select_hunk,
+                opts("Select hunk text object")
+            )
         end,
     },
 }

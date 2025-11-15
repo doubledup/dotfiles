@@ -58,14 +58,29 @@ if vim.g.neovide then
     vim.g.neovide_refresh_rate_idle = 1
     vim.g.neovide_input_macos_option_key_is_meta = "only_left"
     -- vim.g.neovide_cursor_vfx_mode = "ripple"
-    vim.keymap.set("", "<D-n>", ":silent !neovide --multigrid&<cr>", { desc = "Open new Neovide window" })
+    vim.keymap.set(
+        "",
+        "<D-n>",
+        ":silent !neovide --multigrid&<cr>",
+        { desc = "Open new Neovide window" }
+    )
 end
 
 -- terminal
 -- quit, then move to start of line to preserve display of curses-like output
 vim.keymap.set("t", "<c-/>", "<c-\\><c-n>0", { desc = "Exit terminal mode and go to line start" })
-vim.keymap.set("n", "<leader>ts", ":25sp | terminal fish<cr>a", { desc = "Terminal [s]plit horizontally" })
-vim.keymap.set("n", "<leader>tv", ":85vsp | terminal fish<cr>a", { desc = "Terminal split [v]ertically" })
+vim.keymap.set(
+    "n",
+    "<leader>ts",
+    ":25sp | terminal fish<cr>a",
+    { desc = "Terminal [s]plit horizontally" }
+)
+vim.keymap.set(
+    "n",
+    "<leader>tv",
+    ":85vsp | terminal fish<cr>a",
+    { desc = "Terminal split [v]ertically" }
+)
 vim.keymap.set("n", "<leader>tt", ":tabnew | terminal fish<cr>a", { desc = "Terminal [t]ab" })
 
 local terminal_settings_augroup = vim.api.nvim_create_augroup("terminal_settings", {})

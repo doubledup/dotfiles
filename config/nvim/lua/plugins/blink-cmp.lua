@@ -58,7 +58,7 @@ return {
             default = { "lsp", "path", "snippets", "buffer" },
 
             per_filetype = {
-                lua = { inherit_defaults = true, "lazydev" }
+                lua = { inherit_defaults = true, "lazydev" },
             },
 
             providers = {
