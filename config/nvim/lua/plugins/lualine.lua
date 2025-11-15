@@ -41,7 +41,7 @@ return {
                 component_separators = { left = "", right = "" },
                 section_separators = { left = "", right = "" },
                 always_show_tabline = false,
-                -- globalstatus = true,
+                globalstatus = true,
             },
 
             sections = {
@@ -134,23 +134,23 @@ return {
         vim.o.showmode = false
         vim.o.showtabline = 1
 
-        -- -- Make window separators more visible with globalstatus
-        -- local winsep_augroup = vim.api.nvim_create_augroup("window_separator", {})
-        -- vim.api.nvim_create_autocmd("ColorScheme", {
-        --     desc = "Make window separators more visible",
-        --     group = winsep_augroup,
-        --     pattern = "*",
-        --     callback = function()
-        --         local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
-        --
-        --         vim.api.nvim_set_hl(0, "WinSeparator", {
-        --             fg = "#545c7e",
-        --             bg = normal_bg,
-        --         })
-        --     end,
-        -- })
-        --
-        -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545c7e" })
+        -- Make window separators more visible with globalstatus
+        local winsep_augroup = vim.api.nvim_create_augroup("window_separator", {})
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            desc = "Make window separators more visible",
+            group = winsep_augroup,
+            pattern = "*",
+            callback = function()
+                local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+
+                vim.api.nvim_set_hl(0, "WinSeparator", {
+                    fg = "#545c7e",
+                    bg = normal_bg,
+                })
+            end,
+        })
+
+        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545c7e" })
 
         -- set lualine theme based on background, preserving existing options
         local function update_lualine_theme()
