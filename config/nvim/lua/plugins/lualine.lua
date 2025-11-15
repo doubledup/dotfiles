@@ -9,7 +9,7 @@ return {
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             always_show_tabline = false,
-            globalstatus = true,
+            -- globalstatus = true,
         },
 
         sections = {
@@ -19,7 +19,43 @@ return {
                     separator = { left = "", right = "" },
                 },
             },
-            lualine_b = { "filename" },
+            lualine_b = {
+                {
+                    function()
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        local filepath = vim.api.nvim_buf_get_name(bufnr)
+
+                        if filepath == "" then
+                            return "[No Name]"
+                        end
+
+                        -- Get relative path from cwd
+                        -- :~ replaces home dir with ~
+                        -- :. makes the path relative to cwd
+                        local relpath = vim.fn.fnamemodify(filepath, ":~:.")
+
+                        local parts = {}
+                        for part in relpath:gmatch("[^/]+") do
+                            table.insert(parts, part)
+                        end
+
+                        if #parts <= 5 then
+                            return relpath
+                        end
+
+                        -- Keep top 1, bottom 3 dirs + filename, elide middle
+                        local result = table.concat({ parts[1] }, "/")
+                            .. "/…/"
+                            .. table.concat(
+                                { parts[#parts - 3], parts[#parts - 2], parts[#parts - 1], parts[#parts] },
+                                "/"
+                            )
+
+                        return result
+                    end,
+                    icon = "",
+                },
+            },
             lualine_c = { "diff", "diagnostics", "lsp_status" },
 
             lualine_x = { "filetype" },
@@ -91,24 +127,23 @@ return {
         vim.o.showmode = false
         vim.o.showtabline = 1
 
-        -- Make window separators more visible with globalstatus
-        local winsep_augroup = vim.api.nvim_create_augroup("window_separator", {})
-        vim.api.nvim_create_autocmd("ColorScheme", {
-            desc = "Make window separators more visible",
-            group = winsep_augroup,
-            pattern = "*",
-            callback = function()
-                local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
-
-                vim.api.nvim_set_hl(0, "WinSeparator", {
-                    fg = "#545c7e",
-                    bg = normal_bg,
-                })
-            end,
-        })
-
-        -- Apply immediately on startup
-        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545c7e" })
+        -- -- Make window separators more visible with globalstatus
+        -- local winsep_augroup = vim.api.nvim_create_augroup("window_separator", {})
+        -- vim.api.nvim_create_autocmd("ColorScheme", {
+        --     desc = "Make window separators more visible",
+        --     group = winsep_augroup,
+        --     pattern = "*",
+        --     callback = function()
+        --         local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+        --
+        --         vim.api.nvim_set_hl(0, "WinSeparator", {
+        --             fg = "#545c7e",
+        --             bg = normal_bg,
+        --         })
+        --     end,
+        -- })
+        --
+        -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545c7e" })
 
         -- set lualine theme based on background, preserving existing options
         local function update_lualine_theme()
