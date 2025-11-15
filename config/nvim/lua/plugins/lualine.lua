@@ -5,6 +5,7 @@ return {
 
     opts = function()
         -- Custom filepath component with smart eliding
+        ---@diagnostic disable-next-line: unused-local, unused-function
         local function elided_filepath()
             local bufnr = vim.api.nvim_get_current_buf()
             local filepath = vim.api.nvim_buf_get_name(bufnr)

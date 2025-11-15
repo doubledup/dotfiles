@@ -32,8 +32,12 @@ return {
                 -- TODO: Text objects for functions and classes
 
                 -- Use [s and ]s to navigate diagnostics (replace spell checker)
-                map("[s", vim.diagnostic.goto_prev, "Previous diagnostic")
-                map("]s", vim.diagnostic.goto_next, "Next diagnostic")
+                map("[s", function()
+                    vim.diagnostic.jump({ count = -1, float = true })
+                end, "Previous diagnostic")
+                map("]s", function()
+                    vim.diagnostic.jump({ count = 1, float = true })
+                end, "Next diagnostic")
 
                 map("gd", function()
                     local ok, telescope = pcall(require, "telescope.builtin")
@@ -113,7 +117,10 @@ return {
                 map("<leader>a", vim.lsp.buf.code_action, "Code action on selection", "x")
                 map("<leader>al", function()
                     vim.lsp.buf.code_action({
-                        context = { only = { "quickfix" } },
+                        context = {
+                            only = { "quickfix" },
+                            diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 }),
+                        },
                         range = {
                             start = { vim.fn.line("."), 0 },
                             ["end"] = { vim.fn.line("."), 0 },
@@ -123,19 +130,25 @@ return {
 
                 -- Lists using telescope
                 map("<leader>e", function()
-                    local ok = pcall(vim.cmd, "Telescope diagnostics")
+                    local ok = pcall(function()
+                        vim.cmd("Telescope diagnostics")
+                    end)
                     if not ok then
                         vim.diagnostic.setqflist()
                     end
                 end, "List diagnostics")
                 map("<leader>ao", function()
-                    local ok = pcall(vim.cmd, "Telescope lsp_document_symbols")
+                    local ok = pcall(function()
+                        vim.cmd("Telescope lsp_document_symbols")
+                    end)
                     if not ok then
                         vim.lsp.buf.document_symbol()
                     end
                 end, "List outline")
                 map("<leader>ay", function()
-                    local ok = pcall(vim.cmd, "Telescope lsp_dynamic_workspace_symbols")
+                    local ok = pcall(function()
+                        vim.cmd("Telescope lsp_dynamic_workspace_symbols")
+                    end)
                     if not ok then
                         vim.lsp.buf.workspace_symbol("")
                     end

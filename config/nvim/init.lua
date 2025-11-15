@@ -28,10 +28,12 @@ local hop = require("hop")
 local directions = require("hop.hint").HintDirection
 
 vim.keymap.set("n", "s", function()
+    ---@diagnostic disable-next-line: missing-parameter
     hop.hint_char2()
 end, { desc = "Hop to 2 characters" })
 
 vim.keymap.set("v", "s", function()
+    ---@diagnostic disable-next-line: missing-fields
     hop.hint_char2({ inclusive_jump = true })
 end, { desc = "Hop to 2 characters (inclusive)" })
 
