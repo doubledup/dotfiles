@@ -74,7 +74,7 @@ return {
         },
 
         formatters = {
-            google_java_format = function(bufnr)
+            google_java_format = function(_) -- bufnr
                 return {
                     command = require("conform.util").find_executable({
                         "/opt/homebrew/bin/google-java-format",
