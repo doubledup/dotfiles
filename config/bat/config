@@ -4,8 +4,11 @@
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
-#--theme="TwoDark"
---theme="tokyo-night-moon"
+# auto:system is a MacOS-only option, but keeping it here as it's the only detection that seems to
+# work so far
+--theme="auto:system"
+--theme-dark="tokyo-night-moon"
+--theme-light="tokyo-night-day"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
