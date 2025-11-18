@@ -63,12 +63,11 @@ return {
             -- for a list of options
             settings = {
                 java = {
-                    -- TODO: disable build-on-save. This doesn't fully disable it.
-                    autobuild = false,
+                    autobuild = { enabled = false },
                     configuration = {
                         -- maven = {},
                         runtimes = {},
-                        updateBuildConfiguration = "automatic",
+                        updateBuildConfiguration = "interactive",
                     },
                     maven = {
                         downloadSources = true,
@@ -89,9 +88,7 @@ return {
                     --     }
                     -- },
                     diagnostic = {
-                        nullAnalysis = {
-                            mode = "automatic",
-                        },
+                        nullAnalysis = { mode = "automatic" },
                     },
                 },
             },
