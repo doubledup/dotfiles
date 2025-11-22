@@ -8,7 +8,7 @@ return {
             "tpope/vim-rhubarb",
         },
         keys = {
-            { "<leader>gs", ":vert Git<cr>:vert resize 100<cr>", desc = "Git status" },
+            { "<leader>gs", ":Git<cr>", desc = "Git status" },
             { "<leader>gf", ":Git! fetch<cr>", desc = "Git fetch" },
             { "<leader>gz", ":Git stash<space>", desc = "Git stash" },
             { "<leader>gp", ":Git! pull<space>", desc = "Git pull" },
