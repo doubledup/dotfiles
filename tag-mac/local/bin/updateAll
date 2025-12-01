@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-echo 'mas:'
-mas upgrade
 echo 'brew:'
 brew bundle upgrade --global
 
@@ -33,5 +31,7 @@ nvim --headless +MasonToolsUpdateSync +qa
 nvim --headless +TSUpdateSync +qa
 nvim --headless "+Lazy! sync" +qa
 
+echo 'mas:'
+mas upgrade
 echo 'softwareupdate:'
 sudo softwareupdate -ir
