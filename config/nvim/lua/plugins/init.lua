@@ -79,10 +79,13 @@ return {
     {
         "mizlan/iswap.nvim",
         keys = {
-            { "<leader>h", ":ISwapNodeWithLeft<cr>", desc = "Swap with left node" },
-            { "<leader>l", ":ISwapNodeWithRight<cr>", desc = "Swap with right node" },
-            { "<leader>j", ":ISwapNodeWith<cr>", desc = "Swap with selected node" },
-            { "<leader>k", ":ISwapNode<cr>", desc = "Swap node" },
+            { "<leader>h", ":IMoveNodeWithLeft<cr>", desc = "Swap with left node" },
+            { "<leader>l", ":IMoveNodeWithRight<cr>", desc = "Swap with right node" },
+            { "<leader>j", ":IMoveNodeWith<cr>", desc = "Swap with selected node" },
+            { "<leader>k", ":ISwapNodeWith<cr>", desc = "Swap node" },
+        },
+        opts = {
+            keys = "asdfghjkl;qwertyuiopzxcvbnm,./",
         },
     },
 
