@@ -17,7 +17,6 @@ vim.filetype.add({
         prettierrc = "jsonc",
     },
     filename = {
-        ["coc-settings.json"] = "jsonc",
         ["karabiner.json"] = "jsonc",
         ["tsconfig.json"] = "jsonc",
     },
@@ -100,10 +99,9 @@ vim.api.nvim_create_autocmd("TermClose", {
     callback = function() -- event_args
         vim.fn.call("nvim_input", { "<cr>" })
 
-        -- ignore fzf & coc filetypes as those will close terminal automatically
+        -- ignore fzf filetypes as those will close terminal automatically
         -- local expanded_file = vim.fn.expand(event_args.file)
         -- local is_autoclose_file = string.match(expanded_file, "fzf")
-        --     or string.match(expanded_file, "coc")
         -- if not is_autoclose_file then
         --     vim.fn.call("nvim_input", {"<cr>"})
         -- end

@@ -58,8 +58,3 @@ vim.o.foldenable = false
 vim.schedule(function()
     vim.o.clipboard = "unnamedplus"
 end)
-
--- some language servers have issues with backup files, see
--- https://github.com/neoclide/coc.nvim/issues/649
-vim.o.backup = false
-vim.o.writebackup = false
