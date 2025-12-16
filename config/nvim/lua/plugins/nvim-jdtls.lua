@@ -11,27 +11,22 @@ return {
 
     ---@diagnostic disable-next-line: unused-local
     config = function(opts)
-        local home = os.getenv("HOME")
-        local root_markers = { "gradlew", ".git", "mvnw" }
+        local root_markers = { ".git", "gradlew", "mvnw" }
         local root_dir = require("jdtls.setup").find_root(root_markers)
 
-        local function remove_first_dir(path)
-            local parts = {}
-            local i = 1
-            for part in string.gmatch(path, "[^/]+") do
-                if i > 0 then
-                    i = i - 1
-                else
-                    table.insert(parts, part)
-                end
-            end
-
-            return table.concat(parts, "/")
+        local home = os.getenv("HOME")
+        if not string.match(root_dir, "^" .. home) then
+            vim.notify("root_dir is outside $HOME", vim.log.levels.ERROR)
         end
 
-        local workspace_folder = home
-            .. "/.local/share/jdtls/"
-            .. remove_first_dir(vim.fn.fnamemodify(root_dir, ":~"))
+        -- create workspace directory relative to home
+        -- trim home dir, then trim leading slash to handle both a root_dir that's in home and one
+        -- that's not. e.g. /home/user/org/proj gets trimmed to org/proj, and /tmp/org/proj gets
+        -- trimmed to tmp/org/proj. This can cause conflicts e.g. ~/tmp/org/proj and /tmp/org/proj
+        -- get the same workspace, but projects outside of home should be rare.
+        local trimmed_root_dir = root_dir:gsub(home, ""):gsub("^/", "")
+        local workspace_folder = home .. "/.local/share/jdtls/" .. trimmed_root_dir
+        vim.notify("nvim-jdtls workspace_folder: " .. workspace_folder, vim.log.levels.INFO)
 
         -- TODO: `:h jdtls`
         -- https://github.com/mfussenegger/nvim-jdtls/wiki/Sample-Configurations
