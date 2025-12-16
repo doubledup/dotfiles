@@ -43,7 +43,7 @@ return {
             cmd = {
                 "jdtls",
                 "--java-executable",
-                vim.trim(vim.fn.system("/usr/libexec/java_home", "-v 21")) .. "/bin/java",
+                vim.trim(vim.fn.system("/usr/libexec/java_home", "-v 25")) .. "/bin/java",
                 "-data",
                 workspace_folder,
                 -- vim.fn.getcwd() .. "/.jdtls",
