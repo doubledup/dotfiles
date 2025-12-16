@@ -11,11 +11,46 @@ return {
 
     ---@diagnostic disable-next-line: unused-local
     config = function(opts)
+        local home = os.getenv("HOME")
+        local lombok_version = "1.18.42"
+        local lombok_path = home
+            .. "/.m2/repository/org/projectlombok/lombok/"
+            .. lombok_version
+            .. "/lombok-"
+            .. lombok_version
+            .. ".jar"
+
+        local lombok_job
+        if vim.fn.filereadable(vim.fn.expand(lombok_path)) == 0 then
+            vim.notify("Lombok not found, downloading...", vim.log.levels.INFO)
+            lombok_job = vim.fn.jobstart(
+                "mvn dependency:get -Dartifact=org.projectlombok:lombok:" .. lombok_version,
+                {
+                    on_exit = function(job_id, exit_code)
+                        if exit_code == 0 then
+                            vim.notify("Downloaded Lombok v" .. lombok_version, vim.log.levels.INFO)
+                        else
+                            vim.notify(
+                                "Failed to download Lombok (exit code " .. exit_code .. ")",
+                                vim.log.levels.ERROR
+                            )
+                        end
+                    end,
+                    on_stdout = function(job_id, data, event)
+                        vim.notify(table.concat(data, "\n"), vim.log.levels.DEBUG)
+                    end,
+                    on_stderr = function(job_id, data, event)
+                        -- Maven outputs JDK deprecation warnings to stderr; use DEBUG to avoid noise
+                        vim.notify(table.concat(data, "\n"), vim.log.levels.DEBUG)
+                    end,
+                }
+            )
+        end
+
         local root_markers = { { "gradlew", "mvnw" }, ".git" }
         local root_dir = vim.fs.root(0, root_markers)
             or vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
 
-        local home = os.getenv("HOME")
         if not string.match(root_dir, "^" .. home) then
             vim.notify("root_dir is outside $HOME", vim.log.levels.ERROR)
         end
@@ -27,19 +62,17 @@ return {
         -- get the same workspace, but projects outside of home should be rare.
         local trimmed_root_dir = root_dir:gsub(home, ""):gsub("^/", "")
         local workspace_folder = home .. "/.local/share/jdtls/" .. trimmed_root_dir
-        vim.notify("nvim-jdtls workspace_folder: " .. workspace_folder, vim.log.levels.INFO)
+        vim.notify("nvim-jdtls workspace_folder: " .. workspace_folder, vim.log.levels.DEBUG)
+
+        if lombok_job then
+            vim.fn.jobwait({ lombok_job })
+        end
 
         -- TODO: `:h jdtls`
         -- https://github.com/mfussenegger/nvim-jdtls/wiki/Sample-Configurations
         vim.lsp.config("jdtls", {
             name = "jdtls",
 
-            -- `cmd` defines the executable to launch eclipse.jdt.ls.
-            -- `jdtls` must be available in $PATH and you must have Python3.9 for this to work.
-            --
-            -- As alternative you could also avoid the `jdtls` wrapper and launch
-            -- eclipse.jdt.ls via the `java` executable
-            -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
             cmd = {
                 "jdtls",
                 "--java-executable",
@@ -47,7 +80,7 @@ return {
                 "-data",
                 workspace_folder,
                 -- vim.fn.getcwd() .. "/.jdtls",
-                "--jvm-arg=-javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar",
+                "--jvm-arg=-javaagent:" .. lombok_path,
             },
 
             root_dir = root_dir,
