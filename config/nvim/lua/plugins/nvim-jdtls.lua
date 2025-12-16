@@ -11,8 +11,9 @@ return {
 
     ---@diagnostic disable-next-line: unused-local
     config = function(opts)
-        local root_markers = { ".git", "gradlew", "mvnw" }
-        local root_dir = require("jdtls.setup").find_root(root_markers)
+        local root_markers = { { "gradlew", "mvnw" }, ".git" }
+        local root_dir = vim.fs.root(0, root_markers)
+            or vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
 
         local home = os.getenv("HOME")
         if not string.match(root_dir, "^" .. home) then
@@ -49,9 +50,7 @@ return {
                 "--jvm-arg=-javaagent:/Users/daviddunn/.m2/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar",
             },
 
-            -- `root_dir` must point to the root of your project.
-            -- See `:help vim.fs.root`
-            root_dir = vim.fs.root(0, { "gradlew", ".git", "mvnw" }),
+            root_dir = root_dir,
 
             -- Here you can configure eclipse.jdt.ls specific settings
             -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
