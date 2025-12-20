@@ -1,8 +1,11 @@
 return {
+    -- as needed
+    -- "dstein64/vim-startuptime",
+    -- "mattn/emmet-vim",
+    -- "tpope/vim-dadbod",
+    -- "lervag/vimtex", let g:tex_flavor = "latex"
+
     {
-        -- "jreybert/vimagit"
-        -- "tpope/vim-git",
-        -- "tpope/vim-rhubarb"
         "tpope/vim-fugitive",
         dependencies = {
             "tpope/vim-rhubarb",
@@ -21,9 +24,6 @@ return {
             { "<leader>g.", ":GBrowse<cr>", desc = "Git browse", mode = { "n", "v" } },
         },
     },
-
-    -- Github code reviews
-    -- "pwntester/octo.nvim"
 
     -- ui
 
@@ -56,11 +56,11 @@ return {
 
     "folke/which-key.nvim",
     "norcalli/nvim-colorizer.lua",
-    -- TODO: disable <leader>rwp
     "powerman/vim-plugin-AnsiEsc",
     "ryanoasis/vim-devicons",
 
     -- editing
+
     {
         "andrewradev/linediff.vim",
         keys = {
@@ -124,10 +124,6 @@ return {
     { "tpope/vim-unimpaired", event = "VeryLazy" },
     "wellle/targets.vim",
 
-    -- included for folding
-    -- "preservim/vim-markdown",
-    -- "elixir-tools/elixir-tools.nvim"
-
     {
         "fatih/vim-go",
         build = ":GoUpdateBinaries",
@@ -165,56 +161,4 @@ return {
         ft = "roc",
         opts = {},
     },
-
-    -- as needed
-    -- "dstein64/vim-startuptime",
-    -- "mattn/emmet-vim",
-    -- "tpope/vim-dadbod",
-    -- "lervag/vimtex", let g:tex_flavor = "latex"
-
-    -- new plugins to try
-
-    -- {
-    --     "nvim-telescope/telescope.nvim",
-    --     branch = "0.1.x",
-    --     dependencies = { "nvim-lua/plenary.nvim" }
-    -- }
-
-    -- https://github.com/ThePrimeagen/harpoon/tree/harpoon2
-    -- "ThePrimeagen/harpoon",
-    -- "folke/trouble.nvim",
-    -- "mfussenegger/nvim-dap",
-    -- "folke/todo-comments.nvim",
-    -- https://github.com/lukas-reineke/indent-blankline.nvim?tab=readme-ov-file#scope
-    -- "lukas-reineke/indent-blankline.nvim"
-
-    -- "iamcco/markdown-preview.nvim"
-    -- "tpope/vim-rsi"
-    -- "mbbill/undotree",
-    -- "her/central.vim",
-    -- "tpope/vim-dispatch",
-    -- "janko-m/vim-test",
-    -- "tpope/projectionist",
-    -- "jameshiew/nvim-magic",
-    -- "rest-nvim/rest.nvim",
-    -- "kana/vim-textobj-entire",
-    -- "kana/vim-textobj-user",
-    -- "michaeljsmith/vim-indent-object",
-
-    -- "tpope/vim-afterimage",
-    -- "tpope/vim-eunuch",
-    -- "wfxr/minimap.vim",
-    -- "kannokanno/previm",
-    -- "nathom/filetype.nvim",
-    -- "APZelos/blamer.nvim",
-    -- "f-person/git-blame.nvim",
-    -- "sjl/gundo.vim",
-    -- "Konfekt/FastFold",
-
-    -- if !empty(glob("~/.config/nvim/plugs.os.vim"))
-    --     source ~/.config/nvim/plugs.os.vim
-    -- endif
-    -- if !empty(glob("~/.config/nvim/plugs.local.vim"))
-    --     source ~/.config/nvim/plugs.local.vim
-    -- endif
 }
