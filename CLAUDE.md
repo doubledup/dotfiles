@@ -22,6 +22,7 @@ Personal dotfiles repository managed with [rcm](https://github.com/thoughtbot/rc
 ## Key Conventions
 
 ### File Organization
+
 - Prefer editing existing files over creating new ones
 - Local overrides: add `.local` before extension (e.g., `config.local.fish`)
 - OS-specific: use `tag-mac/` or `tag-linux/` directories
@@ -30,6 +31,7 @@ Personal dotfiles repository managed with [rcm](https://github.com/thoughtbot/rc
 ### Neovim Plugin Organization
 
 **Simple plugins** (keep in `lua/plugins/init.lua`):
+
 - 20 lines or fewer
 - Basic opts/config, no custom functions
 
@@ -54,6 +56,7 @@ Personal dotfiles repository managed with [rcm](https://github.com/thoughtbot/rc
 ```
 
 **Complex plugins** (separate files in `lua/plugins/`):
+
 - More than 20 lines
 - Custom functions or complex setup
 - Multiple related plugins
