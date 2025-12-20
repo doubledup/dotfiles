@@ -27,6 +27,7 @@ Personal dotfiles repository managed with [rcm](https://github.com/thoughtbot/rc
 - Local overrides: add `.local` before extension (e.g., `config.local.fish`)
 - OS-specific: use `tag-mac/` or `tag-linux/` directories
 - Pure Lua for neovim config (no vimscript)
+- Avoid non-ASCII characters and ligatures; use plain symbols (e.g., `->` not `→`). Exception: intentional visual elements like vim listchars or UI indicators.
 
 ### Neovim Plugin Organization
 
@@ -68,15 +69,15 @@ See `lua/plugins/conform.lua`, `lua/plugins/lspconfig.lua` for examples.
 Pattern: first letter of tool name as prefix.
 
 ```fish
-# homebrew → b
+# homebrew -> b
 abbr b brew
 abbr bb brew bundle
 abbr bi brew install
 
-# cargo → c
+# cargo -> c
 abbr c cargo
 
-# git → g (defined in conf.d/git.fish)
+# git -> g (defined in conf.d/git.fish)
 abbr g git
 abbr gst 'git status'
 abbr gc 'git commit -v'
