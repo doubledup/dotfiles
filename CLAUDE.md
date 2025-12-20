@@ -81,13 +81,14 @@ abbr gc 'git commit -v'
 
 ## Formatters and Linters
 
+Run `tokei` to see current language stats.
+
 | Filetype | Formatter | Linter |
 |----------|-----------|--------|
 | Lua | stylua | lua-language-server |
-| Fish | fish_indent | fish-lsp, shellcheck |
+| Fish | fish_indent | fish-lsp |
 | Shell/Bash | shfmt | shellcheck |
-| Java | google-java-format | jdtls |
-| YAML | yamlfmt | yamllint |
+| JSON | prettier | - |
 | Markdown | prettier | - |
 | Spelling | - | typos |
 
