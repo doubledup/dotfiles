@@ -116,3 +116,4 @@ find ~ -type l ! -exec test -e {} \; -print | rg -v '/Library/' | rg -v '/.cache
 - Use git stash before major configuration changes
 - Verify symlinks work before committing
 - Neovim plugins: look up READMEs at `https://github.com/{user}/{repo}`
+- Prefer minimal, focused changes over comprehensive refactors
