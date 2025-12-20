@@ -3,7 +3,7 @@
 Packages, configuration and tools.
 - Packages managed with [Homebrew](https://brew.sh).
 - Configuration files managed with [rcm](https://github.com/thoughtbot/rcm).
-- Tools as scripts in [`local/bin/`](./local/bin/).
+- Tools as scripts in [`local/bin/`](./local/bin/) and [`rcignore/`](./rcignore/).
 
 ## Setup
 
