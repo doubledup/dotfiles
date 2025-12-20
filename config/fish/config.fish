@@ -26,8 +26,6 @@ set -x BAT_PAGER "less $LESS"
 
 # path
 
-set -x PATH $HOME/.local/bin $PATH
-
 set -x DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -x PATH $HOME/.dotnet/tools $PATH
 
@@ -42,6 +40,9 @@ set -x SAM_CLI_TELEMETRY 0
 
 test -e ~/.config/fish/config.os.fish; and source ~/.config/fish/config.os.fish
 test -e ~/.config/fish/config.local.fish; and source ~/.config/fish/config.local.fish
+
+# path (after OS config so ~/.local/bin takes priority over Homebrew on MacOS)
+set -x PATH $HOME/.local/bin $PATH
 
 # these run after the OS settings so that we know the commands are available.
 # e.g. `brew shellenv` on MacOS sets these up in PATH.
