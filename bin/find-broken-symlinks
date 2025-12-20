@@ -9,14 +9,14 @@ check_broken_symlinks() {
     # Parse flags
     while [[ $# -gt 0 ]]; do
         case $1 in
-            -r|--remove)
-                remove_broken=true
-                shift
-                ;;
-            *)
-                search_dir="$1"
-                shift
-                ;;
+        -r | --remove)
+            remove_broken=true
+            shift
+            ;;
+        *)
+            search_dir="$1"
+            shift
+            ;;
         esac
     done
 
