@@ -83,14 +83,14 @@ abbr gc 'git commit -v'
 
 Run `tokei` to see current language stats.
 
-| Filetype | Formatter | Linter |
-|----------|-----------|--------|
-| Lua | stylua | lua-language-server |
-| Fish | fish_indent | fish-lsp |
-| Shell/Bash | shfmt | shellcheck |
-| JSON | prettier | - |
-| Markdown | prettier | - |
-| Spelling | - | typos |
+| Filetype   | Formatter   | Linter              |
+| ---------- | ----------- | ------------------- |
+| Lua        | stylua      | lua-language-server |
+| Fish       | fish_indent | fish-lsp            |
+| Shell/Bash | shfmt       | shellcheck          |
+| JSON       | prettier    | -                   |
+| Markdown   | prettier    | -                   |
+| Spelling   | -           | typos               |
 
 ## Common Commands
 
