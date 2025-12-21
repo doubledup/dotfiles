@@ -8,3 +8,6 @@ theme = tokyonight-moon
 # keybind = super+,=command:ghostty-config
 
 config-file = macos-config
+
+# shift+enter for newline in Claude code
+keybind = shift+enter=text:\x1b\r
