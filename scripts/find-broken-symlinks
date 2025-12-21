@@ -3,7 +3,7 @@
 set -euo pipefail
 
 check_broken_symlinks() {
-    local search_dir="${1:-$HOME}"
+    local search_dir="$HOME"
     local remove_broken=false
 
     # Parse flags
