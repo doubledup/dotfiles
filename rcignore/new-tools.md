@@ -8,6 +8,7 @@
 - https://github.com/starship/starship
 - https://github.com/sxyazi/yazi
 - https://fennel-lang.org/
+- https://github.com/lucc/nvimpager
 
 # Neovim plugins
 
