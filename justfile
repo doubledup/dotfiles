@@ -19,11 +19,11 @@ fmt-check:
 # Run linters
 lint:
     fish --no-execute $(find . -name '*.fish')
-    typos
     shellcheck $(find . -name '*.sh')
+    typos
 
-# Run lint and format check
-check: lint fmt-check
+# Run format check and lint
+check: fmt-check lint
 
 # Test that configs load without errors
 test:
