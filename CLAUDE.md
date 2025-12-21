@@ -7,21 +7,25 @@ Personal dotfiles repository managed with [rcm](https://github.com/thoughtbot/rc
 Core principles that guide all decisions in this repository:
 
 **Simplicity over cleverness:**
+
 - Aim for narrow interfaces with deep implementations
 - Prefer simple, clear code over complex abstractions, even if the code is more verbose
 - Minimize configuration - use defaults wherever possible
 - Lower complexity even if initially more difficult or verbose
 
 **Conservative tool choices:**
+
 - Prefer well-tested tools with larger communities and longer track records
 - Avoid introducing new tools/languages unless necessary
 - Favor terminal/CLI programs over GUI applications
 
 **Keyboard-first workflow:**
+
 - Prioritize keyboard shortcuts and terminal workflows
 - Avoid mouse-dependent tools and interfaces
 
 **When evaluating new additions:**
+
 1. Can existing tools handle this?
 2. Does this add unnecessary complexity?
 3. Is this tool mature and widely adopted?
@@ -48,7 +52,7 @@ Key structure (omits auto-generated files and some config files):
 ├── tag-mac/          # macOS-specific configs (same structure as root)
 ├── tag-linux/        # Linux-specific configs (same structure as root)
 ├── local/bin/        # User scripts (dns-clear, ghostty-config, mksshkey)
-├── bin/              # Repo-internal scripts (find-broken-symlinks)
+├── scripts/          # Repo-internal scripts (find-broken-symlinks)
 ├── ssh/              # SSH configuration
 ├── Brewfile          # Homebrew packages
 ├── justfile          # Task runner recipes
@@ -230,10 +234,10 @@ nvim!             # nvim with no config (or: nvim -u NONE)
 - `ghostty-config` - Open ghostty config in editor
 - `mksshkey` - Create SSH keys for the current machine
 
-**Repo scripts** (`bin/`, for internal use):
+**Repo scripts** (`scripts/`, for internal use):
 
 - `find-broken-symlinks` - Find and optionally remove broken symlinks
-    - Usage: `./bin/find-broken-symlinks [--remove] [directory]`
+    - Usage: `./scripts/find-broken-symlinks [--remove] [directory]`
     - Default directory: `$HOME`
     - Also available as `just broken-links`
 

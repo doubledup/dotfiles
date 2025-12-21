@@ -1,1 +1,1 @@
-EXCLUDES='LICENSE README.md Session.vim ./bin rcignore stylua.toml'
+EXCLUDES='LICENSE README.md Session.vim ./scripts rcignore stylua.toml'

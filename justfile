@@ -78,4 +78,4 @@ sync:
 
 # Find broken symlinks in home directory (use --remove to delete them)
 broken-links *args:
-    ./bin/find-broken-symlinks {{args}}
+    ./scripts/find-broken-symlinks {{args}}
