@@ -202,7 +202,7 @@ just check        # Run linters and format checks (run before committing)
 just fmt          # Format all code
 just test         # Test that configs load without errors
 just sync         # Pull dotfile updates and re-link (rcdn, git pull, rcup)
-just update       # Update all packages (calls updateAll)
+just update       # Update all packages (brew, cargo, nvim, mas, system)
 just broken-links # Find broken symlinks (--remove to delete them)
 ```
 
@@ -215,9 +215,6 @@ Use the rcm tag from CLAUDE.local.md (e.g., `-t mac` for macOS, `-t linux` for L
 ```sh
 # Symlink management
 rcup -t {tag}     # Apply symlinks from dotfiles to home directory
-
-# Update packages
-updateAll         # Update all packages (brew, cargo, nvim, mas, system)
 
 # Switch nvim configs
 vk                # Use nvim-kickstart (or: NVIM_APPNAME=nvim-kickstart nvim)
