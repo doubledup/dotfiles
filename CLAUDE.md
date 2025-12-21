@@ -267,7 +267,12 @@ Use the rcm tag from CLAUDE.local.md (e.g., `-t mac` for macOS, `-t linux` for L
 
 **Removing files:**
 
-- Run `rcdn -t {tag}` first, remove the file, then `RCRC=~/.dotfiles/rcrc rcup -t {tag}`
+When removing a file from dotfiles that's currently symlinked:
+
+1. Remove the file from dotfiles
+2. Run `just broken-links --remove` to clean up the now-broken symlink (rcdn won't work since it can't see deleted files)
+
+When adding new files to dotfiles that shouldn't be symlinked, add them to EXCLUDES in rcrc
 
 **General philosophy:**
 
