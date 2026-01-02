@@ -44,6 +44,14 @@ vim.keymap.set(
     { remap = false, desc = "Join lines without spaces, keeping cursor position" }
 )
 
+-- enter to save all buffers, except in quickfix lists
+vim.keymap.set(
+    "n",
+    "<cr>",
+    "&buftype ==# 'quickfix' ? '<cr>' : ':checktime<cr>:wall<cr>'",
+    { expr = true, remap = false, desc = "Save all buffers (except in quickfix)" }
+)
+
 -- split line before/after cursor
 vim.keymap.set("n", "[<cr>", "i<cr><esc>kg_", { desc = "Split line before cursor" })
 vim.keymap.set("n", "]<cr>", "a<cr><esc>kg_", { desc = "Split line after cursor" })

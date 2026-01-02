@@ -14,35 +14,35 @@ return {
             end,
         },
 
-        {
-            "<cr>",
-            mode = "n",
-            desc = "Format and save all buffers (except in quickfix)",
-
-            function()
-                if vim.bo.buftype == "quickfix" then
-                    -- In quickfix, leave <cr> behavior as-is
-
-                    vim.api.nvim_feedkeys(
-                        vim.api.nvim_replace_termcodes("<cr>", true, false, true),
-                        "n",
-                        false
-                    )
-                else
-                    vim.cmd.checktime()
-
-                    -- Format all buffers
-                    local conform = require("conform")
-                    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                        if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modifiable then
-                            conform.format({ async = false, lsp_format = "fallback", bufnr = buf })
-                        end
-                    end
-
-                    vim.cmd.wall()
-                end
-            end,
-        },
+        -- {
+        --     "<cr>",
+        --     mode = "n",
+        --     desc = "Format and save all buffers (except in quickfix)",
+        --
+        --     function()
+        --         if vim.bo.buftype == "quickfix" then
+        --             -- In quickfix, leave <cr> behavior as-is
+        --
+        --             vim.api.nvim_feedkeys(
+        --                 vim.api.nvim_replace_termcodes("<cr>", true, false, true),
+        --                 "n",
+        --                 false
+        --             )
+        --         else
+        --             vim.cmd.checktime()
+        --
+        --             -- Format all buffers
+        --             local conform = require("conform")
+        --             for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        --                 if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].modifiable then
+        --                     conform.format({ async = false, lsp_format = "fallback", bufnr = buf })
+        --                 end
+        --             end
+        --
+        --             vim.cmd.wall()
+        --         end
+        --     end,
+        -- },
     },
 
     opts = {
