@@ -13,43 +13,12 @@ return {
     end,
 
     opts = {
-        -- strategies = {
-        --     chat = {
-        --         adapter = {
-        --             name = "anthropic",
-        --             model = "claude-sonnet-4",
-        --         },
-        --     },
-        --
-        --     inline = {
-        --         adapter = {
-        --             name = "anthropic",
-        --             model = "claude-sonnet-4",
-        --         },
-        --     },
-        -- },
-
-        adapters = {
-            http = {
-                -- anthropic = function()
-                --     return require("codecompanion.adapters").extend("anthropic", {
-                --         env = {
-                --             api_key = "MY_OTHER_ANTHROPIC_KEY",
-                --         },
-                --     })
-                -- end,
-
-                copilot = function()
-                    return require("codecompanion.adapters").extend("copilot", {
-                        schema = {
-                            model = {
-                                default = function()
-                                    return "claude-sonnet-4.5"
-                                end,
-                            },
-                        },
-                    })
-                end,
+        interactions = {
+            chat = {
+                adapter = {
+                    name = "copilot",
+                    model = "claude-sonnet-4.5",
+                },
             },
         },
     },
