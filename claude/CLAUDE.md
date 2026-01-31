@@ -5,6 +5,7 @@
 - Editor: neovim
 - Terminal: kitty
 - OS: macOS primary, Linux occasionally
+- Search: rg (ripgrep), fd (not grep/find)
 
 ## Communication
 - Answer first, context after

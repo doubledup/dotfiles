@@ -125,6 +125,19 @@ Note: Formatter/linter configs (`.prettierrc.json`, `stylua.toml`, `_typos.toml`
 - Root dotfiles (gitconfig, editorconfig) → `~/` (prefixed with `.`)
 - `tag-{os}/config/` → `~/.config/` (OS-specific overrides)
 - Files in EXCLUDES (rcrc) are never symlinked
+- **IMPORTANT**: rcm ignores dotfiles (files starting with `.`) in subdirectories - it treats them as configuration files for the dotfiles repo itself, not files to be symlinked
+
+**Workaround for dotfiles that need to be symlinked:**
+
+Some tools require dotfiles (e.g., `.luarc.json` for lua_ls). To work around rcm's behavior:
+
+1. Store the file without the leading dot: `config/nvim/luarc.json`
+2. Create an internal repo symlink: `.luarc.json` → `config/nvim/luarc.json` (for editing within the repo)
+3. rcm will symlink the non-dotted version: `~/.config/nvim/luarc.json`
+
+This pattern allows the file to be:
+- Symlinked by rcm to the installed location (as `luarc.json`)
+- Accessible as `.luarc.json` when working in the dotfiles repo itself
 
 **CLAUDE.local.md setup:**
 
