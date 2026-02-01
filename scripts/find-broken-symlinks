@@ -54,8 +54,7 @@ check_broken_symlinks() {
                 fi
             done
         else
-            echo "To clean up broken symlinks, run:"
-            echo "  $0 --remove $search_dir"
+            echo "To clean up broken symlinks, use the --remove flag"
         fi
     else
         echo "No broken symlinks found"
