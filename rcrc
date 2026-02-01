@@ -1,1 +1,1 @@
-EXCLUDES='CLAUDE.md CLAUDE.local.md LICENSE README.md TODO.md Session.vim _typos.toml justfile rcignore ./scripts stylua.toml'
+EXCLUDES='CLAUDE.md CLAUDE.local.md DESIGN.md LICENSE README.md TODO.md Session.vim _typos.toml justfile rcignore ./scripts stylua.toml'
