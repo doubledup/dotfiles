@@ -1,25 +1,25 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(ls:*)",
-      "Bash(pwd)",
-      "Bash(wc:*)",
-      "Bash(rg:*)",
-      "Bash(fd:*)",
-      "Bash(which:*)",
-      "Bash(echo:*)",
-      "Bash(date)"
-    ],
-    "deny": [
-      "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Read(**/.envrc)",
-      "Read(**/*.envrc.*)",
-      "Read(**/secrets/**)",
-      "Read(**/.ssh/**)",
-      "Read(**/.aws/**)",
-      "Bash(sudo:*)",
-      "Bash(rm -rf:*)"
-    ]
-  }
+    "permissions": {
+        "allow": [
+            "Bash(ls:*)",
+            "Bash(pwd)",
+            "Bash(wc:*)",
+            "Bash(rg:*)",
+            "Bash(fd:*)",
+            "Bash(which:*)",
+            "Bash(echo:*)",
+            "Bash(date)"
+        ],
+        "deny": [
+            "Read(**/.env)",
+            "Read(**/.env.*)",
+            "Read(**/.envrc)",
+            "Read(**/*.envrc.*)",
+            "Read(**/secrets/**)",
+            "Read(**/.ssh/**)",
+            "Read(**/.aws/**)",
+            "Bash(sudo:*)",
+            "Bash(rm -rf:*)"
+        ]
+    }
 }
