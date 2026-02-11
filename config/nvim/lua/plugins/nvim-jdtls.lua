@@ -69,7 +69,6 @@ return {
         end
 
         -- TODO: `:h jdtls`
-        -- https://github.com/mfussenegger/nvim-jdtls/wiki/Sample-Configurations
         vim.lsp.config("jdtls", {
             name = "jdtls",
 
