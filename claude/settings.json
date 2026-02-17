@@ -8,7 +8,13 @@
             "Bash(fd:*)",
             "Bash(which:*)",
             "Bash(echo:*)",
-            "Bash(date)"
+            "Bash(date)",
+            "Bash(git diff:*)",
+            "Bash(git rev-parse:*)",
+            "Bash(git show:*)",
+            "Bash(git merge-base:*)",
+            "Bash(git symbolic-ref:--short HEAD)",
+            "Bash(git log:*)"
         ],
         "deny": [
             "Read(**/.env)",
@@ -21,5 +27,8 @@
             "Bash(sudo:*)",
             "Bash(rm -rf:*)"
         ]
+    },
+    "enabledPlugins": {
+        "lua-lsp@claude-plugins-official": true
     }
 }
