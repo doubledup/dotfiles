@@ -80,6 +80,13 @@ return {
                 workspace_folder,
                 -- vim.fn.getcwd() .. "/.jdtls",
                 "--jvm-arg=-javaagent:" .. lombok_path,
+                "--jvm-arg=-XX:+UseG1GC",
+                "--jvm-arg=-XX:+UseStringDeduplication",
+                "--jvm-arg=-Xms1G",
+                "--jvm-arg=-Xmx4G",
+                "--jvm-arg=-Xlog:disable",
+                "--jvm-arg=-Djava.awt.headless=true",
+                "--jvm-arg=-Djava.import.generatesMetadataFilesAtProjectRoot=false",
             },
 
             root_dir = root_dir,
