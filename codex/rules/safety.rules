@@ -1,0 +1,35 @@
+[[rule]]
+description = "Never execute sudo from Codex"
+filters = ["bash"]
+action = "deny"
+prefix = ["sudo"]
+
+[[rule]]
+description = "Block broad recursive removal patterns"
+filters = ["bash"]
+action = "deny"
+prefix = ["rm", "-rf"]
+
+[[rule]]
+description = "Block broad recursive removal patterns (flag order variant)"
+filters = ["bash"]
+action = "deny"
+prefix = ["rm", "-fr"]
+
+[[rule]]
+description = "Block destructive history rewrite"
+filters = ["bash"]
+action = "deny"
+prefix = ["git", "reset", "--hard"]
+
+[[rule]]
+description = "Repository policy: never run Claude CLI"
+filters = ["bash"]
+action = "deny"
+prefix = ["claude"]
+
+[[rule]]
+description = "Repository policy: never run Claude CLI (absolute path)"
+filters = ["bash"]
+action = "deny"
+prefix = ["/opt/homebrew/bin/claude"]

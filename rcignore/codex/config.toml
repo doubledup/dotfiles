@@ -1,0 +1,18 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+model = "gpt-5.3-codex"
+personality = "pragmatic"
+model_reasoning_effort = "medium"
+
+# Adapted from `claude/settings.json`.
+# Codex does not support Claude-style per-tool allow/deny lists in `config.toml`.
+# Closest match: stricter approvals + sandboxing + explicit command rules in `codex/rules/*.rules`.
+approval_policy = "untrusted"
+sandbox_mode = "workspace-write"
+web_search = "enabled"
+
+[sandbox_workspace_write]
+network_access = false
+
+[shell_environment_policy]
+inherit = "core"
