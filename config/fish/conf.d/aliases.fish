@@ -10,6 +10,12 @@ abbr --add dotdot --regex '^\.\.+$' --function multicd
 # bat
 abbr bat! 'bat --pager "less $LESS -n" --style=default'
 
+# claude
+abbr c claude
+
+# codex
+abbr x codex
+
 # homebrew
 abbr b brew
 abbr bb brew bundle
@@ -37,4 +43,4 @@ abbr la 'ls -al'
 abbr ll 'ls -l'
 
 # rust
-abbr c cargo
+abbr cg cargo
