@@ -11,3 +11,4 @@ config-file = macos-config
 
 # shift+enter for newline in Claude code
 keybind = shift+enter=text:\x1b\r
+keybind = "cmd+f=write_scrollback_file:open"
