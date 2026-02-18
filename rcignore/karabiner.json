@@ -274,11 +274,11 @@
                         ]
                     },
                     {
-                        "description": "hyper+d to f16 (for dictation)",
+                        "description": "hyper+j to f16 for dictation",
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "d",
+                                    "key_code": "j",
                                     "modifiers": {
                                         "mandatory": [
                                             "left_control",
