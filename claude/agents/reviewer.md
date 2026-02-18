@@ -17,14 +17,16 @@ You will be invoked with a mode: `spec`, `plan`, or `final`.
 
 ### Mode: spec (advisory)
 
-Review the spec for clarity and completeness. Note concerns but defer to user judgment.
+Review the spec for clarity, completeness, and robustness. Note concerns but defer to user judgment.
 
 Check:
 
 - Is the problem clearly defined?
 - Are acceptance criteria specific and testable?
 - Are edge cases identified?
-- Are there ambiguities that could lead to wrong assumptions?
+- Are there unstated assumptions? Are any risky?
+- Are there conflicting requirements?
+- What failure modes are not addressed?
 
 Format: "Consider: [observation]. [Why it might matter]."
 
@@ -48,11 +50,12 @@ Review the completed changes. Flag issues that should be fixed.
 
 Check:
 
-- **Correctness**: Do tests pass? Does the change match the spec?
+- **Correctness**: Does the code correctly implement the spec? Are all acceptance criteria addressed?
 - **Consistency**: Does the code match codebase style and patterns?
-- **Completeness**: Are all acceptance criteria addressed?
 - **Safety**: Any antipatterns, error-prone code, or missing error handling?
 - **Edge cases**: Are the identified edge cases handled?
+- **Regressions**: Did any existing behavior break?
+- **Overengineering**: Was anything added beyond what the spec asked for?
 
 Format: "Issue: [problem]. [Why it matters]. Suggested fix: [action]."
 

@@ -10,70 +10,80 @@ Implement a feature following a structured workflow with review checkpoints.
 
 Goal: Understand and document what we're building.
 
-1. Ask clarifying questions about:
+1. Explore the codebase to understand context:
+    - Where does this feature fit in the system?
+    - Read relevant files and trace dependencies
+    - Note existing patterns to follow
+    - If the request is too vague to know where to look, ask clarifying questions first (step 2)
+
+2. Ask clarifying questions if needed about:
     - The problem being solved
     - Expected behavior and acceptance criteria
     - Edge cases and error conditions
     - Any constraints or non-goals
 
-2. Draft a spec that includes:
+3. Draft a spec that includes:
     - Problem statement (1-2 sentences)
     - Acceptance criteria (testable statements)
     - Edge cases to handle
     - Out of scope (if relevant)
 
-3. Use the Reviewer agent in `spec` mode to review the spec.
+4. Use the Reviewer agent in `spec` mode to review the spec.
+   Include the spec text in the prompt.
 
-4. Present the spec and reviewer feedback to the user.
+5. Present the spec and reviewer feedback to the user.
 
 **STOP and wait for user approval before proceeding.**
 
 If the user identifies gaps, revise the spec and repeat this phase.
 
----
-
-## Phase 2: Explore
-
-Goal: Understand the codebase context for this feature.
-
-1. Identify where this feature fits in the system
-2. Read relevant files and trace dependencies
-3. Note existing patterns we should follow
-4. Identify exactly which files need changes
-
-5. Summarize findings:
-    - Files to modify (with purpose)
-    - Patterns to follow
-    - Potential risks or complications
-
-If exploration reveals gaps in the spec, say so and loop back to Phase 1.
-
-Otherwise, proceed directly to Phase 3.
+After approval, save the spec to `feature-spec.md` (confirm with user before overwriting). Run `/compact` before proceeding to Phase 2.
 
 ---
 
-## Phase 3: Plan
+## Phase 2: Plan
 
 Goal: Define how we'll implement this feature.
 
-1. Create an ordered implementation plan where each step includes:
+1. Explore the codebase for implementation context:
+    - Identify which files are relevant and trace dependencies
+    - Note existing patterns and constraints
+    - Identify risks or complications
+
+2. For non-trivial features:
+   a. Briefly outline 2-3 approaches with tradeoffs (complexity, risk, testability, alignment with existing patterns)
+   b. Recommend one with reasoning
+   c. Present approaches to the user and confirm direction before proceeding
+
+3. Break the chosen approach into an ordered implementation plan where each step includes:
     - What to change
     - Why (links to which acceptance criterion)
     - How to verify (specific test or check)
 
-2. Use the Reviewer agent in `plan` mode to review the plan.
+4. Use the Reviewer agent in `plan` mode to review the plan.
+   Include the contents of `feature-spec.md` and the plan in the prompt.
 
-3. Present the plan and reviewer feedback to the user.
+5. Present the plan and reviewer feedback to the user.
 
 **STOP and wait for user approval before proceeding.**
 
-If the user requests changes, revise the plan. You may need to explore further.
+If the user requests changes, revise the plan.
+
+After approval, save the plan to `feature-plan.md` (confirm with user before overwriting).
 
 ---
 
-## Phase 4: Execute
+## Phase 3: Execute
 
 Goal: Implement the plan with verification at each step.
+
+Re-read `feature-spec.md` and `feature-plan.md` before starting.
+
+Rules:
+
+- One step at a time. Do not batch steps.
+- Minimal diff per step. One concern per change.
+- Reason about what the step requires before writing code.
 
 For each step in the plan:
 
@@ -88,27 +98,35 @@ After all steps complete, run the full test suite.
 
 ---
 
-## Phase 5: Review
+## Phase 4: Review
 
 Goal: Verify the complete change meets quality standards.
 
 1. Use the Reviewer agent in `final` mode to review all changes.
+   Include the contents of `feature-spec.md` and `feature-plan.md` in the prompt.
 
-2. The reviewer will check:
-    - Correctness: tests pass, spec addressed
-    - Consistency: matches codebase style
-    - Completeness: all acceptance criteria met
-    - Safety: no antipatterns or error-prone code
-    - Edge cases: all identified cases handled
-
-3. If the reviewer finds issues:
-    - Fix them
+2. If the reviewer finds issues:
+    - Fix them using Phase 3 execution rules, guided by the specific findings
     - Re-run verification
-    - Re-run the final review
+    - Re-run the review
+    - If issues persist after 3 fix-review cycles, STOP and present remaining findings to the user
 
-4. Present the final summary:
+3. Present the final summary:
     - Changes made (files, brief description)
     - How each acceptance criterion was addressed
     - Any notes or follow-up items
 
-**End of workflow.** User can now commit, request changes, or discard.
+**End of workflow.** User can now commit, request changes, or discard. `feature-spec.md` and `feature-plan.md` remain in the working directory for reference.
+
+---
+
+## Global Rules
+
+These apply across all phases:
+
+- Never implement everything at once. Follow the phases.
+- Never skip approval gates (spec and plan).
+- Prefer the smallest sufficient change.
+- Reason before coding. Understand before modifying.
+- Be critical during review. Assume something was missed.
+- If the feature is more complex than expected, say so and propose adjusting scope.
