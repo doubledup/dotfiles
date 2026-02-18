@@ -99,6 +99,38 @@ find ~ -type l ! -exec test -e {} \; -print | rg -v '/Library/' | rg -v '/.cache
 Verify that the symlinks are unused (e.g. chroots and containers can appear to contain broken
 symlinks) and remove them.
 
+### Default editor
+
+Set Zed as the default text editor:
+
+```sh
+# Set Zed for core text and code UTIs (excluding public.html)
+duti -s dev.zed.Zed public.plain-text all
+duti -s dev.zed.Zed public.text all
+duti -s dev.zed.Zed public.source-code all
+duti -s dev.zed.Zed net.daringfireball.markdown all
+
+# Set Zed for common file extensions
+for ext in txt md markdown js ts py go rs c cpp h hpp css json yaml yml xml sh zsh bash; do
+  duti -s dev.zed.Zed $ext all
+done
+```
+
+Reset to default:
+
+```sh
+# Reset UTIs (excluding public.html)
+duti -s com.apple.TextEdit public.plain-text all
+duti -s com.apple.TextEdit public.text all
+duti -s com.apple.TextEdit public.source-code all
+duti -s com.apple.TextEdit net.daringfireball.markdown all
+
+# Reset common extensions to TextEdit
+for ext in txt md markdown js ts py go rs c cpp h hpp css json yaml yml xml sh zsh bash; do
+  duti -s com.apple.TextEdit $ext all
+done
+```
+
 ## Linux/Debian
 
 <!-- TODO: https://github.com/rbreaves/kinto -->
