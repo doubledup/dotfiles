@@ -53,7 +53,8 @@ Goal: Define how we'll implement this feature.
 2. For non-trivial features:
    a. Briefly outline 2-3 approaches with tradeoffs (complexity, risk, testability, alignment with existing patterns)
    b. Recommend one with reasoning
-   c. Present approaches to the user and confirm direction before proceeding
+
+**If step 2 was followed: present approaches and STOP until the user confirms a direction.**
 
 3. Break the chosen approach into an ordered implementation plan where each step includes:
     - What to change
@@ -67,7 +68,7 @@ Goal: Define how we'll implement this feature.
 
 **STOP and wait for user approval before proceeding.**
 
-If the user requests changes, revise the plan.
+If the user requests changes, revise the plan and loop back to step 4.
 
 After approval, save the plan to `feature-plan.md` (confirm with user before overwriting).
 
