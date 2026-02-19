@@ -9,7 +9,6 @@ model_reasoning_effort = "medium"
 # Closest match: stricter approvals + sandboxing + explicit command rules in `codex/rules/*.rules`.
 approval_policy = "untrusted"
 sandbox_mode = "workspace-write"
-web_search = "enabled"
 
 [sandbox_workspace_write]
 network_access = false
