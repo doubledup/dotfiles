@@ -42,6 +42,7 @@ File operations:
 - Add packages to Brewfile (keep sections sorted alphabetically)
 - New excluded files: add to EXCLUDES in rcrc
 - New files in `~/`: run `mkrc <file>` (or `mkrc -t mac <file>` for OS-specific) to move into this repo and create symlink
+- New files in repo: run `rcup` to create symlinks in `~/`
 - Removing symlinked files: delete file, then `just broken-links --remove`
 
 ## Do Not Modify
