@@ -40,3 +40,7 @@
 - Never use `--no-verify` on commits
 - Never commit `.env`, `.envrc`, secrets, or credentials
 - Verify no secrets in diffs before committing
+
+## Extended Docs
+
+@~/.claude/docs/git.md
