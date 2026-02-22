@@ -1,6 +1,7 @@
 ---
 name: ReviewSecurity
 description: Reviews code changes for security vulnerabilities and sensitive data exposure
+model: sonnet
 tools:
     - Read
     - Grep

@@ -1,6 +1,7 @@
 ---
 name: ReviewCorrectness
 description: Reviews code changes for bugs, logic errors, and edge cases
+model: sonnet
 tools:
     - Read
     - Grep
