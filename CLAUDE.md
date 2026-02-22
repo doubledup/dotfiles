@@ -9,6 +9,8 @@ Dotfiles managed with rcm. See @DESIGN.md for architectural decisions.
 - Files in EXCLUDES (rcrc) are not symlinked
 - IMPORTANT: rcm ignores dotfiles in subdirectories
     - Workaround: store as `foo.json`, create repo symlink `.foo.json -> foo.json`
+- `claude/` -> `~/.claude/` (rcm-managed, version-controlled settings/commands/agents)
+- `.claude/` (repo root) -> project-level config (`settings.local.json`), not managed by rcm
 
 ## Conventions
 
@@ -39,6 +41,7 @@ File operations:
 
 - Add packages to Brewfile (keep sections sorted alphabetically)
 - New excluded files: add to EXCLUDES in rcrc
+- New files in `~/`: run `mkrc <file>` (or `mkrc -t mac <file>` for OS-specific) to move into this repo and create symlink
 - Removing symlinked files: delete file, then `just broken-links --remove`
 
 ## Do Not Modify

@@ -131,3 +131,5 @@ These apply across all phases:
 - Reason before coding. Understand before modifying.
 - Be critical during review. Assume something was missed.
 - If the feature is more complex than expected, say so and propose adjusting scope.
+- Keep PRs small. Warn at 400+ lines changed, stop and suggest splitting at 1500+ lines.
+  Check cumulative diff size (vs base branch) during planning and execution.
