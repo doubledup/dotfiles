@@ -18,6 +18,7 @@ Use a safety cap of 5 loops unless the user specifies a different cap.
 - Reviewer persona/focus (for example: "senior engineer and AI-assisted coding expert").
 - Optional constraints (word count, canonical source, files not to edit).
 - Optional stop policy override (for example fixed loop count or stricter quality bar).
+- PR communication style file (default: `~/.claude/output-styles/pr-comms.md`).
 
 ## Loop Workflow
 
@@ -61,6 +62,31 @@ When only minor findings remain, list those minor findings as optional follow-up
 After edits, run required repository checks from current policy (for example `just check` and `just test` in this repo).
 
 If a command cannot run, report the blocker and what remains unverified.
+
+## GitHub PR Comment Workflow
+
+Use this workflow when findings should be posted to a PR (comments only; PR descriptions are out of scope for this skill).
+
+1. Load the PR comms style file (default: `~/.claude/output-styles/pr-comms.md`).
+2. Draft comments in that style:
+    - Use `we` voice and review tags from style (`nit:`, `suggestion:`, `question:`, `issue:`, `request:`).
+    - One idea per comment.
+    - Name exact files/fields/lines for remaining gaps.
+    - When listing multiple files, use bullet points with markdown links and filename-only link text.
+3. Prefer inline comments on relevant changed line(s)/range.
+4. Build each inline comment using `gh api repos/<owner>/<repo>/pulls/<pr>/comments`:
+    - Single line: `commit_id`, `path`, `side`, `line`, `body`
+    - Range: `commit_id`, `path`, `start_line`, `start_side`, `line`, `side`, `body`
+5. Before posting, verify:
+    - File is in PR diff.
+    - Line/range exists in PR patch.
+6. Present drafts to the user before posting. Include:
+    - Thread context (path + line and current thread summary)
+    - Proposed comment body
+7. Wait for explicit user approval.
+8. Post approved comments.
+9. After posting, verify each URL is inline (`#discussion_r...`).
+10. If no valid inline anchor exists, explain why and ask before using top-level PR comments.
 
 ## Final Report Format
 
