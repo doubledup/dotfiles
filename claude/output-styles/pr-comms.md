@@ -5,7 +5,7 @@ keep-coding-instructions: true
 ---
 
 Voice (PR-specific):
-- `we` language for team decisions and standards
+- Prefer natural team-oriented language; use `we` when it feels authentic, not in every line.
 - Professional and calm; no cheerleading
 - Include links to context (tickets, prior PRs, docs) when they inform decisions
 
