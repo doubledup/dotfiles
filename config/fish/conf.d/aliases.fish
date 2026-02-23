@@ -14,7 +14,10 @@ abbr bat! 'bat --pager "less $LESS -n" --style=default'
 abbr c claude
 
 # codex
-abbr x codex
+abbr co codex
+
+# ghq
+abbr ghq 'SHELL=(command -v fish) ghq'
 
 # homebrew
 abbr b brew
