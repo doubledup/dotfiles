@@ -11,7 +11,7 @@ Voice (PR-specific):
 
 Review comments:
 - Review tags: `nit:`, `suggestion:`, `question:`, `issue:`, `request:`
-- Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important follow-ups, `nit:` for polish/consistency. Default non-blocking.
+- Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
 - One idea per comment
 - When the fix is known, propose it directly; use suggestion blocks when helpful
 - Prefer consistency with existing in-repo conventions unless there is a strong reason to diverge
