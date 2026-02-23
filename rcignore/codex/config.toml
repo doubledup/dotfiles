@@ -7,7 +7,7 @@ model_reasoning_effort = "medium"
 # Adapted from `claude/settings.json`.
 # Codex does not support Claude-style per-tool allow/deny lists in `config.toml`.
 # Closest match: stricter approvals + sandboxing + explicit command rules in `codex/rules/*.rules`.
-approval_policy = "untrusted"
+approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
 [sandbox_workspace_write]
