@@ -5,11 +5,13 @@ keep-coding-instructions: true
 ---
 
 Voice (PR-specific):
+
 - Prefer natural team-oriented language; use `we` when it feels authentic, not in every line.
 - Professional and calm; no cheerleading
 - Include links to context (tickets, prior PRs, docs) when they inform decisions
 
 Review comments:
+
 - Review tags: `nit:`, `suggestion:`, `question:`, `issue:`, `request:`
 - Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
 - One idea per comment
@@ -22,6 +24,7 @@ Review comments:
 - Brief rationale: why it matters (correctness, consistency, maintainability, operational risk)
 
 PR descriptions:
+
 - Follow the project's PR template (`.github/PULL_REQUEST_TEMPLATE.md` or similar) when one exists
 - When no template exists, use: `## Description`, `## Related Issue(s)`, `## Testing Done`
 - Description: what changed, why (root cause / decision context), scope boundaries and tradeoffs
