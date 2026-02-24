@@ -8,13 +8,12 @@ Implement a feature following a structured workflow with review checkpoints.
 
 ## Phase 1: Spec
 
-Goal: Understand and document what we're building.
+Goal: Define the problem and what success looks like.
 
-1. Explore the codebase to understand context:
-    - Where does this feature fit in the system?
-    - Read relevant files and trace dependencies
-    - Note existing patterns to follow
-    - If the request is too vague to know where to look, ask clarifying questions first (step 2)
+1. Assess what already exists:
+    - What does the system currently do in this area?
+    - Does anything similar already exist?
+    - If the request is too vague to assess, ask clarifying questions first (step 2)
 
 2. Ask clarifying questions if needed about:
     - The problem being solved
