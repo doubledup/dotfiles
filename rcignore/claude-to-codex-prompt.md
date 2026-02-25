@@ -23,7 +23,7 @@ Requirements:
     - Keep wording deterministic and operational.
 
 3. Claude `settings.json` -> Codex config mapping
-    - Translate Claude settings into the tracked template `rcignore/codex/config.toml` (then merge into `~/.codex/config.toml`) using Codex primitives:
+    - Translate Claude settings into `rcignore/codex/config.toml` (then copy or merge into `~/.codex/config.toml`) using Codex primitives:
         - `approval_policy`
         - `sandbox_mode`
         - sandbox network settings

@@ -1,1 +1,2 @@
 EXCLUDES='AGENTS.md CLAUDE.md CLAUDE.local.md DESIGN.md LICENSE README.md TODO.md Session.vim _typos.toml justfile rcignore ./scripts stylua.toml'
+COPY_ALWAYS='config/karabiner/karabiner.json'

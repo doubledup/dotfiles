@@ -40,11 +40,8 @@ if [ "$os_name" = "Darwin" ]; then
     printf '%bSymlinking dotfiles...%b\n' "$blue" "$endcolor"
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 
-    printf '%bCopying Karabiner config...%b\n' "$blue" "$endcolor"
-    cp ~/.dotfiles/karabiner.json ~/.config/karabiner/karabiner.json
-    echo '___'
-    printf '%bCopied Karabiner config. Restart Karabiner now.%b\n' "$yellow" "$endcolor"
-    echo '___'
+    printf '%bCopying Codex config...%b\n' "$blue" "$endcolor"
+    cp ~/.dotfiles/rcignore/codex/config.toml ~/.codex/config.toml
 
     printf '%bCopying Firefox style...%b\n' "$blue" "$endcolor"
     chromedir=$(ls -d "$HOME"/Library/Application\ Support/Firefox/Profiles/*default-release)/chrome
