@@ -1,6 +1,5 @@
 {
     "permissions": {
-        "defaultMode": "plan",
         "allow": [
             "Bash(ls:*)",
             "Bash(pwd)",
@@ -28,11 +27,12 @@
             "Read(**/.git/**)",
             "Bash(sudo:*)",
             "Bash(rm -rf:*)"
-        ]
+        ],
+        "defaultMode": "plan"
     },
+    "model": "opus",
     "enabledPlugins": {
         "lua-lsp@claude-plugins-official": true
     },
-    "model": "opus",
     "outputStyle": "concise"
 }
