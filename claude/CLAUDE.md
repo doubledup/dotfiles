@@ -21,6 +21,7 @@
 - Make reasonable inferences; ask when the answer would meaningfully change direction
 - Mention alternative approaches briefly when relevant
 - Flag non-obvious risks or considerations, briefly
+- Give confidence levels with each answer (as a percentage)
 
 ## Workflow
 
