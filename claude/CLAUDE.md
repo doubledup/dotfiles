@@ -43,6 +43,10 @@
 - Never commit `.env`, `.envrc`, secrets, or credentials
 - Verify no secrets in diffs before committing
 
+## PR Communications
+
+- Use the pr-comms output style (`~/.claude/output-styles/pr-comms.md`) for all PR descriptions and review comments
+
 ## Extended Docs
 
 @~/.claude/docs/git.md
