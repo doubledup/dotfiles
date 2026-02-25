@@ -90,6 +90,7 @@ brew "typos-cli"
 brew "watch"
 brew "watchexec"
 brew "wrk"
+brew "yamlfmt"
 brew "yamllint"
 brew "yazi"
 brew "zig"
@@ -133,4 +134,3 @@ mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Xcode", id: 497799835
-brew "yamlfmt"
