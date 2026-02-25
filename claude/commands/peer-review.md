@@ -31,15 +31,20 @@ Goal: Understand what diff to review.
     - If fails, try `git rev-parse --verify refs/heads/master`
     - If both fail and no `--base` provided: Error with guidance to use `--base <branch>`
 
+5. Resolve the base ref to its remote-tracking counterpart (ensures the diff matches PRs, avoiding stale local branches inflating the line count):
+    - Run `git fetch origin <base>` to update the remote-tracking ref
+    - If fetch succeeds, use `origin/<base>` as the resolved base ref for all diff commands
+    - If fetch fails (offline, no remote), fall back to the local `<base>` ref
+
 ---
 
 ## Phase 2: Get Diff
 
 Goal: Retrieve diff content and check size.
 
-1. Get diff content based on mode:
-    - Default: `git diff main...HEAD` (or master)
-    - `--base <branch>`: `git diff <branch>...HEAD`
+1. Get diff content based on mode (use the resolved base ref from Phase 1 step 5):
+    - Default: `git diff <resolved-base>...HEAD`
+    - `--base <branch>`: `git diff <resolved-base>...HEAD`
     - `--staged`: `git diff --cached`
     - `--uncommitted`: `git diff HEAD`
     - `--commit <sha>`: `git show <sha> --format=` (for merge commits, shows first-parent diff; for root commits with no parent, shows full content)
