@@ -1,38 +1,37 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(ls:*)",
-            "Bash(pwd)",
-            "Bash(wc:*)",
-            "Bash(rg:*)",
-            "Bash(fd:*)",
-            "Bash(which:*)",
-            "Bash(date)",
-            "Bash(git diff:*)",
-            "Bash(git rev-parse:*)",
-            "Bash(git show:*)",
-            "Bash(git merge-base:*)",
-            "Bash(git symbolic-ref:--short HEAD)",
-            "Bash(git log:*)",
-            "Bash(git status:*)"
-        ],
-        "deny": [
-            "Read(**/.env)",
-            "Read(**/.env.*)",
-            "Read(**/.envrc)",
-            "Read(**/*.envrc.*)",
-            "Read(**/secrets/**)",
-            "Read(**/.ssh/**)",
-            "Read(**/.aws/**)",
-            "Read(**/.git/**)",
-            "Bash(sudo:*)",
-            "Bash(rm -rf:*)"
-        ],
-        "defaultMode": "plan"
-    },
-    "model": "opus",
-    "enabledPlugins": {
-        "lua-lsp@claude-plugins-official": true
-    },
-    "outputStyle": "concise"
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(pwd)",
+      "Bash(wc:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(which:*)",
+      "Bash(date)",
+      "Bash(git diff:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git show:*)",
+      "Bash(git merge-base:*)",
+      "Bash(git symbolic-ref:--short HEAD)",
+      "Bash(git log:*)",
+      "Bash(git status:*)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/.envrc)",
+      "Read(**/*.envrc.*)",
+      "Read(**/secrets/**)",
+      "Read(**/.ssh/**)",
+      "Read(**/.aws/**)",
+      "Read(**/.git/**)",
+      "Bash(sudo:*)",
+      "Bash(rm -rf:*)"
+    ],
+    "defaultMode": "plan"
+  },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true
+  },
+  "outputStyle": "concise"
 }
