@@ -162,6 +162,21 @@ Goal: Combine agent outputs into final report.
 
 4. Build output document:
 
+    Calculate additions and deletions using this script (awk fails due to shell escaping in this tool):
+    ```bash
+    git diff --numstat <same-source-as-phase-3> | python3 -c "
+    import sys
+    add = del_ = 0
+    for line in sys.stdin:
+        parts = line.split()
+        if parts[0] != '-': add += int(parts[0])
+        if parts[1] != '-': del_ += int(parts[1])
+    print(f'{add} additions, {del_} deletions')
+    "
+    ```
+
+    Then build the document:
+
     ```
     # Peer Review: <source description>
 
