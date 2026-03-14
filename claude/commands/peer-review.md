@@ -164,17 +164,9 @@ Goal: Combine agent outputs into final report.
 
 4. Build output document:
 
-    Calculate additions and deletions using this script (awk fails due to shell escaping in this tool):
+    Get the diff stats summary line (e.g. "5 files changed, 120 insertions(+), 45 deletions(-)"):
     ```bash
-    git diff --numstat <same-source-as-phase-3> | python3 -c "
-    import sys
-    add = del_ = 0
-    for line in sys.stdin:
-        parts = line.split()
-        if parts[0] != '-': add += int(parts[0])
-        if parts[1] != '-': del_ += int(parts[1])
-    print(f'{add} additions, {del_} deletions')
-    "
+    git diff --stat <same-source-as-phase-3> | tail -1
     ```
 
     Then build the document:
@@ -184,7 +176,7 @@ Goal: Combine agent outputs into final report.
 
     **Date:** YYYY-MM-DD HH:MM:SS
     **Diff:** <description of what was reviewed>
-    **Lines:** X additions, Y deletions
+    **Lines:** X files changed, Y insertions(+), Z deletions(-)
 
     [If any agents failed:]
     > **Note:** The following review agents failed: <list>. Results below are partial.
