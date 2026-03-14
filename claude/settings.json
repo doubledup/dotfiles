@@ -33,5 +33,5 @@
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true
   },
-  "outputStyle": "concise"
+  "outputStyle": "engineers-answer"
 }
