@@ -1,3 +1,13 @@
+---
+description: Automated code review dispatching parallel review agents
+allowed-tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Task
+---
+
 # Peer Review
 
 Perform automated code review on changes before merging.

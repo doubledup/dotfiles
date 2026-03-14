@@ -1,3 +1,16 @@
+---
+description: Structured feature implementation with spec, plan, execute, and review phases
+allowed-tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Edit
+    - Write
+    - Task
+    - AskUserQuestion
+---
+
 # Feature Implementation Workflow
 
 Implement a feature following a structured workflow with review checkpoints.

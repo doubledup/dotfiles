@@ -1,3 +1,15 @@
+---
+description: Fix build or test failures one at a time with verification
+allowed-tools:
+    - Read
+    - Grep
+    - Glob
+    - Bash
+    - Edit
+    - Write
+    - Task
+---
+
 # Fix Failures Workflow
 
 Investigate and fix build or test failures, one at a time with verification.
