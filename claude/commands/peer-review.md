@@ -26,18 +26,22 @@ Goal: Understand what diff to review.
     - `--staged`: Staged changes vs HEAD
     - `--uncommitted`: All working tree changes vs HEAD (staged + unstaged)
     - `--commit <sha>`: Specific commit's changes
+    - GitHub PR URL (e.g., `https://github.com/org/repo/pull/123`): PR's changes vs its base branch
+    - For PR URL: fetch metadata via `gh pr view <url> --json baseRefName,number`. If the URL is invalid or not found: Error
 
 2. Check for `--only <agent>` flag (can combine with any diff source):
     - Valid values: correctness, security, style, performance
 
 3. Validate:
     - If multiple diff source flags: Error listing conflicts
+    - If PR URL provided with any diff source flag: Error listing conflicts
     - If invalid `--only` value: Error listing valid agents
     - If not in a git repo (`git rev-parse --is-inside-work-tree` fails): Error
     - If `--staged` and no commits exist (`git rev-parse HEAD` fails): Error "No commits yet. Use `--uncommitted` to review changes."
 
-4. For default/--base modes, verify base branch exists:
-    - Try `git rev-parse --verify refs/heads/main`
+4. For default/--base/PR URL modes, verify base branch exists:
+    - PR URL mode: use `baseRefName` from metadata directly as the base — skip the main/master detection below and proceed to step 5
+    - Default/--base: Try `git rev-parse --verify refs/heads/main`
     - If fails, try `git rev-parse --verify refs/heads/master`
     - If both fail and no `--base` provided: Error with guidance to use `--base <branch>`
 
@@ -45,19 +49,45 @@ Goal: Understand what diff to review.
     - Run `git fetch origin <base>` to update the remote-tracking ref
     - If fetch succeeds, use `origin/<base>` as the resolved base ref for all diff commands
     - If fetch fails (offline, no remote), fall back to the local `<base>` ref
+    - Note: For PR URL mode, `<base>` is `baseRefName` from metadata, which refers to a branch on the target (upstream) repository — assumed to be `origin`
 
 ---
 
-## Phase 2: Get Diff
+## Phase 2: Checkout PR Branch (PR URL only)
+
+Goal: Ensure the working tree matches the PR branch so review agents see the correct file state.
+
+Skip this phase if the diff source is not a GitHub PR URL.
+
+**Important:** Once checkout succeeds (step 3), the original ref MUST be restored before ANY subsequent exit point — including early exits for empty diff, diff too large, or errors in later phases. See Phase 6 step 6.
+
+1. Record the current ref for later restoration:
+    - `git symbolic-ref --short HEAD` (or `git rev-parse --short HEAD` if detached)
+
+2. Check for uncommitted changes to tracked files:
+    - Run `git status --porcelain` and filter out untracked files (lines starting with `??`)
+    - If any remaining output: Stop and ask the user to stash or commit their changes before proceeding
+
+3. Check out the PR branch locally:
+    - Run `gh pr checkout <number>` (using the PR number from Phase 1 step 1 metadata)
+    - This handles fork PRs automatically (creates a local branch tracking the fork remote)
+    - If checkout fails: Stop and ask the user to resolve the issue
+
+---
+
+## Phase 3: Get Diff
 
 Goal: Retrieve diff content and check size.
 
-1. Get diff content based on mode (use the resolved base ref from Phase 1 step 5):
+**PR URL mode:** If any step in this phase exits or errors, restore the original ref first (see Phase 6 step 6).
+
+1. Get diff content based on mode (use the resolved base ref from Phase 1 step 5). If the diff command fails: Error "Failed to retrieve diff.":
     - Default: `git diff <resolved-base>...HEAD`
     - `--base <branch>`: `git diff <resolved-base>...HEAD`
     - `--staged`: `git diff --cached`
     - `--uncommitted`: `git diff HEAD`
     - `--commit <sha>`: `git show <sha> --format=` (for merge commits, shows first-parent diff; for root commits with no parent, shows full content)
+    - PR URL: `git diff <resolved-base>...HEAD` (after Phase 2 checkout, same mechanics as default mode)
 
 2. Validate commit SHA if using `--commit`:
     - `git rev-parse --verify <sha>` - if fails: Error with clear message
@@ -88,14 +118,14 @@ Goal: Retrieve diff content and check size.
 
 ---
 
-## Phase 3: Dispatch Agents
+## Phase 4: Dispatch Agents
 
 Goal: Run review agents in parallel.
 
 1. Determine repo root: `git rev-parse --show-toplevel`
 
 2. Prepare agent context:
-    - The diff content from Phase 2
+    - The diff content from Phase 3
     - The repo root path (for agents to read CLAUDE.md and surrounding code)
     - List of files touched by the diff
 
@@ -115,7 +145,7 @@ Goal: Run review agents in parallel.
 
 ---
 
-## Phase 4: Collect & Merge
+## Phase 5: Collect & Merge
 
 Goal: Combine agent outputs into final report.
 
@@ -161,9 +191,11 @@ Goal: Combine agent outputs into final report.
 
 ---
 
-## Phase 5: Write Output
+## Phase 6: Write Output
 
 Goal: Save report to file.
+
+**PR URL mode:** If any step in this phase exits or errors, restore the original ref first (see step 6).
 
 1. Create output directory if needed:
     - Check if `claude/reviews/` exists relative to repo root
@@ -177,6 +209,7 @@ Goal: Save report to file.
         - `--staged`: `staged-<7-char-sha>`
         - `--uncommitted`: `uncommitted-<7-char-sha>`
         - `--commit`: `commit-<7-char-sha>`
+        - PR URL: `pr-<number>`
 
 3. Handle collisions:
     - Check if file exists
@@ -190,6 +223,11 @@ Goal: Save report to file.
     - Count of findings by severity (X errors, Y warnings, Z suggestions)
     - If any agents failed, remind user
 
+6. Restore original ref (PR URL mode only — runs on ALL exit paths after Phase 2 checkout):
+    - Run `git checkout <original-ref>` (recorded in Phase 2 step 1)
+    - If the original ref is a SHA (detached HEAD), this correctly restores detached state — not a failure
+    - If restore fails: Print warning with the original ref so the user can switch back manually
+
 ---
 
 ## Error Messages
@@ -198,11 +236,16 @@ Use these exact messages for consistency:
 
 - Not a git repo: "Error: Not inside a git repository."
 - No main/master: "Error: Could not find 'main' or 'master' branch. Use `--base <branch>` to specify the base branch."
-- Multiple diff flags: "Error: Multiple diff source flags provided (<list>). Use only one of: --base, --staged, --uncommitted, --commit"
+- Multiple diff flags: "Error: Multiple diff source flags provided (<list>). Use only one of: --base, --staged, --uncommitted, --commit, or a PR URL"
 - Invalid --only: "Error: Invalid agent '<value>'. Valid agents: correctness, security, style, performance"
 - Invalid SHA: "Error: Commit '<sha>' not found."
 - No commits (with --staged): "Error: No commits yet. Use `--uncommitted` to review changes."
+- Diff retrieval failed: "Error: Failed to retrieve diff."
 - Diff analysis failed: "Error: Failed to analyze diff size."
 - Diff too large: "Diff too large (X lines). Please split into smaller changes for effective review."
 - Filename collision: "Error: Unable to create output file - too many files with same timestamp."
 - Empty diff: "No changes to review."
+- PR not found: "Error: PR not found at '<url>'. Verify the URL and your GitHub authentication."
+- Dirty working tree: "Error: Uncommitted changes detected. Please stash or commit your changes before reviewing a PR."
+- Checkout failed: "Error: Failed to check out PR #<number>. Please resolve the issue and try again."
+- Restore failed: "Warning: Could not restore original ref '<ref>'. Run `git checkout <ref>` manually."
