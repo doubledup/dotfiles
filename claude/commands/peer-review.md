@@ -27,7 +27,8 @@ Goal: Understand what diff to review.
     - `--uncommitted`: All working tree changes vs HEAD (staged + unstaged)
     - `--commit <sha>`: Specific commit's changes
     - GitHub PR URL (e.g., `https://github.com/org/repo/pull/123`): PR's changes vs its base branch
-    - For PR URL: fetch metadata via `gh pr view <url> --json baseRefName,number`. If the URL is invalid or not found: Error
+    - For PR URL: fetch metadata via `gh pr view <url> --json baseRefName,number,title,body`. If the URL is invalid or not found: Error
+    - Save the PR `title` and `body` for use as additional context in Phase 4
 
 2. Check for `--only <agent>` flag (can combine with any diff source):
     - Valid values: correctness, security, style, performance
@@ -128,6 +129,7 @@ Goal: Run review agents in parallel.
     - The diff content from Phase 3
     - The repo root path (for agents to read CLAUDE.md and surrounding code)
     - List of files touched by the diff
+    - PR title and body (if reviewing a PR URL) — include as context so agents understand the author's intent and trade-off rationale
 
 3. Determine which agents to run:
     - If `--only <agent>`: Run only that agent
