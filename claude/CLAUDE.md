@@ -20,6 +20,14 @@
 - Verify after changes: run tests, check compilation
 - Smallest focused changes per commit--functional but minimal
 
+## Session Discipline
+
+- Keep sessions focused; start fresh for new topics
+- When executing an approved plan, start immediately--don't re-explore
+- Only modify files within the current task scope
+- Before /compact: note modified files, current phase, key decisions
+- When a session drifts, prefer /clear + handoff file over recovery
+
 ## Thinking
 
 - Quick fixes: no trigger needed
