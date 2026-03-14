@@ -1,6 +1,7 @@
 ---
 name: Reviewer
 description: Reviews specs, plans, and code changes for quality and completeness
+model: sonnet
 tools:
     - Read
     - Grep
