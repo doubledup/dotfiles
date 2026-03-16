@@ -1,4 +1,5 @@
 .jdtls
+.nvimlog
 .vim
 CLAUDE.local.md
 claude/reviews/
