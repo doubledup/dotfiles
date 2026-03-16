@@ -66,6 +66,7 @@ return {
             fish = { "fish_indent" },
             java = { "google-java-format" },
             lua = { "stylua" },
+            sql = { "sqlfluff" },
             -- Conform can also run multiple formatters sequentially
             -- python = { "isort", "black" },
             --
