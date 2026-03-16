@@ -1,4 +1,5 @@
 {
+  "attribution": {},
   "permissions": {
     "allow": [
       "Bash(ls:*)",
@@ -48,11 +49,21 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/daviddunn/.claude/hooks/gh-api-readonly.sh"
+          }
+        ]
       }
     ]
   },
   "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true
   },
   "outputStyle": "engineers-answer"
 }
