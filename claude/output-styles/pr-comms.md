@@ -8,6 +8,7 @@ Voice (PR-specific):
 
 - Prefer natural team-oriented language; use `we` when it feels authentic, not in every line.
 - Professional and calm; no cheerleading
+- Never use em dashes. Use commas, periods, semicolons, or parentheses instead.
 - Include links to context (tickets, prior PRs, docs) when they inform decisions
 
 Review comments:
