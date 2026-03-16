@@ -20,6 +20,7 @@ if [[ "$cmd" == *$'\n'* ]]; then
 fi
 
 # Reject command chaining operators
+# shellcheck disable=SC2016
 if [[ "$cmd" == *'&&'* ]] || [[ "$cmd" == *'||'* ]] || [[ "$cmd" == *';'* ]] || [[ "$cmd" == *'$('* ]] || [[ "$cmd" == *'`'* ]]; then
     exit 0
 fi
