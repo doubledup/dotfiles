@@ -165,6 +165,7 @@ Goal: Combine agent outputs into final report.
 4. Build output document:
 
     Get the diff stats summary line (e.g. "5 files changed, 120 insertions(+), 45 deletions(-)"):
+
     ```bash
     git diff --stat <same-source-as-phase-3> | tail -1
     ```
