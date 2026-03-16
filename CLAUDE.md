@@ -23,7 +23,7 @@ Neovim:
 
 - Pure Lua only (no vimscript)
 - Plugins <=20 lines: keep in `plugins/init.lua`
-- Plugins >20 lines: separate file in `plugins/`
+- Plugins >20 lines: separate file in `plugins/`, named after the plugin repo (e.g., `nvim-lint.lua` for `mfussenegger/nvim-lint`)
 - Plugin docs: https://github.com/{user}/{repo}
 
 Style:
