@@ -32,7 +32,7 @@ abbr bu brew uninstall
 abbr bwh brew which-formula
 
 # just (execute)
-abbr e just
+abbr u just
 
 # kitty
 alias icat='kitty +kitten icat --align=left'
