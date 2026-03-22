@@ -1,7 +1,7 @@
 font-family = Hack Nerd Font Mono
 adjust-cell-height = 30%
 quit-after-last-window-closed = true
-theme = tokyonight-moon
+theme = dark:tokyonight-moon,light:tokyonight-day
 
 # keybinds to commands aren't supported yet:
 # https://github.com/ghostty-org/ghostty/discussions/2353
