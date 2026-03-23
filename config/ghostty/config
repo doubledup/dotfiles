@@ -1,5 +1,5 @@
 font-family = Hack Nerd Font Mono
-adjust-cell-height = 30%
+adjust-cell-height = 40%
 quit-after-last-window-closed = true
 theme = dark:tokyonight-moon,light:tokyonight-day
 
