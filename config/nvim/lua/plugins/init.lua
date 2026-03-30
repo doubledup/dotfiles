@@ -10,6 +10,7 @@ return {
         dependencies = {
             "tpope/vim-rhubarb",
         },
+        event = "VeryLazy",
         keys = {
             { "<leader>gs", ":-tab Git<cr>", desc = "Git status" },
             { "<leader>gf", ":Git! fetch<cr>", desc = "Git fetch" },
