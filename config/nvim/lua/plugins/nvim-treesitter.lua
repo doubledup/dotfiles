@@ -1,82 +1,77 @@
+local parsers = {
+    -- languages
+    "c",
+    "commonlisp",
+    "dockerfile",
+    "eex",
+    "elixir",
+    "elm",
+    "erlang",
+    "java",
+    "javascript",
+    "jsdoc",
+    "go",
+    "gomod",
+    "gowork",
+    "heex",
+    "python",
+    "ruby",
+    "rust",
+    "tsx",
+    "typescript",
+    "zig",
+    -- version control
+    "diff",
+    "git_rebase",
+    "gitattributes",
+    "gitcommit",
+    "gitignore",
+    -- web
+    "css",
+    "html",
+    "http",
+    -- config
+    "hcl",
+    "ini",
+    "json",
+    "nix",
+    "terraform",
+    "toml",
+    "yaml",
+    "xml",
+    -- scripting
+    "bash",
+    "fish",
+    "jq",
+    "lua",
+    "vim",
+    -- queries
+    "graphql",
+    "regex",
+    "sql",
+    -- docs
+    "markdown",
+    "markdown_inline",
+    "vimdoc",
+}
+
 return {
     "nvim-treesitter/nvim-treesitter",
 
-    branch = "master",
+    branch = "main",
     lazy = false,
     build = ":TSUpdate",
-    main = "nvim-treesitter.configs",
 
-    opts = {
-        ensure_installed = {
-            -- languages
-            "c",
-            "commonlisp",
-            "dockerfile",
-            "eex",
-            "elixir",
-            "elm",
-            "erlang",
-            "java",
-            "javascript",
-            "jsdoc",
-            "go",
-            "gomod",
-            "gowork",
-            "heex",
-            "python",
-            "ruby",
-            "rust",
-            "tsx",
-            "typescript",
-            "zig",
-            -- version control
-            "diff",
-            "git_rebase",
-            "gitattributes",
-            "gitcommit",
-            "gitignore",
-            -- web
-            "css",
-            "html",
-            "http",
-            -- config
-            "hcl",
-            "ini",
-            "json",
-            "jsonc",
-            "nix",
-            "terraform",
-            "toml",
-            "yaml",
-            "xml",
-            -- scripting
-            "bash",
-            "fish",
-            "jq",
-            "lua",
-            "vim",
-            -- queries
-            "graphql",
-            "regex",
-            "sql",
-            -- docs "help",
-            "markdown",
-            "markdown_inline",
-            "rst",
-        },
+    config = function()
+        require("nvim-treesitter").install(parsers)
 
-        -- TODO: associate jsonc with json
-
-        sync_install = false,
-
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        },
-
-        indent = {
-            enable = true,
-            disable = { "python" },
-        },
-    },
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = function()
+                pcall(vim.treesitter.start)
+                if vim.bo.filetype ~= "python" then
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
+            end,
+        })
+    end,
 }
