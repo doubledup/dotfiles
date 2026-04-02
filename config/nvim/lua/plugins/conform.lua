@@ -42,15 +42,19 @@ return {
         end,
 
         formatters_by_ft = {
+            css = { "prettier" },
             fish = { "fish_indent" },
+            html = { "prettier" },
             java = { "google-java-format" },
+            javascript = { "prettier" },
+            json = { "prettier" },
             lua = { "stylua" },
+            markdown = { "prettier" },
+            sh = { "shfmt" },
             sql = { "sqlfluff" },
-            -- Conform can also run multiple formatters sequentially
-            -- python = { "isort", "black" },
-            --
-            -- You can use 'stop_after_first' to run the first available formatter from the list
-            -- javascript = { "prettierd", "prettier", stop_after_first = true },
+            terraform = { "terraform_fmt" },
+            typescript = { "prettier" },
+            yaml = { "prettier" },
         },
 
         formatters = {

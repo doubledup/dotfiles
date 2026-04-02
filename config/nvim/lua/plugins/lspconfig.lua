@@ -305,8 +305,9 @@ return {
         vim.list_extend(ensure_installed, {
             -- "jdtls", -- TODO: Install here instead of with Homebrew, configure with nvim-jdtls
             -- `:h mason-how-to-use-packages`
-            "stylua", -- Used to format Lua code
             "prettier", -- Formatter for HTML, CSS, JS, JSON, etc
+            "shfmt", -- Formatter for shell scripts
+            "stylua", -- Used to format Lua code
         })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
