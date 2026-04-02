@@ -1,40 +1,45 @@
 # Backlog
 
-Items ordered by priority: fixes first, then maintenance, then improvements, then exploratory.
-
 ## Fixes
 
-## Maintenance
+## Low-hanging fruit
 
-- Detect breaking nvim plugin updates before they land
-    - mason-lspconfig silently dropped `handlers` in v2.0, nvim-treesitter changed branch conventions (fixed in ad683ad)
-    - Consider: pinning risky plugins with `version = "^N.0"` (mason-lspconfig, blink.cmp, nvim-treesitter), reviewing changelogs before updating lazy-lock.json
-- Automated post-update Claude review: make the last step of `just update` run `claude` with a prompt to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency
-- Check that setup.sh is idempotent
 - Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
-- Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter
-    - Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates)
-- Review JDTLS configuration: autobuild disabled, JDK version hardcoded to 25, inlay hints disabled, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
-- Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools that belong in Brewfile if available via Homebrew
-- XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades. Consider restructuring update recipe for `mas` visibility while keeping sudo at the end.
+- Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr. Free since 56 parsers are already loaded.
+- which-key group labels: loaded but no group registrations. Adding labels for leader groups would improve discoverability.
+- Claude Code: permit `find` without destructive flags in permissions, but without `-exec` or other destructive flags/operations
+- Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
+- Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
+- Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools that belong in Brewfile if available via Homebrew. Move non-Rust-tooling packages per Homebrew-for-CLI-tools convention.
+- LSP hover doc improvements: dismiss with esc, scroll with c-f/c-b, reduce hidden text whitespace
+- Buffer deletion from fzf buffer picker
+- Dismiss gitsigns inline diff (currently using kj workaround)
+- Resize help window to 80 chars after opening
+- Expand `gf` to interpret relative paths as relative to current file
+- Expand `gf` to expand `~` to `$HOME`
+
+## High impact
+
+- Detect breaking nvim plugin updates before they land: mason-lspconfig silently dropped `handlers` in v2.0, nvim-treesitter changed branch conventions (fixed in ad683ad). Both went unnoticed until config stopped working. Need a process or tooling: pinning risky plugins with `version = "^N.0"`, reviewing changelogs before updating lazy-lock.json, or running config validation after updates.
+- Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix, fill the gaps, document the target state.
+- Review JDTLS configuration: Java is a primary language. Audit correctness and configurability: autobuild disabled (TODO about Maven coordination), JDK version hardcoded to 25, inlay hints disabled, workspace isolation edge cases, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
+- Automated post-update Claude review: make the last step of `just update` run `claude` to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency. Needs design work on the prompt and Claude Code invocation.
+- Extract init.lua inline configs: hop config, mouse settings, terminal autocmds, wildmenu are mixed into init.lua (126 lines of mixed concerns). Move to proper homes.
+- Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
+
+## Other
+
+- Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits keyboard-first philosophy better than nvim-tree.
+- noise-toggle fade in/out
+- Claude Code: rename spec in review agent and feature command (consider "problem-definition")
+- XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades. Restructure for `mas` visibility while keeping sudo at the end.
+- Check that setup.sh is idempotent
 - Deprecation warning capture in headless nvim test
 - fishtape for fish function testing
-
-## Improvements
-
-### Neovim
-
-- Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr
-- Extract init.lua inline configs: hop config, mouse settings, terminal autocmds, wildmenu (126 lines of mixed concerns)
-- which-key group labels: loaded but no group registrations for leader key groups
-- LSP hover doc improvements: dismiss with esc, scroll with c-f/c-b, reduce hidden text whitespace
 - LSP text objects for functions and classes
 - LSP targeted code actions
 - LSP range selection
 - LSP management commands (restart, logs, etc.)
-- Buffer deletion from fzf buffer picker
-- Dismiss gitsigns inline diff (currently using kj workaround)
-- Resize help window to 80 chars after opening
 - Contribute base64/hex/octal/binary conversions to vim-unimpaired
 - Lualine tab padding inconsistency when first tab is active
 - Colorful-menu.nvim for completion highlighting
@@ -45,26 +50,9 @@ Items ordered by priority: fixes first, then maintenance, then improvements, the
 - JDTLS: set up inlay hints
 - JDTLS: add telescope/fzf integration
 - JDTLS: read `:h jdtls` for additional configuration
-
-### Shell
-
-- noise-toggle fade in/out
 - Fish: pass previous last arg to different command (keybinding)
 - Fish: separate ignore-vcs bindings for fzf cd shortcut
 - Kitty: set up splits layout
-
-### File navigation
-
-- Expand `gf` to interpret relative paths as relative to current file
-- Expand `gf` to expand `~` to `$HOME`
-
-### Claude Code
-
-- Permit `find` without destructive flags
-- Split review agent into review-spec and review-plan; incorporate final mode into review-{correctness,performance,security,style}
-- Rename spec in review agent and feature command (consider "problem-definition")
-- Restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
-- Allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
 
 ## New tools
 

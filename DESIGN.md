@@ -67,7 +67,7 @@ Key technical choices and their rationale:
 
 **BACKLOG.md for work tracking:**
 
-- Git-tracked markdown file with priority ordering (fixes > maintenance > improvements > exploratory)
+- Git-tracked markdown file organised by effort/impact (fixes > low-hanging fruit > high impact > other > new tools)
 - Complements Claude Code's built-in Tasks (session-level) and Memory (preferences/decisions)
 - Split into `backlog/` directory if the file grows past ~100 items
 - Alternative considered: GitHub Issues (requires network, splits context), Beads (requires Dolt server, alpha stability), split directory (premature before knowing the right split)
