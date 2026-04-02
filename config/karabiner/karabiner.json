@@ -82,6 +82,30 @@
                         ]
                     },
                     {
+                        "description": "noise toggle",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "o",
+                                    "modifiers": {
+                                        "mandatory": [
+                                            "left_control",
+                                            "left_option",
+                                            "left_command",
+                                            "left_shift"
+                                        ]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "shell_command": "/opt/homebrew/bin/fish -c 'source ~/.config/fish/functions/noise-toggle.fish; noise-toggle'"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "application switching",
                         "manipulators": [
                             {
