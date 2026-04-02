@@ -2,6 +2,7 @@
 -- edit filesystem in buffer: stevearc/oil.nvim
 return {
     "nvim-tree/nvim-tree.lua",
+    version = "1.*",
 
     dependencies = {
         "nvim-tree/nvim-web-devicons",

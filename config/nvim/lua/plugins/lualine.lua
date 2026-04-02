@@ -1,7 +1,7 @@
 return {
     "nvim-lualine/lualine.nvim",
 
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { { "nvim-tree/nvim-web-devicons", version = "0.*" } },
 
     opts = function()
         -- Custom filepath component with smart eliding

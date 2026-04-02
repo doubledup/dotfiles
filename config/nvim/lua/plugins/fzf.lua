@@ -1,5 +1,5 @@
 return {
-    { "junegunn/fzf" },
+    { "junegunn/fzf", version = "0.*" },
     {
         "junegunn/fzf.vim",
         dependencies = { "junegunn/fzf" },

@@ -7,6 +7,7 @@ return {
 
     {
         "tpope/vim-fugitive",
+        version = "3.*",
         dependencies = {
             "tpope/vim-rhubarb",
         },
@@ -30,6 +31,7 @@ return {
 
     {
         "folke/tokyonight.nvim",
+        version = "4.*",
         lazy = false,
         priority = 1000,
         opts = {},
@@ -53,17 +55,18 @@ return {
         },
     },
 
-    { "folke/snacks.nvim", opts = { bigfile = {} } },
+    { "folke/snacks.nvim", version = "2.*", opts = { bigfile = {} } },
 
-    "folke/which-key.nvim",
+    { "folke/which-key.nvim", version = "3.*" },
     "norcalli/nvim-colorizer.lua",
-    "powerman/vim-plugin-AnsiEsc",
-    "ryanoasis/vim-devicons",
+    { "powerman/vim-plugin-AnsiEsc", version = "13.*" },
+    { "ryanoasis/vim-devicons", version = "0.11.*" },
 
     -- editing
 
     {
         "andrewradev/linediff.vim",
+        version = "0.3.*",
         keys = {
             { "<leader>l", ":Linediff<cr>", desc = "Line diff", mode = "v" },
         },
@@ -71,10 +74,11 @@ return {
 
     {
         "glacambre/firenvim",
+        version = "0.2.*",
         build = ":call firenvim#install(0)",
     },
 
-    { "smoka7/hop.nvim", opts = {} }, -- opts ensures that setup() gets called
+    { "smoka7/hop.nvim", version = "2.*", opts = {} }, -- opts ensures that setup() gets called
     "jpalardy/vim-slime",
 
     {
@@ -92,12 +96,14 @@ return {
 
     {
         "numToStr/Comment.nvim",
+        version = "0.8.*",
         opts = {},
     },
     "pbrisbin/vim-mkdir",
 
     {
         "raimondi/delimitmate",
+        version = "2.*",
         event = "InsertEnter",
         init = function(_)
             vim.g.delimitMate_balance_matchpairs = 1
@@ -109,7 +115,7 @@ return {
         end,
     },
 
-    "tpope/vim-abolish",
+    { "tpope/vim-abolish", version = "1.*" },
 
     {
         "tpope/vim-obsession",
@@ -119,14 +125,15 @@ return {
         },
     },
 
-    "tpope/vim-repeat",
-    "tpope/vim-sleuth",
-    "tpope/vim-surround",
-    { "tpope/vim-unimpaired", event = "VeryLazy" },
-    "wellle/targets.vim",
+    { "tpope/vim-repeat", version = "1.*" },
+    { "tpope/vim-sleuth", version = "2.*" },
+    { "tpope/vim-surround", version = "2.*" },
+    { "tpope/vim-unimpaired", version = "2.*", event = "VeryLazy" },
+    { "wellle/targets.vim", version = "0.5.*" },
 
     {
         "fatih/vim-go",
+        version = "1.*",
         build = ":GoUpdateBinaries",
         ft = "go",
         init = function()
@@ -147,6 +154,7 @@ return {
 
     {
         "folke/lazydev.nvim",
+        version = "1.*",
         ft = "lua",
         opts = {
             library = {
