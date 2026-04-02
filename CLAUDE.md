@@ -49,6 +49,7 @@ Backlog:
 - Remove completed items (don't check them off; git history records completion)
 - Run `just todos` periodically to find inline TODOs worth promoting to the backlog
 - If BACKLOG.md grows past ~100 items, split into a `backlog/` directory
+- When you observe workflow friction during a session (slow patterns, missing context, repeated manual steps), add it to BACKLOG.md. Don't interrupt the current task to investigate.
 
 Verification:
 
