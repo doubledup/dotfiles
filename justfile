@@ -40,6 +40,7 @@ update:
 
     @echo 'rustup:'
     rustup update
+    rustup component add rust-analyzer
     cargo install \
         cargo-audit \
         cargo-bloat \

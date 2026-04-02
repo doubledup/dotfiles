@@ -264,6 +264,8 @@ return {
             },
         })
 
+        -- rust_analyzer comes from rustup, not Mason: version-matched to the
+        -- active toolchain, respects rust-toolchain.toml per-project
         vim.lsp.config("rust_analyzer", {
             settings = {
                 ["rust-analyzer"] = {
@@ -271,6 +273,7 @@ return {
                 },
             },
         })
+        vim.lsp.enable("rust_analyzer")
 
         -- Formatters and linters are managed by Homebrew (see Brewfile), not Mason.
         -- Mason handles LSP and DAP servers only.
@@ -281,7 +284,6 @@ return {
                 "jsonls",
                 "lemminx", -- XML
                 "lua_ls",
-                "rust_analyzer",
                 "sqlls",
                 "terraformls",
                 "yamlls",

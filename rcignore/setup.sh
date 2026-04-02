@@ -57,6 +57,7 @@ if [ "$os_name" = "Darwin" ]; then
 
     printf '%bSetting up Rust...%b\n' "$blue" "$endcolor"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup component add rust-analyzer
 
     printf '%bSetting up Elm...%b\n' "$blue" "$endcolor"
     npm i -g npm

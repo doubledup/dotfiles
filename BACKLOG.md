@@ -4,14 +4,13 @@ Items ordered by priority: fixes first, then maintenance, then improvements, the
 
 ## Fixes
 
-- rust_analyzer binary comes from rustup (symlink at `~/.cargo/bin/rust-analyzer`), not Mason. Two copies exist. Resolve as part of LSP migration.
-
 ## Maintenance
 
 - Detect breaking nvim plugin updates before they land
     - mason-lspconfig silently dropped `handlers` in v2.0, nvim-treesitter changed branch conventions (fixed in ad683ad)
     - Consider: pinning risky plugins with `version = "^N.0"` (mason-lspconfig, blink.cmp, nvim-treesitter), reviewing changelogs before updating lazy-lock.json
 - Automated post-update Claude review: make the last step of `just update` run `claude` with a prompt to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency
+- Check that setup.sh is idempotent
 - Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
 - Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter
     - Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates)

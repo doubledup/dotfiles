@@ -62,6 +62,7 @@ Key technical choices and their rationale:
 
 - Formatters and linters go in Brewfile: useful outside editors (pre-commit hooks, CI, shell)
 - LSP and DAP servers go in Mason: editor-specific, Mason handles wiring to neovim
+- Exception: Rust tools (rust-analyzer, clippy, rustfmt) come from rustup, not Mason or Homebrew. They are toolchain components, version-matched to the active compiler and respect per-project rust-toolchain.toml
 - Avoids duplicate installs and version mismatches between Homebrew and Mason
 
 **BACKLOG.md for work tracking:**
