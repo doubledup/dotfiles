@@ -27,8 +27,8 @@ check: fmt-check lint
 
 # Test that configs load without errors
 test:
-    @echo "Testing nvim config..."
-    nvim --headless -c 'quit'
+    @echo "Testing nvim plugins..."
+    nvim --headless +"luafile rcignore/test_plugins.lua"
     @echo "Testing fish config..."
     fish -c 'exit'
     @echo "All config tests passed."
@@ -69,6 +69,13 @@ update:
 
     @echo 'softwareupdate:'
     sudo softwareupdate -ir
+
+    @echo 'test:'
+    just test
+
+# List all inline TODO/FIXME/HACK comments
+todos:
+    rg 'TODO|FIXME|HACK' --glob '!lazy-lock.json' --glob '!BACKLOG.md'
 
 # Pull dotfile updates and re-link
 sync:
