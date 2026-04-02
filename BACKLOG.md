@@ -10,6 +10,7 @@
 - Claude Code: permit `find` without destructive flags in permissions, but without `-exec` or other destructive flags/operations
 - Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
 - Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
+- Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
 - Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools that belong in Brewfile if available via Homebrew. Move non-Rust-tooling packages per Homebrew-for-CLI-tools convention.
 - LSP hover doc improvements: dismiss with esc, scroll with c-f/c-b, reduce hidden text whitespace
 - Buffer deletion from fzf buffer picker
