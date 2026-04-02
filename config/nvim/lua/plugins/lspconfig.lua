@@ -299,16 +299,9 @@ return {
         -- `mason` had to be setup earlier: to configure its options see the
         -- `dependencies` table for `nvim-lspconfig` above.
         --
-        -- You can add other tools here that you want Mason to install
-        -- for you, so that they are available from within Neovim.
+        -- Formatters and linters are managed by Homebrew (see Brewfile), not Mason.
+        -- Mason handles LSP and DAP servers only.
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-            -- "jdtls", -- TODO: Install here instead of with Homebrew, configure with nvim-jdtls
-            -- `:h mason-how-to-use-packages`
-            "prettier", -- Formatter for HTML, CSS, JS, JSON, etc
-            "shfmt", -- Formatter for shell scripts
-            "stylua", -- Used to format Lua code
-        })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
         require("mason-lspconfig").setup({

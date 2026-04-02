@@ -58,6 +58,12 @@ Key technical choices and their rationale:
 - Pure Lua configuration: Better performance and integration than vimscript
 - Multiple configs (main/kickstart/golf): Learn different approaches without commitment
 
+**Homebrew for CLI tools, Mason for editor plumbing:**
+
+- Formatters and linters go in Brewfile: useful outside editors (pre-commit hooks, CI, shell)
+- LSP and DAP servers go in Mason: editor-specific, Mason handles wiring to neovim
+- Avoids duplicate installs and version mismatches between Homebrew and Mason
+
 **just for task running:**
 
 - Simpler syntax than make (no tabs, clear command syntax)

@@ -37,6 +37,10 @@ Before committing:
 - Run `just check` (required - handles formatting and linting)
 - Run `just test` if fish or neovim files changed
 
+Decisions:
+
+- Document new architectural decisions in DESIGN.md
+
 File operations:
 
 - Add packages to Brewfile (keep sections sorted alphabetically)
