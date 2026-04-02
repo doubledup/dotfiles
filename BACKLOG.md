@@ -24,7 +24,6 @@
 
 ## High impact
 
-- Detect breaking nvim plugin updates before they land: mason-lspconfig silently dropped `handlers` in v2.0, nvim-treesitter changed branch conventions (fixed in ad683ad). Both went unnoticed until config stopped working. Need a process or tooling: pinning risky plugins with `version = "^N.0"`, reviewing changelogs before updating lazy-lock.json, or running config validation after updates.
 - Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix, fill the gaps, document the target state.
 - Review JDTLS configuration: Java is a primary language. Audit correctness and configurability: autobuild disabled (TODO about Maven coordination), JDK version hardcoded to 25, inlay hints disabled, workspace isolation edge cases, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
 - Automated post-update Claude review: make the last step of `just update` run `claude` to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency. Needs design work on the prompt and Claude Code invocation.
