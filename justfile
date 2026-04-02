@@ -61,9 +61,9 @@ update:
     tldr --update
 
     @echo 'nvim:'
-    nvim --headless +MasonToolsUpdateSync +qa
-    nvim --headless +TSUpdateSync +qa
-    nvim --headless "+Lazy! sync" +qa
+    nvim --headless -c MasonToolsUpdateSync -c qa
+    @echo "Review plugin changes in the Lazy UI, then quit nvim to continue."
+    nvim -c "lua require('lazy').sync()"
 
     @echo 'mas:'
     mas upgrade
