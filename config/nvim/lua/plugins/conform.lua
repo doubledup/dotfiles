@@ -15,13 +15,31 @@ return {
         },
     },
 
+    config = function(_, opts)
+        require("conform").setup(opts)
+
+        vim.api.nvim_create_user_command("W", function()
+            vim.g._skip_format = true
+            vim.cmd.write()
+            vim.g._skip_format = false
+        end, { desc = "Save without formatting" })
+
+        vim.api.nvim_create_user_command("Wall", function()
+            vim.g._skip_format = true
+            vim.cmd.wall()
+            vim.g._skip_format = false
+        end, { desc = "Save all without formatting" })
+    end,
+
     opts = {
         notify_on_error = false,
 
-        format_on_save = {
-            timeout_ms = 500,
-            lsp_format = "fallback",
-        },
+        format_on_save = function()
+            if vim.g._skip_format then
+                return
+            end
+            return { timeout_ms = 500, lsp_format = "fallback" }
+        end,
 
         formatters_by_ft = {
             fish = { "fish_indent" },
