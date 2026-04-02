@@ -27,12 +27,14 @@
 - Automated post-update Claude review: make the last step of `just update` run `claude` to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency. Needs design work on the prompt and Claude Code invocation.
 - Extract init.lua inline configs: hop config, mouse settings, terminal autocmds, wildmenu are mixed into init.lua (126 lines of mixed concerns). Move to proper homes.
 - Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
+- Add a review loop to Claude Code's planning: something like "Loop with a reviewer, asking for feedback ranked by high/medium/low impact. Stop the loop once the reviewer has only low impact feedback, or when we've completed 5 reviews - let me know how we exited the loop.", but get this prompt review-looped itself.
 
 ## Other
 
 - Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits keyboard-first philosophy better than nvim-tree.
 - noise-toggle fade in/out
 - Claude Code: rename spec in review agent and feature command (consider "problem-definition")
+- Claude Code: set up and try in tmux
 - XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades. Restructure for `mas` visibility while keeping sudo at the end.
 - Check that setup.sh is idempotent
 - Deprecation warning capture in headless nvim test
@@ -73,6 +75,7 @@
 ### Neovim plugins
 
 - [harpoon2](https://github.com/ThePrimeagen/harpoon/tree/harpoon2) — quick file navigation
+- [claudecode.nvim](https://github.com/coder/claudecode.nvim) - Claude Code integration
 - [neorg](https://github.com/nvim-neorg/neorg) — note-taking / organization
 - [vimagit](https://github.com/jreybert/vimagit) — git workflow
 - [vim-git](https://github.com/tpope/vim-git) — git filetype support
