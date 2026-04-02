@@ -1,7 +1,5 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(just check:*)"
-    ]
-  }
+    "permissions": {
+        "allow": ["Bash(just check:*)"]
+    }
 }
