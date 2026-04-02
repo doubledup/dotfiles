@@ -36,10 +36,25 @@ Before committing:
 
 - Run `just check` (required - handles formatting and linting)
 - Run `just test` if fish or neovim files changed
+- Warnings in `just check` or `just test` output should be resolved; add a backlog item if not fixable immediately
 
 Decisions:
 
 - Document new architectural decisions in DESIGN.md
+
+Backlog:
+
+- Read BACKLOG.md at the start of each session; suggest the highest-priority item
+- When a session produces follow-up work, add it to BACKLOG.md before ending
+- Remove completed items (don't check them off; git history records completion)
+- Run `just todos` periodically to find inline TODOs worth promoting to the backlog
+- If BACKLOG.md grows past ~100 items, split into a `backlog/` directory
+
+Verification:
+
+- For UI-affecting changes (keymaps, LSP, statusline, shell), include a "Verify" section in the session plan with specific manual checks, e.g.:
+    - "Open a .rs file, save, confirm clippy diagnostics appear"
+    - "Press `<leader>f`, confirm fzf opens"
 
 File operations:
 
