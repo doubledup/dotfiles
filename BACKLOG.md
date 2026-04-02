@@ -4,7 +4,6 @@ Items ordered by priority: fixes first, then maintenance, then improvements, the
 
 ## Fixes
 
-- Migrate lspconfig.lua to modern API: mason-lspconfig v2.0 removed `handlers`, all custom LSP settings (clippy, callSnippet) are dead code. Replace with `vim.lsp.config()` + `vim.lsp.enable()`. Move `[s`/`]s` diagnostic keymaps to global scope. See plan.md "Next" section for full context.
 - rust_analyzer binary comes from rustup (symlink at `~/.cargo/bin/rust-analyzer`), not Mason. Two copies exist. Resolve as part of LSP migration.
 
 ## Maintenance
@@ -14,9 +13,8 @@ Items ordered by priority: fixes first, then maintenance, then improvements, the
     - Consider: pinning risky plugins with `version = "^N.0"` (mason-lspconfig, blink.cmp, nvim-treesitter), reviewing changelogs before updating lazy-lock.json
 - Automated post-update Claude review: make the last step of `just update` run `claude` with a prompt to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency
 - Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
-- `:MasonUninstall prettier shfmt stylua` to clean up formatters now managed by Homebrew
 - Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter
-    - Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), rust (clippy pending LSP migration), java (no linter, checkstyle/PMD candidates)
+    - Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates)
 - Review JDTLS configuration: autobuild disabled, JDK version hardcoded to 25, inlay hints disabled, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
 - Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools that belong in Brewfile if available via Homebrew
 - XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades. Consider restructuring update recipe for `mas` visibility while keeping sudo at the end.

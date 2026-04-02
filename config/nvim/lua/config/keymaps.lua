@@ -22,6 +22,14 @@ vim.keymap.set("n", "<c-y>", "5<c-y>", { desc = "Scroll up 5 lines" })
 vim.keymap.set("n", "zh", "40zh", { remap = false, desc = "Scroll left 40 columns" })
 vim.keymap.set("n", "zl", "40zl", { remap = false, desc = "Scroll right 40 columns" })
 
+-- diagnostic navigation (global, not LSP-gated, so nvim-lint diagnostics work too)
+vim.keymap.set("n", "[s", function()
+    vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Previous diagnostic" })
+vim.keymap.set("n", "]s", function()
+    vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Next diagnostic" })
+
 -- open file under cursor
 -- TODO: interpret relative paths as relative to current file location
 -- TODO: expand ~ to $HOME

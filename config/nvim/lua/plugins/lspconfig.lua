@@ -31,14 +31,6 @@ return {
 
                 -- TODO: Text objects for functions and classes
 
-                -- Use [s and ]s to navigate diagnostics (replace spell checker)
-                map("[s", function()
-                    vim.diagnostic.jump({ count = -1, float = true })
-                end, "Previous diagnostic")
-                map("]s", function()
-                    vim.diagnostic.jump({ count = 1, float = true })
-                end, "Next diagnostic")
-
                 map("gd", function()
                     local ok, telescope = pcall(require, "telescope.builtin")
                     if ok then
@@ -260,64 +252,43 @@ return {
             capabilities = blink.get_lsp_capabilities(capabilities)
         end
 
-        -- Enable the following language servers
-        --
-        --  Add any additional override configuration in the following tables. Available keys are:
-        --  - cmd (table): Override the default command used to start the server
-        --  - filetypes (table): Override the default list of associated filetypes for the server
-        --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-        --  - settings (table): Override the default settings passed when initializing the server.
-        --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-        local servers = {
-            lua_ls = {
-                settings = {
-                    Lua = {
-                        completion = {
-                            callSnippet = "Replace",
-                        },
-                        -- Uncomment to ignore Lua_LS's noisy `missing-fields` warnings
-                        -- diagnostics = { disable = { 'missing-fields' } },
-                    },
+        -- Global LSP capabilities (blink.cmp)
+        vim.lsp.config("*", { capabilities = capabilities })
+
+        -- Per-server settings (only servers that need overrides)
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    completion = { callSnippet = "Replace" },
                 },
             },
-            rust_analyzer = {},
+        })
 
-            bashls = {},
-            html = {},
-            jsonls = {},
-            lemminx = {}, -- XML
-            sqlls = {},
-            terraformls = {},
-            yamlls = {},
-        }
-
-        -- Ensure the servers and tools above are installed
-        --
-        -- Check current status of installed tools and/or manually install other tools with :Mason.
-        -- You can press `g?` for help in this menu.
-        --
-        -- `mason` had to be setup earlier: to configure its options see the
-        -- `dependencies` table for `nvim-lspconfig` above.
-        --
-        -- Formatters and linters are managed by Homebrew (see Brewfile), not Mason.
-        -- Mason handles LSP and DAP servers only.
-        local ensure_installed = vim.tbl_keys(servers or {})
-        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-        require("mason-lspconfig").setup({
-            ensure_installed = {}, -- explicitly set to an empty table: mason-tool-installer handles installs
-            automatic_installation = false,
-            handlers = {
-                function(server_name)
-                    local server = servers[server_name] or {}
-                    -- This handles overriding only values explicitly passed
-                    -- by the server configuration above. Useful when disabling
-                    -- certain features of an LSP (for example, turning off formatting for ts_ls)
-                    server.capabilities =
-                        vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                    require("lspconfig")[server_name].setup(server)
-                end,
+        vim.lsp.config("rust_analyzer", {
+            settings = {
+                ["rust-analyzer"] = {
+                    check = { command = "clippy" },
+                },
             },
         })
+
+        -- Formatters and linters are managed by Homebrew (see Brewfile), not Mason.
+        -- Mason handles LSP and DAP servers only.
+        require("mason-tool-installer").setup({
+            ensure_installed = {
+                "bashls",
+                "html",
+                "jsonls",
+                "lemminx", -- XML
+                "lua_ls",
+                "rust_analyzer",
+                "sqlls",
+                "terraformls",
+                "yamlls",
+            },
+        })
+
+        -- automatic_enable (default) calls vim.lsp.enable() for Mason-installed servers
+        require("mason-lspconfig").setup()
     end,
 }
