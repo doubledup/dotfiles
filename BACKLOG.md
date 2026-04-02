@@ -4,6 +4,8 @@
 
 ## Low-hanging fruit
 
+- Periodic scan for major version bumps beyond pinned ranges (lazy.nvim doesn't detect when e.g. v3.0 exists but you're pinned to "2.\*")
+- Try setting up MasonToolsUpdateSync as a `build` step in mason-tool-installer's lazy.nvim spec, so Mason auto-updates its tools during Lazy sync (like treesitter does with TSUpdate)
 - Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
 - Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr. Free since 56 parsers are already loaded.
 - which-key group labels: loaded but no group registrations. Adding labels for leader groups would improve discoverability.
