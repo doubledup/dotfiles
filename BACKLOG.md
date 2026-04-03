@@ -26,7 +26,6 @@
 ## High impact
 
 - Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
-- Add a review loop to Claude Code's planning: something like "Loop with a reviewer, asking for feedback ranked by high/medium/low impact. Stop the loop once the reviewer has only low impact feedback, or when we've completed 5 reviews - let me know how we exited the loop.", but get this prompt review-looped itself.
 - Add review loops to Claude execution, similar to the plan review loop.
 - Review lazy nvim docs against our practices. Create backlog items for any misalignment.
 - Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix, fill the gaps, document the target state.
