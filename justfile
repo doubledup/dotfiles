@@ -83,6 +83,7 @@ sync:
     rcdn -t mac
     git pull
     RCRC=~/.dotfiles/rcrc rcup -t mac
+    brew bundle --no-upgrade --global
     nvim -c "lua require('lazy').restore()"
 
 # Find broken symlinks in home directory (use --remove to delete them)
