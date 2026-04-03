@@ -1,6 +1,7 @@
 [default.extend-words]
 ba = "ba" # fish shell Homebrew abbr
 gti = "gti" # Homebrew package
+Hashi = "Hashi" # HashiCorp
 wrk = "wrk" # Homebrew package
 
 [files]
