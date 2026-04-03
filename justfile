@@ -36,7 +36,8 @@ test:
 # Update all packages (brew, cargo, nvim, mas, system)
 update:
     @echo 'brew:'
-    brew bundle upgrade --global
+    brew upgrade
+    brew bundle check --global || brew bundle install --global
 
     @echo 'rustup:'
     rustup update
