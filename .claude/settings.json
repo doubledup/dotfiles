@@ -1,5 +1,28 @@
 {
     "permissions": {
-        "allow": ["Bash(just check:*)"]
+        "allow": [
+            "Bash(just check:*)",
+            "Bash(just fmt:*)",
+            "Bash(just lint:*)",
+            "Bash(just test:*)",
+            "Bash(rcup:*)",
+            "Bash(rcdn:*)",
+            "Bash(lsrc:*)",
+            "Bash(nvim --headless:*)"
+        ]
+    },
+    "hooks": {
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/format.sh",
+                        "timeout": 30
+                    }
+                ]
+            }
+        ]
     }
 }

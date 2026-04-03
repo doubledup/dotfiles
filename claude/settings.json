@@ -15,7 +15,21 @@
       "Bash(git merge-base:*)",
       "Bash(git symbolic-ref:--short HEAD)",
       "Bash(git log:*)",
-      "Bash(git status:*)"
+      "Bash(git status:*)",
+      "Bash(stylua:*)",
+      "Bash(fish_indent:*)",
+      "Bash(shfmt:*)",
+      "Bash(shellcheck:*)",
+      "Bash(prettier:*)",
+      "Bash(typos:*)",
+      "Bash(yamlfmt:*)",
+      "Bash(yamllint:*)",
+      "Bash(actionlint:*)",
+      "Bash(google-java-format:*)",
+      "Bash(claude doctor)",
+      "Bash(cat:*)",
+      "Bash(tree:*)",
+      "Bash(tokei:*)"
     ],
     "deny": [
       "Read(**/.env)",

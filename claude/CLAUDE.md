@@ -40,6 +40,7 @@
 - Never use `--no-verify` on commits
 - Never commit `.env`, `.envrc`, secrets, or credentials
 - Verify no secrets in diffs before committing
+- Auto-allow only read-only Bash operations; write operations and web queries require user approval
 
 ## PR Communications
 
