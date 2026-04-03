@@ -1,11 +1,10 @@
 return {
     "olimorris/codecompanion.nvim",
-    version = "18.*",
     dependencies = {
-        { "nvim-lua/plenary.nvim", version = "0.1.*" },
+        "nvim-lua/plenary.nvim",
         "nvim-treesitter/nvim-treesitter",
         -- Enable for one-off setup. See its README for auth.
-        { "zbirenbaum/copilot.lua", version = "2.*" },
+        "zbirenbaum/copilot.lua",
     },
 
     init = function(_)

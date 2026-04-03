@@ -3,7 +3,6 @@ return {
     -- operations on the same module across processes, so LSP builds can clobber CLI commands and
     -- vice versa.
     "mfussenegger/nvim-jdtls",
-    version = "0.2.*",
     ft = "java",
 
     -- dependencies = {
