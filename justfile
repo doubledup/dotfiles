@@ -33,7 +33,7 @@ test:
     fish -c 'exit'
     @echo "All config tests passed."
 
-# Update all packages (brew, cargo, nvim, mas, system)
+# Update all packages and run tests
 update:
     @echo 'brew:'
     brew upgrade
@@ -75,7 +75,7 @@ update:
     @echo 'test:'
     just test
 
-# Pull dotfile updates, re-link, sync packages, and triage orphan brews
+# Pull dotfile updates, re-link, sync packages and nvim plugins, and triage orphan brews
 sync:
     rcdn -t mac
     git pull
