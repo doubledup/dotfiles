@@ -4,16 +4,16 @@
 
 ## Low-hanging fruit
 
-- Audit lazy loading: review which plugins load eagerly vs on event/ft/keys/cmd, benchmark startup time with `:Lazy profile`, and define conventions for when to use each loading strategy
+- Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
+- Claude Code: permit `find` without destructive flags in permissions, but without `-exec` or other destructive flags/operations
+- Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
+- Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
+- Audit lazy loading: review which plugins load eagerly vs on event/ft/keys/cmd, benchmark startup time with `:Lazy profile`, and define conventions for when to use each loading strategy. Check the VeryLazy event in particular.
 - Periodic scan for major version bumps on pinned plugins (LuaSnip, blink.cmp, fidget.nvim, hop.nvim, nvim-tree.lua); lazy.nvim doesn't detect when a new major exists beyond the pinned range
 - Try setting up MasonToolsUpdateSync as a `build` step in mason-tool-installer's lazy.nvim spec, so Mason auto-updates its tools during Lazy sync (like treesitter does with TSUpdate)
 - Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
 - Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr. Free since 56 parsers are already loaded.
 - which-key group labels: loaded but no group registrations. Adding labels for leader groups would improve discoverability.
-- Claude Code: permit `find` without destructive flags in permissions, but without `-exec` or other destructive flags/operations
-- Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
-- Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
-- Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
 - Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools that belong in Brewfile if available via Homebrew. Move non-Rust-tooling packages per Homebrew-for-CLI-tools convention.
 - LSP hover doc improvements: dismiss with esc, scroll with c-f/c-b, reduce hidden text whitespace
 - Buffer deletion from fzf buffer picker
@@ -24,18 +24,20 @@
 
 ## High impact
 
+- Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
+- Add a review loop to Claude Code's planning: something like "Loop with a reviewer, asking for feedback ranked by high/medium/low impact. Stop the loop once the reviewer has only low impact feedback, or when we've completed 5 reviews - let me know how we exited the loop.", but get this prompt review-looped itself.
+- Add review loops to Claude execution, similar to the plan review loop.
+- Review lazy nvim docs against our practices. Create backlog items for any misalignment.
 - Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix, fill the gaps, document the target state.
 - Review JDTLS configuration: Java is a primary language. Audit correctness and configurability: autobuild disabled (TODO about Maven coordination), JDK version hardcoded to 25, inlay hints disabled, workspace isolation edge cases, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
 - Automated post-update Claude review: make the last step of `just update` run `claude` to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency. Needs design work on the prompt and Claude Code invocation.
 - Extract init.lua inline configs: hop config, mouse settings, terminal autocmds, wildmenu are mixed into init.lua (126 lines of mixed concerns). Move to proper homes.
-- Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
-- Add a review loop to Claude Code's planning: something like "Loop with a reviewer, asking for feedback ranked by high/medium/low impact. Stop the loop once the reviewer has only low impact feedback, or when we've completed 5 reviews - let me know how we exited the loop.", but get this prompt review-looped itself.
 
 ## Other
 
+- Claude Code: rename spec in review agent and feature command (consider "problem-definition")
 - Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits keyboard-first philosophy better than nvim-tree.
 - noise-toggle fade in/out
-- Claude Code: rename spec in review agent and feature command (consider "problem-definition")
 - Claude Code: set up and try in tmux
 - XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades. Restructure for `mas` visibility while keeping sudo at the end.
 - Check that setup.sh is idempotent
