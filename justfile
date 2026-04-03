@@ -74,10 +74,6 @@ update:
     @echo 'test:'
     just test
 
-# List all inline TODO/FIXME/HACK comments
-todos:
-    rg 'TODO|FIXME|HACK' --glob '!lazy-lock.json' --glob '!BACKLOG.md'
-
 # Pull dotfile updates and re-link
 sync:
     rcdn -t mac
@@ -89,3 +85,7 @@ sync:
 # Find broken symlinks in home directory (use --remove to delete them)
 broken-links *args:
     ./scripts/find-broken-symlinks {{args}}
+
+# List all inline TODO/FIXME/HACK comments
+todos:
+    rg 'TODO|FIXME|HACK' --glob '!lazy-lock.json' --glob '!BACKLOG.md'
