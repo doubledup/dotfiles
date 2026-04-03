@@ -8,6 +8,7 @@
 - Claude Code: permit `find` without destructive flags in permissions, but without `-exec` or other destructive flags/operations
 - Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
 - Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
+- Claude Code: move work-specific config out of global `claude/`: `jira-comment.md` hardcodes `sft.atlassian.net`, `acli-guide.md` references `GLUE` project. Consider `tag-work/` or parameterization so personal machines stay clean.
 - Audit lazy loading: review which plugins load eagerly vs on event/ft/keys/cmd, benchmark startup time with `:Lazy profile`, and define conventions for when to use each loading strategy. Check the VeryLazy event in particular.
 - Periodic scan for major version bumps on pinned plugins (LuaSnip, blink.cmp, fidget.nvim, hop.nvim, nvim-tree.lua); lazy.nvim doesn't detect when a new major exists beyond the pinned range
 - Try setting up MasonToolsUpdateSync as a `build` step in mason-tool-installer's lazy.nvim spec, so Mason auto-updates its tools during Lazy sync (like treesitter does with TSUpdate)
