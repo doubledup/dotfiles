@@ -6,20 +6,20 @@ default:
 fmt:
     stylua .
     find . -name '*.fish' -exec fish_indent --write {} +
-    shfmt --write $(find . -name '*.sh')
+    shfmt --write $(find . -name '*.sh') $(shfmt -f ./scripts)
     prettier --write '**/*.json' '**/*.md'
 
 # Check formatting without modifying files
 fmt-check:
     stylua --check .
     find . -name '*.fish' -exec fish_indent --check {} +
-    shfmt --diff $(find . -name '*.sh')
+    shfmt --diff $(find . -name '*.sh') $(shfmt -f ./scripts)
     prettier --check '**/*.json' '**/*.md' >/dev/null
 
 # Run linters
 lint:
     fish --no-execute $(find . -name '*.fish')
-    shellcheck $(find . -name '*.sh')
+    shellcheck $(find . -name '*.sh') $(shfmt -f ./scripts)
     typos
 
 # Run format check and lint
@@ -75,13 +75,18 @@ update:
     @echo 'test:'
     just test
 
-# Pull dotfile updates and re-link
+# Pull dotfile updates, re-link, sync packages, and triage orphan brews
 sync:
     rcdn -t mac
     git pull
     RCRC=~/.dotfiles/rcrc rcup -t mac
     brew bundle --no-upgrade --global
     nvim -c "lua require('lazy').restore()"
+    just brew-cleanup
+
+# Detect and triage brew packages not tracked in Brewfile
+brew-cleanup:
+    ./scripts/brew-cleanup
 
 # Find broken symlinks in home directory (use --remove to delete them)
 broken-links *args:
