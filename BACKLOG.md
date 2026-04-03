@@ -5,7 +5,7 @@
 ## Low-hanging fruit
 
 - Audit lazy loading: review which plugins load eagerly vs on event/ft/keys/cmd, benchmark startup time with `:Lazy profile`, and define conventions for when to use each loading strategy
-- Periodic scan for major version bumps beyond pinned ranges (lazy.nvim doesn't detect when e.g. v3.0 exists but you're pinned to "2.\*")
+- Periodic scan for major version bumps on pinned plugins (LuaSnip, blink.cmp, fidget.nvim, hop.nvim, nvim-tree.lua); lazy.nvim doesn't detect when a new major exists beyond the pinned range
 - Try setting up MasonToolsUpdateSync as a `build` step in mason-tool-installer's lazy.nvim spec, so Mason auto-updates its tools during Lazy sync (like treesitter does with TSUpdate)
 - Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
 - Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr. Free since 56 parsers are already loaded.

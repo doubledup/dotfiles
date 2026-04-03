@@ -44,3 +44,8 @@
 ## PR Communications
 
 - Use the pr-comms output style (`~/.claude/output-styles/pr-comms.md`) for all PR descriptions and review comments
+
+## Persistence
+
+- Project-wide decisions, policies, and conventions go in repo-committed files (CLAUDE.md, .claude/rules/, DESIGN.md) so they're shared across machines
+- Claude memory files (~/.claude/projects/.../memory/) are machine-local; use only for per-user preferences that don't belong in the repo

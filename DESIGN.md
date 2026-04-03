@@ -58,6 +58,13 @@ Key technical choices and their rationale:
 - Pure Lua configuration: Better performance and integration than vimscript
 - Multiple configs (main/kickstart/golf): Learn different approaches without commitment
 
+**Plugin versioning (lazy.nvim):**
+
+- Default to tracking each repo's default branch (no `version` constraint in lazy.nvim specs)
+- Only pin when the plugin's own docs explicitly recommend it
+- lazy.nvim's docs warn against blanket pinning because many plugins have stale releases
+- Changelog review during updates and test_plugins.lua catch breaks regardless of pinning strategy
+
 **Homebrew for CLI tools, Mason for editor plumbing:**
 
 - Formatters and linters go in Brewfile: useful outside editors (pre-commit hooks, CI, shell)
