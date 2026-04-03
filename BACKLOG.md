@@ -36,6 +36,7 @@
 ## Other
 
 - Claude Code: rename spec in review agent and feature command (consider "problem-definition")
+- `just doctor` to do periodic checks, like reviewing `~/.Brewfile.local` for packages to move to `~/.Brewfile` or potentially updating neovim packages pinned to versions.
 - Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits keyboard-first philosophy better than nvim-tree.
 - noise-toggle fade in/out
 - Claude Code: set up and try in tmux
@@ -60,6 +61,7 @@
 - Fish: pass previous last arg to different command (keybinding)
 - Fish: separate ignore-vcs bindings for fzf cd shortcut
 - Kitty: set up splits layout
+- Create `just stale-links`, like `just broken-links` but detects links to the dotfiles repo, and can remove them
 
 ## New tools
 
