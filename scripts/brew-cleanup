@@ -1,0 +1,311 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+BREWFILE="$HOME/.Brewfile"
+LOCAL_BREWFILE="$HOME/.Brewfile.local"
+
+get_orphans() {
+    if [[ ! -s "$BREWFILE" ]]; then
+        echo "Error: $BREWFILE not found or empty. Run rcup first." >&2
+        return 1
+    fi
+
+    local output rc=0
+    output=$(cat "$BREWFILE" "${LOCAL_BREWFILE}" 2>/dev/null | brew bundle cleanup --file=-) || rc=$?
+    if [[ $rc -ne 0 && $rc -ne 1 ]]; then
+        echo "Error: brew bundle cleanup failed (exit $rc)" >&2
+        return 1
+    fi
+
+    local section=""
+    local casks=()
+    local formulae=()
+
+    while IFS= read -r line; do
+        case "$line" in
+        "Would uninstall casks:")
+            section="cask"
+            ;;
+        "Would uninstall formulae:")
+            section="formula"
+            ;;
+        "Would uninstall"* | "Would \`brew cleanup\`:" | "=>"*)
+            section=""
+            ;;
+        *)
+            local trimmed="${line#"${line%%[! ]*}"}"
+            if [[ -n "$section" && -n "$trimmed" ]]; then
+                if [[ "$section" == "cask" ]]; then
+                    casks+=("$trimmed")
+                else
+                    formulae+=("$trimmed")
+                fi
+            fi
+            ;;
+        esac
+    done <<<"$output"
+
+    if [[ -n "$output" && ${#casks[@]} -eq 0 && ${#formulae[@]} -eq 0 ]]; then
+        echo "Warning: brew bundle cleanup produced output but no recognized sections." >&2
+        echo "The output format may have changed. Raw output:" >&2
+        echo "$output" >&2
+    fi
+
+    for c in "${casks[@]+"${casks[@]}"}"; do
+        echo "cask:$c"
+    done
+    for f in "${formulae[@]+"${formulae[@]}"}"; do
+        echo "formula:$f"
+    done
+}
+
+get_dependents() {
+    local type="$1"
+    local pkg="$2"
+    # brew uses only applies to formulae; casks don't have reverse dependencies
+    if [[ "$type" != "formula" ]]; then
+        return
+    fi
+    local result
+    result=$(brew uses --installed "$pkg" 2>/dev/null) || true
+    if [[ -n "$result" ]]; then
+        echo "$result"
+    fi
+}
+
+add_to_local_brewfile() {
+    local type="$1"
+    local name="$2"
+    local line
+
+    if [[ "$type" == "cask" ]]; then
+        line="cask \"$name\""
+    else
+        line="brew \"$name\""
+    fi
+
+    if [[ -f "$LOCAL_BREWFILE" ]] && grep -qF "$line" "$LOCAL_BREWFILE"; then
+        return 2
+    fi
+
+    if ! echo "$line" >>"$LOCAL_BREWFILE"; then
+        echo "Error: could not write to $LOCAL_BREWFILE" >&2
+        return 1
+    fi
+}
+
+add_to_brewfile() {
+    local type="$1"
+    local name="$2"
+    local line prefix
+
+    if [[ "$type" == "cask" ]]; then
+        line="cask \"$name\""
+        prefix="cask "
+    else
+        line="brew \"$name\""
+        prefix="brew "
+    fi
+
+    if [[ ! -s "$BREWFILE" ]]; then
+        echo "Error: $BREWFILE not found or empty. Run rcup first." >&2
+        return 1
+    fi
+
+    if grep -qF "$line" "$BREWFILE"; then
+        return 2
+    fi
+
+    local real_path
+    real_path=$(readlink "$BREWFILE") || true
+    if [[ -z "$real_path" ]]; then
+        real_path="$BREWFILE"
+    fi
+
+    local tmp
+    tmp=$(mktemp)
+
+    awk -v new_line="$line" -v prefix="$prefix" '
+        BEGIN { inserted = 0; in_section = 0 }
+        {
+            starts_with = (substr($0, 1, length(prefix)) == prefix)
+            if (starts_with) {
+                in_section = 1
+                if (!inserted && new_line < $0) {
+                    print new_line
+                    inserted = 1
+                }
+            } else if (in_section) {
+                if (!inserted) {
+                    print new_line
+                    inserted = 1
+                }
+                in_section = 0
+            }
+            print
+        }
+        END { if (!inserted) print new_line }
+    ' "$BREWFILE" >"$tmp"
+
+    if ! mv "$tmp" "$real_path"; then
+        rm -f "$tmp"
+        echo "Error: could not write to $BREWFILE" >&2
+        return 1
+    fi
+}
+
+main() {
+    local orphans
+    orphans=$(get_orphans) || return 1
+
+    if [[ -z "$orphans" ]]; then
+        echo "All brew packages accounted for."
+        return 0
+    fi
+
+    # Build orphan name set for O(1) lookup
+    local -A orphan_set
+    while IFS= read -r entry; do
+        orphan_set["${entry#*:}"]=1
+    done <<<"$orphans"
+
+    # Classify: root orphans (prompt) vs dependency-only orphans (summary)
+    local root_entries=()
+    local dep_names=()
+    local -A orphan_parents # dep_name -> space-separated orphan names that use it
+    local -A is_root
+
+    while IFS= read -r entry; do
+        local type="${entry%%:*}"
+        local name="${entry#*:}"
+
+        if [[ "$type" != "formula" ]]; then
+            root_entries+=("$entry")
+            is_root["$name"]=1
+            continue
+        fi
+
+        local deps is_dep=false
+        deps=$(get_dependents "$type" "$name")
+        local parents=""
+        if [[ -n "$deps" ]]; then
+            for dep in $deps; do
+                if [[ -n "${orphan_set[$dep]+x}" ]]; then
+                    is_dep=true
+                    parents="$parents $dep"
+                fi
+            done
+        fi
+
+        if $is_dep; then
+            dep_names+=("$name")
+            orphan_parents["$name"]="${parents# }"
+        else
+            root_entries+=("$entry")
+            is_root["$name"]=1
+        fi
+    done <<<"$orphans"
+
+    # Display
+    if [[ ${#root_entries[@]} -gt 0 ]]; then
+        echo "Packages not in Brewfile:"
+        echo
+        for entry in "${root_entries[@]}"; do
+            echo "  [${entry%%:*}] ${entry#*:}"
+        done
+        echo
+    fi
+
+    if [[ ${#dep_names[@]} -gt 0 ]]; then
+        echo "Dependencies (auto-removed with parent):"
+        for dep in $(printf '%s\n' "${dep_names[@]}" | sort); do
+            # Trace orphan_parents transitively to find root ancestors
+            local -A visited=()
+            local queue="${orphan_parents[$dep]}"
+            local roots=""
+            while [[ -n "$queue" ]]; do
+                local next_queue=""
+                for parent in $queue; do
+                    if [[ -n "${visited[$parent]+x}" ]]; then
+                        continue
+                    fi
+                    visited[$parent]=1
+                    if [[ -n "${is_root[$parent]+x}" ]]; then
+                        roots="$roots $parent"
+                    elif [[ -n "${orphan_parents[$parent]+x}" ]]; then
+                        next_queue="$next_queue ${orphan_parents[$parent]}"
+                    fi
+                done
+                queue="${next_queue# }"
+            done
+            local root_list
+            root_list=$(echo "${roots# }" | tr ' ' '\n' | sort -u | tr '\n' ',' | sed 's/,$//; s/,/, /g')
+            echo "  $dep ($root_list)"
+        done
+        echo
+    fi
+
+    if [[ ${#root_entries[@]} -eq 0 ]]; then
+        echo "All root packages accounted for."
+        return 0
+    fi
+
+    if [[ ! -t 0 ]]; then
+        echo "Run 'just brew-cleanup' in an interactive terminal to triage."
+        return 0
+    fi
+
+    for entry in "${root_entries[@]}"; do
+        local type="${entry%%:*}"
+        local name="${entry#*:}"
+        local label="[$type] $name"
+
+        printf "%s [r]emove / [a]dd to Brewfile / [k]eep local / [s]kip: " "$label"
+
+        read -r choice </dev/tty
+        choice="${choice:-s}"
+
+        case "$choice" in
+        r | R)
+            local -a uninstall_args=(brew uninstall)
+            [[ "$type" == "cask" ]] && uninstall_args+=(--cask)
+            uninstall_args+=("$name")
+            if "${uninstall_args[@]}"; then
+                echo "  Removed $name"
+            else
+                echo "  Failed to remove $name"
+            fi
+            ;;
+        a | A)
+            local add_rc=0
+            add_to_brewfile "$type" "$name" || add_rc=$?
+            if [[ $add_rc -eq 0 ]]; then
+                echo "  Added $name to $BREWFILE"
+            elif [[ $add_rc -eq 2 ]]; then
+                echo "  Already in $BREWFILE"
+            else
+                echo "  Failed to write to $BREWFILE" >&2
+            fi
+            ;;
+        k | K)
+            local add_rc=0
+            add_to_local_brewfile "$type" "$name" || add_rc=$?
+            if [[ $add_rc -eq 0 ]]; then
+                echo "  Added $name to $LOCAL_BREWFILE"
+            elif [[ $add_rc -eq 2 ]]; then
+                echo "  Already in $LOCAL_BREWFILE"
+            else
+                echo "  Failed to write to $LOCAL_BREWFILE" >&2
+            fi
+            ;;
+        *)
+            echo "  Skipped $name"
+            ;;
+        esac
+    done
+}
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
