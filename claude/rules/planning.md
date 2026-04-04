@@ -1,6 +1,6 @@
 ## Plan review loop
 
-When producing a plan with 3 or more implementation steps, run a review loop before presenting it to the user.
+When producing a plan with 3 or more implementation steps, run a review loop before presenting it to the user. For plans with fewer steps, consider running a review if the changes involve security, deletion, or external-facing interfaces.
 
 If a slash command (e.g., /feature) defines its own review process, follow that instead.
 
