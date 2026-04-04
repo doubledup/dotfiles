@@ -12,6 +12,8 @@ If a slash command (e.g., /feature) defines its own execution or review process,
 
 ### After all steps complete
 
+Run project verification (formatting, linting, tests as appropriate for the files changed) and fix any failures before entering the review loop. Include pass/fail results as context when sending the diff to the reviewer.
+
 Run a review loop on the accumulated diff. If the accumulated diff is empty (no net changes), skip the review loop and report that no net changes were made.
 
 1. Get the diff from the base commit to HEAD.
