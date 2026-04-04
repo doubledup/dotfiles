@@ -14,7 +14,7 @@ If a slash command (e.g., /feature) defines its own execution or review process,
 
 Run project verification (formatting, linting, tests as appropriate for the files changed) and fix any failures before entering the review loop. Include pass/fail results as context when sending the diff to the reviewer.
 
-Run a review loop on the accumulated diff. If the accumulated diff is empty (no net changes), skip the review loop and report that no net changes were made.
+Run a review loop on the accumulated diff. If the accumulated diff is empty or 20 or fewer changed lines, skip the review loop. For empty diffs, report that no net changes were made. For small diffs, report changes directly to the user with the diff included.
 
 1. Check the accumulated diff size. Warn if it exceeds 400 changed lines; if it exceeds 1500, stop and ask the user whether to proceed with review or split the work.
 2. Get the diff: `git diff --stat -U8 <base-sha>..HEAD` (at least 8 lines of context). The `--stat` summary gives the reviewer a scope overview before the full diff.
