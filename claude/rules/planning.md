@@ -8,6 +8,7 @@ If a slash command (e.g., /feature) defines its own review process, follow that 
 2. Check the VERDICT line:
     - CLEAR or LOW: Exit the loop. LOW findings are included in the review summary presented to the user.
     - MEDIUM or HIGH: For each finding, fully accept, partially accept, or reject it. Revise the plan for accepted/partially accepted findings.
+    - If the reviewer's output lacks a valid VERDICT line, infer the verdict from the highest severity section present in the output. No findings sections = CLEAR.
 3. On iterations 2+, include:
     - The previous iteration's findings with your disposition of each (accepted, partially accepted, or rejected) and reasoning
     - A bullet list of what changed in the plan since last review
