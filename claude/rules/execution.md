@@ -21,7 +21,7 @@ Run a review loop on the accumulated diff:
     - LOW: Exit the loop. LOW findings are included in the report. The implementer may remediate them at their judgement, but the loop does not require it.
     - MEDIUM or HIGH: Accept, partially accept, or reject each finding. For partially accepted findings, note which parts are rejected (with reasoning) and process the accepted parts through remediation. Rejected findings are not remediated but are sent back to the reviewer in the next iteration.
 4. On iterations 2+, send the previous iteration's findings with your disposition of each (accepted, partially accepted, or rejected) and reasoning to the Reviewer as context.
-5. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them.
+5. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same code location or design decision) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
 6. Report the review summary to the user:
     ```
     **Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | max iterations].

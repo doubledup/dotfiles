@@ -11,7 +11,7 @@ If a slash command (e.g., /feature) defines its own review process, follow that 
 3. On iterations 2+, include:
     - The previous iteration's findings with your disposition of each (accepted, partially accepted, or rejected) and reasoning
     - A bullet list of what changed in the plan since last review
-4. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them.
+4. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same design decision or concern) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
 
 Present the review summary immediately before the plan:
 
