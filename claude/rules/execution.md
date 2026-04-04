@@ -16,15 +16,16 @@ Run project verification (formatting, linting, tests as appropriate for the file
 
 Run a review loop on the accumulated diff. If the accumulated diff is empty (no net changes), skip the review loop and report that no net changes were made.
 
-1. Get the diff from the base commit to HEAD.
-2. Send the diff and plan/spec to the Reviewer agent in `final` mode.
-3. Check the VERDICT line:
+1. Check the accumulated diff size. Warn if it exceeds 400 changed lines; if it exceeds 1500, stop and ask the user whether to proceed with review or split the work.
+2. Get the diff from the base commit to HEAD.
+3. Send the diff and plan/spec to the Reviewer agent in `final` mode.
+4. Check the VERDICT line:
     - CLEAR: Exit the loop.
     - LOW: Exit the loop. LOW findings are included in the report. The implementer may remediate them at their judgement, but the loop does not require it.
     - MEDIUM or HIGH: Accept, partially accept, or reject each finding. For partially accepted findings, note which parts are rejected (with reasoning) and process the accepted parts through remediation. Rejected findings are not remediated but are sent back to the reviewer in the next iteration.
-4. On iterations 2+, send the previous iteration's findings with your disposition of each (accepted, partially accepted, or rejected) and reasoning to the Reviewer as context.
-5. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same code location or design decision) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
-6. Report the review summary to the user:
+5. On iterations 2+, send the previous iteration's findings with your disposition of each (accepted, partially accepted, or rejected) and reasoning to the Reviewer as context.
+6. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same code location or design decision) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
+7. Report the review summary to the user:
     ```
     **Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | max iterations].
     Rejected findings: [finding summary]: [rejection reasoning]
