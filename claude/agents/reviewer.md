@@ -91,12 +91,12 @@ VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 Severity guidelines:
 
 - **High**: Missing acceptance criteria coverage, incorrect sequencing that would cause rework, architectural misfit with existing codebase, missing critical dependency
-- **Medium**: Underspecified steps that may cause confusion during execution, missing verification strategy, risky assumptions without fallback
-- **Low**: Minor improvements, alternative approaches worth noting, style preferences
+- **Medium**: Underspecified steps that may cause confusion during execution, missing verification strategy, risky assumptions without fallback. MEDIUM means execution will likely hit problems without addressing this.
+- **Low**: Minor improvements, alternative approaches worth noting, style preferences. Use LOW for observations worth noting but not blocking.
 
 Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
-If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. Rejected findings are not addressed; re-evaluate them and either confirm the rejection was reasonable (dropping the finding) or re-raise.
+If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. For each previously-rejected finding, explicitly state your disposition: confirm the rejection was reasonable and drop it, or re-raise it with reasoning. Every rejected finding must have a visible disposition in the output so the orchestrator can track convergence.
 
 ### Mode: final (opinionated)
 
@@ -143,7 +143,7 @@ Remediation guidelines:
 
 Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
-If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. Rejected findings are not addressed; re-evaluate them and either confirm the rejection was reasonable (dropping the finding) or re-raise.
+If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. For each previously-rejected finding, explicitly state your disposition: confirm the rejection was reasonable and drop it, or re-raise it with reasoning. Every rejected finding must have a visible disposition in the output so the orchestrator can track convergence.
 
 ## Guidelines
 
