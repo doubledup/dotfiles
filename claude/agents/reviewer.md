@@ -60,7 +60,7 @@ Omit empty sections. The VERDICT line reflects the highest severity present (CLE
 
 **Expected input**: Plan text, and the problem statement or spec if available.
 
-Review the implementation plan. Note concerns but defer to user judgment.
+Review the implementation plan. Rate severity honestly based on likely implementation impact. The orchestrator presents findings to the user before proceeding.
 
 Check:
 
