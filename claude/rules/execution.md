@@ -17,7 +17,7 @@ Run project verification (formatting, linting, tests as appropriate for the file
 Run a review loop on the accumulated diff. If the accumulated diff is empty (no net changes), skip the review loop and report that no net changes were made.
 
 1. Check the accumulated diff size. Warn if it exceeds 400 changed lines; if it exceeds 1500, stop and ask the user whether to proceed with review or split the work.
-2. Get the diff from the base commit to HEAD.
+2. Get the diff: `git diff --stat -U8 <base-sha>..HEAD` (at least 8 lines of context). The `--stat` summary gives the reviewer a scope overview before the full diff.
 3. Send the diff and plan/spec to the Reviewer agent in `final` mode.
 4. Check the VERDICT line:
     - CLEAR: Exit the loop.
