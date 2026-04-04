@@ -12,7 +12,7 @@ If a slash command (e.g., /feature) defines its own execution or review process,
 
 ### After all steps complete
 
-Run a review loop on the accumulated diff:
+Run a review loop on the accumulated diff. If the accumulated diff is empty (no net changes), skip the review loop and report that no net changes were made.
 
 1. Get the diff from the base commit to HEAD.
 2. Send the diff and plan/spec to the Reviewer agent in `final` mode.
@@ -35,13 +35,15 @@ Run a review loop on the accumulated diff:
 
 **Rollback findings** follow a three-phase sequence:
 
-1. **Revert**: Starting from the latest step, revert commits back to the earliest rollback step. Reverse order keeps reverts clean since later code may differ from when the step was committed. If a step produced multiple commits, revert all commits for that step in reverse commit order.
+1. **Revert**: Starting from the latest step, revert commits back to the earliest rollback step. Reverse order keeps reverts clean since later code may differ from when the step was committed. If a step produced multiple commits, revert all commits for that step in reverse commit order. If a revert produces a merge conflict, stop and surface to the user rather than resolving it automatically.
 2. **Fix**: Apply fix commits for steps before the rollback point.
 3. **Re-implement**: Re-implement from the rollback point forward with all review findings as context.
 
 **Subsumption**: If any finding for a step says rollback, treat the entire step as rollback regardless of other fix findings for that step. This is resolved at remediation time.
 
 **Full reset** (rolling back all steps) is rare and signals a bad plan. If triggered, stop and surface to the user rather than proceeding autonomously.
+
+**Re-verification**: After remediation, the next review iteration must confirm fixes are clean. Do not assume remediation resolved the issue; the reviewer must see the updated diff and verify.
 
 Example: Steps 1-5 committed. Reviewer says step 2 needs fix, step 4 needs rollback.
 
