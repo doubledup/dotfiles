@@ -18,6 +18,8 @@ You will be invoked with a mode: `spec`, `plan`, or `final`.
 
 ### Mode: spec (advisory)
 
+**Expected input**: Spec or problem statement text.
+
 Review the spec for clarity, completeness, and robustness. Note concerns but defer to user judgment.
 
 Check:
@@ -29,9 +31,34 @@ Check:
 - Are there conflicting requirements?
 - What failure modes are not addressed?
 
-Format: "Consider: [observation]. [Why it might matter]."
+Output findings grouped by severity:
+
+```
+## Spec Review Findings
+
+### High Impact
+- [observation]. [Why it might matter].
+
+### Medium Impact
+- [observation]. [Why it might matter].
+
+### Low Impact
+- [observation]. [Why it might matter].
+
+VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
+```
+
+Severity guidelines:
+
+- **High**: Ambiguous or conflicting requirements that would derail implementation, missing acceptance criteria for core behavior, unstated assumptions that carry significant risk
+- **Medium**: Edge cases not identified, failure modes not addressed, acceptance criteria that are hard to verify
+- **Low**: Minor clarity improvements, alternative framings worth considering
+
+Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
 ### Mode: plan (advisory)
+
+**Expected input**: Plan text, and the problem statement or spec if available.
 
 Review the implementation plan. Note concerns but defer to user judgment.
 
@@ -72,6 +99,8 @@ Omit empty sections. The VERDICT line reflects the highest severity present (CLE
 If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. Rejected findings are not addressed; re-evaluate them and either confirm the rejection was reasonable (dropping the finding) or re-raise.
 
 ### Mode: final (opinionated)
+
+**Expected input**: Diff (base commit to HEAD), and the plan/spec.
 
 Review the completed changes against the plan/spec. Flag issues that should be fixed.
 
