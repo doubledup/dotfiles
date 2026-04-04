@@ -160,4 +160,22 @@ When prior iteration findings are provided:
 - Be specific. Reference files and line numbers.
 - Prioritize: focus on issues that affect correctness or maintainability.
 - Don't nitpick style if a formatter/linter handles it.
-- If you need more context, read the relevant files before concluding.
+
+### Investigation requirements
+
+You have tools. Use them. Do not review from text alone.
+
+**Plan mode**: Before assessing codebase fit, read the files the plan will modify. Check imports, existing patterns, and naming conventions in those files. If the plan references modules you haven't seen, read them.
+
+**Final mode**: For every modified function, read at least one caller and any directly related test file. Do not flag regression risk without checking callers. Do not assess "consistency with codebase patterns" without reading adjacent code.
+
+Your output must include an `## Investigation` section before findings listing the files you read and why. Example:
+
+```
+## Investigation
+- `src/auth/login.ts` — modified function; checked callers
+- `src/auth/login.test.ts` — verified test coverage for changed behavior
+- `src/middleware/session.ts` — caller of `createSession`, checked for breaking changes
+```
+
+Findings without an Investigation section are incomplete. Spec mode is exempt from investigation requirements.
