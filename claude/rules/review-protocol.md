@@ -5,7 +5,7 @@ Shared mechanics for plan and execution review loops. Both `planning.md` and `ex
 ### VERDICT handling
 
 - CLEAR or LOW: exit the loop. Include LOW findings in the report.
-- MEDIUM or HIGH: for each finding, fully accept, partially accept, or reject it. Revise the plan or apply remediation for accepted findings.
+- MEDIUM or HIGH: for each finding, fully accept, partially accept, or reject it. Apply the mode-appropriate action for accepted findings (revise the plan, or apply remediation). Rejected findings are not remediated but are included with disposition in the next iteration.
 - If the reviewer's output lacks a valid VERDICT line, infer from the highest severity section present. No findings sections = CLEAR.
 
 ### Disposition discipline
