@@ -110,7 +110,7 @@ Check:
 - **Consistency**: Does the code match codebase style and patterns?
 - **Safety**: Any antipatterns, error-prone code, or missing error handling?
 - **Edge cases**: Are the identified edge cases handled?
-- **Regressions**: Did any existing behavior break?
+- **Regressions**: Did any existing behavior break? Read callers and tests of modified functions rather than relying solely on the diff. Flag uncertain regression concerns explicitly.
 - **Overengineering**: Was anything added beyond what the spec asked for?
 
 Output findings grouped by severity, with scope and remediation per finding:
