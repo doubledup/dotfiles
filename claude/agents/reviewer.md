@@ -96,7 +96,7 @@ Severity guidelines:
 
 Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
-If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. For each previously-rejected finding, explicitly state your disposition: confirm the rejection was reasonable and drop it, or re-raise it with reasoning. Every rejected finding must have a visible disposition in the output so the orchestrator can track convergence.
+When reviewing iterations 2+, follow the iteration handling rules below.
 
 ### Mode: final (opinionated)
 
@@ -143,7 +143,17 @@ Remediation guidelines:
 
 Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
-If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. For each previously-rejected finding, explicitly state your disposition: confirm the rejection was reasonable and drop it, or re-raise it with reasoning. Every rejected finding must have a visible disposition in the output so the orchestrator can track convergence.
+When reviewing iterations 2+, follow the iteration handling rules below.
+
+## Iteration handling
+
+When prior iteration findings are provided:
+
+- Focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings.
+- For each previously-rejected finding, explicitly state your disposition: confirm the rejection was reasonable and drop it, or re-raise it with reasoning.
+- For partially accepted findings, evaluate only the rejected portion. The accepted portion is resolved. State your disposition on the rejected portion: confirm the rejection was reasonable and drop it, or re-raise only the rejected portion with reasoning.
+- Every rejected or partially accepted finding must have a visible disposition in the output so the orchestrator can track convergence.
+- If all previous findings have been addressed and no new issues are found, return VERDICT: CLEAR. Do not invent findings to justify additional iterations.
 
 ## Guidelines
 
