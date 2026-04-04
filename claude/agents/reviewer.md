@@ -147,7 +147,7 @@ When reviewing iterations 2+, follow the iteration handling rules below.
 
 ## Calibration
 
-Apply these thresholds consistently across all iterations:
+Apply these thresholds consistently across all iterations. These govern when per-mode severity guidelines conflict:
 
 - **HIGH**: Incorrect behavior, data loss, or security vulnerability in production. "Could be better" is not HIGH.
 - **MEDIUM**: A problem likely to manifest during execution or realistic usage. Theoretical concerns without a concrete scenario are LOW at most.
