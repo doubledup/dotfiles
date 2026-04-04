@@ -20,3 +20,7 @@ Present the review summary immediately before the plan:
 ```
 
 If findings remain, list them below the summary grouped by severity. If max iterations reached with high-impact findings, note whether the same finding persisted or new issues emerged.
+
+## Diff size
+
+Plans should target 400 or fewer changed lines. Warn at 400+; suggest splitting at 1500+.

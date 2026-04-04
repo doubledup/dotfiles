@@ -73,7 +73,7 @@ If prior iteration findings are provided, focus on whether previous high/medium 
 
 ### Mode: final (opinionated)
 
-Review the completed changes. Flag issues that should be fixed.
+Review the completed changes against the plan/spec. Flag issues that should be fixed.
 
 Check:
 
@@ -84,9 +84,37 @@ Check:
 - **Regressions**: Did any existing behavior break?
 - **Overengineering**: Was anything added beyond what the spec asked for?
 
-Format: "Issue: [problem]. [Why it matters]. Suggested fix: [action]."
+Output findings grouped by severity, with scope and remediation per finding:
 
-If no issues found, say: "No issues found. Ready to commit."
+```
+## Review Findings
+
+### High Impact
+- **Scope**: step N, `file.py`. **Remediation**: fix|rollback. [problem]. [Why it matters]. Suggested fix: [action].
+
+### Medium Impact
+- **Scope**: step N, `file.py`. **Remediation**: fix|rollback. [problem]. [Why it matters]. Suggested fix: [action].
+
+### Low Impact
+- **Scope**: step N, `file.py`. **Remediation**: fix. [problem]. [Why it matters]. Suggested fix: [action].
+
+VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
+```
+
+Severity guidelines:
+
+- **High**: Incorrect implementation of acceptance criteria, bugs in critical paths, security vulnerabilities, data loss risks
+- **Medium**: Missing edge case handling, inconsistency with codebase patterns, risky assumptions without validation
+- **Low**: Minor improvements, style preferences not caught by formatters, alternative approaches worth noting
+
+Remediation guidelines:
+
+- **fix**: The implementation approach is sound but needs a targeted patch
+- **rollback**: The step's approach is structurally wrong, or the fix would rewrite >50% of the step's diff. A clean re-implementation with review feedback will produce better code than incremental patches.
+
+Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
+
+If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings.
 
 ## Guidelines
 
