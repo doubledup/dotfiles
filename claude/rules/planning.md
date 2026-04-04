@@ -4,7 +4,7 @@ When producing a plan with 3 or more implementation steps, run a review loop bef
 
 If a slash command (e.g., /feature) defines its own review process, follow that instead.
 
-1. Send the plan to the Reviewer agent in `plan` mode. Include the full plan text and, if applicable, the problem statement or spec.
+1. Send the plan to the Reviewer agent in `plan` mode. Include the full plan text, the list of files the plan will modify or create, and, if applicable, the problem statement or spec.
 2. Check the VERDICT line:
     - CLEAR or LOW: Exit the loop. LOW findings are included in the review summary presented to the user.
     - MEDIUM or HIGH: For each finding, fully accept, partially accept, or reject it. Revise the plan for accepted/partially accepted findings.
