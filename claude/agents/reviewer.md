@@ -69,7 +69,7 @@ Severity guidelines:
 
 Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
-If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings.
+If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. Rejected findings are not addressed; re-evaluate them and either confirm the rejection was reasonable (dropping the finding) or re-raise.
 
 ### Mode: final (opinionated)
 
@@ -114,7 +114,7 @@ Remediation guidelines:
 
 Omit empty sections. The VERDICT line reflects the highest severity present (CLEAR if no findings).
 
-If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings.
+If prior iteration findings are provided, focus on whether previous high/medium findings were addressed and whether revisions introduced new issues. Do not re-raise addressed findings. Rejected findings are not addressed; re-evaluate them and either confirm the rejection was reasonable (dropping the finding) or re-raise.
 
 ## Guidelines
 

@@ -26,6 +26,7 @@
 ## High impact
 
 - Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
+- Claude Code: update `/feature` command to integrate with `execution.md`. Phase 3 lacks commit discipline and rollback protocol; Phase 4 has a conflicting 3-cycle iteration limit (execution.md uses 6).
 - Review lazy nvim docs against our practices. Create backlog items for any misalignment.
 - Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix, fill the gaps, document the target state.
 - Review JDTLS configuration: Java is a primary language. Audit correctness and configurability: autobuild disabled (TODO about Maven coordination), JDK version hardcoded to 25, inlay hints disabled, workspace isolation edge cases, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
