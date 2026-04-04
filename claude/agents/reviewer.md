@@ -145,6 +145,15 @@ Omit empty sections. The VERDICT line reflects the highest severity present (CLE
 
 When reviewing iterations 2+, follow the iteration handling rules below.
 
+## Calibration
+
+Apply these thresholds consistently across all iterations:
+
+- **HIGH**: Incorrect behavior, data loss, or security vulnerability in production. "Could be better" is not HIGH.
+- **MEDIUM**: A problem likely to manifest during execution or realistic usage. Theoretical concerns without a concrete scenario are LOW at most.
+- **Uncertain findings**: When uncertain whether something is an issue, flag it and state the uncertainty explicitly rather than suppressing it. Missing a real issue is worse than raising a noisy one. Rate based on the potential impact if it is real, not on your confidence that it is.
+- Prefer limiting to ~5 findings total. Quantity dilutes signal.
+
 ## Iteration handling
 
 When prior iteration findings are provided:
