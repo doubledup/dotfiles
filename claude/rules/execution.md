@@ -46,6 +46,15 @@ Run a review loop on the accumulated diff. If the accumulated diff is empty or 2
 
 **Subsumption**: If any finding for a step says rollback, treat the entire step as rollback regardless of other fix findings for that step. This is resolved at remediation time.
 
+**Quick reference** (see detailed protocol above for edge cases):
+
+| Findings                              | Action                                                         |
+| ------------------------------------- | -------------------------------------------------------------- |
+| All fix                               | Apply fix commits, re-enter review loop                        |
+| Rollback on step N, no fixes before N | Revert latest to N, re-implement N forward                     |
+| Rollback on step N, fixes before N    | Revert latest to N, fix steps before N, re-implement N forward |
+| Rollback on all steps                 | Full reset — surface to user                                   |
+
 **Full reset** (rolling back all steps) is rare and signals a bad plan. If triggered, stop and surface to the user rather than proceeding autonomously.
 
 **Re-verification**: After remediation, the next review iteration must confirm fixes are clean. Do not assume remediation resolved the issue; the reviewer must see the updated diff and verify.
