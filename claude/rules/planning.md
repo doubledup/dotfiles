@@ -14,6 +14,14 @@ If a slash command (e.g., /feature) defines its own review process, follow that 
     - A bullet list of what changed in the plan since last review
 4. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same design decision or concern) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
 
+### Disposition discipline
+
+When evaluating reviewer findings about your own plan, apply a presumption of validity. For each finding:
+
+- **To accept**: No justification required.
+- **To partially accept**: State which parts you accept and which you reject, with reasoning for the rejection.
+- **To reject**: Provide a specific, falsifiable reason (e.g., "the file already handles this at line 42" or "this pattern is established in X, Y, Z"). "I disagree" or "this is fine" is not sufficient. If you cannot articulate a concrete reason, accept the finding.
+
 Present the review summary immediately before the plan:
 
 ```

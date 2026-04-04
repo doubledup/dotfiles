@@ -25,8 +25,9 @@ Run a review loop on the accumulated diff. If the accumulated diff is empty (no 
     - MEDIUM or HIGH: Accept, partially accept, or reject each finding. For partially accepted findings, note which parts are rejected (with reasoning) and process the accepted parts through remediation. Rejected findings are not remediated but are sent back to the reviewer in the next iteration.
     - If the reviewer's output lacks a valid VERDICT line, infer the verdict from the highest severity section present in the output. No findings sections = CLEAR.
 5. On iterations 2+, send the previous iteration's findings with your disposition of each (accepted, partially accepted, or rejected) and reasoning to the Reviewer as context.
-6. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same code location or design decision) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
-7. Report the review summary to the user:
+6. Apply disposition discipline: to reject a finding, provide a specific, falsifiable reason grounded in code (e.g., "this is handled at line N" or "this pattern matches the existing approach in file X"). "I disagree" or "this is fine" is not sufficient. If you cannot articulate a concrete reason, accept the finding.
+7. The loop exits only when the reviewer returns CLEAR or LOW, or after 6 iterations (hard cap). Rejecting findings does not exit the loop; the reviewer must confirm that rejections were sound or re-raise them. If the same finding (same code location or design decision) is rejected and re-raised across two consecutive iterations, escalate to the user rather than continuing the loop.
+8. Report the review summary to the user:
     ```
     **Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | max iterations].
     Rejected findings: [finding summary]: [rejection reasoning]
