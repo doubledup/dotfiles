@@ -8,6 +8,10 @@ Shared mechanics for plan and execution review loops. Both `planning.md` and `ex
 - MEDIUM or HIGH: for each finding, fully accept, partially accept, or reject it. Apply the mode-appropriate action for accepted findings (revise the plan, or apply remediation). Rejected findings are not remediated but are included with disposition in the next iteration.
 - If the reviewer's output lacks a valid VERDICT line, infer from the highest severity section present. No findings sections = CLEAR.
 
+### Output validation
+
+- If the reviewer's output omits the Investigation section (plan and final modes), re-invoke with a reminder to investigate before assessing.
+
 ### Disposition discipline
 
 Apply a presumption of validity to reviewer findings.
