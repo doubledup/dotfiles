@@ -1,6 +1,12 @@
 ## Plan review loop
 
-When producing a plan with 3 or more implementation steps, run a review loop before presenting it to the user. For plans with fewer steps, consider running a review if the changes involve security, deletion, or external-facing interfaces.
+Run a review loop before presenting a plan to the user when any of these apply:
+
+- Changes modify Claude Code configuration (rules, agents, commands)
+- Changes involve security, deletion, or external-facing interfaces
+- 3 or more implementation steps
+
+The first two triggers apply regardless of plan size. Do not skip review for a 1-2 step plan that modifies rules, agents, or commands.
 
 If a slash command (e.g., /feature) defines its own review process, follow that instead.
 
