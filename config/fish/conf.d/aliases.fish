@@ -47,3 +47,6 @@ abbr ll 'ls -l'
 
 # rust
 abbr cg cargo
+
+# terraform
+abbr t terraform
