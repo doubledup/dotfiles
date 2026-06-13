@@ -20,6 +20,8 @@
 - Buffer deletion from fzf buffer picker
 - Dismiss gitsigns inline diff (currently using kj workaround)
 - Resize help window to 80 chars after opening
+- Expand `gf` to interpret relative paths as relative to current file
+- Expand `gf` to expand `~` to `$HOME`
 
 ## High impact
 

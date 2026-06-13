@@ -30,24 +30,10 @@ vim.keymap.set("n", "]s", function()
     vim.diagnostic.jump({ count = 1, float = true })
 end, { desc = "Next diagnostic" })
 
--- open file under cursor, resolving relative paths from the current file's directory
-vim.keymap.set("n", "gf", function()
-    local cfile = vim.fn.expand("<cfile>")
-    if cfile == "" then
-        return
-    end
-
-    -- expand ~ to $HOME
-    cfile = cfile:gsub("^~", vim.env.HOME)
-
-    -- resolve relative paths from the current file's directory
-    if not cfile:match("^/") then
-        local dir = vim.fn.expand("%:p:h")
-        cfile = dir .. "/" .. cfile
-    end
-    cfile = vim.fs.normalize(cfile)
-    vim.cmd.edit(vim.fn.fnameescape(cfile))
-end, { desc = "Edit file under cursor" })
+-- open file under cursor
+-- TODO: interpret relative paths as relative to current file location
+-- TODO: expand ~ to $HOME
+vim.keymap.set("n", "gf", ":edit <cfile><cr>", { desc = "Edit file under cursor" })
 
 -- show file format and encoding
 vim.keymap.set(
