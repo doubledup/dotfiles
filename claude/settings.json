@@ -50,7 +50,7 @@
       "Bash(git restore .)",
       "Bash(git clean *)"
     ],
-    "defaultMode": "plan"
+    "disableAutoMode": "disable"
   },
   "hooks": {
     "PreToolUse": [
@@ -79,5 +79,6 @@
     "lua-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true
   },
-  "outputStyle": "engineers-answer"
+  "outputStyle": "engineers-answer",
+  "effortLevel": "xhigh"
 }
