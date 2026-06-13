@@ -24,18 +24,8 @@ if [ "$os_name" = "Darwin" ]; then
         xcode-select --install
     fi
 
-    printf '%bChecking Homebrew...%b\n' "$blue" "$endcolor"
-    if [ -d /opt/homebrew/ ]; then
-        printf '%bHomebrew is already installed.%b\n' "$green" "$endcolor"
-    else
-        printf '%bInstalling Homebrew...%b\n' "$blue" "$endcolor"
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    printf '%bHomebrew is ready. Installing packages...%b\n' "$blue" "$endcolor"
+    printf '%bInstalling Homebrew packages...%b\n' "$blue" "$endcolor"
     brew bundle install --file "$HOME"/.dotfiles/rcignore/Brewfile
-
-    # Update claude with Homebrew, not with claude
-    claude config set -g autoUpdates false
 
     printf '%bSymlinking dotfiles...%b\n' "$blue" "$endcolor"
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac

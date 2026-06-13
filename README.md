@@ -8,7 +8,12 @@ Packages, configuration and tools.
 
 ## Setup
 
-Install and set up config:
+Prerequisites (install manually before running setup):
+
+1. [Homebrew](https://brew.sh)
+2. [Claude Code](https://claude.ai/download)
+
+Then clone and run setup:
 
 ```sh
 git clone https://github.com/doubledup/dotfiles ~/.dotfiles
