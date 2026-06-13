@@ -2,7 +2,6 @@ tap "hashicorp/tap"
 tap "homebrew/command-not-found"
 brew "act"
 brew "actionlint"
-brew "apache-flink@1", link: true
 brew "avro-tools"
 brew "aws-sam-cli"
 brew "awscli"
