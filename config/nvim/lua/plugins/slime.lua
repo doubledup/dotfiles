@@ -1,8 +1,8 @@
 return {
     "jpalardy/vim-slime",
     init = function()
-        -- Set target to kitty terminal
-        vim.g.slime_target = "kitty"
+        -- Set target to neovim terminal
+        vim.g.slime_target = "neovim"
         -- Disable default mappings (we define our own)
         vim.g.slime_no_mappings = 1
         -- TODO: choose from active terminals b:terminal_job_id
