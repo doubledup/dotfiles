@@ -21,6 +21,7 @@ get_orphans() {
     local section=""
     local casks=()
     local formulae=()
+    local taps=()
 
     while IFS= read -r line; do
         case "$line" in
@@ -30,7 +31,10 @@ get_orphans() {
         "Would uninstall formulae:")
             section="formula"
             ;;
-        "Would uninstall"* | "Would \`brew cleanup\`:" | "=>"*)
+        "Would untap:")
+            section="tap"
+            ;;
+        "Would uninstall"* | "Would \`brew cleanup\`:" | "=>"* | "Run \`brew bundle"*)
             section=""
             ;;
         *)
@@ -38,6 +42,8 @@ get_orphans() {
             if [[ -n "$section" && -n "$trimmed" ]]; then
                 if [[ "$section" == "cask" ]]; then
                     casks+=("$trimmed")
+                elif [[ "$section" == "tap" ]]; then
+                    taps+=("$trimmed")
                 else
                     formulae+=("$trimmed")
                 fi
@@ -46,7 +52,7 @@ get_orphans() {
         esac
     done <<<"$output"
 
-    if [[ -n "$output" && ${#casks[@]} -eq 0 && ${#formulae[@]} -eq 0 ]]; then
+    if [[ -n "$output" && ${#casks[@]} -eq 0 && ${#formulae[@]} -eq 0 && ${#taps[@]} -eq 0 ]]; then
         echo "Warning: brew bundle cleanup produced output but no recognized sections." >&2
         echo "The output format may have changed. Raw output:" >&2
         echo "$output" >&2
@@ -57,6 +63,9 @@ get_orphans() {
     done
     for f in "${formulae[@]+"${formulae[@]}"}"; do
         echo "formula:$f"
+    done
+    for t in "${taps[@]+"${taps[@]}"}"; do
+        echo "tap:$t"
     done
 }
 
@@ -81,6 +90,8 @@ add_to_local_brewfile() {
 
     if [[ "$type" == "cask" ]]; then
         line="cask \"$name\""
+    elif [[ "$type" == "tap" ]]; then
+        line="tap \"$name\""
     else
         line="brew \"$name\""
     fi
@@ -103,6 +114,9 @@ add_to_brewfile() {
     if [[ "$type" == "cask" ]]; then
         line="cask \"$name\""
         prefix="cask "
+    elif [[ "$type" == "tap" ]]; then
+        line="tap \"$name\""
+        prefix="tap "
     else
         line="brew \"$name\""
         prefix="brew "
@@ -171,7 +185,8 @@ main() {
     done <<<"$orphans"
 
     # Classify: root orphans (prompt) vs dependency-only orphans (summary)
-    local root_entries=()
+    local root_packages=()
+    local root_taps=()
     local dep_names=()
     local -A orphan_parents # dep_name -> space-separated orphan names that use it
     local -A is_root
@@ -180,8 +195,13 @@ main() {
         local type="${entry%%:*}"
         local name="${entry#*:}"
 
+        if [[ "$type" == "tap" ]]; then
+            root_taps+=("$entry")
+            continue
+        fi
+
         if [[ "$type" != "formula" ]]; then
-            root_entries+=("$entry")
+            root_packages+=("$entry")
             is_root["$name"]=1
             continue
         fi
@@ -202,16 +222,16 @@ main() {
             dep_names+=("$name")
             orphan_parents["$name"]="${parents# }"
         else
-            root_entries+=("$entry")
+            root_packages+=("$entry")
             is_root["$name"]=1
         fi
     done <<<"$orphans"
 
     # Display
-    if [[ ${#root_entries[@]} -gt 0 ]]; then
+    if [[ ${#root_packages[@]} -gt 0 ]]; then
         echo "Packages not in Brewfile:"
         echo
-        for entry in "${root_entries[@]}"; do
+        for entry in "${root_packages[@]}"; do
             echo "  [${entry%%:*}] ${entry#*:}"
         done
         echo
@@ -246,7 +266,7 @@ main() {
         echo
     fi
 
-    if [[ ${#root_entries[@]} -eq 0 ]]; then
+    if [[ ${#root_packages[@]} -eq 0 && ${#root_taps[@]} -eq 0 ]]; then
         echo "All root packages accounted for."
         return 0
     fi
@@ -256,18 +276,64 @@ main() {
         return 0
     fi
 
-    for entry in "${root_entries[@]}"; do
+    # Triage packages first
+    for entry in "${root_packages[@]+"${root_packages[@]}"}"; do
         local type="${entry%%:*}"
         local name="${entry#*:}"
-        local label="[$type] $name"
+        triage_entry "$type" "$name"
+    done
 
-        printf "%s [r]emove / [a]dd to Brewfile / [k]eep local / [s]kip: " "$label"
+    # Triage taps last -- re-check which still have installed packages
+    if [[ ${#root_taps[@]} -gt 0 ]]; then
+        local installed_full
+        installed_full=$(brew list --full-name 2>/dev/null) || true
 
-        read -r choice </dev/tty
-        choice="${choice:-s}"
+        local eligible_taps=()
+        for entry in "${root_taps[@]}"; do
+            local tap_name="${entry#*:}"
+            if grep -q "^${tap_name}/" <<<"$installed_full"; then
+                echo "  Skipping tap $tap_name (still has installed packages)"
+            else
+                eligible_taps+=("$entry")
+            fi
+        done
 
-        case "$choice" in
-        r | R)
+        if [[ ${#eligible_taps[@]} -gt 0 ]]; then
+            echo
+            echo "Taps not in Brewfile:"
+            echo
+            for entry in "${eligible_taps[@]}"; do
+                echo "  [tap] ${entry#*:}"
+            done
+            echo
+
+            for entry in "${eligible_taps[@]}"; do
+                local name="${entry#*:}"
+                triage_entry "tap" "$name"
+            done
+        fi
+    fi
+}
+
+triage_entry() {
+    local type="$1"
+    local name="$2"
+    local label="[$type] $name"
+
+    printf "%s [r]emove / [a]dd to Brewfile / [k]eep local / [s]kip: " "$label"
+
+    read -r choice </dev/tty
+    choice="${choice:-s}"
+
+    case "$choice" in
+    r | R)
+        if [[ "$type" == "tap" ]]; then
+            if brew untap "$name"; then
+                echo "  Untapped $name"
+            else
+                echo "  Failed to untap $name"
+            fi
+        else
             local -a uninstall_args=(brew uninstall)
             [[ "$type" == "cask" ]] && uninstall_args+=(--cask)
             uninstall_args+=("$name")
@@ -276,34 +342,50 @@ main() {
             else
                 echo "  Failed to remove $name"
             fi
-            ;;
-        a | A)
-            local add_rc=0
-            add_to_brewfile "$type" "$name" || add_rc=$?
-            if [[ $add_rc -eq 0 ]]; then
-                echo "  Added $name to $BREWFILE"
-            elif [[ $add_rc -eq 2 ]]; then
-                echo "  Already in $BREWFILE"
-            else
-                echo "  Failed to write to $BREWFILE" >&2
+        fi
+        ;;
+    a | A)
+        local add_rc=0
+        add_to_brewfile "$type" "$name" || add_rc=$?
+        if [[ $add_rc -eq 0 ]]; then
+            echo "  Added $name to $BREWFILE"
+        elif [[ $add_rc -eq 2 ]]; then
+            echo "  Already in $BREWFILE"
+        else
+            echo "  Failed to write to $BREWFILE" >&2
+        fi
+        # Auto-add tap for tapped formulae
+        if [[ "$type" == "formula" && "$name" == */*/* ]]; then
+            local tap_rc=0
+            add_to_brewfile "tap" "${name%/*}" || tap_rc=$?
+            if [[ $tap_rc -eq 0 ]]; then
+                echo "  Added tap ${name%/*} to $BREWFILE"
             fi
-            ;;
-        k | K)
-            local add_rc=0
-            add_to_local_brewfile "$type" "$name" || add_rc=$?
-            if [[ $add_rc -eq 0 ]]; then
-                echo "  Added $name to $LOCAL_BREWFILE"
-            elif [[ $add_rc -eq 2 ]]; then
-                echo "  Already in $LOCAL_BREWFILE"
-            else
-                echo "  Failed to write to $LOCAL_BREWFILE" >&2
+        fi
+        ;;
+    k | K)
+        local add_rc=0
+        add_to_local_brewfile "$type" "$name" || add_rc=$?
+        if [[ $add_rc -eq 0 ]]; then
+            echo "  Added $name to $LOCAL_BREWFILE"
+        elif [[ $add_rc -eq 2 ]]; then
+            echo "  Already in $LOCAL_BREWFILE"
+        else
+            echo "  Failed to write to $LOCAL_BREWFILE" >&2
+        fi
+        # Auto-add tap for tapped formulae
+        if [[ "$type" == "formula" && "$name" == */*/* ]]; then
+            local tap_rc=0
+            add_to_local_brewfile "tap" "${name%/*}" || tap_rc=$?
+            if [[ $tap_rc -eq 0 ]]; then
+                echo "  Added tap ${name%/*} to $LOCAL_BREWFILE"
             fi
-            ;;
-        *)
-            echo "  Skipped $name"
-            ;;
-        esac
-    done
+        fi
+        ;;
+    *)
+        echo "  Skipped $name"
+        ;;
+    esac
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
