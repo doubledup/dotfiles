@@ -80,5 +80,7 @@
     "jdtls-lsp@claude-plugins-official": true
   },
   "outputStyle": "engineers-answer",
-  "effortLevel": "xhigh"
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "model": "sonnet"
 }
