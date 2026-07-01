@@ -1,5 +1,6 @@
 {
     "permissions": {
+        "defaultMode": "plan",
         "allow": [
             "Bash(just check:*)",
             "Bash(just fmt:*)",
