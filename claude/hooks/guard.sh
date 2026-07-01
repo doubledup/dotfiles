@@ -62,6 +62,9 @@ Read | Write | Edit)
     */secrets/* | */.ssh/* | */.aws/*)
         block "Blocked: access to sensitive path '$FILE_PATH'."
         ;;
+    */.git/*)
+        block "Blocked: access to '$FILE_PATH' inside .git."
+        ;;
     esac
     ;;
 esac
