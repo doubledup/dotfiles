@@ -1,8 +1,3 @@
----
-description: rcm dotfile management and just task runner conventions
-globs: "*"
----
-
 This is an rcm-managed dotfiles repo. Files are symlinked from this repo to $HOME by rcm.
 Never modify files via their symlink targets in ~/. All changes happen in this repo.
 
