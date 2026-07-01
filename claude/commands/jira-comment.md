@@ -1,3 +1,7 @@
+---
+description: Post a comment to a Jira ticket
+---
+
 # Jira Comment
 
 Post a comment to a Jira ticket.
