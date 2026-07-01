@@ -18,4 +18,7 @@ case "$FILE_PATH" in
 esac
 
 cd "$CLAUDE_PROJECT_DIR"
-just fmt || true
+if ! OUTPUT=$(just fmt 2>&1); then
+    echo "$OUTPUT" >&2
+    exit 1
+fi
