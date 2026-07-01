@@ -50,6 +50,7 @@
       "Bash(git restore .)",
       "Bash(git clean *)"
     ],
+    "ask": ["Bash(git commit:*)", "WebFetch", "WebSearch"],
     "disableAutoMode": "disable"
   },
   "hooks": {
