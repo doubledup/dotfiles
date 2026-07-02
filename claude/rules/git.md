@@ -1,18 +1,24 @@
 # Git
 
-## Commit Messages
+## Commits
 
 - Small, logically grouped changes (one concern per commit)
-- Imperative mood, sentence case, no period (e.g., "Add feature command")
+- Group commits by originating finding/task, not by file touched: a finding's complete fix (e.g., a new doc plus the reference update it requires) is one commit; a different finding's fix is a separate commit, even a one-line one
+- Imperative mood, sentence case, no period (e.g. "Add feature command")
 - Title: 54 characters max
 - Body: 72 characters max line width; omit unless the diff needs extra context
 - No attribution lines (no Co-Authored-By)
 - Start with a verb: Add, Remove, Bump, Revise, Clean up, Fix, Move, Set up, Update
 - Formatting-only commits: "fmt"
 
+## Branches
+
+- Update a PR branch with the latest `main` by merging `main` into the branch, not by rebasing onto `main`. This avoids force-pushing shared branches and keeps history predictable.
+
 ## PR Descriptions
 
 - Follow the project template (`.github/pull_request_template.md`)
+- Bias toward concise: cover the key details (root cause, what changed, testing) and cut the rest. Omit what is always implicit (e.g. that merged IaC deploys per environment via CI). Aim for a screenful.
 - No line width limits (unlike commits); let lines wrap naturally
 - Description: what changed, why (root cause or decision context), scope boundaries and tradeoffs
 - Compact bullets for discrete changes
