@@ -4,6 +4,6 @@ function noise-on
         return
     end
 
-    play -n synth brownnoise vol 0.08 bass +6 </dev/null >/dev/null 2>&1 &
+    play -n synth brownnoise vol 0.08 bass +3 </dev/null >/dev/null 2>&1 &
     echo $last_pid >/tmp/sox.pid
 end
