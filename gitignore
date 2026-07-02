@@ -6,3 +6,5 @@ CLAUDE.local.md
 claude/reviews/
 Session.vim
 TODO.md
+
+**/.claude/settings.local.json
