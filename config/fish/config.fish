@@ -30,6 +30,7 @@ set -x DOTNET_CLI_TELEMETRY_OPTOUT 1
 set -x PATH $HOME/.dotnet/tools $PATH
 
 set -x HOMEBREW_NO_ANALYTICS 1
+set -x HOMEBREW_BUNDLE_NO_DESCRIBE 1
 
 set -x GOPATH "$HOME/.local/share/go"
 set -x PATH $GOPATH/bin $PATH
