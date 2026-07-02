@@ -31,3 +31,8 @@
 - Professional and calm; no cheerleading
 - Never use em dashes; use commas, periods, semicolons, or parentheses instead
 - Include links to context (tickets, prior PRs, docs) when they inform decisions
+
+## PR Replies
+
+- Substantiate documentation/behavior claims with a link to the source (code, official docs, schema), not just an assertion
+- Keep review-thread replies short: one sentence stating the outcome (fixed in `<sha>`, or the reason for rejecting), without restating context already covered elsewhere
