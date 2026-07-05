@@ -27,10 +27,11 @@ Bash)
         block "Blocked: rm -rf is not allowed."
     fi
 
-    # Block destructive git commands
-    # Match --force and -f but not --force-with-lease (which is safe)
-    if [[ "$COMMAND" =~ git\ push\ .*(\ -f\ |\ -f$|\ --force\ |\ --force$) ]]; then
-        block "Blocked: git push --force is not allowed."
+    # Block all git push (pushing is user-only); covers force pushes too.
+    # Anchored to command boundaries like the sudo/rm rules to avoid substring
+    # false positives (e.g. rg "git push", git commit -m "...git push...").
+    if [[ "$COMMAND" =~ (^|[;&|])\ *git\ +push(\ |$) ]]; then
+        block "Blocked: pushing is user-only. Run the push yourself."
     fi
     if [[ "$COMMAND" =~ git\ reset\ --hard ]]; then
         block "Blocked: git reset --hard is not allowed."
