@@ -73,7 +73,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/daviddunn/.claude/hooks/gh-api-readonly.sh"
+            "command": "~/.claude/hooks/gh-api-readonly.sh"
           }
         ]
       }
