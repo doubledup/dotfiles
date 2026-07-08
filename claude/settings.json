@@ -56,6 +56,7 @@
     "ask": ["Bash(git commit:*)", "WebFetch", "WebSearch"],
     "defaultMode": "plan"
   },
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -84,7 +85,7 @@
     "jdtls-lsp@claude-plugins-official": true
   },
   "outputStyle": "engineers-answer",
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "tui": "fullscreen",
   "model": "sonnet"
 }
