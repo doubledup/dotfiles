@@ -7,6 +7,7 @@
 - Terminal: kitty
 - OS: macOS primary, Linux occasionally
 - Search: rg (ripgrep), fd (not grep/find)
+- GitHub username: doubledup
 
 ## Communication
 
