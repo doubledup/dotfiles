@@ -6,7 +6,7 @@
 - Group commits by originating finding/task, not by file touched: a finding's complete fix (e.g., a new doc plus the reference update it requires) is one commit; a different finding's fix is a separate commit, even a one-line one
 - Imperative mood, sentence case, no period (e.g. "Add feature command")
 - Title: 54 characters max
-- Body: 72 characters max line width; omit unless the diff needs extra context
+- Body: omit unless the diff needs context; when used, 1-2 lines on the why, wrapped at 72 characters
 - No attribution lines (no Co-Authored-By)
 - Start with a verb: Add, Remove, Bump, Revise, Clean up, Fix, Move, Set up, Update
 - Formatting-only commits: "fmt"
