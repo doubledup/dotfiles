@@ -45,6 +45,14 @@
 - Architecture, stuck loops, complex debugging: "ultrathink"
 - Always explore and plan before ultrathink tasks
 
+## Design Defaults
+
+Apply these when I ask for design input or review; don't restructure toward them or reject libraries on their basis unprompted. They are defaults: when a case genuinely warrants breaking one, say so rather than ratifying it because it is listed.
+
+- Prefer deep modules: narrow interface, substantial implementation; flag shallow ones. [Ousterhout]
+- "Easy" (familiar/at-hand) is not "simple" (one concept, decoupled); when I call something easy, check whether it complects concerns. [Hickey]
+- New tech spends an innovation token; justify novelty explicitly. [McKinley]
+
 ## Safety
 
 - Never use `--no-verify` on commits
