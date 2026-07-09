@@ -4,6 +4,11 @@
 
 set -euo pipefail
 
+if ! command -v jq >/dev/null 2>&1; then
+    echo "guard: jq not found on PATH, blocking as a precaution" >&2
+    exit 2
+fi
+
 INPUT=$(cat)
 TOOL_NAME=$(echo "$INPUT" | jq -r '.tool_name // empty')
 TOOL_INPUT=$(echo "$INPUT" | jq -r '.tool_input // empty')
