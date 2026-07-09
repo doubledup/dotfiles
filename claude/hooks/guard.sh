@@ -71,8 +71,18 @@ Bash)
     # to appear in the same clause (no ;&| between them) - otherwise an
     # unrelated redirect elsewhere in a compound command (e.g. `cat
     # .../direnv/allow/hash 2>/dev/null`) would falsely trip this.
+    #
+    # cp/mv/rsync only block when direnv/allow is the LAST token in the
+    # clause (their common destination position) - reading the store as a
+    # source, e.g. `cp .../direnv/allow/hash /tmp/backup`, is not a write and
+    # stays allowed. dd has no positional destination; it blocks specifically
+    # on the `of=` parameter instead. tee/touch have no "source" mode - every
+    # argument to them is a write target - so they still match anywhere in
+    # the clause.
     if [[ "$COMMAND" =~ \>[^\;\&\|]*direnv/allow ]] ||
-        [[ "$COMMAND" =~ (^|[\;\&\|])[[:space:]]*(cp|mv|touch|tee|dd|rsync)[[:space:]]+[^\;\&\|]*direnv/allow ]]; then
+        [[ "$COMMAND" =~ (^|[\;\&\|])[[:space:]]*(touch|tee)[[:space:]]+[^\;\&\|]*direnv/allow ]] ||
+        [[ "$COMMAND" =~ (^|[\;\&\|])[[:space:]]*(cp|mv|rsync)[[:space:]]+[^\;\&\|]*direnv/allow[^\;\&\|[:space:]]*[[:space:]]*($|[\;\&\|]) ]] ||
+        [[ "$COMMAND" =~ (^|[\;\&\|])[[:space:]]*dd[[:space:]]+[^\;\&\|]*of=[^\;\&\|[:space:]]*direnv/allow ]]; then
         block "Blocked: writing to direnv's allow/ trust store is not allowed."
     fi
     ;;
