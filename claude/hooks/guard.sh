@@ -32,9 +32,11 @@ Bash)
     # Not exhaustive - covers the realistic/common cases: -C <path>,
     # -c <key=val>, --git-dir=<path>, --work-tree=<path>, --namespace=<path>,
     # --no-pager, --paginate, -p, --bare.
-    # Known gap: option values containing shell-quoted spaces (e.g.
-    # `-c "user.name=John Doe"`) are not matched, since each alternative
-    # below only spans a single whitespace-delimited token.
+    # Known gap: a global-option value containing shell-quoted spaces (e.g.
+    # `-c "user.name=John Doe" push`) is not matched, since each alternative
+    # below only spans a single whitespace-delimited token - this lets the
+    # push/reset --hard/checkout ./restore ./clean check that follows it
+    # silently not fire.
     GIT_GLOBAL_OPT='(-C [^ ]+|-c [^ ]+|--git-dir=[^ ]+|--work-tree=[^ ]+|--namespace=[^ ]+|--no-pager|--paginate|-p|--bare)'
 
     # Block all git push (pushing is user-only); covers force pushes too.
