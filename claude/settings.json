@@ -50,6 +50,8 @@
       "Read(**/.ssh/**)",
       "Read(**/.aws/**)",
       "Read(**/.git/**)",
+      "Write(**/.local/share/direnv/allow/**)",
+      "Edit(**/.local/share/direnv/allow/**)",
       "Bash(sudo:*)",
       "Bash(rm -rf:*)",
       "Bash(direnv allow:*)",

@@ -58,6 +58,18 @@ Bash)
     if [[ "$COMMAND" =~ git(\ +$GIT_GLOBAL_OPT)*\ clean(\ |$) ]]; then
         block "Blocked: git clean is not allowed."
     fi
+
+    # Block writes to direnv's trust-hash store (~/.local/share/direnv/allow/
+    # by default, or $XDG_DATA_HOME/direnv/allow). Forging a hash there grants
+    # trust to an .envrc without going through the denied direnv
+    # allow/permit/grant/edit commands. Requires the write token and the path
+    # to appear in the same clause (no ;&| between them) - otherwise an
+    # unrelated redirect elsewhere in a compound command (e.g. `cat
+    # .../direnv/allow/hash 2>/dev/null`) would falsely trip this.
+    if [[ "$COMMAND" =~ \>[^\;\&\|]*direnv/allow ]] ||
+        [[ "$COMMAND" =~ (^|[\;\&\|])[[:space:]]*(cp|mv|touch|tee|dd|rsync)[[:space:]]+[^\;\&\|]*direnv/allow ]]; then
+        block "Blocked: writing to direnv's allow/ trust store is not allowed."
+    fi
     ;;
 
 Read | Write | Edit)
