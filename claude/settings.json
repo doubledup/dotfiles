@@ -75,6 +75,7 @@
     "ask": [
       "Bash(git commit:*)",
       "Bash(git -C * commit:*)",
+      "Bash(gh pr create:*)",
       "WebFetch",
       "WebSearch"
     ],
