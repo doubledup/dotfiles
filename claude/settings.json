@@ -20,7 +20,7 @@
       "Bash(git -C * show:*)",
       "Bash(git merge-base:*)",
       "Bash(git -C * merge-base:*)",
-      "Bash(git symbolic-ref:--short HEAD)",
+      "Bash(git symbolic-ref --short HEAD)",
       "Bash(git -C * symbolic-ref --short HEAD)",
       "Bash(git log:*)",
       "Bash(git -C * log:*)",
