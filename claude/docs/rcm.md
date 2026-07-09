@@ -1,7 +1,8 @@
 # rcm Command Reference
 
-General command reference for the rcm dotfile manager (distilled from `rcm(7)` /
-`rcrc(5)`). This repo's own mappings, tags, `EXCLUDES`, and update workflow live in the
+General command reference for the rcm dotfile manager (distilled from the man pages:
+`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1)`, `lsrc(1)`, `rcrc(5)`). This repo's own
+mappings, tags, `EXCLUDES`, and update workflow live in the
 repo `CLAUDE.md` (`## rcm Behavior`) and the `justfile` (`sync`); this doc is the general
 command cheat-sheet and does not duplicate them.
 
@@ -26,8 +27,7 @@ rcdn -v              # remove the symlinks rcm created
 - Source lives in `~/.dotfiles` by default (override with `-d` or `DOTFILES_DIRS`).
 - Destinations are dot-prefixed: `zshrc` -> `~/.zshrc`. Files/dirs in `UNDOTTED` (or via
   `-U`) skip the dot: `bin` -> `~/bin`.
-- Tags are `tag-<name>/` subdirs, included with `-t <name>` (or `TAGS`). This repo uses
-  `tag-mac/` and `tag-linux/`.
+- Tags are `tag-<name>/` subdirs, included with `-t <name>` (or `TAGS`).
 - Multiple source dirs (`-d a -d b`) are processed in order; on overlap the **first**
   match wins.
 - Host-specific files: `mkrc -o` (keyed by hostname), `-B <host>` to override.
@@ -39,9 +39,8 @@ rcdn -v              # remove the symlinks rcm created
   `claude/docs/rcm.md` links per-file to `~/.claude/docs/rcm.md`.
 - `SYMLINK_DIRS` (in `rcrc(5)`) makes matching directories symlinked **as a whole**
   instead of descended.
-- Source files whose names begin with a dot are **skipped** by rcm. This is why this
-  repo stores such files undotted (e.g. `foo.json`) and adds a repo symlink
-  `.foo.json -> foo.json`.
+- Source files whose names begin with a dot are **skipped** by rcm. (This repo's
+  dotted-file workaround lives in `CLAUDE.md` `## rcm Behavior`.)
 
 ## Gotchas
 
