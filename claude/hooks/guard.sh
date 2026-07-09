@@ -27,23 +27,33 @@ Bash)
         block "Blocked: rm -rf is not allowed."
     fi
 
+    # Tolerate common git global options appearing between `git` and the
+    # subcommand in the blocklist checks below (e.g. `git -C <path> push`).
+    # Not exhaustive - covers the realistic/common cases: -C <path>,
+    # -c <key=val>, --git-dir=<path>, --work-tree=<path>, --namespace=<path>,
+    # --no-pager, --paginate, -p, --bare.
+    # Known gap: option values containing shell-quoted spaces (e.g.
+    # `-c "user.name=John Doe"`) are not matched, since each alternative
+    # below only spans a single whitespace-delimited token.
+    GIT_GLOBAL_OPT='(-C [^ ]+|-c [^ ]+|--git-dir=[^ ]+|--work-tree=[^ ]+|--namespace=[^ ]+|--no-pager|--paginate|-p|--bare)'
+
     # Block all git push (pushing is user-only); covers force pushes too.
     # Anchored to command boundaries like the sudo/rm rules to avoid substring
     # false positives (e.g. rg "git push", git commit -m "...git push...").
-    if [[ "$COMMAND" =~ (^|[;&|])\ *git\ +push(\ |$) ]]; then
+    if [[ "$COMMAND" =~ (^|[;&|])\ *git(\ +$GIT_GLOBAL_OPT)*\ +push(\ |$) ]]; then
         block "Blocked: pushing is user-only. Run the push yourself."
     fi
-    if [[ "$COMMAND" =~ git\ reset\ --hard ]]; then
+    if [[ "$COMMAND" =~ git(\ +$GIT_GLOBAL_OPT)*\ reset\ --hard ]]; then
         block "Blocked: git reset --hard is not allowed."
     fi
     # Match "git checkout ." and "git checkout -- ." but not "git checkout .gitignore"
-    if [[ "$COMMAND" =~ git\ checkout\ (--\ )?\.(\ |$) ]]; then
+    if [[ "$COMMAND" =~ git(\ +$GIT_GLOBAL_OPT)*\ checkout\ (--\ )?\.(\ |$) ]]; then
         block "Blocked: git checkout . is not allowed."
     fi
-    if [[ "$COMMAND" =~ git\ restore\ (--\ )?\.(\ |$) ]]; then
+    if [[ "$COMMAND" =~ git(\ +$GIT_GLOBAL_OPT)*\ restore\ (--\ )?\.(\ |$) ]]; then
         block "Blocked: git restore . is not allowed."
     fi
-    if [[ "$COMMAND" =~ git\ clean(\ |$) ]]; then
+    if [[ "$COMMAND" =~ git(\ +$GIT_GLOBAL_OPT)*\ clean(\ |$) ]]; then
         block "Blocked: git clean is not allowed."
     fi
     ;;
