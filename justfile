@@ -25,8 +25,13 @@ lint:
 # Run format check and lint
 check: fmt-check lint
 
+# Test the PreToolUse guard hook (destructive-command confirmation)
+test-guard:
+    @echo "Testing guard hook..."
+    bash rcignore/test_guard.sh
+
 # Test that configs load without errors
-test:
+test: test-guard
     @echo "Testing nvim plugins..."
     nvim --headless +"luafile rcignore/test_plugins.lua"
     @echo "Testing fish config..."
