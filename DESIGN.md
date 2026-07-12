@@ -106,3 +106,19 @@ Key technical choices and their rationale:
 - Keeps home directory clean
 - Better organization than scattered dotfiles
 - Most tools now support ~/.config
+
+**claude-permissions skill:**
+
+- A focused, advisory linter for the Claude Code permission triangle (CLAUDE.md intent,
+  settings.json allow/ask/deny, and the guard hooks), living at
+  `claude/skills/claude-permissions/`
+- Belt-and-suspenders drift (a policy enforced in one layer but not the others) is a distinct,
+  checkable failure mode that the general config-improvement runbook does not target; this skill
+  audits it against principle invariants and guides adding new policies across layers
+- Advisory only (proposes diffs; never edits or commits), so every change still passes through
+  the normal plan-approve flow
+- Standing policy it encodes: **security-related guardrails get belt-and-suspenders across all
+  three layers, and this trumps CLAUDE.md minimalism (for now)**; non-security rules follow the
+  minimalism default (CLAUDE.md carries principles, not every mechanical rule)
+- Alternative considered: a declarative policy-registry file (rejected: another artifact to keep
+  current, against the minimalism principle; invariants derive intent from the live config)
