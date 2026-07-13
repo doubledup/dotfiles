@@ -12,6 +12,8 @@
       "Bash(fd:*)",
       "Bash(which:*)",
       "Bash(date)",
+      "Bash(git commit:*)",
+      "Bash(git -C * commit:*)",
       "Bash(git diff:*)",
       "Bash(git -C * diff:*)",
       "Bash(git rev-parse:*)",
@@ -75,8 +77,6 @@
       "Bash(git -C * clean *)"
     ],
     "ask": [
-      "Bash(git commit:*)",
-      "Bash(git -C * commit:*)",
       "Bash(gh pr create:*)",
       "Bash(mv:*)",
       "Bash(cp:*)",
