@@ -41,7 +41,10 @@
       "Bash(claude doctor)",
       "Bash(cat:*)",
       "Bash(tree:*)",
-      "Bash(tokei:*)"
+      "Bash(tokei:*)",
+      "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:docs.claude.com)",
+      "WebFetch(domain:docs.anthropic.com)"
     ],
     "deny": [
       "Read(**/.env)",
@@ -83,7 +86,6 @@
       "Bash(rsync:*)",
       "Bash(dd:*)",
       "Bash(rm:*)",
-      "WebFetch",
       "WebSearch",
       "mcp__claude_ai_Atlassian__editJiraIssue",
       "mcp__claude_ai_Atlassian__createJiraIssue",
