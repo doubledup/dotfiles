@@ -27,6 +27,8 @@
 
 ## High impact
 
+- Claude Code: investigate adversarial verification (multiple agents trying to refute a finding), multi-modal search sweeps, judge panels, and loop-until-dry (this might already be here) for Claude Config, vs ultra code
+- Shortcut (fish or karabiner) for opening Obsidian notes (especially todo/daily note; vault path configurable per machine) and dotfiles BACKLOG.md, for quick capture of things to consider later
 - Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
 - Claude Code: update `/feature` command to integrate with `execution.md`. Phase 3 lacks commit discipline and rollback protocol; Phase 4 has a conflicting 3-cycle iteration limit (execution.md uses 6).
 - Review lazy nvim docs against our practices. Create backlog items for any misalignment.
