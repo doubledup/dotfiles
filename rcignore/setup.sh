@@ -27,6 +27,9 @@ if [ "$os_name" = "Darwin" ]; then
     printf '%bInstalling Homebrew packages...%b\n' "$blue" "$endcolor"
     brew bundle install --file "$HOME"/.dotfiles/rcignore/Brewfile
 
+    printf '%bInstalling Ghostty terminfo override...%b\n' "$blue" "$endcolor"
+    "$HOME"/.dotfiles/scripts/install-terminfo
+
     printf '%bSymlinking dotfiles...%b\n' "$blue" "$endcolor"
     RCRC="$HOME"/.dotfiles/rcrc rcup -t mac
 

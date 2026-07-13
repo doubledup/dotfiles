@@ -11,6 +11,16 @@ abbr vg 'NVIM_APPNAME=nvim-golf nvim'
 abbr nvim! 'nvim -u NONE'
 abbr nv neovide
 
+# Ghostty sets $TERMINFO (an exclusive search path) rather than
+# $TERMINFO_DIRS (an additive one), which means ~/.terminfo is never
+# consulted and our softened-bell-flash override there is silently
+# ignored. Fold it into TERMINFO_DIRS so ~/.terminfo wins, falling back to
+# Ghostty's own terminfo for anything ~/.terminfo doesn't have.
+if set -q TERMINFO
+    set -x TERMINFO_DIRS "$TERMINFO:$TERMINFO_DIRS"
+    set -e TERMINFO
+end
+
 # less
 # -N: show line numbers
 # -Q: keep less quiet, so the terminal bell is never rung. Use a visual bell if it exists.

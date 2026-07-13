@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Installs a copy of Ghostty's terminfo entry with a softened bell "flash":
+# instead of a full-screen reverse-video invert, it briefly tints the
+# background to a muted grey via OSC 11/111. Installed to ~/.terminfo, which
+# ncurses searches before Ghostty's own bundled terminfo dir, so it overrides
+# it automatically without changing TERM or TERMINFO_DIRS.
+set -euo pipefail
+
+ghostty_terminfo_dir="/Applications/Ghostty.app/Contents/Resources/terminfo"
+flash_color="grey35"
+expected_flash="flash=\\E]11;${flash_color}\\007\$<100/>\\E]111\\007,"
+
+if [ ! -d "$ghostty_terminfo_dir" ]; then
+    echo "Ghostty terminfo not found at $ghostty_terminfo_dir, skipping" >&2
+    exit 0
+fi
+
+terminfo_src=$(infocmp -A "$ghostty_terminfo_dir" -x -1 xterm-ghostty |
+    sed -E "s|(flash=)\\\\E\\[\\?5h\\\$<100/>\\\\E\\[\\?5l,|\\1\\\\E]11;${flash_color}\\\\007\$<100/>\\\\E]111\\\\007,|")
+
+if ! grep -qF -- "$expected_flash" <<<"$terminfo_src"; then
+    echo "xterm-ghostty's flash capability didn't match the expected format; terminfo not installed" >&2
+    exit 1
+fi
+
+if ! tic_output=$(tic -x -o ~/.terminfo - <<<"$terminfo_src" 2>&1); then
+    echo "$tic_output" >&2
+    exit 1
+fi
+
+echo "Installed softened-flash xterm-ghostty terminfo to ~/.terminfo"

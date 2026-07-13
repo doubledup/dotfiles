@@ -77,6 +77,9 @@ update:
     @echo 'softwareupdate:'
     sudo softwareupdate -ir
 
+    @echo 'terminfo:'
+    just terminfo
+
     @echo 'test:'
     just test
 
@@ -87,11 +90,16 @@ sync:
     RCRC=~/.dotfiles/rcrc rcup -t mac
     brew bundle --no-upgrade --global
     nvim -c "lua require('lazy').restore()"
+    just terminfo
     just brew-cleanup
 
 # Detect and triage brew packages not tracked in Brewfile
 brew-cleanup:
     ./scripts/brew-cleanup
+
+# Install a Ghostty terminfo override that softens the bell flash to grey
+terminfo:
+    ./scripts/install-terminfo
 
 # Find broken symlinks in home directory (use --remove to delete them)
 broken-links *args:
