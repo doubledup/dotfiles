@@ -7,6 +7,7 @@
 - Imperative mood, sentence case, no period (e.g. "Add feature command")
 - Title: 54 characters max
 - Body: omit unless the diff needs context; when used, 1-2 lines on the why, wrapped at 72 characters
+- When a body is used, write it per the voice in `~/.claude/docs/david-style.md`
 - No attribution lines (no Co-Authored-By)
 - Start with a verb: Add, Remove, Bump, Revise, Clean up, Fix, Move, Set up, Update
 - Formatting-only commits: "fmt"

@@ -57,13 +57,15 @@ Apply these when I ask for design input or review; don't restructure toward them
 
 - Never use `--no-verify` on commits
 - Never commit `.env`, `.envrc`, secrets, or credentials
+- Never export, print, or write cloud credentials to environment variables or files. No `aws configure export-credentials`, no `eval "$(... export-credentials ...)"`, no setting `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`AWS_SESSION_TOKEN`. To make signed requests, sign in-process with the named profile (e.g. botocore `Session(profile_name=...)`), which resolves SSO without materializing secrets
 - Verify no secrets in diffs before committing
 - Auto-allow only read-only Bash operations
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
-## PR Communications
+## Authored Voice
 
-- Use the pr-comms output style (`~/.claude/output-styles/pr-comms.md`) for all PR descriptions and review comments
+- For Slack messages, PR descriptions/comments, git commit messages, and Jira comments, calibrate tone, register, and directness per `~/.claude/docs/david-style.md`.
+- Use the pr-comms output style (`~/.claude/output-styles/pr-comms.md`) for PR-specific formatting (review tags, template structure).
 
 ## Persistence
 
