@@ -4,13 +4,7 @@ Dotfiles managed with rcm. See @DESIGN.md for architectural decisions.
 
 ## rcm Behavior
 
-- `config/` -> `~/.config/`, root files -> `~/.` prefixed
-- `tag-mac/` and `tag-linux/` for OS-specific overrides
-- Files in EXCLUDES (rcrc) are not symlinked
-- IMPORTANT: rcm ignores dotfiles in subdirectories
-    - Workaround: store as `foo.json`, create repo symlink `.foo.json -> foo.json`
-- `claude/` -> `~/.claude/` (rcm-managed, version-controlled settings/commands/agents)
-- `.claude/` (repo root) -> project-level config (`settings.local.json`), not managed by rcm
+See `claude/docs/rcm.md` for how this repo uses rcm (directory model, tags, excludes, update workflow).
 
 ## Conventions
 

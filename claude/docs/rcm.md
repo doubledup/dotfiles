@@ -1,57 +1,86 @@
-# rcm Command Reference
+# rcm in this repo
 
-General command reference for the rcm dotfile manager (distilled from the man pages:
-`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1)`, `lsrc(1)`, `rcrc(5)`). This repo's own
-mappings, tags, `EXCLUDES`, and update workflow live in the
-repo `CLAUDE.md` (`## rcm Behavior`) and the `justfile` (`sync`); this doc is the general
-command cheat-sheet and does not duplicate them.
-
-## Commands
-
-```bash
-lsrc                 # dry-run: list every file rcm would manage (run before rcup)
-mkrc ~/.tigrc        # move a file into the dotfiles dir and replace it with a symlink
-rcup -v              # sync $HOME with the dotfiles dir (create/update symlinks)
-rcdn -v              # remove the symlinks rcm created
-```
-
-- `mkrc` flags: `-t <tag>` (into `tag-<tag>/`), `-o` (host-specific, by hostname),
-  `-B <host>` (override the hostname), `-U` (undotted: no leading dot).
-- `rcup` flags: `-v` (verbose), `-t <tag>` (include a tag), `-d <dir>` (source dir,
-  repeatable), `-x <pattern>` (exclude), `-B <host>` (hostname), `-g` (print a portable
-  install script to stdout instead of running).
-- `rcdn` flags: `-v` (verbose).
+How this repo (`~/.dotfiles`) uses the rcm dotfile manager: its directory model,
+tags, excludes, and update workflow. Command/flag syntax is included where this repo
+actually relies on it; for anything not covered here, consult the man pages
+(`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1)`, `lsrc(1)`, `rcrc(5)`).
 
 ## Directory model
 
-- Source lives in `~/.dotfiles` by default (override with `-d` or `DOTFILES_DIRS`).
-- Destinations are dot-prefixed: `zshrc` -> `~/.zshrc`. Files/dirs in `UNDOTTED` (or via
-  `-U`) skip the dot: `bin` -> `~/bin`.
-- Tags are `tag-<name>/` subdirs, included with `-t <name>` (or `TAGS`).
-- Multiple source dirs (`-d a -d b`) are processed in order; on overlap the **first**
-  match wins.
-- Host-specific files: `mkrc -o` (keyed by hostname), `-B <host>` to override.
+- `config/` -> `~/.config/`, root files -> `~/.`-prefixed (e.g. `zshrc` -> `~/.zshrc`,
+  `gitconfig` -> `~/.gitconfig`).
+- `claude/` -> `~/.claude/` (rcm-managed, version-controlled Claude Code
+  settings/commands/agents/rules). The repo-root `.claude/` (`settings.json`,
+  `hooks/`, `rules/`) is a separate, non-rcm-managed directory for project-local
+  config.
+- Other top-level dirs map the same way: `codex/` -> `~/.codex/`, `local/` ->
+  `~/.local/`, `ssh/` -> `~/.ssh/`. `Library/` is a likely exception (macOS expects
+  `~/Library`, not `~/.Library`); unconfirmed how it actually resolves, worth
+  checking before relying on it.
+- `tag-mac/` and `tag-linux/` hold OS-specific overrides, included via `rcup -t <tag>`.
+  `just sync` always passes `-t mac`; there is currently no equivalent automated sync
+  path for `tag-linux`, Linux machines need a manual `rcup -t linux`.
+- rcm ignores dotfiles in subdirectories (a nested dotted filename, e.g. a literal
+  `config/nvim/.luarc.json`, would be silently skipped and never symlinked). This
+  repo doesn't currently have a real case needing that worked around: the one
+  repo-root dotted symlink that looks similar, `.luarc.json -> config/nvim/luarc.json`,
+  isn't an rcm propagation trick, it's an unrelated convenience so lua_ls finds a
+  `.luarc.json` when editing this repo itself, `~/.luarc.json` doesn't exist in
+  `$HOME`. If a real nested-dotfile case comes up, keep the source file undotted so
+  rcm's directory descent still picks it up.
 
-## Symlink behavior
+## Excludes and copy-always
 
-- By default rcm **descends into directories and symlinks individual files** (real
-  directories are created; each file is its own symlink). So a nested source path like
-  `claude/docs/rcm.md` links per-file to `~/.claude/docs/rcm.md`.
-- `SYMLINK_DIRS` (in `rcrc(5)`) makes matching directories symlinked **as a whole**
-  instead of descended.
-- Source files whose names begin with a dot are **skipped** by rcm. (This repo's
-  dotted-file workaround lives in `CLAUDE.md` `## rcm Behavior`.)
+- `EXCLUDES` (in `rcrc`) lists repo-management files that should never be symlinked
+  into `$HOME` (docs, the justfile, lint configs, etc.); see `rcrc` for the current
+  list rather than duplicating it here, it changes as the repo grows.
+- `COPY_ALWAYS` (in `rcrc`) currently holds `config/karabiner/karabiner.json`, copied
+  into place instead of symlinked. Likely because Karabiner-Elements rewrites its
+  config file in place rather than editing through a symlink; a symlink there would
+  risk being replaced outright.
+
+## Update workflow (`just sync`)
+
+```bash
+rcdn -t mac                      # remove existing rcm-managed symlinks (mac tag)
+git pull                         # bring in the latest repo changes
+RCRC=~/.dotfiles/rcrc rcup -t mac  # re-link with the mac tag
+brew bundle --no-upgrade --global
+nvim -c "lua require('lazy').restore()"
+just brew-cleanup                # triage brew packages not tracked in Brewfile
+```
+
+- The explicit `RCRC=~/.dotfiles/rcrc` on the `rcup` step is required: `rcrc` itself
+  is a normal rcm-managed root file (symlinked to `~/.rcrc`), so the preceding `rcdn`
+  removes `~/.rcrc` along with everything else. Without the override, the following
+  `rcup` would have no `rcrc` to read.
+- `just broken-links` (`./scripts/find-broken-symlinks`, `--remove` to delete) finds
+  dangling symlinks left in `$HOME`, e.g. after removing a file this repo used to
+  manage.
+- Sanity-check before a broad relink: `lsrc` dry-runs what rcm would manage without
+  changing anything.
+
+## Command reference used here
+
+```bash
+lsrc                 # dry-run: list every file rcm would manage
+mkrc ~/.tigrc         # move a file into the dotfiles dir and replace it with a symlink
+mkrc -t mac ~/.zshrc.local   # same, but into tag-mac/ for an OS-specific override
+rcup -v -t mac        # sync $HOME with the dotfiles dir (create/update symlinks)
+rcdn -v -t mac        # remove the symlinks rcm created
+```
+
+- `mkrc -t <tag>` is this repo's only `mkrc` flag in regular use (OS-specific files
+  via `tag-mac`/`tag-linux`); host-specific (`-o`/`-B`) and undotted (`-U`) mkrc modes
+  aren't used here.
+- `rcup`/`rcdn` are always run with `-t mac` (or `-t linux`) to include the relevant
+  tag directory; `-v` for verbose output when troubleshooting.
+- `SYMLINK_DIRS`, `UNDOTTED`, and `HOSTNAME` (all `rcrc(5)` variables) aren't set in
+  this repo's `rcrc` and don't apply to anything here.
 
 ## Gotchas
 
-- `install` / `Makefile` / `Rakefile` in the dotfiles dir become stray `~/.install` etc.
-  symlinks; exclude them (`rcup -x install -x Makefile -x Rakefile`, or `EXCLUDES`).
-- Dotted source filenames are silently skipped (nothing happens for them).
-- macOS hostnames are unstable (can change on a DHCP handshake); set `HOSTNAME` in
-  `rcrc` so host-specific files resolve.
-
-## Config file
-
-Variables live in `rcrc(5)` (POSIX shell, sourced by every rcm command), not `rcm(7)`:
-`DOTFILES_DIRS`, `TAGS`, `EXCLUDES`, `UNDOTTED`, `SYMLINK_DIRS`, `COPY_ALWAYS`,
-`HOSTNAME`.
+- `install` / `Makefile` / `Rakefile` at the repo root would become stray `~/.install`
+  etc. symlinks if ever added; exclude them via `EXCLUDES` in `rcrc` before adding one.
+- Dotted source filenames are silently skipped by rcm anywhere but the repo root, see
+  "Directory model" above if a nested dotfile ever needs to reach `$HOME`.
