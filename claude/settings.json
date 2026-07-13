@@ -54,6 +54,8 @@
       "Edit(**/.local/share/direnv/allow/**)",
       "Bash(sudo:*)",
       "Bash(rm -rf:*)",
+      "Bash(aws configure export-credentials:*)",
+      "Bash(aws * export-credentials:*)",
       "Bash(direnv allow:*)",
       "Bash(direnv permit:*)",
       "Bash(direnv grant:*)",
