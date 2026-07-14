@@ -60,6 +60,7 @@ Apply these when I ask for design input or review; don't restructure toward them
 - Never export, print, or write cloud credentials to environment variables or files. No `aws configure export-credentials`, no `eval "$(... export-credentials ...)"`, no setting `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`AWS_SESSION_TOKEN`. To make signed requests, sign in-process with the named profile (e.g. botocore `Session(profile_name=...)`), which resolves SSO without materializing secrets
 - Verify no secrets in diffs before committing
 - Auto-allow only read-only Bash operations
+- Bash runs in a strict OS sandbox; deny rules bind and home/fixed-dir secret reads (`~/.env`, `~/.aws`, `~/.ssh`) are blocked. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`, never via `dangerouslyDisableSandbox`
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
 ## Authored Voice

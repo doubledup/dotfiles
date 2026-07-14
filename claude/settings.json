@@ -104,6 +104,34 @@
     ],
     "defaultMode": "plan"
   },
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "autoAllowBashIfSandboxed": false,
+    "excludedCommands": ["gh *", "rcup *", "rcdn *", "mkrc *", "git commit *"],
+    "filesystem": {
+      "allowWrite": [
+        "~/.local/share/nvim",
+        "~/.local/state/nvim",
+        "~/.cache/nvim"
+      ],
+      "denyRead": ["~/.env", "~/.envrc"]
+    },
+    "network": {
+      "allowedDomains": ["github.com", "objects.githubusercontent.com"]
+    },
+    "credentials": {
+      "files": [
+        { "path": "~/.aws", "mode": "deny" },
+        { "path": "~/.ssh", "mode": "deny" }
+      ],
+      "envVars": [
+        { "name": "ANTHROPIC_API_KEY", "mode": "deny" },
+        { "name": "GITHUB_TOKEN", "mode": "deny" }
+      ]
+    }
+  },
   "model": "opus",
   "hooks": {
     "PreToolUse": [
