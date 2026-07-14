@@ -122,3 +122,33 @@ Key technical choices and their rationale:
   minimalism default (CLAUDE.md carries principles, not every mechanical rule)
 - Alternative considered: a declarative policy-registry file (rejected: another artifact to keep
   current, against the minimalism principle; invariants derive intent from the live config)
+
+**Bash sandbox (macOS Seatbelt):**
+
+- Claude Code's OS-level Bash sandbox is enabled strictly (`enabled`, `failIfUnavailable: true`,
+  `allowUnsandboxedCommands: false`) so `deny` rules actually bind Bash - the third enforcement
+  leg alongside settings denies and the guard hook. Without it, a bare `deny` binds only built-in
+  tools, so `cat ~/.env` via Bash bypasses the secret Read-denies entirely
+- Lives as a single block in user scope (`claude/settings.json`), not split across user +
+  project scope: splitting would rely on the `sandbox` object deep-merging across scopes
+  (unconfirmed); if merging is object-replace, this repo's project scope would silently drop
+  `enabled`/`denyRead` and disable the sandbox in the primary repo
+- Tools that need broad `$HOME` writes are `excludedCommands` (run through the normal permission
+  flow) rather than granted broad `filesystem.allowWrite`: `rcup`/`rcdn`/`mkrc` (symlink `$HOME`),
+  `gh` (Go-TLS fails under Seatbelt), and `git commit` (GPG signing needs the gpg-agent Unix
+  socket and `~/.gnupg`, both outside the sandbox). Broad home-write grants are a
+  privilege-escalation surface (shell configs, `$PATH` dirs), so exclusion is preferred over
+  widening the write allowlist.
+  `brew`/`rustup`/`cargo`/`mas` are deliberately NOT excluded - they are maintenance-only and
+  fail-closed under the sandbox by design (run via `!`); excluding them would run build tools
+  (e.g. `cargo build.rs`) fully unsandboxed in every repo for no benefit here
+- Accepted tradeoffs: `network.allowedDomains` grants `github.com` for `just test`'s plugin
+  fetches, a data-exfiltration surface the docs flag - acceptable because `git push` is denied and
+  this is a solo machine; `filesystem.allowWrite` for the nvim data dirs applies globally (the
+  user's own editor state); the config deploys via rcm to Linux too, where the sandbox backend
+  (bubblewrap + socat) is a prerequisite since `failIfUnavailable: true` hard-fails without it
+- Residual gap (tracked in BACKLOG): the sandbox's prefix `denyRead` cannot express arbitrary-depth
+  repo-relative secrets, so `cat ./.env` / `cat secrets/x` stay open until the guard hook gains a
+  Bash-read block. Alternative considered: `autoAllowBashIfSandboxed: true` for the documented
+  ~84% prompt reduction (deferred: kept `false` so the existing permission-prompt UX is unchanged
+  and the sandbox is purely additive enforcement for now)
