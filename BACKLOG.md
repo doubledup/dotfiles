@@ -5,6 +5,7 @@
 ## Low-hanging fruit
 
 - Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
+- Claude Code: add a Bash-read block to `claude/hooks/guard.sh` for secret paths (`*/.env`, `*/.envrc`, `*/secrets/*`) covering `cat`/`less`/`head`/`tail`/`cp` etc. Closes the residual half of audit finding #1: the sandbox's prefix `denyRead` blocks home/fixed-dir secrets (`~/.env`, `~/.aws`, `~/.ssh`) but cannot express arbitrary-depth repo-relative secrets, so `cat ./.env` / `cat sub/secrets/x` still run. Mirror the existing `Read|Write|Edit`-branch secret check into the `Bash)` branch and add a `test_guard.sh` block case (invariant 2)
 - Claude Code: permit `find` without destructive flags in permissions, but without `-exec` or other destructive flags/operations
 - Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
 - Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
