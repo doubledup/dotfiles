@@ -134,13 +134,13 @@ Bash)
 
     if [[ "$is_compound" == true ]]; then
         if [[ "$NORM" =~ (^|[;&|(){}]|[[:space:]]-exec(dir)?)[[:space:]]*(${LEAD}[[:space:]]+)*(/[^[:space:]]*/)?(cp|mv|rsync|dd|rm)([[:space:]]|$) ]]; then
-            ask "Confirm destructive file command (mv/cp/rsync/dd/rm): $COMMAND"
+            ask "Confirm destructive file command (mv/cp/rsync/dd/rm) - compound/chained command, can't determine which subcommand owns it: $COMMAND"
         fi
     else
         # rsync/dd/rm always ask regardless of arguments - more destructive
         # / obscure flags than a plain mv/cp, so no narrowing for these.
         if [[ "$NORM" =~ (^|[;&|(){}]|[[:space:]]-exec(dir)?)[[:space:]]*(${LEAD}[[:space:]]+)*(/[^[:space:]]*/)?(rsync|dd|rm)([[:space:]]|$) ]]; then
-            ask "Confirm destructive file command (rsync/dd/rm): $COMMAND"
+            ask "Confirm destructive file command (rsync/dd/rm) - always confirmed, not narrowed: $COMMAND"
         fi
 
         # Plain mv/cp, not compound: skip the ask only when every argument
@@ -156,8 +156,14 @@ Bash)
         # is already accepted); a symlinked-relative-dir escape is accepted
         # too, since rsync/dd/rm above stay fully gated as a backstop for
         # genuinely destructive operations.
+        #
+        # `reason` records which specific check disqualified the exemption,
+        # so the ask message names it - makes a benign false positive (e.g.
+        # a stray disallowed character) easy to eyeball apart from a real
+        # absolute-path/.. escape without re-reading the whole command.
         if [[ "$NORM" =~ (^|[;&|(){}]|[[:space:]]-exec(dir)?)[[:space:]]*(${LEAD}[[:space:]]+)*(/[^[:space:]]*/)?(cp|mv)([[:space:]]|$) ]]; then
             exempt=true
+            reason=""
             # set -f: $NORM is unquoted below for plain word-splitting, but
             # without this a glob like `mv *.txt dir/` would also undergo
             # pathname expansion against the cwd while being scanned.
@@ -166,6 +172,7 @@ Bash)
                 case "$tok" in
                 -t | --target-directory | --target-directory=*)
                     exempt=false
+                    reason="carries a -t/--target-directory token ('$tok')"
                     break
                     ;;
                 esac
@@ -197,18 +204,29 @@ Bash)
                     # bare relative glob (`*.txt`, `sub/*.log`) can only ever
                     # match files already within the cwd - reaching outside it
                     # still requires a leading / or ~, or a .., both of which
-                    # this same case independently rejects below.
-                    case "$tok" in
-                    *[!A-Za-z0-9._/*?-]* | *..* | /* | ~*)
+                    # this same loop independently checks below.
+                    if [[ "$tok" == *..* ]]; then
                         exempt=false
+                        reason="argument '$tok' contains .."
+                        break
+                    fi
+                    case "$tok" in
+                    /* | ~*)
+                        exempt=false
+                        reason="argument '$tok' is an absolute or home-relative path"
                         break
                         ;;
                     esac
+                    if [[ "$tok" =~ ([^A-Za-z0-9._/*?-]) ]]; then
+                        exempt=false
+                        reason="argument '$tok' contains disallowed character '${BASH_REMATCH[1]}'"
+                        break
+                    fi
                 done
             fi
             set +f
             if [[ "$exempt" == false ]]; then
-                ask "Confirm destructive file command (mv/cp): $COMMAND"
+                ask "Confirm destructive file command (mv/cp) - $reason: $COMMAND"
             fi
         fi
     fi
