@@ -81,8 +81,6 @@
     ],
     "ask": [
       "Bash(gh pr create:*)",
-      "Bash(mv:*)",
-      "Bash(cp:*)",
       "Bash(rsync:*)",
       "Bash(dd:*)",
       "Bash(rm:*)",
