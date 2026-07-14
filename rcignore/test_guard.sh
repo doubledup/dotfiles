@@ -10,7 +10,11 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GUARD="$SCRIPT_DIR/../claude/hooks/guard.sh"
 
-errfile="$(mktemp)"
+# Under the Bash sandbox only cwd + $TMPDIR are writable, but macOS mktemp
+# defaults to the confstr temp (/var/folders/.../T) which is outside the
+# sandbox. Point it at $TMPDIR explicitly (with a /tmp fallback) so this works
+# both sandboxed and when run manually.
+errfile="$(mktemp -p "${TMPDIR:-/tmp}")"
 trap 'rm -f "$errfile"' EXIT
 
 fails=0

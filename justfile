@@ -5,21 +5,21 @@ default:
 # Format all known file types
 fmt:
     stylua .
-    find . -name '*.fish' -exec fish_indent --write {} +
-    shfmt --write $(find . -name '*.sh') $(shfmt -f ./scripts)
+    fd -e fish --hidden --exclude .git -X fish_indent --write
+    shfmt --write $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts)
     prettier --write '**/*.json' '**/*.md'
 
 # Check formatting without modifying files
 fmt-check:
     stylua --check .
-    find . -name '*.fish' -exec fish_indent --check {} +
-    shfmt --diff $(find . -name '*.sh') $(shfmt -f ./scripts)
+    fd -e fish --hidden --exclude .git -X fish_indent --check
+    shfmt --diff $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts)
     prettier --check '**/*.json' '**/*.md' >/dev/null
 
 # Run linters
 lint:
-    fish --no-execute $(find . -name '*.fish')
-    shellcheck $(find . -name '*.sh') $(shfmt -f ./scripts)
+    fish --no-execute $(fd -e fish --hidden --exclude .git)
+    shellcheck $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts)
     typos
 
 # Run format check and lint
