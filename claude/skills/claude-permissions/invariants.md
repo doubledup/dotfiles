@@ -30,8 +30,12 @@ control (direnv trust, `--no-verify`, `--dangerously-skip-permissions` bypass).
 | Disposition         | CLAUDE.md                | settings.json | guard.sh       | test       |
 | ------------------- | ------------------------ | ------------- | -------------- | ---------- |
 | forbid (must never) | line if security-related | deny          | block() exit 2 | block case |
-| confirm (ask first) | line if security-related | ask           | ask()          | ask case   |
+| confirm (ask first) | line if security-related | ask           | -              | -          |
 | allow (read-only)   | usually none             | allow         | none           | optional   |
+
+Confirm has no guard.sh leg: the hook is **block-only** by design (it never emits `ask`). Confirms
+live in settings.json `ask` plus the permission classifier, which backstops the forms a glob can't
+match. So a confirm rule gets no hook branch and no `test_guard.sh` case.
 
 Test column: `rcignore/test_guard.sh` feeds only `tool_name:"Bash"`, so a test case exists only
 for Bash-path rules (including guard.sh's Bash-branch secret-read block). Read/Write/Edit-path and
@@ -72,10 +76,12 @@ diffs" (behavioral) is not.
 no `ask`/`allow` where the intent is must-never. Check: cross-reference the allow list against
 hook blocks and `## Safety`. Example: an `allow` rule for a command the guard hook exits 2 on.
 
-**6. Disposition coherence.** forbid => deny + hook `block()`; confirm => ask + hook `ask()`. A
-must-never that is only `ask`, or a confirm that is hard-denied, is a mismatch. Check: for each
-guarded command, compare the settings disposition to the hook's action. Example: mv/cp/rm =
-ask + `ask()` (coherent).
+**6. Disposition coherence.** forbid => deny + hook `block()`; confirm => `ask` in settings.json
+only (the guard hook is block-only and never asks; the classifier backstops the forms a glob
+misses). A must-never that is only `ask`, a confirm that is hard-denied, or any hook `ask()` (which
+no longer exists) is a mismatch. Check: for each guarded command, compare the settings disposition
+to the hook's action. Example: `rm`/`dd`/`rsync` = `ask` in settings.json with no hook leg
+(coherent); sudo/`rm -rf`/destructive git = `deny` + `block()` (coherent).
 
 **7. Sandbox posture.** Report whether `sandbox` is configured with `allowUnsandboxedCommands:
 false` + `failIfUnavailable: true`. If not (current state), invariants 1-2 are load-bearing - the

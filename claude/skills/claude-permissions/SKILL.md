@@ -47,7 +47,7 @@ Audit both; attribute every finding and edit to a scope.
   `~/.claude/*` (those are rcm symlinks into the repo). Find the repo with
   `readlink -f ~/.claude/settings.json`, then read/edit there:
     - `claude/settings.json` (allow/ask/deny, defaultMode, any `sandbox` key)
-    - `claude/hooks/guard.sh` (destructive-cmd + secret-path blocks; the `block()`/`ask()` helpers)
+    - `claude/hooks/guard.sh` (destructive-cmd + secret-path blocks; block-only, the `block()` helper)
     - `claude/hooks/gh-api-readonly.sh` (gh api read-only)
     - `claude/CLAUDE.md` `## Safety`
     - `rcignore/test_guard.sh` (the guard hook's test), run via `just test-guard`
@@ -69,8 +69,8 @@ Audit both; attribute every finding and edit to a scope.
       invariant ID that cites it, so `--no-verify` shows once, not once per invariant.
     - The **sandbox posture** note (invariant 7) and the managed-scope assumption.
 4. Group the first-run security-belt batch **by the CLAUDE.md dimension only**: existing
-   guardrails (sudo, git push, rm -rf, destructive git, mv/cp/rm, direnv, WebFetch/WebSearch) each
-   have a settings.json rule but no CLAUDE.md covering line - report the missing lines as ONE
+   guardrails (sudo, git push, rm -rf, destructive git, rm/dd/rsync, direnv, WebFetch/WebSearch)
+   each have a settings.json rule but no CLAUDE.md covering line - report the missing lines as ONE
    grouped recommendation (a few family lines clear them), not N separate flags. This is
    orthogonal to enforcement-leg gaps: do NOT describe the batch as fully enforced. Some members
    carry separate findings reported via their own invariants - direnv's command denies lack a hook
@@ -89,9 +89,10 @@ Do not edit anything. Hand the report back for the user to act on.
    precedence (no hook for ask-by-design network tools or MCP).
 3. **Propose** coordinated edits as diffs; do not apply:
     - `settings.json`: the allow/ask/deny rule, in the right scope.
-    - `guard.sh`: a `block()` (forbid) or `ask()` (confirm) branch placed after the existing hard
-      blocks, reusing the helpers and the clause-boundary regex style already there. Built-in-tool
-      policies only (a hook does nothing for MCP).
+    - `guard.sh`: a `block()` (forbid) branch placed after the existing hard blocks, reusing the
+      helper and the clause-boundary regex style already there. Built-in-tool policies only (a hook
+      does nothing for MCP). Confirm policies get NO hook branch: the guard is block-only, so put
+      the `ask` in settings.json and let the classifier backstop.
     - `claude/CLAUDE.md` `## Safety`: a one-line intent entry - required if security-related, else
       only if a genuine principle. A covering family line is fine.
     - `rcignore/test_guard.sh`: a matching case (ask/block/allow), but ONLY for Bash-path rules;
