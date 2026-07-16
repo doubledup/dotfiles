@@ -2,7 +2,9 @@
 # Tests for claude/hooks/guard.sh - the PreToolUse destructive-command guard.
 # Feeds synthetic Bash tool-call JSON to the REPO copy of guard.sh (not the
 # deployed ~/.claude symlink, so uncommitted changes are what gets tested) and
-# asserts the decision: ask (prompt), block (hard deny), or allow (pass).
+# asserts the decision: block (hard deny) or allow (pass). The guard is
+# block-only, so no case expects `ask`; the `ask` branch in check() is kept for
+# generality (and to catch a reintroduced hook ask) but is deliberately unused.
 #
 # Run directly or via `just test-guard`. Exits non-zero if any case fails.
 set -uo pipefail
@@ -56,23 +58,26 @@ check() {
     fi
 }
 
-echo "== ask: destructive commands must prompt =="
-check ask "rm f" "rm f"
-check ask "rsync a b" "rsync a b"
-check ask "dd if of" "dd if=a of=b"
-check ask "cd && mv" "cd /tmp && mv a b"
-check ask "/bin/mv" "/bin/mv a b"
-check ask "subshell (mv)" "(mv a b)"
-check ask "brace group" "{ mv a b; }"
-check ask "multiline mv" "$(printf 'echo hi\nmv a b')"
-check ask "for/do rm loop" "for f in *; do rm \$f; done"
-check ask "if/then mv" "if true; then mv a b; fi"
-check ask "xargs rm pipe" "ls | xargs rm"
-check ask "find -exec rm" "find . -exec rm {} \\;"
-check ask "env rm" "env rm f"
+echo "== allow (hook defers): destructive file cmds pass the hook silently =="
+# The guard is block-only now: it no longer asks on mv/cp/rsync/dd/rm. These exit
+# 0 so the settings.json ask rules (Bash(rm:*)/Bash(dd:*)/Bash(rsync:*)) and the
+# permission classifier decide. Asserted so a reintroduced hook ask is caught.
+check allow "rm f" "rm f"
+check allow "rsync a b" "rsync a b"
+check allow "dd if of" "dd if=a of=b"
+check allow "cd && mv" "cd /tmp && mv a b"
+check allow "/bin/mv" "/bin/mv a b"
+check allow "subshell (mv)" "(mv a b)"
+check allow "brace group" "{ mv a b; }"
+check allow "multiline mv" "$(printf 'echo hi\nmv a b')"
+check allow "for/do rm loop" "for f in *; do rm \$f; done"
+check allow "if/then mv" "if true; then mv a b; fi"
+check allow "xargs rm pipe" "ls | xargs rm"
+check allow "find -exec rm" "find . -exec rm {} \\;"
+check allow "env rm" "env rm f"
 # Separated recursive-force flags are NOT hard-denied (only -rf/-fr are); they
-# fall through to ask. Asserted so the accepted gap stays visible.
-check ask "rm -r -f (not denied)" "rm -r -f /tmp/x"
+# fall through to allow (the hook defers; settings.json + classifier decide).
+check allow "rm -r -f (not denied)" "rm -r -f /tmp/x"
 
 echo "== block: hard-denied commands must exit 2 =="
 check block "rm -rf" "rm -rf /tmp/x"
