@@ -95,44 +95,6 @@
     ],
     "defaultMode": "plan"
   },
-  "sandbox": {
-    "enabled": true,
-    "failIfUnavailable": true,
-    "allowUnsandboxedCommands": false,
-    "autoAllowBashIfSandboxed": true,
-    "excludedCommands": [
-      "gh *",
-      "rcup *",
-      "rcdn *",
-      "mkrc *",
-      "git commit *",
-      "git rebase *",
-      "git merge *",
-      "git cherry-pick *",
-      "git revert *"
-    ],
-    "filesystem": {
-      "allowWrite": [
-        "~/.local/share/nvim",
-        "~/.local/state/nvim",
-        "~/.cache/nvim"
-      ],
-      "denyRead": ["~/.env", "~/.envrc"]
-    },
-    "network": {
-      "allowedDomains": ["github.com", "objects.githubusercontent.com"]
-    },
-    "credentials": {
-      "files": [
-        { "path": "~/.aws", "mode": "deny" },
-        { "path": "~/.ssh", "mode": "deny" }
-      ],
-      "envVars": [
-        { "name": "ANTHROPIC_API_KEY", "mode": "deny" },
-        { "name": "GITHUB_TOKEN", "mode": "deny" }
-      ]
-    }
-  },
   "model": "opus",
   "hooks": {
     "PreToolUse": [
@@ -162,6 +124,60 @@
     "jdtls-lsp@claude-plugins-official": true
   },
   "outputStyle": "engineers-answer",
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": [
+        "api.github.com",
+        "github.com",
+        "objects.githubusercontent.com"
+      ]
+    },
+    "filesystem": {
+      "allowWrite": [
+        "~/.local/share/nvim",
+        "~/.local/state/nvim",
+        "~/.cache/nvim"
+      ],
+      "denyRead": ["~/.env", "~/.envrc"]
+    },
+    "credentials": {
+      "files": [
+        {
+          "path": "~/.aws",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.ssh",
+          "mode": "deny"
+        }
+      ],
+      "envVars": [
+        {
+          "name": "ANTHROPIC_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "GITHUB_TOKEN",
+          "mode": "deny"
+        }
+      ]
+    },
+    "excludedCommands": [
+      "gh *",
+      "rcup *",
+      "rcdn *",
+      "mkrc *",
+      "git commit *",
+      "git rebase *",
+      "git merge *",
+      "git cherry-pick *",
+      "git revert *"
+    ]
+  },
   "effortLevel": "xhigh",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false
