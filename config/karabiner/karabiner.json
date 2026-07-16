@@ -114,8 +114,7 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "tab",
-                                        "modifiers": ["left_command"]
+                                        "key_code": "f16"
                                     }
                                 ],
                                 "type": "basic"
@@ -305,30 +304,6 @@
                                     {
                                         "key_code": "m",
                                         "modifiers": "left_control"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "hyper+j to f16 for dictation",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "left_control",
-                                            "left_option",
-                                            "left_command",
-                                            "left_shift"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f16"
                                     }
                                 ],
                                 "type": "basic"
