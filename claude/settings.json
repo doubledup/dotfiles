@@ -109,7 +109,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Read|Write|Edit",
+        "matcher": "Bash|Read|Write|Edit|Grep|Glob",
         "hooks": [
           {
             "type": "command",

@@ -90,22 +90,43 @@ Bash)
     fi
     ;;
 
-Read | Write | Edit)
-    FILE_PATH=$(echo "$TOOL_INPUT" | jq -r '.file_path // empty')
+Read | Write | Edit | Grep | Glob)
+    FILE_PATH=$(echo "$TOOL_INPUT" | jq -r '.file_path // .path // empty')
 
     if [[ -z "$FILE_PATH" ]]; then
         exit 0
     fi
 
-    # Block secrets paths
+    # Read/Write/Edit always receive an absolute, canonicalized file_path.
+    # Grep/Glob's path can be relative (e.g. "secrets") or tilde-prefixed
+    # (e.g. "~/.ssh") and commonly names a directory with no trailing
+    # content, so normalize before matching the patterns below. The tilde
+    # branch pattern is quoted ("~/"*) so it matches the literal characters
+    # "~/" instead of being tilde-expanded itself (an unquoted ~/* pattern
+    # expands to $HOME/* and never matches a literal "~/..." string).
+    # shellcheck disable=SC2088 # intentional: quoting the "~/" case pattern
+    # below keeps it a literal match against $FILE_PATH's contents, not a
+    # tilde expansion.
+    case "$FILE_PATH" in
+    "~/"*) FILE_PATH="$HOME/${FILE_PATH#\~/}" ;;
+    /*) : ;;
+    *) FILE_PATH="$PWD/$FILE_PATH" ;;
+    esac
+
+    # Block secrets paths. The bare-directory alternatives below (no
+    # trailing /*) also broaden the Read/Write/Edit leg slightly: a file
+    # literally named secrets, .ssh, .aws, or .git (e.g. a git
+    # submodule/worktree .git file, which is a regular file) is now blocked
+    # too, not just directories of those names. Intentional defense-in-depth,
+    # not a regression.
     case "$FILE_PATH" in
     */.env | */.env.* | */.envrc | */.envrc.*)
         block "Blocked: access to env/secrets file '$FILE_PATH'."
         ;;
-    */secrets/* | */.ssh/* | */.aws/*)
+    */secrets | */secrets/* | */.ssh | */.ssh/* | */.aws | */.aws/*)
         block "Blocked: access to sensitive path '$FILE_PATH'."
         ;;
-    */.git/*)
+    */.git | */.git/*)
         block "Blocked: access to '$FILE_PATH' inside .git."
         ;;
     esac
