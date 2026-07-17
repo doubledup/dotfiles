@@ -110,17 +110,6 @@
                         "manipulators": [
                             {
                                 "from": {
-                                    "key_code": "non_us_backslash"
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f16"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "from": {
                                     "key_code": "1",
                                     "modifiers": {
                                         "mandatory": ["left_option"]
