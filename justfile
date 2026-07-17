@@ -44,6 +44,9 @@ update:
     brew upgrade
     brew bundle check --global || brew bundle install --global
 
+    @echo 'terminfo:'
+    just terminfo
+
     @echo 'rustup:'
     rustup update
     rustup component add rust-analyzer
@@ -76,9 +79,6 @@ update:
 
     @echo 'softwareupdate:'
     sudo softwareupdate -ir
-
-    @echo 'terminfo:'
-    just terminfo
 
     @echo 'test:'
     just test
