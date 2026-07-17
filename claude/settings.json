@@ -3,53 +3,40 @@
     "commit": "",
     "pr": ""
   },
+  "model": "opus",
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true
+  },
+  "outputStyle": "engineers-answer",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": false,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Read|Write|Edit|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/guard.sh",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/gh-api-readonly.sh"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
-    "allow": [
-      "Bash(ls:*)",
-      "Bash(pwd)",
-      "Bash(wc:*)",
-      "Bash(rg:*)",
-      "Bash(fd:*)",
-      "Bash(which:*)",
-      "Bash(date)",
-      "Bash(git commit:*)",
-      "Bash(git diff:*)",
-      "Bash(git rev-parse:*)",
-      "Bash(git show:*)",
-      "Bash(git merge-base:*)",
-      "Bash(git log:*)",
-      "Bash(git status:*)",
-      "Bash(git check-ignore:*)",
-      "Bash(git ls-files:*)",
-      "Bash(git -C * check-ignore:*)",
-      "Bash(git -C * commit:*)",
-      "Bash(git -C * diff:*)",
-      "Bash(git -C * ls-files:*)",
-      "Bash(git -C * rev-parse:*)",
-      "Bash(git -C * show:*)",
-      "Bash(git -C * merge-base:*)",
-      "Bash(git symbolic-ref --short HEAD)",
-      "Bash(git -C * symbolic-ref --short HEAD)",
-      "Bash(git -C * log:*)",
-      "Bash(git -C * status:*)",
-      "Bash(stylua:*)",
-      "Bash(fish_indent:*)",
-      "Bash(shfmt:*)",
-      "Bash(shellcheck:*)",
-      "Bash(prettier:*)",
-      "Bash(typos:*)",
-      "Bash(yamlfmt:*)",
-      "Bash(yamllint:*)",
-      "Bash(actionlint:*)",
-      "Bash(google-java-format:*)",
-      "Bash(claude doctor)",
-      "Bash(cat:*)",
-      "Bash(tree:*)",
-      "Bash(tokei:*)",
-      "WebFetch(domain:code.claude.com)",
-      "WebFetch(domain:docs.claude.com)",
-      "WebFetch(domain:docs.anthropic.com)"
-    ],
+    "defaultMode": "plan",
     "deny": [
       "Read(**/.env)",
       "Read(**/.env.*)",
@@ -103,37 +90,53 @@
       "mcp__claude_ai_Atlassian__createCompassComponentRelationship",
       "mcp__claude_ai_Atlassian__createCompassCustomFieldDefinition"
     ],
-    "defaultMode": "plan"
-  },
-  "model": "opus",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash|Read|Write|Edit|Grep|Glob",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/guard.sh",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/gh-api-readonly.sh"
-          }
-        ]
-      }
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(pwd)",
+      "Bash(wc:*)",
+      "Bash(rg:*)",
+      "Bash(fd:*)",
+      "Bash(which:*)",
+      "Bash(date)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git show:*)",
+      "Bash(git merge-base:*)",
+      "Bash(git log:*)",
+      "Bash(git status:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git -C * check-ignore:*)",
+      "Bash(git -C * commit:*)",
+      "Bash(git -C * diff:*)",
+      "Bash(git -C * ls-files:*)",
+      "Bash(git -C * rev-parse:*)",
+      "Bash(git -C * show:*)",
+      "Bash(git -C * merge-base:*)",
+      "Bash(git symbolic-ref --short HEAD)",
+      "Bash(git -C * symbolic-ref --short HEAD)",
+      "Bash(git -C * log:*)",
+      "Bash(git -C * status:*)",
+      "Bash(stylua:*)",
+      "Bash(fish_indent:*)",
+      "Bash(shfmt:*)",
+      "Bash(shellcheck:*)",
+      "Bash(prettier:*)",
+      "Bash(typos:*)",
+      "Bash(yamlfmt:*)",
+      "Bash(yamllint:*)",
+      "Bash(actionlint:*)",
+      "Bash(google-java-format:*)",
+      "Bash(claude doctor)",
+      "Bash(cat:*)",
+      "Bash(tree:*)",
+      "Bash(tokei:*)",
+      "WebFetch(domain:code.claude.com)",
+      "WebFetch(domain:docs.claude.com)",
+      "WebFetch(domain:docs.anthropic.com)"
     ]
   },
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true,
-    "jdtls-lsp@claude-plugins-official": true
-  },
-  "outputStyle": "engineers-answer",
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
@@ -187,8 +190,5 @@
       "git cherry-pick *",
       "git revert *"
     ]
-  },
-  "effortLevel": "xhigh",
-  "tui": "fullscreen",
-  "skipWorkflowUsageWarning": false
+  }
 }
