@@ -15,7 +15,7 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash|Read|Write|Edit|Grep|Glob",
+        "matcher": "Read|Write|Edit|Grep|Glob",
         "hooks": [
           {
             "type": "command",
@@ -46,16 +46,14 @@
       "Read(**/.ssh/**)",
       "Read(**/.aws/**)",
       "Read(**/.git/**)",
+      "Read(**/.config/gh/**)",
+      "Read(**/.git-credentials)",
       "Edit(**/.local/share/direnv/allow/**)",
       "Bash(sudo:*)",
       "Bash(rm -rf:*)",
       "Bash(aws configure export-credentials:*)",
       "Bash(aws * export-credentials:*)",
-      "Bash(direnv allow:*)",
-      "Bash(direnv permit:*)",
-      "Bash(direnv grant:*)",
-      "Bash(direnv edit:*)",
-      "Bash(direnv exec:*)",
+      "Bash(direnv:*)",
       "Bash(git checkout .)",
       "Bash(git -C * checkout .)",
       "Bash(git checkout -- .)",
@@ -64,10 +62,27 @@
       "Bash(git -C * clean:*)",
       "Bash(git push:*)",
       "Bash(git -C * push:*)",
-      "Bash(git reset --hard *)",
-      "Bash(git -C * reset --hard *)",
+      "Bash(git reset --hard:*)",
+      "Bash(git -C * reset --hard:*)",
       "Bash(git restore .)",
-      "Bash(git -C * restore .)"
+      "Bash(git -C * restore .)",
+      "Bash(*.env*)",
+      "Bash(*.envrc*)",
+      "Bash(*/secrets/*)",
+      "Bash(*/.aws/*)",
+      "Bash(*/.ssh/*)",
+      "Bash(*/.config/gh/*)",
+      "Bash(*.git-credentials*)",
+      "Bash(find * -exec*)",
+      "Bash(find * -ok*)",
+      "Bash(find * -delete*)",
+      "Bash(find * -fprint*)",
+      "Bash(find * -fls*)",
+      "Bash(find -exec*)",
+      "Bash(find -ok*)",
+      "Bash(find -delete*)",
+      "Bash(find -fprint*)",
+      "Bash(find -fls*)"
     ],
     "ask": [
       "Bash(gh pr create:*)",
@@ -165,6 +180,14 @@
         },
         {
           "path": "~/.ssh",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.config/gh",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.git-credentials",
           "mode": "deny"
         }
       ],

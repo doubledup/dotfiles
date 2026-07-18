@@ -1,106 +1,106 @@
 #!/bin/bash
-# Tests for claude/hooks/guard.sh - the PreToolUse destructive-command guard.
-# Feeds synthetic Bash tool-call JSON to the REPO copy of guard.sh (not the
-# deployed ~/.claude symlink, so uncommitted changes are what gets tested) and
-# asserts the decision: block (hard deny) or allow (pass). The guard is
-# block-only, so no case expects `ask`; the `ask` branch in check() is kept for
-# generality (and to catch a reintroduced hook ask) but is deliberately unused.
+# Tests for claude/hooks/guard.sh - the PreToolUse secret-read guard.
+#
+# The guard is now path-matching only (it never parses Bash): it blocks
+# Read/Write/Edit/Grep/Glob access to secret paths and defers everything else.
+# Destructive Bash commands and the direnv trust store are enforced by the
+# settings.json deny rules + the OS sandbox, NOT this hook, so they are not
+# tested here (a hook harness can only feed tool payloads, and the guard has no
+# Bash branch to exercise).
+#
+# Feeds synthetic tool-call JSON to the REPO copy of guard.sh (not the deployed
+# ~/.claude symlink, so uncommitted changes are what gets tested) and asserts the
+# decision: block (exit 2, "Blocked:" on stderr) or allow (exit 0, silent).
 #
 # Run directly or via `just test-guard`. Exits non-zero if any case fails.
+#
+# The block cases below deliberately feed literal "~/..." strings as test data to
+# exercise the guard's tilde normalization; they are payloads, not paths to
+# expand, hence the file-level SC2088 disable.
+# shellcheck disable=SC2088
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GUARD="$SCRIPT_DIR/../claude/hooks/guard.sh"
 
-# Under the Bash sandbox only cwd + $TMPDIR are writable, but macOS mktemp
-# defaults to the confstr temp (/var/folders/.../T) which is outside the
-# sandbox. Point it at $TMPDIR explicitly (with a /tmp fallback) so this works
-# both sandboxed and when run manually.
-errfile="$(mktemp -p "${TMPDIR:-/tmp}")"
+# macOS mktemp defaults to the confstr temp (/var/folders/.../T), outside the
+# sandbox; point it at $TMPDIR (with a /tmp fallback) so this works sandboxed
+# and when run manually.
+errfile="$(mktemp "${TMPDIR:-/tmp}/guardtest.XXXXXX")"
 trap 'rm -f "$errfile"' EXIT
 
 fails=0
 
-# Build a Bash tool-call JSON payload for COMMAND. $c is a jq variable.
-mkinput() {
+# Build a tool-call JSON payload. Grep/Glob carry their path in `.path`;
+# Read/Write/Edit in `.file_path`. The guard reads `file_path // path`.
+mkinput() { # <tool> <path>
+    local tool="$1" p="$2" key
+    case "$tool" in
+    Grep | Glob) key=path ;;
+    *) key=file_path ;;
+    esac
     # shellcheck disable=SC2016
-    jq -cn --arg c "$1" '{tool_name:"Bash",tool_input:{command:$c}}'
+    jq -cn --arg t "$tool" --arg p "$p" --arg k "$key" '{tool_name:$t,tool_input:{($k):$p}}'
 }
 
-# check <want> <desc> <command>
-#   ask   -> guard exits 0 and prints an "ask" permission decision on stdout
+# check <want> <desc> <tool> <path>
 #   block -> guard exits 2 and prints "Blocked:" on stderr
-#   allow -> guard exits 0 and prints nothing on stdout
-check() {
-    local want="$1" desc="$2" cmd="$3"
-    local out rc
-    out="$(mkinput "$cmd" | "$GUARD" 2>"$errfile")"
+#   allow -> guard exits 0 and prints nothing on stderr
+check() { # <want> <desc> <tool> <path>
+    local want="$1" desc="$2" tool="$3" p="$4" rc err ok=1
+    mkinput "$tool" "$p" | "$GUARD" >/dev/null 2>"$errfile"
     rc=$?
-    local err
     err="$(cat "$errfile")"
-
-    local ok=1
     case "$want" in
-    ask) [[ $rc -eq 0 && "$out" == *'"permissionDecision":"ask"'* ]] || ok=0 ;;
     block) [[ $rc -eq 2 && "$err" == *"Blocked:"* ]] || ok=0 ;;
-    allow) [[ $rc -eq 0 && -z "$out" ]] || ok=0 ;;
+    allow) [[ $rc -eq 0 && -z "$err" ]] || ok=0 ;;
     *)
         echo "test bug: unknown expectation '$want'" >&2
         exit 2
         ;;
     esac
-
     if [[ $ok -eq 1 ]]; then
         printf 'ok   %-5s %s\n' "$want" "$desc"
     else
-        printf 'FAIL %-5s %s (rc=%s out=%q err=%q)\n' "$want" "$desc" "$rc" "$out" "$err"
+        printf 'FAIL %-5s %s (rc=%s err=%q)\n' "$want" "$desc" "$rc" "$err"
         fails=$((fails + 1))
     fi
 }
 
-echo "== allow (hook defers): destructive file cmds pass the hook silently =="
-# The guard is block-only now: it no longer asks on mv/cp/rsync/dd/rm. These exit
-# 0 so the settings.json ask rules (Bash(rm:*)/Bash(dd:*)/Bash(rsync:*)) and the
-# permission classifier decide. Asserted so a reintroduced hook ask is caught.
-check allow "rm f" "rm f"
-check allow "rsync a b" "rsync a b"
-check allow "dd if of" "dd if=a of=b"
-check allow "cd && mv" "cd /tmp && mv a b"
-check allow "/bin/mv" "/bin/mv a b"
-check allow "subshell (mv)" "(mv a b)"
-check allow "brace group" "{ mv a b; }"
-check allow "multiline mv" "$(printf 'echo hi\nmv a b')"
-check allow "for/do rm loop" "for f in *; do rm \$f; done"
-check allow "if/then mv" "if true; then mv a b; fi"
-check allow "xargs rm pipe" "ls | xargs rm"
-check allow "find -exec rm" "find . -exec rm {} \\;"
-check allow "env rm" "env rm f"
-# Separated recursive-force flags are NOT hard-denied (only -rf/-fr are); they
-# fall through to allow (the hook defers; settings.json + classifier decide).
-check allow "rm -r -f (not denied)" "rm -r -f /tmp/x"
+echo "== block: secret-path reads via built-in tools must exit 2 =="
+check block "Grep secrets dir" Grep "secrets"
+check block "Grep secrets file" Grep "secrets/prod"
+check block "Read dotenv abs" Read "/repo/.env"
+check block "Read dotenv variant" Read "/repo/.env.local"
+check block "Read envrc" Read "/repo/.envrc"
+check block "Read envrc backup" Read "/repo/x.envrc.bak"
+check block "Glob ssh dir" Glob "~/.ssh"
+check block "Read ssh key" Read "~/.ssh/id_ed25519"
+check block "Read aws creds" Read "~/.aws/credentials"
+check block "Glob gh config dir" Glob "~/.config/gh"
+check block "Read gh hosts" Read "~/.config/gh/hosts.yml"
+check block "Read git-credentials" Read "/home/u/.git-credentials"
+check block "Grep dotgit dir" Grep ".git"
+check block "Read dotgit file" Read "/repo/.git/config"
+check block "Grep relative dotenv" Grep "./.env"
 
-echo "== block: hard-denied commands must exit 2 =="
-check block "rm -rf" "rm -rf /tmp/x"
-check block "rm -fr" "rm -fr /tmp/x"
-check block "sudo mv" "sudo mv a b"
-check block "mv -> direnv/allow" "mv x /home/u/.local/share/direnv/allow/h"
+echo "== allow: non-secret paths and no-path must pass silently =="
+check allow "Read source" Read "/repo/src/init.lua"
+check allow "Read readme" Read "/repo/README.md"
+check allow "Grep src dir" Grep "src"
+check allow "Read non-secret dotfile" Read "/repo/.gitignore"
+check allow "Read env-lookalike" Read "/repo/environment.md"
+check allow "empty path" Grep ""
 
-echo "== allow: non-destructive / argument-position must pass silently =="
-check allow "mv a b" "mv a b"
-check allow "cp a b" "cp a b"
-check allow "command mv" "command mv a b"
-check allow "time mv" "time mv a b"
-check allow "ls -la" "ls -la"
-check allow "mvn clean" "mvn clean install"
-check allow "git status" "git status"
-check allow "fd foo" "fd foo"
-check allow "rg mv" "rg mv"
-check allow "rg cp src/" "rg cp src/"
-check allow "echo cp" "echo cp"
-check allow "docker rm" "docker rm ctr"
-check allow "grep -rm5" "grep -rm5 x"
-check allow "cpio -i" "cpio -i"
-check allow "rmdir foo" "rmdir foo"
+echo "== fail closed: malformed input must block =="
+printf 'not json' | "$GUARD" >/dev/null 2>"$errfile"
+rc=$?
+if [[ $rc -eq 2 ]]; then
+    printf 'ok   %-5s %s\n' block "malformed input"
+else
+    printf 'FAIL %-5s %s (rc=%s)\n' block "malformed input" "$rc"
+    fails=$((fails + 1))
+fi
 
 echo
 if [[ $fails -eq 0 ]]; then
