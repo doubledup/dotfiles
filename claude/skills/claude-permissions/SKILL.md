@@ -19,9 +19,8 @@ disposition table live in `invariants.md` beside this file - read it before eith
 
 ## The enforcement model
 
-Three layers, softest to hardest (background: the config research doc under
-`claude/docs/improvement/` (config-research-v\*.md), Enforcement section - versioned and
-regenerated, so cited by section, not line):
+The layers, softest to hardest (background rationale: `DESIGN.md`, the sandbox-first /
+minimal-hook decision):
 
 - **CLAUDE.md** (`## Safety`) - soft intent. Shapes model behavior; no hard stop. Kept minimal
   (adherence decays past ~150-200 instructions), so it holds principles, not every rule.
@@ -30,13 +29,19 @@ regenerated, so cited by section, not line):
   `--dangerously-skip-permissions`; Bash-argument patterns are brittle (reordered flags,
   redirects, variable expansion); without a sandbox a `deny` binds only Claude's built-in tools,
   not `cat .env` run via Bash.
-- **hooks** (`claude/hooks/guard.sh`) - deterministic enforcement. A PreToolUse `block()` (exit 2)
-  holds even under `--dangerously-skip-permissions`, for built-in tools (Bash/Read/Write/Edit). It
-  does NOT bind `mcp__*` tools (the hook fires, returns deny, the tool proceeds anyway) and the
-  sandbox does not cover them - for MCP, `deny` is the only binding leg.
+- **sandbox** (`sandbox` block, hard floor) - the OS-level primary containment boundary. It bounds
+  what a Bash command can touch, so destructive verbs are blocked by `deny` rules before they run
+  and contained by the sandbox if they do. This is why destructive must-nevers live in `deny`
+  rules, not a hook.
+- **hooks** (`claude/hooks/guard.sh`) - one narrow deterministic leg that matches a tool's
+  structured PATH input and must NOT parse Bash command strings (fragile on quoting/operators). Its
+  only job is blocking secret-path reads via the built-in tools (Read/Write/Edit/Grep/Glob), which
+  the sandbox doesn't wrap and `Read(**/…)` denies cover only best-effort. It does NOT bind `mcp__*`
+  tools - for MCP, `deny` is the only binding leg.
 
-Belt-and-suspenders means the RIGHT redundant legs for the risk, not all three for everything.
-Anything that MUST NOT happen belongs in a hook, not prose.
+Belt-and-suspenders means the RIGHT leg for the risk. A destructive must-never belongs in a `deny`
+rule plus the sandbox, NOT a hook that parses Bash. A secret read via a built-in tool is the one
+case that needs the hook.
 
 ## Locate the config (two scopes)
 
@@ -47,7 +52,7 @@ Audit both; attribute every finding and edit to a scope.
   `~/.claude/*` (those are rcm symlinks into the repo). Find the repo with
   `readlink -f ~/.claude/settings.json`, then read/edit there:
     - `claude/settings.json` (allow/ask/deny, defaultMode, any `sandbox` key)
-    - `claude/hooks/guard.sh` (destructive-cmd + secret-path blocks; block-only, the `block()` helper)
+    - `claude/hooks/guard.sh` (path-matching secret-path block only; block-only, no Bash branch)
     - `claude/hooks/gh-api-readonly.sh` (gh api read-only)
     - `claude/CLAUDE.md` `## Safety`
     - `rcignore/test_guard.sh` (the guard hook's test), run via `just test-guard`
@@ -88,20 +93,20 @@ Do not edit anything. Hand the report back for the user to act on.
 2. **Map to legs** via the disposition table in `invariants.md`, honoring the invariant-9
    precedence (no hook for ask-by-design network tools or MCP).
 3. **Propose** coordinated edits as diffs; do not apply:
-    - `settings.json`: the allow/ask/deny rule, in the right scope.
-    - `guard.sh`: a `block()` (forbid) branch placed after the existing hard blocks, reusing the
-      helper and the clause-boundary regex style already there. Built-in-tool policies only (a hook
-      does nothing for MCP). Confirm policies get NO hook branch: the guard is block-only, so put
-      the `ask` in settings.json and let the classifier backstop.
+    - `settings.json`: the allow/ask/deny rule, in the right scope. A destructive forbid is a
+      `deny` rule (colon `:*` form) and gets NO guard branch - the guard doesn't parse Bash.
+    - `guard.sh`: a branch ONLY for a secret-path read via built-in tools (add the path to its
+      canonical secret set). No Bash-command branch exists or should be added. Confirm policies get
+      no hook: put the `ask` in settings.json and let the sandbox/classifier backstop.
     - `claude/CLAUDE.md` `## Safety`: a one-line intent entry - required if security-related, else
       only if a genuine principle. A covering family line is fine.
-    - `rcignore/test_guard.sh`: a matching case (ask/block/allow), but ONLY for Bash-path rules;
-      the harness feeds only `tool_name:"Bash"`, so Read/Write/Edit or MCP rules get no test - say
-      so, do not promise one.
+    - `rcignore/test_guard.sh`: a matching block/allow case ONLY for a secret-path rule (the
+      harness feeds Read/Grep/Glob payloads to the guard). Destructive `deny` rules and MCP rules
+      get no harness test - say so, do not promise one.
 4. Tell the user to review, apply via plan-approve, and run `just test-guard`.
 
-## Relationship to the config runbook
+## Scope
 
-This is the permission-surface deep check. It complements
-`claude/docs/improvement/config-improvement-runbook.md` (the friction-driven weekly loop) rather
-than replacing it; the weekly loop can call this skill when permissions are the surface in play.
+This is the permission-surface deep check: it audits and proposes diffs across settings.json, the
+guard hook, and CLAUDE.md `## Safety`, but never applies them (apply via the normal plan-approve
+flow). Background rationale for the sandbox-first, minimal-hook posture is in `DESIGN.md`.

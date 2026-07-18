@@ -117,18 +117,24 @@ Key technical choices and their rationale:
   audits it against principle invariants and guides adding new policies across layers
 - Advisory only (proposes diffs; never edits or commits), so every change still passes through
   the normal plan-approve flow
-- Standing policy it encodes: **security-related guardrails get belt-and-suspenders across all
-  three layers, and this trumps CLAUDE.md minimalism (for now)**; non-security rules follow the
-  minimalism default (CLAUDE.md carries principles, not every mechanical rule)
+- Standing policy it encodes: **sandbox-first. The OS sandbox contains Bash; destructive
+  must-nevers live in `deny` rules; a hook is added ONLY for what rules and the sandbox can't do
+  (secret reads via the built-in Read/Grep/Glob tools). Hooks never parse Bash command strings.**
+  Security-related intent still gets a CLAUDE.md `## Safety` line; non-security rules follow the
+  minimalism default. (This supersedes the earlier "belt-and-suspenders across all three layers"
+  policy: duplicating a `deny` rule in a Bash-parsing hook is fragile maintenance for no gain once
+  the sandbox is the primary boundary.)
 - Alternative considered: a declarative policy-registry file (rejected: another artifact to keep
   current, against the minimalism principle; invariants derive intent from the live config)
 
 **Bash sandbox (macOS Seatbelt):**
 
 - Claude Code's OS-level Bash sandbox is enabled strictly (`enabled`, `failIfUnavailable: true`,
-  `allowUnsandboxedCommands: false`) so `deny` rules actually bind Bash - the third enforcement
-  leg alongside settings denies and the guard hook. Without it, a bare `deny` binds only built-in
-  tools, so `cat ~/.env` via Bash bypasses the secret Read-denies entirely
+  `allowUnsandboxedCommands: false`) and is the PRIMARY containment boundary. `deny` rules still
+  bind Bash (they descend into `$(...)` and are respected under sandbox auto-allow), so destructive
+  verbs live in `deny` rules and the guard hook does no Bash parsing. `cat ~/.env` via Bash is
+  caught by the `Bash(*.env*)`-family denies; a raw write to the direnv trust store is out-of-tree
+  and sandbox-blocked
 - Lives as a single block in user scope (`claude/settings.json`), not split across user +
   project scope: splitting would rely on the `sandbox` object deep-merging across scopes
   (unconfirmed); if merging is object-replace, this repo's project scope would silently drop
@@ -147,8 +153,13 @@ Key technical choices and their rationale:
   this is a solo machine; `filesystem.allowWrite` for the nvim data dirs applies globally (the
   user's own editor state); the config deploys via rcm to Linux too, where the sandbox backend
   (bubblewrap + socat) is a prerequisite since `failIfUnavailable: true` hard-fails without it
-- Residual gap (tracked in BACKLOG): the sandbox's prefix `denyRead` cannot express arbitrary-depth
-  repo-relative secrets, so `cat ./.env` / `cat secrets/x` stay open until the guard hook gains a
-  Bash-read block. Alternative considered: `autoAllowBashIfSandboxed: true` for the documented
-  ~84% prompt reduction (deferred: kept `false` so the existing permission-prompt UX is unchanged
-  and the sandbox is purely additive enforcement for now)
+- `autoAllowBashIfSandboxed: true` is enabled (the documented large prompt reduction): sandboxable
+  commands run unprompted, contained by the sandbox, while `deny` rules still gate the destructive
+  and secret-file cases. The repo-relative Bash secret-read gap (`cat ./.env`, `cat secrets/x`) is
+  now closed by the `Bash(*.env*)`/`Bash(*/secrets/*)` deny rules, not a guard Bash-block. Residuals:
+  the text-match denies over-block on benign mentions (an `app.env` filename, `foo.environment`);
+  the collision-prone `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is deliberately left out at
+  user scope; a global-opt destructive form the deny globs miss (`git -c k=v reset --hard`); the
+  `rm -fr`/split-flag ordering falls through to the `Bash(rm:*)` ask rather than a hard block (the
+  guard used to catch `-fr`); and a sandbox-off (`failIfUnavailable: false`) raw write to the direnv
+  trust store. All narrow and contained by the sandbox when active
