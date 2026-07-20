@@ -6,12 +6,12 @@ example violation. Background rationale (the sandbox-first, minimal-hook decisio
 
 ## Layer-location map
 
-| Layer       | User scope (global)                           | Project scope (this repo)         |
-| ----------- | --------------------------------------------- | --------------------------------- |
-| intent      | `claude/CLAUDE.md` `## Safety`                | `.claude/rules/*.md`              |
-| permissions | `claude/settings.json` allow/ask/deny         | `.claude/settings.json`, `.local` |
-| hooks       | `claude/hooks/guard.sh`, `gh-api-readonly.sh` | `.claude/hooks/*`                 |
-| test        | `rcignore/test_guard.sh` (`just test-guard`)  | -                                 |
+| Layer       | User scope (global)                                 | Project scope (this repo)         |
+| ----------- | --------------------------------------------------- | --------------------------------- |
+| intent      | `claude/CLAUDE.md` `## Safety`                      | `.claude/rules/*.md`              |
+| permissions | `claude/settings.json` allow/ask/deny               | `.claude/settings.json`, `.local` |
+| hooks       | `claude/hooks/guard.sh`, `gh-api-readonly.sh`       | `.claude/hooks/*`                 |
+| test        | `rcignore/test_guard.sh` (`just test-claude-hooks`) | -                                 |
 
 `~/.claude/*` are rcm symlinks into `claude/*`; operate on the repo, never the symlink.
 
@@ -26,10 +26,10 @@ can serve a group of related rules.
 privilege escalation (sudo); outbound exfiltration (network, git push); or defeats a safety
 control (direnv trust, `--no-verify`, `--dangerously-skip-permissions` bypass).
 
-| Disposition         | CLAUDE.md                | settings.json | guard.sh | test |
-| ------------------- | ------------------------ | ------------- | -------- | ---- |
-| forbid (must never) | line if security-related | deny          | -        | -    |
-| confirm (ask first) | line if security-related | ask           | -        | -    |
+| Disposition         | CLAUDE.md                | settings.json | guard.sh | test     |
+| ------------------- | ------------------------ | ------------- | -------- | -------- |
+| forbid (must never) | line if security-related | deny          | -        | -        |
+| confirm (ask first) | line if security-related | ask           | -        | -        |
 | allow (read-only)   | usually none             | allow         | none     | optional |
 
 `guard.sh` has NO Bash branch: it never enforces a forbid command (that is the
@@ -60,6 +60,9 @@ design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are NOT gap
 destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv subcommands
 are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a hook.
+Note on `git push`: it stays a must-never `deny`, but unattended push is available through the
+`just push` narrow wrapper (an allowed command whose recipe runs a fixed origin-only, non-force
+`git push`), so the deny costs no workflow and still needs no hook.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND

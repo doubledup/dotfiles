@@ -2,6 +2,23 @@
 default:
     @just --list
 
+# The sole push path Claude Code runs unattended: raw `git push` is denied in
+# claude/settings.json, and this recipe's fixed shape makes force/delete,
+# arbitrary remotes, and -c/env injection impossible from the caller side - only
+# a validated branch name is accepted.
+
+# Push a branch to origin only; no force, no delete, sanitized environment.
+push branch=`git branch --show-current`:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    branch={{quote(branch)}}
+    if [[ ! "$branch" =~ ^[A-Za-z0-9._/-]+$ ]]; then
+        echo "just push: refusing suspicious branch name: $branch" >&2
+        exit 1
+    fi
+    env -i PATH="$PATH" HOME="$HOME" SSH_AUTH_SOCK="${SSH_AUTH_SOCK:-}" \
+        git push -u origin "refs/heads/$branch:refs/heads/$branch"
+
 # Format all known file types
 fmt:
     stylua .
@@ -25,13 +42,13 @@ lint:
 # Run format check and lint
 check: fmt-check lint
 
-# Test the PreToolUse guard hook (destructive-command confirmation)
-test-guard:
+# Test the PreToolUse guard hook (secret-path read guard)
+test-claude-hooks:
     @echo "Testing guard hook..."
     bash rcignore/test_guard.sh
 
 # Test that configs load without errors
-test: test-guard
+test: test-claude-hooks
     @echo "Testing nvim plugins..."
     nvim --headless +"luafile rcignore/test_plugins.lua"
     @echo "Testing fish config..."

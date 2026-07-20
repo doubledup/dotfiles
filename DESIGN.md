@@ -149,8 +149,8 @@ Key technical choices and their rationale:
   fail-closed under the sandbox by design (run via `!`); excluding them would run build tools
   (e.g. `cargo build.rs`) fully unsandboxed in every repo for no benefit here
 - Accepted tradeoffs: `network.allowedDomains` grants `github.com` for `just test`'s plugin
-  fetches, a data-exfiltration surface the docs flag - acceptable because `git push` is denied and
-  this is a solo machine; `filesystem.allowWrite` for the nvim data dirs applies globally (the
+  fetches, a data-exfiltration surface the docs flag - acceptable because raw `git push` is denied
+  (push is constrained to the origin-only `just push` wrapper) and this is a solo machine; `filesystem.allowWrite` for the nvim data dirs applies globally (the
   user's own editor state); the config deploys via rcm to Linux too, where the sandbox backend
   (bubblewrap + socat) is a prerequisite since `failIfUnavailable: true` hard-fails without it
 - `autoAllowBashIfSandboxed: true` is enabled (the documented large prompt reduction): sandboxable

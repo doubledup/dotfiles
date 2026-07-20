@@ -2,7 +2,7 @@
 name: claude-permissions
 description: Audit the belt-and-suspenders permission config (settings.json allow/ask/deny, the guard hooks, and CLAUDE.md safety prose) for cross-layer gaps and drift, or guide adding a new permission policy across all applicable layers. Use when hardening or reviewing Claude Code permissions, checking that a rule is enforced redundantly, or adding a command or path that must be blocked or confirmed.
 argument-hint: "[policy to add, e.g. 'confirm chmod'; omit to audit]"
-allowed-tools: Read, Grep, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash(readlink:*), Bash(realpath:*), Bash(just test-guard:*)
+allowed-tools: Read, Grep, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash(readlink:*), Bash(realpath:*), Bash(just test-claude-hooks:*)
 ---
 
 # claude-permissions
@@ -43,6 +43,10 @@ Belt-and-suspenders means the RIGHT leg for the risk. A destructive must-never b
 rule plus the sandbox, NOT a hook that parses Bash. A secret read via a built-in tool is the one
 case that needs the hook.
 
+Raw `git push` stays denied; unattended push goes through the `just push` narrow wrapper - an
+allowed command whose recipe runs a fixed, origin-only, non-force `git push`. So the
+destructive-push must-never needs no hook and no un-deny: the wrapper is the sanctioned path.
+
 ## Locate the config (two scopes)
 
 Claude Code merges **user** and **project** scope (managed > local > project > user; deny-first).
@@ -55,7 +59,7 @@ Audit both; attribute every finding and edit to a scope.
     - `claude/hooks/guard.sh` (path-matching secret-path block only; block-only, no Bash branch)
     - `claude/hooks/gh-api-readonly.sh` (gh api read-only)
     - `claude/CLAUDE.md` `## Safety`
-    - `rcignore/test_guard.sh` (the guard hook's test), run via `just test-guard`
+    - `rcignore/test_guard.sh` (the guard hook's test), run via `just test-claude-hooks`
 - **Project scope** (current repo only): `<cwd>/.claude/settings.json`,
   `.claude/settings.local.json`, `.claude/rules/`, `.claude/hooks/`. Usually additive allows.
 - **Managed scope** (enterprise MDM) is out of read scope; assume absent (solo setup) and say so
@@ -103,7 +107,7 @@ Do not edit anything. Hand the report back for the user to act on.
     - `rcignore/test_guard.sh`: a matching block/allow case ONLY for a secret-path rule (the
       harness feeds Read/Grep/Glob payloads to the guard). Destructive `deny` rules and MCP rules
       get no harness test - say so, do not promise one.
-4. Tell the user to review, apply via plan-approve, and run `just test-guard`.
+4. Tell the user to review, apply via plan-approve, and run `just test-claude-hooks`.
 
 ## Scope
 
