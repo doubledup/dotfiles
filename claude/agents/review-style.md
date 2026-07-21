@@ -4,7 +4,6 @@ description: Reviews code changes for style, conventions, and readability
 model: sonnet
 tools:
     - Read
-    - Grep
     - Glob
     - Bash(rg:*)
     - Bash(fd:*)

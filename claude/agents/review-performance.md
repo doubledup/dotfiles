@@ -4,7 +4,6 @@ description: Reviews code changes for performance issues and inefficiencies
 model: sonnet
 tools:
     - Read
-    - Grep
     - Glob
     - Bash(rg:*)
     - Bash(fd:*)

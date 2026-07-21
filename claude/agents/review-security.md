@@ -4,7 +4,6 @@ description: Reviews code changes for security vulnerabilities and sensitive dat
 model: sonnet
 tools:
     - Read
-    - Grep
     - Glob
     - Bash(rg:*)
     - Bash(fd:*)

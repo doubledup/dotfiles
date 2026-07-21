@@ -2,7 +2,6 @@
 description: Generate a self-contained prompt for a fresh Claude Code session
 allowed-tools:
     - Read
-    - Grep
     - Glob
     - Bash
     - Write

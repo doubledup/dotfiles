@@ -2,7 +2,6 @@
 description: Fix build or test failures one at a time with verification
 allowed-tools:
     - Read
-    - Grep
     - Glob
     - Bash
     - Edit

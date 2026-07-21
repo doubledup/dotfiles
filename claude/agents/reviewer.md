@@ -4,7 +4,6 @@ description: Reviews specs, plans, and code changes for quality and completeness
 model: opus
 tools:
     - Read
-    - Grep
     - Glob
     - Bash(rg:*)
     - Bash(fd:*)

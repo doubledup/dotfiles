@@ -3,7 +3,6 @@ description: Bootstrap Claude Code configuration for a project
 model: sonnet
 allowed-tools:
     - Read
-    - Grep
     - Glob
     - Bash
     - Write

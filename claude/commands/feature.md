@@ -2,7 +2,6 @@
 description: Structured feature implementation with spec, plan, execute, and review phases
 allowed-tools:
     - Read
-    - Grep
     - Glob
     - Bash
     - Edit
