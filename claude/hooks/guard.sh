@@ -49,7 +49,7 @@ case "$FILE_PATH" in
     echo "Blocked: access to env/secrets file '$FILE_PATH'." >&2
     exit 2
     ;;
-*/secrets | */secrets/* | */.ssh | */.ssh/* | */.aws | */.aws/* | */.config/gh | */.config/gh/* | */.git-credentials)
+*/secrets | */secrets/* | */.ssh | */.ssh/* | */.aws | */.aws/* | */.gnupg | */.gnupg/* | */.config/gh | */.config/gh/* | */.git-credentials)
     echo "Blocked: access to sensitive path '$FILE_PATH'." >&2
     exit 2
     ;;

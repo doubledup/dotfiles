@@ -57,10 +57,11 @@ Apply these when I ask for design input or review; don't restructure toward them
 
 - Never use `--no-verify` on commits
 - Never commit `.env`, `.envrc`, secrets, or credentials
+- Keep secrets in home config only, never in a repo (not even git-ignored): the sandbox bounds Bash reads of home secrets, but an in-tree secret is readable by search. The built-in `Grep` tool is denied (it bypasses the sandbox); search file contents with `rg` in Bash, where the sandbox applies
 - Never export, print, or write cloud credentials to environment variables or files. No `aws configure export-credentials`, no `eval "$(... export-credentials ...)"`, no setting `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`AWS_SESSION_TOKEN`. To make signed requests, sign in-process with the named profile (e.g. botocore `Session(profile_name=...)`), which resolves SSO without materializing secrets
 - Verify no secrets in diffs before committing
 - Sandboxed Bash auto-runs without a prompt (`sandbox.autoAllowBashIfSandboxed: true`); the OS sandbox is the containment boundary. The `deny`/`ask` rules and the guard hooks still gate the dangerous subset (destructive verbs, secret reads, egress, `git push`), and a command that cannot be sandboxed fails rather than running unsandboxed
-- Bash runs in a strict OS sandbox; deny rules bind and home/fixed-dir secret reads (`~/.env`, `~/.aws`, `~/.ssh`) are blocked. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`, never via `dangerouslyDisableSandbox`
+- Bash runs in a strict OS sandbox; deny rules bind and home/fixed-dir secret reads (`~/.env`, `~/.aws`, `~/.ssh`, `~/.gnupg`) are blocked. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`, never via `dangerouslyDisableSandbox`
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
 ## Authored Voice

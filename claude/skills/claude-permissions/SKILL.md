@@ -2,7 +2,7 @@
 name: claude-permissions
 description: Audit the belt-and-suspenders permission config (settings.json allow/ask/deny, the guard hooks, and CLAUDE.md safety prose) for cross-layer gaps and drift, or guide adding a new permission policy across all applicable layers. Use when hardening or reviewing Claude Code permissions, checking that a rule is enforced redundantly, or adding a command or path that must be blocked or confirmed.
 argument-hint: "[policy to add, e.g. 'confirm chmod'; omit to audit]"
-allowed-tools: Read, Grep, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash(readlink:*), Bash(realpath:*), Bash(just test-claude-hooks:*)
+allowed-tools: Read, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash(readlink:*), Bash(realpath:*), Bash(just test-claude-hooks:*)
 ---
 
 # claude-permissions
@@ -20,7 +20,8 @@ disposition table live in `invariants.md` beside this file - read it before eith
 ## The enforcement model
 
 The layers, softest to hardest (background rationale: `DESIGN.md`, the sandbox-first /
-minimal-hook decision):
+minimal-hook decision; threat model: the **Threat model** section in `invariants.md` — defend
+accidents plus cheap/robust attack-bar raises, decline complex/fragile adversarial hardening):
 
 - **CLAUDE.md** (`## Safety`) - soft intent. Shapes model behavior; no hard stop. Kept minimal
   (adherence decays past ~150-200 instructions), so it holds principles, not every rule.
@@ -44,8 +45,8 @@ rule plus the sandbox, NOT a hook that parses Bash. A secret read via a built-in
 case that needs the hook.
 
 Raw `git push` stays denied; unattended push goes through the `just push` narrow wrapper - an
-allowed command whose recipe runs a fixed, origin-only, non-force `git push`. So the
-destructive-push must-never needs no hook and no un-deny: the wrapper is the sanctioned path.
+allowed command whose recipe runs a fixed, non-force `git push` to a github-host-checked origin. So
+the destructive-push must-never needs no hook and no un-deny: the wrapper is the sanctioned path.
 
 ## Locate the config (two scopes)
 

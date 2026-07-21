@@ -55,10 +55,14 @@
       "Read(~/.ssh/**)",
       "Read(~/.config/gh/**)",
       "Read(~/.git-credentials)",
+      "Read(~/.gnupg/**)",
       "Edit(~/.gitconfig)",
       "Edit(~/.config/git/config)",
       "Edit(~/.ssh/**)",
+      "Edit(~/.aws/**)",
+      "Edit(~/.gnupg/**)",
       "Edit(**/.local/share/direnv/allow/**)",
+      "Grep",
       "Bash(sudo:*)",
       "Bash(rm -rf:*)",
       "Bash(aws configure export-credentials:*)",
@@ -81,6 +85,7 @@
       "Bash(*/secrets/*)",
       "Bash(*/.aws/*)",
       "Bash(*/.ssh/*)",
+      "Bash(*/.gnupg/*)",
       "Bash(*/.config/gh/*)",
       "Bash(*.git-credentials*)",
       "Bash(find * -exec*)",
@@ -118,6 +123,7 @@
     "allow": [
       "Bash(rg:*)",
       "Bash(fd:*)",
+      "Bash(command -v:*)",
       "Bash(date)",
       "Bash(git commit:*)",
       "Bash(git -C * commit:*)",
@@ -186,6 +192,10 @@
         },
         {
           "path": "~/.ssh",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.gnupg",
           "mode": "deny"
         },
         {

@@ -4,6 +4,21 @@ The checks `/claude-permissions` runs. Each states the rule, why it holds, how t
 example violation. Background rationale (the sandbox-first, minimal-hook decision) lives in
 `DESIGN.md`; for Claude Code evaluation mechanics see the official docs at code.claude.com.
 
+## Threat model
+
+This posture defends against accidental or mistaken commands, and takes cheap, robust, low-friction
+protections (secret-path `deny` rules, the OS sandbox, denying a sandbox-bypassing built-in tool) that
+also raise the bar against a hostile actor. It deliberately does NOT invest in complex or fragile
+adversarial hardening — pattern-matching arms races such as real-URL host parsing, flag-tolerant
+command globs, or narrowing widely-used commands — because the friction outweighs the benefit and is
+undercut by accepted residuals (github.com egress, unattended `git fetch`/`just push`, in-tree
+`.git/config` trust) and the limits of rule matching. The OS sandbox is the containment boundary for a
+compromised command. The secret-path denies, the sandbox, and the `Grep`-tool deny are retained
+precisely because they defend against attacks cheaply and robustly — do NOT cite this threat model to
+weaken or drop them. When guiding an add or running the audit, weigh each rule against the accident it
+prevents and its complexity/friction, prefer simple configuration, and do not add complex or fragile
+rules chasing adversarial evasion.
+
 ## Layer-location map
 
 | Layer       | User scope (global)                                 | Project scope (this repo)         |
@@ -61,8 +76,8 @@ destructive must-never, confirm a `deny` rule in the correct form. Example: all 
 are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a hook.
 Note on `git push`: it stays a must-never `deny`, but unattended push is available through the
-`just push` narrow wrapper (an allowed command whose recipe runs a fixed origin-only, non-force
-`git push`), so the deny costs no workflow and still needs no hook.
+`just push` narrow wrapper (an allowed command whose recipe runs a fixed non-force `git push` to a
+github-host-checked origin), so the deny costs no workflow and still needs no hook.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND

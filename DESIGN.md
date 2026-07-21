@@ -124,6 +124,15 @@ Key technical choices and their rationale:
   minimalism default. (This supersedes the earlier "belt-and-suspenders across all three layers"
   policy: duplicating a `deny` rule in a Bash-parsing hook is fragile maintenance for no gain once
   the sandbox is the primary boundary.)
+- Threat model it encodes: defends against **accidental/mistaken commands** and takes cheap, robust,
+  low-friction protections (secret-path denies, the sandbox, denying a sandbox-bypassing built-in
+  tool) that also raise the attack bar; it declines complex/fragile adversarial hardening (real-URL
+  parsing, flag-tolerant command globs, narrowing widely-used commands) as excessive friction,
+  undercut by accepted residuals (github egress, unattended `git fetch`/`just push`, in-tree
+  `.git/config` trust) and the sandbox being the real containment. The secret-path denies, the
+  sandbox, and the Grep-tool deny are kept because they are cheap and robust, not because the posture
+  claims to be adversary-proof. When adding a rule, weigh it against the accident it prevents and its
+  complexity, and prefer simple configuration.
 - Alternative considered: a declarative policy-registry file (rejected: another artifact to keep
   current, against the minimalism principle; invariants derive intent from the live config)
 
@@ -150,7 +159,7 @@ Key technical choices and their rationale:
   (e.g. `cargo build.rs`) fully unsandboxed in every repo for no benefit here
 - Accepted tradeoffs: `network.allowedDomains` grants `github.com` for `just test`'s plugin
   fetches, a data-exfiltration surface the docs flag - acceptable because raw `git push` is denied
-  (push is constrained to the origin-only `just push` wrapper) and this is a solo machine; `filesystem.allowWrite` for the nvim data dirs applies globally (the
+  (push goes through the `just push` wrapper, which is github-host-checked, not identity-pinned) and this is a solo machine; unattended non-github egress via `git fetch <url>` or an in-tree `insteadOf` redirect is an accepted residual per the threat model; `filesystem.allowWrite` for the nvim data dirs applies globally (the
   user's own editor state); the config deploys via rcm to Linux too, where the sandbox backend
   (bubblewrap + socat) is a prerequisite since `failIfUnavailable: true` hard-fails without it
 - `autoAllowBashIfSandboxed: true` is enabled (the documented large prompt reduction): sandboxable
@@ -163,3 +172,18 @@ Key technical choices and their rationale:
   `rm -fr`/split-flag ordering falls through to the `Bash(rm:*)` ask rather than a hard block (the
   guard used to catch `-fr`); and a sandbox-off (`failIfUnavailable: false`) raw write to the direnv
   trust store. All narrow and contained by the sandbox when active
+- **`Bash(command -v:*)` is allowed** (a read-only lookup that plan mode would otherwise prompt on,
+  since it isn't a built-in read-only command and plan mode skips sandbox auto-allow). `Bash(command:*)`
+  is deliberately NOT allowed: `command <cmd>` executes `<cmd>`, so `command rm -rf /` (first token
+  `command`) would evade both `Bash(rm -rf:*)` and the `rm` ask
+- **The `Grep` built-in tool is denied** (steering content search to sandboxed `rg`): the built-in
+  tool bypasses the sandbox, so a broad `Grep(path=~)` recursing into `~/.aws` leaks credential
+  contents the path-guard can't catch; sandboxed `rg` is bounded by the OS-level credential-denies,
+  which `rg --no-ignore`/`-u` cannot defeat (they are filesystem denies, not `.gitignore`). `Glob`
+  stays (it returns paths/metadata, not contents). The in-tree residual (`rg --no-ignore` reading a
+  git-ignored secret) is closed by the no-secrets-in-repos discipline, not a rule
+- **`~/.gnupg` is protected** (Read+Edit deny, guard case, `Bash(*/.gnupg/*)`, sandbox
+  credential-deny) and `~/.aws` is upgraded to a full Edit deny. Neither breaks the AWS CLI nor
+  GPG-signed commits (`aws *`/`git commit *` are `excludedCommands`, and the Edit denies bind only
+  the built-in Edit tool, not the CLIs); `git tag -s` and a bare `gpg` under the sandbox are the
+  documented over-block
