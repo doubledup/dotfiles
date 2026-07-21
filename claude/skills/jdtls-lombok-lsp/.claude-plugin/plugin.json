@@ -1,0 +1,5 @@
+{
+    "name": "jdtls-lombok-lsp",
+    "description": "Java LSP (Eclipse jdtls) with the Lombok javaagent wired in",
+    "version": "0.1.0"
+}

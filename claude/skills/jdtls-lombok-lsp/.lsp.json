@@ -1,0 +1,24 @@
+{
+    "jdtls": {
+        "command": "${CLAUDE_PLUGIN_ROOT}/bin/jdtls-lombok",
+        "args": [
+            "--java-executable",
+            "/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home/bin/java"
+        ],
+        "extensionToLanguage": {
+            ".java": "java"
+        },
+        "startupTimeout": 120000,
+        "settings": {
+            "java": {
+                "autobuild": { "enabled": false },
+                "import": {
+                    "gradle": { "enabled": false },
+                    "maven": { "enabled": true, "offline": { "enabled": true } }
+                },
+                "format": { "enabled": false },
+                "diagnostic": { "nullAnalysis": { "mode": "automatic" } }
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@
   "model": "opus",
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
-    "jdtls-lsp@claude-plugins-official": true
+    "jdtls-lsp@claude-plugins-official": false
   },
   "outputStyle": "engineers-answer",
   "effortLevel": "xhigh",

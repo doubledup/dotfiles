@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Launch jdtls with the Lombok javaagent. This is a wrapper rather than a
+# static arg in .lsp.json so $HOME resolves at runtime instead of hardcoding a
+# username: Claude Code does not expand ~ or $HOME in LSP command/args.
+set -euo pipefail
+
+lombok="$HOME/.m2/repository/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar"
+
+exec jdtls --jvm-arg=-javaagent:"$lombok" "$@"
