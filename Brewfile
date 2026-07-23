@@ -50,7 +50,7 @@ brew "mpv"
 brew "ncdu"
 brew "neovide"
 brew "neovim"
-brew "netcat"
+brew "netcat", link: false
 brew "nmap"
 brew "nvimpager"
 brew "openapi"
