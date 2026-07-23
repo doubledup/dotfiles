@@ -37,6 +37,7 @@
   },
   "permissions": {
     "defaultMode": "plan",
+    "additionalDirectories": ["~/code/worktrees"],
     "deny": [
       "Read(**/.env)",
       "Read(**/.env.*)",
