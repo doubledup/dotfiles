@@ -136,6 +136,8 @@
       "Bash(git -C * show:*)",
       "Bash(git status:*)",
       "Bash(git -C * status:*)",
+      "Bash(git rebase:*)",
+      "Bash(git -C * rebase:*)",
       "Bash(git rev-parse:*)",
       "Bash(git -C * rev-parse:*)",
       "Bash(git merge-base:*)",
