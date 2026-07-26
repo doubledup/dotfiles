@@ -10,7 +10,7 @@ return {
 
     opts = {
         view = {
-            width = 60,
+            width = 30,
         },
 
         renderer = {
