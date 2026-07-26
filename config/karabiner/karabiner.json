@@ -119,7 +119,7 @@
                                 },
                                 "to": [
                                     {
-                                        "shell_command": "open -a 'Ghostty'"
+                                        "shell_command": "open -a 'Kitty'"
                                     }
                                 ],
                                 "type": "basic"
