@@ -4,6 +4,7 @@
 
 ## Low-hanging fruit
 
+- Claude Code: allow rm in /var/
 - Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
 - Claude Code: consider adding obsidian-cli's `daily:path`/`daily:read` to the project-scope allow list in `.claude/settings.json` (dotfiles repo) once verified against a live Obsidian instance that reading today's daily note doesn't auto-create it - Daily Notes/Periodic Notes plugins commonly create-on-access
 - Claude Code: `guard.sh`'s Grep/Glob secret-path block only fires when the tool's `path` argument directly targets or is nested inside a secret file/directory. It does not catch a broad Grep (e.g. `path: "."` or omitted) that incidentally matches and returns lines from a secret file among many searched files - a PreToolUse hook fires on the input before the tool runs and cannot filter or redact output afterward. Mirrors the existing sandbox residual-gap note in DESIGN.md for arbitrary-depth repo-relative secrets via Bash.
