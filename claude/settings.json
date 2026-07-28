@@ -133,9 +133,7 @@
       "mcp__claude_ai_Atlassian__createCompassCustomFieldDefinition"
     ],
     "defaultMode": "plan",
-    "additionalDirectories": [
-      "~/code/worktrees"
-    ]
+    "additionalDirectories": ["~/code/worktrees"]
   },
   "model": "opus[1m]",
   "hooks": {
@@ -184,10 +182,7 @@
         "~/.local/state/nvim",
         "~/.cache/nvim"
       ],
-      "denyRead": [
-        "~/.env",
-        "~/.envrc"
-      ]
+      "denyRead": ["~/.env", "~/.envrc"]
     },
     "credentials": {
       "files": [
@@ -239,5 +234,6 @@
   },
   "effortLevel": "xhigh",
   "tui": "fullscreen",
-  "skipWorkflowUsageWarning": false
+  "skipWorkflowUsageWarning": false,
+  "autoScrollEnabled": false
 }
