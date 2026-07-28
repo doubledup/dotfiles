@@ -8,6 +8,11 @@ Packages, configuration and tools.
 
 ## Setup
 
+<!-- TODO: add manual Bitwarden install due to following mas error: -->
+<!-- ==> Installing Bitwarden (2026.7.0) -->
+<!-- Install progress cannot be displayedError: Failed to copy receipt for Bitwarden (2026.7.0) from '/var/folders/ws/xz19hb313dd3b_zcnc_3d_dc0000gn/T/TemporaryItems/NSIRD_mas_ydZiZH/1352778147-receipt' to '/Applications/Bitwarden.app/Contents/_MASReceipt/receipt': -->
+<!-- Error Domain=NSCocoaErrorDomain Code=513 "You don’t have permission to save the file “_MASReceipt” in the folder “Contents”." UserInfo={NSFilePath=/Applications/Bitwarden.app/Contents/_MASReceipt, NSURL=file:///Applications/Bitwarden.app/Contents/_MASReceipt, NSUnderlyingError=0xba7051f50 {Error Domain=NSPOSIXErrorDomain Code=1 "Operation not permitted"}} -->
+
 Prerequisites (install manually before running setup):
 
 1. [Homebrew](https://brew.sh)

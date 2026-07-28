@@ -123,7 +123,6 @@ cask "vlc"
 cask "zed"
 cask "zoom"
 cask "zulip"
-mas "Bitwarden", id: 1352778147
 mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
