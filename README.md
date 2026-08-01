@@ -96,6 +96,14 @@ brew bundle --global --cleanup
 
 List explicitly installed packages with `brew leaves` or review the `Brewfile`.
 
+### Biometric sudo auth
+
+Add this line to sudo config opened with `sudo -e /etc/pam.d/sudo`:
+
+```
+auth       sufficient     pam_tid.so
+```
+
 ### Karabiner Bluetooth shell commands
 
 If Karabiner `shell_command` mappings that run `blueutil` fail while the same `blueutil`
