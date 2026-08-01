@@ -104,11 +104,11 @@ update:
     @echo 'mas:'
     mas upgrade
 
-    @echo 'softwareupdate:'
-    sudo softwareupdate -ir
-
     @echo 'test:'
     just test
+
+    @echo 'Available macOS updates:'
+    sudo softwareupdate -l
 
 # Pull dotfile updates, re-link, sync packages and nvim plugins, and triage orphan brews
 sync:
