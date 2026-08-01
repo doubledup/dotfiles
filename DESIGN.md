@@ -94,6 +94,19 @@ Key technical choices and their rationale:
 - Ghostty: Newer, native macOS performance
 - Both support keyboard-driven workflows
 
+**Kitty option reference generated on demand:**
+
+- `kitty.conf` holds only the settings this machine actually changes, plus the marker blocks
+  kitty rewrites itself (`BEGIN_KITTY_FONTS`, `BEGIN_KITTY_THEME`)
+- Browse the full option list with `just kitty-defaults`, which pipes the installed kitty's
+  own default config into nvim (read-only, kitty syntax, folded by section)
+- Alternative considered: keeping kitty's commented-out defaults interleaved in `kitty.conf`
+  (rejected: stale by construction, the file drifted a whole release behind and hid 39 new
+  options); vendoring a generated default file (rejected: repo churn on every kitty upgrade,
+  and it needs a `typos` exclude for an upstream typo)
+- Accepted cost: no local baseline, so "what changed since the last kitty version" comes from
+  the changelog (`ctrl+shift+f1`) rather than a `git diff`
+
 **File organization patterns:**
 
 - `.local` files: Machine-specific overrides without polluting version control

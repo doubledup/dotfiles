@@ -66,6 +66,7 @@
 - Fish: pass previous last arg to different command (keybinding)
 - Fish: separate ignore-vcs bindings for fzf cd shortcut
 - Kitty: set up splits layout
+- Kitty: try `tab_bar_filter session:~` with sessions to scope the tab bar to the current session
 - Create `just stale-links`, like `just broken-links` but detects links to the dotfiles repo, and can remove them
 
 ## New tools
