@@ -130,16 +130,19 @@ Key technical choices and their rationale:
 - Accepted risk: this reaches into `NotificationManager.in_progress_notification_commands`
   and `NotificationCommand.channel_id`, which kitty's own docs explicitly call
   undocumented/unstable. A future kitty release could rename or restructure these with no
-  deprecation notice, silently making the watcher a no-op - fails safe (kitty catches and
-  logs watcher exceptions rather than crashing; worst case is a regression to today's
-  lingering-notification behavior)
+  deprecation notice, making the watcher a no-op at runtime - `just test`'s
+  `kitty +runpy` contract check catches this loudly (before it's silent), and even if that
+  check somehow passes anyway, kitty catches and logs watcher exceptions rather than
+  crashing, so the worst runtime case is a regression to today's lingering-notification
+  behavior, not breakage
 - Accepted cost: on macOS, kitty never learns when a notification was dismissed
   (`supports_close_events = False`), so closed entries are never purged from
   `in_progress_notification_commands` except via kitty's own 128-entry cap or
   replacement/activation - the watcher will harmlessly re-issue no-op close calls for old,
   already-gone notifications on every future focus of a window that has notified before
-- Only affects kitty OS windows created after a config reload/restart (documented `watcher`
-  caveat), not windows already open when this is added. kitty also caches a loaded watcher
+- Only affects kitty windows (including new tabs/splits) created after a config
+  reload/restart (documented `watcher` caveat), not ones already open when this is added.
+  kitty also caches a loaded watcher
   module by path for the life of the process, so any future edit to this script needs a
   full kitty restart to take effect, not just a reload plus a new window
 
