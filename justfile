@@ -63,6 +63,8 @@ test: test-claude-hooks
     nvim --headless +"luafile rcignore/test_plugins.lua"
     @echo "Testing fish config..."
     fish -c 'exit'
+    @echo "Testing kitty notification internals..."
+    kitty +runpy 'import sys; from kitty.notifications import NotificationCommand, NotificationManager; m = NotificationManager(); (isinstance(m.in_progress_notification_commands, dict) and callable(m.close_notification) and hasattr(NotificationCommand, "channel_id")) or sys.exit("kitty notification internals changed; see config/kitty/close-notifications-on-focus.py")'
     @echo "All config tests passed."
 
 # Update all packages and run tests
