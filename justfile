@@ -128,6 +128,11 @@ brew-cleanup:
 terminfo:
     ./scripts/install-terminfo
 
+# Browse every kitty option, generated from the installed kitty
+kitty-defaults:
+    kitty +runpy 'from kitty.config import commented_out_default_config as c; print(c(), end="")' \
+        | nvim -R -c 'setfiletype kitty' -
+
 # Find broken symlinks in home directory (use --remove to delete them)
 broken-links *args:
     ./scripts/find-broken-symlinks {{args}}
