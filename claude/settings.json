@@ -234,6 +234,5 @@
   },
   "effortLevel": "xhigh",
   "tui": "fullscreen",
-  "skipWorkflowUsageWarning": false,
-  "autoScrollEnabled": false
+  "skipWorkflowUsageWarning": false
 }
