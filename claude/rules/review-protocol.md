@@ -14,11 +14,22 @@ Shared mechanics for plan and execution review loops. Both `planning.md` and `ex
 
 ### Disposition discipline
 
-Apply a presumption of validity to reviewer findings.
+Apply a presumption of validity to findings of **defect**: something is wrong, broken, or
+factually incorrect.
 
 - **To accept**: no justification required.
 - **To partially accept**: state which parts you accept and reject, with reasoning for the rejected parts.
 - **To reject**: provide a specific, falsifiable reason grounded in code (e.g., "handled at line N" or "matches the pattern in file X"). "I disagree" or "this is fine" is not sufficient. If you cannot articulate a concrete reason, accept the finding.
+
+The presumption does **not** extend to findings of **omission**: a finding whose remedy is
+to add code, config, documentation, or a guard must state what breaks without it. If it
+cannot name a concrete failure, rejecting it needs no further justification.
+
+Why: accepting is free and rejecting is expensive, so the cheapest path through the loop is
+always to add. Findings overwhelmingly propose additions, which makes the loop a one-way
+ratchet that terminates by accretion rather than by convergence. This clause is the
+counterweight. Prefer the smallest change that resolves a finding, and say so when a
+finding is accepted in a smaller form than proposed.
 
 ### Iteration tracking
 
