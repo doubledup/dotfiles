@@ -16,6 +16,27 @@ If a slash command (e.g., /feature) defines its own review process, follow that 
 
 Present the review summary (per `review-protocol.md` report format) immediately before the plan.
 
+## Plan document length
+
+The plan I read must stay short. Length is not thoroughness; it is a review-quality tax.
+A plan I cannot hold in my head is less likely to be doing what I intended, which is the
+failure this rule exists to prevent.
+
+Default structure, and little else:
+
+- Files touched (a table)
+- The main design decision
+- At least one rejected alternative, with the reason
+- The assertions used to verify the change
+
+Cut before presenting: restatement of my request, a trailing "considerations"
+summary that repeats points made above, and preamble.
+
+Compress _after_ the review loop exits, not before. A long loop accretes justification
+prose into the plan; findings that only mattered to the reviewer do not belong in the plan
+I read. Report the loop's outcome in the review summary instead.
+
 ## Diff size
 
 Plans should target 400 or fewer changed lines. Warn at 400+; suggest splitting at 1500+.
+This budgets the change, not the plan document; see above for that.
