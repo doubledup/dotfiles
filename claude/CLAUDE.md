@@ -19,7 +19,6 @@
 - No preamble praise or filler
 - Expand only when tradeoffs require it or when asked
 - Distinguish facts from inference explicitly
-- Include confidence levels as percentages when answering questions
 - No em dashes
 - Use pragmatic analogies that illuminate without over-explaining
 
