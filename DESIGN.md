@@ -146,6 +146,39 @@ Key technical choices and their rationale:
   future edit to this script needs a full kitty restart to take effect, not just a reload
   plus a new window
 
+**Ponytail vendored as a skill, not installed as a plugin:**
+
+- Ponytail is a minimalism ruleset ("the best code is the code you never wrote") whose
+  entire value is one 6.6 KB markdown file. `claude/skills/ponytail/SKILL.md` is a verbatim
+  copy of it; `VENDOR.md` beside it carries the provenance and the MIT notice
+- The upstream plugin wraps that file in three Node lifecycle hooks (SessionStart,
+  SubagentStart, UserPromptSubmit) that only write a mode flag, inject the file into
+  context, and parse `/ponytail` to switch intensity. Claude Code's own `skills/` mechanism
+  covers the first two; the third is near-worthless because the intensity levels differ by
+  two rows of a table the vendored copy keeps in full, so `/ponytail ultra` still works
+- Alternatives considered: installing the plugin (rejected: requires node on `$PATH` and
+  runs three third-party Node scripts with full user privileges on every session start,
+  prompt submit, and subagent spawn - hooks are gated by neither `permissions`, `guard.sh`,
+  nor the Bash sandbox, so it is the largest trust-boundary widening available here for the
+  smallest benefit, and Node's supply-chain record makes it a poor thing to add to the
+  Brewfile); putting the ruleset in `claude/CLAUDE.md` (rejected: true always-on injection
+  at zero runtime, but pays ~1.4k tokens on every session including non-coding ones and
+  bloats the file governing everything else); pinning the marketplace to a tag (rejected
+  along with the plugin, but note `v4.8.4` was 53 commits behind `main` at the time, so the
+  reflexive "pin to a tag" would have been actively worse than tracking the branch)
+- Accepted tradeoff: a skill is model-invoked rather than injected every session. Its own
+  frontmatter description triggers it on any coding task, so it fires when relevant and
+  costs nothing otherwise, which is preferable to a fixed per-session tax
+- `SKILL.md` must stay byte-identical to upstream or `just ponytail-diff` stops meaning
+  anything. That forces two documented exceptions: it is listed in `.prettierignore`, and
+  it keeps 11 non-ASCII characters (em dashes, arrows, a superscript) against this repo's
+  ASCII-only convention. Both apply to vendored third-party text only. Attribution lives in
+  `VENDOR.md` rather than in a header for the same reason
+- Updates are manual by design: `just ponytail-diff` reports drift and exits non-zero, but
+  nothing pulls automatically. The upstream ruleset has changed 5 times ever (last
+  2026-07-10) while the plugin machinery churns constantly, so the vendored half is the
+  stable half
+
 **File organization patterns:**
 
 - `.local` files: Machine-specific overrides without polluting version control
