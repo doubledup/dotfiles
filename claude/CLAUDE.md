@@ -63,6 +63,13 @@ Apply these when I ask for design input or review; don't restructure toward them
 - Bash runs in a strict OS sandbox; deny rules bind and home/fixed-dir secret reads (`~/.env`, `~/.aws`, `~/.ssh`, `~/.gnupg`) are blocked. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`, never via `dangerouslyDisableSandbox`
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
+## Agent Authoring
+
+- To guarantee a subagent has a skill's content, use the `skills:` frontmatter field. It injects the full skill body at startup, so the behaviour does not depend on the agent choosing to load it
+- Do not list `Skill` in `tools` to achieve that; the docs say to use `skills:` instead, and the tool grants access to every skill rather than the one intended. `Skill` in `tools` is for discretionary runtime invocation, which is best-effort
+- Neither a hook nor duplicating skill content into the prompt body is needed for subagent context injection; `skills:` is the supported mechanism
+- Anything behind an instruction to load, fetch, or invoke is model-mediated. If it must always apply, it must always be in context
+
 ## Sandbox Mechanics
 
 Operational gotchas, not policy. The sandbox points `$TMPDIR` at a writable session temp
