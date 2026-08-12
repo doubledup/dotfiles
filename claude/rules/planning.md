@@ -38,5 +38,6 @@ I read. Report the loop's outcome in the review summary instead.
 
 ## Diff size
 
-Plans should target 400 or fewer changed lines. Warn at 400+; suggest splitting at 1500+.
+Plans should target 400 or fewer changed lines. Suggest splitting at 400+; split at 1500+ unless
+there is extraordinary justification.
 This budgets the change, not the plan document; see above for that.
