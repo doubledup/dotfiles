@@ -61,10 +61,12 @@ ponytail-diff:
         diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
         rc=$?; rm -f "$tmp"; exit $rc
 
-# Test the PreToolUse guard hook (secret-path read guard)
+# Test the PreToolUse hooks (secret-path guard, config-docs advisory)
 test-claude-hooks:
     @echo "Testing guard hook..."
     bash rcignore/test_guard.sh
+    @echo "Testing config-docs hook..."
+    bash rcignore/test_config_docs.sh
 
 # Test that configs load without errors
 test: test-claude-hooks

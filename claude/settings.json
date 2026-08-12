@@ -156,6 +156,16 @@
             "command": "~/.claude/hooks/gh-api-readonly.sh"
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/config-docs.sh",
+            "timeout": 10
+          }
+        ]
       }
     ]
   },

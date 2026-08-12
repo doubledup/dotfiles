@@ -146,6 +146,30 @@ Key technical choices and their rationale:
   future edit to this script needs a full kitty restart to take effect, not just a reload
   plus a new window
 
+**Config-docs advisory hook:**
+
+- `claude/hooks/config-docs.sh` fires on `Write|Edit` and, when the path is structured
+  Claude Code config (settings, agents, skills/commands, hooks, `.mcp.json`), injects the
+  matching `code.claude.com` reference via `hookSpecificOutput.additionalContext`
+- The failure it targets is silent-and-valid: listing `Skill` under an agent's `tools`
+  instead of using the `skills` frontmatter field produced a working agent that passed
+  `just check` and was simply the worse mechanism. Validation cannot catch this, because
+  both forms are valid; only consulting the reference can. Claude Code's config surface is
+  large and version-gated, and a model's knowledge of it goes stale by construction
+- This is the first hook admitted under the context-injection category rather than the
+  enforcement one (see the sandbox-first policy above). It justifies itself on a concrete,
+  observed failure rather than on principle
+- Advisory by construction: always exits 0, and fails **open** on missing `jq` or malformed
+  input, the opposite of `guard.sh`. Kept as a separate script rather than a branch in
+  `guard.sh` precisely so a bug in the advisory path can never block an edit
+- Deliberately skips `rules/` and `CLAUDE.md`: prose with no frontmatter has no schema to
+  get wrong and therefore no reference worth naming
+- Alternative considered: a skill (rejected: skills are model-invoked, so a skill whose
+  purpose is "remember to check the docs" fails exactly when carelessness is the problem);
+  a blocking hook (rejected: needs per-session state to avoid stopping every edit, for a
+  reminder that works when merely offered)
+- Accepted limit: it guarantees the pointer is delivered, not that it is followed
+
 **Ponytail vendored as a skill, not installed as a plugin:**
 
 - Ponytail is a minimalism ruleset ("the best code is the code you never wrote") whose
