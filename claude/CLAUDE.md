@@ -63,6 +63,24 @@ Apply these when I ask for design input or review; don't restructure toward them
 - Bash runs in a strict OS sandbox; deny rules bind and home/fixed-dir secret reads (`~/.env`, `~/.aws`, `~/.ssh`, `~/.gnupg`) are blocked. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`, never via `dangerouslyDisableSandbox`
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
+## Sandbox Mechanics
+
+Operational gotchas, not policy. The sandbox points `$TMPDIR` at a writable session temp
+dir, but the system temp dir (`/var/folders/.../T` on macOS, via `_CS_DARWIN_USER_TEMP_DIR`)
+is **not** writable. Tools that ignore `$TMPDIR` and reach for the system one fail with a
+cryptic "Operation not permitted" that reads like a permissions bug rather than a temp-file
+one:
+
+- `mktemp` with no template resolves the system temp dir. Always pass one: `mktemp "${TMPDIR:-/tmp}/name-XXXXXX"`
+- `diff` copies non-seekable inputs to a system temp file, so `cmd | diff file -` and any `diff /dev/null ...` fail. Redirecting a real file (`diff file - < other`) works, since it is seekable. Write the input to `$TMPDIR` and diff two real files
+- `raw.githubusercontent.com` is not in `allowedDomains`. Fetch file contents from `api.github.com` with `-H "Accept: application/vnd.github.raw"`, which also avoids base64 and jq
+- Filename-matched deny rules fire on innocent paths: fetching `.env.example` is blocked by `Bash(*.env*)`
+- Bash **can** write inside the working directory. Prefer it over Write for byte-exact work (copying vendored files, hashing) where transcription would risk error
+
+Widening `sandbox.filesystem.allowWrite` to cover the system temp dir would fix the first
+two, and is deliberately not done: that directory is shared with every other app on the
+machine, and the session temp dir exists precisely to keep temp writes contained.
+
 ## Authored Voice
 
 - For Slack messages, PR descriptions/comments, git commit messages, and Jira comments, calibrate tone, register, and directness per `~/.claude/docs/david-style.md`.
