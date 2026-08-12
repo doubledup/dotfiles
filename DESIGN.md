@@ -211,8 +211,11 @@ Key technical choices and their rationale:
 - Advisory only (proposes diffs; never edits or commits), so every change still passes through
   the normal plan-approve flow
 - Standing policy it encodes: **sandbox-first. The OS sandbox contains Bash; destructive
-  must-nevers live in `deny` rules; a hook is added ONLY for what rules and the sandbox can't do
-  (secret reads via the built-in Read/Grep/Glob tools). Hooks never parse Bash command strings.**
+  must-nevers live in `deny` rules; an ENFORCEMENT hook is added ONLY for what rules and the
+  sandbox can't do (secret reads via the built-in Read/Grep/Glob tools). Hooks never parse Bash
+  command strings.** Hooks that inject context rather than enforce policy are a separate
+  category, justified case by case; see the ponytail entry for one that was declined on its
+  merits rather than by this rule
   Security-related intent still gets a CLAUDE.md `## Safety` line; non-security rules follow the
   minimalism default. (This supersedes the earlier "belt-and-suspenders across all three layers"
   policy: duplicating a `deny` rule in a Bash-parsing hook is fragile maintenance for no gain once
