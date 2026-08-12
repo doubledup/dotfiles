@@ -52,6 +52,14 @@ lint:
 # Run format check and lint
 check: fmt-check lint
 
+# Diff the vendored ponytail ruleset against upstream main
+ponytail-diff:
+    @tmp="${TMPDIR:-/tmp}/ponytail-upstream.md"; \
+        curl -sS -H "Accept: application/vnd.github.raw" \
+            "https://api.github.com/repos/DietrichGebert/ponytail/contents/skills/ponytail/SKILL.md?ref=main" > "$tmp"; \
+        diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
+        rc=$?; rm -f "$tmp"; exit $rc
+
 # Test the PreToolUse guard hook (secret-path read guard)
 test-claude-hooks:
     @echo "Testing guard hook..."

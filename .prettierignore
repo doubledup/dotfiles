@@ -1,1 +1,4 @@
 **/lazy-lock.json
+
+# Vendored verbatim from upstream; must stay byte-identical for `just ponytail-diff`
+claude/skills/ponytail/SKILL.md
