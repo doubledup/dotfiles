@@ -54,9 +54,10 @@ check: fmt-check lint
 
 # Diff the vendored ponytail ruleset against upstream main
 ponytail-diff:
-    @tmp="${TMPDIR:-/tmp}/ponytail-upstream.md"; \
-        curl -sS -H "Accept: application/vnd.github.raw" \
-            "https://api.github.com/repos/DietrichGebert/ponytail/contents/skills/ponytail/SKILL.md?ref=main" > "$tmp"; \
+    @tmp=$(mktemp "${TMPDIR:-/tmp}/ponytail-XXXXXX"); \
+        curl -fsS -H "Accept: application/vnd.github.raw" \
+            "https://api.github.com/repos/DietrichGebert/ponytail/contents/skills/ponytail/SKILL.md?ref=main" > "$tmp" \
+            || { rm -f "$tmp"; echo "ponytail-diff: upstream fetch failed" >&2; exit 2; }; \
         diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
         rc=$?; rm -f "$tmp"; exit $rc
 

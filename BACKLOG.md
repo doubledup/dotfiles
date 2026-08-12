@@ -46,8 +46,7 @@
 - Vendor `ponytail-review` (2.4 KB, audits a diff for over-engineering) once the core ponytail skill has earned its place; it is the one that fits the existing review-loop workflow
 - Vendor `ponytail-debt` (1.7 KB, harvests deferred shortcuts) only once `ponytail:` marker comments actually exist in a repo; it has no input before then
 - Vendor `ponytail-audit` (1.7 KB, full-repo over-engineering audit) if a specific repo needs one; situational and one-shot rather than recurring
-- Vendor `ponytail-gain` (2.0 KB, impact scoreboard) only if the LOC and cost numbers become worth tracking; likely never
-- Vendor `ponytail-help` (2.8 KB, quick reference) only if the vendored ruleset proves hard to consult directly; likely redundant since the file is local and readable
+- Upstream also ships `ponytail-gain` (impact scoreboard) and `ponytail-help` (quick reference); deliberately not vendored, since the numbers aren't tracked and the ruleset is local and readable
 - `just doctor` to do periodic checks, like reviewing `~/.Brewfile.local` for packages to move to `~/.Brewfile` or potentially updating neovim packages pinned to versions.
 - Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits keyboard-first philosophy better than nvim-tree.
 - noise-toggle fade in/out

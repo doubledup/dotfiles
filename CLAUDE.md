@@ -22,7 +22,8 @@ Neovim:
 
 Style:
 
-- No non-ASCII characters (exception: intentional UI elements like listchars)
+- No non-ASCII characters (exceptions: intentional UI elements like listchars; vendored
+  third-party text, which must stay byte-identical to upstream - see `claude/skills/ponytail/VENDOR.md`)
 
 ## Workflow
 
