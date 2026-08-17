@@ -132,8 +132,10 @@
       "mcp__claude_ai_Atlassian__createCompassComponentRelationship",
       "mcp__claude_ai_Atlassian__createCompassCustomFieldDefinition"
     ],
-    "defaultMode": "plan",
-    "additionalDirectories": ["~/code/worktrees"]
+    "defaultMode": "auto",
+    "additionalDirectories": [
+      "~/code/worktrees"
+    ]
   },
   "model": "opus[1m]",
   "hooks": {
