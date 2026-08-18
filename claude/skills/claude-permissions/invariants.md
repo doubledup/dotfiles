@@ -69,10 +69,11 @@ not promise one.
 `rm -rf`, `git push`, tree-discard, `find` side-effecting primaries) is enforced by a settings.json
 `deny` rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected under sandbox
 auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7) contains what runs;
-and hooks must not parse Bash command strings, which is fragile on quoting/operators/`$()`. Use the
-colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) — **except
-when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A mid-
-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires, `Bash(git -C *
+and enforcement hooks must not parse Bash command strings, which is fragile on
+quoting/operators/`$()` (the allow-only `gh-api-readonly.sh` parses, but fails open to the prompt).
+Use the colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) —
+**except when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A
+mid-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires, `Bash(git -C *
 clean*)` does (glued `*`, and it still catches the no-arg case). Measured, for both `git` and `aws`;
 it contradicts the docs, which present mid-command wildcards as working. So a `-C`/wrapper twin must
 use the glued form. Check every rule containing a non-trailing `*` for a `:*)` **or** ` *)` tail and
@@ -137,8 +138,9 @@ key in settings.json; a regression to sandbox-off would weaken the deny-only des
 **8. MCP tools: `deny` is the only binding leg.** For `mcp__*` tools a PreToolUse hook does NOT
 bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them. Never advise a hook as sufficient for an MCP action, and never score a present
 hook as "enforced" for one; `deny` binds. Check: any policy whose tool is `mcp__*` must rely on a
-`deny` rule, not a hook. Latent today (no active mcpServers) but load-bearing when hardening a new
-MCP surface.
+`deny` rule, not a hook. No `mcpServers` are configured in any scope, but connector-provided
+`mcp__*` tools can still be present in a session (14 Atlassian ask-rules already target them), so
+this invariant is load-bearing today.
 
 **9. Security policy => CLAUDE.md intent line + the enforcement legs its disposition allows.** A
 security-related policy must carry a CLAUDE.md `## Safety` intent line AND its enforcement legs.

@@ -1,6 +1,6 @@
 ---
 name: claude-permissions
-description: Audit the belt-and-suspenders permission config (settings.json allow/ask/deny, the guard hooks, and CLAUDE.md safety prose) for cross-layer gaps and drift, or guide adding a new permission policy across all applicable layers. Use when hardening or reviewing Claude Code permissions, checking that a rule is enforced redundantly, or adding a command or path that must be blocked or confirmed.
+description: Audit the layered permission config (settings.json allow/ask/deny, the sandbox block, the guard hooks, and CLAUDE.md safety prose) for gaps, drift, and contradictions, or guide adding a new permission policy through the right layer for the risk. Use when hardening or reviewing Claude Code permissions, checking that a policy is enforced by the correct layer, or adding a command or path that must be blocked or confirmed.
 argument-hint: "[policy to add, e.g. 'confirm chmod'; omit to audit]"
 allowed-tools: Read, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash(readlink:*), Bash(realpath:*), Bash(just test-claude-hooks:*)
 ---
