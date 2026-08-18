@@ -1,10 +1,9 @@
 # Dotfiles
 
-Dotfiles managed with rcm. See @DESIGN.md for architectural decisions.
-
-## rcm Behavior
-
-See `claude/docs/rcm.md` for how this repo uses rcm (directory model, tags, excludes, update workflow).
+Dotfiles managed with rcm. `DESIGN.md` records architectural decisions; read it on
+demand (deliberately not @-imported). Standing policy: sandbox-first containment
+(must-nevers live in deny rules; hooks only where the sandbox and rules cannot reach);
+no secrets in any repo, even git-ignored.
 
 ## Conventions
 
@@ -12,13 +11,6 @@ File patterns:
 
 - Local overrides: `.local` before extension (e.g., `config.local.fish`)
 - OS-specific: `tag-{os}/` directory with `.os` in filename
-
-Neovim:
-
-- Pure Lua only (no vimscript)
-- Plugins <=20 lines: keep in `plugins/init.lua`
-- Plugins >20 lines: separate file in `plugins/`, named after the plugin repo (e.g., `nvim-lint.lua` for `mfussenegger/nvim-lint`)
-- Plugin docs: https://github.com/{user}/{repo}
 
 Style:
 
