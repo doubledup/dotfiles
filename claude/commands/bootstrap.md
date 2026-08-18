@@ -21,7 +21,7 @@ Inspect this project and produce a Claude Code configuration plan. Discovery onl
 Follow these rules when producing recommendations:
 
 - Keep CLAUDE.md under ~30 instructions; move domain-specific rules to `.claude/rules/` with `paths:` scoping
-- Enforce critical behavior with PreToolUse hooks (exit 2 to block), not CLAUDE.md alone; back every deny rule with a hook as parallel enforcement
+- Sandbox-first enforcement: the OS sandbox contains Bash, destructive must-nevers live in deny rules, and a PreToolUse enforcement hook is added only for what the sandbox and rules cannot reach; enforcement hooks never parse Bash command strings
 - Prefer CLI tools through Bash over MCP servers (zero idle context cost)
 - Include session discipline guidance in CLAUDE.md for compaction resilience
 - Permission defaults: deny dangerous commands (force-push, reset --hard, rm -rf, sudo), allow specific safe read/build/test commands
