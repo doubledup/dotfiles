@@ -7,7 +7,7 @@ If a slash command (e.g., /feature) defines its own execution or review process,
 ### During execution
 
 - Record the current HEAD SHA before starting (base commit for the review diff)
-- Implement and commit concern-by-concern as you go: finish a concern's edits across all its files, then commit them together (one concern per commit) before starting the next. This keeps commits cleanly scoped -- a file touched by several concerns lands each concern's edit in a separate commit -- and avoids after-the-fact hunk-splitting. Don't run the full test suite per commit; a cheap syntax/format check on a just-edited file is fine
+- Implement and commit concern-by-concern as you go: finish a concern's edits across all its files, then commit them together before starting the next (grouping rules: `git.md`). Don't run the full test suite per commit; a cheap syntax/format check on a just-edited file is fine
 - Follow the plan. Only update it when review findings or implementation blockers require it, not for scope changes. If a scope change seems necessary, stop and surface it to the user before proceeding.
 
 ### After all commits
@@ -23,7 +23,7 @@ Run a review loop on the committed range (`<base>..HEAD`, the recorded base HEAD
 
 ### Commit
 
-Commits are made concern-by-concern during execution (above), not deferred to after the review loop. Group by originating concern, not by file touched; one concern per commit. The tradeoff is that commits land before the final review, so verification and the review loop run at the end and any fixes are fix-up commits.
+Commits are made concern-by-concern during execution (above), not deferred to after the review loop. The tradeoff is that commits land before the final review, so verification and the review loop run at the end and any fixes are fix-up commits.
 
 ### Remediation
 
