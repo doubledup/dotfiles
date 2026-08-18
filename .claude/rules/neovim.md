@@ -9,8 +9,8 @@ Pure Lua only -- no vimscript in neovim configuration.
 Plugin size thresholds:
 
 - <=20 lines: keep in `plugins/init.lua`
-- > 20 lines: separate file in `plugins/`, named after the plugin repo (e.g.,
-  > `nvim-lint.lua` for `mfussenegger/nvim-lint`)
+- Over 20 lines: separate file in `plugins/`, named after the plugin repo (e.g.,
+  `nvim-lint.lua` for `mfussenegger/nvim-lint`)
 
 Plugin docs: https://github.com/{user}/{repo}
 
