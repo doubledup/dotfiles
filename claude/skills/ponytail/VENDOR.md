@@ -14,7 +14,9 @@ is deliberately not installed. See `DESIGN.md` for that decision.
 `SKILL.md` must stay byte-identical to upstream, which is why it is listed in
 `.prettierignore` and keeps its non-ASCII characters against the repo's usual
 ASCII-only convention. Check for upstream drift with `just ponytail-diff`; read the
-diff before copying anything across, then update the commit and sha256 above.
+diff before copying anything across, then update the commit and sha256 above. The
+recipe exits 0 for up to date, 1 for drift, and 2 for a failed fetch, so a
+rate-limited or offline run cannot masquerade as drift. Nothing pulls automatically.
 
 The attribution below lives here rather than inside `SKILL.md` so that byte comparison
 stays meaningful.
