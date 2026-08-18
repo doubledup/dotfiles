@@ -220,10 +220,11 @@ Key technical choices and their rationale:
 
 **Bash sandbox (macOS Seatbelt):**
 
-- Enabled strictly (`enabled`, `failIfUnavailable: true`, `allowUnsandboxedCommands:
-false`): the PRIMARY containment boundary. `deny` rules still bind Bash (they descend
-  into `$(...)` and are respected under sandbox auto-allow), so destructive verbs live in
-  `deny` rules and the guard hook does no Bash parsing
+- Enabled strictly (`enabled`, `failIfUnavailable: true`,
+  `allowUnsandboxedCommands: false`): the PRIMARY containment boundary. `deny` rules
+  still bind Bash (they descend into `$(...)` and are respected under sandbox
+  auto-allow), so destructive verbs live in `deny` rules and the guard hook does no
+  Bash parsing
 - A single block in user scope (`claude/settings.json`), not split across scopes: the
   docs confirm the sandbox arrays merge across scopes (paths from every scope combine;
   deny entries only narrow), but scalar keys (`enabled`, `failIfUnavailable`) have no
