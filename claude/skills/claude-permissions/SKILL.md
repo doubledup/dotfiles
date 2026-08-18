@@ -7,8 +7,8 @@ allowed-tools: Read, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash
 
 # claude-permissions
 
-Maintain the "belt-and-suspenders" permission config: keep each policy consistently enforced
-across the layers, and add new policies without hand-wiring each one. Advisory only - this skill
+Maintain the layered permission config: keep each policy enforced by the layer its risk
+warrants, and add new policies without hand-wiring each one. Advisory only - this skill
 reports and proposes diffs; you apply them through the normal plan-approve flow. It never edits or
 commits (its `allowed-tools` omit Edit/Write, but that is tool-scoping plus compliance, not a hard
 block).
