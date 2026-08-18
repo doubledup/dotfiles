@@ -66,7 +66,7 @@ Audit both; attribute every finding and edit to a scope.
 - **Managed scope** (enterprise MDM) is out of read scope; assume absent (solo setup) and say so
   in the report.
 - Never edit through the `~/.claude` symlinks - Edit/Write refuse it and the repo is the source
-  (`.claude/rules/settings-editing.md`).
+  (`.claude/rules/toolchain.md`).
 
 ## Mode A: audit (no argument)
 
