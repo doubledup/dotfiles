@@ -26,7 +26,7 @@ Review comments:
 
 PR descriptions:
 
-- Follow the project's PR template (`.github/PULL_REQUEST_TEMPLATE.md` or similar) when one exists
+- Follow the project's PR template (`.github/pull_request_template.md` or similar) when one exists
 - When no template exists, use: `## Description`, `## Related Issue(s)`, `## Testing Done`
 - Description: what changed, why (root cause / decision context), scope boundaries and tradeoffs
 - Compact bullets for discrete changes
