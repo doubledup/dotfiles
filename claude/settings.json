@@ -3,6 +3,13 @@
     "commit": "",
     "pr": ""
   },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": false
+  },
+  "outputStyle": "Concise",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": false,
   "permissions": {
     "allow": [
       "Bash(rg:*)",
@@ -168,11 +175,6 @@
       }
     ]
   },
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true,
-    "jdtls-lsp@claude-plugins-official": false
-  },
-  "outputStyle": "Concise",
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
@@ -240,7 +242,5 @@
       "just push",
       "just push *"
     ]
-  },
-  "tui": "fullscreen",
-  "skipWorkflowUsageWarning": false
+  }
 }
