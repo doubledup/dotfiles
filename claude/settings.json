@@ -135,7 +135,6 @@
     "defaultMode": "auto",
     "additionalDirectories": ["~/code/worktrees"]
   },
-  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -242,7 +241,6 @@
       "just push *"
     ]
   },
-  "effortLevel": "xhigh",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false
 }
