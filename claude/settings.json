@@ -133,9 +133,7 @@
       "mcp__claude_ai_Atlassian__createCompassCustomFieldDefinition"
     ],
     "defaultMode": "auto",
-    "additionalDirectories": [
-      "~/code/worktrees"
-    ]
+    "additionalDirectories": ["~/code/worktrees"]
   },
   "model": "opus[1m]",
   "hooks": {
@@ -175,7 +173,7 @@
     "lua-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": false
   },
-  "outputStyle": "engineers-answer",
+  "outputStyle": "Concise",
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
