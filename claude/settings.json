@@ -86,7 +86,7 @@
       "Bash(sudo:*)",
       "Bash(rm -rf:*)",
       "Bash(aws configure export-credentials:*)",
-      "Bash(aws * export-credentials:*)",
+      "Bash(aws * export-credentials*)",
       "Bash(direnv:*)",
       "Bash(git checkout .)",
       "Bash(git -C * checkout .)",

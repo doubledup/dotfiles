@@ -73,9 +73,11 @@ and hooks must not parse Bash command strings, which is fragile on quoting/opera
 colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) — **except
 when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A mid-
 command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires, `Bash(git -C *
-clean*)` does (glued `*`, and it still catches the no-arg case). Measured; it contradicts the docs,
-which present mid-command wildcards as working. So a `-C`/wrapper twin must use the glued form. Check
-every rule containing ` * ` for a `:*)` tail and flag it as inert. Ask-by-
+clean*)` does (glued `*`, and it still catches the no-arg case). Measured, for both `git` and `aws`;
+it contradicts the docs, which present mid-command wildcards as working. So a `-C`/wrapper twin must
+use the glued form. Check every rule containing a non-trailing `*` for a `:*)` **or** ` *)` tail and
+flag it as inert — the two tails are equivalent, so both fail. This bit the `aws * <verb>-*:*`
+mutation denies and the `AWS_PROFILE=* aws *` production asks, not just git. Ask-by-
 design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are NOT gaps. Check: for each
 destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv subcommands
 are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
