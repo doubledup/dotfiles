@@ -82,16 +82,24 @@ github-host-checked origin), so the deny costs no workflow and still needs no ho
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
 `guard.sh`'s path case for the built-in tools (Read/Write/Edit/Grep/Glob), because the sandbox does
-not wrap those tools and `Read(**/…)` denies apply only best-effort to Grep/Glob. Scope: `.git` is
-guard + `Read(**/.git/**)` only, with NO `Bash(*/.git/*)` deny (it would collide with `cat
-.git/HEAD`); likewise the `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user
-scope (collision-prone). Check: each secret path (except `.git` and that family) has a `Bash(*…*)`
+not wrap those tools and `Read(**/…)` denies apply only best-effort to Grep/Glob. Scope: **`.git` is
+guard-only** — no `Read(**/.git/**)` and no `Bash(*/.git/*)`. The Bash form would collide with `cat
+.git/HEAD`, and the `Read` form is worse than redundant: `Read`/`Edit` denies are merged into the OS
+sandbox's filesystem lists, so `Read(**/.git/**)` becomes a read block that every sandboxed process
+inherits and it breaks **all** git in the repo it is anchored to (project scope: that repo; user
+scope: whichever repo is the session root). Do not restore it, and do not score its absence as a
+gap. Likewise the `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope
+(collision-prone). Check: each secret path (except `.git` and that family) has a `Bash(*…*)`
 deny and a guard.sh path case. Example: `.env` = `Bash(*.env*)` + the guard's `*/.env` case.
 
 **3. Guard block => settings visibility mirror.** Any secret path `guard.sh` blocks should also
 appear in `settings.json` `deny` (`Read(**/…)` + `Bash(*…*)`) so intent stays declaratively
-greppable. Visibility, weaker than 1-2. Check: each guard secret-path case (exit 2) has a matching
-`deny` entry. Example: a secret path blocked in the guard with no `deny` entry naming it.
+greppable. Visibility, weaker than 1-2. **Exception: `.git`.** Its guard case has no settings mirror
+by design (invariant 2), because a `Read`/`Edit` deny propagates into the OS sandbox and breaks
+sandboxed git. Where a mirror would break a sandboxed tool, invariant 2 wins and the guard case
+stands alone; record it in the rationale doc instead. Check: each guard secret-path case (exit 2) has
+a matching `deny` entry, `.git` excepted. Example: a secret path blocked in the guard with no `deny`
+entry naming it.
 
 **4. CLAUDE.md safety claim => real enforcement (enforceable claims only).** Classify each
 `## Safety` line as mechanically enforceable (names a specific command/path/action) or
