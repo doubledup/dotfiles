@@ -150,7 +150,20 @@ each security-related policy, confirm a covering CLAUDE.md line plus the legs 1/
 Example: WebFetch is security-related (network) and lacks a CLAUDE.md line - flag the line, never a
 hook.
 
-**10. Security enforcement lives at user (or managed) scope, not project-local.** A security
+**10. Allow-rule wildcards must not precede a literal token they don't fully own.** A wildcard
+standing in for an option argument that precedes a literal subcommand (`Bash(git -C * status*)`)
+can absorb an injected option in that same slot (`-c core.fsmonitor=/tmp/evil`, `--exec-path=...`)
+and auto-approve it with no prompt; `core.fsmonitor` in particular runs arbitrary code on a plain
+`git status`/`diff`. This is an `allow`-only gap: the equivalent shape in `ask` still prompts with
+the full command visible, and in `deny` still matches and blocks, so over-absorbing there is safe,
+not a hole. There is no narrower glob that admits the variable part while excluding the injected
+option, since Claude Code's matcher supports only plain `*`; the fix is to drop the wildcarded
+allow rule and keep only its literal (no-`-C`) twin, which has no wildcard preceding the
+subcommand for an option to hide in. Check: any `allow` rule with a `*` before a literal command
+token is a gap regardless of what follows. Example: `Bash(git -C * commit*)` is a gap;
+`Bash(git commit:*)` is not.
+
+**11. Security enforcement lives at user (or managed) scope, not project-local.** A security
 guardrail must sit in user scope (`claude/*` -> `~/.claude/`) or managed settings so it applies in
 every project; the same guardrail present only in one project's `.claude/` is a gap - it silently
 does not protect other projects. Project scope is for additive allows. Check: report each rule's
