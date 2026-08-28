@@ -279,14 +279,20 @@ Key technical choices and their rationale:
   (e.g. `cargo build.rs`) fully unsandboxed in every repo for no benefit here
 - Accepted tradeoffs: `network.allowedDomains` grants `github.com` for `just test`'s plugin
   fetches, a data-exfiltration surface the docs flag - acceptable because raw `git push` is denied
-  (push goes through the `just push` wrapper, which is github-host-checked, not identity-pinned) and this is a solo machine; unattended non-github egress via `git fetch <url>` or an in-tree `insteadOf` redirect is an accepted residual per the threat model; `api.datadoghq.eu` is granted for the Datadog `pup` CLI (read-only
-  pup commands run unprompted under sandbox auto-allow; every mutating verb is an `ask` rule in the glued
-  `Bash(pup * <verb>*)` form, derived from `pup agent schema`'s `read_only` flags at pup 1.14.0 with zero
-  unmatched mutating leaves; re-derive after a pup upgrade by dumping the schema and matching every
-  non-`read_only` leaf against the ask list; a few read-only leaves over-ask where a verb prefix is also a
-  noun, e.g. `run*`/`runs`, `set*`/`settings`, accepted as friction); `filesystem.allowWrite` for the nvim data dirs applies globally (the
+  (push goes through the `just push` wrapper, which is github-host-checked, not identity-pinned) and this is a solo machine; unattended non-github egress via `git fetch <url>` or an in-tree `insteadOf` redirect is an accepted residual per the threat model; `filesystem.allowWrite` for the nvim data dirs applies globally (the
   user's own editor state); the config deploys via rcm to Linux too, where the sandbox backend
   (bubblewrap + socat) is a prerequisite since `failIfUnavailable: true` hard-fails without it
+- `network.allowedDomains` grants `api.datadoghq.eu` for the Datadog `pup` CLI (API and OAuth token
+  host; the org's site is `datadoghq.eu`). Read-only pup commands run unprompted under sandbox
+  auto-allow. Every mutating verb is an `ask` rule in the glued `Bash(pup * <verb>*)` form, plus
+  `Bash(pup api:*)` for the raw HTTP passthrough, which can issue any method. The verb list was
+  derived from `pup agent schema` at pup 1.14.0: every leaf with `read_only: false` matches a rule.
+  `read_only: true` is not trustworthy on its own (`security findings mute`, `auth logout`,
+  `bulk-remove`, `restore` are marked read-only), so the re-check after a pup upgrade is two passes:
+  every `read_only: false` leaf must match an ask rule, and every `read_only: true` leaf whose name
+  implies a write gets one too. A few read-only leaves over-ask where a verb prefix is also a noun
+  (`run*`/`runs`, `set*`/`settings`); accepted as friction, since the space-tail glob that would
+  exclude them is inert after a mid-command `*`
 - `autoAllowBashIfSandboxed: true` is enabled (the documented large prompt reduction): sandboxable
   commands run unprompted, contained by the sandbox, while `deny` rules still gate the destructive
   and secret-file cases. The repo-relative Bash secret-read gap (`cat ./.env`, `cat secrets/x`) is
