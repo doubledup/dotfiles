@@ -2,3 +2,8 @@
 
 # Vendored verbatim from upstream; must stay byte-identical for `just ponytail-diff`
 claude/skills/ponytail/SKILL.md
+
+# Claude Code rewrites this file itself (/config, plugin toggles) with every array
+# expanded one element per line; prettier collapses short arrays and has no option
+# not to, so checking it only produces fmt churn. Claude Code's writer is its formatter
+claude/settings.json
