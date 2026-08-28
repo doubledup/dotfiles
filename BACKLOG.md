@@ -81,6 +81,11 @@
 
 ## High impact
 
+- Claude Code: allow local-only git operations (merge, rebase, cherry-pick, and similar) to run in
+  the sandbox without prompting. Keep gating anything that updates a remote (`push`) or can drop
+  local changes (force flags, `reset --hard`, `checkout --`, `clean`). Some of those verbs collide
+  with existing deny/ask globs; resolve the overlap when doing the task.
+
 - Claude Code: investigate adversarial verification (multiple agents trying to refute a finding),
   multi-modal search sweeps, judge panels, and loop-until-dry (this might already be here) for
   Claude Config, vs ultra code
