@@ -10,6 +10,7 @@
   "outputStyle": "Concise",
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false,
+  "agentPushNotifEnabled": true,
   "permissions": {
     "allow": [
       "Bash(rg:*)",
@@ -220,18 +221,10 @@
     "autoAllowBashIfSandboxed": true,
     "allowUnsandboxedCommands": false,
     "network": {
-      "allowedDomains": [
-        "api.github.com",
-        "github.com",
-        "objects.githubusercontent.com"
-      ]
+      "allowedDomains": ["api.github.com", "github.com", "objects.githubusercontent.com"]
     },
     "filesystem": {
-      "allowWrite": [
-        "~/.local/share/nvim",
-        "~/.local/state/nvim",
-        "~/.cache/nvim"
-      ],
+      "allowWrite": ["~/.local/share/nvim", "~/.local/state/nvim", "~/.cache/nvim"],
       "denyWrite": ["~/**/.git/hooks"],
       "denyRead": ["~/.env", "~/.envrc"]
     },
