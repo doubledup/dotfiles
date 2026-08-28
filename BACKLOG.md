@@ -16,24 +16,55 @@
   up a hook for this?
 - Remove references to Ghostty
 - Claude Code: allow rm in /var/
-- Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
-- Claude Code: consider adding obsidian-cli's `daily:path`/`daily:read` to the project-scope allow list in `.claude/settings.json` (dotfiles repo) once verified against a live Obsidian instance that reading today's daily note doesn't auto-create it - Daily Notes/Periodic Notes plugins commonly create-on-access
-- Claude Code: `guard.sh`'s Grep/Glob secret-path block only fires when the tool's `path` argument directly targets or is nested inside a secret file/directory. It does not catch a broad Grep (e.g. `path: "."` or omitted) that incidentally matches and returns lines from a secret file among many searched files - a PreToolUse hook fires on the input before the tool runs and cannot filter or redact output afterward. Mirrors the existing sandbox residual-gap note in DESIGN.md for arbitrary-depth repo-relative secrets via Bash.
-- Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
+- Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file
+  writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
+- Claude Code: consider adding obsidian-cli's `daily:path`/`daily:read` to the project-scope allow
+  list in `.claude/settings.json` (dotfiles repo) once verified against a live Obsidian instance
+  that reading today's daily note doesn't auto-create it - Daily Notes/Periodic Notes plugins
+  commonly create-on-access
+- Claude Code: `guard.sh`'s Grep/Glob secret-path block only fires when the tool's `path` argument
+  directly targets or is nested inside a secret file/directory. It does not catch a broad Grep (e.g.
+  `path: "."` or omitted) that incidentally matches and returns lines from a secret file among many
+  searched files - a PreToolUse hook fires on the input before the tool runs and cannot filter or
+  redact output afterward. Mirrors the existing sandbox residual-gap note in DESIGN.md for
+  arbitrary-depth repo-relative secrets via Bash.
+- Review project-level Claude Code permissions in `.claude/settings.json`: currently only allows
+  `just check`. Consider adding `just test`, `just fmt`, `just todos`, and other safe recipes.
 - Claude Code: allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
-- Claude Code: give `claude/hooks/gh-api-readonly.sh` a `timeout` in settings.json and a test in `rcignore/` (the other two hooks have both; this is the most parsing-heavy of the three)
-- Repo-wide ASCII/em-dash sweep: ~65 em dashes across 8 first-party files (BACKLOG.md, bootstrap.md, peer-review.md, reviewer.md, jira-comment.md, claude-permissions SKILL.md + invariants.md, gh-api-readonly.sh) violate the no-non-ASCII convention; consider a typos/lint rule so it stays fixed
-- Decide TODO.md vs BACKLOG.md: both exist at the repo root; config names only BACKLOG.md as the work tracker
-- Document or relocate the jdtls-lombok-lsp shim under `claude/skills/`: no SKILL.md, hardcodes an Amazon Corretto 21 path and Lombok 1.18.42, and the official jdtls plugin is disabled in its favor; the relationship is recorded nowhere in DESIGN.md
-- Claude Code: `claude/hooks/gh-api-readonly.sh` has the same adjacency-assumption fragility as the git blocklist did (checks that the token immediately after `gh` is `api`; a flag like `gh --repo owner/x api ...` would slip past it). Not fixed alongside the git -C fix since it's `gh`-specific; apply the same kind of tolerant-matching fix if it turns out to matter.
-- Claude Code: move work-specific config out of global `claude/`: `jira-comment.md` hardcodes `sft.atlassian.net`, `acli-guide.md` references `GLUE` project. Consider `tag-work/` or parameterization so personal machines stay clean.
-- Audit lazy loading: review which plugins load eagerly vs on event/ft/keys/cmd, benchmark startup time with `:Lazy profile`, and define conventions for when to use each loading strategy. Check the VeryLazy event in particular.
-- Periodic scan for major version bumps on pinned plugins (LuaSnip, blink.cmp, fidget.nvim, hop.nvim, nvim-tree.lua); lazy.nvim doesn't detect when a new major exists beyond the pinned range
-- Try setting up MasonToolsUpdateSync as a `build` step in mason-tool-installer's lazy.nvim spec, so Mason auto-updates its tools during Lazy sync (like treesitter does with TSUpdate)
-- Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a `config()` function instead"
-- Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr. Free since 56 parsers are already loaded.
-- which-key group labels: loaded but no group registrations. Adding labels for leader groups would improve discoverability.
-- Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools that belong in Brewfile if available via Homebrew. Move non-Rust-tooling packages per Homebrew-for-CLI-tools convention.
+- Claude Code: give `claude/hooks/gh-api-readonly.sh` a `timeout` in settings.json and a test in
+  `rcignore/` (the other two hooks have both; this is the most parsing-heavy of the three)
+- Repo-wide ASCII/em-dash sweep: ~65 em dashes across 8 first-party files (BACKLOG.md, bootstrap.md,
+  peer-review.md, reviewer.md, jira-comment.md, claude-permissions SKILL.md + invariants.md,
+  gh-api-readonly.sh) violate the no-non-ASCII convention; consider a typos/lint rule so it stays
+  fixed
+- Decide TODO.md vs BACKLOG.md: both exist at the repo root; config names only BACKLOG.md as the
+  work tracker
+- Document or relocate the jdtls-lombok-lsp shim under `claude/skills/`: no SKILL.md, hardcodes an
+  Amazon Corretto 21 path and Lombok 1.18.42, and the official jdtls plugin is disabled in its
+  favor; the relationship is recorded nowhere in DESIGN.md
+- Claude Code: `claude/hooks/gh-api-readonly.sh` has the same adjacency-assumption fragility as the
+  git blocklist did (checks that the token immediately after `gh` is `api`; a flag like
+  `gh --repo owner/x api ...` would slip past it). Not fixed alongside the git -C fix since it's
+  `gh`-specific; apply the same kind of tolerant-matching fix if it turns out to matter.
+- Claude Code: move work-specific config out of global `claude/`: `jira-comment.md` hardcodes
+  `sft.atlassian.net`, `acli-guide.md` references `GLUE` project. Consider `tag-work/` or
+  parameterization so personal machines stay clean.
+- Audit lazy loading: review which plugins load eagerly vs on event/ft/keys/cmd, benchmark startup
+  time with `:Lazy profile`, and define conventions for when to use each loading strategy. Check the
+  VeryLazy event in particular.
+- Periodic scan for major version bumps on pinned plugins (LuaSnip, blink.cmp, fidget.nvim,
+  hop.nvim, nvim-tree.lua); lazy.nvim doesn't detect when a new major exists beyond the pinned range
+- Try setting up MasonToolsUpdateSync as a `build` step in mason-tool-installer's lazy.nvim spec, so
+  Mason auto-updates its tools during Lazy sync (like treesitter does with TSUpdate)
+- Fix roc.vim warning in `just test`: "Lua module not found for config of roc.vim. Please use a
+  `config()` function instead"
+- Treesitter-based folding: switch from `foldmethod=indent` to treesitter foldexpr. Free since 56
+  parsers are already loaded.
+- which-key group labels: loaded but no group registrations. Adding labels for leader groups would
+  improve discoverability.
+- Audit cargo-installed packages in `just update`: speedtest and zeitfetch are general CLI tools
+  that belong in Brewfile if available via Homebrew. Move non-Rust-tooling packages per
+  Homebrew-for-CLI-tools convention.
 - LSP hover doc improvements: dismiss with esc, scroll with c-f/c-b, reduce hidden text whitespace
 - Buffer deletion from fzf buffer picker
 - Dismiss gitsigns inline diff (currently using kj workaround)
@@ -44,29 +75,52 @@
 
 ## High impact
 
-- Claude Code: investigate adversarial verification (multiple agents trying to refute a finding), multi-modal search sweeps, judge panels, and loop-until-dry (this might already be here) for Claude Config, vs ultra code
-- Shortcut (fish or karabiner) for opening Obsidian notes (especially todo/daily note; vault path configurable per machine) and dotfiles BACKLOG.md, for quick capture of things to consider later
-- Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into review-{correctness,performance,security,style}.
-- Claude Code: update `/feature` command to integrate with `execution.md`. Phase 3 lacks commit discipline and rollback protocol; Phase 4 has a conflicting 3-cycle iteration limit (execution.md uses 6).
+- Claude Code: investigate adversarial verification (multiple agents trying to refute a finding),
+  multi-modal search sweeps, judge panels, and loop-until-dry (this might already be here) for
+  Claude Config, vs ultra code
+- Shortcut (fish or karabiner) for opening Obsidian notes (especially todo/daily note; vault path
+  configurable per machine) and dotfiles BACKLOG.md, for quick capture of things to consider later
+- Claude Code: split review agent into review-spec and review-plan. Incorporate final mode into
+  review-{correctness,performance,security,style}.
+- Claude Code: update `/feature` command to integrate with `execution.md`. Phase 3 lacks commit
+  discipline and rollback protocol; Phase 4 has a conflicting 3-cycle iteration limit (execution.md
+  uses 6).
 - Review lazy nvim docs against our practices. Create backlog items for any misalignment.
-- Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix, fill the gaps, document the target state.
-- Review JDTLS configuration: Java is a primary language. Audit correctness and configurability: autobuild disabled (TODO about Maven coordination), JDK version hardcoded to 25, inlay hints disabled, workspace isolation edge cases, Lombok version pinned manually. Consider debug adapter, test runner, `.java-version` support.
-- Automated post-update Claude review: make the last step of `just update` run `claude` to review recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and spot-check config consistency. Needs design work on the prompt and Claude Code invocation.
-- Extract init.lua inline configs: hop config, mouse settings, terminal autocmds, wildmenu are mixed into init.lua (126 lines of mixed concerns). Move to proper homes.
+- Audit filetype tooling coverage: ensure each supported filetype has an LSP server, formatter, and
+  linter. Known gaps: fish (no LSP, fish-lsp in Brewfile), javascript/typescript (no LSP), css (no
+  LSP), markdown (no LSP or linter), java (no linter, checkstyle/PMD candidates). Build the matrix,
+  fill the gaps, document the target state.
+- Review JDTLS configuration: Java is a primary language. Audit correctness and configurability:
+  autobuild disabled (TODO about Maven coordination), JDK version hardcoded to 25, inlay hints
+  disabled, workspace isolation edge cases, Lombok version pinned manually. Consider debug adapter,
+  test runner, `.java-version` support.
+- Automated post-update Claude review: make the last step of `just update` run `claude` to review
+  recent package updates for deprecation warnings and breaking changes, audit inline TODOs, and
+  spot-check config consistency. Needs design work on the prompt and Claude Code invocation.
+- Extract init.lua inline configs: hop config, mouse settings, terminal autocmds, wildmenu are mixed
+  into init.lua (126 lines of mixed concerns). Move to proper homes.
 
 ## Other
 
 - Claude Code: rename spec in review agent and feature command (consider "problem-definition")
-- Run `just ponytail-diff` periodically; read the diff before copying upstream changes into the vendored skill, then update the commit and sha256 in `claude/skills/ponytail/VENDOR.md`
-- Vendor `ponytail-review` (2.4 KB, audits a diff for over-engineering) once the core ponytail skill has earned its place; it is the one that fits the existing review-loop workflow
-- Vendor `ponytail-debt` (1.7 KB, harvests deferred shortcuts) only once `ponytail:` marker comments actually exist in a repo; it has no input before then
-- Vendor `ponytail-audit` (1.7 KB, full-repo over-engineering audit) if a specific repo needs one; situational and one-shot rather than recurring
-- Upstream also ships `ponytail-gain` (impact scoreboard) and `ponytail-help` (quick reference); deliberately not vendored, since the numbers aren't tracked and the ruleset is local and readable
-- `just doctor` to do periodic checks, like reviewing `~/.Brewfile.local` for packages to move to `~/.Brewfile` or potentially updating neovim packages pinned to versions.
-- Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits keyboard-first philosophy better than nvim-tree.
+- Run `just ponytail-diff` periodically; read the diff before copying upstream changes into the
+  vendored skill, then update the commit and sha256 in `claude/skills/ponytail/VENDOR.md`
+- Vendor `ponytail-review` (2.4 KB, audits a diff for over-engineering) once the core ponytail skill
+  has earned its place; it is the one that fits the existing review-loop workflow
+- Vendor `ponytail-debt` (1.7 KB, harvests deferred shortcuts) only once `ponytail:` marker comments
+  actually exist in a repo; it has no input before then
+- Vendor `ponytail-audit` (1.7 KB, full-repo over-engineering audit) if a specific repo needs one;
+  situational and one-shot rather than recurring
+- Upstream also ships `ponytail-gain` (impact scoreboard) and `ponytail-help` (quick reference);
+  deliberately not vendored, since the numbers aren't tracked and the ruleset is local and readable
+- `just doctor` to do periodic checks, like reviewing `~/.Brewfile.local` for packages to move to
+  `~/.Brewfile` or potentially updating neovim packages pinned to versions.
+- Consider oil.nvim: keyboard-first file explorer, directories as editable buffers. Fits
+  keyboard-first philosophy better than nvim-tree.
 - noise-toggle fade in/out
 - Claude Code: set up and try in tmux
-- XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades. Restructure for `mas` visibility while keeping sudo at the end.
+- XCode update progress in `just update`: Homebrew shows no progress bar for XCode upgrades.
+  Restructure for `mas` visibility while keeping sudo at the end.
 - Check that setup.sh is idempotent
 - Deprecation warning capture in headless nvim test
 - fishtape for fish function testing
@@ -88,7 +142,8 @@
 - Fish: separate ignore-vcs bindings for fzf cd shortcut
 - Kitty: set up splits layout
 - Kitty: try `tab_bar_filter session:~` with sessions to scope the tab bar to the current session
-- Create `just stale-links`, like `just broken-links` but detects links to the dotfiles repo, and can remove them
+- Create `just stale-links`, like `just broken-links` but detects links to the dotfiles repo, and
+  can remove them
 
 ## New tools
 
@@ -116,7 +171,8 @@
 - [vim-markdown](https://github.com/preservim/vim-markdown) — markdown support
 - [elixir-tools.nvim](https://github.com/elixir-tools/elixir-tools.nvim) — Elixir support
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) — fuzzy finder
-- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) — indent guides (see [scope](https://github.com/lukas-reineke/indent-blankline.nvim?tab=readme-ov-file#scope))
+- [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) — indent guides
+  (see [scope](https://github.com/lukas-reineke/indent-blankline.nvim?tab=readme-ov-file#scope))
 - [trouble.nvim](https://github.com/folke/trouble.nvim) — diagnostics list
 - [nvim-dap](https://github.com/mfussenegger/nvim-dap) — debug adapter protocol
 - [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) — TODO highlighting
@@ -142,4 +198,5 @@
 - [git-blame.nvim](https://github.com/f-person/git-blame.nvim) — git blame
 - [gundo.vim](https://github.com/sjl/gundo.vim) — undo tree
 - [FastFold](https://github.com/Konfekt/FastFold) — faster folding
-- [oil.nvim](https://github.com/stevearc/oil.nvim) — keyboard-first file explorer (directories as editable buffers)
+- [oil.nvim](https://github.com/stevearc/oil.nvim) — keyboard-first file explorer (directories as
+  editable buffers)

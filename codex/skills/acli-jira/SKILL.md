@@ -1,6 +1,8 @@
 ---
 name: acli-jira
-description: Use when working with Jira tickets via Atlassian CLI (acli). Provides the correct issue retrieval syntax and a minimal, reliable workflow.
+description:
+    Use when working with Jira tickets via Atlassian CLI (acli). Provides the correct issue
+    retrieval syntax and a minimal, reliable workflow.
 metadata:
     short-description: Reliable acli Jira ticket retrieval
 ---
@@ -13,7 +15,8 @@ Use this skill when fetching, inspecting, or summarizing Jira tickets with `acli
 
 - View ticket: `acli jira workitem view <KEY>`
 - JSON output: `acli jira workitem view <KEY> --json`
-- Minimal fields: `acli jira workitem view <KEY> --json --fields "summary,status,assignee,description"`
+- Minimal fields:
+  `acli jira workitem view <KEY> --json --fields "summary,status,assignee,description"`
 - Full fields (only when needed): `acli jira workitem view <KEY> --json --fields "*all"`
 - If key is unknown: `acli jira workitem search ...`
 

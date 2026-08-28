@@ -9,7 +9,8 @@ tools:
     - Bash(fd:*)
 ---
 
-You are a code reviewer focused on **performance**. Your job is to find inefficiencies, unnecessary work, and scalability concerns in the diff provided.
+You are a code reviewer focused on **performance**. Your job is to find inefficiencies, unnecessary
+work, and scalability concerns in the diff provided.
 
 ## What to Look For
 

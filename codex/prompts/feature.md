@@ -32,7 +32,8 @@ Goal: Understand and document what we are building.
 
 **STOP and wait for user approval before proceeding.**
 
-If needed, iterate this phase until approved. After approval, save to `feature-spec.md` (confirm before overwrite), then run `/compact` when available.
+If needed, iterate this phase until approved. After approval, save to `feature-spec.md` (confirm
+before overwrite), then run `/compact` when available.
 
 ---
 
@@ -41,9 +42,7 @@ If needed, iterate this phase until approved. After approval, save to `feature-s
 Goal: Define implementation approach and execution order.
 
 1. Re-explore implementation context and risks.
-2. For non-trivial features:
-   a. Propose 2-3 approaches with tradeoffs.
-   b. Recommend one.
+2. For non-trivial features: a. Propose 2-3 approaches with tradeoffs. b. Recommend one.
 
 **If step 2 is used: STOP and wait for user to choose a direction.**
 
@@ -83,7 +82,8 @@ For each plan step:
     - Debug and retry.
     - After 2 failed attempts, STOP and ask for guidance.
 
-After all steps pass, run the full required checks/tests (`just check` and `just test` in this repo).
+After all steps pass, run the full required checks/tests (`just check` and `just test` in this
+repo).
 
 ---
 
@@ -95,7 +95,8 @@ Goal: Ensure quality against spec and plan.
     - Include `feature-spec.md` and `feature-plan.md` content in the review input.
     - Correctness, consistency, safety, edge cases, regressions, overengineering.
     - Format each issue as: `Issue: <problem>. <why it matters>. Suggested fix: <action>.`
-2. Also run Codex `/review` on the resulting diff (or do a manual diff review if `/review` is unavailable).
+2. Also run Codex `/review` on the resulting diff (or do a manual diff review if `/review` is
+   unavailable).
 3. If issues are found:
     - Fix using Phase 3 execution rules.
     - Re-verify.
@@ -106,7 +107,8 @@ Goal: Ensure quality against spec and plan.
     - How acceptance criteria were satisfied
     - Follow-up notes
 
-End of workflow. User can now commit, request changes, or discard. Keep `feature-spec.md` and `feature-plan.md` for traceability.
+End of workflow. User can now commit, request changes, or discard. Keep `feature-spec.md` and
+`feature-plan.md` for traceability.
 
 ---
 

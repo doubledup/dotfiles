@@ -1,16 +1,21 @@
 ---
 name: review-loop-codex
-description: Run structured iterative review loops on a target file or prompt with explicit accept/reject decisions per finding, one-by-one revisions, and re-review cycles. Use when Codex should improve docs, prompts, or guidance files through repeated review/revise iterations with validation after edits.
+description:
+    Run structured iterative review loops on a target file or prompt with explicit accept/reject
+    decisions per finding, one-by-one revisions, and re-review cycles. Use when Codex should improve
+    docs, prompts, or guidance files through repeated review/revise iterations with validation after
+    edits.
 ---
 
 # Review Loop (Codex)
 
 ## Overview
 
-Use this skill to run disciplined improvement loops on a target artifact (for example `AGENTS.md`, prompt files, policy docs).
+Use this skill to run disciplined improvement loops on a target artifact (for example `AGENTS.md`,
+prompt files, policy docs).
 
-Default stopping rule: continue iterating until only minor issues remain.
-Use a safety cap of 5 loops unless the user specifies a different cap.
+Default stopping rule: continue iterating until only minor issues remain. Use a safety cap of 5
+loops unless the user specifies a different cap.
 
 ## Inputs
 
@@ -39,40 +44,47 @@ For each loop:
 6. Re-open the file and verify the accepted changes are present.
 7. Re-review and classify remaining findings:
     - `major`: correctness/safety/policy/regression risks.
-    - `medium`: maintainability/structure/readability issues that are meaningful but not correctness or safety risks.
+    - `medium`: maintainability/structure/readability issues that are meaningful but not correctness
+      or safety risks.
     - `minor`: wording, clarity, or low-impact polish.
 8. Stop when only minor findings remain, or when the loop cap is reached.
-9. If the loop cap is reached and major findings remain, stop and report unresolved major findings explicitly.
+9. If the loop cap is reached and major findings remain, stop and report unresolved major findings
+   explicitly.
 
-If no findings are accepted in a loop, make no edits and state that explicitly.
-If two consecutive loops produce no accepted changes and no material finding changes, stop and report no-progress termination.
-Treat a finding as materially changed only if severity, location, or core issue statement changes.
-Example: wording tweaks to the same issue are not material; changing an issue from `medium` to `major` is material.
-If no findings remain, stop immediately and report the target as ready.
-When only minor findings remain, list those minor findings as optional follow-ups.
+If no findings are accepted in a loop, make no edits and state that explicitly. If two consecutive
+loops produce no accepted changes and no material finding changes, stop and report no-progress
+termination. Treat a finding as materially changed only if severity, location, or core issue
+statement changes. Example: wording tweaks to the same issue are not material; changing an issue
+from `medium` to `major` is material. If no findings remain, stop immediately and report the target
+as ready. When only minor findings remain, list those minor findings as optional follow-ups.
 
 ## Editing Rules
 
 - Keep edits minimal, high-signal, and aligned with repository conventions.
 - Preserve existing hard prohibitions unless explicitly asked to change them.
-- If another file is declared canonical (for example `CLAUDE.md`), do not duplicate detailed conventions in the target; point to the canonical file.
+- If another file is declared canonical (for example `CLAUDE.md`), do not duplicate detailed
+  conventions in the target; point to the canonical file.
 
 ## Validation
 
-After edits, run required repository checks from current policy (for example `just check` and `just test` in this repo).
+After edits, run required repository checks from current policy (for example `just check` and
+`just test` in this repo).
 
 If a command cannot run, report the blocker and what remains unverified.
 
 ## GitHub PR Comment Workflow
 
-Use this workflow when findings should be posted to a PR (comments only; PR descriptions are out of scope for this skill).
+Use this workflow when findings should be posted to a PR (comments only; PR descriptions are out of
+scope for this skill).
 
 1. Load the PR comms style file (default: `~/.claude/output-styles/pr-comms.md`).
 2. Draft comments in that style:
-    - Use `we` voice and review tags from style (`nit:`, `suggestion:`, `question:`, `issue:`, `request:`).
+    - Use `we` voice and review tags from style (`nit:`, `suggestion:`, `question:`, `issue:`,
+      `request:`).
     - One idea per comment.
     - Name exact files/fields/lines for remaining gaps.
-    - When listing multiple files, use bullet points with markdown links and filename-only link text.
+    - When listing multiple files, use bullet points with markdown links and filename-only link
+      text.
 3. Prefer inline comments on relevant changed line(s)/range.
 4. Build each inline comment using `gh api repos/<owner>/<repo>/pulls/<pr>/comments`:
     - Single line: `commit_id`, `path`, `side`, `line`, `body`

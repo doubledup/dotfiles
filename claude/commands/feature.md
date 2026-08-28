@@ -39,8 +39,7 @@ Goal: Define the problem and what success looks like.
     - Edge cases to handle
     - Out of scope (if relevant)
 
-4. Use the Reviewer agent in `spec` mode to review the spec.
-   Include the spec text in the prompt.
+4. Use the Reviewer agent in `spec` mode to review the spec. Include the spec text in the prompt.
 
 5. Present the spec and reviewer feedback to the user.
 
@@ -48,7 +47,8 @@ Goal: Define the problem and what success looks like.
 
 If the user identifies gaps, revise the spec and repeat this phase.
 
-After approval, save the spec to `feature-spec.md` (confirm with user before overwriting). Run `/compact` before proceeding to Phase 2.
+After approval, save the spec to `feature-spec.md` (confirm with user before overwriting). Run
+`/compact` before proceeding to Phase 2.
 
 ---
 
@@ -61,9 +61,8 @@ Goal: Define how we'll implement this feature.
     - Note existing patterns and constraints
     - Identify risks or complications
 
-2. For non-trivial features:
-   a. Briefly outline 2-3 approaches with tradeoffs (complexity, risk, testability, alignment with existing patterns)
-   b. Recommend one with reasoning
+2. For non-trivial features: a. Briefly outline 2-3 approaches with tradeoffs (complexity, risk,
+   testability, alignment with existing patterns) b. Recommend one with reasoning
 
 **If step 2 was followed: present approaches and STOP until the user confirms a direction.**
 
@@ -72,8 +71,8 @@ Goal: Define how we'll implement this feature.
     - Why (links to which acceptance criterion)
     - How to verify (specific test or check)
 
-4. Use the Reviewer agent in `plan` mode to review the plan.
-   Include the contents of `feature-spec.md` and the plan in the prompt.
+4. Use the Reviewer agent in `plan` mode to review the plan. Include the contents of
+   `feature-spec.md` and the plan in the prompt.
 
 5. Present the plan and reviewer feedback to the user.
 
@@ -114,8 +113,8 @@ After all steps complete, run the full test suite.
 
 Goal: Verify the complete change meets quality standards.
 
-1. Use the Reviewer agent in `final` mode to review all changes.
-   Include the contents of `feature-spec.md` and `feature-plan.md` in the prompt.
+1. Use the Reviewer agent in `final` mode to review all changes. Include the contents of
+   `feature-spec.md` and `feature-plan.md` in the prompt.
 
 2. If the reviewer finds issues:
     - Fix them using Phase 3 execution rules, guided by the specific findings
@@ -128,7 +127,8 @@ Goal: Verify the complete change meets quality standards.
     - How each acceptance criterion was addressed
     - Any notes or follow-up items
 
-**End of workflow.** User can now commit, request changes, or discard. `feature-spec.md` and `feature-plan.md` remain in the working directory for reference.
+**End of workflow.** User can now commit, request changes, or discard. `feature-spec.md` and
+`feature-plan.md` remain in the working directory for reference.
 
 ---
 
@@ -142,5 +142,5 @@ These apply across all phases:
 - Reason before coding. Understand before modifying.
 - Be critical during review. Assume something was missed.
 - If the feature is more complex than expected, say so and propose adjusting scope.
-- Keep PRs small. Warn at 400+ lines changed, stop and suggest splitting at 1500+ lines.
-  Check cumulative diff size (vs base branch) during planning and execution.
+- Keep PRs small. Warn at 400+ lines changed, stop and suggest splitting at 1500+ lines. Check
+  cumulative diff size (vs base branch) during planning and execution.
