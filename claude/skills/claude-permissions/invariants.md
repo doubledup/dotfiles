@@ -7,17 +7,17 @@ example violation. Background rationale (the sandbox-first, minimal-hook decisio
 ## Threat model
 
 This posture defends against accidental or mistaken commands, and takes cheap, robust, low-friction
-protections (secret-path `deny` rules, the OS sandbox, denying a sandbox-bypassing built-in tool) that
-also raise the bar against a hostile actor. It deliberately does NOT invest in complex or fragile
-adversarial hardening — pattern-matching arms races such as real-URL host parsing, flag-tolerant
-command globs, or narrowing widely-used commands — because the friction outweighs the benefit and is
-undercut by accepted residuals (github.com egress, unattended `git fetch`/`just push`, in-tree
-`.git/config` trust) and the limits of rule matching. The OS sandbox is the containment boundary for a
-compromised command. The secret-path denies, the sandbox, and the `Grep`-tool deny are retained
-precisely because they defend against attacks cheaply and robustly — do NOT cite this threat model to
-weaken or drop them. When guiding an add or running the audit, weigh each rule against the accident it
-prevents and its complexity/friction, prefer simple configuration, and do not add complex or fragile
-rules chasing adversarial evasion.
+protections (secret-path `deny` rules, the OS sandbox, denying a sandbox-bypassing built-in tool)
+that also raise the bar against a hostile actor. It deliberately does NOT invest in complex or
+fragile adversarial hardening — pattern-matching arms races such as real-URL host parsing,
+flag-tolerant command globs, or narrowing widely-used commands — because the friction outweighs the
+benefit and is undercut by accepted residuals (github.com egress, unattended
+`git fetch`/`just push`, in-tree `.git/config` trust) and the limits of rule matching. The OS
+sandbox is the containment boundary for a compromised command. The secret-path denies, the sandbox,
+and the `Grep`-tool deny are retained precisely because they defend against attacks cheaply and
+robustly — do NOT cite this threat model to weaken or drop them. When guiding an add or running the
+audit, weigh each rule against the accident it prevents and its complexity/friction, prefer simple
+configuration, and do not add complex or fragile rules chasing adversarial evasion.
 
 ## Layer-location map
 
@@ -33,13 +33,13 @@ rules chasing adversarial evasion.
 ## Disposition -> layers (the guided-add contract)
 
 CLAUDE.md participation is **principles-only by default, with a security override**: a
-**security-related** policy gets a CLAUDE.md line even if mechanical (security trumps minimalism);
-a non-security policy gets one only if it is a genuine principle. A single covering family line
-can serve a group of related rules.
+**security-related** policy gets a CLAUDE.md line even if mechanical (security trumps minimalism); a
+non-security policy gets one only if it is a genuine principle. A single covering family line can
+serve a group of related rules.
 
 **Security-related** = touches secrets/credentials; irreversible data loss (destructive commands);
-privilege escalation (sudo); outbound exfiltration (network, git push); or defeats a safety
-control (direnv trust, `--no-verify`, `--dangerously-skip-permissions` bypass).
+privilege escalation (sudo); outbound exfiltration (network, git push); or defeats a safety control
+(direnv trust, `--no-verify`, `--dangerously-skip-permissions` bypass).
 
 | Disposition         | CLAUDE.md                | settings.json | guard.sh | test     |
 | ------------------- | ------------------------ | ------------- | -------- | -------- |
@@ -47,21 +47,20 @@ control (direnv trust, `--no-verify`, `--dangerously-skip-permissions` bypass).
 | confirm (ask first) | line if security-related | ask           | -        | -        |
 | allow (read-only)   | usually none             | allow         | none     | optional |
 
-`guard.sh` has NO Bash branch: it never enforces a forbid command (that is the
-`deny` rule's job) and never emits an ask. Its only leg is path-matching secret
-reads via the built-in tools (Read/Write/Edit/Grep/Glob), which the sandbox and
-`deny` rules can't cover. So a forbid disposition gets a `deny` rule and, only
-for a secret-path read, a guard case; a destructive command gets a `deny` rule
-and no hook.
+`guard.sh` has NO Bash branch: it never enforces a forbid command (that is the `deny` rule's job)
+and never emits an ask. Its only leg is path-matching secret reads via the built-in tools
+(Read/Write/Edit/Grep/Glob), which the sandbox and `deny` rules can't cover. So a forbid disposition
+gets a `deny` rule and, only for a secret-path read, a guard case; a destructive command gets a
+`deny` rule and no hook.
 
 Confirm has no guard.sh leg: the hook is **block-only** by design (it never emits `ask`). Confirms
 live in settings.json `ask` plus the permission classifier, which backstops the forms a glob can't
 match. So a confirm rule gets no hook branch and no `test_guard.sh` case.
 
 Test column: `rcignore/test_guard.sh` feeds Read/Grep/Glob tool payloads to guard.sh; since the
-guard is path-matching only, the tests exercise its secret-path block. Destructive `deny` rules
-and MCP dispositions get no harness test (the guard has no Bash branch to exercise); say so, do
-not promise one.
+guard is path-matching only, the tests exercise its secret-path block. Destructive `deny` rules and
+MCP dispositions get no harness test (the guard has no Bash branch to exercise); say so, do not
+promise one.
 
 ## Invariants
 
@@ -69,20 +68,21 @@ not promise one.
 `rm -rf`, `git push`, tree-discard, `find` side-effecting primaries) is enforced by a settings.json
 `deny` rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected under sandbox
 auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7) contains what runs;
-and hooks must not parse Bash command strings, which is fragile on quoting/operators/`$()`. Use the
-colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) — **except
-when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A mid-
-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires, `Bash(git -C *
-clean*)` does (glued `*`, and it still catches the no-arg case). Measured, for both `git` and `aws`;
-it contradicts the docs, which present mid-command wildcards as working. So a `-C`/wrapper twin must
-use the glued form. Check every rule containing a non-trailing `*` for a `:*)` **or** ` *)` tail and
-flag it as inert — the two tails are equivalent, so both fail. This bit the `aws * <verb>-*:*`
-mutation denies and the `AWS_PROFILE=* aws *` production asks, not just git. Ask-by-
-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are NOT gaps. Check: for each
-destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv subcommands
-are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
-`Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a hook.
-Note on `git push`: it stays a must-never `deny`, but unattended push is available through the
+and enforcement hooks must not parse Bash command strings, which is fragile on
+quoting/operators/`$()` (the allow-only `gh-api-readonly.sh` parses, but fails open to the prompt).
+Use the colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) —
+**except when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A
+mid-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires,
+`Bash(git -C * clean*)` does (glued `*`, and it still catches the no-arg case). Measured, for both
+`git` and `aws`; it contradicts the docs, which present mid-command wildcards as working. So a
+`-C`/wrapper twin must use the glued form. Check every rule containing a non-trailing `*` for a
+`:*)` **or** ` *)` tail and flag it as inert — the two tails are equivalent, so both fail. This bit
+the `aws * <verb>-*:*` mutation denies and the `AWS_PROFILE=* aws *` production asks, not just git.
+Ask-by-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are NOT gaps. Check: for
+each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
+subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
+`Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
+hook. Note on `git push`: it stays a must-never `deny`, but unattended push is available through the
 `just push` narrow wrapper (an allowed command whose recipe runs a fixed non-force `git push` to a
 github-host-checked origin), so the deny costs no workflow and still needs no hook.
 
@@ -90,23 +90,23 @@ github-host-checked origin), so the deny costs no workflow and still needs no ho
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
 `guard.sh`'s path case for the built-in tools (Read/Write/Edit/Grep/Glob), because the sandbox does
 not wrap those tools and `Read(**/…)` denies apply only best-effort to Grep/Glob. Scope: **`.git` is
-guard-only** — no `Read(**/.git/**)` and no `Bash(*/.git/*)`. The Bash form would collide with `cat
-.git/HEAD`, and the `Read` form is worse than redundant: `Read`/`Edit` denies are merged into the OS
-sandbox's filesystem lists, so `Read(**/.git/**)` becomes a read block that every sandboxed process
-inherits and it breaks **all** git in the repo it is anchored to (project scope: that repo; user
-scope: whichever repo is the session root). Do not restore it, and do not score its absence as a
-gap. Likewise the `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope
-(collision-prone). Check: each secret path (except `.git` and that family) has a `Bash(*…*)`
-deny and a guard.sh path case. Example: `.env` = `Bash(*.env*)` + the guard's `*/.env` case.
+guard-only** — no `Read(**/.git/**)` and no `Bash(*/.git/*)`. The Bash form would collide with
+`cat .git/HEAD`, and the `Read` form is worse than redundant: `Read`/`Edit` denies are merged into
+the OS sandbox's filesystem lists, so `Read(**/.git/**)` becomes a read block that every sandboxed
+process inherits and it breaks **all** git in the repo it is anchored to (project scope: that repo;
+user scope: whichever repo is the session root). Do not restore it, and do not score its absence as
+a gap. Likewise the `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope
+(collision-prone). Check: each secret path (except `.git` and that family) has a `Bash(*…*)` deny
+and a guard.sh path case. Example: `.env` = `Bash(*.env*)` + the guard's `*/.env` case.
 
 **3. Guard block => settings visibility mirror.** Any secret path `guard.sh` blocks should also
 appear in `settings.json` `deny` (`Read(**/…)` + `Bash(*…*)`) so intent stays declaratively
 greppable. Visibility, weaker than 1-2. **Exception: `.git`.** Its guard case has no settings mirror
 by design (invariant 2), because a `Read`/`Edit` deny propagates into the OS sandbox and breaks
 sandboxed git. Where a mirror would break a sandboxed tool, invariant 2 wins and the guard case
-stands alone; record it in the rationale doc instead. Check: each guard secret-path case (exit 2) has
-a matching `deny` entry, `.git` excepted. Example: a secret path blocked in the guard with no `deny`
-entry naming it.
+stands alone; record it in the rationale doc instead. Check: each guard secret-path case (exit 2)
+has a matching `deny` entry, `.git` excepted. Example: a secret path blocked in the guard with no
+`deny` entry naming it.
 
 **4. CLAUDE.md safety claim => real enforcement (enforceable claims only).** Classify each
 `## Safety` line as mechanically enforceable (names a specific command/path/action) or
@@ -115,30 +115,32 @@ correctly prose-only and are NOT gaps. Check: for each enforceable line, find th
 Example: "Never use --no-verify" (enforceable, no teeth today) is a gap; "verify no secrets in
 diffs" (behavioral) is not.
 
-**5. No cross-layer contradiction.** No `allow` for something a hook blocks or CLAUDE.md forbids;
-no `ask`/`allow` where the intent is must-never. Check: cross-reference the allow list against
-hook blocks and `## Safety`. Example: an `allow` rule for a command the guard hook exits 2 on.
+**5. No cross-layer contradiction.** No `allow` for something a hook blocks or CLAUDE.md forbids; no
+`ask`/`allow` where the intent is must-never. Check: cross-reference the allow list against hook
+blocks and `## Safety`. Example: an `allow` rule for a command the guard hook exits 2 on.
 
-**6. Disposition coherence.** forbid => `deny` rule (the guard has no Bash branch, so no
-`block()`); confirm => `ask` in settings.json (the guard never asks; the sandbox/classifier
-backstop). A must-never that is only `ask`, a confirm that is hard-denied, or any guard Bash-command
-block (which no longer exists) is a mismatch. Check: for each denied/guarded command, compare its
-settings disposition to the enforcement. Example: `rm`/`dd`/`rsync` = `ask` (coherent);
+**6. Disposition coherence.** forbid => `deny` rule (the guard has no Bash branch, so no `block()`);
+confirm => `ask` in settings.json (the guard never asks; the sandbox/classifier backstop). A
+must-never that is only `ask`, a confirm that is hard-denied, or any guard Bash-command block (which
+no longer exists) is a mismatch. Check: for each denied/guarded command, compare its settings
+disposition to the enforcement. Example: `rm`/`dd`/`rsync` = `ask` (coherent);
 sudo/`rm -rf`/destructive git/`find` primaries = `deny` (coherent); the guard's only leg is the
 Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor
 (`allowUnsandboxedCommands: false` + `failIfUnavailable: true`), so it is the primary containment
 boundary. This is what lets invariant 1 keep destructive enforcement in `deny` rules rather than a
-hook backstop, and what covers the direnv trust store (out-of-tree writes). Check: the `sandbox`
-key in settings.json; a regression to sandbox-off would weaken the deny-only destructive posture
-(no hook leg) - flag it if it changes.
+hook backstop, and what covers the direnv trust store (out-of-tree writes). Check: the `sandbox` key
+in settings.json; a regression to sandbox-off would weaken the deny-only destructive posture (no
+hook leg) - flag it if it changes.
 
 **8. MCP tools: `deny` is the only binding leg.** For `mcp__*` tools a PreToolUse hook does NOT
-bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them. Never advise a hook as sufficient for an MCP action, and never score a present
-hook as "enforced" for one; `deny` binds. Check: any policy whose tool is `mcp__*` must rely on a
-`deny` rule, not a hook. Latent today (no active mcpServers) but load-bearing when hardening a new
-MCP surface.
+bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them.
+Never advise a hook as sufficient for an MCP action, and never score a present hook as "enforced"
+for one; `deny` binds. Check: any policy whose tool is `mcp__*` must rely on a `deny` rule, not a
+hook. No `mcpServers` are configured in any scope, but connector-provided `mcp__*` tools can still
+be present in a session (14 Atlassian ask-rules already target them), so this invariant is
+load-bearing today.
 
 **9. Security policy => CLAUDE.md intent line + the enforcement legs its disposition allows.** A
 security-related policy must carry a CLAUDE.md `## Safety` intent line AND its enforcement legs.
@@ -151,21 +153,20 @@ Example: WebFetch is security-related (network) and lacks a CLAUDE.md line - fla
 hook.
 
 **10. Allow-rule wildcards must not precede a literal token they don't fully own.** A wildcard
-standing in for an option argument that precedes a literal subcommand (`Bash(git -C * status*)`)
-can absorb an injected option in that same slot (`-c core.fsmonitor=/tmp/evil`, `--exec-path=...`)
-and auto-approve it with no prompt; `core.fsmonitor` in particular runs arbitrary code on a plain
+standing in for an option argument that precedes a literal subcommand (`Bash(git -C * status*)`) can
+absorb an injected option in that same slot (`-c core.fsmonitor=/tmp/evil`, `--exec-path=...`) and
+auto-approve it with no prompt; `core.fsmonitor` in particular runs arbitrary code on a plain
 `git status`/`diff`. This is an `allow`-only gap: the equivalent shape in `ask` still prompts with
 the full command visible, and in `deny` still matches and blocks, so over-absorbing there is safe,
 not a hole. There is no narrower glob that admits the variable part while excluding the injected
-option, since Claude Code's matcher supports only plain `*`; the fix is to drop the wildcarded
-allow rule and keep only its literal (no-`-C`) twin, which has no wildcard preceding the
-subcommand for an option to hide in. Check: any `allow` rule with a `*` before a literal command
-token is a gap regardless of what follows. Example: `Bash(git -C * commit*)` is a gap;
-`Bash(git commit:*)` is not.
+option, since Claude Code's matcher supports only plain `*`; the fix is to drop the wildcarded allow
+rule and keep only its literal (no-`-C`) twin, which has no wildcard preceding the subcommand for an
+option to hide in. Check: any `allow` rule with a `*` before a literal command token is a gap
+regardless of what follows. Example: `Bash(git -C * commit*)` is a gap; `Bash(git commit:*)` is not.
 
 **11. Security enforcement lives at user (or managed) scope, not project-local.** A security
 guardrail must sit in user scope (`claude/*` -> `~/.claude/`) or managed settings so it applies in
 every project; the same guardrail present only in one project's `.claude/` is a gap - it silently
-does not protect other projects. Project scope is for additive allows. Check: report each rule's
-and hook's scope; flag a security policy found only at project scope. (Managed scope is out of read
+does not protect other projects. Project scope is for additive allows. Check: report each rule's and
+hook's scope; flag a security policy found only at project scope. (Managed scope is out of read
 scope; assume absent and say so.)

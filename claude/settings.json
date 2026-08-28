@@ -220,11 +220,7 @@
     "autoAllowBashIfSandboxed": true,
     "allowUnsandboxedCommands": false,
     "network": {
-      "allowedDomains": [
-        "api.github.com",
-        "github.com",
-        "objects.githubusercontent.com"
-      ]
+      "allowedDomains": ["api.github.com", "github.com", "objects.githubusercontent.com"]
     },
     "filesystem": {
       "allowWrite": [
@@ -289,5 +285,6 @@
     ]
   },
   "tui": "default",
-  "skipWorkflowUsageWarning": false
+  "skipWorkflowUsageWarning": false,
+  "agentPushNotifEnabled": true
 }

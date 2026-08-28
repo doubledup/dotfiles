@@ -44,8 +44,8 @@ machine-specific `[projects.*]` trust settings. The setup script handles the ini
 
 Machine-local nvim config lives in `~/.config/nvim/lua/config/local.lua`
 
-OS-specific config lives in `./tag-{os}/` and follows the same convention as local config,
-replacing "local" with "os" in filenames.
+OS-specific config lives in `./tag-{os}/` and follows the same convention as local config, replacing
+"local" with "os" in filenames.
 
 ### GPG commit signing keys
 
@@ -63,15 +63,15 @@ default for all repositories that you can override, e.g. with `direnv`.
 ### Firefox
 
 To enable the custom stylesheet, go to the `about:config` page and set
-`toolkit.legacyUserProfileCustomizations.stylesheets` to true. To also remove the remaining
-sidebar UI, set `sidebar.revamp` to false.
+`toolkit.legacyUserProfileCustomizations.stylesheets` to true. To also remove the remaining sidebar
+UI, set `sidebar.revamp` to false.
 
 ## MacOS
 
 Run `updateAll` to update everything.
 
-MacOS packages are managed with a global `Brewfile`. This replaces imperative commands like `brew
-install` with 2 steps: update the `Brewfile`, then ensure that exactly the packages in the
+MacOS packages are managed with a global `Brewfile`. This replaces imperative commands like
+`brew install` with 2 steps: update the `Brewfile`, then ensure that exactly the packages in the
 `Brewfile` are installed.
 
 To edit the global `Brewfile`:
@@ -106,8 +106,8 @@ auth       sufficient     pam_tid.so
 
 ### Karabiner Bluetooth shell commands
 
-If Karabiner `shell_command` mappings that run `blueutil` fail while the same `blueutil`
-commands work in Terminal, grant Bluetooth permission to Karabiner's console user helper:
+If Karabiner `shell_command` mappings that run `blueutil` fail while the same `blueutil` commands
+work in Terminal, grant Bluetooth permission to Karabiner's console user helper:
 
 `/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_console_user_server`
 
@@ -122,9 +122,8 @@ sqlite3 "$HOME/Library/Application Support/com.apple.TCC/TCC.db" \
   "select service,client,auth_value from access where service='kTCCServiceBluetoothAlways' and (client like '%Karabiner%' or client='karabiner_console_user_server');"
 ```
 
-CLI granting is prompt-based; there is no supported non-interactive `tccutil` grant command.
-To force a re-prompt, reset relevant entries, restart the helper, then trigger the Karabiner
-shortcut:
+CLI granting is prompt-based; there is no supported non-interactive `tccutil` grant command. To
+force a re-prompt, reset relevant entries, restart the helper, then trigger the Karabiner shortcut:
 
 ```sh
 tccutil reset Bluetooth org.pqrs.Karabiner-Elements.Settings
@@ -200,13 +199,13 @@ sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
 
 ### Docker
 
-After installing Docker, add yourself to the docker group with
-`sudo usermod -aG docker doubledup` and restart.
+After installing Docker, add yourself to the docker group with `sudo usermod -aG docker doubledup`
+and restart.
 
 ### GNOME Extensions
 
-Always show Bluetooth icon in system menu: [Bluetooth quick
-connect](https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/)
+Always show Bluetooth icon in system menu:
+[Bluetooth quick connect](https://extensions.gnome.org/extension/1401/bluetooth-quick-connect/)
 
 Speed up shell animations: [Impatience](https://extensions.gnome.org/extension/277/impatience/)
 Might be able to get away with setting `GNOME_SHELL_SLOWDOWN_FACTOR=0.5` in `/etc/environment`.

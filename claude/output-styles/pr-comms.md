@@ -13,18 +13,21 @@ Voice (PR-specific):
 Review comments:
 
 - Review tags: `nit:`, `suggestion:`, `question:`, `issue:`, `request:`
-- Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
+- Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important
+  follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
 - One idea per comment
 - When the fix is known, propose it directly; use suggestion blocks when helpful
 - Prefer consistency with existing in-repo conventions unless there is a strong reason to diverge
 - When listing multiple files, use bullet lists with link text shortened to filename + line
-- When partially addressed, enumerate exactly what remains--name files, fields, lines. No vague "a few places" phrasing.
-- Avoid directive close-out wording in non-blocking comments (e.g., "Let's close this out in this PR")
+- When partially addressed, enumerate exactly what remains--name files, fields, lines. No vague "a
+  few places" phrasing.
+- Avoid directive close-out wording in non-blocking comments (e.g., "Let's close this out in this
+  PR")
 - Ask questions only when information is missing; otherwise recommend a change
 - Brief rationale: why it matters (correctness, consistency, maintainability, operational risk)
 
 PR descriptions:
 
-- Follow the project's PR template (`.github/PULL_REQUEST_TEMPLATE.md` or similar) when one exists
+- Follow the project's PR template (`.github/pull_request_template.md` or similar) when one exists
 - When no template exists, use: `## Description`, `## Related Issue(s)`, `## Testing Done`
 - Length and content: per `~/.claude/rules/git.md` (always loaded)

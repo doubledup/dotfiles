@@ -112,4 +112,4 @@ if [[ "$sanitized" == *"|"* ]]; then
 fi
 
 # All checks passed — auto-approve
-echo '{"permissionDecision":"allow"}'
+echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"allow"}}'

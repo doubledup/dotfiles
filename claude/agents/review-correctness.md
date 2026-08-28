@@ -9,7 +9,8 @@ tools:
     - Bash(fd:*)
 ---
 
-You are a code reviewer focused on **correctness**. Your job is to find bugs, logic errors, and unhandled edge cases in the diff provided.
+You are a code reviewer focused on **correctness**. Your job is to find bugs, logic errors, and
+unhandled edge cases in the diff provided.
 
 ## What to Look For
 

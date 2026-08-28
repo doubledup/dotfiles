@@ -32,7 +32,8 @@ acli jira workitem create \
 
 For rich descriptions, write ADF JSON to a file and use `--description-file path/to/file.json`.
 
-Key flags: `--project`, `--type` (Task, Bug, Story, Epic), `--summary`, `--description` / `--description-file`, `--label` (repeatable), `--parent`, `--assignee`.
+Key flags: `--project`, `--type` (Task, Bug, Story, Epic), `--summary`, `--description` /
+`--description-file`, `--label` (repeatable), `--parent`, `--assignee`.
 
 ## Other useful subcommands
 
@@ -46,5 +47,6 @@ Key flags: `--project`, `--type` (Task, Bug, Story, Epic), `--summary`, `--descr
 
 - Use `--json` for machine-readable output
 - Use `--fields` to limit output and reduce noise
-- ADF (Atlassian Document Format) descriptions render with full formatting (bold, lists, code blocks, links)
+- ADF (Atlassian Document Format) descriptions render with full formatting (bold, lists, code
+  blocks, links)
 - The GLUE project uses labels like `CIMS`, `CIS`, `KYC`, `CPS`, `Glue-Scrum` to categorize work

@@ -1,10 +1,9 @@
 # Dotfiles
 
-Dotfiles managed with rcm. See @DESIGN.md for architectural decisions.
-
-## rcm Behavior
-
-See `claude/docs/rcm.md` for how this repo uses rcm (directory model, tags, excludes, update workflow).
+Dotfiles managed with rcm. `DESIGN.md` records architectural decisions; read it on demand
+(deliberately not @-imported). Standing policy: sandbox-first containment (must-nevers live in deny
+rules; hooks only where the sandbox and rules cannot reach); no secrets in any repo, even
+git-ignored.
 
 ## Conventions
 
@@ -13,17 +12,10 @@ File patterns:
 - Local overrides: `.local` before extension (e.g., `config.local.fish`)
 - OS-specific: `tag-{os}/` directory with `.os` in filename
 
-Neovim:
-
-- Pure Lua only (no vimscript)
-- Plugins <=20 lines: keep in `plugins/init.lua`
-- Plugins >20 lines: separate file in `plugins/`, named after the plugin repo (e.g., `nvim-lint.lua` for `mfussenegger/nvim-lint`)
-- Plugin docs: https://github.com/{user}/{repo}
-
 Style:
 
-- No non-ASCII characters (exceptions: intentional UI elements like listchars; vendored
-  third-party text, which must stay byte-identical to upstream - see `claude/skills/ponytail/VENDOR.md`)
+- No non-ASCII characters (exceptions: intentional UI elements like listchars; vendored third-party
+  text, which must stay byte-identical to upstream - see `claude/skills/ponytail/VENDOR.md`)
 
 ## Workflow
 
@@ -31,7 +23,8 @@ Before committing:
 
 - Run `just check` (required - handles formatting and linting)
 - Run `just test` if fish or neovim files changed
-- Warnings in `just check` or `just test` output should be resolved; add a backlog item if not fixable immediately
+- Warnings in `just check` or `just test` output should be resolved; add a backlog item if not
+  fixable immediately
 
 Decisions:
 
@@ -44,11 +37,13 @@ Backlog:
 - Remove completed items (don't check them off; git history records completion)
 - Run `just todos` periodically to find inline TODOs worth promoting to the backlog
 - If BACKLOG.md grows past ~100 items, split into a `backlog/` directory
-- When you observe workflow friction during a session (slow patterns, missing context, repeated manual steps), add it to BACKLOG.md. Don't interrupt the current task to investigate.
+- When you observe workflow friction during a session (slow patterns, missing context, repeated
+  manual steps), add it to BACKLOG.md. Don't interrupt the current task to investigate.
 
 Verification:
 
-- For UI-affecting changes (keymaps, LSP, statusline, shell), include a "Verify" section in the session plan with specific manual checks, e.g.:
+- For UI-affecting changes (keymaps, LSP, statusline, shell), include a "Verify" section in the
+  session plan with specific manual checks, e.g.:
     - "Open a .rs file, save, confirm clippy diagnostics appear"
     - "Press `<leader>f`, confirm fzf opens"
 
@@ -56,7 +51,8 @@ File operations:
 
 - Add packages to Brewfile (keep sections sorted alphabetically)
 - New excluded files: add to EXCLUDES in rcrc
-- New files in `~/`: run `mkrc <file>` (or `mkrc -t mac <file>` for OS-specific) to move into this repo and create symlink
+- New files in `~/`: run `mkrc <file>` (or `mkrc -t mac <file>` for OS-specific) to move into this
+  repo and create symlink
 - New files in repo: run `rcup` to create symlinks in `~/`
 - Removing symlinked files: delete file, then `just broken-links --remove`
 
