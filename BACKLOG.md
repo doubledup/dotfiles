@@ -4,6 +4,17 @@
 
 ## Low-hanging fruit
 
+- Claude Code: minimize our configuration. Start with config to enforce this while editing config,
+  then we can use the new config in a fresh session to do the minimization. Consider ponytail for
+  minimalism
+- Claude Code: add config so that when we find friction from our Claude code permissions, we update
+  them to remove that friction
+- Claude Code: config to exclude references to current repo state. e.g.
+  claude/skills/claude-permissions/invariants.md "Atlassian ask rules". Then run the config to
+  remove existing references
+- Claude Code: run only fast commands (e.g. format, lint, relevant unit tests) on each commit. Set
+  up a hook for this?
+- Remove references to Ghostty
 - Claude Code: allow rm in /var/
 - Claude Code: restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less (interactive shell escape, LESSOPEN env exec), sort (file writes via -o)
 - Claude Code: consider adding obsidian-cli's `daily:path`/`daily:read` to the project-scope allow list in `.claude/settings.json` (dotfiles repo) once verified against a live Obsidian instance that reading today's daily note doesn't auto-create it - Daily Notes/Periodic Notes plugins commonly create-on-access
