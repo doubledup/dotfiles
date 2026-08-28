@@ -279,7 +279,12 @@ Key technical choices and their rationale:
   (e.g. `cargo build.rs`) fully unsandboxed in every repo for no benefit here
 - Accepted tradeoffs: `network.allowedDomains` grants `github.com` for `just test`'s plugin
   fetches, a data-exfiltration surface the docs flag - acceptable because raw `git push` is denied
-  (push goes through the `just push` wrapper, which is github-host-checked, not identity-pinned) and this is a solo machine; unattended non-github egress via `git fetch <url>` or an in-tree `insteadOf` redirect is an accepted residual per the threat model; `filesystem.allowWrite` for the nvim data dirs applies globally (the
+  (push goes through the `just push` wrapper, which is github-host-checked, not identity-pinned) and this is a solo machine; unattended non-github egress via `git fetch <url>` or an in-tree `insteadOf` redirect is an accepted residual per the threat model; `api.datadoghq.eu` is granted for the Datadog `pup` CLI (read-only
+  pup commands run unprompted under sandbox auto-allow; every mutating verb is an `ask` rule in the glued
+  `Bash(pup * <verb>*)` form, derived from `pup agent schema`'s `read_only` flags at pup 1.14.0 with zero
+  unmatched mutating leaves; re-derive after a pup upgrade by dumping the schema and matching every
+  non-`read_only` leaf against the ask list; a few read-only leaves over-ask where a verb prefix is also a
+  noun, e.g. `run*`/`runs`, `set*`/`settings`, accepted as friction); `filesystem.allowWrite` for the nvim data dirs applies globally (the
   user's own editor state); the config deploys via rcm to Linux too, where the sandbox backend
   (bubblewrap + socat) is a prerequisite since `failIfUnavailable: true` hard-fails without it
 - `autoAllowBashIfSandboxed: true` is enabled (the documented large prompt reduction): sandboxable

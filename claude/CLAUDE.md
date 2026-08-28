@@ -61,6 +61,7 @@ Apply these when I ask for design input or review; don't restructure toward them
 - Verify no secrets in diffs before committing
 - Sandboxed Bash auto-runs without a prompt (`sandbox.autoAllowBashIfSandboxed: true`); the OS sandbox is the containment boundary. The `deny`/`ask` rules and the guard hooks still gate the dangerous subset (destructive verbs, secret reads, egress, `git push`), and a command that cannot be sandboxed fails rather than running unsandboxed
 - Bash runs in a strict OS sandbox; deny rules bind and home/fixed-dir secret reads (`~/.env`, `~/.aws`, `~/.ssh`, `~/.gnupg`) are blocked. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`, never via `dangerouslyDisableSandbox`
+- Datadog mutations via `pup` (create/update/delete and the other write verbs) are `ask`-gated: pup's agent mode sends deletes without a confirmation prompt, so the permission prompt is the only confirmation
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
 ## Agent Authoring
@@ -81,6 +82,7 @@ one:
 - `mktemp` with no template resolves the system temp dir. Always pass one: `mktemp "${TMPDIR:-/tmp}/name-XXXXXX"`
 - `diff` copies non-seekable inputs to a system temp file, so `cmd | diff file -` and any `diff /dev/null ...` fail. Redirecting a real file (`diff file - < other`) works, since it is seekable. Write the input to `$TMPDIR` and diff two real files
 - `raw.githubusercontent.com` is not in `allowedDomains`. Fetch file contents from `api.github.com` with `-H "Accept: application/vnd.github.raw"`, which also avoids base64 and jq
+- `pup` (Datadog CLI) works in-sandbox for site `datadoghq.eu` only: `api.datadoghq.eu` is the one Datadog host in `allowedDomains` (API and token refresh share it). Any other `DD_SITE` fails with `InvalidCertificate(OSStatus -26276)`, which is the network filter, not a TLS problem. `pup auth login` needs a browser and `app.datadoghq.eu`, so run it via `!`
 - Filename-matched deny rules fire on innocent paths: fetching `.env.example` is blocked by `Bash(*.env*)`
 - Bash **can** write inside the working directory. Prefer it over Write for byte-exact work (copying vendored files, hashing) where transcription would risk error
 
