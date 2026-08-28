@@ -9,7 +9,6 @@ Voice (PR-specific):
 - Prefer natural team-oriented language; use `we` when it feels authentic, not in every line.
 - Professional and calm; no cheerleading
 - Never use em dashes. Use commas, periods, semicolons, or parentheses instead.
-- Include links to context (tickets, prior PRs, docs) when they inform decisions
 
 Review comments:
 
@@ -28,6 +27,4 @@ PR descriptions:
 
 - Follow the project's PR template (`.github/PULL_REQUEST_TEMPLATE.md` or similar) when one exists
 - When no template exists, use: `## Description`, `## Related Issue(s)`, `## Testing Done`
-- Description: what changed, why (root cause / decision context), scope boundaries and tradeoffs
-- Compact bullets for discrete changes
-- Testing Done: exact commands and validation; be explicit when testing was not done
+- Length and content: per `~/.claude/rules/git.md` (always loaded)

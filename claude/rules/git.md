@@ -26,19 +26,17 @@
 ## PR Descriptions
 
 - Follow the project template (`.github/pull_request_template.md`)
-- Bias toward concise: cover the key details (root cause, what changed, testing) and cut the rest. Omit what is always implicit (e.g. that merged IaC deploys per environment via CI). Aim for a screenful.
+- Description: what changed and why, in 3-6 sentences or bullets. One clause of root cause. Name what is deliberately out of scope if a reader would otherwise expect it. Then stop.
+- Cut: how a fact was established (that is Testing Done), anything the diff already shows, commit bodies restated, background a linked ticket or PR already carries, and what is always implicit (e.g. that merged IaC deploys per environment via CI)
+- Links: one per claim that needs context (ticket, prior PR), as markdown links. Link instead of explaining
+- Testing Done: one line per check, the command and what it showed. Say plainly when nothing was run
 - No line width limits (unlike commits); let lines wrap naturally
-- Description: what changed, why (root cause or decision context), scope boundaries and tradeoffs
-- Compact bullets for discrete changes
-- Testing Done: exact commands and observed results; be explicit when testing was not done
-- Link related Jira issues as markdown links
 
 ## PR Voice
 
 - Prefer natural team-oriented language; use "we" when it feels authentic, not in every line
 - Professional and calm; no cheerleading
 - Never use em dashes; use commas, periods, semicolons, or parentheses instead
-- Include links to context (tickets, prior PRs, docs) when they inform decisions
 
 ## PR Replies
 
