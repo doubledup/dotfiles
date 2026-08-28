@@ -2,6 +2,12 @@
 
 ## Fixes
 
+- Claude Code: verify whether `!` commands run inside the Bash sandbox. The `claude/CLAUDE.md`
+  Safety section says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the
+  same EPERM on `claude/CLAUDE.md` as the sandboxed Bash tool did, on a plain 644 file with no flags
+  or ACLs. Test in a fresh session with a known sandbox state, then correct the rule if the claim is
+  wrong.
+
 ## Low-hanging fruit
 
 - Claude Code: minimize our configuration. Start with config to enforce this while editing config,
