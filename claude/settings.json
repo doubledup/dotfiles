@@ -3,13 +3,6 @@
     "commit": "",
     "pr": ""
   },
-  "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true,
-    "jdtls-lsp@claude-plugins-official": false
-  },
-  "outputStyle": "Concise",
-  "tui": "fullscreen",
-  "skipWorkflowUsageWarning": false,
   "permissions": {
     "allow": [
       "Bash(rg:*)",
@@ -179,7 +172,9 @@
       "mcp__claude_ai_Atlassian__createCompassCustomFieldDefinition"
     ],
     "defaultMode": "auto",
-    "additionalDirectories": ["~/code/worktrees"]
+    "additionalDirectories": [
+      "~/code/worktrees"
+    ]
   },
   "hooks": {
     "PreToolUse": [
@@ -214,6 +209,11 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": false
+  },
+  "outputStyle": "Concise",
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,
@@ -232,8 +232,13 @@
         "~/.local/state/nvim",
         "~/.cache/nvim"
       ],
-      "denyWrite": ["~/**/.git/hooks"],
-      "denyRead": ["~/.env", "~/.envrc"]
+      "denyWrite": [
+        "~/**/.git/hooks"
+      ],
+      "denyRead": [
+        "~/.env",
+        "~/.envrc"
+      ]
     },
     "credentials": {
       "files": [
@@ -282,5 +287,7 @@
       "just push",
       "just push *"
     ]
-  }
+  },
+  "tui": "default",
+  "skipWorkflowUsageWarning": false
 }
