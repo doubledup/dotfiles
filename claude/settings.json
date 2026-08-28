@@ -152,59 +152,6 @@
       "Bash(git sparse-checkout:*)",
       "Bash(git -C * sparse-checkout*)",
       "Bash(gh pr create:*)",
-      "Bash(pup api:*)",
-      "Bash(pup * create*)",
-      "Bash(pup * update*)",
-      "Bash(pup * delete*)",
-      "Bash(pup * add*)",
-      "Bash(pup * upsert*)",
-      "Bash(pup * remove*)",
-      "Bash(pup * bulk-remove*)",
-      "Bash(pup * cancel*)",
-      "Bash(pup * import*)",
-      "Bash(pup * trigger*)",
-      "Bash(pup * run*)",
-      "Bash(pup * archive*)",
-      "Bash(pup * unarchive*)",
-      "Bash(pup * assign*)",
-      "Bash(pup * unassign*)",
-      "Bash(pup * install*)",
-      "Bash(pup * upgrade*)",
-      "Bash(pup * submit*)",
-      "Bash(pup * set*)",
-      "Bash(pup * publish*)",
-      "Bash(pup * unpublish*)",
-      "Bash(pup * link*)",
-      "Bash(pup * unlink*)",
-      "Bash(pup * move*)",
-      "Bash(pup * patch*)",
-      "Bash(pup * upload*)",
-      "Bash(pup * generate*)",
-      "Bash(pup * post*)",
-      "Bash(pup * enable*)",
-      "Bash(pup * disable*)",
-      "Bash(pup * pause*)",
-      "Bash(pup * resume*)",
-      "Bash(pup * star*)",
-      "Bash(pup * unstar*)",
-      "Bash(pup * pin*)",
-      "Bash(pup * unpin*)",
-      "Bash(pup * stop*)",
-      "Bash(pup * configure*)",
-      "Bash(pup * register*)",
-      "Bash(pup * records-add*)",
-      "Bash(pup * edit*)",
-      "Bash(pup * send*)",
-      "Bash(pup * batch-create*)",
-      "Bash(pup * batch-update*)",
-      "Bash(pup * activate*)",
-      "Bash(pup * deactivate*)",
-      "Bash(pup * mute*)",
-      "Bash(pup * restore*)",
-      "Bash(pup * clone*)",
-      "Bash(pup * offboard*)",
-      "Bash(pup * onboard*)",
-      "Bash(pup * logout*)",
       "Bash(rsync:*)",
       "Bash(dd:*)",
       "Bash(rm:*)",
@@ -225,7 +172,9 @@
       "mcp__claude_ai_Atlassian__createCompassCustomFieldDefinition"
     ],
     "defaultMode": "auto",
-    "additionalDirectories": ["~/code/worktrees"]
+    "additionalDirectories": [
+      "~/code/worktrees"
+    ]
   },
   "hooks": {
     "PreToolUse": [
@@ -274,8 +223,7 @@
       "allowedDomains": [
         "api.github.com",
         "github.com",
-        "objects.githubusercontent.com",
-        "api.datadoghq.eu"
+        "objects.githubusercontent.com"
       ]
     },
     "filesystem": {
@@ -284,8 +232,13 @@
         "~/.local/state/nvim",
         "~/.cache/nvim"
       ],
-      "denyWrite": ["~/**/.git/hooks"],
-      "denyRead": ["~/.env", "~/.envrc"]
+      "denyWrite": [
+        "~/**/.git/hooks"
+      ],
+      "denyRead": [
+        "~/.env",
+        "~/.envrc"
+      ]
     },
     "credentials": {
       "files": [
