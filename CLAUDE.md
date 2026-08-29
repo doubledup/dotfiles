@@ -32,7 +32,7 @@ Decisions:
 
 Backlog:
 
-- Read BACKLOG.md at the start of each session; suggest the highest-priority item
+- Read BACKLOG.md at the start of each session; suggest an item from its Next list
 - When a session produces follow-up work, add it to BACKLOG.md before ending
 - Remove completed items (don't check them off; git history records completion)
 - Run `just todos` periodically to find inline TODOs worth promoting to the backlog
