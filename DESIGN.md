@@ -240,6 +240,18 @@ Key technical choices and their rationale:
   `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
   `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not deny. All narrow and
   contained while the sandbox is active
+- **Local history operations are `allow`, not `ask`** (`merge`, `rebase`, `cherry-pick`, `revert`,
+  `apply`, `worktree`): their normal path only adds commits, refs, or hunks to tracked state and
+  stops on conflict (gitignored paths are expendable to checkout, so a merge can overwrite one; a
+  prompt would not reveal that, so it is not gated). `merge`/`rebase`/`cherry-pick`/`revert` are
+  also `excludedCommands` for GPG signing, so for those `allow` means unsandboxed and unprompted,
+  and in-repo hooks they trigger run outside the sandbox as they already do for `git commit`. The
+  exceptions are gated by flag: `rebase --exec`/`-x` (arbitrary command, unsandboxed) is `deny` in
+  leading or later flag position; `--abort`/`--skip` (reset over dirty edits) and `worktree remove`
+  (deletes gitignored files even unforced) are `ask`; the leading-flag forced remove is `deny`,
+  other orderings fall back to the `ask`. Residual: clustered short flags (`-ix`). The `git -C *`
+  twins stay `ask` (a wildcard before the subcommand in an `allow` rule can absorb an injected
+  `-c`/`--exec-path` option)
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
   `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade both the `rm -rf` deny and
   the `rm` ask)
