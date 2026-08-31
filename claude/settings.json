@@ -302,7 +302,7 @@
       "just push *"
     ]
   },
-  "tui": "default",
+  "tui": "fullscreen",
   "skipWorkflowUsageWarning": false,
   "remoteControlAtStartup": false,
   "agentPushNotifEnabled": true
