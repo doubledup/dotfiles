@@ -10,10 +10,6 @@ items when done; git history records completion.
   says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the same EPERM on
   `claude/CLAUDE.md` as sandboxed Bash did, on a plain 644 file. Test in a fresh session, then
   correct the rule if the claim is wrong
-- Claude Code: allow local-only git operations (merge, rebase, cherry-pick, and similar) in the
-  sandbox without prompting. Keep gating remote updates (`push`) and anything that can drop local
-  changes (force flags, `reset --hard`, `checkout --`, `clean`). Some verbs collide with existing
-  deny/ask globs; resolve the overlap when doing the task
 - Claude Code: minimize our configuration. Start with config to enforce this while editing config,
   then use it in a fresh session to do the minimization. Consider ponytail
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, peer-review.md, reviewer.md,
