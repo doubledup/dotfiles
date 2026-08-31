@@ -245,13 +245,14 @@ Key technical choices and their rationale:
   stops on conflict (gitignored paths are expendable to checkout, so a merge can overwrite one; a
   prompt would not reveal that, so it is not gated). `merge`/`rebase`/`cherry-pick`/`revert` are
   also `excludedCommands` for GPG signing, so for those `allow` means unsandboxed and unprompted,
-  and in-repo hooks they trigger run outside the sandbox as they already do for `git commit`. The
+  and in-repo hooks and merge drivers they trigger run outside the sandbox as hooks already do for
+  `git commit`; the `git merge` prefix also admits `mergetool`/`merge-*` plumbing (sandboxed). The
   exceptions are gated by flag: `rebase --exec`/`-x` (arbitrary command, unsandboxed) is `deny` in
-  leading or later flag position; `--abort`/`--skip` (reset over dirty edits) and `worktree remove`
-  (deletes gitignored files even unforced) are `ask`; the leading-flag forced remove is `deny`,
-  other orderings fall back to the `ask`. Residual: clustered short flags (`-ix`). The `git -C *`
-  twins stay `ask` (a wildcard before the subcommand in an `allow` rule can absorb an injected
-  `-c`/`--exec-path` option)
+  leading or later flag position; `--abort` (and `--skip` where the verb has it, a reset over dirty
+  edits) and `worktree remove` (deletes gitignored files even unforced) are `ask`; the leading-flag
+  forced remove is `deny`, other orderings fall back to the `ask`. Residual: clustered short flags
+  (`-ix`). The `git -C *` twins stay `ask` (a wildcard before the subcommand in an `allow` rule can
+  absorb an injected `-c`/`--exec-path` option)
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
   `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade both the `rm -rf` deny and
   the `rm` ask)

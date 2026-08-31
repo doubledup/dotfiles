@@ -10,6 +10,10 @@ items when done; git history records completion.
   says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the same EPERM on
   `claude/CLAUDE.md` as sandboxed Bash did, on a plain 644 file. Test in a fresh session, then
   correct the rule if the claim is wrong
+- Claude Code: verify the new local-git-ops rules in a fresh session, then remove this item:
+  `git merge --abort` prompts (ask beats allow), `git rebase -x 'echo p' --bogus-flag` is denied,
+  `git worktree remove -f x --bogus-flag` is denied, `git merge --no-ff --no-commit HEAD` and
+  `git worktree list` run unprompted
 - Claude Code: minimize our configuration. Start with config to enforce this while editing config,
   then use it in a fresh session to do the minimization. Consider ponytail
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, peer-review.md, reviewer.md,
