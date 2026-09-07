@@ -98,6 +98,20 @@ Key technical choices and their rationale:
 - Ghostty: Newer, native macOS performance
 - Both support keyboard-driven workflows
 
+**Tokyo Night palettes vendored from upstream extras:**
+
+- Kitty (`*-theme.auto.conf`), Ghostty (`themes/`), and fish (`themes/*.fish`) each hold verbatim
+  copies of `folke/tokyonight.nvim` `extras/` files for the Day and Moon variants.
+  `just tokyonight-vendor` refreshes all of them at once; `git diff` is the review
+- Each terminal picks the variant from OS appearance itself; fish follows the terminal's report
+  (`fish_terminal_color_theme`, DEC mode 2031) through the handler in `conf.d/theme.fish`, which
+  sources the matching upstream script
+- Alternatives considered: `fish_config theme choose` with upstream `.theme` files (rejected: its
+  override semantics either erase the prompt roles fish's default theme sets, or, with a
+  fish-generated `fish_frozen_theme.fish` in `conf.d`, silently apply nothing; a plain `source` has
+  neither trap); ANSI colour names in fish so the terminal palette drives it (rejected: loses the
+  per-role hex colours upstream assigns)
+
 **Kitty option reference generated on demand:**
 
 - `kitty.conf` holds only the settings this machine actually changes, plus the marker blocks kitty
