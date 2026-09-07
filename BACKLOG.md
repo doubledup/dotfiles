@@ -30,6 +30,11 @@ items when done; git history records completion.
 ## Claude Code
 
 - Create an /explain workflow
+- Claude Code: the user's own messages in the transcript render white on black in light mode; find
+  the setting
+- Claude Code: sandboxed Bash writes inside the repo (`mkdir`, heredoc redirect) failed with
+  "Operation not permitted" for a whole session while Write/Edit worked; other sessions allow them.
+  Find what differs (possibly the same cause as the `!` EPERM item in Next)
 - Add config so that when we find friction from our permissions, we update them to remove it
 - Config to exclude references to current repo state (e.g. `claude-permissions/invariants.md`
   "Atlassian ask rules"), then run it to remove existing references
@@ -145,6 +150,10 @@ items when done; git history records completion.
 - Fish: separate ignore-vcs bindings for fzf cd shortcut
 - Kitty: splits layout; ad-hoc vertical/horizontal splits
 - Kitty: try `tab_bar_filter session:~` to scope the tab bar to the current session
+- Delta: light variant. `gitconfig [delta]` hard-codes `syntax-theme = tokyo-night-moon` and dark
+  hunk colours; upstream ships `extras/delta/tokyonight_{day,moon}.gitconfig`, but git cannot follow
+  the terminal live, so this needs a fish handler exporting `DELTA_FEATURES` or delta's own
+  detection
 - noise-toggle fade in/out
 - Backup Vimium options
 - Review firefox privacy plugins
