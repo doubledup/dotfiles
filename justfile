@@ -91,6 +91,8 @@ test: test-claude-hooks
     nvim --headless +"luafile rcignore/test_plugins.lua"
     @echo "Testing fish config..."
     fish -c 'exit'
+    @echo "Testing fish interactive startup (a failed source does not change the exit status)..."
+    err=$(fish -i -c exit 2>&1 >/dev/null); test -z "$err" || { printf '%s\n' "$err" >&2; exit 1; }
     @echo "Testing kitty notification internals..."
     if command -v kitty >/dev/null; then kitty +runpy 'import sys; from kitty.notifications import NotificationCommand, NotificationManager; m = NotificationManager(); (isinstance(m.in_progress_notification_commands, dict) and callable(m.close_notification) and hasattr(NotificationCommand, "channel_id")) or sys.exit("kitty notification internals changed; see config/kitty/close-notifications-on-focus.py")'; fi
     @echo "All config tests passed."
