@@ -99,6 +99,10 @@ dir (`/var/folders/.../T` on macOS) is not, so tools that ignore `$TMPDIR` fail 
   with `-H "Accept: application/vnd.github.raw"`, which also avoids base64 and jq
 - Filename-matched deny rules fire on innocent paths: fetching `.env.example` is blocked by
   `Bash(*.env*)`
+- A `sandbox.excludedCommands` entry (e.g. `gh *`, `git commit *`) runs unsandboxed only when the whole
+  foreground Bash call matches it. A pipe, redirect, `;`, `&&`, env prefix, loop, wrapper script or
+  `run_in_background` puts it back in the sandbox, where it fails reading its denied credential dir.
+  Run it alone and process the output in a separate call
 - Bash **can** write inside the working directory. Prefer it over Write for byte-exact work (copying
   vendored files, hashing) where transcription would risk error
 
