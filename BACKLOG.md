@@ -134,6 +134,8 @@ items when done; git history records completion.
 
 ## Shell, terminal, tooling
 
+- Karabiner: test symlinking the `~/.config/karabiner` directory instead of copying `karabiner.json`
+  via `COPY_ALWAYS`; would drop the `rcup`-after-every-change step
 - Shortcut (fish or karabiner) for opening Obsidian notes (todo/daily; vault path per machine) and
   BACKLOG.md, for quick capture
 - Remove references to Ghostty
