@@ -76,13 +76,9 @@ Key technical choices and their rationale:
 
 **Formatting enforced at commit (git pre-commit hook):**
 
-- `.githooks/pre-commit` runs `just check`; `rcignore/setup.sh` sets `core.hooksPath` to enable it
-- Catches every edit path (editor, Claude's Edit tool, Claude via Bash), unlike a Claude edit hook
-- Check-only: formatting in the hook would fix the working tree, not the staged commit
-- `just check` reads the working tree, not the index: an unformatted untracked file blocks a commit,
-  and a staged hunk fixed only on disk passes
-- Alternative considered: Claude PostToolUse `just fmt` hook (rejected: misses non-Edit edits and
-  reformats unrelated files)
+- `.githooks/pre-commit` runs `just check`, catching edits from any source. Check-only: formatting
+  in the hook would fix the working tree, not the staged commit
+- Alternative considered: Claude PostToolUse format hook (rejected: misses edits outside Edit/Write)
 
 **BACKLOG.md for work tracking:**
 
