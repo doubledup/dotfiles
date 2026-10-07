@@ -32,8 +32,9 @@ not covered here, consult the man pages (`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1
   (docs, the justfile, lint configs, etc.); see `rcrc` for the current list rather than duplicating
   it here, it changes as the repo grows.
 - `COPY_ALWAYS` (in `rcrc`) currently holds `config/karabiner/karabiner.json`, copied into place
-  instead of symlinked. Likely because Karabiner-Elements rewrites its config file in place rather
-  than editing through a symlink; a symlink there would risk being replaced outright.
+  instead of symlinked, because Karabiner-Elements does not work with a symlinked config: it
+  rewrites the file on save, replacing a symlink with a regular file. Run `rcup` after each change
+  to it in the repo; until then Karabiner keeps using the old copy.
 
 ## Update workflow (`just sync`)
 
