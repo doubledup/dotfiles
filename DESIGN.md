@@ -74,6 +74,16 @@ Key technical choices and their rationale:
   rust-toolchain.toml
 - Avoids duplicate installs and version mismatches between Homebrew and Mason
 
+**Formatting enforced at commit (git pre-commit hook):**
+
+- `.githooks/pre-commit` runs `just check`; `rcignore/setup.sh` sets `core.hooksPath` to enable it
+- Catches every edit path (editor, Claude's Edit tool, Claude via Bash), unlike a Claude edit hook
+- Check-only: formatting in the hook would fix the working tree, not the staged commit
+- `just check` reads the working tree, not the index: an unformatted untracked file blocks a commit,
+  and a staged hunk fixed only on disk passes
+- Alternative considered: Claude PostToolUse `just fmt` hook (rejected: misses non-Edit edits and
+  reformats unrelated files)
+
 **BACKLOG.md for work tracking:**
 
 - Git-tracked markdown file organised by effort/impact (fixes > low-hanging fruit > high impact >

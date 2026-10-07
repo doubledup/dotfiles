@@ -11,6 +11,9 @@ yellow='\x1b[0;33m'
 os_name="$(uname -s)"
 printf "%bSetting up %s...%b\n" "$blue" "$os_name" "$endcolor"
 
+printf '%bEnabling git hooks...%b\n' "$blue" "$endcolor"
+git -C "$HOME"/.dotfiles config core.hooksPath .githooks
+
 if [ "$os_name" = "Darwin" ]; then
 
     printf '%bDisabling "smart" quotes...%b\n' "$blue" "$endcolor"
