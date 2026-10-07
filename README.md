@@ -106,37 +106,22 @@ auth       sufficient     pam_tid.so
 
 ### Karabiner Bluetooth shell commands
 
-If Karabiner `shell_command` mappings that run `blueutil` fail while the same `blueutil` commands
-work in Terminal, grant Bluetooth permission to Karabiner's console user helper:
+Karabiner `shell_command` mappings that run `blueutil` need Bluetooth permission for Karabiner's
+console user helper.
 
-`/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_console_user_server`
+Set up: in System Settings > Privacy & Security > Bluetooth, click `+`, press Cmd+Shift+G, paste
+this path, and enable the entry:
 
-Then fully quit and reopen Karabiner-Elements.
+`/Library/Application Support/org.pqrs/Karabiner-Elements/Karabiner-Console-User-Server.app`
 
-Use these commands to verify helper state and inspect Bluetooth TCC entries:
-
-```sh
-launchctl print gui/$(id -u)/org.pqrs.service.agent.karabiner_console_user_server | rg 'state|pid|program'
-
-sqlite3 "$HOME/Library/Application Support/com.apple.TCC/TCC.db" \
-  "select service,client,auth_value from access where service='kTCCServiceBluetoothAlways' and (client like '%Karabiner%' or client='karabiner_console_user_server');"
-```
-
-CLI granting is prompt-based; there is no supported non-interactive `tccutil` grant command. To
-force a re-prompt, reset relevant entries, restart the helper, then trigger the Karabiner shortcut:
+Then restart the helper:
 
 ```sh
-tccutil reset Bluetooth org.pqrs.Karabiner-Elements.Settings
-tccutil reset Bluetooth org.pqrs.Karabiner-Elements-Non-Privileged-Agents-v2
-tccutil reset Bluetooth karabiner_console_user_server
-launchctl kickstart -k gui/$(id -u)/org.pqrs.service.agent.karabiner_console_user_server
+launchctl kickstart -k gui/$(id -u)/org.pqrs.service.agent.Karabiner-Console-User-Server
 ```
 
-To revoke all Bluetooth permissions and start clean:
-
-```sh
-tccutil reset Bluetooth
-```
+Reset: if the mappings still fail (e.g. a Karabiner update changes the helper), remove every
+Karabiner entry from that Bluetooth list with `-`, then repeat the setup step.
 
 ### Updates with rcm
 
