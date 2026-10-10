@@ -230,7 +230,8 @@
   },
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
-    "jdtls-lsp@claude-plugins-official": false
+    "jdtls-lsp@claude-plugins-official": false,
+    "ruby-lsp@claude-plugins-official": true
   },
   "outputStyle": "Concise",
   "sandbox": {
