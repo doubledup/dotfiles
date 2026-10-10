@@ -60,4 +60,5 @@ set -x PATH $HOME/.local/bin $PATH
 set -x PAGER "$(command -v bat)"
 [ -z "$IN_NIX_SHELL" ]; and direnv hook fish | source
 fzf --fish | source
+mise activate fish | source
 zoxide init --cmd j fish | source

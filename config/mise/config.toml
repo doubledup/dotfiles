@@ -1,0 +1,5 @@
+[settings]
+idiomatic_version_file_enable_tools = ["ruby"]
+
+[tools]
+ruby = { version = "4.0.7", postinstall = "gem install ruby-lsp" }
