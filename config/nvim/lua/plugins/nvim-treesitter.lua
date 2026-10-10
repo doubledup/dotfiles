@@ -28,6 +28,7 @@ local parsers = {
     "gitignore",
     -- web
     "css",
+    "embedded_template", -- ERB
     "html",
     "http",
     -- config
