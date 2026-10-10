@@ -299,6 +299,7 @@
       "rcup *",
       "rcdn *",
       "mkrc *",
+      "git add *",
       "git commit *",
       "git rebase *",
       "git merge *",
