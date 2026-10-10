@@ -275,6 +275,10 @@ return {
         })
         vim.lsp.enable("rust_analyzer")
 
+        -- ruby_lsp is a gem in the project's Ruby (via mise), not Mason: it must
+        -- run under the project's Ruby to resolve its bundle
+        vim.lsp.enable("ruby_lsp")
+
         -- Formatters and linters are managed by Homebrew (see Brewfile), not Mason.
         -- Mason handles LSP and DAP servers only.
         require("mason-tool-installer").setup({
