@@ -45,8 +45,13 @@ abbr l ls
 abbr la 'ls -al'
 abbr ll 'ls -l'
 
+# ruby
+abbr ra rails
+abbr rb ruby
+
 # rust
 abbr cg cargo
+abbr ru rustup
 
 # terraform
 abbr t terraform
