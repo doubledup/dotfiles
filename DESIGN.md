@@ -230,10 +230,10 @@ Key technical choices and their rationale:
   live in `deny` rules; an ENFORCEMENT hook is added ONLY for what rules and the sandbox can't do
   (secret reads via the built-in Read/Grep/Glob tools). Enforcement hooks never parse Bash command
   strings.** Context-injection hooks are a separate category, justified case by case; the allow-only
-  gh-api-readonly hook (above) parses but fails open. Security-related intent still gets a CLAUDE.md
-  `## Safety` line. (Supersedes the earlier "belt-and-suspenders across all three layers" policy:
-  duplicating a `deny` rule in a Bash-parsing hook is fragile maintenance for no gain once the
-  sandbox is the primary boundary.)
+  gh-api-readonly and advisory commit-alone hooks (above) parse but fail open. Security-related
+  intent still gets a CLAUDE.md `## Safety` line. (Supersedes the earlier "belt-and-suspenders
+  across all three layers" policy: duplicating a `deny` rule in a Bash-parsing hook is fragile
+  maintenance for no gain once the sandbox is the primary boundary.)
 - Threat model (canonical copy: the Threat model section of the skill's `invariants.md`): defend
   against accidental/mistaken commands; keep cheap, robust protections that also raise the attack
   bar; decline complex/fragile adversarial hardening as friction undercut by accepted residuals.
