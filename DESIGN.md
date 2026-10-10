@@ -168,6 +168,16 @@ Key technical choices and their rationale:
   merely offered)
 - Accepted limit: it guarantees the pointer is delivered, not that it is followed
 
+**commit-alone hook:**
+
+- `claude/hooks/commit-alone.sh` (PreToolUse on Bash) blocks a signing git verb (`commit`, `merge`,
+  `rebase`, `cherry-pick`, `revert`) unless it is a lone call, and tells the model to rerun it
+  alone. Only a lone call matches `excludedCommands`, which GPG signing needs; the CLAUDE.md prose
+  rule alone was repeatedly missed
+- It parses the Bash command string, which the enforcement-hook rule forbids; acceptable here
+  because it is not a security leg and fails open: a miss is a failed signed commit (the status
+  quo), and a false positive costs one retry
+
 **gh-api-readonly hook:**
 
 - `claude/hooks/gh-api-readonly.sh` (PreToolUse on Bash) auto-approves read-only `gh api` calls to
@@ -175,8 +185,7 @@ Key technical choices and their rationale:
 - It parses the Bash command string, which the enforcement-hook rule forbids; acceptable here
   because it is allow-only and fails open: any parse failure or rejected pattern falls through to
   the normal permission prompt, so the failure mode is a prompt, not a bypass
-- Accepted gaps: no `timeout` in settings.json and no test harness, unlike the other two hooks
-  (backlog)
+- Accepted gaps: no `timeout` in settings.json and no test harness, unlike the other hooks (backlog)
 
 **Ponytail vendored as a skill, not installed as a plugin:**
 

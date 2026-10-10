@@ -208,6 +208,11 @@
           {
             "type": "command",
             "command": "~/.claude/hooks/gh-api-readonly.sh"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/commit-alone.sh",
+            "timeout": 10
           }
         ]
       },
