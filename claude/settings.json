@@ -231,7 +231,8 @@
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": false,
-    "ruby-lsp@claude-plugins-official": true
+    "ruby-lsp@claude-plugins-official": true,
+    "cc-plugin-you-should-know@builtin": true
   },
   "outputStyle": "Concise",
   "sandbox": {
