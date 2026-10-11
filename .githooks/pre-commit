@@ -1,5 +1,37 @@
 #!/usr/bin/env bash
 
+# Format fully staged files and re-stage them, then run the format and lint check. A file that also
+# has unstaged changes is left alone: re-staging it would commit hunks that were never staged.
+
 set -euo pipefail
+
+mapfile -d '' staged < <(git diff --cached -z --name-only --diff-filter=ACMR)
+mapfile -d '' unstaged < <(git diff -z --name-only)
+
+declare -A partial=()
+for f in "${unstaged[@]}"; do partial["$f"]=1; done
+
+files=() lua=() fish=() sh=() prettier=()
+for f in "${staged[@]}"; do
+    [[ -n "${partial[$f]:-}" ]] && continue
+    case "$f" in
+    *.lua) lua+=("$f") ;;
+    *.fish) fish+=("$f") ;;
+    *.sh) sh+=("$f") ;;
+    *.json | *.md) prettier+=("$f") ;;
+    scripts/* | .githooks/*)
+        [[ -n "$(shfmt -f "$f")" ]] || continue
+        sh+=("$f")
+        ;;
+    *) continue ;;
+    esac
+    files+=("$f")
+done
+
+((${#lua[@]})) && stylua "${lua[@]}"
+((${#fish[@]})) && fish_indent --write "${fish[@]}"
+((${#sh[@]})) && shfmt --write "${sh[@]}"
+((${#prettier[@]})) && prettier --write --log-level warn "${prettier[@]}"
+((${#files[@]})) && git add -- "${files[@]}"
 
 exec just check

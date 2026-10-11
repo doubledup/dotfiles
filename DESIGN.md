@@ -76,8 +76,12 @@ Key technical choices and their rationale:
 
 **Formatting enforced at commit (git pre-commit hook):**
 
-- `.githooks/pre-commit` runs `just check`, catching edits from any source. Check-only: formatting
-  in the hook would fix the working tree, not the staged commit
+- `.githooks/pre-commit` formats fully staged files, re-stages them, then runs `just check`, so a
+  formatting miss from any source is fixed inside the commit and only lint blocks. A file that also
+  has unstaged changes is only checked: re-staging it would commit hunks that were never staged
+- Residuals: `just check` validates the working tree, not the index, so a staged misformat whose
+  working copy was since fixed passes; committing with explicit paths runs the hook on a temporary
+  index, so the real index can keep the unformatted blob afterwards
 - Alternative considered: Claude PostToolUse format hook (rejected: misses edits outside Edit/Write)
 
 **BACKLOG.md for work tracking:**

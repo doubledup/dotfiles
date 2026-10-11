@@ -6,20 +6,20 @@ default:
 fmt:
     stylua .
     fd -e fish --hidden --exclude .git -X fish_indent --write
-    shfmt --write $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts)
+    shfmt --write $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts ./.githooks)
     prettier --write '**/*.json' '**/*.md'
 
 # Check formatting without modifying files
 fmt-check:
     stylua --check .
     fd -e fish --hidden --exclude .git -X fish_indent --check
-    shfmt --diff $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts)
+    shfmt --diff $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts ./.githooks)
     prettier --check '**/*.json' '**/*.md' >/dev/null
 
 # Run linters
 lint:
     fish --no-execute $(fd -e fish --hidden --exclude .git)
-    shellcheck $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts)
+    shellcheck $(fd -e sh --hidden --exclude .git) $(shfmt -f ./scripts ./.githooks)
     typos
 
 # Run format check and lint

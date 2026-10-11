@@ -30,8 +30,6 @@ items when done; git history records completion.
 
 ## Claude Code
 
-- No pre-commit hook is installed in `.git/hooks`, though `CLAUDE.md` says `just check` runs as one;
-  unformatted commits land silently. Install it via a `just` recipe or correct the doc
 - Create an /explain workflow
 - Claude Code: the user's own messages in the transcript render white on black in light mode; find
   the setting

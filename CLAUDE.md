@@ -21,8 +21,8 @@ Style:
 
 Before committing:
 
-- `just check` (formatting and linting) runs as a pre-commit hook; on failure, run `just fmt`, fix
-  lint, and commit again
+- The pre-commit hook formats staged files and runs `just check`; on failure, fix lint (or format a
+  partially staged file) and commit again
 - Run `just test` if fish or neovim files changed
 - Warnings in `just check` or `just test` output should be resolved; add a backlog item if not
   fixable immediately
