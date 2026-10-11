@@ -6,30 +6,29 @@ items when done; git history records completion.
 
 ## Next
 
+- Claude Code: migrate user config to the DESIGN.md target state, one item per fresh session,
+  measured against the always-loaded line budget. Start with `CLAUDE.md` and rules (merge
+  planning/execution/review-protocol and `/feature` into a `ship` skill)
+- Claude Code: collapse review to one `reviewer` agent (plan and diff modes); remove the four
+  `Review*` agents and `/peer-review` in favor of built-in `/code-review`
+- Claude Code: remove `/fix`, `/bootstrap` (use `/init` plus `claude-permissions`), and the
+  `ponytail-chat` output style; convert `handoff-prompt` to a skill; move `claude/docs/rcm.md` to
+  repo `.claude/`
+- Claude Code: replace the `config-docs.sh` hook with a path-scoped rule; add a PostToolUse
+  format/lint hook
+- Claude Code: test whether auto mode makes `gh-api-readonly.sh` redundant and whether sandbox
+  auto-allow makes the allow list redundant; drop what is; trim recoverable-git ask rules
+- Claude Code: move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the
+  jdtls-lombok-lsp shim (hardcoded Corretto 21 and Lombok 1.18.42), Atlassian ask rules
 - Claude Code: verify whether `!` commands run inside the Bash sandbox. `claude/CLAUDE.md` Safety
   says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the same EPERM on
   `claude/CLAUDE.md` as sandboxed Bash did, on a plain 644 file. Test in a fresh session, then
   correct the rule if the claim is wrong
-- Claude Code: migrate user config to the DESIGN.md target state, one layer per fresh session,
-  measured against the always-loaded line budget. Start with `CLAUDE.md` and rules (merge
-  planning/execution/review-protocol and `/feature` into a `ship` skill)
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, peer-review.md, reviewer.md,
   jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 
 ## Claude Code
-
-Target-state migration (after the Next item):
-
-- Collapse review: one `reviewer` agent (plan and diff modes); remove the four `Review*` agents and
-  `/peer-review` in favor of built-in `/code-review`
-- Move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the jdtls-lombok-lsp shim
-  (hardcoded Corretto 21 and Lombok 1.18.42), Atlassian ask rules
-- Hooks: replace `config-docs.sh` with a path-scoped rule; add a PostToolUse format/lint hook
-- Settings: test whether auto mode makes `gh-api-readonly.sh` redundant and whether sandbox
-  auto-allow makes the allow list redundant; drop what is; trim recoverable-git ask rules
-- Remove `/fix`, `/bootstrap` (use `/init` plus `claude-permissions`), `ponytail-chat` output style;
-  convert `handoff-prompt` to a skill; move `claude/docs/rcm.md` to repo `.claude/`
 
 - Create an /explain workflow
 - Claude Code: the user's own messages in the transcript render white on black in light mode; find
