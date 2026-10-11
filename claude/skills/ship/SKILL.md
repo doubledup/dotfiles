@@ -23,8 +23,9 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
     - The assertions used to verify the change (for UI-affecting changes, specific manual checks)
 3. Budget the diff: target 400 or fewer changed lines; suggest splitting at 400+; split at 1500+
    unless there is extraordinary justification.
-4. Run the review loop (below) with the Reviewer agent in `plan` mode. Send the full plan, the files
-   it will modify or create, and the problem statement. On iterations 2+, also list what changed.
+4. If any trigger in this skill's description applies, run the review loop (below) with the Reviewer
+   agent in `plan` mode. Send the full plan, the files it will modify or create, and the problem
+   statement. On iterations 2+, also list what changed.
 5. Compress after the loop exits: findings that only mattered to the reviewer do not belong in the
    plan. Cut restatement of the request, trailing summaries, and preamble.
 6. Present the review summary, then the plan. **Stop until the user approves.**
