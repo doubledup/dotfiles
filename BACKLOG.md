@@ -14,8 +14,7 @@ items when done; git history records completion.
 - Claude Code: remove `/fix`, `/bootstrap` (use `/init` plus `claude-permissions`), and the
   `ponytail-chat` output style; convert `handoff-prompt` to a skill; move `claude/docs/rcm.md` to
   repo `.claude/`
-- Claude Code: replace the `config-docs.sh` hook with a path-scoped rule; add a PostToolUse
-  format/lint hook
+- Claude Code: replace the `config-docs.sh` hook with a path-scoped rule
 - Claude Code: test whether auto mode makes `gh-api-readonly.sh` redundant and whether sandbox
   auto-allow makes the allow list redundant; drop what is; trim recoverable-git ask rules
 - Claude Code: move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the
