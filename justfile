@@ -2,33 +2,6 @@
 default:
     @just --list
 
-# A narrow push path; like raw `git push`, it is an ask rule in
-# claude/settings.json. This recipe's fixed shape makes force/delete,
-# arbitrary remotes, and -c/env injection impossible from the caller side - only
-# a validated branch name is accepted, and origin is checked to be a github.com
-# host before pushing. The host check is accident-prevention against a repointed
-# origin, not attacker-proof (see DESIGN.md for the accepted residuals).
-
-# Push a branch to origin (github-host-checked); no force, no delete, sanitized environment.
-push branch=`git branch --show-current`:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    branch={{quote(branch)}}
-    if [[ ! "$branch" =~ ^[A-Za-z0-9._/-]+$ ]]; then
-        echo "just push: refusing suspicious branch name: $branch" >&2
-        exit 1
-    fi
-    url=$(env -i PATH="$PATH" HOME="$HOME" git remote get-url --push origin)
-    case "$url" in
-    git@github.com:* | ssh://git@github.com/* | https://github.com/*) : ;;
-    *)
-        echo "just push: refusing non-github origin: $url" >&2
-        exit 1
-        ;;
-    esac
-    env -i PATH="$PATH" HOME="$HOME" SSH_AUTH_SOCK="${SSH_AUTH_SOCK:-}" \
-        git push -u origin "refs/heads/$branch:refs/heads/$branch"
-
 # Format all known file types
 fmt:
     stylua .

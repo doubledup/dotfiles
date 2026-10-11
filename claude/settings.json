@@ -169,7 +169,6 @@
       "Bash(git sparse-checkout:*)",
       "Bash(git -C * sparse-checkout*)",
       "Bash(git push:*)",
-      "Bash(just push:*)",
       "Bash(dangerouslyDisableSandbox:true)",
       "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)",
@@ -335,9 +334,7 @@
       "git rebase *",
       "git merge *",
       "git cherry-pick *",
-      "git revert *",
-      "just push",
-      "just push *"
+      "git revert *"
     ]
   },
   "tui": "fullscreen",

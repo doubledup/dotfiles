@@ -262,19 +262,18 @@ Key technical choices and their rationale:
   unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
   secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
   `Bash(*.env*)`/`Bash(*/secrets/*)` denies, not a guard Bash-block
-- **Push is a confirm, not a must-never**: `git push` and `just push` are `ask` (a prompt per push,
-  even in auto mode); only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and
-  every `git -C * push` are `deny`. Branch deletion stays `ask` (routine after a merge). One-way
-  doors that do occur here (`gh pr merge`/`release create`/`repo delete`, `terraform apply`/
-  `destroy`, `just deploy`) are `ask` too; rarer ones get a rule when they show up
-- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (`just push`
-  is host-checked, not identity-pinned; clustered short flags like `-uf` fall to the push `ask`;
-  non-github egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model);
-  nvim data-dir writes apply globally; Linux deploys need bubblewrap + socat under
-  `failIfUnavailable: true`; the text-match denies over-block benign mentions (`app.env`); the
-  collision-prone `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
-  `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not deny. All narrow and
-  contained while the sandbox is active
+- **Push is a confirm, not a must-never**: `git push` is `ask` (a prompt per push, even in auto
+  mode); only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every
+  `git -C * push` are `deny`. Branch deletion stays `ask` (routine after a merge). One-way doors
+  that do occur here (`gh pr merge`/`release create`/`repo delete`, `terraform apply`/ `destroy`,
+  `just deploy`) are `ask` too; rarer ones get a rule when they show up
+- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (clustered
+  short flags like `-uf` fall to the push `ask`; non-github egress via `git fetch <url>` or in-tree
+  `insteadOf` accepted per the threat model); nvim data-dir writes apply globally; Linux deploys
+  need bubblewrap + socat under `failIfUnavailable: true`; the text-match denies over-block benign
+  mentions (`app.env`); the collision-prone `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is
+  left out at user scope; `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not
+  deny. All narrow and contained while the sandbox is active
 - **Local history operations are `allow`, not `ask`** (`merge`, `rebase`, `cherry-pick`, `revert`,
   `apply`, `worktree`): their normal path only adds commits, refs, or hunks to tracked state and
   stops on conflict (gitignored paths are expendable to checkout, so a merge can overwrite one; a

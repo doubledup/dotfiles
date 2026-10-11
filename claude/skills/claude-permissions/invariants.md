@@ -82,8 +82,8 @@ Ask-by-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are 
 each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
-hook. Note on `git push`: plain push (and `just push`) is a confirm (`ask`); only the force forms
-(`--force*`, `-f`, `+refspec`, `--mirror`) and `git -C * push` are must-never `deny` rules.
+hook. Note on `git push`: plain push is a confirm (`ask`); only the force forms (`--force*`, `-f`,
+`+refspec`, `--mirror`) and `git -C * push` are must-never `deny` rules.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
