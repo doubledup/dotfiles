@@ -2,11 +2,8 @@
 
 ## Environment
 
-- Shell: fish
-- Editor: neovim
-- Terminal: kitty
-- OS: macOS primary, Linux occasionally
-- Search: rg (ripgrep), fd (not grep/find)
+- Shell: fish; editor: neovim; terminal: kitty; OS: macOS primary, Linux occasionally
+- Search: rg and fd, not grep/find
 - GitHub username: doubledup
 
 ## Communication
@@ -16,126 +13,53 @@
 - Make reasonable inferences; ask when the answer would meaningfully change direction
 - Briefly flag non-obvious risks or alternative approaches when relevant
 - State uncertainty and corrections plainly, without hedging or apology
-- No preamble praise or filler
-- Expand only when tradeoffs require it or when asked
+- No preamble praise or filler; expand only when tradeoffs require it or when asked
 - Distinguish facts from inference explicitly
 - No em dashes
 - Use pragmatic analogies that illuminate without over-explaining
 
 ## Workflow
 
-- Explore before coding: read files, understand existing patterns first
-- Plan before implementing: propose approach, wait for approval on non-trivial changes
-- Verify after changes: run tests, check compilation
-- Smallest focused changes per commit--functional but minimal
-
-## Session Discipline
-
-- Keep sessions focused; start fresh for new topics
-- When executing an approved plan, start immediately--don't re-explore
-- Only modify files within the current task scope
-- Before /compact: note modified files, current phase, key decisions
-- When a session drifts, prefer /clear + handoff file over recovery
-
-## Thinking
-
-- Quick fixes: no trigger needed
-- Design decisions: "think hard"
-- Architecture, stuck loops, complex debugging: "ultrathink"
-- Always explore and plan before ultrathink tasks
+- Explore before coding; plan and get approval before non-trivial changes (procedure: `ship`
+  skill); verify after changes; keep commits small and focused
 
 ## Design Defaults
 
-Apply these when I ask for design input or review; don't restructure toward them or reject libraries
-on their basis unprompted. They are defaults: when a case genuinely warrants breaking one, say so
-rather than ratifying it because it is listed.
-
-- Prefer deep modules: narrow interface, substantial implementation; flag shallow ones. [Ousterhout]
-- "Easy" (familiar/at-hand) is not "simple" (one concept, decoupled); when I call something easy,
-  check whether it complects concerns. [Hickey]
-- New tech spends an innovation token; justify novelty explicitly. [McKinley]
+When I ask for design input or review (not unprompted), apply these; say so when a case warrants
+breaking one. Prefer deep modules (narrow interface, substantial implementation) [Ousterhout].
+"Easy" is not "simple"; check whether what I call easy complects concerns [Hickey]. New tech spends
+an innovation token; justify novelty [McKinley].
 
 ## Safety
 
-- Never use `--no-verify` on commits
-- Never commit `.env`, `.envrc`, secrets, or credentials
-- Keep secrets in home config only, never in a repo (not even git-ignored): the sandbox bounds Bash
-  reads of home secrets, but an in-tree secret is readable by search. The built-in `Grep` tool is
-  denied (it bypasses the sandbox); search file contents with `rg` in Bash, where the sandbox
-  applies
-- Never export, print, or write cloud credentials to environment variables or files. No
-  `aws configure export-credentials`, no `eval "$(... export-credentials ...)"`, no setting
-  `AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`/`AWS_SESSION_TOKEN`. To make signed requests, sign
-  in-process with the named profile (e.g. botocore `Session(profile_name=...)`), which resolves SSO
-  without materializing secrets
-- Verify no secrets in diffs before committing
-- Bash runs in an OS sandbox, the containment boundary, and auto-runs without a prompt. `deny`/`ask`
-  rules and the guard hooks still gate the dangerous subset (destructive verbs, secret reads,
-  egress, `git push`). Retry unsandboxed (`dangerouslyDisableSandbox`, which always prompts) only
-  when no in-sandbox fix exists (see Sandbox Mechanics). Suggest `!` for sandbox-blocked maintenance
-  (brew, rustup, cargo, plugin sync)
+- Never use `--no-verify`; never commit `.env`, `.envrc`, secrets, or credentials; check diffs for
+  secrets before committing
+- Keep secrets in home config only, never in a repo (not even git-ignored): an in-tree secret is
+  readable by search. Search contents with `rg` in Bash (sandboxed), not the denied `Grep` tool
+- Never export, print, or write cloud credentials to env vars or files (no `export-credentials`, no
+  `AWS_*` keys). Sign in-process with the named profile (botocore `Session(profile_name=...)`)
+- Bash runs sandboxed; retry unsandboxed only when no in-sandbox fix exists. Suggest `!` for
+  sandbox-blocked maintenance (brew, rustup, cargo, plugin sync)
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
-
-## Agent Authoring
-
-- To guarantee a subagent has a skill's content, use the `skills:` frontmatter field, which injects
-  the full skill body at startup. Not `Skill` in `tools` (grants every skill, and invocation is
-  discretionary/best-effort), not a hook, not duplicating the content into the prompt
-- Anything behind an instruction to load, fetch, or invoke is model-mediated. If it must always
-  apply, it must always be in context
 
 ## Sandbox Mechanics
 
-Operational gotchas, not policy. `$TMPDIR` points at a writable session temp dir; the system temp
-dir (`/var/folders/.../T` on macOS) is not, so tools that ignore `$TMPDIR` fail with a cryptic
-"Operation not permitted":
-
-- `mktemp` with no template resolves the system temp dir. Always pass one:
-  `mktemp "${TMPDIR:-/tmp}/name-XXXXXX"`
-- `diff` copies non-seekable inputs to a system temp file, so `cmd | diff file -` and any
-  `diff /dev/null ...` fail. Redirecting a real file (`diff file - < other`) works, since it is
-  seekable. Write the input to `$TMPDIR` and diff two real files
-- `raw.githubusercontent.com` is not in `allowedDomains`. Fetch file contents from `api.github.com`
-  with `-H "Accept: application/vnd.github.raw"`, which also avoids base64 and jq
-- Filename-matched deny rules fire on innocent paths: fetching `.env.example` is blocked by
-  `Bash(*.env*)`
-- A `sandbox.excludedCommands` entry (e.g. `gh *`, `git commit *`) runs unsandboxed only when the
-  whole foreground Bash call matches it. A pipe, redirect, `;`, `&&`, env prefix, loop, wrapper
-  script or `run_in_background` puts it back in the sandbox, where it fails reading its denied
-  credential dir. Run it alone and process the output in a separate call
-- Bash **can** write inside the working directory. Prefer it over Write for byte-exact work (copying
-  vendored files, hashing) where transcription would risk error
-
-Widening `sandbox.filesystem.allowWrite` to the system temp dir would fix the first two;
-deliberately not done (shared with every app; the session dir exists to contain temp writes).
+- Only `$TMPDIR` is writable for temp files: `mktemp "${TMPDIR:-/tmp}/name-XXXXXX"`, never bare
+  `mktemp`. `diff` with a pipe or `/dev/null` fails the same way; diff two real files
+- `raw.githubusercontent.com` is blocked; use `api.github.com` with
+  `-H "Accept: application/vnd.github.raw"`
+- Filename deny rules over-match: `Bash(*.env*)` blocks fetching `.env.example`
+- `excludedCommands` (`gh`, `git commit`) run unsandboxed only as a lone foreground call; any pipe,
+  redirect, chain, or env prefix sandboxes them
+- Bash can write in the working directory; prefer it over Write for byte-exact copies
 
 ## Authored Voice
 
-- For Slack messages, PR descriptions/comments, git commit messages, and Jira comments, calibrate
-  tone, register, and directness per `~/.claude/docs/david-style.md`.
-- Use the pr-comms output style (`~/.claude/output-styles/pr-comms.md`) for PR-specific formatting
-  (review tags, template structure).
-
-## Durable Prose
-
-Applies to prose that lives in the repo: docs, code comments, Claude Code config, rules files.
-
-- Write timeless content: the standing rule, a representative example, and a concise justification.
-  Nothing else earns its space.
-- Don't describe past repo state. "X was removed", "an earlier hook used to catch this", "this was
-  inert until the fix" all go stale and cost space on every future read. State what holds now and
-  why.
-- Rewrite history into the rule it produced. A bug worth documenting becomes "spell it this way,
-  because the other way fails silently", not an account of when it was found.
-- Keep provenance ("measured", "verified live") when a claim was expensive to establish or
-  contradicts official docs. That is evidence for the claim, not history, and it tells the next
-  reader the claim was tested rather than inferred.
-- Prefer a link to the authoritative doc over restating it. Document only what the link doesn't
-  cover: the local consequence, the exception, the thing that surprised us.
+- Slack, PR, commit, and Jira text: tone and register per `~/.claude/docs/david-style.md`
+- Before writing a PR description, review comment, or reply, read
+  `~/.claude/output-styles/pr-comms.md`
 
 ## Persistence
 
-- Project-wide decisions, policies, and conventions go in repo-committed files (CLAUDE.md,
-  .claude/rules/, DESIGN.md) so they're shared across machines
-- Claude memory files (~/.claude/projects/.../memory/) are machine-local; use only for per-user
-  preferences that don't belong in the repo
+- Project-wide decisions and conventions go in repo-committed files (CLAUDE.md, .claude/rules/,
+  DESIGN.md); memory files are machine-local, only for per-user preferences
