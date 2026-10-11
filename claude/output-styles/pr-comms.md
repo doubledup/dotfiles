@@ -30,4 +30,19 @@ PR descriptions:
 
 - Follow the project's PR template (`.github/pull_request_template.md` or similar) when one exists
 - When no template exists, use: `## Description`, `## Related Issue(s)`, `## Testing Done`
-- Length and content: per `~/.claude/rules/git.md` (always loaded)
+- Description: what changed and why, in 3-6 sentences or bullets. One clause of root cause. Name
+  what is deliberately out of scope if a reader would otherwise expect it. Then stop.
+- Cut: how a fact was established (that is Testing Done), anything the diff already shows, commit
+  bodies restated, background a linked ticket or PR already carries, and what is always implicit
+  (e.g. that merged IaC deploys per environment via CI)
+- Links: one per claim that needs context (ticket, prior PR), as markdown links. Link instead of
+  explaining
+- Testing Done: one line per check, the command and what it showed. Say plainly when nothing was run
+- No line width limits (unlike commits); let lines wrap naturally
+
+Replies:
+
+- Substantiate documentation/behavior claims with a link to the source (code, official docs,
+  schema), not just an assertion
+- Keep review-thread replies short: one sentence stating the outcome (fixed in `<sha>`, or the
+  reason for rejecting), without restating context already covered elsewhere
