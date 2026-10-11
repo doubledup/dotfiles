@@ -13,8 +13,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 
 ## 1. Plan
 
-1. Explore first: read the relevant files, trace dependencies, note existing patterns. Ask only
-   when the answer would change direction.
+1. Explore first: read the relevant files, trace dependencies, note existing patterns. Ask only when
+   the answer would change direction.
 2. Draft the plan. The plan the user reads stays short; length is a review-quality tax. Default
    structure, and little else:
     - Files touched (a table)
@@ -34,29 +34,29 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 - Record the current HEAD SHA as the review base before the first edit.
 - Follow the plan. Update it only when a review finding or blocker requires it; stop and ask before
   any scope change.
-- Commit concern by concern: finish one concern's edits across all its files, commit, then start
-  the next. Don't run the full test suite per commit; a cheap check on a just-edited file is fine.
+- Commit concern by concern: finish one concern's edits across all its files, commit, then start the
+  next. Don't run the full test suite per commit; a cheap check on a just-edited file is fine.
 - If a step still fails after 2 debugging attempts, stop and ask.
 
 ## 3. Review
 
 1. Run project verification (format, lint, tests for the files changed) once; fix failures.
-2. Size the range with `git diff <base>..HEAD --stat`. At 20 or fewer changed lines, skip review
-   and show the user the diff. Warn above 400; above 1500, ask whether to review or split.
-3. Run the review loop with the Reviewer in `final` mode on `git diff <base>..HEAD --stat -U8`,
-   plus the plan and verification results.
-4. Land fixes as fix-up commits (or amend the latest commit if it is the natural home and
-   unpushed), re-verify, and re-enter the loop. If a finding is marked rollback, stop and surface it
-   with the suggested approach rather than re-implementing.
+2. Size the range with `git diff <base>..HEAD --stat`. At 20 or fewer changed lines, skip review and
+   show the user the diff. Warn above 400; above 1500, ask whether to review or split.
+3. Run the review loop with the Reviewer in `final` mode on `git diff <base>..HEAD --stat -U8`, plus
+   the plan and verification results.
+4. Land fixes as fix-up commits (or amend the latest commit if it is the natural home and unpushed),
+   re-verify, and re-enter the loop. If a finding is marked rollback, stop and surface it with the
+   suggested approach rather than re-implementing.
 
 ## Review loop
 
 - Verdict CLEAR or LOW exits; report LOW findings. MEDIUM or HIGH: accept, partially accept, or
   reject each finding, act on accepted ones, and re-invoke. No VERDICT line: infer from the highest
   severity section present. Missing Investigation section: re-invoke asking for it.
-- Findings of defect (something wrong or broken) are presumed valid. Accept freely; reject only
-  with a specific, falsifiable reason grounded in code ("handled at line N"). Partial accepts state
-  what is rejected and why.
+- Findings of defect (something wrong or broken) are presumed valid. Accept freely; reject only with
+  a specific, falsifiable reason grounded in code ("handled at line N"). Partial accepts state what
+  is rejected and why.
 - Findings of omission (remedy adds code, config, docs, or a guard) must name what breaks without
   the addition; if they can't, reject without further justification. Otherwise the loop ends by
   accretion, not convergence. Prefer the smallest change that resolves a finding, and say so when

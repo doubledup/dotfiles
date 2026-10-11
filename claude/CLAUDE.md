@@ -20,8 +20,8 @@
 
 ## Workflow
 
-- Explore before coding; plan and get approval before non-trivial changes (procedure: `ship`
-  skill); verify after changes; keep commits small and focused
+- Explore before coding; plan and get approval before non-trivial changes (procedure: `ship` skill);
+  verify after changes; keep commits small and focused
 
 ## Design Defaults
 
