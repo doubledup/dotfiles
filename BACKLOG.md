@@ -6,9 +6,9 @@ items when done; git history records completion.
 
 ## Next
 
-- Claude Code: migrate user config to the DESIGN.md target state, one item per fresh session,
-  measured against the always-loaded line budget. Start with `CLAUDE.md` and rules (merge
-  planning/execution/review-protocol and `/feature` into a `ship` skill)
+- Claude Code: continue migrating user config to the DESIGN.md target state with the items below,
+  one per fresh session, measured against the always-loaded line budget (now 83: `CLAUDE.md` 65,
+  `git.md` 18)
 - Claude Code: collapse review to one `reviewer` agent (plan and diff modes); remove the four
   `Review*` agents and `/peer-review` in favor of built-in `/code-review`
 - Claude Code: remove `/fix`, `/bootstrap` (use `/init` plus `claude-permissions`), and the
