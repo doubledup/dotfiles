@@ -170,10 +170,10 @@ Key technical choices and their rationale:
 
 **commit-alone hook:**
 
-- `claude/hooks/commit-alone.sh` (PreToolUse on Bash) blocks a signing git verb (`commit`, `merge`,
-  `rebase`, `cherry-pick`, `revert`) unless it is a lone call, and tells the model to rerun it
-  alone. Only a lone call matches `excludedCommands`, which GPG signing needs; the CLAUDE.md prose
-  rule alone was repeatedly missed
+- `claude/hooks/commit-alone.sh` (PreToolUse on Bash) blocks an excluded git verb (signing:
+  `commit`, `merge`, `rebase`, `cherry-pick`, `revert`; SSH: `fetch`, `pull`, `push`) unless it is a
+  lone call, and tells the model to rerun it alone. Only a lone call matches `excludedCommands`,
+  which GPG signing and SSH remotes need; the CLAUDE.md prose rule alone was repeatedly missed
 - It parses the Bash command string, which the enforcement-hook rule forbids; acceptable here
   because it is not a security leg and fails open: a miss is a failed signed commit (the status
   quo), and a false positive costs one retry

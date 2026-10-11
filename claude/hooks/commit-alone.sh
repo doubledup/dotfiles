@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-# PreToolUse hook: block a signing git command that is not a lone Bash call.
+# PreToolUse hook: block an excluded git command that is not a lone Bash call.
 # `git commit|merge|rebase|cherry-pick|revert *` are sandbox excludedCommands so
-# GPG can reach ~/.gnupg, but the exclusion applies only when the whole call
-# matches. Chained, piped, redirected, env-prefixed or `-C` forms run sandboxed
-# and signing fails. Advisory, not a security leg: fails open on any parse error.
+# GPG can reach ~/.gnupg, and `git fetch|pull|push *` so SSH remotes work, but
+# the exclusion applies only when the whole call matches. Chained, piped,
+# redirected, env-prefixed or `-C` forms run sandboxed and fail. Advisory, not a
+# security leg: fails open on any parse error.
 
 command -v jq >/dev/null 2>&1 || exit 0
 cmd="$(jq -r '.tool_input.command // empty' 2>/dev/null)" || exit 0
 [[ -n "$cmd" ]] || exit 0
 
-verbs='(commit|merge|rebase|cherry-pick|revert)'
+verbs='(commit|merge|rebase|cherry-pick|revert|fetch|pull|push)'
 nl=$'\n'
 # git <verb> in command position: start, after a separator, or after VAR=val.
 # shellcheck disable=SC2016
@@ -29,7 +30,7 @@ fi
 cat >&2 <<'EOF'
 Run this git command as its own Bash call: no chaining, pipes, redirects, env
 prefix or `-C` (cd first in a separate call). Only a lone call matches the sandbox
-excludedCommands entry, and GPG signing needs it. For a multi-line commit message,
+excludedCommands entry, which GPG signing and SSH remotes need. For a multi-line commit message,
 write it to a file under $TMPDIR and use `git commit -F <file>`.
 EOF
 exit 2
