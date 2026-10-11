@@ -28,10 +28,12 @@ for f in "${staged[@]}"; do
     files+=("$f")
 done
 
-((${#lua[@]})) && stylua "${lua[@]}"
-((${#fish[@]})) && fish_indent --write "${fish[@]}"
-((${#sh[@]})) && shfmt --write "${sh[@]}"
-((${#prettier[@]})) && prettier --write --log-level warn "${prettier[@]}"
+# A formatter failure (unparseable file) must not skip the re-stage below, or files it already
+# rewrote stay unstaged and look partially staged next time. `just check` reports the failure.
+((${#lua[@]})) && { stylua "${lua[@]}" || :; }
+((${#fish[@]})) && { fish_indent --write "${fish[@]}" || :; }
+((${#sh[@]})) && { shfmt --write "${sh[@]}" || :; }
+((${#prettier[@]})) && { prettier --write --log-level warn "${prettier[@]}" || :; }
 ((${#files[@]})) && git add -- "${files[@]}"
 
 exec just check
