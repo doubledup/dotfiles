@@ -50,9 +50,9 @@ Belt-and-suspenders means the RIGHT leg for the risk. A destructive must-never b
 rule plus the sandbox, NOT a hook that parses Bash. A secret read via a built-in tool is the one
 case that needs the hook.
 
-Raw `git push` stays denied; unattended push goes through the `just push` narrow wrapper - an
-allowed command whose recipe runs a fixed, non-force `git push` to a github-host-checked origin. So
-the destructive-push must-never needs no hook and no un-deny: the wrapper is the sanctioned path.
+Push is a confirm: `git push` and the `just push` wrapper are `ask` rules, so every push prompts.
+Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, any `git -C * push`) are
+must-never `deny` rules. No hook either way.
 
 ## Locate the config (two scopes)
 

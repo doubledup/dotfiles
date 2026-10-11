@@ -2,8 +2,8 @@
 default:
     @just --list
 
-# The sole push path Claude Code runs unattended: raw `git push` is denied in
-# claude/settings.json, and this recipe's fixed shape makes force/delete,
+# A narrow push path; like raw `git push`, it is an ask rule in
+# claude/settings.json. This recipe's fixed shape makes force/delete,
 # arbitrary remotes, and -c/env injection impossible from the caller side - only
 # a validated branch name is accepted, and origin is checked to be a github.com
 # host before pushing. The host check is accident-prevention against a repointed

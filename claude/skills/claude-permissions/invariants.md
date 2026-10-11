@@ -11,13 +11,13 @@ protections (secret-path `deny` rules, the OS sandbox, denying a sandbox-bypassi
 that also raise the bar against a hostile actor. It deliberately does NOT invest in complex or
 fragile adversarial hardening — pattern-matching arms races such as real-URL host parsing,
 flag-tolerant command globs, or narrowing widely-used commands — because the friction outweighs the
-benefit and is undercut by accepted residuals (github.com egress, unattended
-`git fetch`/`just push`, in-tree `.git/config` trust) and the limits of rule matching. The OS
-sandbox is the containment boundary for a compromised command. The secret-path denies, the sandbox,
-and the `Grep`-tool deny are retained precisely because they defend against attacks cheaply and
-robustly — do NOT cite this threat model to weaken or drop them. When guiding an add or running the
-audit, weigh each rule against the accident it prevents and its complexity/friction, prefer simple
-configuration, and do not add complex or fragile rules chasing adversarial evasion.
+benefit and is undercut by accepted residuals (github.com egress, unattended `git fetch`, in-tree
+`.git/config` trust) and the limits of rule matching. The OS sandbox is the containment boundary for
+a compromised command. The secret-path denies, the sandbox, and the `Grep`-tool deny are retained
+precisely because they defend against attacks cheaply and robustly — do NOT cite this threat model
+to weaken or drop them. When guiding an add or running the audit, weigh each rule against the
+accident it prevents and its complexity/friction, prefer simple configuration, and do not add
+complex or fragile rules chasing adversarial evasion.
 
 ## Layer-location map
 
@@ -65,10 +65,10 @@ promise one.
 ## Invariants
 
 **1. Destructive must-never => `deny` rule, no hook.** A must-never destructive command (sudo,
-`rm -rf`, `git push`, tree-discard, `find` side-effecting primaries) is enforced by a settings.json
-`deny` rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected under sandbox
-auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7) contains what runs;
-and enforcement hooks must not parse Bash command strings, which is fragile on
+`rm -rf`, force `git push`, tree-discard, `find` side-effecting primaries) is enforced by a
+settings.json `deny` rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected
+under sandbox auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7)
+contains what runs; and enforcement hooks must not parse Bash command strings, which is fragile on
 quoting/operators/`$()` (the allow-only `gh-api-readonly.sh` parses, but fails open to the prompt).
 Use the colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) —
 **except when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A
@@ -82,9 +82,8 @@ Ask-by-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are 
 each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
-hook. Note on `git push`: it stays a must-never `deny`, but unattended push is available through the
-`just push` narrow wrapper (an allowed command whose recipe runs a fixed non-force `git push` to a
-github-host-checked origin), so the deny costs no workflow and still needs no hook.
+hook. Note on `git push`: plain push (and `just push`) is a confirm (`ask`); only the force forms
+(`--force*`, `-f`, `+refspec`, `--mirror`) and `git -C * push` are must-never `deny` rules.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND

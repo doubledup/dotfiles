@@ -27,7 +27,6 @@
       "Bash(git revert:*)",
       "Bash(git apply:*)",
       "Bash(git worktree:*)",
-      "Bash(just push)",
       "Bash(stylua:*)",
       "Bash(fish_indent:*)",
       "Bash(shfmt:*)",
@@ -81,7 +80,11 @@
       "Bash(git -C * checkout -- .)",
       "Bash(git clean:*)",
       "Bash(git -C * clean*)",
-      "Bash(git push:*)",
+      "Bash(git push *--force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * -f*)",
+      "Bash(git push *+*)",
+      "Bash(git push *--mirror*)",
       "Bash(git -C * push*)",
       "Bash(git reset --hard:*)",
       "Bash(git -C * reset --hard*)",
@@ -165,7 +168,16 @@
       "Bash(git -C * notes*)",
       "Bash(git sparse-checkout:*)",
       "Bash(git -C * sparse-checkout*)",
+      "Bash(git push:*)",
+      "Bash(just push:*)",
+      "Bash(dangerouslyDisableSandbox:true)",
       "Bash(gh pr create:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(gh release create:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(terraform apply:*)",
+      "Bash(terraform destroy:*)",
+      "Bash(just deploy:*)",
       "Bash(rsync:*)",
       "Bash(dd:*)",
       "Bash(rm:*)",
@@ -292,6 +304,22 @@
         {
           "name": "GITHUB_TOKEN",
           "mode": "deny"
+        },
+        {
+          "name": "GH_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SESSION_TOKEN",
+          "mode": "deny"
         }
       ]
     },
@@ -300,8 +328,10 @@
       "rcup *",
       "rcdn *",
       "mkrc *",
-      "git add *",
       "git commit *",
+      "git fetch *",
+      "git pull *",
+      "git push *",
       "git rebase *",
       "git merge *",
       "git cherry-pick *",

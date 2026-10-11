@@ -253,20 +253,26 @@ Key technical choices and their rationale:
   split could still silently weaken the posture
 - Tools needing broad `$HOME` writes are `excludedCommands`, not `filesystem.allowWrite` grants:
   `rcup`/`rcdn`/`mkrc` (symlink `$HOME`), `gh` (Go-TLS fails under Seatbelt), `git commit` (GPG
-  needs the gpg-agent socket and `~/.gnupg`). Broad home-write grants are a privilege-escalation
-  surface (shell configs, `$PATH` dirs). `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design:
-  maintenance-only, fail closed under the sandbox, run via `!`; excluding them would run build tools
-  unsandboxed in every repo
+  needs the gpg-agent socket and `~/.gnupg`), `git fetch`/`pull`/`push` (macOS can't tunnel git's
+  SSH through the sandbox proxy, and the remotes stay SSH rather than needing an HTTPS credential
+  helper). Broad home-write grants are a privilege-escalation surface (shell configs, `$PATH` dirs).
+  `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design: maintenance-only, fail closed under the
+  sandbox, run via `!`; excluding them would run build tools unsandboxed in every repo
 - `autoAllowBashIfSandboxed: true` (the documented large prompt reduction): sandboxable commands run
   unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
   secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
   `Bash(*.env*)`/`Bash(*/secrets/*)` denies, not a guard Bash-block
-- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (raw
-  `git push` denied; `just push` is host-checked, not identity-pinned; non-github egress via
-  `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir writes
-  apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
-  text-match denies over-block benign mentions (`app.env`); the collision-prone
-  `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
+- **Push is a confirm, not a must-never**: `git push` and `just push` are `ask` (a prompt per push,
+  even in auto mode); only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and
+  every `git -C * push` are `deny`. Branch deletion stays `ask` (routine after a merge). One-way
+  doors that do occur here (`gh pr merge`/`release create`/`repo delete`, `terraform apply`/
+  `destroy`, `just deploy`) are `ask` too; rarer ones get a rule when they show up
+- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (`just push`
+  is host-checked, not identity-pinned; clustered short flags like `-uf` fall to the push `ask`;
+  non-github egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model);
+  nvim data-dir writes apply globally; Linux deploys need bubblewrap + socat under
+  `failIfUnavailable: true`; the text-match denies over-block benign mentions (`app.env`); the
+  collision-prone `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
   `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not deny. All narrow and
   contained while the sandbox is active
 - **Local history operations are `allow`, not `ask`** (`merge`, `rebase`, `cherry-pick`, `revert`,
@@ -291,6 +297,7 @@ Key technical choices and their rationale:
   contents). The in-tree residual (`rg --no-ignore` on a git-ignored secret) is closed by the
   no-secrets-in-repos discipline
 - **`~/.gnupg` is protected** (Read+Edit deny, guard case, `Bash(*/.gnupg/*)`, sandbox
-  credential-deny) and `~/.aws` has a full Edit deny; neither breaks the AWS CLI nor GPG-signed
-  commits (`aws *`/`git commit *` are `excludedCommands`, and Edit denies bind only the built-in
-  tool). `git tag -s` and bare `gpg` under the sandbox are the documented over-block
+  credential-deny) and `~/.aws` has a full Edit deny. GPG-signed commits still work (`git commit *`
+  is an `excludedCommands` entry, and Edit denies bind only the built-in tool); `aws` is not
+  excluded, so sandboxed `aws` cannot read `~/.aws` and authenticated calls fail closed (run them
+  via `!`). `git tag -s` and bare `gpg` under the sandbox are the documented over-block
