@@ -53,13 +53,13 @@ silent() {
 fires "$HOME/.dotfiles/claude/settings.json" "docs/en/settings"
 fires "$HOME/.dotfiles/claude/agents/reviewer.md" "docs/en/sub-agents"
 fires "$HOME/.dotfiles/claude/skills/ponytail/SKILL.md" "docs/en/skills"
-fires "$HOME/.dotfiles/claude/commands/feature.md" "docs/en/skills"
+fires "/some/repo/.claude/commands/x.md" "docs/en/skills"
 fires "$HOME/.dotfiles/claude/hooks/guard.sh" "docs/en/hooks"
 fires "$HOME/.claude/settings.local.json" "docs/en/settings"
 fires "/some/repo/.claude/agents/x.md" "docs/en/sub-agents"
 
 # Prose has no schema to get wrong; source files are none of its business.
-silent "$HOME/.dotfiles/claude/rules/planning.md"
+silent "$HOME/.dotfiles/claude/rules/git.md"
 silent "$HOME/.dotfiles/claude/CLAUDE.md"
 silent "$HOME/.dotfiles/DESIGN.md"
 silent "/some/repo/src/main.rs"
