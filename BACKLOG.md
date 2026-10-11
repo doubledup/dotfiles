@@ -50,8 +50,6 @@ items when done; git history records completion.
   secret; a broad Grep (`path: "."` or omitted) that incidentally returns lines from a secret file
   is not caught. A PreToolUse hook cannot filter output. Mirrors the sandbox residual-gap note in
   DESIGN.md
-- Review project-level permissions in `.claude/settings.json`: only `just check` is allowed.
-  Consider `just test`, `just fmt`, `just todos`, and other safe recipes
 - Allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
 - Give `claude/hooks/gh-api-readonly.sh` a `timeout` in settings.json and a test in `rcignore/` (the
   other two hooks have both; this is the most parsing-heavy)
