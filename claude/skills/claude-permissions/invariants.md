@@ -9,12 +9,12 @@ example violation. Background rationale (the sandbox-first, minimal-hook decisio
 This posture defends against accidental or mistaken commands, and takes cheap, robust, low-friction
 protections (secret-path `deny` rules, the OS sandbox, denying a sandbox-bypassing built-in tool)
 that also raise the bar against a hostile actor. It deliberately does NOT invest in complex or
-fragile adversarial hardening — pattern-matching arms races such as real-URL host parsing,
-flag-tolerant command globs, or narrowing widely-used commands — because the friction outweighs the
+fragile adversarial hardening - pattern-matching arms races such as real-URL host parsing,
+flag-tolerant command globs, or narrowing widely-used commands - because the friction outweighs the
 benefit and is undercut by accepted residuals (github.com egress, unattended `git fetch`, in-tree
 `.git/config` trust) and the limits of rule matching. The OS sandbox is the containment boundary for
 a compromised command. The secret-path denies, the sandbox, and the `Grep`-tool deny are retained
-precisely because they defend against attacks cheaply and robustly — do NOT cite this threat model
+precisely because they defend against attacks cheaply and robustly - do NOT cite this threat model
 to weaken or drop them. When guiding an add or running the audit, weigh each rule against the
 accident it prevents and its complexity/friction, prefer simple configuration, and do not add
 complex or fragile rules chasing adversarial evasion.
@@ -70,13 +70,13 @@ settings.json `deny` rule, NOT a guard hook. Why: `deny` rules bind in every mod
 under sandbox auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7)
 contains what runs; and enforcement hooks must not parse Bash command strings, which is fragile on
 quoting/operators/`$()` (the allow-only `gh-api-readonly.sh` parses, but fails open to the prompt).
-Use the colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) —
+Use the colon `:*` form so the no-arg case is caught (`Bash(git reset --hard:*)`, never `... *`) -
 **except when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A
 mid-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires,
 `Bash(git -C * clean*)` does (glued `*`, and it still catches the no-arg case). Measured, for both
 `git` and `aws`; it contradicts the docs, which present mid-command wildcards as working. So a
 `-C`/wrapper twin must use the glued form. Check every rule containing a non-trailing `*` for a
-`:*)` **or** ` *)` tail and flag it as inert — the two tails are equivalent, so both fail. This bit
+`:*)` **or** ` *)` tail and flag it as inert - the two tails are equivalent, so both fail. This bit
 the `aws * <verb>-*:*` mutation denies and the `AWS_PROFILE=* aws *` production asks, not just git.
 Ask-by-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are NOT gaps. Check: for
 each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
@@ -89,7 +89,7 @@ hook. Note on `git push`: plain push is a confirm (`ask`); only the force forms 
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
 `guard.sh`'s path case for the built-in tools (Read/Write/Edit/Grep/Glob), because the sandbox does
 not wrap those tools and `Read(**/…)` denies apply only best-effort to Grep/Glob. Scope: **`.git` is
-guard-only** — no `Read(**/.git/**)` and no `Bash(*/.git/*)`. The Bash form would collide with
+guard-only** - no `Read(**/.git/**)` and no `Bash(*/.git/*)`. The Bash form would collide with
 `cat .git/HEAD`, and the `Read` form is worse than redundant: `Read`/`Edit` denies are merged into
 the OS sandbox's filesystem lists, so `Read(**/.git/**)` becomes a read block that every sandboxed
 process inherits and it breaks **all** git in the repo it is anchored to (project scope: that repo;

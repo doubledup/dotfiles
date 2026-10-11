@@ -26,7 +26,7 @@ table live in `invariants.md` beside this file - read it before either mode.
 ## The enforcement model
 
 The layers, softest to hardest (background rationale: `DESIGN.md`, the sandbox-first / minimal-hook
-decision; threat model: the **Threat model** section in `invariants.md` — defend accidents plus
+decision; threat model: the **Threat model** section in `invariants.md` - defend accidents plus
 cheap/robust attack-bar raises, decline complex/fragile adversarial hardening):
 
 - **CLAUDE.md** (`## Safety`) - soft intent. Shapes model behavior; no hard stop. Kept minimal
