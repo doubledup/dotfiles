@@ -7,7 +7,7 @@ paths:
 
 # Durable Prose
 
-Applies to prose that lives in a repo: docs, code comments, Claude Code config, rules files.
+Applies to prose that lives in a repo: docs, Claude Code config, rules files.
 
 - Write timeless content: the standing rule, a representative example, and a concise justification.
   Nothing else earns its space.
