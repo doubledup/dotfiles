@@ -49,8 +49,8 @@ an innovation token; justify novelty [McKinley].
 - `raw.githubusercontent.com` is blocked; use `api.github.com` with
   `-H "Accept: application/vnd.github.raw"`
 - Filename deny rules over-match: `Bash(*.env*)` blocks fetching `.env.example`
-- `excludedCommands` (`gh`, `git commit`) run unsandboxed only as a lone foreground call; any pipe,
-  redirect, chain, or env prefix sandboxes them
+- `excludedCommands` (`gh`, `git commit`) run unsandboxed only as a lone foreground call; a pipe,
+  redirect, chain, loop, env prefix, or background run sandboxes them. Process output separately
 - Bash can write in the working directory; prefer it over Write for byte-exact copies
 
 ## Authored Voice
