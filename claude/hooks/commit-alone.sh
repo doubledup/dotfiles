@@ -30,7 +30,7 @@ fi
 cat >&2 <<'EOF'
 Run this git command as its own Bash call: no chaining, pipes, redirects, env
 prefix or `-C` (cd first in a separate call). Only a lone call matches the sandbox
-excludedCommands entry, which GPG signing and SSH remotes need. For a multi-line commit message,
-write it to a file under $TMPDIR and use `git commit -F <file>`.
+excludedCommands entry, which GPG signing and SSH remotes need. For a multi-line
+commit message, write it to a file under $TMPDIR and use `git commit -F <file>`.
 EOF
 exit 2

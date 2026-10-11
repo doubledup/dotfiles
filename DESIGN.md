@@ -175,8 +175,8 @@ Key technical choices and their rationale:
   lone call, and tells the model to rerun it alone. Only a lone call matches `excludedCommands`,
   which GPG signing and SSH remotes need; the CLAUDE.md prose rule alone was repeatedly missed
 - It parses the Bash command string, which the enforcement-hook rule forbids; acceptable here
-  because it is not a security leg and fails open: a miss is a failed signed commit (the status
-  quo), and a false positive costs one retry
+  because it is not a security leg and fails open: a miss is a failed signed commit or remote op
+  (the status quo), and a false positive costs one retry
 
 **gh-api-readonly hook:**
 
@@ -264,16 +264,17 @@ Key technical choices and their rationale:
   `Bash(*.env*)`/`Bash(*/secrets/*)` denies, not a guard Bash-block
 - **Push is a confirm, not a must-never**: `git push` is `ask` (a prompt per push, even in auto
   mode); only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every
-  `git -C * push` are `deny`. Branch deletion stays `ask` (routine after a merge). One-way doors
-  that do occur here (`gh pr merge`/`release create`/`repo delete`, `terraform apply`/ `destroy`,
-  `just deploy`) are `ask` too; rarer ones get a rule when they show up
-- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (clustered
-  short flags like `-uf` fall to the push `ask`; non-github egress via `git fetch <url>` or in-tree
-  `insteadOf` accepted per the threat model); nvim data-dir writes apply globally; Linux deploys
-  need bubblewrap + socat under `failIfUnavailable: true`; the text-match denies over-block benign
-  mentions (`app.env`); the collision-prone `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is
-  left out at user scope; `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not
-  deny. All narrow and contained while the sandbox is active
+  `git -C * push` are `deny`; clustered short flags like `-uf` fall to the push `ask`. Branch
+  deletion stays `ask` (routine after a merge). One-way doors that do occur here (`gh pr merge`,
+  `gh release create`, `gh repo delete`, `terraform apply`, `terraform destroy`, `just deploy`) are
+  `ask` too; rarer ones get a rule when they show up
+- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
+  egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
+  writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
+  text-match denies over-block benign mentions (`app.env`); the collision-prone
+  `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
+  `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not deny. All narrow and
+  contained while the sandbox is active
 - **Local history operations are `allow`, not `ask`** (`merge`, `rebase`, `cherry-pick`, `revert`,
   `apply`, `worktree`): their normal path only adds commits, refs, or hunks to tracked state and
   stops on conflict (gitignored paths are expendable to checkout, so a merge can overwrite one; a
