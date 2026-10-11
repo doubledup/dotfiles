@@ -30,6 +30,8 @@ items when done; git history records completion.
 
 ## Claude Code
 
+- `commit-alone.sh` blocks any Bash call whose text contains an excluded git verb, including a
+  heredoc or script body that only mentions `git commit`; match only the command words
 - Create an /explain workflow
 - Claude Code: the user's own messages in the transcript render white on black in light mode; find
   the setting
