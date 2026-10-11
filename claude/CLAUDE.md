@@ -69,11 +69,11 @@ rather than ratifying it because it is listed.
   in-process with the named profile (e.g. botocore `Session(profile_name=...)`), which resolves SSO
   without materializing secrets
 - Verify no secrets in diffs before committing
-- Bash runs in a strict OS sandbox, the containment boundary, and auto-runs without a prompt.
-  `deny`/`ask` rules and the guard hooks still gate the dangerous subset (destructive verbs, secret
-  reads, egress, `git push`); a command that cannot be sandboxed fails rather than running
-  unsandboxed. Run sandbox-blocked maintenance (brew, rustup, cargo, plugin sync) yourself via `!`,
-  never via `dangerouslyDisableSandbox`
+- Bash runs in an OS sandbox, the containment boundary, and auto-runs without a prompt. `deny`/`ask`
+  rules and the guard hooks still gate the dangerous subset (destructive verbs, secret reads,
+  egress, `git push`). Retry unsandboxed (`dangerouslyDisableSandbox`, which always prompts) only
+  when no in-sandbox fix exists (see Sandbox Mechanics). Suggest `!` for sandbox-blocked maintenance
+  (brew, rustup, cargo, plugin sync)
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
 ## Agent Authoring

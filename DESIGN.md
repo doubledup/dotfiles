@@ -243,10 +243,13 @@ Key technical choices and their rationale:
 
 **Bash sandbox (macOS Seatbelt):**
 
-- Enabled strictly (`enabled`, `failIfUnavailable: true`, `allowUnsandboxedCommands: false`): the
-  PRIMARY containment boundary. `deny` rules still bind Bash (they descend into `$(...)` and are
-  respected under sandbox auto-allow), so destructive verbs live in `deny` rules and the guard hook
-  does no Bash parsing
+- Enabled with `failIfUnavailable: true`: the PRIMARY containment boundary. Unsandboxed retries are
+  allowed (`allowUnsandboxedCommands: true`) so a sandbox-incompatible one-off has an escape, but
+  every retry prompts: the `Bash(dangerouslyDisableSandbox:true)` ask rule prompts even in auto mode
+  and, unlike command-pattern ask rules, beats a co-matching allow rule (verified live: `date`
+  retried unsandboxed prompted despite `Bash(date)` allow). `deny` rules still bind Bash (they
+  descend into `$(...)` and are respected under sandbox auto-allow), so destructive verbs live in
+  `deny` rules and the guard hook does no Bash parsing
 - A single block in user scope (`claude/settings.json`), not split across scopes: the docs confirm
   the sandbox arrays merge across scopes (paths from every scope combine; deny entries only narrow),
   but scalar keys (`enabled`, `failIfUnavailable`) have no documented cross-scope semantics, so a
@@ -256,8 +259,9 @@ Key technical choices and their rationale:
   needs the gpg-agent socket and `~/.gnupg`), `git fetch`/`pull`/`push` (macOS can't tunnel git's
   SSH through the sandbox proxy, and the remotes stay SSH rather than needing an HTTPS credential
   helper). Broad home-write grants are a privilege-escalation surface (shell configs, `$PATH` dirs).
-  `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design: maintenance-only, fail closed under the
-  sandbox, run via `!`; excluding them would run build tools unsandboxed in every repo
+  `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design: maintenance-only, fail under the
+  sandbox, run via `!` or a prompted unsandboxed retry; excluding them would run build tools
+  unsandboxed in every repo
 - `autoAllowBashIfSandboxed: true` (the documented large prompt reduction): sandboxable commands run
   unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
   secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
@@ -299,5 +303,6 @@ Key technical choices and their rationale:
 - **`~/.gnupg` is protected** (Read+Edit deny, guard case, `Bash(*/.gnupg/*)`, sandbox
   credential-deny) and `~/.aws` has a full Edit deny. GPG-signed commits still work (`git commit *`
   is an `excludedCommands` entry, and Edit denies bind only the built-in tool); `aws` is not
-  excluded, so sandboxed `aws` cannot read `~/.aws` and authenticated calls fail closed (run them
-  via `!`). `git tag -s` and bare `gpg` under the sandbox are the documented over-block
+  excluded, so sandboxed `aws` cannot read `~/.aws` and authenticated calls fail in the sandbox; an
+  unsandboxed retry reads `~/.aws`, so its prompt is the only gate (or run them via `!`).
+  `git tag -s` and bare `gpg` under the sandbox are the documented over-block

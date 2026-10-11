@@ -127,11 +127,13 @@ sudo/`rm -rf`/destructive git/`find` primaries = `deny` (coherent); the guard's 
 Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor
-(`allowUnsandboxedCommands: false` + `failIfUnavailable: true`), so it is the primary containment
-boundary. This is what lets invariant 1 keep destructive enforcement in `deny` rules rather than a
-hook backstop, and what covers the direnv trust store (out-of-tree writes). Check: the `sandbox` key
-in settings.json; a regression to sandbox-off would weaken the deny-only destructive posture (no
-hook leg) - flag it if it changes.
+(`failIfUnavailable: true`, and every unsandboxed retry prompts: either
+`allowUnsandboxedCommands: false`, or `true` with the `Bash(dangerouslyDisableSandbox:true)` ask
+rule), so it is the primary containment boundary. This is what lets invariant 1 keep destructive
+enforcement in `deny` rules rather than a hook backstop, and what covers the direnv trust store
+(out-of-tree writes). Check: the `sandbox` key in settings.json; a regression to sandbox-off would
+weaken the deny-only destructive posture (no hook leg) - flag it if it changes, and flag retries
+allowed without that ask rule.
 
 **8. MCP tools: `deny` is the only binding leg.** For `mcp__*` tools a PreToolUse hook does NOT
 bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them.
