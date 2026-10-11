@@ -115,8 +115,13 @@ Example: "Never use --no-verify" (enforceable, no teeth today) is a gap; "verify
 diffs" (behavioral) is not.
 
 **5. No cross-layer contradiction.** No `allow` for something a hook blocks or CLAUDE.md forbids; no
-`ask`/`allow` where the intent is must-never. Check: cross-reference the allow list against hook
-blocks and `## Safety`. Example: an `allow` rule for a command the guard hook exits 2 on.
+`ask`/`allow` where the intent is must-never; no explicit `allow` rule that co-matches an `ask`
+rule. A command-pattern ask silently loses to a co-matching allow (verified live: bare
+`git merge --abort` ran unprompted under `Bash(git merge:*)` allow plus `Bash(git merge --abort:*)`
+ask), while sandbox auto-allow does not defeat an ask (verified: `git stash list` still prompted),
+and the parameter rule `Bash(dangerouslyDisableSandbox:true)` does beat an allow. Check:
+cross-reference the allow list against hook blocks and `## Safety`, and each ask rule against every
+allow rule in both scopes. Example: an `allow` rule for a command the guard hook exits 2 on.
 
 **6. Disposition coherence.** forbid => `deny` rule (the guard has no Bash branch, so no `block()`);
 confirm => `ask` in settings.json (the guard never asks; the sandbox/classifier backstop). A
