@@ -121,6 +121,7 @@ update:
 sync:
     rcdn -t mac
     git pull
+    git config core.hooksPath .githooks
     RCRC=~/.dotfiles/rcrc rcup -t mac
     brew bundle --no-upgrade --global
     nvim -c "lua require('lazy').restore()"
