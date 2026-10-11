@@ -150,6 +150,29 @@ Key technical choices and their rationale:
   no-op closes for already-gone entries. Watchers bind only to windows created after a config
   reload, and script edits need a full kitty restart (module cache)
 
+**Claude Code user config: minimal always-on context:**
+
+Target state for `claude/`. A line is always loaded only if it applies to most turns in most repos;
+procedures live in skills (loaded on invoke), file-specific guidance in path-scoped rules,
+must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
+
+- `CLAUDE.md`: environment, communication, persistence, safety prose not enforced elsewhere,
+  compressed sandbox gotchas. No thinking keywords or session discipline
+- Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped (the former replaces the
+  config-docs hook)
+- Agents: one `reviewer` (plan and diff modes, ponytail preloaded) for the design lens built-ins
+  lack. Diff review uses built-in `/code-review` and `/security-review`, which already fan out and
+  verify. Rejected: splitting into spec/plan reviewers plus four diff specialists (more agents, no
+  verify pass, duplicates a maintained built-in)
+- Skills: `ship` (plan, execute, review; starts at the plan, no spec phase; review loops cap at 3
+  iterations), `ponytail`, `pr-comprehension`, `claude-permissions`, `handoff`. No commands
+- Hooks: `guard.sh` (security leg), `commit-alone.sh`, and a PostToolUse format/lint hook on
+  Edit/Write as the fast feedback loop
+- Settings: deny destroys-work and leaks-secrets; ask only for outward actions (push, PR, deploy,
+  tracker writes); no allow entries the sandbox auto-allow already covers
+- Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
+  on the work machine, so rcm never links it here
+
 **Config-docs advisory hook:**
 
 - `claude/hooks/config-docs.sh` fires on `Write|Edit` and, for structured Claude Code config paths

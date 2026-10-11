@@ -10,13 +10,26 @@ items when done; git history records completion.
   says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the same EPERM on
   `claude/CLAUDE.md` as sandboxed Bash did, on a plain 644 file. Test in a fresh session, then
   correct the rule if the claim is wrong
-- Claude Code: minimize our configuration. Start with config to enforce this while editing config,
-  then use it in a fresh session to do the minimization. Consider ponytail
+- Claude Code: migrate user config to the DESIGN.md target state, one layer per fresh session,
+  measured against the always-loaded line budget. Start with `CLAUDE.md` and rules (merge
+  planning/execution/review-protocol and `/feature` into a `ship` skill)
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, peer-review.md, reviewer.md,
   jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 
 ## Claude Code
+
+Target-state migration (after the Next item):
+
+- Collapse review: one `reviewer` agent (plan and diff modes); remove the four `Review*` agents and
+  `/peer-review` in favor of built-in `/code-review`
+- Move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the jdtls-lombok-lsp shim
+  (hardcoded Corretto 21 and Lombok 1.18.42), Atlassian ask rules
+- Hooks: replace `config-docs.sh` with a path-scoped rule; add a PostToolUse format/lint hook
+- Settings: test whether auto mode makes `gh-api-readonly.sh` redundant and whether sandbox
+  auto-allow makes the allow list redundant; drop what is; trim recoverable-git ask rules
+- Remove `/fix`, `/bootstrap` (use `/init` plus `claude-permissions`), `ponytail-chat` output style;
+  convert `handoff-prompt` to a skill; move `claude/docs/rcm.md` to repo `.claude/`
 
 - Create an /explain workflow
 - Claude Code: the user's own messages in the transcript render white on black in light mode; find
@@ -44,18 +57,8 @@ items when done; git history records completion.
   other two hooks have both; this is the most parsing-heavy)
 - `gh-api-readonly.sh` checks that the token right after `gh` is `api`; `gh --repo owner/x api ...`
   slips past. Apply the same tolerant matching as the git -C fix if it turns out to matter
-- Document or relocate the jdtls-lombok-lsp shim under `claude/skills/`: no SKILL.md, hardcodes an
-  Amazon Corretto 21 path and Lombok 1.18.42, official jdtls plugin disabled in its favor; recorded
-  nowhere in DESIGN.md
-- Move work-specific config out of global `claude/`: `jira-comment.md` hardcodes
-  `sft.atlassian.net`, `acli-guide.md` references `GLUE`. Consider `tag-work/` or parameterization
 - Investigate adversarial verification (agents trying to refute a finding), multi-modal search
   sweeps, judge panels, and loop-until-dry for Claude config, vs ultra code review
-- Split review agent into review-spec and review-plan; fold final mode into
-  review-{correctness,performance,security,style}
-- Update `/feature` to integrate with `execution.md`: Phase 3 lacks commit discipline and rollback
-  protocol; Phase 4 has a conflicting 3-cycle limit (execution.md uses 6)
-- Rename spec in review agent and feature command (consider "problem-definition")
 - Automated post-update review: last step of `just update` runs `claude` to review package updates
   for deprecations and breaking changes, audit inline TODOs, spot-check config consistency. Needs
   design work on the prompt and invocation
