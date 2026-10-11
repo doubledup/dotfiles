@@ -13,8 +13,7 @@ items when done; git history records completion.
 - Claude Code: minimize our configuration. Start with config to enforce this while editing config,
   then use it in a fresh session to do the minimization. Consider ponytail
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, peer-review.md, reviewer.md,
-  jira-comment.md, claude-permissions SKILL.md + invariants.md, gh-api-readonly.sh); consider a
-  typos/lint rule so it stays fixed
+  jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 
 ## Claude Code
