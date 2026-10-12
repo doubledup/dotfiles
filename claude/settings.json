@@ -121,6 +121,8 @@
     ],
     "ask": [
       "Bash(git worktree add *-B*)",
+      "Bash(git switch *-C*)",
+      "Bash(git switch *--force-create*)",
       "Bash(git rebase --abort:*)",
       "Bash(git rebase --skip:*)",
       "Bash(git -C * rebase*)",
