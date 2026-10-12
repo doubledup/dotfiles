@@ -32,6 +32,8 @@ items when done; git history records completion.
 - `commit-alone.sh` blocks any Bash call whose text contains an excluded git verb, including a
   heredoc or script body that only mentions `git commit`; match only the command words
 - Create an /explain workflow
+- Run `pr-focus` on a few teammate PRs; tune the ~7-item cap, the categories, and the multi-file
+  item format against real output
 - Claude Code: the user's own messages in the transcript render white on black in light mode; find
   the setting
 - Claude Code: sandboxed Bash writes inside the repo (`mkdir`, heredoc redirect) failed with
