@@ -21,6 +21,8 @@
       "Bash(git check-ignore:*)",
       "Bash(git ls-files:*)",
       "Bash(git symbolic-ref --short HEAD)",
+      "Bash(git worktree list:*)",
+      "Bash(git worktree add:*)",
       "Bash(git apply:*)",
       "Bash(stylua:*)",
       "Bash(fish_indent:*)",
@@ -118,6 +120,7 @@
       "Bash(find -fls*)"
     ],
     "ask": [
+      "Bash(git worktree add *-B*)",
       "Bash(git rebase --abort:*)",
       "Bash(git rebase --skip:*)",
       "Bash(git -C * rebase*)",
