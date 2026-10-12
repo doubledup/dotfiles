@@ -50,6 +50,11 @@ items when done; git history records completion.
   secret; a broad Grep (`path: "."` or omitted) that incidentally returns lines from a secret file
   is not caught. A PreToolUse hook cannot filter output. Mirrors the sandbox residual-gap note in
   DESIGN.md
+- The `**/secrets` sandbox read deny does not block reads: a sandboxed `cat` of
+  `$TMPDIR/p/secrets/f` succeeded, while literal `sandbox.credentials.files` paths (`~/.config/gh`,
+  `~/.gnupg`) block at the process level. `secrets/` dirs are guarded only by the `Read` and
+  `Bash(*/secrets/*)` command-text rules; find why (glob unsupported, or only paths existing at
+  session start) and replace with literal paths if needed
 - Allow fetching PR comments in `claude/hooks/gh-api-readonly.sh`
 - Give `claude/hooks/gh-api-readonly.sh` a `timeout` in settings.json and a test in `rcignore/` (the
   other two hooks have both; this is the most parsing-heavy)
