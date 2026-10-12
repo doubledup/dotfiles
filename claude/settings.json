@@ -55,6 +55,7 @@
       "Read(~/.aws/**)",
       "Read(~/.ssh/**)",
       "Read(~/.config/gh/**)",
+      "Read(~/.config/cloudflare/**)",
       "Read(~/.git-credentials)",
       "Read(~/.gnupg/**)",
       "Edit(~/.gitconfig)",
@@ -283,6 +284,10 @@
         },
         {
           "path": "~/.config/gh",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.config/cloudflare",
           "mode": "deny"
         },
         {
