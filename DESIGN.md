@@ -320,6 +320,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   remove is `deny`, other orderings fall back to the `ask`. The `git -C *` twins stay `ask` (a
   wildcard before the subcommand in an `allow` rule can absorb an injected `-c`/`--exec-path`
   option)
+- **`git mv` runs unprompted** (sandboxed, auto-allowed): a rename is staged and recoverable. Only
+  the forced forms (`-f`, `--force`) are `ask`, since they can overwrite an untracked destination
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
   `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade both the `rm -rf` deny and
   the `rm` ask)
