@@ -59,6 +59,12 @@ an innovation token; justify novelty [McKinley].
 - Before writing a PR description, review comment, or reply, read
   `~/.claude/output-styles/pr-comms.md`
 
+## Repo Text
+
+- Docs, config, and code comments state what holds now and why. Don't describe past repo state or
+  compare with an earlier version ("was removed", "no longer", "now fetches"); that belongs in the
+  commit message
+
 ## Persistence
 
 - Project-wide decisions and conventions go in repo-committed files (CLAUDE.md, .claude/rules/,

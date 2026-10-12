@@ -11,9 +11,6 @@ Applies to prose that lives in a repo: docs, Claude Code config, rules files.
 
 - Write timeless content: the standing rule, a representative example, and a concise justification.
   Nothing else earns its space.
-- Don't describe past repo state. "X was removed", "an earlier hook used to catch this", "this was
-  inert until the fix" all go stale and cost space on every future read. State what holds now and
-  why.
 - Rewrite history into the rule it produced. A bug worth documenting becomes "spell it this way,
   because the other way fails silently", not an account of when it was found.
 - Keep provenance ("measured", "verified live") when a claim was expensive to establish or
