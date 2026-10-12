@@ -35,7 +35,9 @@ the intent rather than the code, or omit incidental changes.
 claims that the code does not do.]
 
 ## Needs your attention
-1. path:start-end - [category] - [why a human must judge this, one line]
+1. [category] - [why a human must judge this, one line]
+   - path:start-end - [this part's role, a few words]
+   - other/path:start-end, start-end - [role]
 2. ...
 
 ## Tests
@@ -65,6 +67,11 @@ notice later:
 
 Silent contract changes count even when they look harmless: nullability, error codes, ordering
 guarantees, defaults.
+
+An item is one concern, not one file. When a concern spans files (a producer and its consumer, a
+migration and the code that reads the new column), list every location under the one item, in
+reading order, so the user sees how they relate. Split into separate items only when the parts can
+be judged independently.
 
 Line ranges are at the head ref and cover the whole unit to read (the function or block), not just
 the changed lines. For removed code, use the base ref and mark it `(base)`.
