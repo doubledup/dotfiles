@@ -58,7 +58,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
   without it. Check this before reading any verdict.
 - Verdict CLEAR or LOW exits; report LOW findings. MEDIUM or HIGH: accept, partially accept, or
   reject each finding, act on accepted ones, and re-invoke. No VERDICT line: infer from the highest
-  severity section present. Missing Investigation section: re-invoke asking for it.
+  severity section present. Missing Investigation section in the plan loop: re-invoke asking for it
+  (`/review-pr` handles this itself).
 - Findings of defect (something wrong or broken) are presumed valid. Accept freely; reject only with
   a specific, falsifiable reason grounded in code ("handled at line N"). Partial accepts state what
   is rejected and why.
