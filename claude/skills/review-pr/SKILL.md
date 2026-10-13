@@ -45,7 +45,7 @@ Run all three, then wait for every one before merging:
    between them and the code are unstated changes, MEDIUM at most. On later iterations, send only
    its own prior findings and dispositions; built-in findings are not its to judge. If its output
    lacks an Investigation section, re-ask only the Reviewer, once; still missing is `FAILED`.
-2. `/code-review <level> --max-findings default <base>...<target>`. Level is `high` unless the
+2. `/code-review <level> --max-findings default <base>...<target>`. Level is `medium` unless the
    user's request names one. Always pass both: omitted, each reuses the user's last choice. Never
    `--fix` or `--comment`.
 3. `/security-review`. It takes no arguments and diffs against `origin/HEAD`, so settle its coverage
