@@ -45,8 +45,8 @@ Run all three, then wait for every one before merging:
    (it cannot run git), the intent, and the repo root. For a PR, tell it the title and body stand in
    for the plan as claims to check, with gaps between them and the code rated as unstated changes,
    MEDIUM at most. On later iterations, send only its own prior findings and dispositions; built-in
-   findings are not its to judge. If its output lacks an Investigation section, re-ask only the
-   Reviewer, once; still missing is `FAILED`.
+   findings reach it only as confirm requests (see Merge). If its review output lacks an
+   Investigation section, re-ask only the Reviewer, once; still missing is `FAILED`.
 2. `/code-review <level> --max-findings default <base>...<target>`. Level is `medium` unless the
    user explicitly asks for another level for this review. Always pass both: omitted, each reuses
    the user's last choice. Never `--fix` or `--comment`.
@@ -78,6 +78,10 @@ findings is a clean result, not a failure.
   still counts toward the VERDICT. Built-ins never see dispositions, so each recurrence counts as a
   re-raise under `ship`'s rule (two consecutive re-raises go to the user), rather than letting the
   rejecting agent grade its own call.
+- Send each finding still at MEDIUM or above whose sources are all built-ins to the Reviewer as one
+  confirm request, with any `previously rejected: <reason>` tag. Confirmed keeps its severity;
+  unconfirmed drops to LOW, tagged `unconfirmed`, and stays listed; an unanswered finding keeps its
+  severity. If the confirm call errors, the Reviewer is `FAILED`.
 - VERDICT is the highest severity across all sources.
 
 ## Output

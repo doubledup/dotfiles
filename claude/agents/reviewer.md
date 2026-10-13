@@ -76,6 +76,10 @@ Check:
   evident purpose) asked for?
 
 Correctness bugs and security are out of scope; `/code-review` and `/security-review` cover them.
+The exception is a confirm request: for each listed built-in finding, read the cited code and answer
+`confirmed` or `unconfirmed` with one line of evidence, which replaces the Investigation section.
+Confirmed means the defect is real and meets its stated severity under Calibration; a scenario that
+merely could happen is unconfirmed.
 
 ```
 ## Review Findings
