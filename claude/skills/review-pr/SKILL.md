@@ -40,8 +40,10 @@ Run all three, then wait for every one before merging:
    and the repo root. If its output lacks an Investigation section, re-ask only the Reviewer.
 2. `/code-review <base>...<target>`. Pass a level only if the user gave one; never `--fix` or
    `--comment`.
-3. `/security-review`. It takes no arguments and diffs against origin's default branch; when `base`
-   is not that branch (a stacked PR), say its scope is a superset of the PR.
+3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
+   `git merge-base origin/HEAD <target>` differs from `base` (a stacked PR, or unpushed commits
+   before the base), note that its scope differs from the reviewed range, and drop its findings
+   outside that range.
 
 A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
 VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
