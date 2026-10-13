@@ -19,7 +19,8 @@ body are the intent, a claim to verify rather than a source of truth.
 - PR: `gh pr view <url> --json headRefOid,baseRefOid,title,body`. Target is `headRefOid`; base
   defaults to `baseRefOid`, not `baseRefName`, because a stale local `origin/<base>` would pull
   merged-in commits into the diff.
-- Commit: resolve with `git rev-parse <commit>`. Base defaults to `origin/HEAD`.
+- Commit: resolve with `git rev-parse <commit>`; everything since the base is reviewed, not just
+  that commit. Base defaults to `origin/HEAD`; if that ref is unset, ask the user for a base.
 - An explicit `[base]` overrides either default (stacked PRs).
 
 ## Precondition
