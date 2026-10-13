@@ -133,7 +133,7 @@ When prior iteration findings are provided:
 ## Guidelines
 
 - Be specific. Reference files and line numbers.
-- Prioritize: focus on issues that affect correctness or maintainability.
+- Prioritize: focus on issues within the current mode's checks.
 - Don't nitpick style if a formatter/linter handles it.
 
 ### Investigation requirements
