@@ -23,8 +23,8 @@ items when done; git history records completion.
   correct the rule if the claim is wrong. Evidence: `! just broken-links --remove` deleted links in
   `~/.claude/agents`, a sandbox write-deny path, so `!` ran unsandboxed there; the `just fmt` EPERM
   likely has another cause
-- Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, reviewer.md,
-  jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
+- Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, jira-comment.md,
+  gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 
 ## Claude Code
