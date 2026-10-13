@@ -28,7 +28,8 @@ items when done; git history records completion.
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 - Claude Code: have `ship`'s review step run `/code-review` and `/security-review` alongside the
   `reviewer` diff mode, mapping their findings onto the loop's severity and VERDICT contract. First
-  verify the main agent can invoke both via Skill, and measure the cost per iteration
+  verify the main agent can invoke both via Skill, and measure the cost per iteration. Then trim
+  diff mode to plan conformance and over-engineering, dropping checks the built-ins cover
 
 ## Claude Code
 
