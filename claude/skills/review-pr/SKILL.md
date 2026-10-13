@@ -10,9 +10,9 @@ argument-hint: "<pr-url|commit> [base]"
 
 # Review PR
 
-`/review-pr <pr-url|commit> [base]`. Intent is optional: `ship` passes the plan and verification
-results; for a PR, the title and body are the intent, a claim to verify rather than a source of
-truth.
+`/review-pr <pr-url|commit> [base]`. Intent is optional: `ship` passes the plan, verification
+results, and on later iterations the prior findings with their dispositions; for a PR, the title and
+body are the intent, a claim to verify rather than a source of truth.
 
 ## Resolve
 
@@ -52,6 +52,9 @@ findings is a clean result, not a failure.
 - Keep the Reviewer's severities. Rate built-in findings: HIGH = incorrect behavior, data loss, or a
   vulnerability in production; MEDIUM = likely to manifest in realistic use; otherwise LOW. A
   PLAUSIBLE finding states its uncertainty.
+- A built-in finding that matches a prior rejection is listed as `previously rejected: <reason>` and
+  does not count toward the VERDICT. Built-ins never see dispositions, so they would re-raise it
+  every iteration; the Reviewer confirms or re-raises its own.
 - VERDICT is the highest severity across all sources.
 
 ## Output
