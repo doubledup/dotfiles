@@ -75,9 +75,9 @@ findings is a clean result, not a failure.
   a concrete competing reading. Remediation is `fix`, or `rollback` when fixing it would rewrite
   most of the change. A finding `/code-review` marks PLAUSIBLE states its uncertainty.
 - A built-in finding that matches a prior rejection is tagged `previously rejected: <reason>` and
-  still counts toward the VERDICT. Built-ins never see dispositions, so each recurrence counts as a
-  re-raise under `ship`'s rule (two consecutive re-raises go to the user), rather than letting the
-  rejecting agent grade its own call.
+  still counts toward the VERDICT once confirmed (below). Built-ins never see dispositions, so each
+  confirmed recurrence counts as a re-raise under `ship`'s rule (two consecutive re-raises go to the
+  user), rather than letting the rejecting agent grade its own call.
 - Send each finding still at MEDIUM or above whose sources are all built-ins to the Reviewer as one
   confirm request, with any `previously rejected: <reason>` tag. Confirmed keeps its severity;
   unconfirmed drops to LOW, tagged `unconfirmed`, and stays listed; an unanswered finding keeps its
