@@ -23,7 +23,7 @@ items when done; git history records completion.
   says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the same EPERM on
   `claude/CLAUDE.md` as sandboxed Bash did, on a plain 644 file. Test in a fresh session, then
   correct the rule if the claim is wrong
-- Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, peer-review.md, reviewer.md,
+- Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, reviewer.md,
   jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 
