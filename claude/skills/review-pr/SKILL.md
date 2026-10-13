@@ -5,20 +5,21 @@ description:
     over-engineering), built-in `/code-review` (correctness), and `/security-review`. Returns merged
     findings with one VERDICT. Use when the user wants a PR or branch assessed for defects, and from
     `ship`'s review step.
-argument-hint: "<pr-url|commit> [base]"
+argument-hint: "<pr-url|pr-number|commit> [base]"
 ---
 
 # Review PR
 
-`/review-pr <pr-url|commit> [base]`. Intent is optional: `ship` passes the plan, verification
-results, and on later iterations the prior findings with their dispositions; for a PR, the title and
-body are the intent, a claim to verify rather than a source of truth.
+`/review-pr <pr-url|pr-number|commit> [base]`. Intent is optional: `ship` passes the plan,
+verification results, and on later iterations the prior findings with their dispositions; for a PR,
+the title and body are the intent, a claim to verify rather than a source of truth.
 
 ## Resolve
 
-- PR: `gh pr view <url> --json headRefOid,baseRefOid,title,body`. Target is `headRefOid`; base
-  defaults to `baseRefOid`, not `baseRefName`, because a stale local `origin/<base>` would pull
-  merged-in commits into the diff.
+- PR (a URL, or a bare number, which is never treated as a SHA):
+  `gh pr view <pr> --json headRefOid,baseRefOid,title,body`. Target is `headRefOid`; base defaults
+  to `baseRefOid`, not `baseRefName`, because a stale local `origin/<base>` would pull merged-in
+  commits into the diff.
 - Commit: resolve with `git rev-parse <commit>`; everything since the base is reviewed, not just
   that commit. Base defaults to `origin/HEAD`; if that ref is unset, ask the user for a base.
 - An explicit `[base]` overrides either default (stacked PRs).
@@ -39,8 +40,9 @@ Run all three, then wait for every one before merging:
 1. Reviewer agent in `diff` mode, in the background: `git diff <base>...<target> -U8`, the intent,
    and the repo root. With no intent (an empty PR body), tell it to skip plan conformance and say
    so. If its output lacks an Investigation section, re-ask only the Reviewer.
-2. `/code-review <level> <base>...<target>`. Level is the user's if given, else `medium`; with no
-   level it reuses whatever the user last typed, so depth would vary. Never `--fix` or `--comment`.
+2. `/code-review <level> <base>...<target>`. Level is `medium` unless the user's request names one;
+   with no level it reuses whatever the user last typed, so depth would vary. Never `--fix` or
+   `--comment`.
 3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
    `git merge-base origin/HEAD <target>` differs from `base` (a stacked PR, or unpushed commits
    before the base), note that its scope differs from the reviewed range, and drop its findings
