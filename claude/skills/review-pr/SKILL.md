@@ -42,7 +42,7 @@ Run all three, then wait for every one before merging:
    code are unstated changes, MEDIUM at most. With no intent (an empty PR body), tell it to skip
    plan conformance and say so. If its output lacks an Investigation section, re-ask only the
    Reviewer.
-2. `/code-review <level> <base>...<target>`. Level is `medium` unless the user's request names one;
+2. `/code-review <level> <base>...<target>`. Level is `high` unless the user's request names one;
    with no level it reuses whatever the user last typed, so depth would vary. Never `--fix` or
    `--comment`.
 3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
