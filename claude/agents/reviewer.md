@@ -65,7 +65,7 @@ When reviewing iterations 2+, follow the iteration handling rules below.
 **Expected input**: Diff (base commit to HEAD), and the plan if there is one. With no plan, skip
 plan conformance, say so, and judge over-engineering against the change's evident purpose.
 
-Review the completed changes against the plan. Flag issues that should be fixed.
+Review the completed changes against the plan, if there is one. Flag issues that should be fixed.
 
 Check:
 
