@@ -52,7 +52,8 @@ Run all three, then wait for every one before merging:
    `git merge-base origin/HEAD <target>` differs from `git merge-base <base> <target>` (a stacked
    PR, or unpushed commits before the base), note that its scope differs from the reviewed range,
    and drop its findings outside that range. If `origin/HEAD` is unset, skip this check and note
-   that its scope is unknown.
+   that its scope is unknown. If `git merge-base --is-ancestor <target> origin/HEAD` passes, the
+   range is already pushed and its diff is empty: mark it `no coverage`, not `ok`.
 
 A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
 VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
@@ -74,7 +75,7 @@ findings is a clean result, not a failure.
 
 ```
 ## Review: <target> vs <base>
-Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|FAILED] [scope note]
+Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|no coverage|FAILED] [scope note]
 
 ## Investigation
 [the Reviewer's section]
