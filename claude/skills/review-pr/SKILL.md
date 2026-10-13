@@ -61,7 +61,8 @@ findings is a clean result, not a failure.
 
 ## Merge
 
-- Collapse the same defect at the same location into one finding; tag each with its sources.
+- Collapse the same defect at the same location into one finding; tag each with its sources. A
+  collapsed finding takes the highest severity any source gave it.
 - Keep the Reviewer's severities. Rate built-in findings: HIGH = incorrect behavior, data loss, or a
   vulnerability in production; MEDIUM = likely to manifest in realistic use; otherwise LOW.
   Remediation is `fix`, or `rollback` when fixing it would rewrite most of the change. A finding
