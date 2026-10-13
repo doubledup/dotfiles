@@ -68,10 +68,12 @@ findings is a clean result, not a failure.
 
 - Collapse the same defect at the same location into one finding; tag each with its sources. A
   collapsed finding takes the highest severity any source gave it.
-- Keep the Reviewer's severities. Rate built-in findings: HIGH = incorrect behavior, data loss, or a
-  vulnerability in production; MEDIUM = likely to manifest in realistic use; otherwise LOW.
-  Remediation is `fix`, or `rollback` when fixing it would rewrite most of the change. A finding
-  `/code-review` marks PLAUSIBLE states its uncertainty.
+- Keep the Reviewer's severities. Rate built-in findings by impact and likelihood: HIGH = incorrect
+  behavior, data loss, or a vulnerability under ordinary use; MEDIUM = likely to manifest in
+  realistic use; LOW = needs rare conditions (an unusual git history, an unset ref) or is unlikely.
+  For instructions written for a model, "the model might misread X" is LOW unless the text supports
+  a concrete competing reading. Remediation is `fix`, or `rollback` when fixing it would rewrite
+  most of the change. A finding `/code-review` marks PLAUSIBLE states its uncertainty.
 - A built-in finding that matches a prior rejection is tagged `previously rejected: <reason>` and
   still counts toward the VERDICT. Built-ins never see dispositions, so each recurrence counts as a
   re-raise under `ship`'s rule (two consecutive re-raises go to the user), rather than letting the
