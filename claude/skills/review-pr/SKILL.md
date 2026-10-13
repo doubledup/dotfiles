@@ -44,7 +44,8 @@ Run all three, then wait for every one before merging:
 3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
    `git merge-base origin/HEAD <target>` differs from `base` (a stacked PR, or unpushed commits
    before the base), note that its scope differs from the reviewed range, and drop its findings
-   outside that range.
+   outside that range. If `origin/HEAD` is unset, skip this check and note that its scope is
+   unknown.
 
 A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
 VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
