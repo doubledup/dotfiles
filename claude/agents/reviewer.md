@@ -91,8 +91,8 @@ Correctness bugs and security are out of scope; `/code-review` and `/security-re
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Severity: High = implements something other than the plan, or a structural misfit. Medium =
-unplanned scope, codebase inconsistency, over-engineering. Low = minor improvements, style.
+Severity: High = implements something other than the plan. Medium = structural misfit, unplanned
+scope, codebase inconsistency, over-engineering. Low = minor improvements, style.
 
 Remediation: **fix** = sound approach, needs targeted patch. **rollback** = structurally wrong, or
 fix would rewrite >50% of the step.
