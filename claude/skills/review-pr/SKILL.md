@@ -44,7 +44,7 @@ Run all three, then wait for every one before merging:
    and the repo root. A PR's title and body go in as claims, not a plan: gaps between them and the
    code are unstated changes, MEDIUM at most. With no intent (an empty PR body), tell it to skip
    plan conformance and say so. If its output lacks an Investigation section, re-ask only the
-   Reviewer.
+   Reviewer, once; still missing is `FAILED`.
 2. `/code-review <level> <base>...<target>`. Level is `high` unless the user's request names one;
    with no level it reuses whatever the user last typed, so depth would vary. Never `--fix` or
    `--comment`.
