@@ -107,8 +107,8 @@ findings).
 
 Apply these thresholds consistently across all modes and iterations:
 
-- **HIGH**: Incorrect behavior, data loss, or security vulnerability in production. "Could be
-  better" is not HIGH.
+- **HIGH**: Incorrect behavior, data loss, or security vulnerability in production; in diff mode,
+  also implementing something other than the plan. "Could be better" is not HIGH.
 - **MEDIUM**: A problem likely to manifest during execution or realistic usage. Theoretical concerns
   without a concrete scenario are LOW at most.
 - **Uncertain findings**: Flag and state the uncertainty. Rate based on potential impact if real,
