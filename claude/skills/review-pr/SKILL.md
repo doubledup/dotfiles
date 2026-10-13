@@ -41,9 +41,9 @@ stop, rather than a CLEAR from three reviews of nothing.
 Run all three, then wait for every one before merging:
 
 1. Reviewer agent in `diff` mode, in the background: `git diff <base>...<target> -U8`, the intent,
-   and the repo root. A PR's title and body go in as claims, not a plan: gaps between them and the
-   code are unstated changes, MEDIUM at most. If its output lacks an Investigation section, re-ask
-   only the Reviewer, once; still missing is `FAILED`.
+   and the repo root. For a PR, tell it the title and body are claims, not a plan, and that gaps
+   between them and the code are unstated changes, MEDIUM at most. If its output lacks an
+   Investigation section, re-ask only the Reviewer, once; still missing is `FAILED`.
 2. `/code-review <level> <base>...<target>`. Level is `high` unless the user's request names one;
    with no level it reuses whatever the user last typed, so depth would vary. Never `--fix` or
    `--comment`.
