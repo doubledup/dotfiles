@@ -34,7 +34,8 @@ and tell the user exactly what to check out or fetch. Never run checkout, switch
 - `git cat-file -e <base>^{commit}` passes
 
 If `git diff --quiet <base>...<target>` passes, the range is empty: report nothing to review and
-stop, rather than a CLEAR from three reviews of nothing.
+stop, rather than a CLEAR from three reviews of nothing. For a commit already in the base, suggest
+`<commit>~1` as the base.
 
 ## Run
 
