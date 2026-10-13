@@ -37,7 +37,8 @@ and tell the user exactly what to check out or fetch. Never run checkout, switch
 Run all three, then wait for every one before merging:
 
 1. Reviewer agent in `diff` mode, in the background: `git diff <base>...<target> -U8`, the intent,
-   and the repo root. If its output lacks an Investigation section, re-ask only the Reviewer.
+   and the repo root. With no intent (an empty PR body), tell it to skip plan conformance and say
+   so. If its output lacks an Investigation section, re-ask only the Reviewer.
 2. `/code-review <base>...<target>`. Pass a level only if the user gave one; never `--fix` or
    `--comment`.
 3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
