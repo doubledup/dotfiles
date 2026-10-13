@@ -20,7 +20,9 @@ items when done; git history records completion.
 - Claude Code: verify whether `!` commands run inside the Bash sandbox. `claude/CLAUDE.md` Safety
   says to run sandbox-blocked maintenance via `!`, but `just fmt` via `!` hit the same EPERM on
   `claude/CLAUDE.md` as sandboxed Bash did, on a plain 644 file. Test in a fresh session, then
-  correct the rule if the claim is wrong
+  correct the rule if the claim is wrong. Evidence: `! just broken-links --remove` deleted links in
+  `~/.claude/agents`, a sandbox write-deny path, so `!` ran unsandboxed there; the `just fmt` EPERM
+  likely has another cause
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, reviewer.md,
   jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
