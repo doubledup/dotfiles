@@ -57,7 +57,8 @@ Run all three, then wait for every one before merging:
    `ok`; `o` after `b` (`git merge-base --is-ancestor <b> <o>`) means the start of the range went
    unreviewed, so mark it `partial`; `o` before `b` (`git merge-base --is-ancestor <o> <b>`) means
    it covered extra commits, so drop its findings outside the range; if neither is an ancestor of
-   the other (a merge from main inside the range), mark it `partial`.
+   the other (a merge from main inside the range), mark it `partial` and drop its findings outside
+   the range.
 
 A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
 VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
