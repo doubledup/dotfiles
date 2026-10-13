@@ -26,10 +26,6 @@ items when done; git history records completion.
 - Repo-wide ASCII/em-dash sweep across first-party files (bootstrap.md, reviewer.md,
   jira-comment.md, gh-api-readonly.sh); consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
-- Claude Code: build a shared review skill (diff target: PR number or local range; optional intent)
-  that runs the `reviewer` diff mode, `/code-review`, and `/security-review` and returns merged
-  findings with a VERDICT; user-invocable for PRs, and `ship`'s review step calls it. Then trim diff
-  mode to plan conformance and over-engineering, dropping checks the built-ins cover
 
 ## Claude Code
 

@@ -68,13 +68,12 @@ Review the completed changes against the plan. Flag issues that should be fixed.
 
 Check:
 
-- **Correctness**: Does the code correctly implement the plan? Do the plan's assertions hold?
+- **Plan conformance**: Does the code implement the plan? Do the plan's assertions hold? Did
+  anything unplanned land?
 - **Consistency**: Does the code match codebase style and patterns?
-- **Safety**: Any antipatterns, error-prone code, or missing error handling?
-- **Edge cases**: Are the identified edge cases handled?
-- **Regressions**: Did any existing behavior break? Read callers and tests of modified functions
-  rather than relying solely on the diff. Flag uncertain regression concerns explicitly.
 - **Overengineering**: Was anything added beyond what the plan asked for?
+
+Correctness bugs and security are out of scope; `/code-review` and `/security-review` cover them.
 
 ```
 ## Review Findings
@@ -91,8 +90,8 @@ Check:
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Severity: High = incorrect implementation, bugs in critical paths, security vulnerabilities. Medium
-= missing edge cases, codebase inconsistency. Low = minor improvements, style.
+Severity: High = implements something other than the plan, or a structural misfit. Medium =
+unplanned scope, codebase inconsistency, over-engineering. Low = minor improvements, style.
 
 Remediation: **fix** = sound approach, needs targeted patch. **rollback** = structurally wrong, or
 fix would rewrite >50% of the step.
@@ -144,18 +143,17 @@ You have tools. Use them. Do not review from text alone.
 existing patterns, and naming conventions. If the plan references modules you haven't seen, read
 them.
 
-**Diff mode**: For every modified function, read at least one caller and any directly related test
-file. Do not flag regression risk without checking callers. Do not assess "consistency with codebase
-patterns" without reading adjacent code.
+**Diff mode**: Read the code around each change before judging plan conformance or consistency. Do
+not assess "consistency with codebase patterns" without reading adjacent code.
 
 Your output must include an `## Investigation` section before findings listing the files you read
 and why. Example:
 
 ```
 ## Investigation
-- `src/auth/login.ts` — modified function; checked callers
-- `src/auth/login.test.ts` — verified test coverage for changed behavior
-- `src/middleware/session.ts` — caller of `createSession`, checked for breaking changes
+- `src/auth/login.ts`: modified file; compared against the plan's step 2
+- `src/auth/logout.ts`: sibling handler; checked the change follows its error-handling pattern
+- `src/auth/session.ts`: new helper's neighbor; checked whether an existing function already does this
 ```
 
 Findings without an Investigation section are incomplete.
