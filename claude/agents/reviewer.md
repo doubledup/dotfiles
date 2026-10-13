@@ -72,7 +72,8 @@ Check:
 - **Plan conformance**: Does the code implement the plan, including any edge cases it names? Do the
   plan's assertions hold? Did anything unplanned land?
 - **Consistency**: Does the code match codebase style and patterns?
-- **Overengineering**: Was anything added beyond what the plan asked for?
+- **Overengineering**: Was anything added beyond what the plan (or, with no plan, the change's
+  evident purpose) asked for?
 
 Correctness bugs and security are out of scope; `/code-review` and `/security-review` cover them.
 
@@ -90,6 +91,8 @@ Correctness bugs and security are out of scope; `/code-review` and `/security-re
 
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
+
+In `Scope`, use `step N` when there is a plan; otherwise name the file alone.
 
 Severity: High = implements something other than the plan. Medium = structural misfit, unplanned
 scope, codebase inconsistency, over-engineering. Low = minor improvements, style.
