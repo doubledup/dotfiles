@@ -38,8 +38,10 @@ and tell the user exactly what to check out or fetch. Never run checkout, switch
 Run all three, then wait for every one before merging:
 
 1. Reviewer agent in `diff` mode, in the background: `git diff <base>...<target> -U8`, the intent,
-   and the repo root. With no intent (an empty PR body), tell it to skip plan conformance and say
-   so. If its output lacks an Investigation section, re-ask only the Reviewer.
+   and the repo root. A PR's title and body go in as claims, not a plan: gaps between them and the
+   code are unstated changes, MEDIUM at most. With no intent (an empty PR body), tell it to skip
+   plan conformance and say so. If its output lacks an Investigation section, re-ask only the
+   Reviewer.
 2. `/code-review <level> <base>...<target>`. Level is `medium` unless the user's request names one;
    with no level it reuses whatever the user last typed, so depth would vary. Never `--fix` or
    `--comment`.
