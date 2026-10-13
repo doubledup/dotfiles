@@ -41,12 +41,12 @@ stop, rather than a CLEAR from three reviews of nothing. For a commit already in
 
 Run all three, then wait for every one before merging:
 
-1. Reviewer agent in `diff` mode, in the background: `git diff <base>...<target> -U8`, the intent,
-   and the repo root. For a PR, tell it the title and body stand in for the plan as claims to check,
-   with gaps between them and the code rated as unstated changes, MEDIUM at most. On later
-   iterations, send only its own prior findings and dispositions; built-in findings are not its to
-   judge. If its output lacks an Investigation section, re-ask only the Reviewer, once; still
-   missing is `FAILED`.
+1. Reviewer agent in `diff` mode, in the background: the output of `git diff <base>...<target> -U8`
+   (it cannot run git), the intent, and the repo root. For a PR, tell it the title and body stand in
+   for the plan as claims to check, with gaps between them and the code rated as unstated changes,
+   MEDIUM at most. On later iterations, send only its own prior findings and dispositions; built-in
+   findings are not its to judge. If its output lacks an Investigation section, re-ask only the
+   Reviewer, once; still missing is `FAILED`.
 2. `/code-review <level> --max-findings default <base>...<target>`. Level is `medium` unless the
    user's request names one. Always pass both: omitted, each reuses the user's last choice. Never
    `--fix` or `--comment`.
