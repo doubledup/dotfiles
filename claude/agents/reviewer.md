@@ -33,7 +33,7 @@ orchestrator presents findings to the user before proceeding.
 
 Check:
 
-- Does the plan address all acceptance criteria?
+- Does the plan address the whole problem statement?
 - Is each step verifiable?
 - Does the approach fit existing codebase patterns?
 - Are there simpler alternatives?
@@ -55,7 +55,7 @@ Check:
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Severity: High = missing acceptance criteria, incorrect sequencing, architectural misfit. Medium =
+Severity: High = unaddressed requirements, incorrect sequencing, architectural misfit. Medium =
 underspecified steps, missing verification, risky assumptions. Low = minor improvements, style.
 
 When reviewing iterations 2+, follow the iteration handling rules below.
@@ -68,8 +68,7 @@ Review the completed changes against the plan. Flag issues that should be fixed.
 
 Check:
 
-- **Correctness**: Does the code correctly implement the plan? Are all acceptance criteria
-  addressed?
+- **Correctness**: Does the code correctly implement the plan? Do the plan's assertions hold?
 - **Consistency**: Does the code match codebase style and patterns?
 - **Safety**: Any antipatterns, error-prone code, or missing error handling?
 - **Edge cases**: Are the identified edge cases handled?

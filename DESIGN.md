@@ -166,7 +166,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped (the former replaces the
   config-docs hook)
 - Agents: one `reviewer` (plan and diff modes, ponytail preloaded) for the design lens built-ins
-  lack. Diff review uses built-in `/code-review` and `/security-review`, which already fan out and
+  lack: plan review, and diff review for plan conformance and over-engineering. Correctness and
+  security review use built-in `/code-review` and `/security-review`, which already fan out and
   verify. Rejected: splitting into spec/plan reviewers plus four diff specialists (more agents, no
   verify pass, duplicates a maintained built-in)
 - Skills: `ship` (plan, execute, review; starts at the plan, no spec phase; review loops cap at 3
