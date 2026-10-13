@@ -47,12 +47,13 @@ Run all three, then wait for every one before merging:
 2. `/code-review <level> <base>...<target>`. Level is `high` unless the user's request names one;
    with no level it reuses whatever the user last typed, so depth would vary. Never `--fix` or
    `--comment`.
-3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
-   `git merge-base origin/HEAD <target>` differs from `git merge-base <base> <target>` (a stacked
-   PR, or unpushed commits before the base), note that its scope differs from the reviewed range,
-   and drop its findings outside that range. If `origin/HEAD` is unset, skip this check and note
-   that its scope is unknown. If `git merge-base --is-ancestor <target> origin/HEAD` passes, the
-   range is already pushed and its diff is empty: mark it `no coverage`, not `ok`.
+3. `/security-review`. It takes no arguments and diffs against `origin/HEAD`, so settle its coverage
+   first. If `origin/HEAD` is unset, or `git merge-base --is-ancestor <target> origin/HEAD` passes
+   (the range is already pushed), skip it and mark it `no coverage`. Otherwise run it and compare
+   `o = git merge-base origin/HEAD <target>` with `b = git merge-base <base> <target>`: equal is
+   `ok`; `o` after `b` (`git merge-base --is-ancestor <b> <o>`) means the start of the range went
+   unreviewed, so mark it `partial`; `o` before `b` means it covered extra commits, so drop its
+   findings outside the range.
 
 A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
 VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
@@ -75,7 +76,7 @@ findings is a clean result, not a failure.
 
 ```
 ## Review: <target> vs <base>
-Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|no coverage|FAILED] [scope note]
+Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED]
 
 ## Investigation
 [the Reviewer's section]
