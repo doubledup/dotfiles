@@ -34,6 +34,8 @@ items when done; git history records completion.
 - Create an /explain workflow
 - Exercise `/review-pr` on a real PR: once with the PR checked out, once from the wrong HEAD (expect
   the precondition stop), and once on a pushed range (expect `/security-review` no coverage)
+- `review-pr` confirm step is binary: a real built-in HIGH that merits only MEDIUM is unconfirmed
+  and drops to LOW. If live runs show built-in HIGHs, let the Reviewer answer with a severity
 - Run `pr-focus` on a few teammate PRs; tune the ~7-item cap, the categories, and the multi-file
   item format against real output
 - Claude Code: the user's own messages in the transcript render white on black in light mode; find
