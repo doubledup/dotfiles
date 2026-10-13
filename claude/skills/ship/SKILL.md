@@ -44,7 +44,7 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 1. Run project verification (format, lint, tests for the files changed) once; fix failures.
 2. Size the range with `git diff <base>..HEAD --stat`. At 20 or fewer changed lines, skip review and
    show the user the diff. Warn above 400; above 1500, ask whether to review or split.
-3. Run the review loop with the Reviewer in `final` mode on `git diff <base>..HEAD --stat -U8`, plus
+3. Run the review loop with the Reviewer in `diff` mode on `git diff <base>..HEAD --stat -U8`, plus
    the plan and verification results.
 4. Land fixes as fix-up commits (or amend the latest commit if it is the natural home and unpushed),
    re-verify, and re-enter the loop. If a finding is marked rollback, stop and surface it with the

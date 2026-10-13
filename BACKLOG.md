@@ -9,8 +9,6 @@ items when done; git history records completion.
 - Claude Code: continue migrating user config to the DESIGN.md target state with the items below,
   one per fresh session, measured against the always-loaded line budget (now 83: `CLAUDE.md` 65,
   `git.md` 18)
-- Claude Code: collapse review to one `reviewer` agent (plan and diff modes); remove the four
-  `Review*` agents and `/peer-review` in favor of built-in `/code-review`
 - Claude Code: remove `/fix`, `/bootstrap` (use `/init` plus `claude-permissions`), and the
   `ponytail-chat` output style; convert `handoff-prompt` to a skill; move `claude/docs/rcm.md` to
   repo `.claude/`
