@@ -171,7 +171,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   verify. Rejected: splitting into spec/plan reviewers plus four diff specialists (more agents, no
   verify pass, duplicates a maintained built-in)
 - Skills: `ship` (plan, execute, review; starts at the plan, no spec phase; review loops cap at 3
-  iterations), `ponytail`, `pr-focus`, `claude-permissions`, `handoff`. No commands
+  iterations), `review-pr` (the Reviewer plus `/code-review` and `/security-review`, one VERDICT;
+  accepted cost: up to 3 sources per iteration), `ponytail`, `pr-focus`, `claude-permissions`,
+  `handoff`. No commands
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
   pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
 - Settings: deny destroys-work and leaks-secrets; ask only for outward actions (push, PR, deploy,
