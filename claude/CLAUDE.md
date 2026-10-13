@@ -55,7 +55,8 @@ an innovation token; justify novelty [McKinley].
 
 ## Authored Voice
 
-- Slack, PR, commit, and Jira text: tone and register per `~/.claude/docs/david-style.md`
+- Slack, PR, commit, Jira, and hiring feedback text: tone and register per
+  `~/.claude/docs/david-style.md`
 - Before writing a PR description, review comment, or reply, read
   `~/.claude/output-styles/pr-comms.md`
 
