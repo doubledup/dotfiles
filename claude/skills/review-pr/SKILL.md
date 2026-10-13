@@ -48,8 +48,8 @@ Run all three, then wait for every one before merging:
    findings are not its to judge. If its output lacks an Investigation section, re-ask only the
    Reviewer, once; still missing is `FAILED`.
 2. `/code-review <level> --max-findings default <base>...<target>`. Level is `medium` unless the
-   user's request names one. Always pass both: omitted, each reuses the user's last choice. Never
-   `--fix` or `--comment`.
+   user explicitly asks for another level for this review. Always pass both: omitted, each reuses
+   the user's last choice. Never `--fix` or `--comment`.
 3. `/security-review`. It takes no arguments and diffs against `origin/HEAD`, so settle its coverage
    first. If `origin/HEAD` is unset, or `git merge-base --is-ancestor <target> origin/HEAD` passes
    (the range is already pushed), skip it and mark it `no coverage`. Otherwise run it and compare
