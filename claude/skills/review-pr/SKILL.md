@@ -39,8 +39,8 @@ Run all three, then wait for every one before merging:
 1. Reviewer agent in `diff` mode, in the background: `git diff <base>...<target> -U8`, the intent,
    and the repo root. With no intent (an empty PR body), tell it to skip plan conformance and say
    so. If its output lacks an Investigation section, re-ask only the Reviewer.
-2. `/code-review <base>...<target>`. Pass a level only if the user gave one; never `--fix` or
-   `--comment`.
+2. `/code-review <level> <base>...<target>`. Level is the user's if given, else `medium`; with no
+   level it reuses whatever the user last typed, so depth would vary. Never `--fix` or `--comment`.
 3. `/security-review`. It takes no arguments and diffs against origin's default branch. When
    `git merge-base origin/HEAD <target>` differs from `base` (a stacked PR, or unpushed commits
    before the base), note that its scope differs from the reviewed range, and drop its findings
