@@ -55,8 +55,9 @@ Run all three, then wait for every one before merging:
    (the range is already pushed), skip it and mark it `no coverage`. Otherwise run it and compare
    `o = git merge-base origin/HEAD <target>` with `b = git merge-base <base> <target>`: equal is
    `ok`; `o` after `b` (`git merge-base --is-ancestor <b> <o>`) means the start of the range went
-   unreviewed, so mark it `partial`; `o` before `b` means it covered extra commits, so drop its
-   findings outside the range.
+   unreviewed, so mark it `partial`; `o` before `b` (`git merge-base --is-ancestor <o> <b>`) means
+   it covered extra commits, so drop its findings outside the range; if neither is an ancestor of
+   the other (a merge from main inside the range), mark it `partial`.
 
 A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
 VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
