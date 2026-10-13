@@ -42,8 +42,9 @@ Run all three, then wait for every one before merging:
 3. `/security-review`. It takes no arguments and diffs against origin's default branch; when `base`
    is not that branch (a stacked PR), say its scope is a superset of the PR.
 
-A source that errors, times out, or returns nothing is `FAILED`. Do not merge around it: emit no
-VERDICT, and stop for the user to retry, change the target, or proceed without it.
+A source that errors, times out, or produces no report is `FAILED`. Do not merge around it: emit no
+VERDICT, and stop for the user to retry, change the target, or proceed without it. A report with no
+findings is a clean result, not a failure.
 
 ## Merge
 
