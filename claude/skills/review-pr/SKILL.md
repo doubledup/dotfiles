@@ -1,11 +1,11 @@
 ---
 name: review-pr
 description:
-    Review a PR or commit with every reviewer available: the Reviewer agent (plan conformance,
+    Review a PR or commit with every reviewer available, the Reviewer agent (plan conformance,
     over-engineering), built-in `/code-review` (correctness), and `/security-review`. Returns merged
     findings with one VERDICT. Use when the user wants a PR or branch assessed for defects, and from
     `ship`'s review step.
-argument-hint: <pr-url|commit> [base]
+argument-hint: "<pr-url|commit> [base]"
 ---
 
 # Review PR
