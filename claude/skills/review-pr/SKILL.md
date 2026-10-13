@@ -33,6 +33,9 @@ and tell the user exactly what to check out or fetch. Never run checkout, switch
 - `git diff --quiet HEAD` passes (untracked files are fine)
 - `git cat-file -e <base>^{commit}` passes
 
+If `git diff --quiet <base>...<target>` passes, the range is empty: report nothing to review and
+stop, rather than a CLEAR from three reviews of nothing.
+
 ## Run
 
 Run all three, then wait for every one before merging:
