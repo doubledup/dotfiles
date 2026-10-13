@@ -78,6 +78,7 @@ Report format, immediately before the plan or final summary:
 ```
 **Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | max iterations].
 Rejected findings: [finding summary]: [rejection reasoning]
+Coverage gaps: [source]: [partial | no coverage]
 ```
 
-Omit the rejected line when nothing was rejected; list LOW findings below it.
+Omit the rejected and coverage lines when empty; list LOW findings below it.
