@@ -69,8 +69,8 @@ Review the completed changes against the plan, if there is one. Flag issues that
 
 Check:
 
-- **Plan conformance**: Does the code implement the plan? Do the plan's assertions hold? Did
-  anything unplanned land?
+- **Plan conformance**: Does the code implement the plan, including any edge cases it names? Do the
+  plan's assertions hold? Did anything unplanned land?
 - **Consistency**: Does the code match codebase style and patterns?
 - **Overengineering**: Was anything added beyond what the plan asked for?
 
