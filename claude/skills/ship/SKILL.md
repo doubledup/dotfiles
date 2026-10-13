@@ -48,8 +48,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 3. Run the review loop with `/review-pr HEAD <base>`, passing the plan and verification results as
    intent. Every iteration reviews the full range with all three sources.
 4. Land fixes as fix-up commits (or amend the latest commit if it is the natural home and unpushed),
-   re-verify, and re-enter the loop. If a finding is marked rollback, stop and surface it with the
-   suggested approach rather than re-implementing.
+   re-verify (committing any verification fixes), and re-enter the loop. If a finding is marked
+   rollback, stop and surface it with the suggested approach rather than re-implementing.
 5. Present the review summary, then what changed and any follow-ups (or that nothing changed).
 
 ## Review loop
