@@ -79,9 +79,9 @@ findings is a clean result, not a failure.
   confirmed recurrence counts as a re-raise under `ship`'s rule (two consecutive re-raises go to the
   user), rather than letting the rejecting agent grade its own call.
 - Send each finding still at MEDIUM or above whose sources are all built-ins to the Reviewer as one
-  confirm request, with any `previously rejected: <reason>` tag. Confirmed keeps its severity;
-  unconfirmed drops to LOW, tagged `unconfirmed`, and stays listed; an unanswered finding keeps its
-  severity. If the confirm call errors, the Reviewer is `FAILED`.
+  confirm request, with any `previously rejected: <reason>` tag. Confirmed takes the severity the
+  Reviewer gives; unconfirmed drops to LOW, tagged `unconfirmed`, and stays listed; an unanswered
+  finding keeps its severity. If the confirm call errors, the Reviewer is `FAILED`.
 - VERDICT is the highest severity across all sources.
 
 ## Output
