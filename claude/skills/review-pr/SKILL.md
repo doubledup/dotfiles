@@ -73,9 +73,9 @@ findings is a clean result, not a failure.
   Remediation is `fix`, or `rollback` when fixing it would rewrite most of the change. A finding
   `/code-review` marks PLAUSIBLE states its uncertainty.
 - A built-in finding that matches a prior rejection is tagged `previously rejected: <reason>` and
-  still counts toward the VERDICT. Built-ins never see dispositions, so its recurrence is the
-  re-raise that sends it to the user under `ship`'s rule, rather than letting the rejecting agent
-  grade its own call.
+  still counts toward the VERDICT. Built-ins never see dispositions, so each recurrence counts as a
+  re-raise under `ship`'s rule (two consecutive re-raises go to the user), rather than letting the
+  rejecting agent grade its own call.
 - VERDICT is the highest severity across all sources.
 
 ## Output
