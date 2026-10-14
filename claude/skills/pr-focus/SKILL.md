@@ -3,8 +3,9 @@ name: pr-focus
 description:
     Triage a pull request so the user reads only what needs a human. Produces a short summary, the
     line ranges that need close attention (one-way doors, infrastructure, business logic,
-    cross-service flows), test gaps, and what is safe to skim. Use whenever the user wants to
-    understand or review a PR, pastes a PR URL or diff, or asks "what does this PR do".
+    cross-service flows), test gaps, and what is safe to skim. Use when the user wants to understand
+    or triage a PR, asks "what does this PR do" or "what should I read". For a defect review with a
+    VERDICT, use review-pr.
 ---
 
 # PR Focus
