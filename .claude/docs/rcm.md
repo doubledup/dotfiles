@@ -10,8 +10,8 @@ not covered here, consult the man pages (`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1
 - `config/` -> `~/.config/`, root files -> `~/.`-prefixed (e.g. `zshrc` -> `~/.zshrc`, `gitconfig`
   -> `~/.gitconfig`).
 - `claude/` -> `~/.claude/` (rcm-managed, version-controlled Claude Code
-  settings/commands/agents/rules). The repo-root `.claude/` (`settings.json`, `hooks/`, `rules/`) is
-  a separate, non-rcm-managed directory for project-local config.
+  settings/commands/agents/rules). The repo-root `.claude/` is a separate, non-rcm-managed directory
+  for project-local config.
 - Other top-level dirs map the same way: `codex/` -> `~/.codex/`, `local/` -> `~/.local/`, `ssh/` ->
   `~/.ssh/`. `Library/` is a likely exception (macOS expects `~/Library`, not `~/.Library`);
   unconfirmed how it actually resolves, worth checking before relying on it.
