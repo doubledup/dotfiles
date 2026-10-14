@@ -42,10 +42,10 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 ## 3. Review
 
 1. Run project verification (format, lint, tests for the files changed) once; fix failures and
-   commit the fixes, since `/review-pr` needs a clean working tree.
+   commit the fixes, since `/full-review` needs a clean working tree.
 2. Size the range with `git diff <base>..HEAD --stat`. At 20 or fewer changed lines, skip review and
    show the user the diff. Warn above 400; above 1500, ask whether to review or split.
-3. Run the review loop with `/review-pr HEAD <base>`, passing the plan and verification results as
+3. Run the review loop with `/full-review HEAD <base>`, passing the plan and verification results as
    intent. Every iteration reviews the full range with all three sources.
 4. Land fixes as fix-up commits (or amend the latest commit if it is the natural home and unpushed),
    re-verify (committing any verification fixes), and re-enter the loop. If a finding is marked
@@ -59,7 +59,7 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 - Verdict CLEAR or LOW exits; report LOW findings. MEDIUM or HIGH: accept, partially accept, or
   reject each finding, act on accepted ones, and re-invoke. No VERDICT line: infer from the highest
   severity section present. Missing Investigation section in the plan loop: re-invoke asking for it
-  (`/review-pr` handles this itself).
+  (`/full-review` handles this itself).
 - Findings of defect (something wrong or broken) are presumed valid. Accept freely; reject only with
   a specific, falsifiable reason grounded in code ("handled at line N"). Partial accepts state what
   is rejected and why.

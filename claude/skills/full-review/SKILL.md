@@ -1,16 +1,16 @@
 ---
-name: review-pr
+name: full-review
 description:
     Review a PR or commit with every reviewer available, the Reviewer agent (plan conformance,
     over-engineering), built-in `/code-review` (correctness), and `/security-review`. Returns merged
     findings with one VERDICT. Use when the user wants a PR or branch reviewed for defects, and from
-    `ship`'s review step. To understand or triage a PR instead, use pr-focus.
+    `ship`'s review step. To understand or triage a PR instead, use pr-triage.
 argument-hint: "<pr-url|pr-number|commit> [base]"
 ---
 
-# Review PR
+# Full Review
 
-`/review-pr <pr-url|pr-number|commit> [base]`. Intent is optional: `ship` passes the plan,
+`/full-review <pr-url|pr-number|commit> [base]`. Intent is optional: `ship` passes the plan,
 verification results, and on later iterations the prior findings with their dispositions; for a PR,
 the title and body are the intent, a claim to verify rather than a source of truth.
 

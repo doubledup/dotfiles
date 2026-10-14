@@ -1,14 +1,14 @@
 ---
-name: pr-focus
+name: pr-triage
 description:
     Triage a pull request so the user reads only what needs a human. Produces a short summary, the
     line ranges that need close attention (one-way doors, infrastructure, business logic,
     cross-service flows), test gaps, and what is safe to skim. Use when the user wants to understand
     or triage a PR, asks "what does this PR do" or "what should I read". For a defect review with a
-    VERDICT, use review-pr.
+    VERDICT, use full-review.
 ---
 
-# PR Focus
+# PR Triage
 
 Most PRs are now generated in bulk, often by Claude. The user cannot read every line, so this skill
 says where human judgment is needed and lets the rest be skimmed. Brevity is the feature: every line
