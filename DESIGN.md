@@ -167,13 +167,14 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   config-docs hook)
 - Agents: one `reviewer` (plan and diff modes, ponytail preloaded) for the design lens built-ins
   lack: plan review, and diff review for plan conformance and over-engineering. Correctness and
-  security review use built-in `/code-review` and `/security-review`, which already fan out and
-  verify. Rejected: splitting into spec/plan reviewers plus four diff specialists (more agents, no
-  verify pass, duplicates a maintained built-in)
+  security review use built-in `/code-review` and `/security-review`, which already fan out.
+  Rejected: splitting into spec/plan reviewers plus four diff specialists (more agents, no verify
+  pass, duplicates a maintained built-in)
 - Skills: `ship` (plan, execute, review; starts at the plan, no spec phase; review loops cap at 3
   iterations), `full-review` (the Reviewer plus `/code-review` and `/security-review`, one VERDICT;
-  accepted cost: up to 3 sources plus a confirm pass per iteration), `ponytail`, `pr-triage`,
-  `claude-permissions`, `handoff`. No commands
+  accepted cost: up to 3 sources plus a confirm pass per iteration; `/code-review` returns
+  unverified findings, so built-in MEDIUM+ counts only once the Reviewer confirms it, or ship's loop
+  never converges), `ponytail`, `pr-triage`, `claude-permissions`, `handoff`. No commands
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
   pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
 - Settings: deny destroys-work and leaks-secrets; ask only for outward actions (push, PR, deploy,
