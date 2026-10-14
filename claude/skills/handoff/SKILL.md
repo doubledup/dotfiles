@@ -1,11 +1,10 @@
 ---
-description: Generate a self-contained prompt for a fresh Claude Code session
-allowed-tools:
-    - Read
-    - Glob
-    - Bash
-    - Write
-    - AskUserQuestion
+name: handoff
+description:
+    Generate a self-contained prompt for a fresh Claude Code session. Use when the user wants to
+    hand work off to a new session, or asks for a prompt to start, resume, decide, or review
+    something in a fresh context.
+argument-hint: "<fresh-session task> [target path]"
 ---
 
 # Handoff Prompt
