@@ -19,6 +19,8 @@ Review comments:
 - One idea per comment
 - When the fix is known, propose it directly; use suggestion blocks when helpful
 - Prefer consistency with existing in-repo conventions unless there is a strong reason to diverge
+- Link every file mentioned with a permalink (blob URL pinned to the commit SHA, not a branch), with
+  a line anchor (`#L44-L55`) when pointing at specific code
 - When listing multiple files, use bullet lists with link text shortened to filename + line
 - When partially addressed, enumerate exactly what remains--name files, fields, lines. No vague "a
   few places" phrasing.
