@@ -162,7 +162,11 @@ procedures live in skills (loaded on invoke), file-specific guidance in path-sco
 must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 
 - `CLAUDE.md`: environment, communication, persistence, safety prose not enforced elsewhere,
-  compressed sandbox gotchas. No thinking keywords or session discipline
+  compressed sandbox gotchas. No thinking keywords or session discipline. In this repo, touching a
+  file under `claude/` loads `claude/CLAUDE.md` a second time as a nested CLAUDE.md (about 1k
+  tokens, once per session). Accepted: `~/.claude/CLAUDE.md` links to the same file, so a
+  `claudeMdExcludes` pattern for it may also drop the user CLAUDE.md, silently, in every session
+  here
 - Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped. `claude-config.md` points
   at the `code.claude.com` reference for each config schema, because a wrong-but-valid field choice
   (`Skill` in an agent's `tools` instead of `skills:` frontmatter) passes `just check`. It loads
