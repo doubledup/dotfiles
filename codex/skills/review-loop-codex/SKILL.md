@@ -23,7 +23,7 @@ loops unless the user specifies a different cap.
 - Reviewer persona/focus (for example: "senior engineer and AI-assisted coding expert").
 - Optional constraints (word count, canonical source, files not to edit).
 - Optional stop policy override (for example fixed loop count or stricter quality bar).
-- PR communication style file (default: `~/.claude/output-styles/pr-comms.md`).
+- PR communication style file (default: `~/.claude/skills/authored-voice/SKILL.md`).
 
 ## Loop Workflow
 
@@ -77,7 +77,7 @@ If a command cannot run, report the blocker and what remains unverified.
 Use this workflow when findings should be posted to a PR (comments only; PR descriptions are out of
 scope for this skill).
 
-1. Load the PR comms style file (default: `~/.claude/output-styles/pr-comms.md`).
+1. Load the PR comms style file (default: `~/.claude/skills/authored-voice/SKILL.md`).
 2. Draft comments in that style:
     - Use `we` voice and review tags from style (`nit:`, `suggestion:`, `question:`, `issue:`,
       `request:`).

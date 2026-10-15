@@ -185,7 +185,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   iterations), `full-review` (the Reviewer plus `/code-review` and `/security-review`, one VERDICT;
   accepted cost: up to 3 sources plus a confirm pass per iteration; `/code-review` returns
   unverified findings, so built-in MEDIUM+ counts only once the Reviewer confirms it, or ship's loop
-  never converges), `ponytail`, `pr-triage`, `claude-permissions`, `handoff`. No commands
+  never converges), `ponytail`, `pr-triage`, `claude-permissions`, `handoff`, `authored-voice` (PR
+  comms rules plus `voice.md`, loaded only when drafting text in the user's voice; rejected: an
+  output style, inert while another style is active, and a rule, loaded every session). No commands
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
   pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
 - Settings: deny destroys-work and leaks-secrets; ask only for outward actions (push, PR, deploy,

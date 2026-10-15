@@ -7,7 +7,7 @@
 - Title: imperative, sentence case, no period, 54 characters max, starting with a verb (Add, Remove,
   Bump, Revise, Clean up, Fix, Move, Set up, Update); formatting-only commits: "fmt"
 - Body: omit unless the diff needs context; then 1-2 lines on the why, wrapped at 72, in the voice
-  of `~/.claude/docs/david-style.md`
+  of `~/.claude/skills/authored-voice/voice.md`
 
 ## Branches and worktrees
 

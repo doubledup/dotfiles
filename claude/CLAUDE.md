@@ -53,13 +53,6 @@ an innovation token; justify novelty [McKinley].
   redirect, chain, loop, env prefix, or background run sandboxes them. Process output separately
 - Bash can write in the working directory; prefer it over Write for byte-exact copies
 
-## Authored Voice
-
-- Slack, PR, commit, Jira, and hiring feedback text: tone and register per
-  `~/.claude/docs/david-style.md`
-- Before writing a PR description, review comment, or reply, read
-  `~/.claude/output-styles/pr-comms.md`
-
 ## Repo Text
 
 - Docs, config, and code comments state what holds now and why. Don't describe past repo state or

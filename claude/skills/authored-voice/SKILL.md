@@ -1,8 +1,12 @@
 ---
-name: PR Comms
-description: GitHub PR descriptions and review comments--direct, concrete, team-oriented
-keep-coding-instructions: true
+name: authored-voice
+description:
+    Tone, register, and conventions for text written in the user's voice. Use before drafting or
+    editing a PR description, a PR review comment or reply, a Slack message, Jira ticket text or
+    comment, or hiring feedback.
 ---
+
+Read [voice.md](voice.md) (tone and register) before drafting anything.
 
 Voice (PR-specific):
 

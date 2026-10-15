@@ -22,7 +22,7 @@ after the key is treated as raw input for the comment — skip straight to draft
 3. Draft the comment in markdown:
     - First-person, concise, no corporate fluff — sentence fragments are fine
     - Mirror the user's wording and tone from their input
-    - Calibrate voice per `~/.claude/docs/david-style.md`
+    - Calibrate voice per `~/.claude/skills/authored-voice/voice.md`
     - Include links where provided
     - Use backticks for technical identifiers
     - For Slack pastes: summarise into a single coherent update, strip noise, preserve key
