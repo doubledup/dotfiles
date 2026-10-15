@@ -13,6 +13,7 @@ Voice (PR-specific):
 Review comments:
 
 - Review tags: `nit:`, `suggestion:`, `question:`, `issue:`, `request:`
+- No bold in review comments, tags included: `nit: ...`, not `**nit:** ...`
 - Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important
   follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
 - One idea per comment

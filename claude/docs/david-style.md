@@ -34,8 +34,7 @@ firm preference, then offers a concrete non-blocking offramp rather than digging
 ## 4. Voice fingerprints
 
 Suggestions follow a deliberate three-tier softness gradient: "Let's" as the default, "Could we" for
-a softer ask, "Should we" for a genuinely open question. Bold is reserved for one load-bearing
-clause per paragraph. Numbered lists carry tradeoffs and multi-part questions in both PRs and Slack.
-No em dashes; hyphens and colons do that work instead. Emoji use is sparse and always singular.
-Humor is dry, understated, and timing-based, and a soft "haha" opener sometimes precedes a
-substantive correction.
+a softer ask, "Should we" for a genuinely open question. Numbered lists carry tradeoffs and
+multi-part questions in both PRs and Slack. No em dashes; hyphens and colons do that work instead.
+Emoji use is sparse and always singular. Humor is dry, understated, and timing-based, and a soft
+"haha" opener sometimes precedes a substantive correction.
