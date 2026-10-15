@@ -22,10 +22,6 @@ items when done; git history records completion.
 - Repo-wide ASCII/em-dash sweep across first-party files (jira-comment.md, gh-api-readonly.sh);
   consider a typos/lint rule so it stays fixed
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
-- Claude Code: from a session in another repo, Read `~/.claude/settings.json` and confirm the
-  `claude-config.md` text appears as an injected reminder (`/context` does not list path-scoped
-  rules). If the user rule's globs miss paths outside the project, add absolute `paths` or accept
-  the gap in DESIGN.md. Also test Write and Edit triggers; only Read is verified
 
 ## Claude Code
 

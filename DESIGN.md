@@ -165,10 +165,13 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   compressed sandbox gotchas. No thinking keywords or session discipline
 - Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped. `claude-config.md` points
   at the `code.claude.com` reference for each config schema, because a wrong-but-valid field choice
-  (`Skill` in an agent's `tools` instead of `skills:` frontmatter) passes `just check`. A rule
-  suffices: it loads on Read, Write, or Edit of a matching file and reloads after compaction
-  ([memory docs](https://code.claude.com/docs/en/memory#path-specific-rules)). Unverified: whether
-  its relative globs match config edited from another repo (`~/.claude/...`, outside that project)
+  (`Skill` in an agent's `tools` instead of `skills:` frontmatter) passes `just check`. It loads
+  when Claude touches a matching file inside the current project and reloads after compaction
+  ([memory docs](https://code.claude.com/docs/en/memory#path-specific-rules)). Verified: Read,
+  Write, and Bash `head` load it; `cat >/dev/null` does not; files outside the project never do.
+  Accepted gap: editing user config from another repo gets no pointer, since user config is edited
+  in `~/.dotfiles` sessions. Rejected: a skill (invocation is model-mediated, which fails when the
+  model doesn't know its knowledge is stale); a `CLAUDE.md` line (always loaded for a rare case)
 - Agents: one `reviewer` (plan and diff modes, ponytail preloaded) for the design lens built-ins
   lack: plan review, and diff review for plan conformance and over-engineering. Correctness and
   security review use built-in `/code-review` and `/security-review`, which already fan out.
