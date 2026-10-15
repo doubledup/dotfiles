@@ -163,8 +163,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 
 - `CLAUDE.md`: environment, communication, persistence, safety prose not enforced elsewhere,
   compressed sandbox gotchas. No thinking keywords or session discipline
-- Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped (the former replaces the
-  config-docs hook)
+- Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped. `claude-config.md` points
+  at the `code.claude.com` reference for each config schema, because a wrong-but-valid field choice
+  (`Skill` in an agent's `tools` instead of `skills:` frontmatter) passes `just check`. It loads
+  when a matching file is read, which Edit requires, so it needs no hook, test, or settings entry; a
+  Write of a new config file with no prior read of a matching file misses it
 - Agents: one `reviewer` (plan and diff modes, ponytail preloaded) for the design lens built-ins
   lack: plan review, and diff review for plan conformance and over-engineering. Correctness and
   security review use built-in `/code-review` and `/security-review`, which already fan out.
@@ -181,24 +184,6 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   tracker writes); no allow entries the sandbox auto-allow already covers
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
-
-**Config-docs advisory hook:**
-
-- `claude/hooks/config-docs.sh` fires on `Write|Edit` and, for structured Claude Code config paths
-  (settings, agents, skills/commands, hooks, `.mcp.json`), injects the matching `code.claude.com`
-  reference via `hookSpecificOutput.additionalContext` (listed in the docs' universal hook-output
-  table, though not demonstrated for PreToolUse there; works today)
-- Targets a silent-and-valid failure: `Skill` under an agent's `tools` instead of the `skills`
-  frontmatter field passed `just check` and was simply the worse mechanism; a model's knowledge of
-  the large, version-gated config surface goes stale by construction
-- First hook admitted under the context-injection category rather than enforcement (see the
-  claude-permissions entry below). Always exits 0 and fails **open**, the opposite of `guard.sh`;
-  kept a separate script so an advisory bug can never block an edit. Skips `rules/` and `CLAUDE.md`
-  (prose has no schema to get wrong)
-- Alternatives considered: a skill (rejected: model-invoked, so it fails exactly when carelessness
-  is the problem); a blocking hook (rejected: needs per-session state for a reminder that works when
-  merely offered)
-- Accepted limit: it guarantees the pointer is delivered, not that it is followed
 
 **commit-alone hook:**
 

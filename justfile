@@ -51,12 +51,10 @@ tokyonight-vendor:
         chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
     done; git status --short config/kitty config/ghostty/themes config/fish/themes
 
-# Test the PreToolUse hooks (secret-path guard, config-docs advisory, commit-alone nudge)
+# Test the PreToolUse hooks (secret-path guard, commit-alone nudge)
 test-claude-hooks:
     @echo "Testing guard hook..."
     bash rcignore/test_guard.sh
-    @echo "Testing config-docs hook..."
-    bash rcignore/test_config_docs.sh
     @echo "Testing commit-alone hook..."
     bash rcignore/test_commit_alone.sh
 
