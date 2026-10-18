@@ -325,7 +325,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
-  text-match denies over-block benign mentions (`app.env`); the collision-prone
+  text-match denies over-block benign mentions (`app.env`, a commit message containing " dumps ");
+  history-destroying commands (`reflog expire`, `gc --prune`, `update-ref -d`) are unguarded: they
+  lose only local, unpushed work and take a deliberate multi-step sequence; the collision-prone
   `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope; recursive `rm`
   clusters the denies don't spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run
   unprompted. All narrow and contained while the sandbox is active
