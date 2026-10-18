@@ -26,8 +26,11 @@ items when done; git history records completion.
 
 - Guardrails skill for work service repos: set up and maintain invariants in CLAUDE.md, CI gates
   (schema compatibility, PII classification), a change-impact skill and an invariant reviewer.
-  Shared repo config holds only what every member must have (hard denies, invariants, CI); prompts,
-  `autoMode` and high-risk-path asks go in user or `settings.local.json` scope
+  Shared repo config holds only what every member must have (hard denies, invariants, CI); prompts
+  and high-risk-path asks go in `settings.local.json`, `autoMode` in user scope (the only scope that
+  reads it)
+- Check whether a subagent's `tools:` entry with a specifier (`Bash(rg:*)` in `reviewer.md`)
+  pre-approves the unsandboxed retry like an allow rule; if so, change it to plain `Bash`
 - Verify in a fresh session: `git stash` runs unprompted; `aws ... --profile *prd*` is denied; a
   push to `main` in a scratch repo with a GitHub-looking remote is refused; a dotfiles push goes
   through; Datadog log tools prompt; `claude doctor` accepts the `mcp__*atadog*__*` globs

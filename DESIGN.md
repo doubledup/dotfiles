@@ -316,7 +316,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - **Plain push goes to the classifier; unrecoverable pushes are must-nevers**: `git push` has no
   `allow` rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it,
   which an `allow` would skip. A push to the default branch outside `~/.dotfiles` counts as a
-  production deploy (`autoMode.environment`), so the classifier refuses it unless the user asked.
+  production deploy (`autoMode.environment`), so the classifier should refuse it unless the user
+  asked; it overrides the built-in "push to the default branch is ordinary" exception (unverified).
   Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every `git -C * push`
   are `deny`; branch protection backstops the rest. Shipping one-way doors (`gh pr merge`,
   `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
