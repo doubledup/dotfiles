@@ -293,6 +293,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
   secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
   `Bash(*.env*)`/`Bash(*/secrets/*)` denies, not a guard Bash-block
+- **`~/.dotfiles` is an additional directory** (beside `~/code/worktrees`), so any session can edit
+  and commit user config without `/add-dir`. That also opens it to sandboxed writes, so `denyWrite`
+  keeps read-only what runs or instructs without review: `claude/hooks`, `claude/skills`,
+  `claude/rules`, `.githooks`, `justfile` and `scripts`. A build script or dependency in another
+  repo can't plant code there; the Edit tool still can, under the permission flow. Shell and editor
+  configs (`config/`, `zshrc`) stay writable: a residual, caught by reviewing the dotfiles diff
 - **Plain push runs unprompted; unrecoverable pushes are must-nevers**: `git push` is `allow` (an
   excluded command, so it runs unsandboxed without a prompt), since a plain push is undone by a
   revert or a new commit. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`)

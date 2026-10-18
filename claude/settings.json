@@ -208,7 +208,8 @@
     ],
     "defaultMode": "auto",
     "additionalDirectories": [
-      "~/code/worktrees"
+      "~/code/worktrees",
+      "~/.dotfiles"
     ]
   },
   "hooks": {
@@ -266,7 +267,13 @@
         "~/.cache/nvim"
       ],
       "denyWrite": [
-        "~/**/.git/hooks"
+        "~/**/.git/hooks",
+        "~/.dotfiles/.githooks",
+        "~/.dotfiles/claude/hooks",
+        "~/.dotfiles/claude/skills",
+        "~/.dotfiles/claude/rules",
+        "~/.dotfiles/justfile",
+        "~/.dotfiles/scripts"
       ],
       "denyRead": [
         "~/.env",
