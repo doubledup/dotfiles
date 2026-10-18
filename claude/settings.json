@@ -90,7 +90,7 @@
       "Bash(*/.config/gh/*)",
       "Bash(*.git-credentials*)",
       "Read(**/dumps/**)",
-      "Bash(*/dumps/*)",
+      "Bash(*dumps/*)",
       "Bash(find * -exec*)",
       "Bash(find * -ok*)",
       "Bash(find * -delete*)",
