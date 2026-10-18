@@ -183,7 +183,6 @@
       "Bash(rsync:*)",
       "Bash(dd:*)",
       "Bash(rm:*)",
-      "WebSearch",
       "mcp__claude_ai_Atlassian__editJiraIssue",
       "mcp__claude_ai_Atlassian__createJiraIssue",
       "mcp__claude_ai_Atlassian__transitionJiraIssue",
