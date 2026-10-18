@@ -173,7 +173,6 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "outputStyle": "Concise",
-  "cleanupPeriodDays": 7,
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,

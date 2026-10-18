@@ -370,8 +370,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   directory, sandboxed tools that walk it (`git status`, builds) fail there. Datadog log, trace,
   span and RUM MCP tools are `ask`: they return customer personal information, while metrics and
   monitors stay unprompted. The name globs (`mcp__*atadog*__*logs*`) cover both the connector and
-  the plugin server, and over-match any config tool sharing those words. `cleanupPeriodDays: 7`
-  limits how long an accidental leak sits in local transcripts. Scanning prompts and edits for
-  personal identifiers belongs in each work repo's hooks, where the identifier formats are known.
-  Alternatives: deny `*.log` reads (rejected: blocks local build and test output); deny
-  `~/Downloads` (rejected: files there are handed over on purpose)
+  the plugin server, and over-match any config tool sharing those words. Transcript retention stays
+  at the default here; a work repo that handles customer data shortens it in its own
+  `settings.local.json`. Scanning prompts and edits for personal identifiers belongs in each work
+  repo's hooks, where the identifier formats are known. Alternatives: deny `*.log` reads (rejected:
+  blocks local build and test output); deny `~/Downloads` (rejected: files there are handed over on
+  purpose)
