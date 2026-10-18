@@ -313,12 +313,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `claude/rules`, `.githooks`, `justfile` and `scripts`. A build script or dependency in another
   repo can't plant code there; the Edit tool still can, under the permission flow. Shell and editor
   configs (`config/`, `zshrc`) stay writable: a residual, caught by reviewing the dotfiles diff
-- **Plain push runs unprompted; unrecoverable pushes are must-nevers**: `git push` has no `allow`
-  rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it, which an
-  `allow` would skip. A push to the default branch outside `~/.dotfiles` counts as a production
-  deploy (`autoMode.environment`), so the classifier refuses it unless the user asked. Only the
-  unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every `git -C * push` are
-  `deny`; branch protection backstops the rest. Shipping one-way doors (`gh pr merge`,
+- **Plain push goes to the classifier; unrecoverable pushes are must-nevers**: `git push` has no
+  `allow` rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it,
+  which an `allow` would skip. A push to the default branch outside `~/.dotfiles` counts as a
+  production deploy (`autoMode.environment`), so the classifier refuses it unless the user asked.
+  Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every `git -C * push`
+  are `deny`; branch protection backstops the rest. Shipping one-way doors (`gh pr merge`,
   `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
   Destructive ones with no routine use (`gh repo delete`, `terraform destroy`) are `deny`; rarer
   ones get a rule when they show up
@@ -331,11 +331,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   unprompted. All narrow and contained while the sandbox is active
 - **Discarding uncommitted edits runs unprompted** (`reset --hard`, `checkout`/`restore` of a path
   or the tree, `checkout -f`, `switch --discard-changes`, `stash drop`): the worst case is redoing
-  work since the last commit, and small frequent commits bound it. No rule matches them, so the
-  classifier decides: it allows per-file reverts and refuses a tree-wide discard you didn't ask for.
-  `git clean` and the forced `worktree remove` stay `deny`: they delete untracked and ignored files
-  git never held. Plain `worktree remove` deletes only ignored files (build output, local overrides)
-  and goes to the classifier, so Claude can clean up its own worktrees
+  uncommitted work, and small frequent commits bound it; a dropped stash stays recoverable through
+  `git fsck` until gc. No rule matches them, so the classifier decides: it allows per-file reverts
+  and refuses a tree-wide discard or stash drop you didn't ask for. `git clean` and the forced
+  `worktree remove` stay `deny`: they delete untracked and ignored files git never held. Plain
+  `worktree remove` deletes only ignored files (build output, local overrides) and goes to the
+  classifier, so Claude can clean up its own worktrees
 - **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
   `revert`): they are `excludedCommands` for GPG signing, so they run unsandboxed and the auto-mode
   classifier reviews each, as it does their `--abort`/`--skip` and `git -C *` forms; an `allow`
@@ -365,11 +366,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   Uppercase names, profiles set in a separate shell step, and SDK use are left to the classifier.
   `git tag -s` and bare `gpg` under the sandbox are the documented over-block
 - **Customer data stays out of context**: `dumps/` is `deny` for Read (which also lands in the
-  sandbox read-deny) and by Bash command text. Datadog log, trace, span and RUM MCP tools are `ask`:
-  they return customer personal information, while metrics and monitors stay unprompted. The name
-  globs (`mcp__*atadog*__*logs*`) cover both the connector and the plugin server, and over-match any
-  config tool sharing those words. `cleanupPeriodDays: 7` limits how long an accidental leak sits in
-  local transcripts. Scanning prompts and edits for personal identifiers belongs in each work repo's
-  hooks, where the identifier formats are known. Alternatives: deny `*.log` reads (rejected: blocks
-  local build and test output); deny `~/Downloads` (rejected: files there are handed over on
-  purpose)
+  sandbox read-deny) and by Bash command text. Residual: in a repo with a legitimate `dumps`
+  directory, sandboxed tools that walk it (`git status`, builds) fail there. Datadog log, trace,
+  span and RUM MCP tools are `ask`: they return customer personal information, while metrics and
+  monitors stay unprompted. The name globs (`mcp__*atadog*__*logs*`) cover both the connector and
+  the plugin server, and over-match any config tool sharing those words. `cleanupPeriodDays: 7`
+  limits how long an accidental leak sits in local transcripts. Scanning prompts and edits for
+  personal identifiers belongs in each work repo's hooks, where the identifier formats are known.
+  Alternatives: deny `*.log` reads (rejected: blocks local build and test output); deny
+  `~/Downloads` (rejected: files there are handed over on purpose)

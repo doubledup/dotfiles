@@ -140,8 +140,8 @@ arbitrary files or run code (`rg`, `fd`, `git`, `just`, formatters) is a contain
 what lets invariant 1 keep destructive enforcement in `deny` rules rather than a hook backstop, and
 what covers the direnv trust store (out-of-tree writes). Check: the `sandbox` key in settings.json;
 a regression to sandbox-off would weaken the deny-only destructive posture (no hook leg) - flag it
-if it changes, and flag retries allowed outside auto mode without a
-`Bash(dangerouslyDisableSandbox:true)` ask rule.
+if it changes, and flag any Bash `allow` (settings or skill `allowed-tools`) beyond harmless
+lookups.
 
 **8. MCP tools: `deny` is the only binding leg.** For `mcp__*` tools a PreToolUse hook does NOT
 bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them.
