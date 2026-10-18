@@ -79,6 +79,10 @@ Key technical choices and their rationale:
 - `.githooks/pre-commit` formats fully staged files, re-stages them, then runs `just check`, so a
   formatting miss from any source is fixed inside the commit and only lint blocks. A file that also
   has unstaged changes is only checked: re-staging it would commit hunks that were never staged
+- `.claude/hooks/lint-edit.sh` (PostToolUse on Edit/Write, this repo only) lints the edited shell or
+  fish file and feeds failures back to Claude, so a lint error is fixed in the same turn rather than
+  at commit. It lints, never formats (the commit hook owns that), and fails open. It runs via
+  `bash`, because the sandbox can't set the execute bit under `.claude/hooks`
 - `just sync` re-applies `core.hooksPath`, so a clone set up before the hook existed gets it
 - Residuals: `just check` validates the working tree, not the index, so a staged misformat whose
   working copy was since fixed passes; committing with explicit paths runs the hook on a temporary
