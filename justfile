@@ -90,11 +90,9 @@ update:
         cargo-expand \
         cargo-features-manager \
         cargo-fuzz \
-        cargo-info \
         cargo-machete \
         cargo-outdated \
         cargo-show-asm \
-        cargo-watch \
         speedtest-rs \
         zeitfetch
 
