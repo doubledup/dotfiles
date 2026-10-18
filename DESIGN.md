@@ -291,9 +291,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   production credentials live in `deny` rules and the guard hook does no Bash parsing. Alternative:
   `allowUnsandboxedCommands: false` (rejected: every such command becomes a hand-off)
 - **The `autoMode` block describes the environment, not new rules**: the built-in classifier rules
-  already block production deploys and reads, PII handling, and tree-wide discards; the block tells
-  them where those things are (default-branch pushes outside `~/.dotfiles`, production AWS profiles,
-  the stores holding customer data). It is read from user scope only, so it lives here
+  already block production deploys and reads, and PII handling, in what reaches them; the block
+  tells them where those things are (default-branch pushes outside `~/.dotfiles`, production AWS
+  profiles, the stores holding customer data). It is read from user scope only, so it lives here
 - A single block in user scope (`claude/settings.json`), not split across scopes: the docs confirm
   the sandbox arrays merge across scopes (paths from every scope combine; deny entries only narrow),
   but scalar keys (`enabled`, `failIfUnavailable`) have no documented cross-scope semantics, so a
@@ -372,8 +372,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `AWS_DEFAULT_PROFILE`). They over-match on purpose: `prod` anywhere after the flag blocks, so a
   `products` table or bucket in the same command is denied, as is any non-AWS tool with a
   `--profile` flag (`cargo build --profile release -p products`); relax them if that friction shows
-  up. Uppercase names, profiles set in a separate shell step, and SDK use are left to the
-  classifier. `git tag -s` and bare `gpg` under the sandbox are the documented over-block
+  up. Uppercase names, profiles set in a separate shell step, credential wrappers that take the
+  profile as a plain argument (`aws-vault exec prod`), and SDK use are left to the classifier.
+  `git tag -s` and bare `gpg` under the sandbox are the documented over-block
 - **Customer data stays out of context**: `dumps/` is `deny` for Read (which also lands in the
   sandbox read-deny) and by Bash command text. Residual: in a repo with a legitimate `dumps`
   directory, sandboxed tools that walk it (`git status`, builds) fail there. Datadog log, trace,
