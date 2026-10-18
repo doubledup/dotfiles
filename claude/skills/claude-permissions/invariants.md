@@ -129,8 +129,8 @@ must-never that is only `ask`, a confirm that is hard-denied, or any guard Bash-
 no longer exists) is a mismatch. Check: for each denied/guarded command, compare its settings
 disposition to the enforcement. Example: `gh pr merge` = `ask` (coherent); sudo/recursive
 `rm`/`git clean`/`dd`/`rsync`/`find` primaries = `deny` (coherent); discarding uncommitted edits
-(`reset --hard`, `checkout -f`) = classifier, no rule (recoverable by redoing the work); the guard's
-only leg is the Read/Grep/Glob secret-path block.
+(`reset --hard`, `checkout -f`) = no rule, sandbox auto-allowed (recoverable by redoing the work);
+the guard's only leg is the Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor
 (`failIfUnavailable: true`; unsandboxed retries go to the auto-mode classifier, with `deny` rules
