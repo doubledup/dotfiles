@@ -190,8 +190,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   output style, inert while another style is active, and a rule, loaded every session). No commands
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
   pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
-- Settings: deny destroys-work and leaks-secrets; ask only for outward actions (PR, deploy, tracker
-  writes); no allow entries the sandbox auto-allow already covers
+- Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish
+  (merge, release, deploy, Confluence writes); the auto-mode classifier reviews everything else; no
+  allow entries the sandbox auto-allow already covers
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
 
@@ -304,36 +305,33 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   revert or a new commit. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`)
   and every `git -C * push` are `deny`. Clustered short flags like `-uf` and branch deletion
   (`--delete`, `:branch`) run unprompted; the remote's branch protection is their backstop. In a
-  repo that deploys on push, a push deploys without a prompt. One-way doors that do occur here
-  (`gh pr merge`, `gh release create`, `gh repo delete`, `terraform apply`, `terraform destroy`,
-  `just deploy`) are `ask`; rarer ones get a rule when they show up
+  repo that deploys on push, a push deploys without a prompt. Shipping one-way doors (`gh pr merge`,
+  `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
+  Destructive ones with no routine use (`gh repo delete`, `terraform destroy`) are `deny`; rarer
+  ones get a rule when they show up
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
   text-match denies over-block benign mentions (`app.env`); the collision-prone
-  `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
-  `git -c k=v reset --hard` falls through to ask, not deny; recursive `rm` clusters the denies don't
-  spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run unprompted. All narrow and
-  contained while the sandbox is active
+  `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope; recursive `rm`
+  clusters the denies don't spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run
+  unprompted. All narrow and contained while the sandbox is active
+- **Discarding uncommitted edits runs unprompted** (`reset --hard`, `checkout`/`restore` of a path
+  or the tree, `checkout -f`, `switch --discard-changes`, `stash drop`): the worst case is redoing
+  work since the last commit, and small frequent commits bound it. The classifier reviews them, and
+  Claude can return to a clean state without handing the command over. `git clean` and the forced
+  `worktree remove` stay `deny`: they delete untracked and ignored files git never held
 - **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
-  `revert`, `worktree`): a verb-level allow would co-match, and silently defeat, the flag-scoped
-  asks below (invariant 5 in the claude-permissions skill). `merge`/`rebase`/`cherry-pick`/`revert`
-  are `excludedCommands` for GPG signing, so they run unsandboxed and the auto-mode classifier
-  reviews each; in-repo hooks and merge drivers they trigger run outside the sandbox as hooks
-  already do for `git commit`. `worktree` and `apply` run sandboxed and auto-allowed (`apply` keeps
-  its allow). The exceptions are gated by flag: `rebase --exec`/`-x` (arbitrary command,
-  unsandboxed) is `deny` in leading or later flag position, and clustered short flags (`-ix`) fall
-  to the classifier; `--abort` (and `--skip` where the verb has it, a reset over dirty edits) and
-  `worktree remove` (deletes gitignored files even unforced) are `ask`; the leading-flag forced
-  remove is `deny`, other orderings fall back to the `ask`. The `git -C *` twins stay `ask` (a
-  wildcard before the subcommand in an `allow` rule can absorb an injected `-c`/`--exec-path`
-  option)
-- **`git mv` runs unprompted** (sandboxed, auto-allowed): a rename is staged and recoverable. Only
-  the forced forms (`-f`, `--force`) are `ask`, since they can overwrite an untracked destination
+  `revert`): they are `excludedCommands` for GPG signing, so they run unsandboxed and the auto-mode
+  classifier reviews each, as it does their `--abort`/`--skip` and `git -C *` forms; an `allow`
+  would skip that review. In-repo hooks and merge drivers they trigger run outside the sandbox as
+  hooks already do for `git commit`. `rebase --exec`/`-x` (arbitrary command, unsandboxed) is `deny`
+  in leading or later flag position; clustered short flags (`-ix`) fall to the classifier
 - **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
   and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
   every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,
-  `--recursive`, `-fr`, `-fR`, in leading or later position); `dd` and `rsync` stay `ask`
+  `--recursive`, `-fr`, `-fR`, in leading or later position). `dd` and `rsync` are `deny`: rare
+  here, so Claude hands the command over instead
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
   `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade the recursive `rm` denies)
 - **The `Grep` built-in tool is denied**: it bypasses the sandbox, so a broad `Grep(path=~)` could
