@@ -1,14 +1,6 @@
 {
     "permissions": {
         "allow": [
-            "Bash(just check:*)",
-            "Bash(just fmt:*)",
-            "Bash(just lint:*)",
-            "Bash(just test:*)",
-            "Bash(rcup:*)",
-            "Bash(rcdn:*)",
-            "Bash(lsrc:*)",
-            "Bash(nvim --headless:*)",
             "Bash(obsidian help)",
             "Bash(obsidian help *)",
             "Bash(obsidian version)",

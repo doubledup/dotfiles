@@ -134,12 +134,14 @@ only leg is the Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor
 (`failIfUnavailable: true`; unsandboxed retries go to the auto-mode classifier, with `deny` rules
-still binding them), so it is the primary containment boundary. This is what lets invariant 1 keep
-destructive enforcement in `deny` rules rather than a hook backstop, and what covers the direnv
-trust store (out-of-tree writes). Check: the `sandbox` key in settings.json; a regression to
-sandbox-off would weaken the deny-only destructive posture (no hook leg) - flag it if it changes,
-and flag retries allowed outside auto mode without a `Bash(dangerouslyDisableSandbox:true)` ask
-rule.
+still binding them), so it is the primary containment boundary. An `allow` rule also approves its
+command's unsandboxed retry, skipping the classifier, so a Bash `allow` for anything that can read
+arbitrary files or run code (`rg`, `fd`, `git`, `just`, formatters) is a containment gap. This is
+what lets invariant 1 keep destructive enforcement in `deny` rules rather than a hook backstop, and
+what covers the direnv trust store (out-of-tree writes). Check: the `sandbox` key in settings.json;
+a regression to sandbox-off would weaken the deny-only destructive posture (no hook leg) - flag it
+if it changes, and flag retries allowed outside auto mode without a
+`Bash(dangerouslyDisableSandbox:true)` ask rule.
 
 **8. MCP tools: `deny` is the only binding leg.** For `mcp__*` tools a PreToolUse hook does NOT
 bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them.

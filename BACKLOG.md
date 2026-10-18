@@ -9,8 +9,7 @@ items when done; git history records completion.
 - Claude Code: continue migrating user config to the DESIGN.md target state with the items below,
   one per fresh session, measured against the always-loaded line budget (now 83: `CLAUDE.md` 65,
   `git.md` 18)
-- Claude Code: test whether auto mode makes `gh-api-readonly.sh` redundant and whether sandbox
-  auto-allow makes the allow list redundant; drop what is
+- Claude Code: test whether auto mode makes `gh-api-readonly.sh` redundant; drop it if so
 - Claude Code: move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the
   jdtls-lombok-lsp shim (hardcoded Corretto 21 and Lombok 1.18.42), Atlassian ask rules
 - Claude Code: verify whether `!` commands run inside the Bash sandbox. `claude/CLAUDE.md` Safety

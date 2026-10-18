@@ -195,8 +195,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
   pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
 - Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish
-  (merge, release, deploy, Confluence writes); the auto-mode classifier reviews everything else; no
-  allow entries the sandbox auto-allow already covers
+  (merge, release, deploy, Confluence writes); the auto-mode classifier reviews everything else.
+  Bash `allow` rules only for commands harmless outside the sandbox (`command -v`, `date`): an allow
+  also approves the command's unsandboxed retry with no classifier review, and tools like `rg`
+  (`--pre`), `fd` (`-x`), `git` (config-driven hooks and filters) and `just` run arbitrary code.
+  Sandbox auto-allow already runs them unprompted. Cost: plan mode prompts on them
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
 
