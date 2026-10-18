@@ -330,9 +330,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   unprompted. All narrow and contained while the sandbox is active
 - **Discarding uncommitted edits runs unprompted** (`reset --hard`, `checkout`/`restore` of a path
   or the tree, `checkout -f`, `switch --discard-changes`, `stash drop`): the worst case is redoing
-  work since the last commit, and small frequent commits bound it. The classifier reviews them, and
-  Claude can return to a clean state without handing the command over. `git clean` and the forced
-  `worktree remove` stay `deny`: they delete untracked and ignored files git never held
+  work since the last commit, and small frequent commits bound it. No rule matches them, so the
+  classifier decides: it allows per-file reverts and refuses a tree-wide discard you didn't ask for.
+  `git clean` and the forced `worktree remove` stay `deny`: they delete untracked and ignored files
+  git never held. Plain `worktree remove` deletes only ignored files (build output, local overrides)
+  and goes to the classifier, so Claude can clean up its own worktrees
 - **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
   `revert`): they are `excludedCommands` for GPG signing, so they run unsandboxed and the auto-mode
   classifier reviews each, as it does their `--abort`/`--skip` and `git -C *` forms; an `allow`

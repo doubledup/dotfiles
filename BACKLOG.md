@@ -38,7 +38,8 @@ items when done; git history records completion.
   push to `main` in a scratch repo with a GitHub-looking remote is refused; a dotfiles push goes
   through; Datadog log tools prompt; `claude doctor` accepts the `mcp__*atadog*__*` globs
 - Reconcile the untracked `follow-ups/` plans with the ask-light policy: `sandbox-escape-plan.md`
-  adds ask rules, and `git-force-flag-deny.md` anchors on the removed `git checkout .` deny
+  adds ask rules, and `git-force-flag-deny.md` anchors its edits on a `git checkout .` deny that
+  `claude/settings.json` doesn't have
 
 - `commit-alone.sh` blocks any Bash call whose text contains an excluded git verb, including a
   heredoc or script body that only mentions `git commit`; match only the command words

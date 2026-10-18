@@ -78,7 +78,7 @@ mid-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never f
 `-C`/wrapper twin must use the glued form. Check every rule containing a non-trailing `*` for a
 `:*)` **or** ` *)` tail and flag it as inert - the two tails are equivalent, so both fail. This bit
 the `aws * <verb>-*:*` mutation denies and the `AWS_PROFILE=* aws *` production asks, not just git.
-Ask-by-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are NOT gaps. Check: for
+Ask-by-design rules (`gh pr merge`, `terraform apply`, Datadog log tools) are NOT gaps. Check: for
 each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
