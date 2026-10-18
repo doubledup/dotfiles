@@ -109,7 +109,7 @@
       "Bash(find -fls*)"
     ],
     "ask": [
-      "mcp__*atadog*__*logs*",
+      "mcp__*atadog*__*log*",
       "mcp__*atadog*__*trace*",
       "mcp__*atadog*__*span*",
       "mcp__*atadog*__*rum*",

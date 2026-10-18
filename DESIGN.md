@@ -87,7 +87,9 @@ Key technical choices and their rationale:
 - Residuals: `just check` validates the working tree, not the index, so a staged misformat whose
   working copy was since fixed passes; committing with explicit paths runs the hook on a temporary
   index, so the real index can keep the unformatted blob afterwards
-- Alternative considered: Claude PostToolUse format hook (rejected: misses edits outside Edit/Write)
+- Alternative considered: Claude PostToolUse format hook (rejected: misses edits outside
+  Edit/Write). The lint hook above takes that miss: it only speeds up feedback, and the commit hook
+  still gates
 
 **BACKLOG.md for work tracking:**
 
@@ -192,8 +194,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   never converges), `ponytail`, `pr-triage`, `claude-permissions`, `handoff`, `authored-voice` (PR
   comms rules plus `voice.md`, loaded only when drafting text in the user's voice; rejected: an
   output style, inert while another style is active, and a rule, loaded every session). No commands
-- Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
-  pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
+- Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting and lint are enforced by each
+  repo's own pre-commit hook; a project PostToolUse lint hook only shortens feedback (see
+  "Formatting enforced at commit")
 - Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish
   (merge, release, deploy, Confluence writes); the auto-mode classifier reviews everything else.
   Bash `allow` rules only for commands harmless outside the sandbox (e.g. `command -v`, `date`), in
@@ -328,7 +331,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
   text-match denies over-block benign mentions (`app.env`, a commit message containing " dumps ");
   history-destroying commands (`reflog expire`, `gc --prune`, `update-ref -d`) are unguarded: they
-  lose only local, unpushed work and take a deliberate multi-step sequence; the collision-prone
+  lose only local, unpushed work and take a deliberate multi-step sequence; `git mv -f` can
+  overwrite one untracked destination file, left unguarded for the same reason; the collision-prone
   `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope; recursive `rm`
   clusters the denies don't spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run
   unprompted. All narrow and contained while the sandbox is active
@@ -341,11 +345,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `worktree remove` deletes only ignored files (build output, local overrides) and runs unprompted,
   so Claude can clean up its own worktrees
 - **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
-  `revert`): they are `excludedCommands` for GPG signing, so they run unsandboxed and the auto-mode
-  classifier reviews each, as it does their `--abort`/`--skip` and `git -C *` forms; an `allow`
-  would skip that review. In-repo hooks and merge drivers they trigger run outside the sandbox as
-  hooks already do for `git commit`. `rebase --exec`/`-x` (arbitrary command, unsandboxed) is `deny`
-  in leading or later flag position; clustered short flags (`-ix`) fall to the classifier
+  `revert`, and `pull`, which merges): they are `excludedCommands` for GPG signing, so they run
+  unsandboxed and the auto-mode classifier reviews each, as it does their `--abort`/`--skip` and
+  `git -C *` forms; an `allow` would skip that review. In-repo hooks and merge drivers they trigger
+  run outside the sandbox as hooks already do for `git commit`. `rebase --exec`/`-x` (arbitrary
+  command, unsandboxed) is `deny` in leading or later flag position; clustered short flags (`-ix`)
+  fall to the classifier
 - **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
   and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
   every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,
@@ -365,17 +370,18 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   unsandboxed retry reads `~/.aws`, gated by the classifier. Production profiles are `deny` by
   command text (`*--profile*prd*`, `*_PROFILE=*prod*` and their pairs, which also cover
   `AWS_DEFAULT_PROFILE`). They over-match on purpose: `prod` anywhere after the flag blocks, so a
-  `products` table or bucket in the same command is denied; relax them if that friction shows up.
-  Uppercase names, profiles set in a separate shell step, and SDK use are left to the classifier.
-  `git tag -s` and bare `gpg` under the sandbox are the documented over-block
+  `products` table or bucket in the same command is denied, as is any non-AWS tool with a
+  `--profile` flag (`cargo build --profile release -p products`); relax them if that friction shows
+  up. Uppercase names, profiles set in a separate shell step, and SDK use are left to the
+  classifier. `git tag -s` and bare `gpg` under the sandbox are the documented over-block
 - **Customer data stays out of context**: `dumps/` is `deny` for Read (which also lands in the
   sandbox read-deny) and by Bash command text. Residual: in a repo with a legitimate `dumps`
   directory, sandboxed tools that walk it (`git status`, builds) fail there. Datadog log, trace,
   span and RUM MCP tools are `ask`: they return customer personal information, while metrics and
-  monitors stay unprompted. The name globs (`mcp__*atadog*__*logs*`) cover both the connector and
-  the plugin server, and over-match any config tool sharing those words. Transcript retention stays
-  at the default here; a work repo that handles customer data shortens it in its own
-  `settings.local.json`. Scanning prompts and edits for personal identifiers belongs in each work
-  repo's hooks, where the identifier formats are known. Alternatives: deny `*.log` reads (rejected:
-  blocks local build and test output); deny `~/Downloads` (rejected: files there are handed over on
+  monitors stay unprompted. The name globs (`mcp__*atadog*__*log*`) cover both the connector and the
+  plugin server, and over-match any config tool sharing those words. Transcript retention stays at
+  the default: one cleanup sweeps every project's transcripts, so a per-repo `cleanupPeriodDays`
+  can't scope it. Scanning prompts and edits for personal identifiers belongs in each work repo's
+  hooks, where the identifier formats are known. Alternatives: deny `*.log` reads (rejected: blocks
+  local build and test output); deny `~/Downloads` (rejected: files there are handed over on
   purpose)
