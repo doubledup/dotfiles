@@ -19,6 +19,7 @@ case "$path" in
 *) exit 0 ;;
 esac
 
+command -v "${lint[0]}" >/dev/null 2>&1 || exit 0
 out="$("${lint[@]}" "$path" 2>&1)" && exit 0
 printf '%s\n' "$out" >&2
 exit 2
