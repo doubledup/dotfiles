@@ -356,9 +356,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   is an `excludedCommands` entry, and Edit denies bind only the built-in tool); `aws` is not
   excluded, so sandboxed `aws` cannot read `~/.aws` and authenticated calls fail in the sandbox; an
   unsandboxed retry reads `~/.aws`, gated by the classifier. Production profiles are `deny` by
-  command text (`*--profile*prd*`, `*AWS_PROFILE=*prod*` and their pairs), so production credentials
-  never reach a session; SDK use with a production profile is left to the classifier. `git tag -s`
-  and bare `gpg` under the sandbox are the documented over-block
+  command text (`*--profile*prd*`, `*_PROFILE=*prod*` and their pairs, which also cover
+  `AWS_DEFAULT_PROFILE`). They over-match on purpose: `prod` anywhere after the flag blocks, so a
+  `products` table or bucket in the same command is denied; relax them if that friction shows up.
+  Uppercase names, profiles set in a separate shell step, and SDK use are left to the classifier.
+  `git tag -s` and bare `gpg` under the sandbox are the documented over-block
 - **Customer data stays out of context**: `dumps/` is `deny` for Read (which also lands in the
   sandbox read-deny) and by Bash command text. Datadog log, trace, span and RUM MCP tools are `ask`:
   they return customer personal information, while metrics and monitors stay unprompted. The name
