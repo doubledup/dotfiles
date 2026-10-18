@@ -7,7 +7,7 @@ items when done; git history records completion.
 ## Next
 
 - Claude Code: continue migrating user config to the DESIGN.md target state with the items below,
-  one per fresh session, measured against the always-loaded line budget (now 83: `CLAUDE.md` 65,
+  one per fresh session, measured against the always-loaded line budget (now 85: `CLAUDE.md` 67,
   `git.md` 18)
 - Claude Code: test whether auto mode makes `gh-api-readonly.sh` redundant; drop it if so
 - Claude Code: move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the
