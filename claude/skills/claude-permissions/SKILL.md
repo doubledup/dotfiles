@@ -7,9 +7,7 @@ description:
     Code permissions, checking that a policy is enforced by the correct layer, or adding a command
     or path that must be blocked or confirmed.
 argument-hint: "[policy to add, e.g. 'confirm chmod'; omit to audit]"
-allowed-tools:
-    Read, Glob, Bash(rg:*), Bash(fd:*), Bash(cat:*), Bash(ls:*), Bash(readlink:*), Bash(realpath:*),
-    Bash(just test-claude-hooks:*)
+allowed-tools: Read, Glob
 ---
 
 # claude-permissions
