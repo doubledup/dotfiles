@@ -28,12 +28,6 @@ items when done; git history records completion.
   (schema compatibility, PII classification), a change-impact skill and an invariant reviewer.
   Shared repo config holds only what every member must have (hard denies, invariants, CI); prompts,
   `autoMode` and high-risk-path asks go in user or `settings.local.json` scope
-- Work identity repo: add a PII scan hook (national ID with date, citizenship and Luhn checks;
-  UserPromptSubmit and PreToolUse on Edit/Write/Bash; prints a count, never the value; tests build
-  IDs at runtime). The guardrails skill then installs it in the other service repos
-- Datadog log, trace, span and RUM MCP tools ask on every call; allow them for non-production
-  environments once the friction is clear. Tool names don't carry the environment, so this needs
-  per-environment servers or an argument-checking hook
 - Verify in a fresh session: `git stash` runs unprompted; `aws ... --profile *prd*` is denied; a
   push to `main` in a scratch repo with a GitHub-looking remote is refused; a dotfiles push goes
   through; Datadog log tools prompt; `claude doctor` accepts the `mcp__*atadog*__*` globs
