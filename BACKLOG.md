@@ -24,6 +24,10 @@ items when done; git history records completion.
 
 ## Claude Code
 
+- Cloud sessions (app, web) never see user-scope config: a fresh container has no `~/.claude`, so
+  deny rules, hooks, `autoMode` and skills all drop out. Decide which must-nevers each repo used
+  from the cloud mirrors into its `.claude/settings.json` (gazebo carries the force-push denies);
+  those load only in single-repo sessions
 - Guardrails skill for work service repos: set up and maintain invariants in CLAUDE.md, CI gates
   (schema compatibility, PII classification), a change-impact skill and an invariant reviewer.
   Shared repo config holds only what every member must have (hard denies, invariants, CI); prompts
