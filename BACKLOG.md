@@ -41,7 +41,6 @@ items when done; git history records completion.
 - Config to exclude references to current repo state (e.g. `claude-permissions/invariants.md`
   "Atlassian ask rules"), then run it to remove existing references
 - Run only fast commands (format, lint, relevant unit tests) on each commit; a hook?
-- Allow rm in /var/
 - Restrict dangerous CLI tools: awk (system(), file writes), sed (GNU e command, file writes), less
   (shell escape, LESSOPEN exec), sort (file writes via -o)
 - Consider adding obsidian-cli `daily:path`/`daily:read` to the project allow list in

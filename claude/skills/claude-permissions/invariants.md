@@ -65,7 +65,7 @@ promise one.
 ## Invariants
 
 **1. Destructive must-never => `deny` rule, no hook.** A must-never destructive command (sudo,
-`rm -rf`, force `git push`, tree-discard, `find` side-effecting primaries) is enforced by a
+recursive `rm`, force `git push`, tree-discard, `find` side-effecting primaries) is enforced by a
 settings.json `deny` rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected
 under sandbox auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7)
 contains what runs; and enforcement hooks must not parse Bash command strings, which is fragile on
@@ -127,8 +127,8 @@ allow rule in both scopes. Example: an `allow` rule for a command the guard hook
 confirm => `ask` in settings.json (the guard never asks; the sandbox/classifier backstop). A
 must-never that is only `ask`, a confirm that is hard-denied, or any guard Bash-command block (which
 no longer exists) is a mismatch. Check: for each denied/guarded command, compare its settings
-disposition to the enforcement. Example: `rm`/`dd`/`rsync` = `ask` (coherent);
-sudo/`rm -rf`/destructive git/`find` primaries = `deny` (coherent); the guard's only leg is the
+disposition to the enforcement. Example: `dd`/`rsync` = `ask` (coherent); sudo/recursive
+`rm`/destructive git/`find` primaries = `deny` (coherent); the guard's only leg is the
 Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor

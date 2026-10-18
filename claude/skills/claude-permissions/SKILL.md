@@ -85,7 +85,7 @@ Audit both; attribute every finding and edit to a scope.
       invariant ID that cites it, so `--no-verify` shows once, not once per invariant.
     - The **sandbox posture** note (invariant 7) and the managed-scope assumption.
 4. Group the first-run security-belt batch **by the CLAUDE.md dimension only**: existing guardrails
-   (sudo, git push, rm -rf, destructive git, rm/dd/rsync, direnv, WebFetch/WebSearch) each have a
+   (sudo, git push, recursive rm, destructive git, dd/rsync, direnv, WebFetch/WebSearch) each have a
    settings.json rule but no CLAUDE.md covering line - report the missing lines as ONE grouped
    recommendation (a few family lines clear them), not N separate flags. This is orthogonal to
    enforcement-leg gaps: do NOT describe the batch as fully enforced. Some members carry separate

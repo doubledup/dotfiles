@@ -304,7 +304,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
   text-match denies over-block benign mentions (`app.env`); the collision-prone
   `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope;
-  `git -c k=v reset --hard` and split-flag `rm -fr` fall through to ask, not deny. All narrow and
+  `git -c k=v reset --hard` falls through to ask, not deny; recursive `rm` clusters the denies don't
+  spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run unprompted. All narrow and
   contained while the sandbox is active
 - **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
   `revert`, `worktree`): a verb-level allow would co-match, and silently defeat, the flag-scoped
@@ -321,9 +322,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   option)
 - **`git mv` runs unprompted** (sandboxed, auto-allowed): a rename is staged and recoverable. Only
   the forced forms (`-f`, `--force`) are `ask`, since they can overwrite an untracked destination
+- **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
+  and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
+  every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,
+  `--recursive`, `-fr`, `-fR`, in leading or later position); `dd` and `rsync` stay `ask`
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
-  `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade both the `rm -rf` deny and
-  the `rm` ask)
+  `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade the recursive `rm` denies)
 - **The `Grep` built-in tool is denied**: it bypasses the sandbox, so a broad `Grep(path=~)` could
   leak `~/.aws` contents the path-guard can't catch; sandboxed `rg` is bounded by OS-level
   credential-denies that `--no-ignore`/`-u` cannot defeat. `Glob` stays (paths and metadata, not
