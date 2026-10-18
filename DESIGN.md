@@ -352,3 +352,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   command text (`*--profile*prd*`, `*AWS_PROFILE=*prod*` and their pairs), so production credentials
   never reach a session; SDK use with a production profile is left to the classifier. `git tag -s`
   and bare `gpg` under the sandbox are the documented over-block
+- **Customer data stays out of context**: `dumps/` is `deny` for Read (which also lands in the
+  sandbox read-deny) and by Bash command text. Datadog log, trace, span and RUM MCP tools are `ask`:
+  they return customer personal information, while metrics and monitors stay unprompted. The name
+  globs (`mcp__*atadog*__*logs*`) cover both the connector and the plugin server, and over-match any
+  config tool sharing those words. `cleanupPeriodDays: 7` limits how long an accidental leak sits in
+  local transcripts. Scanning prompts and edits for personal identifiers belongs in each work repo's
+  hooks, where the identifier formats are known. Alternatives: deny `*.log` reads (rejected: blocks
+  local build and test output); deny `~/Downloads` (rejected: files there are handed over on
+  purpose)

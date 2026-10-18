@@ -117,6 +117,8 @@
       "Bash(*/.gnupg/*)",
       "Bash(*/.config/gh/*)",
       "Bash(*.git-credentials*)",
+      "Read(**/dumps/**)",
+      "Bash(*/dumps/*)",
       "Bash(find * -exec*)",
       "Bash(find * -ok*)",
       "Bash(find * -delete*)",
@@ -129,6 +131,10 @@
       "Bash(find -fls*)"
     ],
     "ask": [
+      "mcp__*atadog*__*logs*",
+      "mcp__*atadog*__*trace*",
+      "mcp__*atadog*__*span*",
+      "mcp__*atadog*__*rum*",
       "Bash(gh pr merge:*)",
       "Bash(gh release create:*)",
       "Bash(terraform apply:*)",
@@ -193,6 +199,7 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "outputStyle": "Concise",
+  "cleanupPeriodDays": 7,
   "sandbox": {
     "enabled": true,
     "failIfUnavailable": true,

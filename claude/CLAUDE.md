@@ -40,6 +40,8 @@ an innovation token; justify novelty [McKinley].
   `AWS_*` keys). Sign in-process with the named profile (botocore `Session(profile_name=...)`)
 - Bash runs sandboxed; retry unsandboxed only when no in-sandbox fix exists. Suggest `!` for
   sandbox-blocked maintenance (brew, rustup, cargo, plugin sync)
+- Use synthetic data only: never ask for, read, or paste real customer data, log exports, or table
+  dumps. If debugging needs data, ask me for a synthetic reproduction
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 
 ## Sandbox Mechanics
