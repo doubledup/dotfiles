@@ -10,7 +10,7 @@ items when done; git history records completion.
   one per fresh session, measured against the always-loaded line budget (now 83: `CLAUDE.md` 65,
   `git.md` 18)
 - Claude Code: test whether auto mode makes `gh-api-readonly.sh` redundant and whether sandbox
-  auto-allow makes the allow list redundant; drop what is; trim recoverable-git ask rules
+  auto-allow makes the allow list redundant; drop what is
 - Claude Code: move work-only config to `tag-work/`: `jira-comment`, `acli-guide`, the
   jdtls-lombok-lsp shim (hardcoded Corretto 21 and Lombok 1.18.42), Atlassian ask rules
 - Claude Code: verify whether `!` commands run inside the Bash sandbox. `claude/CLAUDE.md` Safety
@@ -24,6 +24,22 @@ items when done; git history records completion.
 - Remove Nix configuration (`config/nix/`); Nix is no longer in use
 
 ## Claude Code
+
+- Guardrails skill for work service repos: set up and maintain invariants in CLAUDE.md, CI gates
+  (schema compatibility, PII classification), a change-impact skill and an invariant reviewer.
+  Shared repo config holds only what every member must have (hard denies, invariants, CI); prompts,
+  `autoMode` and high-risk-path asks go in user or `settings.local.json` scope
+- Work identity repo: add a PII scan hook (national ID with date, citizenship and Luhn checks;
+  UserPromptSubmit and PreToolUse on Edit/Write/Bash; prints a count, never the value; tests build
+  IDs at runtime). The guardrails skill then installs it in the other service repos
+- Datadog log, trace, span and RUM MCP tools ask on every call; allow them for non-production
+  environments once the friction is clear. Tool names don't carry the environment, so this needs
+  per-environment servers or an argument-checking hook
+- Verify in a fresh session: `git stash` runs unprompted; `aws ... --profile *prd*` is denied; a
+  push to `main` in a scratch repo with a GitHub-looking remote is refused; a dotfiles push goes
+  through; Datadog log tools prompt; `claude doctor` accepts the `mcp__*atadog*__*` globs
+- Reconcile the untracked `follow-ups/` plans with the ask-light policy: `sandbox-escape-plan.md`
+  adds ask rules, and `git-force-flag-deny.md` anchors on the removed `git checkout .` deny
 
 - `commit-alone.sh` blocks any Bash call whose text contains an excluded git verb, including a
   heredoc or script body that only mentions `git commit`; match only the command words
