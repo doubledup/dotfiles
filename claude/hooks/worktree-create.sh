@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # WorktreeCreate hook: place worktrees flat as ~/code/worktrees/<repo>__<name>,
-# on a new branch <name> off origin/HEAD, instead of under the repo's
+# on a new branch <name> off the remote's default branch, instead of under the repo's
 # .claude/worktrees. Covers EnterWorktree, `claude --worktree` and subagents with
 # `isolation: "worktree"`, whose shell stays pinned to the worktree so a lone
 # `git commit` (see commit-alone.sh) runs there. Prints the path on stdout; git's
@@ -21,6 +21,16 @@ common="$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir)"
 repo="$(basename "$(dirname "$common")")"
 dir="$HOME/code/worktrees/${repo}__${name//\//-}"
 
+# origin/HEAD is set by clone but not by `git remote add`; a repo without a remote
+# branches from HEAD, as git's own worktree default does.
+base=HEAD
+for ref in origin/HEAD origin/main origin/master; do
+    if git -C "$cwd" rev-parse -q --verify "$ref^{commit}" >/dev/null; then
+        base="$ref"
+        break
+    fi
+done
+
 mkdir -p "$HOME/code/worktrees"
-git -C "$cwd" worktree add --no-track -b "$name" "$dir" origin/HEAD >&2
+git -C "$cwd" worktree add --no-track -b "$name" "$dir" "$base" >&2
 echo "$dir"
