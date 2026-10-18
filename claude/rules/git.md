@@ -12,7 +12,10 @@
 ## Branches and worktrees
 
 - Update a PR branch by merging `main` into it, not rebasing, to avoid force-pushing shared branches
-- Worktrees: plain `git worktree` (not `EnterWorktree`, which can't place them outside the repo),
-  flat under `~/code/worktrees/<repo>__<branch-with-"/"-as-"-">`. `mkdir -p` it and `/add-dir` it
-  once (outside the sandbox write set); branch off local `origin/<default-branch>` (a sandboxed
-  `git -C` fetch can't reach SSH), then work from a session launched inside the worktree
+- Worktrees: flat under `~/code/worktrees/<repo>__<branch-with-"/"-as-"-">`, branched off local
+  `origin/HEAD` (run a lone `git fetch` first). The `worktree-create.sh` WorktreeCreate hook places
+  them there for `EnterWorktree`, `claude --worktree` and subagents; use those, not
+  `git worktree add`
+- Subagents that commit get `isolation: "worktree"`: it pins their shell to the worktree, so a lone
+  `git commit` lands there. Without it, every Bash call starts in the main checkout. Claude Code
+  keeps a subagent's worktree; remove it, and its branch, after the merge

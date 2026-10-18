@@ -160,6 +160,17 @@
           }
         ]
       }
+    ],
+    "WorktreeCreate": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/worktree-create.sh",
+            "timeout": 60
+          }
+        ]
+      }
     ]
   },
   "autoMode": {
