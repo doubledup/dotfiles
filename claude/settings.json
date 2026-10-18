@@ -14,7 +14,6 @@
       "Bash(git switch:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
-      "Bash(git push:*)",
       "Bash(git show:*)",
       "Bash(git status:*)",
       "Bash(git rev-parse:*)",
@@ -87,6 +86,10 @@
       "Bash(rm * -fR*)",
       "Bash(aws configure export-credentials:*)",
       "Bash(aws * export-credentials*)",
+      "Bash(*--profile*prd*)",
+      "Bash(*--profile*prod*)",
+      "Bash(*AWS_PROFILE=*prd*)",
+      "Bash(*AWS_PROFILE=*prod*)",
       "Bash(direnv:*)",
       "Bash(git clean:*)",
       "Bash(git -C * clean*)",
@@ -126,7 +129,6 @@
       "Bash(find -fls*)"
     ],
     "ask": [
-      "Bash(dangerouslyDisableSandbox:true)",
       "Bash(gh pr merge:*)",
       "Bash(gh release create:*)",
       "Bash(terraform apply:*)",
@@ -172,6 +174,15 @@
           }
         ]
       }
+    ]
+  },
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "**Personal repo**: ~/.dotfiles is the user's personal dotfiles repo; committing and pushing straight to its main branch is the normal workflow",
+      "**CI/CD deploy targets**: in every repo other than ~/.dotfiles, treat a push to the default branch (main or master) as a Production Deploy. Feature branches and pull requests are not deploys",
+      "**Production cloud accounts**: AWS profiles whose names contain prd, prod or production are production; using one is a Production Read or Production Deploy",
+      "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams, CloudWatch and Datadog logs, traces and RUM sessions, log exports and database dumps. They hold customer personal information; work uses synthetic data only"
     ]
   },
   "enabledPlugins": {

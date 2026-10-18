@@ -82,8 +82,8 @@ Ask-by-design rules (`git commit`, `gh pr create`, `WebFetch`, `WebSearch`) are 
 each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
-hook. Note on `git push`: plain push is `allow`; only the force forms (`--force*`, `-f`, `+refspec`,
-`--mirror`) and `git -C * push` are must-never `deny` rules.
+hook. Note on `git push`: plain push has no rule (the classifier reviews it); only the force forms
+(`--force*`, `-f`, `+refspec`, `--mirror`) and `git -C * push` are must-never `deny` rules.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
@@ -133,13 +133,13 @@ disposition to the enforcement. Example: `gh pr merge` = `ask` (coherent); sudo/
 only leg is the Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor
-(`failIfUnavailable: true`, and every unsandboxed retry prompts: either
-`allowUnsandboxedCommands: false`, or `true` with the `Bash(dangerouslyDisableSandbox:true)` ask
-rule), so it is the primary containment boundary. This is what lets invariant 1 keep destructive
-enforcement in `deny` rules rather than a hook backstop, and what covers the direnv trust store
-(out-of-tree writes). Check: the `sandbox` key in settings.json; a regression to sandbox-off would
-weaken the deny-only destructive posture (no hook leg) - flag it if it changes, and flag retries
-allowed without that ask rule.
+(`failIfUnavailable: true`; unsandboxed retries go to the auto-mode classifier, with `deny` rules
+still binding them), so it is the primary containment boundary. This is what lets invariant 1 keep
+destructive enforcement in `deny` rules rather than a hook backstop, and what covers the direnv
+trust store (out-of-tree writes). Check: the `sandbox` key in settings.json; a regression to
+sandbox-off would weaken the deny-only destructive posture (no hook leg) - flag it if it changes,
+and flag retries allowed outside auto mode without a `Bash(dangerouslyDisableSandbox:true)` ask
+rule.
 
 **8. MCP tools: `deny` is the only binding leg.** For `mcp__*` tools a PreToolUse hook does NOT
 bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox does not cover them.

@@ -272,12 +272,17 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 **Bash sandbox (macOS Seatbelt):**
 
 - Enabled with `failIfUnavailable: true`: the PRIMARY containment boundary. Unsandboxed retries are
-  allowed (`allowUnsandboxedCommands: true`) so a sandbox-incompatible one-off has an escape, but
-  every retry prompts: the `Bash(dangerouslyDisableSandbox:true)` ask rule prompts even in auto mode
-  and, unlike command-pattern ask rules, beats a co-matching allow rule (verified live: `date`
-  retried unsandboxed prompted despite `Bash(date)` allow). `deny` rules still bind Bash (they
-  descend into `$(...)` and are respected under sandbox auto-allow), so destructive verbs live in
-  `deny` rules and the guard hook does no Bash parsing
+  allowed (`allowUnsandboxedCommands: true`) and reviewed by the auto-mode classifier, not a prompt,
+  so a sandbox-incompatible command doesn't stop the session. A
+  `Bash(dangerouslyDisableSandbox:true)` ask rule would prompt on every retry, even in auto mode and
+  over a co-matching allow rule (verified live). `deny` rules still bind Bash (they descend into
+  `$(...)` and are respected under sandbox auto-allow and unsandboxed), so destructive verbs and
+  production credentials live in `deny` rules and the guard hook does no Bash parsing. Alternative:
+  `allowUnsandboxedCommands: false` (rejected: every such command becomes a hand-off)
+- **The `autoMode` block describes the environment, not new rules**: the built-in classifier rules
+  already block production deploys and reads, PII handling, and tree-wide discards; the block tells
+  them where those things are (default-branch pushes outside `~/.dotfiles`, production AWS profiles,
+  the stores holding customer data). It is read from user scope only, so it lives here
 - A single block in user scope (`claude/settings.json`), not split across scopes: the docs confirm
   the sandbox arrays merge across scopes (paths from every scope combine; deny entries only narrow),
   but scalar keys (`enabled`, `failIfUnavailable`) have no documented cross-scope semantics, so a
@@ -300,12 +305,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `claude/rules`, `.githooks`, `justfile` and `scripts`. A build script or dependency in another
   repo can't plant code there; the Edit tool still can, under the permission flow. Shell and editor
   configs (`config/`, `zshrc`) stay writable: a residual, caught by reviewing the dotfiles diff
-- **Plain push runs unprompted; unrecoverable pushes are must-nevers**: `git push` is `allow` (an
-  excluded command, so it runs unsandboxed without a prompt), since a plain push is undone by a
-  revert or a new commit. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`)
-  and every `git -C * push` are `deny`. Clustered short flags like `-uf` and branch deletion
-  (`--delete`, `:branch`) run unprompted; the remote's branch protection is their backstop. In a
-  repo that deploys on push, a push deploys without a prompt. Shipping one-way doors (`gh pr merge`,
+- **Plain push runs unprompted; unrecoverable pushes are must-nevers**: `git push` has no `allow`
+  rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it, which an
+  `allow` would skip. A push to the default branch outside `~/.dotfiles` counts as a production
+  deploy (`autoMode.environment`), so the classifier refuses it unless the user asked. Only the
+  unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every `git -C * push` are
+  `deny`; branch protection backstops the rest. Shipping one-way doors (`gh pr merge`,
   `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
   Destructive ones with no routine use (`gh repo delete`, `terraform destroy`) are `deny`; rarer
   ones get a rule when they show up
@@ -343,5 +348,7 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   credential-deny) and `~/.aws` has a full Edit deny. GPG-signed commits still work (`git commit *`
   is an `excludedCommands` entry, and Edit denies bind only the built-in tool); `aws` is not
   excluded, so sandboxed `aws` cannot read `~/.aws` and authenticated calls fail in the sandbox; an
-  unsandboxed retry reads `~/.aws`, so its prompt is the only gate (or run them via `!`).
-  `git tag -s` and bare `gpg` under the sandbox are the documented over-block
+  unsandboxed retry reads `~/.aws`, gated by the classifier. Production profiles are `deny` by
+  command text (`*--profile*prd*`, `*AWS_PROFILE=*prod*` and their pairs), so production credentials
+  never reach a session; SDK use with a production profile is left to the classifier. `git tag -s`
+  and bare `gpg` under the sandbox are the documented over-block
