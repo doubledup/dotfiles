@@ -190,8 +190,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   output style, inert while another style is active, and a rule, loaded every session). No commands
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting is enforced by each repo's own
   pre-commit hook, not a PostToolUse hook (see "Formatting enforced at commit")
-- Settings: deny destroys-work and leaks-secrets; ask only for outward actions (push, PR, deploy,
-  tracker writes); no allow entries the sandbox auto-allow already covers
+- Settings: deny destroys-work and leaks-secrets; ask only for outward actions (PR, deploy, tracker
+  writes); no allow entries the sandbox auto-allow already covers
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
 
@@ -293,12 +293,14 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
   secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
   `Bash(*.env*)`/`Bash(*/secrets/*)` denies, not a guard Bash-block
-- **Push is a confirm, not a must-never**: `git push` is `ask` (a prompt per push, even in auto
-  mode); only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every
-  `git -C * push` are `deny`; clustered short flags like `-uf` fall to the push `ask`. Branch
-  deletion stays `ask` (routine after a merge). One-way doors that do occur here (`gh pr merge`,
-  `gh release create`, `gh repo delete`, `terraform apply`, `terraform destroy`, `just deploy`) are
-  `ask` too; rarer ones get a rule when they show up
+- **Plain push runs unprompted; unrecoverable pushes are must-nevers**: `git push` is `allow` (an
+  excluded command, so it runs unsandboxed without a prompt), since a plain push is undone by a
+  revert or a new commit. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`)
+  and every `git -C * push` are `deny`. Clustered short flags like `-uf` and branch deletion
+  (`--delete`, `:branch`) run unprompted; the remote's branch protection is their backstop. In a
+  repo that deploys on push, a push deploys without a prompt. One-way doors that do occur here
+  (`gh pr merge`, `gh release create`, `gh repo delete`, `terraform apply`, `terraform destroy`,
+  `just deploy`) are `ask`; rarer ones get a rule when they show up
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
