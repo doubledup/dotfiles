@@ -188,12 +188,15 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   Rejected: splitting into spec/plan reviewers plus four diff specialists (more agents, no verify
   pass, duplicates a maintained built-in)
 - Skills: `ship` (plan, execute, review; starts at the plan, no spec phase; review loops cap at 3
-  iterations), `full-review` (the Reviewer plus `/code-review` and `/security-review`, one VERDICT;
-  accepted cost: up to 3 sources plus a confirm pass per iteration; `/code-review` returns
-  unverified findings, so built-in MEDIUM+ counts only once the Reviewer confirms it, or ship's loop
-  never converges), `ponytail`, `pr-triage`, `claude-permissions`, `handoff`, `authored-voice` (PR
-  comms rules plus `voice.md`, loaded only when drafting text in the user's voice; rejected: an
-  output style, inert while another style is active, and a rule, loaded every session). No commands
+  iterations, then the user decides: 3 more, proceed or stop), `full-review` (the Reviewer plus
+  `/code-review` and `/security-review`, one VERDICT; accepted cost: up to 3 sources plus a confirm
+  pass per iteration; `/code-review` returns unverified findings, so built-in MEDIUM+ counts only
+  once the Reviewer confirms it, or ship's loop never converges), `ponytail`, `pr-triage`,
+  `claude-permissions`, `handoff`, `authored-voice` (PR comms rules plus `voice.md`, loaded only
+  when drafting text in the user's voice; rejected: an output style, inert while another style is
+  active, and a rule, loaded every session), `parallel-sessions` (subagents in worktrees open draft
+  PRs; this session reviews and merges them; repo facts live in each repo's CLAUDE.md), `wrap-up`
+  (end-of-session open threads; closes only what needs no decision). No commands
 - Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting and lint are enforced by each
   repo's own pre-commit hook; a project PostToolUse lint hook only shortens feedback (see
   "Formatting enforced at commit")
