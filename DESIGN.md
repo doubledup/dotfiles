@@ -101,7 +101,8 @@ Key technical choices and their rationale:
 - Read only on request ("continue the backlog"), never at session start
 - Adding an item is always loaded (user `CLAUDE.md` Workflow), since capture must work in any
   session; working a backlog is the path-scoped `claude/rules/backlog.md`, which loads once a README
-  is read
+  is read. Path rules load only for files inside the current project, so work a backlog from its own
+  repo (the dotfiles backlog from `~/.dotfiles`)
 - Local-only and git-ignored, globally and in this repo (public; a clone may predate `rcup`): items
   carry work detail. Single machine, no history; deleting a finished item is permanent. The
   `-doubledup` suffix keeps the global ignore off repos with a real `backlog/` directory
@@ -183,10 +184,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   tokens, once per session). Accepted: `~/.claude/CLAUDE.md` links to the same file, so a
   `claudeMdExcludes` pattern for it may also drop the user CLAUDE.md, silently, in every session
   here
-- Rules: `git.md` unscoped; `claude-config.md` and `prose.md` path-scoped. `claude-config.md` points
-  at the `code.claude.com` reference for each config schema, because a wrong-but-valid field choice
-  (`Skill` in an agent's `tools` instead of `skills:` frontmatter) passes `just check`. It loads
-  when Claude touches a matching file inside the current project and reloads after compaction
+- Rules: `git.md` unscoped; `claude-config.md`, `prose.md` and `backlog.md` path-scoped.
+  `claude-config.md` points at the `code.claude.com` reference for each config schema, because a
+  wrong-but-valid field choice (`Skill` in an agent's `tools` instead of `skills:` frontmatter)
+  passes `just check`. It loads when Claude touches a matching file inside the current project and
+  reloads after compaction
   ([memory docs](https://code.claude.com/docs/en/memory#path-specific-rules)). Verified: Read,
   Write, and Bash `head` load it; `cat >/dev/null` does not; files outside the project never do.
   Accepted gap: editing user config from another repo gets no pointer, since user config is edited
