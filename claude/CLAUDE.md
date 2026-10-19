@@ -44,8 +44,8 @@ an innovation token; justify novelty [McKinley].
   dumps. If debugging needs data, ask me for a synthetic reproduction
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 - Never send my email or other personal details to an outside service unless I ask: not in a
-  User-Agent, header, URL, or payload. Where a service asks for contact details (crates.io), use a
-  generic User-Agent or the repo's URL
+  User-Agent, header, URL, or payload. Where a service asks for contact details (crates.io), use the
+  repo's URL
 
 ## Sandbox Mechanics
 
