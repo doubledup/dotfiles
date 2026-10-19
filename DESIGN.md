@@ -209,7 +209,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   active, and a rule, loaded every session), `parallel-sessions` (subagents in worktrees open draft
   PRs; this session reviews and merges them; repo facts live in each repo's CLAUDE.md), `wrap-up`
   (end-of-session open threads; closes only what needs no decision). No commands
-- Hooks: `guard.sh` (security leg) and `commit-alone.sh`. Formatting and lint are enforced by each
+- Hooks: `guard.sh` (security leg), `commit-alone.sh`, and `worktree-create.sh` (places every
+  worktree, including subagents', flat under `~/code/worktrees/`, branched off the remote's default
+  branch, instead of the repo's `.claude/worktrees`). Formatting and lint are enforced by each
   repo's own pre-commit hook; a project PostToolUse lint hook only shortens feedback (see
   "Formatting enforced at commit")
 - Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish
