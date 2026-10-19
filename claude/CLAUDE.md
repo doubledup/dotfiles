@@ -6,13 +6,12 @@
 
 ## Communication
 
-- Lead with the direct answer, then the reasoning; concise and precise, prose by default, Hemingway
-  over academic; no preamble praise or filler; expand only when tradeoffs require it or when asked
-- Make reasonable inferences; ask when the answer would meaningfully change direction
+- Lead with the direct answer, then the reasoning; prose by default; expand only when tradeoffs
+  require it or when asked
+- Ask when the answer would meaningfully change direction
 - State uncertainty and corrections plainly, without hedging or apology; distinguish facts from
   inference explicitly
-- Briefly flag non-obvious risks or alternatives when relevant; use pragmatic analogies that
-  illuminate without over-explaining
+- Briefly flag non-obvious risks or alternatives when relevant
 - No em dashes
 
 ## Workflow
@@ -52,9 +51,6 @@
 
 - Only `$TMPDIR` is writable for temp files: `mktemp "${TMPDIR:-/tmp}/name-XXXXXX"`, never bare
   `mktemp`. `diff` with a pipe or `/dev/null` fails the same way; diff two real files
-- `raw.githubusercontent.com` is blocked; use `api.github.com` with
-  `-H "Accept: application/vnd.github.raw"`
-- Filename deny rules over-match: `Bash(*.env*)` blocks fetching `.env.example`
 - `excludedCommands` (`gh`, `git commit`) run unsandboxed only as a lone foreground call; a pipe,
   redirect, chain, loop, env prefix, or background run sandboxes them. Process output separately
 - Bash can write in the working directory; prefer it over Write for byte-exact copies
