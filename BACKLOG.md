@@ -35,9 +35,10 @@ items when done; git history records completion.
   reads it)
 - Check whether a subagent's `tools:` entry with a specifier (`Bash(rg:*)` in `reviewer.md`)
   pre-approves the unsandboxed retry like an allow rule; if so, change it to plain `Bash`
-- Verify in a fresh session: `git stash` runs unprompted; `aws ... --profile *prd*` is denied; a
-  push to `main` in a scratch repo with a GitHub-looking remote is refused; a dotfiles push goes
-  through; Datadog log tools prompt; `claude doctor` accepts the `mcp__*atadog*__*` globs
+- Verify Datadog log, trace, span and RUM MCP tools prompt (needs an authenticated Datadog
+  connection)
+- Check that work repos' remotes protect `main` (required PR review): it is the only gate on a
+  default-branch push
 - Reconcile the untracked `follow-ups/` plans with the ask-light policy: `sandbox-escape-plan.md`
   adds ask rules, and `git-force-flag-deny.md` anchors its edits on a `git checkout .` deny that
   `claude/settings.json` doesn't have

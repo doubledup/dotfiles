@@ -292,8 +292,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `allowUnsandboxedCommands: false` (rejected: every such command becomes a hand-off)
 - **The `autoMode` block describes the environment, not new rules**: the built-in classifier rules
   already block production deploys and reads, and PII handling, in what reaches them; the block
-  tells them where those things are (default-branch pushes outside `~/.dotfiles`, production AWS
-  profiles, the stores holding customer data). It is read from user scope only, so it lives here
+  tells them where those things are (production AWS profiles, the stores holding customer data). It
+  is read from user scope only, so it lives here
 - A single block in user scope (`claude/settings.json`), not split across scopes: the docs confirm
   the sandbox arrays merge across scopes (paths from every scope combine; deny entries only narrow),
   but scalar keys (`enabled`, `failIfUnavailable`) have no documented cross-scope semantics, so a
@@ -318,14 +318,13 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   configs (`config/`, `zshrc`) stay writable: a residual, caught by reviewing the dotfiles diff
 - **Plain push goes to the classifier; unrecoverable pushes are must-nevers**: `git push` has no
   `allow` rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it,
-  which an `allow` would skip. A push to the default branch outside `~/.dotfiles` counts as a
-  production deploy (`autoMode.environment`), so the classifier should refuse it unless the user
-  asked; it overrides the built-in "push to the default branch is ordinary" exception (unverified).
-  Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every `git -C * push`
-  are `deny`; branch protection backstops the rest. Shipping one-way doors (`gh pr merge`,
-  `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
-  Destructive ones with no routine use (`gh repo delete`, `terraform destroy`) are `deny`; rarer
-  ones get a rule when they show up
+  which an `allow` would skip. The classifier treats a push to the default branch as ordinary
+  (measured: an `autoMode.environment` line calling it a production deploy didn't stop one), so each
+  remote's branch protection is what keeps unreviewed code off a deploying `main`. Only the
+  unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`) and every `git -C * push` are
+  `deny`. Shipping one-way doors (`gh pr merge`, `gh release create`, `terraform apply`,
+  `just deploy`) are `ask`: they are direction decisions. Destructive ones with no routine use
+  (`gh repo delete`, `terraform destroy`) are `deny`; rarer ones get a rule when they show up
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the

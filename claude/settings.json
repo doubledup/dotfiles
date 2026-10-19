@@ -181,8 +181,6 @@
   "autoMode": {
     "environment": [
       "$defaults",
-      "**Personal repo**: ~/.dotfiles (and its worktrees under ~/code/worktrees, named dotfiles__<branch> or .dotfiles__<branch>) is the user's personal dotfiles repo; committing and pushing straight to its main branch is the normal workflow",
-      "**CI/CD deploy targets**: in every repo other than the personal dotfiles repo (see Personal repo), treat a push to the default branch (main or master) as a Production Deploy. Feature branches and pull requests are not deploys",
       "**Production cloud accounts**: AWS profiles whose names contain prd, prod or production are production; using one is a Production Read or Production Deploy",
       "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams, CloudWatch and Datadog logs, traces and RUM sessions, log exports and database dumps. They hold customer personal information; work uses synthetic data only"
     ]
