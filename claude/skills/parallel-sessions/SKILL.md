@@ -38,7 +38,8 @@ Issues outside the hotspot parallelize freely.
 
 ## Picking issues
 
-- Work the backlog top-down, but skip an issue whose files or types overlap a sibling's.
+- Work the backlog top-down, but skip an issue whose files or types overlap a sibling's outside the
+  hotspot. Inside it, the merge order absorbs the overlap.
 - Read each issue's comments: part of it may have landed already.
 - Ask the user before scheduling anything that needs their decision (new dependency, new tool).
 
@@ -52,7 +53,8 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
 - "Continue: run a normal session per CLAUDE.md on #N", then what's left on the issue. The brief
   overrides CLAUDE.md where they differ: a branch and a draft PR, not commits to `main`, and no
   edits to the tracking issue.
-- First `git switch -c <issue>-<slug>`: the worktree's own branch is named `agent-<id>`.
+- First `git switch -c <issue>-<slug>`: the worktree's own branch, and its directory, are named
+  `agent-<id>`.
 - The siblings' scopes and what to stay out of. A shared type that must change changes minimally and
   additively.
 - Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gate, and the
@@ -60,8 +62,9 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
   an ambiguous rule, or work outside the scope.
 - Commit in small steps per git.md. Run git commit, git push and gh as lone calls, with multi-line
   text in `-F` / `--body-file` files.
-- Run the checks (skipping what the sandbox can't run), push the branch, and open a **draft** PR: a
-  title per the commit rules, a 1-2 line why, and `Closes #N`.
+- Run the checks (skipping what the sandbox can't run), push with `git push -u origin <branch>` so
+  later plain pushes work, and open a **draft** PR: a title per the commit rules, a 1-2 line why,
+  and `Closes #N`.
 - Don't edit the tracking issue. File issues for anything found but not done.
 - Final message: PR URL, check results, decisions for the user, manual checks, and a section for the
   tracking issue (what to tick, what's left, issues filed).
@@ -85,12 +88,14 @@ agent's worktree (`cd` there in its own Bash call), and only while its agent isn
 3. Below MEDIUM, or once the user says to proceed: `gh pr ready`, then wait with a lone
    `gh pr checks <pr> --watch` and Bash's 10-minute timeout, re-running the watch if CI outlasts it.
    If CI's `concurrency` group is workflow-level, a push's skipped draft run can cancel the ready
-   run: let it finish before marking the PR ready, or re-run the cancelled run.
+   run: let it finish before marking the PR ready, or re-run the cancelled run. If the user says to
+   stop instead, leave the PR as a draft, report it, and move on.
 4. If the merge method makes the PR title and body the commit, make them describe what actually
    lands, then re-read the PR: a failed edit merges the stale text.
 5. Merge with the repo's method, without `gh`'s `--delete-branch` (it tries to check out `main`
-   inside the worktree), then delete the remote branch with a lone `git push origin --delete`. `cd`
-   back to the main checkout and clean up per git.md, including the `agent-<id>` branch.
+   inside the worktree), then delete the PR's remote branch with a lone `git push origin --delete`,
+   unless the repo already did. `cd` back to the main checkout and clean up per git.md: the
+   worktree's path is in `git worktree list`, and both its branches go.
 
 After the last merge, fold the agents' tracking-issue sections into the tracking issue, check CI on
 the default branch, and report per PR: what landed, decisions left for the user, and manual checks.
