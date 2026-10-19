@@ -77,7 +77,7 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 Report format, immediately before the plan or final summary:
 
 ```
-**Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | max iterations | user said proceed].
+**Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | user said proceed at the cap].
 Rejected findings: [finding summary]: [rejection reasoning]
 Coverage gaps: [source]: [partial | no coverage]
 ```
