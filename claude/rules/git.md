@@ -1,5 +1,6 @@
 - One concern per commit, grouped by originating finding or task, not by file: a finding's complete
-  fix is one commit; a different finding's fix is another, even a one-line one
+  fix is one commit; a different finding's fix is another, even a one-line one, and so are unrelated
+  changes requested together. Check the staged diff for more than one concern before committing
 - Title: imperative, sentence case, no period, 54 characters max, starting with a verb (Add, Remove,
   Bump, Revise, Clean up, Fix, Move, Set up, Update); formatting-only commits: "fmt"
 - Body: omit unless the diff needs context; then 1-2 lines on the why, wrapped at 72, in the voice
