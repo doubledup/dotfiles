@@ -98,7 +98,7 @@ Key technical choices and their rationale:
   continue"
 - Local-only and git-ignored: items carry work detail and the repo is public. Single machine, no
   history; deleting a finished item is permanent
-- Item files hold content only, area in the filename prefix (`cc-`, `nvim-`, `shell-`)
+- Item files hold content only, area in the filename prefix (listed in the README)
 - Complements Claude Code's built-in Tasks (session-level) and Memory (preferences/decisions)
 - Alternatives considered: per-item front matter for status and priority (duplicates the README
   order and drifts), a committed backlog (public repo), GitHub Issues (requires network, splits
