@@ -1,6 +1,8 @@
 .claude/settings.local.json
 claude/reviews/
-# Local-only (public repo): private /insights usage reports + unpublished
-# config-research docs. Remove/-f a specific file to commit a redacted copy.
+# Local-only (public repo): private /insights usage reports, unpublished
+# config-research docs, and the backlog (items carry work detail). Remove/-f a
+# specific file to commit a redacted copy.
 claude/docs/improvement/
 scratch/
+backlog/

@@ -143,4 +143,4 @@ broken-links *args:
 
 # List all inline TODO/FIXME/HACK comments
 todos:
-    rg 'TODO|FIXME|HACK' --glob '!lazy-lock.json' --glob '!BACKLOG.md'
+    rg 'TODO|FIXME|HACK' --glob '!lazy-lock.json'

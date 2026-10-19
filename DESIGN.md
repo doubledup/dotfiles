@@ -91,14 +91,18 @@ Key technical choices and their rationale:
   Edit/Write). The lint hook above takes that miss: it only speeds up feedback, and the commit hook
   still gates
 
-**BACKLOG.md for work tracking:**
+**`backlog/` for work tracking:**
 
-- Git-tracked markdown file organised by effort/impact (fixes > low-hanging fruit > high impact >
-  other > new tools)
+- One markdown file per item; `backlog/README.md` holds the process and is the only place that
+  orders items (Next, then a flat Remaining list). A session starts from "read backlog/README.md and
+  continue"
+- Local-only and git-ignored: items carry work detail and the repo is public. Single machine, no
+  history; deleting a finished item is permanent
+- Item files hold content only, area in the filename prefix (`cc-`, `nvim-`, `shell-`)
 - Complements Claude Code's built-in Tasks (session-level) and Memory (preferences/decisions)
-- Split into `backlog/` directory if the file grows past ~100 items
-- Alternative considered: GitHub Issues (requires network, splits context), Beads (requires Dolt
-  server, alpha stability), split directory (premature before knowing the right split)
+- Alternatives considered: per-item front matter for status and priority (duplicates the README
+  order and drifts), a committed backlog (public repo), GitHub Issues (requires network, splits
+  context), Beads (requires Dolt server, alpha stability)
 
 **just for task running:**
 
