@@ -8,6 +8,11 @@
       "Bash(command -v:*)",
       "Bash(date)",
       "Bash(git symbolic-ref --short HEAD)",
+      "Bash(git worktree remove *)",
+      "Bash(git worktree prune)",
+      "Bash(git worktree prune *)",
+      "Bash(git branch -d *)",
+      "Bash(git branch -D *)",
       "Bash(claude doctor)",
       "mcp__claude_ai_Atlassian__editJiraIssue",
       "mcp__claude_ai_Atlassian__createJiraIssue",
@@ -288,7 +293,12 @@
       "git rebase *",
       "git merge *",
       "git cherry-pick *",
-      "git revert *"
+      "git revert *",
+      "git worktree remove *",
+      "git worktree prune",
+      "git worktree prune *",
+      "git branch -d *",
+      "git branch -D *"
     ]
   },
   "tui": "fullscreen",

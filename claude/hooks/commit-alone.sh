@@ -3,7 +3,10 @@ set -uo pipefail
 
 # PreToolUse hook: block an excluded git command that is not a lone Bash call.
 # `git commit|merge|rebase|cherry-pick|revert *` are sandbox excludedCommands so
-# GPG can reach ~/.gnupg, and `git fetch|pull|push *` so SSH remotes work, but
+# GPG can reach ~/.gnupg, `git fetch|pull|push *` so SSH remotes work, and
+# `git worktree remove|prune *` and `git branch -d|-D *` so they can delete the
+# .claude/settings.json, .git/worktrees and .git/config entries the sandbox
+# protects, but
 # the exclusion applies only when the whole call matches. Chained, piped,
 # redirected, env-prefixed or `-C` forms run sandboxed and fail. Advisory, not a
 # security leg: fails open on any parse error.
@@ -12,7 +15,7 @@ command -v jq >/dev/null 2>&1 || exit 0
 cmd="$(jq -r '.tool_input.command // empty' 2>/dev/null)" || exit 0
 [[ -n "$cmd" ]] || exit 0
 
-verbs='(commit|merge|rebase|cherry-pick|revert|fetch|pull|push)'
+verbs='(commit|merge|rebase|cherry-pick|revert|fetch|pull|push|worktree[[:space:]]+(remove|prune)|branch[[:space:]]+-[dD])'
 nl=$'\n'
 # git <verb> in command position: start, after a separator, or after VAR=val.
 # shellcheck disable=SC2016

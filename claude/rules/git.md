@@ -18,4 +18,6 @@
   those, not `git worktree add`
 - Subagents that commit get `isolation: "worktree"`: it pins their shell to the worktree, so a lone
   `git commit` lands there. Without it, every Bash call starts in the main checkout. Claude Code
-  keeps a subagent's worktree; remove it, and its branch, after the merge
+  keeps a subagent's worktree; remove it after the merge with lone calls:
+  `git worktree remove <path>` (never `--force`, which is denied), `git worktree prune`, then
+  `git branch -D <branch>`, since squash merges never count as merged for `-d`
