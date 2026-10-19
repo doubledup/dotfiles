@@ -207,6 +207,13 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `prune`, `git branch -d`/`-D`) are allowed and excluded, so cleanup skips the classifier. Only a
   planted `.git/config` (e.g. `core.fsmonitor`) turns them into code execution, which is deliberate,
   not accidental, and outside the threat model; the forced remove stays `deny`
+- Claude's temp dirs (`/tmp/claude-<uid>`, which is `$TMPDIR`) are allowed without naming the uid:
+  `Read` on `//private/tmp/claude-*/**` and `//tmp/claude-*/**`, `Edit` only on their direct
+  children (`/*`), where scratch files go. Both spellings are needed because macOS `/tmp` is a
+  symlink and an allow rule matches only when the requested and the resolved path both match. Edit
+  stays shallow so it can't reach the harness's task output under `<project>/<session>/tasks/`;
+  Claude Code also mirrors Edit allows into the sandbox's write paths. `claude-*` matches other
+  users' dirs too, accepted on a single-user machine (they are `drwx------`)
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
 
