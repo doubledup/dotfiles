@@ -49,7 +49,9 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
 
 ## The brief
 
-- "Continue: run a normal session per CLAUDE.md on #N", then what's left on the issue.
+- "Continue: run a normal session per CLAUDE.md on #N", then what's left on the issue. The brief
+  overrides CLAUDE.md where they differ: a branch and a draft PR, not commits to `main`, and no
+  edits to the tracking issue.
 - First `git switch -c <issue>-<slug>`: the worktree's own branch is named `agent-<id>`.
 - The siblings' scopes and what to stay out of. A shared type that must change changes minimally and
   additively.
@@ -72,14 +74,18 @@ Pick an order once the PRs are up: smallest and least shared first, the most hot
 conflicts land on the PRs best placed to absorb them. Then, one PR at a time, working from the
 agent's worktree (`cd` there in its own Bash call), and only while its agent isn't running:
 
-1. Merge `main` into the branch (git.md), re-run the checks and push. Resolve textual conflicts
-   yourself. A conflict in logic goes back to the owning agent through SendMessage.
-2. While the PR is still a draft, run the `ship` review loop with `/full-review <pr>`. The
+1. Run a lone `git fetch`, then merge `origin/main` into the branch (git.md), re-run the checks and
+   push. Resolve textual conflicts yourself. A conflict in logic goes back to the owning agent
+   through SendMessage.
+2. While the PR is still a draft, run the `ship` review loop with `/full-review <pr>`, giving the
+   Reviewer the worktree's path as the repo root: subagents start in the main checkout. The
    coordinator reviews, never the PR's author. Fixes go to the owning agent or are made here, one
-   commit per finding, pushed before the next iteration. Draft pushes cost no CI.
-3. Below MEDIUM: `gh pr ready`, then wait with a lone `gh pr checks <pr> --watch`. If CI's
-   `concurrency` group is workflow-level, a push's skipped draft run can cancel the ready run: let
-   it finish before marking the PR ready, or re-run the cancelled run.
+   commit per finding; re-run the checks and push before the next iteration. Draft pushes cost no
+   CI.
+3. Below MEDIUM, or once the user says to proceed: `gh pr ready`, then wait with a lone
+   `gh pr checks <pr> --watch` and Bash's 10-minute timeout. If CI's `concurrency` group is
+   workflow-level, a push's skipped draft run can cancel the ready run: let it finish before marking
+   the PR ready, or re-run the cancelled run.
 4. If the merge method makes the PR title and body the commit, make them describe what actually
    lands, then re-read the PR: a failed edit merges the stale text.
 5. Merge with the repo's method, delete the remote branch, and clean up per git.md, including the
