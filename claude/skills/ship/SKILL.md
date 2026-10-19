@@ -72,13 +72,13 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
   two consecutive iterations goes to the user.
 - Cap: 3 iterations. On a cap exit with MEDIUM or HIGH findings, say whether they persisted or were
   new, and ask the user whether to run another 3 iterations. Repeat until nothing is at MEDIUM or
-  above, or the user says to proceed or to stop. With no user to ask (a background agent), stop and
-  report the open findings.
+  above, or the user says to proceed or to stop. Stopping leaves the change unmerged and reports the
+  open findings; with no user to ask (a background agent), stop.
 
 Report format, immediately before the plan or final summary:
 
 ```
-**Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | user said proceed at the cap | user stopped at the cap].
+**Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | user said proceed at the cap | stopped at the cap].
 Rejected findings: [finding summary]: [rejection reasoning]
 Coverage gaps: [source]: [partial | no coverage]
 ```
