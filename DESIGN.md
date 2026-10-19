@@ -93,16 +93,22 @@ Key technical choices and their rationale:
 
 **`backlog-doubledup/` for work tracking:**
 
-- One markdown file per item; `backlog-doubledup/README.md` holds the process and is the only place
-  that orders items (Next, then a flat Remaining list). A session starts from "read
-  backlog-doubledup/README.md and continue"
-- Local-only and git-ignored: items carry work detail and the repo is public. Single machine, no
-  history; deleting a finished item is permanent
-- Item files hold content only, area in the filename prefix (listed in the README)
+- One local backlog per repo, at the main checkout root so worktrees share it; follow-ups go to the
+  project's backlog, or to `~/.dotfiles/backlog-doubledup/` when they concern user config. Only
+  medium-or-higher impact work is recorded, so the backlog stays short
+- One markdown file per item; the README is the only place that orders items: Next holds the single
+  highest-priority item, Remaining is a flat list
+- Read only on request ("continue the backlog"), never at session start
+- Adding an item is always loaded (user `CLAUDE.md` Workflow), since capture must work in any
+  session; working a backlog is the path-scoped `claude/rules/backlog.md`, which loads once a README
+  is read
+- Local-only and git-ignored, globally and in this repo (public; a clone may predate `rcup`): items
+  carry work detail. Single machine, no history; deleting a finished item is permanent. The
+  `-doubledup` suffix keeps the global ignore off repos with a real `backlog/` directory
 - Complements Claude Code's built-in Tasks (session-level) and Memory (preferences/decisions)
 - Alternatives considered: per-item front matter for status and priority (duplicates the README
-  order and drifts), a committed backlog (public repo), GitHub Issues (requires network, splits
-  context), Beads (requires Dolt server, alpha stability)
+  order and drifts), a committed backlog (public repo), the process in each README (copies drift),
+  GitHub Issues (requires network, splits context), Beads (requires Dolt server, alpha stability)
 
 **just for task running:**
 

@@ -33,11 +33,6 @@ Decisions:
 
 Backlog:
 
-- The backlog lives in the main checkout at `~/.dotfiles/backlog-doubledup/`, never in a worktree
-  (local-only; skip if absent). At session start read its `README.md`; it holds the process
-- In any session, record follow-up work and workflow friction (slow patterns, missing context,
-  repeated manual steps) as new `~/.dotfiles/backlog-doubledup/` items before ending, or list them
-  for the user if the backlog is absent; don't interrupt the current task to investigate
 - Run `just todos` periodically to find inline TODOs worth promoting to the backlog
 
 Verification:

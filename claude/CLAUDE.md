@@ -22,6 +22,14 @@
 
 - Explore before coding; plan and get approval before non-trivial changes (procedure: `ship` skill);
   verify after changes; keep commits small and focused
+- Record follow-up work and friction only when its impact is medium or higher (likely to cause wrong
+  behavior, lost work, a security gap, or recurring friction), without interrupting the task.
+  Project items go in `backlog-doubledup/` at the main checkout root (parent of
+  `git rev-parse --path-format=absolute --git-common-dir`, so worktrees share it); user-config items
+  (Claude Code, shell, editor, tools) in `~/.dotfiles/backlog-doubledup/`. An item is a file
+  (`# Title`, what and why) plus a `- [Title](file.md)` line under Remaining in that `README.md`;
+  create the README with `# Backlog`, `## Next`, `## Remaining` if missing. If a write is refused,
+  list the items for me. Read a backlog otherwise only when asked ("continue the backlog")
 
 ## Design Defaults
 
