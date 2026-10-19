@@ -203,7 +203,10 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   settings and in skill `allowed-tools` alike: an allow also approves the command's unsandboxed
   retry with no classifier review, and tools like `rg` (`--pre`), `fd` (`-x`), `git` (config-driven
   hooks and filters) and `just` run arbitrary code. Sandbox auto-allow already runs them unprompted.
-  Cost: plan mode prompts on them
+  Cost: plan mode prompts on them. Exception: the worktree cleanup verbs (`git worktree remove`,
+  `prune`, `git branch -d`/`-D`) are allowed and excluded, so cleanup skips the classifier. Only a
+  planted `.git/config` (e.g. `core.fsmonitor`) turns them into code execution, which is deliberate,
+  not accidental, and outside the threat model; the forced remove stays `deny`
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
 
