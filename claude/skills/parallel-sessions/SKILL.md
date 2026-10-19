@@ -57,9 +57,9 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
   `agent-<id>`.
 - The siblings' scopes and what to stay out of. A shared type that must change changes minimally and
   additively.
-- Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gate, and the
-  coordinator runs the review loop. Stop and report instead of guessing on a new dependency or tool,
-  an ambiguous rule, or work outside the scope.
+- Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gate. Skip
+  `ship`'s review loop too: the coordinator runs it. Stop and report instead of guessing on a new
+  dependency or tool, an ambiguous rule, or work outside the scope.
 - Commit in small steps per git.md. Run git commit, git push and gh as lone calls, with multi-line
   text in `-F` / `--body-file` files.
 - Run the checks (skipping what the sandbox can't run), push with `git push -u origin <branch>` so
@@ -82,9 +82,9 @@ agent's worktree (`cd` there in its own Bash call), and only while its agent isn
    logic, `git merge --abort` and hand it back to the owning agent through SendMessage.
 2. While the PR is still a draft, run the `ship` review loop with `/full-review <pr>`, whatever the
    PR's size, giving the Reviewer the worktree's path as the repo root: subagents start in the main
-   checkout. The coordinator reviews, never the PR's author. Fixes go to the owning agent or are
-   made here, one commit per finding; re-run the checks and push before the next iteration. Draft
-   pushes cost no CI.
+   checkout. The coordinator reviews, never the PR's author. Fixes go to the owning agent (wait for
+   its completion notification) or are made here, one commit per finding; re-run the checks and push
+   before the next iteration. Draft pushes cost no CI.
 3. Below MEDIUM, or once the user says to proceed: `gh pr ready`, then wait with a lone
    `gh pr checks <pr> --watch` and Bash's 10-minute timeout, re-running the watch if CI outlasts it.
    If CI's `concurrency` group is workflow-level, a push's skipped draft run can cancel the ready
