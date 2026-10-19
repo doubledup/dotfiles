@@ -91,11 +91,11 @@ Key technical choices and their rationale:
   Edit/Write). The lint hook above takes that miss: it only speeds up feedback, and the commit hook
   still gates
 
-**`backlog/` for work tracking:**
+**`backlog-doubledup/` for work tracking:**
 
-- One markdown file per item; `backlog/README.md` holds the process and is the only place that
-  orders items (Next, then a flat Remaining list). A session starts from "read backlog/README.md and
-  continue"
+- One markdown file per item; `backlog-doubledup/README.md` holds the process and is the only place
+  that orders items (Next, then a flat Remaining list). A session starts from "read
+  backlog-doubledup/README.md and continue"
 - Local-only and git-ignored: items carry work detail and the repo is public. Single machine, no
   history; deleting a finished item is permanent
 - Item files hold content only, area in the filename prefix (listed in the README)

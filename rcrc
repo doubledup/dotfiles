@@ -1,3 +1,3 @@
-EXCLUDES='AGENTS.md CLAUDE.md CLAUDE.local.md DESIGN.md LICENSE README.md TODO.md Session.vim _typos.toml backlog justfile plan.md rcignore scratch scripts stylua.toml'
+EXCLUDES='AGENTS.md CLAUDE.md CLAUDE.local.md DESIGN.md LICENSE README.md TODO.md Session.vim _typos.toml backlog-doubledup justfile plan.md rcignore scratch scripts stylua.toml'
 COPY_ALWAYS='config/karabiner/karabiner.json'
 SYMLINK_DIRS='claude/skills/*'
