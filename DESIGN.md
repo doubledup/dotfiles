@@ -102,7 +102,7 @@ Key technical choices and their rationale:
 - Adding an item is always loaded (user `CLAUDE.md` Workflow), since capture must work in any
   session; working a backlog is the path-scoped `claude/rules/backlog.md`, which loads once a README
   is read. Path rules load only for files inside the current project, so work a backlog from its own
-  repo (the dotfiles backlog from `~/.dotfiles`)
+  repo's main checkout, not a worktree (the dotfiles backlog from `~/.dotfiles`)
 - Local-only and git-ignored, globally and in this repo (public; a clone may predate `rcup`): items
   carry work detail. Single machine, no history; deleting a finished item is permanent. The
   `-doubledup` suffix keeps the global ignore off repos with a real `backlog/` directory
