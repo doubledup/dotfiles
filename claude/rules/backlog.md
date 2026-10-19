@@ -14,4 +14,4 @@ when asked ("continue the backlog"):
 - Work the Next item, or the one the user names; follow the `ship` skill if it is non-trivial
 - When done, delete the item file and its README line (backlogs have no history, so confirm the work
   landed first), then promote the highest-priority Remaining item to Next and say which
-- Item files hold content only (`# Title`, what and why); link related items by filename
+- Link related items by filename
