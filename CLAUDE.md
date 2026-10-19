@@ -33,10 +33,11 @@ Decisions:
 
 Backlog:
 
-- At session start read `backlog/README.md` (local-only; skip if absent); it holds the process
+- The backlog lives in the main checkout at `~/.dotfiles/backlog/`, never in a worktree (local-only;
+  skip if absent). At session start read its `README.md`; it holds the process
 - In any session, record follow-up work and workflow friction (slow patterns, missing context,
-  repeated manual steps) as new `backlog/` items before ending; don't interrupt the current task to
-  investigate
+  repeated manual steps) as new `~/.dotfiles/backlog/` items before ending; don't interrupt the
+  current task to investigate
 - Run `just todos` periodically to find inline TODOs worth promoting to the backlog
 
 Verification:
