@@ -1,5 +1,3 @@
-# Global Preferences
-
 ## Environment
 
 - Shell: fish; editor: neovim; terminal: kitty; OS: macOS primary, Linux occasionally
@@ -8,35 +6,30 @@
 
 ## Communication
 
-- Lead with the direct answer, then supporting reasoning
-- Be concise and precise; Hemingway over academic; default to prose
+- Lead with the direct answer, then the reasoning; concise and precise, prose by default, Hemingway
+  over academic; no preamble praise or filler; expand only when tradeoffs require it or when asked
 - Make reasonable inferences; ask when the answer would meaningfully change direction
-- Briefly flag non-obvious risks or alternative approaches when relevant
-- State uncertainty and corrections plainly, without hedging or apology
-- No preamble praise or filler; expand only when tradeoffs require it or when asked
-- Distinguish facts from inference explicitly
+- State uncertainty and corrections plainly, without hedging or apology; distinguish facts from
+  inference explicitly
+- Briefly flag non-obvious risks or alternatives when relevant; use pragmatic analogies that
+  illuminate without over-explaining
 - No em dashes
-- Use pragmatic analogies that illuminate without over-explaining
 
 ## Workflow
 
 - Explore before coding; plan and get approval before non-trivial changes (procedure: `ship` skill);
   verify after changes; keep commits small and focused
-- Record follow-up work and friction only when its impact is medium or higher (likely to cause wrong
-  behavior, lost work, a security gap, or recurring friction), without interrupting the task.
-  Project items go in `backlog-doubledup/` at the main checkout root (parent of
-  `git rev-parse --path-format=absolute --git-common-dir`, so worktrees share it); user-config items
-  (Claude Code, shell, editor, tools) in `~/.dotfiles/backlog-doubledup/`. An item is a file
-  (`# Title`, what and why) plus a `- [Title](file.md)` line under Remaining in that `README.md`;
-  create the README with `# Backlog`, `## Next`, `## Remaining` if missing. If a write is refused,
-  list the items for me. Read a backlog otherwise only when asked ("continue the backlog")
-
-## Design Defaults
-
-When I ask for design input or review (not unprompted), apply these; say so when a case warrants
-breaking one. Prefer deep modules (narrow interface, substantial implementation) [Ousterhout].
-"Easy" is not "simple"; check whether what I call easy complects concerns [Hickey]. New tech spends
-an innovation token; justify novelty [McKinley].
+- Record only follow-ups and friction of medium or higher impact (likely wrong behavior, lost work,
+  a security gap, or recurring friction) without interrupting the task, as a file (`# Title`, what
+  and why) in `backlog-doubledup/` plus a `- [Title](file.md)` line under Remaining in its
+  `README.md` (create it with `# Backlog`, `## Next`, `## Remaining` if missing). Project items: at
+  the main checkout root (`git rev-parse --path-format=absolute --git-common-dir`'s parent), so
+  worktrees share it; user-config items (Claude Code, shell, editor, tools): in `~/.dotfiles/`. If a
+  write is refused, list them for me; otherwise read a backlog only when asked ("continue the
+  backlog")
+- When I ask for design input or review, prefer deep modules (narrow interface, substantial
+  implementation) [Ousterhout], check whether what I call easy complects concerns [Hickey], and
+  justify novelty as a spent innovation token [McKinley]; say when a case warrants breaking one
 
 ## Safety
 
@@ -66,13 +59,9 @@ an innovation token; justify novelty [McKinley].
   redirect, chain, loop, env prefix, or background run sandboxes them. Process output separately
 - Bash can write in the working directory; prefer it over Write for byte-exact copies
 
-## Repo Text
+## Repo Text and Persistence
 
-- Docs, config, and code comments state what holds now and why. Don't describe past repo state or
-  compare with an earlier version ("was removed", "no longer", "now fetches"); that belongs in the
-  commit message
-
-## Persistence
-
+- Docs, config, and comments state what holds now and why, never past state or comparisons with it
+  ("was removed", "no longer", "now fetches"); history belongs in the commit message
 - Project-wide decisions and conventions go in repo-committed files (CLAUDE.md, .claude/rules/,
   DESIGN.md); memory files are machine-local, only for per-user preferences
