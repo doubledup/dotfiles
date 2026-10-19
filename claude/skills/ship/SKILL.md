@@ -72,7 +72,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
   two consecutive iterations goes to the user.
 - Cap: 3 iterations. On a cap exit with MEDIUM or HIGH findings, say whether they persisted or were
   new, and ask the user whether to run another 3 iterations. Repeat until nothing is at MEDIUM or
-  above, or the user says to proceed or to stop.
+  above, or the user says to proceed or to stop. With no user to ask (a background agent), stop and
+  report the open findings.
 
 Report format, immediately before the plan or final summary:
 
