@@ -236,6 +236,9 @@
       ],
       "denyWrite": [
         "~/**/.git/hooks",
+        "~/**/.git/config",
+        "~/.gitconfig",
+        "~/.config/git/config",
         "~/.dotfiles/.githooks",
         "~/.dotfiles/claude/hooks",
         "~/.dotfiles/claude/skills",

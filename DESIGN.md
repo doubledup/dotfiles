@@ -343,6 +343,14 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `claude/rules`, `.githooks`, `justfile` and `scripts`. A build script or dependency in another
   repo can't plant code there; the Edit tool still can, under the permission flow. Shell and editor
   configs (`config/`, `zshrc`) stay writable: a residual, caught by reviewing the dotfiles diff
+- **Git config is sandbox read-only** (`~/**/.git/config`, `~/.gitconfig`, `~/.config/git/config` in
+  `denyWrite`): `core.sshCommand`, `remote.<n>.uploadpack` and similar keys run a command on the
+  next unsandboxed `git fetch`/`push`, which the classifier sees only as a plain fetch. The project
+  root's `.git/config` is already built-in protected; these entries extend that to every repo and to
+  global config. `~/.gitconfig` is named, not its rcm target, and the sandbox resolves the symlink
+  (measured: `git config --global` fails), so the rule survives cloning this repo elsewhere. Cost:
+  sandboxed config writes (`git remote add`, `git branch -u`) run via `!`; `git push -u` is excluded
+  and unaffected
 - **Plain push goes to the classifier; unrecoverable pushes are must-nevers**: `git push` has no
   `allow` rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it,
   which an `allow` would skip. The classifier treats a push to the default branch as ordinary
