@@ -86,7 +86,12 @@ hook. Note on `git push`: plain push has no rule (the classifier reviews it); on
 (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`,
 `--receive-pack`/`--exec`) and `git -C * push` are must-never `deny` rules. The `:branch` rule is
 `Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
-mid-wildcard.
+mid-wildcard. Two more spelling rules, both measured: match a long option on its shortest unique
+prefix (`--forc`, `--de`, `--pru`, `--rece`, `--e`, `--upl`, `--ex`; check `git <verb> -h`), since
+git accepts any unique abbreviation; and give every `Bash(git push *--x*)` a leading twin
+`Bash(git push --x*)`, since a `*` right after the command prefix does not match empty. Test a deny
+with a command the classifier would pass (a `--dry-run`): an auto-mode refusal alone does not prove
+the rule matched.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
