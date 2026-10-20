@@ -348,11 +348,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   which an `allow` would skip. The classifier treats a push to the default branch as ordinary
   (measured: an `autoMode.environment` line calling it a production deploy didn't stop one), so each
   remote's branch protection is what keeps unreviewed code off a deploying `main`. Only the
-  unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`) and
-  every `git -C * push` are `deny`. Shipping one-way doors (`gh pr merge`, `gh release create`,
-  `terraform apply`, `just deploy`) are `ask`: they are direction decisions. Destructive ones with
-  no routine use (`gh repo delete`, `terraform destroy`) are `deny`; rarer ones get a rule when they
-  show up
+  unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`,
+  `--prune`, `--receive-pack`/`--exec`) and every `git -C * push` are `deny`. Shipping one-way doors
+  (`gh pr merge`, `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are
+  direction decisions. Destructive ones with no routine use (`gh repo delete`, `terraform destroy`)
+  are `deny`; rarer ones get a rule when they show up
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the

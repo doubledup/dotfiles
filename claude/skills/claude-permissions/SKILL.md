@@ -50,7 +50,8 @@ case that needs the hook.
 
 Plain push has no rule: it runs unprompted, reviewed by the auto-mode classifier, which an `allow`
 would skip. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`,
-`:branch`, any `git -C * push`) are must-never `deny` rules. No hook either way.
+`:branch`, `--prune`, `--receive-pack`/`--exec`, any `git -C * push`) are must-never `deny` rules.
+No hook either way.
 
 ## Locate the config (two scopes)
 
