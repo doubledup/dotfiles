@@ -19,6 +19,11 @@ Style:
 
 ## Workflow
 
+Branches:
+
+- Commit directly to `main`: this repo has a single contributor, so it uses no feature branches or
+  PRs (this overrides the global "branch first" default)
+
 Before committing:
 
 - The pre-commit hook formats staged files and runs `just check`; on failure, fix lint (or format a
