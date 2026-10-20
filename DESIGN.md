@@ -377,7 +377,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `git -C *` forms; an `allow` would skip that review. In-repo hooks and merge drivers they trigger
   run outside the sandbox as hooks already do for `git commit`. `rebase --exec`/`-x` (arbitrary
   command, unsandboxed) is `deny` in leading or later flag position; clustered short flags (`-ix`)
-  fall to the classifier
+  fall to the classifier. `git fetch`/`pull --upload-pack` is `deny` for the same reason: both are
+  excluded, and a project `allow` on `git fetch` would otherwise skip the classifier
 - **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
   and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
   every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,

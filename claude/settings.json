@@ -91,6 +91,8 @@
       "Bash(git rebase * --exec*)",
       "Bash(git rebase -x*)",
       "Bash(git rebase * -x*)",
+      "Bash(git fetch *--upload-pack*)",
+      "Bash(git pull *--upload-pack*)",
       "Bash(git worktree remove -f:*)",
       "Bash(git worktree remove * -f*)",
       "Bash(git worktree remove *--force*)",
