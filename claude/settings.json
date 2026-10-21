@@ -108,6 +108,8 @@
       "Bash(git push file:/*)",
       "Bash(git push * file:/*)",
       "Bash(git -C * push*)",
+      "Bash(git -c * push*)",
+      "Bash(git --* push*)",
       "Bash(git rebase --ex*)",
       "Bash(git rebase * --ex*)",
       "Bash(git rebase -x*)",

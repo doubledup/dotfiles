@@ -84,11 +84,12 @@ subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is co
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
 hook. Note on `git push`: plain push has no rule (the classifier reviews it); only the force forms
 (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`,
-`--receive-pack`/`--exec`, a local-path remote) and `git -C * push` are must-never `deny` rules. The
-local-path rules (`/`, `./`, `../`, `~`, `file:/`) exist because a local target's `receive-pack`
-runs that repo's hooks unsandboxed. The `+` rule matches only a leading `+` argument
-(`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule is
-`Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
+`--receive-pack`/`--exec`, a local-path remote) and `git -C * push`/`git -c * push`/`git --* push`
+are must-never `deny` rules (a global option before the verb skips every `git push …` rule and runs
+sandboxed and unjudged). The local-path rules (`/`, `./`, `../`, `~`, `file:/`) exist because a
+local target's `receive-pack` runs that repo's hooks unsandboxed. The `+` rule matches only a
+leading `+` argument (`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule
+is `Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
 mid-wildcard. Two more spelling rules, both measured: match a long option on its shortest unique
 prefix (`--forc`, `--m`, `--de`, `--pru`, `--no-veri`, `--rece`, `--e`, `--upl`, `--ex`; check
 `git <verb> -h`), since git accepts any unique abbreviation; and give every `Bash(git push *--x*)` a
