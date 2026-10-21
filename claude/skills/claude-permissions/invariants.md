@@ -83,15 +83,18 @@ each destructive must-never, confirm a `deny` rule in the correct form. Example:
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
 hook. Note on `git push`: plain push has no rule (the classifier reviews it); only the force forms
-(`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`,
-`--receive-pack`/`--exec`) and `git -C * push` are must-never `deny` rules. The `:branch` rule is
+(`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`,
+`--receive-pack`/`--exec`, a local-path remote) and `git -C * push` are must-never `deny` rules. The
+local-path rules (`/`, `./`, `../`, `~`, `file:/`) exist because a local target's `receive-pack`
+runs that repo's hooks unsandboxed. The `+` rule matches only a leading `+` argument
+(`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule is
 `Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
 mid-wildcard. Two more spelling rules, both measured: match a long option on its shortest unique
-prefix (`--forc`, `--de`, `--pru`, `--rece`, `--e`, `--upl`, `--ex`; check `git <verb> -h`), since
-git accepts any unique abbreviation; and give every `Bash(git push *--x*)` a leading twin
-`Bash(git push --x*)`, since a `*` right after the command prefix does not match empty. Test a deny
-with a command the classifier would pass (a `--dry-run`): an auto-mode refusal alone does not prove
-the rule matched.
+prefix (`--forc`, `--m`, `--de`, `--pru`, `--no-veri`, `--rece`, `--e`, `--upl`, `--ex`; check
+`git <verb> -h`), since git accepts any unique abbreviation; and give every `Bash(git push *--x*)` a
+leading twin `Bash(git push --x*)`, since a `*` right after the command prefix does not match empty.
+Test a deny with a command the classifier would pass (a `--dry-run`): an auto-mode refusal alone
+does not prove the rule matched.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
