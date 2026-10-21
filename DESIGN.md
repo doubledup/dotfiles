@@ -231,6 +231,14 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   stays shallow so it can't reach the harness's task output under `<project>/<session>/tasks/`;
   Claude Code also mirrors Edit allows into the sandbox's write paths. `claude-*` matches other
   users' dirs too, accepted on a single-user machine (they are `drwx------`)
+- The file tools' `Read` in `~/.claude` is an allowlist, not a broad allow with denies: the
+  directory also holds key files, transcripts, prompt and paste history and file snapshots, and
+  Claude Code adds new state directories over time, so a denylist fails open. The config directories
+  (`skills`, `agents`, `rules`, `hooks`, `commands`, `docs`) and the top-level `CLAUDE.md` and
+  `settings.json` hold symlinks into `~/.dotfiles/claude/`, so each needs `~/.dotfiles/claude/**` as
+  well, for the resolved path. Memory (`projects/*/memory/**`) and `plans/**` are real directories.
+  Everything else in `~/.claude` prompts. This gates the file tools only: sandboxed Bash reads all
+  of `~/.claude` except the paths the sandbox itself denies
 - Work-only config (Jira, acli, jdtls-lombok, Atlassian asks) lives under `tag-work/`, enabled only
   on the work machine, so rcm never links it here
 
