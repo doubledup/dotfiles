@@ -387,6 +387,10 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   command, unsandboxed) is `deny` in leading or later flag position; clustered short flags (`-ix`)
   fall to the classifier. `git fetch`/`pull --upload-pack` is `deny` for the same reason: both are
   excluded, and a project `allow` on `git fetch` would otherwise skip the classifier
+- **`git commit` is allowed** (unlike the history verbs): commits are local and reversible, and the
+  classifier sees only `git commit -m …`, not the hooks it triggers, so its review adds little. The
+  real exposure is the commit's pre-commit hooks running unsandboxed from an editable in-tree
+  config, an accepted residual the classifier could not catch either
 - **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
   and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
   every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,

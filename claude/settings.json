@@ -7,6 +7,7 @@
     "allow": [
       "Bash(command -v:*)",
       "Bash(date)",
+      "Bash(git commit:*)",
       "Bash(git symbolic-ref --short HEAD)",
       "Bash(git worktree remove *)",
       "Bash(git worktree prune)",
