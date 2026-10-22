@@ -434,8 +434,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
   every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,
   `--recursive`, `-fr`, `-fR`, in leading or later position). `find -delete` is `deny` for the same
-  reason; `find -exec rm` and `xargs rm -r` are accepted residuals. `dd` and `rsync` have no rule:
-  sandboxed, they reach only what plain `rm` already can
+  reason; `find -exec rm`, `xargs rm -r` and `rsync --delete` are accepted residuals: rare, and
+  bounded by the sandbox's write set. `dd` and `rsync` otherwise have no rule
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
   `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade the recursive `rm` denies)
 - **The `Grep` built-in tool is denied**: it bypasses the sandbox, so a broad `Grep(path=~)` could
