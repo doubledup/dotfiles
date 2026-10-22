@@ -52,7 +52,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
    rollback, stop and surface it with the suggested approach rather than re-implementing.
 5. Present the review summary, then what changed and any follow-ups (or that nothing changed).
 6. If the change goes out as a PR, draft its title and body per the repo's conventions and present
-   them; run `gh pr create` only after the user approves.
+   them; run `gh pr create` only after the user approves. A run the user already approved to open
+   its own draft PR (`parallel-sessions`) counts as that approval.
 
 ## Review loop
 
