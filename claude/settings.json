@@ -177,6 +177,8 @@
       "Bash(gh codespace delete:*)",
       "Bash(gh api -X DELETE*)",
       "Bash(gh api *-X DELETE*)",
+      "Bash(gh api -X=DELETE*)",
+      "Bash(gh api *-X=DELETE*)",
       "Bash(gh api -XDELETE*)",
       "Bash(gh api *-XDELETE*)",
       "Bash(gh api --method DELETE*)",
