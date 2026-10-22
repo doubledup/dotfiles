@@ -69,8 +69,9 @@ Audit both; attribute every finding and edit to a scope.
   `.claude/settings.local.json`, `.claude/rules/`, `.claude/hooks/`. Usually additive allows.
 - **Managed scope** (enterprise MDM) is out of read scope; assume absent (solo setup) and say so in
   the report.
-- Never edit through the `~/.claude` symlinks - Edit/Write refuse it and the repo is the source
-  (`.claude/rules/toolchain.md`).
+- Never edit through the `~/.claude` symlinks - the repo is the source
+  (`.claude/rules/toolchain.md`), and `~/.claude` is a built-in protected path, so writes there
+  always go through the permission prompt or classifier.
 
 ## Mode A: audit (no argument)
 
