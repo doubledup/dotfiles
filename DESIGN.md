@@ -337,10 +337,13 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `rcup`/`rcdn`/`mkrc` (symlink `$HOME`), `gh` (Go-TLS fails under Seatbelt), `git commit` (GPG
   needs the gpg-agent socket and `~/.gnupg`), `git fetch`/`pull`/`push` (macOS can't tunnel git's
   SSH through the sandbox proxy, and the remotes stay SSH rather than needing an HTTPS credential
-  helper). Broad home-write grants are a privilege-escalation surface (shell configs, `$PATH` dirs).
-  `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design: maintenance-only, fail under the
-  sandbox, run via `!` or a prompted unsandboxed retry; excluding them would run build tools
-  unsandboxed in every repo
+  helper). Push is excluded only toward `origin` (`git push`, `git push origin …`,
+  `git push -u`/`--set-upstream origin …`): any other target, however spelled (a path, `--repo=`, a
+  variable), runs sandboxed, so a local target's `receive-pack` hooks stay contained; `origin`'s URL
+  is in sandbox-protected `.git/config`. Broad home-write grants are a privilege-escalation surface
+  (shell configs, `$PATH` dirs). `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design:
+  maintenance-only, fail under the sandbox, run via `!` or a prompted unsandboxed retry; excluding
+  them would run build tools unsandboxed in every repo
 - `autoAllowBashIfSandboxed: true` (the documented large prompt reduction): sandboxable commands run
   unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
   secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
