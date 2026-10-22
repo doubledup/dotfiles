@@ -19,7 +19,7 @@ verbs='(commit|merge|rebase|cherry-pick|revert|fetch|pull|push|worktree[[:space:
 nl=$'\n'
 # Drop heredoc bodies, so a file written with `cat <<EOF` that only mentions a
 # verb is not taken for a call.
-heredoc='(^|[^<])<<-?[[:space:]]*["'\'']?([A-Za-z_][A-Za-z0-9_]*)'
+heredoc='(^|[^<])<<-?[[:space:]]*["'\''\]?([A-Za-z_][A-Za-z0-9_]*)'
 scan='' delim=''
 while IFS= read -r line; do
     if [[ -n "$delim" ]]; then
