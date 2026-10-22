@@ -17,9 +17,9 @@ the title and body are the intent, a claim to verify rather than a source of tru
 ## Resolve
 
 - PR (a URL, or a bare number, which is never treated as a SHA):
-  `gh pr view <pr> --json headRefOid,baseRefOid,title,body`. Target is `headRefOid`; base defaults
-  to `baseRefOid`, not `baseRefName`, because a stale local `origin/<base>` would pull merged-in
-  commits into the diff.
+  `gh pr view <pr> --json number,headRefOid,headRefName,isCrossRepository,baseRefOid,title,body`.
+  Target is `headRefOid`; base defaults to `baseRefOid`, not `baseRefName`, because a stale local
+  `origin/<base>` would pull merged-in commits into the diff.
 - Commit: run a lone `git fetch`, then resolve with `git rev-parse <commit>`, so a remote-only SHA
   or an `origin/<branch>` ref resolves to its current value; everything since the base is reviewed,
   not just that commit. Base defaults to `origin/HEAD`; if that ref is unset, ask the user for a
@@ -37,12 +37,19 @@ name the repo.
 2. If `git rev-parse HEAD` equals the target, skip to step 5.
 3. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached, for the
    output. Run a lone `git fetch` (skip it if Resolve just ran one).
-4. Check out the target:
-    - PR: `gh pr checkout <pr>`, never `--force`. It fast-forwards an existing local branch; if it
-      refuses (a diverged branch, an untracked file in the way), stop and report the error.
-    - Commit: `git switch <commit>` if `git rev-parse --verify -q refs/heads/<commit>` equals the
+4. Check out the target with hooks off: every `switch` and `merge` here is
+   `git -c core.hooksPath=/dev/null …`. A repo whose hooks path is tracked (`.githooks`, `.husky`)
+   would otherwise run the target's own `post-checkout` or `post-merge` hook, and `git merge` runs
+   unsandboxed. Never `gh pr checkout`: it runs unsandboxed with hooks on, and is denied.
+    - PR: run a lone `git fetch origin pull/<number>/head`, which writes no working-tree files. For
+      a same-repo PR (`isCrossRepository` false) with a local `<headRefName>` branch, switch to it,
+      then `merge --ff-only <target>`. With no local branch, `switch -c <headRefName> <target>`. For
+      a fork PR, whose branch name may collide with an unrelated local one, or when the branch is
+      checked out in another worktree, `switch --detach <target>`.
+    - Commit: `switch <commit>` if `git rev-parse --verify -q refs/heads/<commit>` equals the
       target; otherwise, or if that branch is checked out in another worktree,
-      `git switch --detach <target>`. Stop and report any other refusal.
+      `switch --detach <target>`.
+    - Stop and report any other refusal (a diverged branch, an untracked file in the way).
 5. Check that `git rev-parse HEAD` equals the target (a PR pushed mid-run fails here) and that
    `git cat-file -e <base>^{commit}` passes. On either failure, stop and report it.
 

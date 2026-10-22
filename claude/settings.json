@@ -157,6 +157,7 @@
       "Bash(git -C * worktree remove -f*)",
       "Bash(git -C * worktree remove * -f*)",
       "Bash(git -C * worktree remove *--force*)",
+      "Bash(gh pr checkout:*)",
       "Bash(gh repo delete:*)",
       "Bash(gh repo archive:*)",
       "Bash(gh repo rename:*)",
