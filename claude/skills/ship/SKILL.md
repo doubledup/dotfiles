@@ -51,6 +51,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
    re-verify (committing any verification fixes), and re-enter the loop. If a finding is marked
    rollback, stop and surface it with the suggested approach rather than re-implementing.
 5. Present the review summary, then what changed and any follow-ups (or that nothing changed).
+6. If the change goes out as a PR, draft its title and body per the repo's conventions and present
+   them; run `gh pr create` only after the user approves.
 
 ## Review loop
 
@@ -69,7 +71,7 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
   accepting in a smaller form.
 - On iterations 2+, send the previous findings with each disposition and its reasoning. Rejections
   do not exit the loop; the reviewer must confirm or re-raise. A finding rejected and re-raised in
-  two consecutive iterations goes to the user.
+  two consecutive iterations is listed as re-raised in the report rather than argued again.
 - Cap: 3 iterations. On a cap exit with MEDIUM or HIGH findings, say whether they persisted or were
   new, and ask the user whether to run another 3 iterations. Repeat until nothing is at MEDIUM or
   above, or the user says to proceed or to stop. Stopping leaves the change unmerged and reports the
@@ -80,7 +82,8 @@ Report format, immediately before the plan or final summary:
 ```
 **Review loop**: N iteration(s). Exit: [all findings resolved | only low-impact remain | user said proceed at the cap | stopped at the cap].
 Rejected findings: [finding summary]: [rejection reasoning]
+Re-raised findings: [finding summary]: [rejection reasoning]
 Coverage gaps: [source]: [partial | no coverage]
 ```
 
-Omit the rejected and coverage lines when empty; list LOW findings below it.
+Omit the rejected, re-raised, and coverage lines when empty; list LOW findings below it.
