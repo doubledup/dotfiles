@@ -127,4 +127,5 @@ Switched from: <branch> (return: git switch <branch>) | <sha> (return: git switc
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Omit empty severity sections, and the `Switched from` line when no checkout ran.
+Omit empty severity sections, and the `Switched from` line when no checkout ran. Once a checkout has
+run, every report carries that line, including a stop.
