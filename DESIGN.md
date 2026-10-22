@@ -373,15 +373,16 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   direction decisions. Known-destructive changes to remote state are `deny` up front: repo delete,
   archive, rename and visibility changes; gh release, secret, variable, label, gist, issue and
   project deletes; `gh api` DELETE calls and graphql delete mutations; `terraform destroy`,
-  `-destroy` and `state rm`; `aws` `delete-*`, `terminate-*`, `s3 rm` and `s3 rb` on any profile;
-  and the Atlassian MCP's `executeDestructive`. `gh pr checkout` is `deny` too: `gh` is excluded, so
-  it would run a PR's own `post-checkout` hook unsandboxed in a repo with a tracked hooks path (this
-  repo's `.githooks`); checkouts go through a lone fetch and a hooks-off `git switch`. Regenerable
-  state (`gh run delete`, `gh cache delete`) has no rule. Each mid-command wildcard rule has a
-  leading twin, since `*` after the prefix doesn't match empty. Residuals: variable-built commands,
-  other flag orders, and SDK scripts (boto3) bypass these patterns, accepted per the accidents-only
-  threat model; routine dev deletes (`aws sqs delete-message`) run via `!`; `terraform *-destroy*`
-  also blocks the harmless `plan -destroy`
+  `-destroy` and `state rm`; `aws` commands containing `delete` (`delete-*`, `batch-delete-*`,
+  `s3 sync --delete`) or `purge`, plus `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
+  on any profile; and the Atlassian MCP's `executeDestructive`. `gh pr checkout` is `deny` too: `gh`
+  is excluded, so it would run a PR's own `post-checkout` hook unsandboxed in a repo with a tracked
+  hooks path (this repo's `.githooks`); checkouts go through a lone fetch and a hooks-off
+  `git switch`. Regenerable state (`gh run delete`, `gh cache delete`) has no rule. Each mid-command
+  wildcard rule has a leading twin, since `*` after the prefix doesn't match empty. Residuals:
+  variable-built commands, other flag orders, and SDK scripts (boto3) bypass these patterns,
+  accepted per the accidents-only threat model; routine dev deletes (`aws sqs delete-message`) run
+  via `!`; `terraform *-destroy*` also blocks the harmless `plan -destroy`
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
