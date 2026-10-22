@@ -48,7 +48,10 @@
   and untracked files are mine
 - Never work around a denial from any source (deny rule, sandbox, classifier). Stop at the first one
   in a planned sequence, run nothing after it, and raise it with a one-line justification: it is a
-  config bug or a real edge case, and I judge which
+  config bug or a real edge case, and I judge which. An unsandboxed retry through the permission
+  flow is not a workaround, but only past an incidental restriction (a cache write, an unlisted
+  host, a tool that breaks under Seatbelt); a block on a credential or a protected config path is
+  the sandbox working, so hand the command to me via `!`
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 - Never send my email or other personal details to an outside service unless I ask: not in a
   User-Agent, header, URL, or payload. Where a service asks for contact details (crates.io), use the
