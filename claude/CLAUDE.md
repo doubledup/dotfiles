@@ -42,6 +42,8 @@
   sandbox-blocked maintenance (brew, rustup, cargo, plugin sync)
 - Use synthetic data only: never ask for, read, or paste real customer data, log exports, or table
   dumps. If debugging needs data, ask me for a synthetic reproduction
+- Destructive changes to remote state (deletes, destroys, force pushes, repo archive) are
+  hard-denied; never route around a deny
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 - Never send my email or other personal details to an outside service unless I ask: not in a
   User-Agent, header, URL, or payload. Where a service asks for contact details (crates.io), use the
