@@ -17,10 +17,22 @@ cmd="$(jq -r '.tool_input.command // empty' 2>/dev/null)" || exit 0
 
 verbs='(commit|merge|rebase|cherry-pick|revert|fetch|pull|push|worktree[[:space:]]+(remove|prune)|branch[[:space:]]+-[dD])'
 nl=$'\n'
+# Drop heredoc bodies, so a file written with `cat <<EOF` that only mentions a
+# verb is not taken for a call.
+heredoc='(^|[^<])<<-?[[:space:]]*["'\'']?([A-Za-z_][A-Za-z0-9_]*)'
+scan='' delim=''
+while IFS= read -r line; do
+    if [[ -n "$delim" ]]; then
+        [[ "${line#"${line%%[![:space:]]*}"}" == "$delim" ]] && delim=''
+        continue
+    fi
+    scan+="$line$nl"
+    [[ "$line" =~ $heredoc ]] && delim="${BASH_REMATCH[2]}"
+done <<<"$cmd"
 # git <verb> in command position: start, after a separator, or after VAR=val.
 # shellcheck disable=SC2016
 invoked='(^|[;&|(`'"$nl"']|\$\()[[:space:]]*([A-Za-z_][A-Za-z0-9_]*=[^[:space:]]*[[:space:]]+)*git([[:space:]]+-C[[:space:]]+[^[:space:]]+)?[[:space:]]+'"$verbs"'([[:space:]]|$)'
-[[ "$cmd" =~ $invoked ]] || exit 0
+[[ "$scan" =~ $invoked ]] || exit 0
 
 lone='^git[[:space:]]+'"$verbs"'([[:space:]]|$)'
 # shellcheck disable=SC2016

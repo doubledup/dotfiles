@@ -44,6 +44,8 @@ expect 0 'git push -u origin x'
 expect 0 'git stash push -m x && git status'
 expect 0 'rg -n "git commit" claude/'
 expect 0 'git log --grep "git commit"'
+expect 0 $'cat > "$TMPDIR/notes" <<\'EOF\'\ngit add .\ngit commit -m x\nEOF'
+expect 2 $'cat > "$TMPDIR/notes" <<\'EOF\'\nx\nEOF\ngit commit -m x'
 
 if [[ $failures -gt 0 ]]; then
     echo "$failures commit-alone test(s) failed" >&2
