@@ -57,9 +57,9 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
   `agent-<id>`.
 - The siblings' scopes and what to stay out of. A shared type that must change changes minimally and
   additively.
-- Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gate. Skip
-  `ship`'s review loop too: the coordinator runs it. Stop and report instead of guessing on a new
-  dependency or tool, an ambiguous rule, or work outside the scope.
+- Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gates, plan
+  and PR. Skip `ship`'s review loop too: the coordinator runs it. Stop and report instead of
+  guessing on a new dependency or tool, an ambiguous rule, or work outside the scope.
 - Commit in small steps per git.md. Run git commit, git push and gh as lone calls, with multi-line
   text in `-F` / `--body-file` files.
 - Run the checks (skipping what the sandbox can't run), push with `git push -u origin <branch>` so
