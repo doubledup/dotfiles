@@ -65,10 +65,10 @@ promise one.
 ## Invariants
 
 **1. Destructive must-never => `deny` rule, no hook.** A must-never destructive command (sudo,
-recursive `rm`, force `git push`, `git clean`, `find` side-effecting primaries) is enforced by a
-settings.json `deny` rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected
-under sandbox auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7)
-contains what runs; and enforcement hooks must not parse Bash command strings, which is fragile on
+recursive `rm`, force `git push`, `git clean`, `find -delete`) is enforced by a settings.json `deny`
+rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected under sandbox
+auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7) contains what runs;
+and enforcement hooks must not parse Bash command strings, which is fragile on
 quoting/operators/`$()` (the allow-only `gh-api-readonly.sh` parses, but fails open to the prompt).
 Use the colon `:*` form so the no-arg case is caught (`Bash(git clean:*)`, never `... *`) - **except
 when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A
@@ -83,19 +83,18 @@ each destructive must-never, confirm a `deny` rule in the correct form. Example:
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
 `Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
 hook. Note on `git push`: plain push has no rule (the classifier reviews it); only the force forms
-(`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`,
-`--receive-pack`/`--exec`, a local-path remote) and `git -C * push`/`git -c * push`/`git --* push`
-are must-never `deny` rules (a global option before the verb skips every `git push …` rule and runs
-sandboxed and unjudged). The local-path rules (`/`, `./`, `../`, `~`, `file:/`) exist because a
-local target's `receive-pack` runs that repo's hooks unsandboxed. The `+` rule matches only a
-leading `+` argument (`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule
-is `Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
+(`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`) and
+`git -C * push`/`git -c * push`/`git --* push` are must-never `deny` rules (a global option before
+the verb skips every `git push …` rule and runs sandboxed and unjudged). Flags that only an attacker
+would add (`--receive-pack`, `--exec`, `--upload-pack`, `rebase --exec`) and remote or config
+repointing get no rule (threat model). The `+` rule matches only a leading `+` argument
+(`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule is
+`Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
 mid-wildcard. Two more spelling rules, both measured: match a long option on its shortest unique
-prefix (`--forc`, `--m`, `--de`, `--pru`, `--no-veri`, `--rece`, `--e`, `--upl`, `--ex`; check
-`git <verb> -h`), since git accepts any unique abbreviation; and give every `Bash(git push *--x*)` a
-leading twin `Bash(git push --x*)`, since a `*` right after the command prefix does not match empty.
-Test a deny with a command the classifier would pass (a `--dry-run`): an auto-mode refusal alone
-does not prove the rule matched.
+prefix (`--forc`, `--m`, `--de`, `--pru`, `--no-veri`; check `git <verb> -h`), since git accepts any
+unique abbreviation; and give every `Bash(git push *--x*)` a leading twin `Bash(git push --x*)`,
+since a `*` right after the command prefix does not match empty. Test a deny with a command the
+classifier would pass (a `--dry-run`): an auto-mode refusal alone does not prove the rule matched.
 
 **2. Secret-path read => `Bash(*.env*)` deny + path-matching guard.** A secret path needs BOTH a
 `Bash(*.env*)`-family `deny` rule (blocks `cat .env`, which `Read(...)` denies don't cover) AND
@@ -140,9 +139,9 @@ confirm => `ask` in settings.json (the guard never asks; the sandbox/classifier 
 must-never that is only `ask`, a confirm that is hard-denied, or any guard Bash-command block (which
 no longer exists) is a mismatch. Check: for each denied/guarded command, compare its settings
 disposition to the enforcement. Example: `gh pr merge` = `ask` (coherent); sudo/recursive
-`rm`/`git clean`/`dd`/`rsync`/`find` primaries = `deny` (coherent); discarding uncommitted edits
-(`reset --hard`, `checkout -f`) = no rule, sandbox auto-allowed (recoverable by redoing the work);
-the guard's only leg is the Read/Grep/Glob secret-path block.
+`rm`/`git clean`/`find -delete` = `deny` (coherent); discarding uncommitted edits (`reset --hard`,
+`checkout -f`) = no rule, sandbox auto-allowed (recoverable by redoing the work); the guard's only
+leg is the Read/Grep/Glob secret-path block.
 
 **7. Sandbox posture.** The `sandbox` block IS configured with the hard floor
 (`failIfUnavailable: true`; unsandboxed retries go to the auto-mode classifier, with `deny` rules

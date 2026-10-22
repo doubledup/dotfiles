@@ -369,17 +369,17 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   (measured: an `autoMode.environment` line calling it a production deploy didn't stop one), so each
   remote's branch protection is what keeps unreviewed code off a deploying `main`. Only the
   unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`,
-  `--prune`, `--receive-pack`/`--exec`) and every `git -C * push` are `deny`. Shipping one-way doors
-  (`gh pr merge`, `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are
-  direction decisions. Known-destructive changes to remote state are `deny` up front: repo delete,
-  archive, rename and visibility changes; gh release, secret, variable, label, gist, issue, project
-  (and its items and fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api` DELETE
-  calls and graphql delete mutations; `terraform destroy`, `-destroy`, `state rm` and
-  `workspace delete`; `aws` operations named `delete-*`, `*-delete-*` (`batch-delete-image`) or
-  `purge-*`, plus `s3 sync --delete`, `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
-  on any profile; and the Atlassian MCP's `executeDestructive`. `full-review` checks out same-repo
-  PRs with `gh pr checkout`, which runs unsandboxed with the PR's tracked hooks; teammates' PRs are
-  trusted per the accidents-only threat model, and fork PRs stop for the user. Regenerable state
+  `--prune`) and every `git -C * push` are `deny`. Shipping one-way doors (`gh pr merge`,
+  `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
+  Known-destructive changes to remote state are `deny` up front: repo delete, archive, rename and
+  visibility changes; gh release, secret, variable, label, gist, issue, project (and its items and
+  fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api` DELETE calls and graphql
+  delete mutations; `terraform destroy`, `-destroy`, `state rm` and `workspace delete`; `aws`
+  operations named `delete-*`, `*-delete-*` (`batch-delete-image`) or `purge-*`, plus
+  `s3 sync --delete`, `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`, on any profile;
+  and the Atlassian MCP's `executeDestructive`. `full-review` checks out same-repo PRs with
+  `gh pr checkout`, which runs unsandboxed with the PR's tracked hooks; teammates' PRs are trusted
+  per the accidents-only threat model, and fork PRs stop for the user. Regenerable state
   (`gh run delete`, `gh cache delete`) has no rule. A rule with a `*` straight after the command
   prefix gets a leading twin wherever its match can come first (`gh api -X DELETE`), since that `*`
   doesn't match empty; `aws *delete*` needs none, as a service name always fills it. Residuals:
@@ -411,10 +411,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `revert`, and `pull`, which merges): they are `excludedCommands` for GPG signing, so they run
   unsandboxed and the auto-mode classifier reviews each, as it does their `--abort`/`--skip` and
   `git -C *` forms; an `allow` would skip that review. In-repo hooks and merge drivers they trigger
-  run outside the sandbox as hooks already do for `git commit`. `rebase --exec`/`-x` (arbitrary
-  command, unsandboxed) is `deny` in leading or later flag position; clustered short flags (`-ix`)
-  fall to the classifier. `git fetch`/`pull --upload-pack` is `deny` for the same reason: both are
-  excluded, and a project `allow` on `git fetch` would otherwise skip the classifier
+  run outside the sandbox as hooks already do for `git commit`. The flags that name a command to run
+  (`rebase --exec`, `push --receive-pack`/`--exec`, `fetch`/`pull --upload-pack`) and the commands
+  that repoint a remote (`git remote add`/`set-url`, `git config` URL and hook keys) have no rule:
+  Claude has no routine reason to write them, so they guard only against an attacker, which the
+  threat model leaves to the classifier and to the sandbox's `.git/config` and `~/.gitconfig` write
+  denies
 - **`git commit` is allowed** (unlike the history verbs): commits are local and reversible, and the
   classifier sees only `git commit -m …`, not the hooks it triggers, so its review adds little. The
   real exposure is the commit's pre-commit hooks running unsandboxed from an in-tree config, so
@@ -424,8 +426,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
   and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
   every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,
-  `--recursive`, `-fr`, `-fR`, in leading or later position). `dd` and `rsync` are `deny`: rare
-  here, so Claude hands the command over instead
+  `--recursive`, `-fr`, `-fR`, in leading or later position). `find -delete` is `deny` for the same
+  reason; `find -exec rm` and `xargs rm -r` are accepted residuals. `dd` and `rsync` have no rule:
+  sandboxed, they reach only what plain `rm` already can
 - **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
   `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade the recursive `rm` denies)
 - **The `Grep` built-in tool is denied**: it bypasses the sandbox, so a broad `Grep(path=~)` could

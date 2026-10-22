@@ -50,8 +50,7 @@ case that needs the hook.
 
 Plain push has no rule: it runs unprompted, reviewed by the auto-mode classifier, which an `allow`
 would skip. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`,
-`:branch`, `--prune`, `--receive-pack`/`--exec`, any `git -C * push`) are must-never `deny` rules.
-No hook either way.
+`:branch`, `--prune`, any `git -C * push`) are must-never `deny` rules. No hook either way.
 
 ## Locate the config (two scopes)
 
@@ -84,7 +83,7 @@ Audit both; attribute every finding and edit to a scope.
       invariant ID that cites it, so `--no-verify` shows once, not once per invariant.
     - The **sandbox posture** note (invariant 7) and the managed-scope assumption.
 4. Group the first-run security-belt batch **by the CLAUDE.md dimension only**: existing guardrails
-   (sudo, force push, recursive rm, `git clean`, dd/rsync, direnv, WebFetch/WebSearch) each have a
+   (sudo, force push, recursive rm, `git clean`, direnv, WebFetch/WebSearch) each have a
    settings.json rule but no CLAUDE.md covering line - report the missing lines as ONE grouped
    recommendation (a few family lines clear them), not N separate flags. This is orthogonal to
    enforcement-leg gaps: do NOT describe the batch as fully enforced. Some members carry separate
