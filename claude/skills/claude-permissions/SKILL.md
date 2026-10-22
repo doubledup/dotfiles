@@ -62,7 +62,6 @@ Audit both; attribute every finding and edit to a scope.
   `readlink -f ~/.claude/settings.json`, then read/edit there:
     - `claude/settings.json` (allow/ask/deny, defaultMode, any `sandbox` key)
     - `claude/hooks/guard.sh` (path-matching secret-path block only; block-only, no Bash branch)
-    - `claude/hooks/gh-api-readonly.sh` (gh api read-only)
     - `claude/CLAUDE.md` `## Safety`
     - `rcignore/test_guard.sh` (the guard hook's test), run via `just test-claude-hooks`
 - **Project scope** (current repo only): `<cwd>/.claude/settings.json`,

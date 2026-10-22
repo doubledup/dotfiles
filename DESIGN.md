@@ -257,14 +257,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   because it is not a security leg and fails open: a miss is a failed signed commit or remote op
   (the status quo), and a false positive costs one retry
 
-**gh-api-readonly hook:**
+**gh api reads:**
 
-- `claude/hooks/gh-api-readonly.sh` (PreToolUse on Bash) auto-approves read-only `gh api` calls to
-  GitHub Actions endpoints, cutting prompt noise during CI triage
-- It parses the Bash command string, which the enforcement-hook rule forbids; acceptable here
-  because it is allow-only and fails open: any parse failure or rejected pattern falls through to
-  the normal permission prompt, so the failure mode is a prompt, not a bypass
-- Accepted gaps: no `timeout` in settings.json and no test harness, unlike the other hooks (backlog)
+- No hook and no `allow` rule: `gh` is sandbox-excluded, so the auto-mode classifier judges each
+  call and passes reads unprompted (measured: a GitHub Actions runs read). A broad `allow` would
+  also pre-approve `gh api` writes, which the classifier still reviews
 
 **Ponytail vendored as a skill, not installed as a plugin:**
 
@@ -308,11 +305,11 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - Standing policy it encodes: **sandbox-first. The OS sandbox contains Bash; destructive must-nevers
   live in `deny` rules; an ENFORCEMENT hook is added ONLY for what rules and the sandbox can't do
   (secret reads via the built-in Read/Grep/Glob tools). Enforcement hooks never parse Bash command
-  strings.** Context-injection hooks are a separate category, justified case by case; the allow-only
-  gh-api-readonly and advisory commit-alone hooks (above) parse but fail open. Security-related
-  intent still gets a CLAUDE.md `## Safety` line. (Supersedes the earlier "belt-and-suspenders
-  across all three layers" policy: duplicating a `deny` rule in a Bash-parsing hook is fragile
-  maintenance for no gain once the sandbox is the primary boundary.)
+  strings.** Context-injection hooks are a separate category, justified case by case; the advisory
+  commit-alone hook (above) parses but fails open. Security-related intent still gets a CLAUDE.md
+  `## Safety` line. (Supersedes the earlier "belt-and-suspenders across all three layers" policy:
+  duplicating a `deny` rule in a Bash-parsing hook is fragile maintenance for no gain once the
+  sandbox is the primary boundary.)
 - Threat model (canonical copy: the Threat model section of the skill's `invariants.md`): defend
   against accidental/mistaken commands; keep cheap, robust protections that also raise the attack
   bar; decline complex/fragile adversarial hardening as friction undercut by accepted residuals.

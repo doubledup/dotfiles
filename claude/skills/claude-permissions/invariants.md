@@ -25,7 +25,7 @@ complex or fragile rules chasing adversarial evasion.
 | ----------- | --------------------------------------------------- | --------------------------------- |
 | intent      | `claude/CLAUDE.md` `## Safety`                      | `.claude/rules/*.md`              |
 | permissions | `claude/settings.json` allow/ask/deny               | `.claude/settings.json`, `.local` |
-| hooks       | `claude/hooks/guard.sh`, `gh-api-readonly.sh`       | `.claude/hooks/*`                 |
+| hooks       | `claude/hooks/guard.sh`                             | `.claude/hooks/*`                 |
 | test        | `rcignore/test_guard.sh` (`just test-claude-hooks`) | -                                 |
 
 `~/.claude/*` are rcm symlinks into `claude/*`; operate on the repo, never the symlink.
@@ -69,27 +69,26 @@ recursive `rm`, force `git push`, `git clean`, `find -delete`) is enforced by a 
 rule, NOT a guard hook. Why: `deny` rules bind in every mode, are respected under sandbox
 auto-allow, and descend into `$(...)`; the OS sandbox (hard floor, invariant 7) contains what runs;
 and enforcement hooks must not parse Bash command strings, which is fragile on
-quoting/operators/`$()` (the allow-only `gh-api-readonly.sh` parses, but fails open to the prompt).
-Use the colon `:*` form so the no-arg case is caught (`Bash(git clean:*)`, never `... *`) - **except
-when the rule also has a wildcard before the tail**, where `:*` silently matches nothing. A
-mid-command `*` and a `:*` tail cannot coexist: `Bash(git -C * clean:*)` never fires,
-`Bash(git -C * clean*)` does (glued `*`, and it still catches the no-arg case). Measured, for both
-`git` and `aws`; it contradicts the docs, which present mid-command wildcards as working. So a
-`-C`/wrapper twin must use the glued form. Check every rule containing a non-trailing `*` for a
-`:*)` **or** ` *)` tail and flag it as inert - the two tails are equivalent, so both fail. It
-applies to any command with a mid-command wildcard, e.g. `Bash(aws * create-*:*)`, not just git.
-Ask-by-design rules (`gh pr merge`, `terraform apply`, Datadog log tools) are NOT gaps. Check: for
-each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
-subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
-`Edit(~/.local/share/direnv/allow/**)` deny (`~/`-anchored: a `**/` rule only matches under the
-project directory) plus the sandbox (the store is out-of-tree), not a hook. Note on `git push`:
-plain push has no rule (the classifier reviews it); only the force forms (`--force*`, `-f`,
-`+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`) and
-`git -C * push`/`git -c * push`/`git --* push` are must-never `deny` rules (a global option before
-the verb skips every `git push …` rule and runs sandboxed and unjudged). Flags that only an attacker
-would add (`--receive-pack`, `--exec`, `--upload-pack`, `rebase --exec`) and remote or config
-repointing get no rule (threat model). The `+` rule matches only a leading `+` argument
-(`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule is
+quoting/operators/`$()` (the advisory `commit-alone.sh` parses, but fails open). Use the colon `:*`
+form so the no-arg case is caught (`Bash(git clean:*)`, never `... *`) - **except when the rule also
+has a wildcard before the tail**, where `:*` silently matches nothing. A mid-command `*` and a `:*`
+tail cannot coexist: `Bash(git -C * clean:*)` never fires, `Bash(git -C * clean*)` does (glued `*`,
+and it still catches the no-arg case). Measured, for both `git` and `aws`; it contradicts the docs,
+which present mid-command wildcards as working. So a `-C`/wrapper twin must use the glued form.
+Check every rule containing a non-trailing `*` for a `:*)` **or** ` *)` tail and flag it as inert -
+the two tails are equivalent, so both fail. It applies to any command with a mid-command wildcard,
+e.g. `Bash(aws * create-*:*)`, not just git. Ask-by-design rules (`gh pr merge`, `terraform apply`,
+Datadog log tools) are NOT gaps. Check: for each destructive must-never, confirm a `deny` rule in
+the correct form. Example: all direnv subcommands are denied by a single `Bash(direnv:*)`; the
+trust-store WRITE is covered by the `Edit(~/.local/share/direnv/allow/**)` deny (`~/`-anchored: a
+`**/` rule only matches under the project directory) plus the sandbox (the store is out-of-tree),
+not a hook. Note on `git push`: plain push has no rule (the classifier reviews it); only the force
+forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`,
+`--no-verify`) and `git -C * push`/`git -c * push`/`git --* push` are must-never `deny` rules (a
+global option before the verb skips every `git push …` rule and runs sandboxed and unjudged). Flags
+that only an attacker would add (`--receive-pack`, `--exec`, `--upload-pack`, `rebase --exec`) and
+remote or config repointing get no rule (threat model). The `+` rule matches only a leading `+`
+argument (`Bash(git push * +*)`), so `c++-fix` branches still push. The `:branch` rule is
 `Bash(git push * :**)`: a `:*` tail is the legacy prefix syntax and never matches after a
 mid-wildcard. Two more spelling rules, both measured: match a long option on its shortest unique
 prefix (`--forc`, `--m`, `--de`, `--pru`, `--no-veri`; check `git <verb> -h`), since git accepts any
