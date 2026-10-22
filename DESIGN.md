@@ -371,9 +371,10 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `--prune`, `--receive-pack`/`--exec`) and every `git -C * push` are `deny`. Shipping one-way doors
   (`gh pr merge`, `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are
   direction decisions. Known-destructive changes to remote state are `deny` up front: repo delete,
-  archive, rename and visibility changes; gh release, secret, variable, label, gist, issue and
-  project deletes; `gh api` DELETE calls and graphql delete mutations; `terraform destroy`,
-  `-destroy` and `state rm`; `aws` commands containing `delete` (`delete-*`, `batch-delete-*`,
+  archive, rename and visibility changes; gh release, secret, variable, label, gist, issue, project
+  (and its items and fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api` DELETE
+  calls and graphql delete mutations; `terraform destroy`, `-destroy`, `state rm` and
+  `workspace delete`; `aws` commands containing `delete` (`delete-*`, `batch-delete-*`,
   `s3 sync --delete`) or `purge`, plus `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
   on any profile; and the Atlassian MCP's `executeDestructive`. `gh pr checkout` is `deny` too: `gh`
   is excluded, so it would run a PR's own `post-checkout` hook unsandboxed in a repo with a tracked
