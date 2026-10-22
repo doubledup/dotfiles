@@ -81,9 +81,10 @@ applies to any command with a mid-command wildcard, e.g. `Bash(aws * create-*:*)
 Ask-by-design rules (`gh pr merge`, `terraform apply`, Datadog log tools) are NOT gaps. Check: for
 each destructive must-never, confirm a `deny` rule in the correct form. Example: all direnv
 subcommands are denied by a single `Bash(direnv:*)`; the trust-store WRITE is covered by the
-`Edit(**/.local/share/direnv/allow/**)` deny plus the sandbox (the store is out-of-tree), not a
-hook. Note on `git push`: plain push has no rule (the classifier reviews it); only the force forms
-(`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`) and
+`Edit(~/.local/share/direnv/allow/**)` deny (`~/`-anchored: a `**/` rule only matches under the
+project directory) plus the sandbox (the store is out-of-tree), not a hook. Note on `git push`:
+plain push has no rule (the classifier reviews it); only the force forms (`--force*`, `-f`,
+`+refspec`, `--mirror`, `--delete`/`-d`, `:branch`, `--prune`, `--no-verify`) and
 `git -C * push`/`git -c * push`/`git --* push` are must-never `deny` rules (a global option before
 the verb skips every `git push …` rule and runs sandboxed and unjudged). Flags that only an attacker
 would add (`--receive-pack`, `--exec`, `--upload-pack`, `rebase --exec`) and remote or config
