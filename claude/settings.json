@@ -183,7 +183,7 @@
       "Bash(gh api *--method DELETE*)",
       "Bash(gh api --method=DELETE*)",
       "Bash(gh api *--method=DELETE*)",
-      "Bash(gh api graphql*mutation*delete*)",
+      "Bash(gh api *mutation*delete*)",
       "Bash(terraform destroy:*)",
       "Bash(terraform * destroy*)",
       "Bash(terraform *-destroy*)",
