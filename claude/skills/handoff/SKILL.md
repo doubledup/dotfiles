@@ -39,8 +39,8 @@ large file contents; point to files and summarize.
 Write the prompt with the structure below, adapting the middle to the prompt type. Invariants for
 every type:
 
-- A preamble: "Paste into <mode>, in <repo>, fresh session. Read the files from disk; do not infer
-  their contents from this prompt."
+- A preamble: "@-mention this file in a fresh <mode> session in <repo>. Read the files from disk; do
+  not infer their contents from this prompt."
 - Self-contained context with **no reference to this conversation** (phrases like "as we discussed"
   or "the earlier plan" are disallowed).
 - A "Files to read first" list.
