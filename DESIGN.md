@@ -378,12 +378,13 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   on any profile; and the Atlassian MCP's `executeDestructive`. `gh pr checkout` is `deny` too: `gh`
   is excluded, so it would run a PR's own `post-checkout` hook unsandboxed in a repo with a tracked
   hooks path (this repo's `.githooks`); checkouts go through a lone fetch and a hooks-off
-  `git switch`. Regenerable state (`gh run delete`, `gh cache delete`) has no rule. Each mid-command
-  wildcard rule has a leading twin, since `*` after the prefix doesn't match empty. Residuals:
-  variable-built commands, other flag orders, graphql queries read from a file (`-F query=@file`),
-  and SDK scripts (boto3) bypass these patterns, accepted per the accidents-only threat model;
-  routine dev deletes (`aws sqs delete-message`) run via `!`; `terraform *-destroy*` also blocks the
-  harmless `plan -destroy`
+  `git switch`. Regenerable state (`gh run delete`, `gh cache delete`) has no rule. A rule with a
+  `*` straight after the command prefix gets a leading twin wherever its match can come first
+  (`gh api -X DELETE`), since that `*` doesn't match empty; `aws *delete*` needs none, as a service
+  name always fills it. Residuals: variable-built commands, other flag orders, graphql queries read
+  from a file (`-F query=@file`), and SDK scripts (boto3) bypass these patterns, accepted per the
+  accidents-only threat model; routine dev deletes (`aws sqs delete-message`) run via `!`;
+  `terraform *-destroy*` also blocks the harmless `plan -destroy`
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
