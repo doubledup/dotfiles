@@ -97,7 +97,7 @@ findings is a clean result, not a failure.
 - A finding against agent tooling or config (permissions, hooks, skills, this review flow) that
   works only if someone crafts hostile content (a malicious PR, a planted file) is LOW from any
   source, the Reviewer included, whatever the fix costs: the threat model defends accidents, not
-  adversaries. Security findings in the code being shipped keep their severity.
+  adversaries. Security findings in product code keep their severity.
 - A built-in finding that matches a prior rejection is tagged `previously rejected: <reason>`.
   Built-ins never see dispositions, so it counts toward the VERDICT only if the Reviewer confirms it
   (below), rather than letting the rejecting agent grade its own call; unanswered, it drops to LOW.
