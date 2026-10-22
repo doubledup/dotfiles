@@ -219,8 +219,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   creation, merge, release, deploy); the auto-mode classifier reviews everything else. The Atlassian
   MCP's read and non-destructive write tools are allowed by exact name, `executeWrite` included: a
   Jira or Confluence edit is recoverable from page and issue history, and its one destructive
-  runner, `executeDestructive`, is `deny`. Exact names keep a tool the connector adds later
-  prompting until it is listed. Bash `allow` rules only for commands harmless outside the sandbox
+  runner, `executeDestructive`, is `deny`. Exact names keep a primary tool the connector adds later
+  prompting until it is listed; an operation reached through `executeRead` or `executeWrite` follows
+  the server's tiering instead. Bash `allow` rules only for commands harmless outside the sandbox
   (e.g. `command -v`, `date`), in settings and in skill `allowed-tools` alike: an allow also
   approves the command's unsandboxed retry with no classifier review, and tools like `rg` (`--pre`),
   `fd` (`-x`), `git` (config-driven hooks and filters) and `just` run arbitrary code. Sandbox
