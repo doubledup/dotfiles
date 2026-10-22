@@ -17,9 +17,9 @@ the title and body are the intent, a claim to verify rather than a source of tru
 ## Resolve
 
 - PR (a URL, or a bare number, which is never treated as a SHA):
-  `gh pr view <pr> --json number,headRefOid,headRefName,isCrossRepository,baseRefOid,title,body`.
-  Target is `headRefOid`; base defaults to `baseRefOid`, not `baseRefName`, because a stale local
-  `origin/<base>` would pull merged-in commits into the diff.
+  `gh pr view <pr> --json number,headRefOid,baseRefOid,title,body`. Target is `headRefOid`; base
+  defaults to `baseRefOid`, not `baseRefName`, because a stale local `origin/<base>` would pull
+  merged-in commits into the diff.
 - Commit: run a lone `git fetch` (not for `HEAD`, which is local), then resolve with
   `git rev-parse <commit>`, so a remote-only SHA or an `origin/<branch>` ref resolves to its current
   value; everything since the base is reviewed, not just that commit. Base defaults to
@@ -33,26 +33,30 @@ repo: the working directory, or another listed working directory whose `origin` 
 you `cd` into in its own Bash call first, since `/code-review` and `/security-review` review the
 session's working directory. If no listed directory is that repo, stop and name it.
 
-1. If `git diff --quiet HEAD` fails, stop and ask the user to stash. Never stash, commit, or reset:
-   the user moves their own changes so they know where they went. Untracked files are fine.
-2. If `git rev-parse HEAD` equals the target, skip to step 5.
-3. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached, for the
-   output. Run a lone `git fetch` (skip it if Resolve just ran one).
-4. Check out the target with hooks off: every `switch` and `merge` here is
-   `git -c core.hooksPath=/dev/null …`. A repo whose hooks path is tracked (`.githooks`, `.husky`)
-   would otherwise run the target's own `post-checkout` or `post-merge` hook, and `git merge` runs
-   unsandboxed. Never `gh pr checkout`: it runs unsandboxed with hooks on, and is denied.
-    - PR: run a lone `git fetch origin pull/<number>/head`, which writes no working-tree files. For
-      a same-repo PR (`isCrossRepository` false) with a local `<headRefName>` branch, switch to it,
-      then `merge --ff-only <target>`. With no local branch, `switch -c <headRefName> <target>`. For
-      a fork PR, whose branch name may collide with an unrelated local one, or when the branch is
-      checked out in another worktree, `switch --detach <target>`.
-    - Commit: `switch <commit>` if `git rev-parse --verify -q refs/heads/<commit>` equals the
-      target; otherwise, or if that branch is checked out in another worktree,
-      `switch --detach <target>`.
-    - Stop and report any other refusal (a diverged branch, an untracked file in the way).
-5. Check that `git rev-parse HEAD` equals the target (a PR pushed mid-run fails here) and that
-   `git cat-file -e <base>^{commit}` passes. On either failure, stop and report it.
+- **HEAD is the target** (`ship`, or the user already checked it out): review in place. If
+  `git diff --quiet HEAD` fails, stop and ask the user to stash; never stash, commit, or reset, so
+  the user knows where their changes went. Untracked files are fine.
+- **Otherwise, review in a throwaway worktree**, leaving the user's checkout untouched. Switching
+  that checkout would leave the target's tracked hooks (`.githooks`, `.husky`) live for the next
+  unsandboxed `git fetch`, `commit`, or `merge`, and in a config repo like `~/.dotfiles` would swap
+  the live Claude config.
+    1. Run a lone `git fetch` (skip it if Resolve just ran one), which updates `origin/HEAD` for
+       `/security-review`; for a PR, also a lone `git fetch origin pull/<number>/head`, which
+       reaches fork heads. Neither writes working-tree files. Never `gh pr checkout`: it runs
+       unsandboxed with hooks on, and is denied.
+    2. `EnterWorktree` with a name like `review-<number>` or `review-<short sha>`. It moves the
+       session there, so all three sources review it.
+    3. `git -c core.hooksPath=/dev/null switch --detach <target>`. With hooks off, the target's own
+       `post-checkout` hook can't run.
+    4. In the worktree, run only reads (`diff`, `log`, `rev-parse`); never `fetch`, `commit`, or
+       `merge`, which run unsandboxed and would fire the target's hooks.
+    5. When the review ends, including any stop after step 2, run
+       `git -c core.hooksPath=/dev/null switch <worktree branch>` so the worktree holds no unmerged
+       commits, then `ExitWorktree` with `remove`. If it refuses or the worktree stays in
+       `git worktree list`, clean up with lone calls: `git worktree remove <path>`,
+       `git worktree prune`, `git branch -D <worktree branch>`.
+- Either way, check that `git rev-parse HEAD` equals the target (a PR pushed mid-run fails here) and
+  that `git cat-file -e <base>^{commit}` passes. On either failure, stop and report it.
 
 If `git diff --quiet <base>...<target>` passes, the range is empty: report nothing to review and
 stop, rather than a CLEAR from three reviews of nothing. For a commit already in the base, suggest
@@ -110,7 +114,6 @@ findings is a clean result, not a failure.
 ```
 ## Review: <target> vs <base>
 Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED]
-Switched from: <branch> (return: git switch <branch>) | <sha> (return: git switch --detach <sha>)
 
 ## Investigation
 [the Reviewer's section]
@@ -127,5 +130,4 @@ Switched from: <branch> (return: git switch <branch>) | <sha> (return: git switc
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Omit empty severity sections, and the `Switched from` line when no checkout ran. Once a checkout has
-run, every report carries that line, including a stop.
+Omit empty severity sections.
