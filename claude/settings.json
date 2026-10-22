@@ -93,6 +93,8 @@
       "Bash(git push -f*)",
       "Bash(git push * -f*)",
       "Bash(git push * +*)",
+      "Bash(git commit --no-veri*)",
+      "Bash(git commit * --no-veri*)",
       "Bash(git push --no-veri*)",
       "Bash(git push * --no-veri*)",
       "Bash(git push --m*)",
