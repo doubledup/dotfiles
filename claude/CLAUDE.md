@@ -42,8 +42,13 @@
   sandbox-blocked maintenance (brew, rustup, cargo, plugin sync)
 - Use synthetic data only: never ask for, read, or paste real customer data, log exports, or table
   dumps. If debugging needs data, ask me for a synthetic reproduction
-- Destructive changes to remote state (deletes, destroys, force pushes, repo archive) are denied
-  where a pattern catches them; never route around a deny, and confirm any other with me first
+- Never destroy remote state (git remotes, cloud infra, Atlassian, GitHub); destructive changes are
+  denied where a pattern catches them, so confirm any other with me first. Destroy local state only
+  when it is recoverable (committed work, via reflog) or I asked to discard it: uncommitted edits
+  and untracked files are mine
+- Never work around a denial from any source (deny rule, sandbox, classifier). Stop at the first one
+  in a planned sequence, run nothing after it, and raise it with a one-line justification: it is a
+  config bug or a real edge case, and I judge which
 - If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 - Never send my email or other personal details to an outside service unless I ask: not in a
   User-Agent, header, URL, or payload. Where a service asks for contact details (crates.io), use the

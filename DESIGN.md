@@ -404,14 +404,18 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope; recursive `rm`
   clusters the denies don't spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run
   unprompted. All narrow and contained while the sandbox is active
-- **Discarding uncommitted edits runs unprompted** (`reset --hard`, `checkout`/`restore` of a path
-  or the tree, `checkout -f`, `switch --discard-changes`, `stash drop`): the worst case is redoing
-  uncommitted work, and small frequent commits bound it; a dropped stash stays recoverable through
-  `git fsck` until gc. No rule matches them and they run sandboxed, so sandbox auto-allow approves
-  them; the classifier sees them only on an unsandboxed retry. `git clean` and the forced
-  `worktree remove` stay `deny`: they delete untracked and ignored files git never held. Plain
-  `worktree remove` deletes only ignored files (build output, local overrides) and runs unprompted,
-  so Claude can clean up its own worktrees
+- **Local destruction is fine only when recoverable or asked for**: committed work (recoverable via
+  reflog) may be reset or rebased; uncommitted edits and untracked files are the user's, and Claude
+  discards them only when asked. That is a CLAUDE.md `## Safety` rule, not a permission rule: the
+  discard forms (`reset --hard`, `checkout`/`restore` of a path or the tree, `checkout -f`,
+  `switch --discard-changes`, `stash drop`) match no rule and run sandboxed, so sandbox auto-allow
+  approves them and the classifier sees them only on an unsandboxed retry. Accepted because small
+  frequent commits bound the loss, and a dropped stash stays recoverable through `git fsck` until
+  gc. The same Safety section says to stop at the first denial from any source and raise it rather
+  than work around it, since a denial is either a config bug or a real edge case. `git clean` and
+  the forced `worktree remove` stay `deny`: they delete untracked and ignored files git never held.
+  Plain `worktree remove` deletes only ignored files (build output, local overrides) and runs
+  unprompted, so Claude can clean up its own worktrees
 - **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
   `revert`, and `pull`, which merges): they are `excludedCommands` for GPG signing, so they run
   unsandboxed and the auto-mode classifier reviews each, as it does their `--abort`/`--skip` and
