@@ -43,7 +43,8 @@ session's working directory. If no listed directory is that repo, stop and name 
       check it out and rerun, which reviews in place
 4. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached. Run a
    lone `git fetch` (skip it if Resolve just ran one), then `gh pr checkout <pr>` for a PR, or
-   `git switch --detach <target>` for a commit.
+   `git switch --detach <target>` for a commit. If the branch is checked out in another worktree,
+   stop and name it: the user reviews from there.
 5. Check that `git rev-parse HEAD` equals the target and `git cat-file -e <base>^{commit}` passes;
    on either failure, stop and report it.
 
