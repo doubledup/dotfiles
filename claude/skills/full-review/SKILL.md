@@ -86,12 +86,13 @@ findings is a clean result, not a failure.
 
 - Collapse the same defect at the same location into one finding; tag each with its sources. A
   collapsed finding takes the highest severity any source gave it.
-- Keep the Reviewer's severities. Rate built-in findings by impact and likelihood: HIGH = incorrect
-  behavior, data loss, or a vulnerability under ordinary use; MEDIUM = likely to manifest in
-  realistic use; LOW = needs rare conditions (an unusual git history, an unset ref) or is unlikely.
-  For instructions written for a model, "the model might misread X" is LOW unless the text supports
-  a concrete competing reading. Remediation is `fix`, or `rollback` when fixing it would rewrite
-  most of the change. A finding `/code-review` marks PLAUSIBLE states its uncertainty.
+- Keep the Reviewer's severities, except under the hostile-content rule below. Rate built-in
+  findings by impact and likelihood: HIGH = incorrect behavior, data loss, or a vulnerability under
+  ordinary use; MEDIUM = likely to manifest in realistic use; LOW = needs rare conditions (an
+  unusual git history, an unset ref) or is unlikely. For instructions written for a model, "the
+  model might misread X" is LOW unless the text supports a concrete competing reading. Remediation
+  is `fix`, or `rollback` when fixing it would rewrite most of the change. A finding `/code-review`
+  marks PLAUSIBLE states its uncertainty.
 - A finding against agent tooling or config (permissions, hooks, skills, this review flow) that
   works only if someone crafts hostile content (a malicious PR, a planted file) is LOW from any
   source, the Reviewer included, whatever the fix costs: the threat model defends accidents, not
