@@ -29,7 +29,7 @@ fi
 read -ra tokens <<<"$cmd"
 for token in "${tokens[@]}"; do
     case "$token" in
-    -X | --method | -f | --field | --raw-field | --input)
+    -X* | --method* | -f* | --field* | --raw-field* | --input*)
         exit 0
         ;;
     esac
