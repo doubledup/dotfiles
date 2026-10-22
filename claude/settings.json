@@ -120,6 +120,7 @@
       "Bash(git push * ~*)",
       "Bash(git push file:/*)",
       "Bash(git push * file:/*)",
+      "Bash(git push *://*)",
       "Bash(git -C * push*)",
       "Bash(git -c * push*)",
       "Bash(git --* push*)",
