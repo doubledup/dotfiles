@@ -420,10 +420,10 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   `git -C *` forms; an `allow` would skip that review. In-repo hooks and merge drivers they trigger
   run outside the sandbox as hooks already do for `git commit`. The flags that name a command to run
   (`rebase --exec`, `push --receive-pack`/`--exec`, `fetch`/`pull --upload-pack`) and the commands
-  that repoint a remote (`git remote add`/`set-url`, `git config` URL and hook keys) have no rule:
-  Claude has no routine reason to write them, so they guard only against an attacker, which the
-  threat model leaves to the classifier and to the sandbox's `.git/config` and `~/.gitconfig` write
-  denies
+  that repoint a remote (`git remote add`/`set-url`, `git config` URL and hook keys) have no rule: a
+  command Claude names there (`git rebase -x 'just test'`) runs unsandboxed under classifier review
+  like any other unsandboxed command, and the injected forms are attacker-only, which the threat
+  model leaves to the classifier and to the sandbox's `.git/config` and `~/.gitconfig` write denies
 - **`git commit` is allowed** (unlike the history verbs): commits are local and reversible, and the
   classifier sees only `git commit -m …`, not the hooks it triggers, so its review adds little. The
   real exposure is the commit's pre-commit hooks running unsandboxed from an in-tree config, so
