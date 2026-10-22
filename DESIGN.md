@@ -374,8 +374,8 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   archive, rename and visibility changes; gh release, secret, variable, label, gist, issue, project
   (and its items and fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api` DELETE
   calls and graphql delete mutations; `terraform destroy`, `-destroy`, `state rm` and
-  `workspace delete`; `aws` commands containing `delete` (`delete-*`, `batch-delete-*`,
-  `s3 sync --delete`) or `purge`, plus `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
+  `workspace delete`; `aws` operations named `delete-*`, `*-delete-*` (`batch-delete-image`) or
+  `purge-*`, plus `s3 sync --delete`, `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
   on any profile; and the Atlassian MCP's `executeDestructive`. `gh pr checkout` is `deny` too: `gh`
   is excluded, so it would run a PR's own `post-checkout` hook unsandboxed in a repo with a tracked
   hooks path (this repo's `.githooks`); `full-review` checks out an untrusted target with a lone
