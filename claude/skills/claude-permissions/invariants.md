@@ -160,8 +160,8 @@ bind - it fires, returns deny, and the tool proceeds anyway - and the sandbox do
 Never advise a hook as sufficient for an MCP action, and never score a present hook as "enforced"
 for one; `deny` binds. Check: any policy whose tool is `mcp__*` must rely on a `deny` rule, not a
 hook. No `mcpServers` are configured in any scope, but connector-provided `mcp__*` tools can still
-be present in a session (14 Atlassian ask-rules already target them), so this invariant is
-load-bearing today.
+be present in a session (the Atlassian MCP's `executeDestructive` deny already targets one), so this
+invariant is load-bearing today.
 
 **9. Security policy => CLAUDE.md intent line + the enforcement legs its disposition allows.** A
 security-related policy must carry a CLAUDE.md `## Safety` intent line AND its enforcement legs.
