@@ -20,7 +20,7 @@ nl=$'\n'
 # Drop heredoc bodies, so a file written with `cat <<EOF` that only mentions a
 # verb is not taken for a call. A body fed to a shell is commands, so keep it.
 heredoc='(^|[^<])<<-?[[:space:]]*["'\''\]?([A-Za-z_][A-Za-z0-9_]*)'
-toshell='(^|[[:space:];&|(])(bash|sh|zsh|fish)([[:space:]]+-[^[:space:]]+)*[[:space:]]*<<'
+toshell='(^|[[:space:];&|(/])(bash|sh|zsh|fish)([[:space:]]|$)'
 scan='' delim=''
 while IFS= read -r line; do
     if [[ -n "$delim" ]]; then
