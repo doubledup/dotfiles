@@ -200,6 +200,7 @@
       "mcp__*atadog*__*trace*",
       "mcp__*atadog*__*span*",
       "mcp__*atadog*__*rum*",
+      "Bash(gh pr create:*)",
       "Bash(gh pr merge:*)",
       "Bash(gh release create:*)",
       "Bash(terraform apply:*)",

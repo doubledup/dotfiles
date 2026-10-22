@@ -215,20 +215,20 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   branch, instead of the repo's `.claude/worktrees`). Formatting and lint are enforced by each
   repo's own pre-commit hook; a project PostToolUse lint hook only shortens feedback (see
   "Formatting enforced at commit")
-- Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish
-  (merge, release, deploy); the auto-mode classifier reviews everything else. The Atlassian MCP's
-  read and non-destructive write tools are allowed by exact name, `executeWrite` included: a Jira or
-  Confluence edit is recoverable from page and issue history, and its one destructive runner,
-  `executeDestructive`, is `deny`. Exact names keep a tool the connector adds later prompting until
-  it is listed. Bash `allow` rules only for commands harmless outside the sandbox (e.g.
-  `command -v`, `date`), in settings and in skill `allowed-tools` alike: an allow also approves the
-  command's unsandboxed retry with no classifier review, and tools like `rg` (`--pre`), `fd` (`-x`),
-  `git` (config-driven hooks and filters) and `just` run arbitrary code. Sandbox auto-allow already
-  runs them unprompted. Cost: plan mode prompts on them. Exception: the worktree cleanup verbs
-  (`git worktree remove`, `prune`, `git branch -d`/`-D`) are allowed and excluded, so cleanup skips
-  the classifier. Only a planted `.git/config` (e.g. `core.fsmonitor`) turns them into code
-  execution, which is deliberate, not accidental, and outside the threat model; the forced remove
-  stays `deny`
+- Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish (PR
+  creation, merge, release, deploy); the auto-mode classifier reviews everything else. The Atlassian
+  MCP's read and non-destructive write tools are allowed by exact name, `executeWrite` included: a
+  Jira or Confluence edit is recoverable from page and issue history, and its one destructive
+  runner, `executeDestructive`, is `deny`. Exact names keep a tool the connector adds later
+  prompting until it is listed. Bash `allow` rules only for commands harmless outside the sandbox
+  (e.g. `command -v`, `date`), in settings and in skill `allowed-tools` alike: an allow also
+  approves the command's unsandboxed retry with no classifier review, and tools like `rg` (`--pre`),
+  `fd` (`-x`), `git` (config-driven hooks and filters) and `just` run arbitrary code. Sandbox
+  auto-allow already runs them unprompted. Cost: plan mode prompts on them. Exception: the worktree
+  cleanup verbs (`git worktree remove`, `prune`, `git branch -d`/`-D`) are allowed and excluded, so
+  cleanup skips the classifier. Only a planted `.git/config` (e.g. `core.fsmonitor`) turns them into
+  code execution, which is deliberate, not accidental, and outside the threat model; the forced
+  remove stays `deny`
 - Claude's temp dirs (`/tmp/claude-<uid>`, which is `$TMPDIR`) are allowed without naming the uid:
   `Read` on `//private/tmp/claude-*/**` and `//tmp/claude-*/**`, `Edit` only on their direct
   children (`/*`), where scratch files go. Both spellings are needed because macOS `/tmp` is a
@@ -375,15 +375,16 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`,
   `--prune`) and every `git -C * push` are `deny`. Shipping one-way doors (`gh pr merge`,
   `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
-  Known-destructive changes to remote state are `deny` up front: repo delete, archive, rename and
-  visibility changes; gh release, secret, variable, label, gist, issue, project (and its items and
-  fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api` DELETE calls and graphql
-  delete mutations; `terraform destroy`, `-destroy`, `state rm` and `workspace delete`; `aws`
-  operations named `delete-*`, `*-delete-*` (`batch-delete-image`) or `purge-*`, plus
-  `s3 sync --delete`, `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`, on any profile;
-  and the Atlassian MCP's `executeDestructive`. `full-review` checks out same-repo PRs with
-  `gh pr checkout`, which runs unsandboxed with the PR's tracked hooks; teammates' PRs are trusted
-  per the accidents-only threat model, and fork PRs stop for the user. Regenerable state
+  `gh pr create` is `ask` as the PR review gate in every repo: it notifies the team, so the user
+  sees the title and body first. Known-destructive changes to remote state are `deny` up front: repo
+  delete, archive, rename and visibility changes; gh release, secret, variable, label, gist, issue,
+  project (and its items and fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api`
+  DELETE calls and graphql delete mutations; `terraform destroy`, `-destroy`, `state rm` and
+  `workspace delete`; `aws` operations named `delete-*`, `*-delete-*` (`batch-delete-image`) or
+  `purge-*`, plus `s3 sync --delete`, `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
+  on any profile; and the Atlassian MCP's `executeDestructive`. `full-review` checks out same-repo
+  PRs with `gh pr checkout`, which runs unsandboxed with the PR's tracked hooks; teammates' PRs are
+  trusted per the accidents-only threat model, and fork PRs stop for the user. Regenerable state
   (`gh run delete`, `gh cache delete`) has no rule. A rule with a `*` straight after the command
   prefix gets a leading twin wherever its match can come first (`gh api -X DELETE`), since that `*`
   doesn't match empty; `aws *delete*` needs none, as a service name always fills it. Residuals:
