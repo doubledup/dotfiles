@@ -66,6 +66,7 @@
       "Edit(~/.aws/**)",
       "Edit(~/.gnupg/**)",
       "Edit(**/.local/share/direnv/allow/**)",
+      "Edit(~/**/.pre-commit-config.yaml)",
       "Grep",
       "Bash(sudo:*)",
       "Bash(rm -r*)",
