@@ -91,14 +91,17 @@ findings is a clean result, not a failure.
   For instructions written for a model, "the model might misread X" is LOW unless the text supports
   a concrete competing reading. Remediation is `fix`, or `rollback` when fixing it would rewrite
   most of the change. A finding `/code-review` marks PLAUSIBLE states its uncertainty.
-- A built-in finding that matches a prior rejection is tagged `previously rejected: <reason>` and
-  still counts toward the VERDICT once confirmed (below). Built-ins never see dispositions, so each
-  confirmed recurrence counts as a re-raise under `ship`'s rule (two consecutive re-raises go to the
-  user), rather than letting the rejecting agent grade its own call.
+- A finding against agent tooling or config (permissions, hooks, skills, this review flow) that
+  works only if someone crafts hostile content (a malicious PR, a planted file) is LOW from any
+  source, the Reviewer included, whatever the fix costs: the threat model defends accidents, not
+  adversaries. Security findings in the code being shipped keep their severity.
+- A built-in finding that matches a prior rejection is tagged `re-raised: <reason>`. Built-ins never
+  see dispositions, so it counts toward the VERDICT only if the Reviewer confirms it (below), rather
+  than letting the rejecting agent grade its own call.
 - Send each finding still at MEDIUM or above whose sources are all built-ins to the Reviewer as one
-  confirm request, with any `previously rejected: <reason>` tag. Confirmed takes the severity the
-  Reviewer gives; unconfirmed drops to LOW, tagged `unconfirmed`, and stays listed; an unanswered
-  finding keeps its severity. If the confirm call errors, the Reviewer is `FAILED`.
+  confirm request, with any `re-raised: <reason>` tag. Confirmed takes the severity the Reviewer
+  gives; unconfirmed drops to LOW, tagged `unconfirmed`, and stays listed; an unanswered finding
+  keeps its severity. If the confirm call errors, the Reviewer is `FAILED`.
 - VERDICT is the highest severity across all sources.
 
 ## Output
