@@ -18,8 +18,9 @@ cmd="$(jq -r '.tool_input.command // empty' 2>/dev/null)" || exit 0
 verbs='(commit|merge|rebase|cherry-pick|revert|fetch|pull|push|worktree[[:space:]]+(remove|prune)|branch[[:space:]]+-[dD])'
 nl=$'\n'
 # Drop heredoc bodies, so a file written with `cat <<EOF` that only mentions a
-# verb is not taken for a call.
+# verb is not taken for a call. A body fed to a shell is commands, so keep it.
 heredoc='(^|[^<])<<-?[[:space:]]*["'\''\]?([A-Za-z_][A-Za-z0-9_]*)'
+toshell='(^|[[:space:];&|(])(bash|sh|zsh|fish)([[:space:]]+-[^[:space:]]+)*[[:space:]]*<<'
 scan='' delim=''
 while IFS= read -r line; do
     if [[ -n "$delim" ]]; then
@@ -27,6 +28,7 @@ while IFS= read -r line; do
         continue
     fi
     scan+="$line$nl"
+    [[ "$line" =~ $toshell ]] && continue
     [[ "$line" =~ $heredoc ]] && delim="${BASH_REMATCH[2]}"
 done <<<"$cmd"
 # git <verb> in command position: start, after a separator, or after VAR=val.

@@ -47,6 +47,7 @@ expect 0 'git log --grep "git commit"'
 expect 0 $'cat > "$TMPDIR/notes" <<\'EOF\'\ngit add .\ngit commit -m x\nEOF'
 expect 2 $'cat > "$TMPDIR/notes" <<\'EOF\'\nx\nEOF\ngit commit -m x'
 expect 0 $'cat > "$TMPDIR/notes" <<\\EOF\ngit push\nEOF'
+expect 2 $'bash <<\'EOF\'\ngit add -A\ngit commit -m x\nEOF'
 
 if [[ $failures -gt 0 ]]; then
     echo "$failures commit-alone test(s) failed" >&2
