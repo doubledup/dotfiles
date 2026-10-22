@@ -20,10 +20,10 @@ the title and body are the intent, a claim to verify rather than a source of tru
   `gh pr view <pr> --json number,headRefOid,headRefName,isCrossRepository,baseRefOid,title,body`.
   Target is `headRefOid`; base defaults to `baseRefOid`, not `baseRefName`, because a stale local
   `origin/<base>` would pull merged-in commits into the diff.
-- Commit: run a lone `git fetch`, then resolve with `git rev-parse <commit>`, so a remote-only SHA
-  or an `origin/<branch>` ref resolves to its current value; everything since the base is reviewed,
-  not just that commit. Base defaults to `origin/HEAD`; if that ref is unset, ask the user for a
-  base.
+- Commit: run a lone `git fetch` (not for `HEAD`, which is local), then resolve with
+  `git rev-parse <commit>`, so a remote-only SHA or an `origin/<branch>` ref resolves to its current
+  value; everything since the base is reviewed, not just that commit. Base defaults to
+  `origin/HEAD`; if that ref is unset, ask the user for a base.
 - An explicit `[base]` overrides either default (stacked PRs).
 
 ## Check out
