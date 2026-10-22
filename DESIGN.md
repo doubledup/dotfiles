@@ -384,8 +384,10 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   (`gh api -X DELETE`), since that `*` doesn't match empty; `aws *delete*` needs none, as a service
   name always fills it. Residuals: variable-built commands, other flag orders, graphql queries read
   from a file (`-F query=@file`), and SDK scripts (boto3) bypass these patterns, accepted per the
-  accidents-only threat model; routine dev deletes (`aws sqs delete-message`) run via `!`;
-  `terraform *-destroy*` also blocks the harmless `plan -destroy`
+  accidents-only threat model; `gh api -X PATCH` can still archive a repo or change its visibility,
+  left to the classifier because a pattern on `visibility` would also block reads; routine dev
+  deletes (`aws sqs delete-message`) run via `!`; `terraform *-destroy*` also blocks the harmless
+  `plan -destroy`
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
