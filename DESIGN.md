@@ -219,17 +219,17 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   creation, merge, release, deploy); the auto-mode classifier reviews everything else. The Atlassian
   MCP's read and non-destructive write tools are allowed by exact name, `executeWrite` included: a
   Jira or Confluence edit is recoverable from page and issue history, and its one destructive
-  runner, `executeDestructive`, is `deny`. Exact names keep a primary tool the connector adds later
-  prompting until it is listed; an operation reached through `executeRead` or `executeWrite` follows
-  the server's tiering instead. Bash `allow` rules only for commands harmless outside the sandbox
-  (e.g. `command -v`, `date`), in settings and in skill `allowed-tools` alike: an allow also
-  approves the command's unsandboxed retry with no classifier review, and tools like `rg` (`--pre`),
-  `fd` (`-x`), `git` (config-driven hooks and filters) and `just` run arbitrary code. Sandbox
-  auto-allow already runs them unprompted. Cost: plan mode prompts on them. Exception: the worktree
-  cleanup verbs (`git worktree remove`, `prune`, `git branch -d`/`-D`) are allowed and excluded, so
-  cleanup skips the classifier. Only a planted `.git/config` (e.g. `core.fsmonitor`) turns them into
-  code execution, which is deliberate, not accidental, and outside the threat model; the forced
-  remove stays `deny`
+  runner, `executeDestructive`, is `deny`. Exact names send a primary tool the connector adds later
+  to the classifier (a prompt in default mode) until it is listed; an operation reached through
+  `executeRead` or `executeWrite` follows the server's tiering instead. Bash `allow` rules only for
+  commands harmless outside the sandbox (e.g. `command -v`, `date`), in settings and in skill
+  `allowed-tools` alike: an allow also approves the command's unsandboxed retry with no classifier
+  review, and tools like `rg` (`--pre`), `fd` (`-x`), `git` (config-driven hooks and filters) and
+  `just` run arbitrary code. Sandbox auto-allow already runs them unprompted. Cost: plan mode
+  prompts on them. Exception: the worktree cleanup verbs (`git worktree remove`, `prune`,
+  `git branch -d`/`-D`) are allowed and excluded, so cleanup skips the classifier. Only a planted
+  `.git/config` (e.g. `core.fsmonitor`) turns them into code execution, which is deliberate, not
+  accidental, and outside the threat model; the forced remove stays `deny`
 - Claude's temp dirs (`/tmp/claude-<uid>`, which is `$TMPDIR`) are allowed without naming the uid:
   `Read` on `//private/tmp/claude-*/**` and `//tmp/claude-*/**`, `Edit` only on their direct
   children (`/*`), where scratch files go. Both spellings are needed because macOS `/tmp` is a
