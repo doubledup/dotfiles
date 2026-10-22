@@ -28,9 +28,10 @@ the title and body are the intent, a claim to verify rather than a source of tru
 
 ## Check out
 
-The reviewers read the working tree, so it must be the target. Work in the checkout whose `origin`
-is the PR's repo: the working directory, or another listed working directory; if none is, stop and
-name the repo.
+The reviewers read the working tree, so it must be the target. Work in the checkout of the target's
+repo: the working directory, or another listed working directory whose `origin` is that repo, which
+you `cd` into in its own Bash call first, since `/code-review` and `/security-review` review the
+session's working directory. If no listed directory is that repo, stop and name it.
 
 1. If `git diff --quiet HEAD` fails, stop and ask the user to stash. Never stash, commit, or reset:
    the user moves their own changes so they know where they went. Untracked files are fine.
