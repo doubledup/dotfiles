@@ -20,18 +20,31 @@ the title and body are the intent, a claim to verify rather than a source of tru
   `gh pr view <pr> --json headRefOid,baseRefOid,title,body`. Target is `headRefOid`; base defaults
   to `baseRefOid`, not `baseRefName`, because a stale local `origin/<base>` would pull merged-in
   commits into the diff.
-- Commit: resolve with `git rev-parse <commit>`; everything since the base is reviewed, not just
-  that commit. Base defaults to `origin/HEAD`; if that ref is unset, ask the user for a base.
+- Commit: run a lone `git fetch`, then resolve with `git rev-parse <commit>`, so a remote-only SHA
+  or an `origin/<branch>` ref resolves to its current value; everything since the base is reviewed,
+  not just that commit. Base defaults to `origin/HEAD`; if that ref is unset, ask the user for a
+  base.
 - An explicit `[base]` overrides either default (stacked PRs).
 
-## Precondition
+## Check out
 
-The reviewers read the working tree, so it must be the target. Check all three; on any failure, stop
-and tell the user exactly what to check out or fetch. Never run checkout, switch, or fetch.
+The reviewers read the working tree, so it must be the target. Work in the checkout whose `origin`
+is the PR's repo: the working directory, or another listed working directory; if none is, stop and
+name the repo.
 
-- `git rev-parse HEAD` equals the target
-- `git diff --quiet HEAD` passes (untracked files are fine)
-- `git cat-file -e <base>^{commit}` passes
+1. If `git diff --quiet HEAD` fails, stop and ask the user to stash. Never stash, commit, or reset:
+   the user moves their own changes so they know where they went. Untracked files are fine.
+2. If `git rev-parse HEAD` equals the target, skip to step 5.
+3. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached, for the
+   output. Run a lone `git fetch` (skip it if Resolve just ran one).
+4. Check out the target:
+    - PR: `gh pr checkout <pr>`, never `--force`. It fast-forwards an existing local branch; if it
+      refuses (a diverged branch, an untracked file in the way), stop and report the error.
+    - Commit: `git switch <commit>` if `git rev-parse --verify -q refs/heads/<commit>` equals the
+      target; otherwise, or if that branch is checked out in another worktree,
+      `git switch --detach <target>`. Stop and report any other refusal.
+5. Check that `git rev-parse HEAD` equals the target (a PR pushed mid-run fails here) and that
+   `git cat-file -e <base>^{commit}` passes. On either failure, stop and report it.
 
 If `git diff --quiet <base>...<target>` passes, the range is empty: report nothing to review and
 stop, rather than a CLEAR from three reviews of nothing. For a commit already in the base, suggest
@@ -89,6 +102,7 @@ findings is a clean result, not a failure.
 ```
 ## Review: <target> vs <base>
 Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED]
+Switched from: <branch> (return: git switch <branch>) | <sha> (return: git switch --detach <sha>)
 
 ## Investigation
 [the Reviewer's section]
@@ -105,4 +119,4 @@ Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|pa
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Omit empty severity sections.
+Omit empty severity sections, and the `Switched from` line when no checkout ran.
