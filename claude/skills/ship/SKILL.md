@@ -71,7 +71,8 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
   accepting in a smaller form.
 - On iterations 2+, send the previous findings with each disposition and its reasoning. Rejections
   do not exit the loop; the reviewer must confirm or re-raise. A finding rejected and re-raised in
-  two consecutive iterations is marked `(re-raised)` in the report and still counts toward the exit.
+  two consecutive iterations is marked `(re-raised)` in the report and still blocks the exit while
+  at MEDIUM or above.
 - Cap: 3 iterations. On a cap exit with MEDIUM or HIGH findings, say whether they persisted or were
   new, and ask the user whether to run another 3 iterations. Repeat until nothing is at MEDIUM or
   above, or the user says to proceed or to stop. Stopping leaves the change unmerged and reports the
