@@ -202,13 +202,14 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - Skills: `ship` (plan, execute, review; starts at the plan, no spec phase; review loops cap at 3
   iterations, then the user decides: 3 more, proceed or stop), `full-review` (the Reviewer plus
   `/code-review` and `/security-review`, one VERDICT; accepted cost: up to 3 sources plus a confirm
-  pass per iteration; `/code-review` returns unverified findings, so built-in MEDIUM+ counts only
-  once the Reviewer confirms it, or ship's loop never converges), `ponytail`, `pr-triage`,
-  `claude-permissions`, `handoff`, `authored-voice` (PR comms rules plus `voice.md`, loaded only
-  when drafting text in the user's voice; rejected: an output style, inert while another style is
-  active, and a rule, loaded every session), `parallel-sessions` (subagents in worktrees open draft
-  PRs; this session reviews and merges them; repo facts live in each repo's CLAUDE.md), `wrap-up`
-  (end-of-session open threads; closes only what needs no decision). No commands
+  pass per iteration; `/code-review` returns unverified findings, so built-in MEDIUM+ goes to the
+  Reviewer to confirm, and an unconfirmed one drops to LOW, or ship's loop never converges),
+  `ponytail`, `pr-triage`, `claude-permissions`, `handoff`, `authored-voice` (PR comms rules plus
+  `voice.md`, loaded only when drafting text in the user's voice; rejected: an output style, inert
+  while another style is active, and a rule, loaded every session), `parallel-sessions` (subagents
+  in worktrees open draft PRs; this session reviews and merges them; repo facts live in each repo's
+  CLAUDE.md), `wrap-up` (end-of-session open threads; closes only what needs no decision). No
+  commands
 - Hooks: `guard.sh` (security leg), `commit-alone.sh`, and `worktree-create.sh` (places every
   worktree, including subagents', flat under `~/code/worktrees/`, branched off the remote's default
   branch, instead of the repo's `.claude/worktrees`). Formatting and lint are enforced by each
