@@ -360,6 +360,8 @@
       "git commit *",
       "git fetch",
       "git fetch *",
+      "git ls-remote",
+      "git ls-remote *",
       "git pull",
       "git pull *",
       "git push",

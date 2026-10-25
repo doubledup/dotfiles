@@ -338,9 +338,9 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   split could still silently weaken the posture
 - Tools needing broad `$HOME` writes are `excludedCommands`, not `filesystem.allowWrite` grants:
   `rcup`/`rcdn`/`mkrc` (symlink `$HOME`), `gh` (Go-TLS fails under Seatbelt), `git commit` (GPG
-  needs the gpg-agent socket and `~/.gnupg`), `git fetch`/`pull`/`push` (macOS can't tunnel git's
-  SSH through the sandbox proxy, and the remotes stay SSH rather than needing an HTTPS credential
-  helper). Push is excluded only toward `origin` (`git push`, `git push origin …`,
+  needs the gpg-agent socket and `~/.gnupg`), `git fetch`/`ls-remote`/`pull`/`push` (macOS can't
+  tunnel git's SSH through the sandbox proxy, and the remotes stay SSH rather than needing an HTTPS
+  credential helper). Push is excluded only toward `origin` (`git push`, `git push origin …`,
   `git push -u`/`--set-upstream origin …`): any other target, however spelled (a path, `--repo=`, a
   variable), runs sandboxed, so a local target's `receive-pack` hooks stay contained; `origin`'s URL
   is in sandbox-protected `.git/config`. Broad home-write grants are a privilege-escalation surface
