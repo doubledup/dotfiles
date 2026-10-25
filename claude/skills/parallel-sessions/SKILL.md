@@ -93,9 +93,10 @@ agent's worktree (`cd` there in its own Bash call), and only while its agent isn
 4. If the merge method makes the PR title and body the commit, make them describe what actually
    lands, then re-read the PR: a failed edit merges the stale text.
 5. Merge with the repo's method, without `gh`'s `--delete-branch` (it tries to check out `main`
-   inside the worktree), then delete the PR's remote branch with a lone `git push origin --delete`,
-   unless the repo already did. `cd` back to the main checkout and clean up per git.md: the
-   worktree's path is in `git worktree list`, and both its branches go.
+   inside the worktree). The repo deletes the PR's remote branch on merge (GitHub's "Automatically
+   delete head branches"); if it's off, suggest the user turns it on. `cd` back to the main checkout
+   and clean up per git.md: the worktree's path is in `git worktree list`, and its local branches
+   go.
 
 After the last merge, fold the agents' tracking-issue sections into the tracking issue, check CI on
 the default branch, and report per PR: what landed, decisions left for the user, and manual checks.
