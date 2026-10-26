@@ -20,6 +20,8 @@ Review comments:
 - No bold in review comments, tags included: `nit: ...`, not `**nit:** ...`
 - Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important
   follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
+- With no `issue(blocking):` comment, submit the review as an approval and let the author decide
+  what to take; with one, request changes
 - One idea per comment
 - When the fix is known, propose it directly; use suggestion blocks when helpful
 - Prefer consistency with existing in-repo conventions unless there is a strong reason to diverge
