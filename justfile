@@ -113,12 +113,13 @@ update:
     @echo 'Available macOS updates:'
     sudo softwareupdate -l
 
-# Pull dotfile updates, re-link, sync packages and nvim plugins, and triage orphan brews
+# Pull dotfile updates, re-link, rebuild bat themes, sync packages and plugins, triage orphan brews
 sync:
     rcdn -t mac
     git pull
     git config core.hooksPath .githooks
     RCRC=~/.dotfiles/rcrc rcup -t mac
+    bat cache --build
     brew bundle --no-upgrade --global
     nvim -c "lua require('lazy').restore()"
     just terminfo
