@@ -26,12 +26,30 @@
 [pull]
 	ff = only
 
+# Tokyo Night variants as features: fish's conf.d/theme.fish selects one through DELTA_FEATURES,
+# which replaces `features`. Keys in [delta] outrank a feature's, so variant keys live only there.
 [delta]
+	features = tokyonight-moon
 	hyperlinks = true
-	light = false
 	line-numbers = true
 	navigate = true
 	paging = always
+[delta "tokyonight-day"]
+	light = true
+	syntax-theme = tokyo-night-day
+	minus-style = syntax "#dababe"
+	minus-non-emph-style = syntax "#dababe"
+	minus-emph-style = syntax "#d59a9d"
+	minus-empty-line-marker-style = syntax "#dababe"
+	line-numbers-minus-style = "#c47981"
+	plus-style = syntax "#b7ced5"
+	plus-non-emph-style = syntax "#b7ced5"
+	plus-emph-style = syntax "#95bec7"
+	plus-empty-line-marker-style = syntax "#b7ced5"
+	line-numbers-plus-style = "#4197a4"
+	line-numbers-zero-style = "#a8aecb"
+[delta "tokyonight-moon"]
+	dark = true
 	syntax-theme = tokyo-night-moon
 	minus-style = syntax "#4b2a3d"
 	minus-non-emph-style = syntax "#4b2a3d"
