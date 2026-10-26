@@ -151,8 +151,8 @@ Key technical choices and their rationale:
 
 **Kitty option reference generated on demand:**
 
-- `kitty.conf` holds only the settings this machine actually changes, plus the marker blocks kitty
-  rewrites itself (`BEGIN_KITTY_FONTS`, `BEGIN_KITTY_THEME`)
+- `kitty.conf` holds only the settings this machine actually changes, plus the marker block kitty
+  rewrites itself (`BEGIN_KITTY_FONTS`); themes come from the `*-theme.auto.conf` files
 - Browse the full option list with `just kitty-defaults`, which pipes the installed kitty's own
   default config into nvim (read-only, kitty syntax, folded by section)
 - Alternative considered: keeping kitty's commented-out defaults interleaved in `kitty.conf`
