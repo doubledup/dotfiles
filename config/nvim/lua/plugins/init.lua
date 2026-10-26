@@ -32,7 +32,15 @@ return {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
-        opts = {},
+        opts = {
+            -- Day's inline code background (terminal_black) is too dark; bg_dark is lighter but
+            -- still stands out from the page
+            on_highlights = function(hl, c)
+                if vim.o.background == "light" then
+                    hl["@markup.raw.markdown_inline"] = { fg = c.blue, bg = c.bg_dark }
+                end
+            end,
+        },
     },
 
     {
