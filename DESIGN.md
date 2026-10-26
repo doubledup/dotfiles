@@ -134,10 +134,11 @@ Key technical choices and their rationale:
 - Each terminal picks the variant from OS appearance itself; fish follows the terminal's report
   (`fish_terminal_color_theme`, DEC mode 2031) through the handler in `conf.d/theme.fish`, which
   sources the matching upstream script
-- Delta cannot see the terminal's report, so the same handler exports `DELTA_FEATURES` to pick a
-  `[delta "tokyonight-day"]` or `[delta "tokyonight-moon"]` feature in `gitconfig`, which carry
-  upstream's `extras/delta` colours by hand (upstream ships bare `[delta]` sections). Git started
-  before a switch, such as from a running nvim, keeps its variant until restarted
+- Delta detects light or dark itself but holds one `syntax-theme` and one set of hunk colours, so
+  the same handler exports `DELTA_FEATURES` to pick a `[delta "tokyonight-day"]` or
+  `[delta "tokyonight-moon"]` feature in `gitconfig`, which carry upstream's `extras/delta` colours
+  by hand (upstream ships bare `[delta]` sections). Git not started from fish gets Moon, and git
+  started before a switch, such as from a running nvim, keeps its variant until restarted
 - bat follows OS appearance itself (`--theme=auto:system`); its `themes/` need `bat cache --build`,
   which `just sync` runs, and delta reads its syntax themes from the same cache
 - Alternatives considered: `fish_config theme choose` with upstream `.theme` files (rejected: its
