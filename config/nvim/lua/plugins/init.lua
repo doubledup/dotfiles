@@ -32,7 +32,8 @@ return {
         "folke/tokyonight.nvim",
         lazy = false,
         priority = 1000,
-        opts = {},
+        -- Day's default (0.3) puts inline code and builtin types under 3:1 contrast
+        opts = { day_brightness = 0 },
     },
 
     {

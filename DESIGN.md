@@ -140,6 +140,9 @@ Key technical choices and their rationale:
   before a switch, such as from a running nvim, keeps its variant until restarted
 - bat follows OS appearance itself (`--theme=auto:system`); its `themes/` need `bat cache --build`,
   which `just sync` runs, and delta reads its syntax themes from the same cache
+- Neovim sets tokyonight's `day_brightness = 0`: at the default 0.3, measured contrast on the Day
+  background is 1.7:1 for inline markdown code and 2.7:1 for builtin types; at 0 they are 3.5:1 and
+  5.0:1. This makes nvim's Day darker than the vendored terminal palettes, which come from 0.3
 - Alternatives considered: `fish_config theme choose` with upstream `.theme` files (rejected: its
   override semantics either erase the prompt roles fish's default theme sets, or, with a
   fish-generated `fish_frozen_theme.fish` in `conf.d`, silently apply nothing; a plain `source` has
