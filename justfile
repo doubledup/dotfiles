@@ -119,8 +119,8 @@ sync:
     git pull
     git config core.hooksPath .githooks
     RCRC=~/.dotfiles/rcrc rcup -t mac
-    bat cache --build
     brew bundle --no-upgrade --global
+    bat cache --build
     nvim -c "lua require('lazy').restore()"
     just terminfo
     just brew-cleanup
