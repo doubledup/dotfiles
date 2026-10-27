@@ -152,7 +152,12 @@ Key technical choices and their rationale:
 - Alternatives considered: Tokyo Night (rejected: its per-tool ports disagree on about half of all
   characters between nvim and bat, measured); vendoring `catppuccin/fish` `.theme` files (rejected:
   fish already ships them); ANSI colour names in fish so the terminal palette drives it (rejected:
-  loses the per-role hex colours upstream assigns)
+  loses the per-role hex colours upstream assigns); palette colours in bat and delta (bat's `ansi`
+  theme), so output already on screen, such as an open pager, recolours when kitty switches palette
+  (rejected: Catppuccin's kitty palette holds six accent hues, so about half of all characters
+  change colour against bat's Catppuccin theme, measured, and delta's tinted hunk backgrounds have
+  no palette equivalent). Accepted cost: truecolor output keeps the flavour it was drawn in, so a
+  pager open across a switch needs a rerun
 
 **Kitty option reference generated on demand:**
 
