@@ -139,12 +139,13 @@ Key technical choices and their rationale:
   report (`fish_terminal_color_theme`, DEC mode 2031). Verified: it overrides the fish-generated
   `fish_frozen_theme.fish` in `conf.d`, and the theme sets the prompt roles (cwd, user, host,
   status) itself
-- Delta detects light or dark itself but holds one `syntax-theme` and one set of hunk colours, so a
-  handler in `conf.d/theme.fish` exports `DELTA_FEATURES` to pick the `catppuccin-latte` or
-  `catppuccin-mocha` feature from `config/delta/catppuccin.gitconfig`, a verbatim copy of
-  `catppuccin/delta` that `gitconfig` includes (`just catppuccin-vendor` refreshes it). Git not
-  started from fish gets Mocha, and git started before a switch, such as from a running nvim, keeps
-  its flavour until restarted
+- Delta holds one `syntax-theme` and one set of hunk colours, so git runs it through
+  `local/bin/delta-auto`, which reads macOS appearance on every call and passes the
+  `catppuccin-latte` or `catppuccin-mocha` feature from `config/delta/catppuccin.gitconfig` (a
+  verbatim copy of `catppuccin/delta` that `gitconfig` includes; `just catppuccin-vendor` refreshes
+  it). Reading the OS per call, rather than an env var a shell exports, covers git started from any
+  program, including an nvim or Claude Code that predates the switch. The wrapper unsets
+  `DELTA_FEATURES`, which outranks `--features` (measured)
 - bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
   delta also bundles, so neither needs vendored themes or a cache build
 - Alternatives considered: Tokyo Night (rejected: its per-tool ports disagree on about half of all

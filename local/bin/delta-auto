@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+# delta with the Catppuccin flavour matching macOS appearance at call time, so git from any
+# program follows the OS. Elsewhere: Mocha. DELTA_FEATURES would outrank --features.
+flavour=mocha
+if [ "$(uname -s)" = Darwin ] && ! defaults read -g AppleInterfaceStyle >/dev/null 2>&1; then
+    flavour=latte
+fi
+unset DELTA_FEATURES
+exec delta --features "catppuccin-$flavour" "$@"

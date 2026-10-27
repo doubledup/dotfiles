@@ -3,7 +3,7 @@
 	email = 26876072+doubledup@users.noreply.github.com
 [core]
 	editor = nvim
-	pager = delta
+	pager = delta-auto
 	ignorecase = true
 	excludesfile = ~/.gitignore
 
@@ -20,15 +20,15 @@
 [init]
 	defaultBranch = main
 [interactive]
-	diffFilter = delta --color-only
+	diffFilter = delta-auto --color-only
 [merge]
 	conflictstyle = diff3
 [pull]
 	ff = only
 
-# Catppuccin flavours as features from the vendored upstream port: fish's conf.d/theme.fish selects
-# one through DELTA_FEATURES, which replaces `features`. Keys in [delta] outrank a feature's, so
-# [delta] holds no colour keys.
+# Catppuccin flavours as features from the vendored upstream port; delta-auto (local/bin) passes
+# the one matching macOS appearance with --features. Keys in [delta] outrank a feature's, so
+# [delta] holds no colour keys; `features` covers a bare `delta`.
 [include]
 	path = ~/.config/delta/catppuccin.gitconfig
 [delta]
