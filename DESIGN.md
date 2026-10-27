@@ -127,25 +127,25 @@ Key technical choices and their rationale:
 
 **Tokyo Night palettes vendored from upstream extras:**
 
-- Kitty (`*-theme.auto.conf`) and fish (`themes/*.fish`) each hold verbatim copies of
-  `folke/tokyonight.nvim` `extras/` files for the Day and Moon variants. `just tokyonight-vendor`
-  refreshes all of them at once; `git diff` is the review
-- Each terminal picks the variant from OS appearance itself; fish follows the terminal's report
-  (`fish_terminal_color_theme`, DEC mode 2031) through the handler in `conf.d/theme.fish`, which
-  sources the matching upstream script
-- Delta detects light or dark itself but holds one `syntax-theme` and one set of hunk colours, so
-  the same handler exports `DELTA_FEATURES` to pick the `catppuccin-latte` or `catppuccin-mocha`
-  feature from `config/delta/catppuccin.gitconfig`, a verbatim copy of `catppuccin/delta` that
-  `gitconfig` includes (`just catppuccin-vendor` refreshes it). Git not started from fish gets
-  Mocha, and git started before a switch, such as from a running nvim, keeps its flavour until
-  restarted
+- Kitty (`*-theme.auto.conf`) holds verbatim copies of `folke/tokyonight.nvim` `extras/` files for
+  the Day and Moon variants. `just tokyonight-vendor` refreshes them; `git diff` is the review
+- Kitty picks the variant from OS appearance itself
+- fish ships Catppuccin as colour-theme-aware themes (Latte for light, the named flavour for dark);
+  `conf.d/theme.fish` runs `fish_config theme choose catppuccin-mocha`, which follows the terminal's
+  report (`fish_terminal_color_theme`, DEC mode 2031). Verified: it overrides the fish-generated
+  `fish_frozen_theme.fish` in `conf.d`, and the theme sets the prompt roles (cwd, user, host,
+  status) itself
+- Delta detects light or dark itself but holds one `syntax-theme` and one set of hunk colours, so a
+  handler in `conf.d/theme.fish` exports `DELTA_FEATURES` to pick the `catppuccin-latte` or
+  `catppuccin-mocha` feature from `config/delta/catppuccin.gitconfig`, a verbatim copy of
+  `catppuccin/delta` that `gitconfig` includes (`just catppuccin-vendor` refreshes it). Git not
+  started from fish gets Mocha, and git started before a switch, such as from a running nvim, keeps
+  its flavour until restarted
 - bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
   delta also bundles, so neither needs vendored themes or a cache build
-- Alternatives considered: `fish_config theme choose` with upstream `.theme` files (rejected: its
-  override semantics either erase the prompt roles fish's default theme sets, or, with a
-  fish-generated `fish_frozen_theme.fish` in `conf.d`, silently apply nothing; a plain `source` has
-  neither trap); ANSI colour names in fish so the terminal palette drives it (rejected: loses the
-  per-role hex colours upstream assigns)
+- Alternatives considered: vendoring `catppuccin/fish` `.theme` files (rejected: fish already ships
+  them); ANSI colour names in fish so the terminal palette drives it (rejected: loses the per-role
+  hex colours upstream assigns)
 
 **Kitty option reference generated on demand:**
 

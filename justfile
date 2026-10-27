@@ -34,20 +34,18 @@ ponytail-diff:
         diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
         rc=$?; rm -f "$tmp"; exit $rc
 
-# Re-vendor the Tokyo Night palettes (kitty, fish) from upstream main; review with git diff
+# Re-vendor the Tokyo Night palettes (kitty) from upstream main; review with git diff
 tokyonight-vendor:
     @for pair in \
         kitty/tokyonight_day.conf:config/kitty/light-theme.auto.conf \
-        kitty/tokyonight_moon.conf:config/kitty/dark-theme.auto.conf \
-        fish/tokyonight_day.fish:config/fish/themes/tokyonight_day.fish \
-        fish/tokyonight_moon.fish:config/fish/themes/tokyonight_moon.fish; do \
+        kitty/tokyonight_moon.conf:config/kitty/dark-theme.auto.conf; do \
         tmp=$(mktemp "${TMPDIR:-/tmp}/tokyonight-XXXXXX"); \
         curl -fsS -H "Accept: application/vnd.github.raw" \
             "https://api.github.com/repos/folke/tokyonight.nvim/contents/extras/${pair%%:*}?ref=main" \
             -o "$tmp" \
             || { rm -f "$tmp"; echo "tokyonight-vendor: fetch failed for ${pair%%:*}" >&2; exit 2; }; \
         chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
-    done; git status --short config/kitty config/fish/themes
+    done; git status --short config/kitty
 
 # Re-vendor the Catppuccin ports (delta) from upstream main; review with git diff
 catppuccin-vendor:
