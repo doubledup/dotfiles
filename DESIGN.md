@@ -143,9 +143,9 @@ Key technical choices and their rationale:
   `local/bin/delta-auto`, which reads macOS appearance on every call and passes the
   `catppuccin-latte` or `catppuccin-mocha` feature from `config/delta/catppuccin.gitconfig` (a
   verbatim copy of `catppuccin/delta` that `gitconfig` includes; `just catppuccin-vendor` refreshes
-  it). Reading the OS per call, rather than an env var a shell exports, covers git started from any
-  program, including an nvim or Claude Code that predates the switch. The wrapper unsets
-  `DELTA_FEATURES`, which outranks `--features` (measured)
+  it). Reading the OS per call covers git started from any program, including an nvim or Claude Code
+  that predates the switch; off macOS it passes Mocha. The wrapper unsets `DELTA_FEATURES`, which
+  outranks `--features` (measured)
 - bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
   delta also bundles, so neither needs vendored themes or a cache build
 - Alternatives considered: Tokyo Night (rejected: its per-tool ports disagree on about half of all
