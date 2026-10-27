@@ -34,7 +34,8 @@ Then, across the session:
 - **Rationale in chat only:** a non-obvious choice whose reason isn't in a commit body, a comment or
   the repo's design doc. Pushed commits can't take a body, so offer the design doc.
 - **The tracking issue and follow-ups:** findings not acted on, and whether the repo's tracking
-  issue reflects what landed (per its CLAUDE.md).
+  issue reflects what landed (per its CLAUDE.md). Replace its status line; edit the rest of the
+  description only when the exit criteria changed, and put everything else in a comment.
 
 Skip temp and scratch files (`$TMPDIR`, the session scratchpad): they're disposable, so neither
 check nor report them.
@@ -53,4 +54,5 @@ Close without asking only these:
 
 List everything else, most important first: decisions for the user (other pushes, anything
 "abandoned", a shared checkout behind origin), then actions only they can take as `!` commands, then
-what other sessions or agents still own. Don't start new work; offer it.
+what other sessions or agents still own. Give each owner other than the user one line, so the list
+holds only the user's decisions. Don't start new work; offer it.
