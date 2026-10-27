@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Tokyo Night Storm",
     "terminal.integrated.defaultProfile.osx": "fish",
     "terminal.integrated.macOptionIsMeta": true,
     "[java]": {
@@ -8,5 +7,8 @@
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "editor.fontSize": 13
+    "editor.fontSize": 13,
+    "window.autoDetectColorScheme": true,
+    "workbench.preferredLightColorTheme": "Catppuccin Latte",
+    "workbench.preferredDarkColorTheme": "Catppuccin Mocha"
 }
