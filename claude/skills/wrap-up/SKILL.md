@@ -35,7 +35,9 @@ Then, across the session:
   the repo's design doc. Pushed commits can't take a body, so offer the design doc.
 - **The tracking issue and follow-ups:** findings not acted on, and whether the repo's tracking
   issue reflects what landed (per its CLAUDE.md).
-- **Leftovers outside repos:** temp or scratch directories this session created.
+
+Skip temp and scratch files (`$TMPDIR`, the session scratchpad): they're disposable, so neither
+check nor report them.
 
 ## Close and report
 
@@ -50,5 +52,5 @@ Close without asking only these:
   relayed or a request to act.
 
 List everything else, most important first: decisions for the user (other pushes, anything
-"abandoned", a shared checkout behind origin, scratch to delete), then actions only they can take as
-`!` commands, then what other sessions or agents still own. Don't start new work; offer it.
+"abandoned", a shared checkout behind origin), then actions only they can take as `!` commands, then
+what other sessions or agents still own. Don't start new work; offer it.
