@@ -34,13 +34,11 @@ ponytail-diff:
         diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
         rc=$?; rm -f "$tmp"; exit $rc
 
-# Re-vendor the Tokyo Night palettes (kitty, ghostty, fish) from upstream main; review with git diff
+# Re-vendor the Tokyo Night palettes (kitty, fish) from upstream main; review with git diff
 tokyonight-vendor:
     @for pair in \
         kitty/tokyonight_day.conf:config/kitty/light-theme.auto.conf \
         kitty/tokyonight_moon.conf:config/kitty/dark-theme.auto.conf \
-        ghostty/tokyonight_day:config/ghostty/themes/tokyonight-day \
-        ghostty/tokyonight_moon:config/ghostty/themes/tokyonight-moon \
         fish/tokyonight_day.fish:config/fish/themes/tokyonight_day.fish \
         fish/tokyonight_moon.fish:config/fish/themes/tokyonight_moon.fish; do \
         tmp=$(mktemp "${TMPDIR:-/tmp}/tokyonight-XXXXXX"); \
@@ -49,7 +47,7 @@ tokyonight-vendor:
             -o "$tmp" \
             || { rm -f "$tmp"; echo "tokyonight-vendor: fetch failed for ${pair%%:*}" >&2; exit 2; }; \
         chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
-    done; git status --short config/kitty config/ghostty/themes config/fish/themes
+    done; git status --short config/kitty config/fish/themes
 
 # Test the PreToolUse hooks (secret-path guard, commit-alone nudge)
 test-claude-hooks:

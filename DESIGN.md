@@ -118,19 +118,18 @@ Key technical choices and their rationale:
 - Cross-platform by design
 - Focused on running commands, not building software (better fit than make)
 
-**Kitty and Ghostty terminals:**
+**Kitty terminal:**
 
-- Both GPU-accelerated for performance
-- Modern feature sets (ligatures, images, extensive customization)
-- Kitty: Mature, well-established
-- Ghostty: Newer, native macOS performance
-- Both support keyboard-driven workflows
+- GPU-accelerated for performance
+- Modern feature set (ligatures, images, extensive customization)
+- Mature, well-established
+- Supports keyboard-driven workflows
 
 **Tokyo Night palettes vendored from upstream extras:**
 
-- Kitty (`*-theme.auto.conf`), Ghostty (`themes/`), and fish (`themes/*.fish`) each hold verbatim
-  copies of `folke/tokyonight.nvim` `extras/` files for the Day and Moon variants.
-  `just tokyonight-vendor` refreshes all of them at once; `git diff` is the review
+- Kitty (`*-theme.auto.conf`) and fish (`themes/*.fish`) each hold verbatim copies of
+  `folke/tokyonight.nvim` `extras/` files for the Day and Moon variants. `just tokyonight-vendor`
+  refreshes all of them at once; `git diff` is the review
 - Each terminal picks the variant from OS appearance itself; fish follows the terminal's report
   (`fish_terminal_color_theme`, DEC mode 2031) through the handler in `conf.d/theme.fish`, which
   sources the matching upstream script

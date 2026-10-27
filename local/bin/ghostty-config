@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-ghostty -e fish -c "cd $HOME/.config/ghostty/ && $EDITOR config" &
