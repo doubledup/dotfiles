@@ -130,8 +130,10 @@ Key technical choices and their rationale:
 - Each tool below follows OS appearance, and one scheme with a written cross-port style guide keeps
   their colours in step
 - Kitty (`*-theme.auto.conf`) holds verbatim copies of `catppuccin/kitty` `latte.conf` and
-  `mocha.conf`, and picks one from OS appearance itself. `just catppuccin-vendor` refreshes every
-  vendored file; `git diff` is the review
+  `mocha.conf`, and picks one from OS appearance itself. `just catppuccin-vendor` fetches every
+  vendored file at the upstream commit the justfile pins per repo, so upstream changes land only
+  when a pin is bumped; `git diff` is the review. The delta file goes live through its include as
+  soon as it is written, so a bump is the point to read the upstream diff
 - Neovim loads `catppuccin/nvim` through lazy; `colorscheme catppuccin-nvim` picks the flavour from
   `background`, which auto-dark-mode sets
 - fish ships Catppuccin as colour-theme-aware themes (Latte for light, the named flavour for dark);
@@ -142,10 +144,9 @@ Key technical choices and their rationale:
 - Delta holds one `syntax-theme` and one set of hunk colours, so git runs it through
   `local/bin/delta-auto`, which reads macOS appearance on every call and passes the
   `catppuccin-latte` or `catppuccin-mocha` feature from `config/delta/catppuccin.gitconfig` (a
-  verbatim copy of `catppuccin/delta` that `gitconfig` includes; `just catppuccin-vendor` refreshes
-  it). Reading the OS per call covers git started from any program, including an nvim or Claude Code
-  that predates the switch; off macOS it passes Mocha. The wrapper unsets `DELTA_FEATURES`, which
-  outranks `--features` (measured)
+  verbatim copy of `catppuccin/delta` that `gitconfig` includes). Reading the OS per call covers git
+  started from any program, including an nvim or Claude Code that predates the switch; off macOS it
+  passes Mocha. The wrapper unsets `DELTA_FEATURES`, which outranks `--features` (measured)
 - bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
   delta also bundles, so neither needs vendored themes or a cache build
 - Alternatives considered: Tokyo Night (rejected: its per-tool ports disagree on about half of all

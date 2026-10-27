@@ -34,16 +34,20 @@ ponytail-diff:
         diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
         rc=$?; rm -f "$tmp"; exit $rc
 
-# Re-vendor the Catppuccin ports (kitty, delta) from upstream main; review with git diff
+# Upstream commits the Catppuccin ports are vendored from; bump one, then run catppuccin-vendor
+catppuccin_kitty := "43098316202b84d6a71f71aaf8360f102f4d3f1a"
+catppuccin_delta := "011516f5d14f66b771b3e716f29c77231e008c74"
+
+# Re-vendor the Catppuccin ports (kitty, delta) at their pinned commits; review with git diff
 catppuccin-vendor:
     @for pair in \
-        kitty/themes/latte.conf:config/kitty/light-theme.auto.conf \
-        kitty/themes/mocha.conf:config/kitty/dark-theme.auto.conf \
-        delta/catppuccin.gitconfig:config/delta/catppuccin.gitconfig; do \
-        src=${pair%%:*}; \
+        kitty@{{ catppuccin_kitty }}/themes/latte.conf:config/kitty/light-theme.auto.conf \
+        kitty@{{ catppuccin_kitty }}/themes/mocha.conf:config/kitty/dark-theme.auto.conf \
+        delta@{{ catppuccin_delta }}/catppuccin.gitconfig:config/delta/catppuccin.gitconfig; do \
+        src=${pair%%:*}; ref=${src#*@}; \
         tmp=$(mktemp "${TMPDIR:-/tmp}/catppuccin-XXXXXX"); \
         curl -fsS -H "Accept: application/vnd.github.raw" \
-            "https://api.github.com/repos/catppuccin/${src%%/*}/contents/${src#*/}?ref=main" \
+            "https://api.github.com/repos/catppuccin/${src%%@*}/contents/${ref#*/}?ref=${ref%%/*}" \
             -o "$tmp" \
             || { rm -f "$tmp"; echo "catppuccin-vendor: fetch failed for $src" >&2; exit 2; }; \
         chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
