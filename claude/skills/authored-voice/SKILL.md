@@ -19,7 +19,8 @@ Review comments:
 - Review tags: `nit:`, `suggestion:`, `question:`, `issue:`, `request:`
 - No bold in review comments, tags included: `nit: ...`, not `**nit:** ...`
 - Three-tier severity: `issue(blocking):` for merge blockers, `issue(non-blocking):` for important
-  follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking.
+  follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking. Low-impact review
+  findings, when commented at all, are `nit:`
 - With no `issue(blocking):` comment, submit the review as an approval and let the author decide
   what to take; with one, request changes
 - One idea per comment
