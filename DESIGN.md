@@ -169,7 +169,7 @@ Key technical choices and their rationale:
 
 - kitty's `notify_on_cmd_finish ... focus` clears only its own cmd-finished notifications on
   refocus; notifications from other apps (e.g. Claude Code's OSC 99 "waiting for input") lingered in
-  Notification Center in kitty but not Ghostty
+  Notification Center
 - `config/kitty/close-notifications-on-focus.py`, loaded via `watcher` in `kitty.conf`, closes every
   live notification whose sending window just regained focus, regardless of sender, by iterating
   `NotificationManager.in_progress_notification_commands` and matching `channel_id`
