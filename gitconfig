@@ -43,3 +43,5 @@
 	user = doubledup
 [rerere]
 	enabled = true
+[branch]
+	autoSetupMerge = simple
