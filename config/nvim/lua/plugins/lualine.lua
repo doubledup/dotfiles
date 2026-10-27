@@ -38,7 +38,7 @@ return {
 
         return {
             options = {
-                theme = "tokyonight",
+                theme = "catppuccin-nvim",
                 component_separators = { left = "", right = "" },
                 section_separators = { left = "", right = "" },
                 always_show_tabline = false,
@@ -139,42 +139,6 @@ return {
         vim.o.showmode = false
         vim.o.showtabline = 1
 
-        -- Make window separators more visible with globalstatus
-        local winsep_augroup = vim.api.nvim_create_augroup("window_separator", {})
-        vim.api.nvim_create_autocmd("ColorScheme", {
-            desc = "Make window separators more visible",
-            group = winsep_augroup,
-            pattern = "*",
-            callback = function()
-                local normal_bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
-
-                vim.api.nvim_set_hl(0, "WinSeparator", {
-                    fg = "#545c7e",
-                    bg = normal_bg,
-                })
-            end,
-        })
-
-        vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#545c7e" })
-
-        -- set lualine theme based on background, preserving existing options
-        local function update_lualine_theme()
-            local theme = vim.o.background == "dark" and "tokyonight" or "tokyonight-day"
-
-            local new_opts = vim.deepcopy(opts)
-            new_opts.options.theme = theme
-
-            require("lualine").setup(new_opts)
-        end
-
-        update_lualine_theme()
-
-        -- Listen for auto-dark-mode.nvim changes
-        vim.api.nvim_create_autocmd("User", {
-            pattern = "AutoDarkModeChanged",
-            group = vim.api.nvim_create_augroup("LualineThemeSync", { clear = true }),
-            callback = update_lualine_theme,
-            desc = "Update lualine theme when system appearance changes",
-        })
+        require("lualine").setup(opts)
     end,
 }

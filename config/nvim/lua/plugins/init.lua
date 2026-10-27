@@ -29,16 +29,14 @@ return {
     -- ui
 
     {
-        "folke/tokyonight.nvim",
+        "catppuccin/nvim",
+        name = "catppuccin",
         lazy = false,
         priority = 1000,
         opts = {
-            -- Day's inline code background (terminal_black) is too dark; bg_dark is lighter but
-            -- still stands out from the page
-            on_highlights = function(hl, c)
-                if vim.o.background == "light" then
-                    hl["@markup.raw.markdown_inline"] = { fg = c.blue, bg = c.bg_dark }
-                end
+            -- Make window separators more visible with globalstatus
+            custom_highlights = function(c)
+                return { WinSeparator = { fg = c.surface2 } }
             end,
         },
     },
