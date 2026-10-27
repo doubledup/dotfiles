@@ -127,9 +127,8 @@ Key technical choices and their rationale:
 
 **Catppuccin from each tool's official port (Latte for light, Mocha for dark):**
 
-- Every tool follows OS appearance, so one scheme with a written cross-port style guide keeps
-  colours in step: Tokyo Night's per-tool ports disagreed on about half of all characters between
-  nvim and bat (measured)
+- Each tool below follows OS appearance, and one scheme with a written cross-port style guide keeps
+  their colours in step
 - Kitty (`*-theme.auto.conf`) holds verbatim copies of `catppuccin/kitty` `latte.conf` and
   `mocha.conf`, and picks one from OS appearance itself. `just catppuccin-vendor` refreshes every
   vendored file; `git diff` is the review
@@ -148,9 +147,10 @@ Key technical choices and their rationale:
   its flavour until restarted
 - bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
   delta also bundles, so neither needs vendored themes or a cache build
-- Alternatives considered: vendoring `catppuccin/fish` `.theme` files (rejected: fish already ships
-  them); ANSI colour names in fish so the terminal palette drives it (rejected: loses the per-role
-  hex colours upstream assigns)
+- Alternatives considered: Tokyo Night (rejected: its per-tool ports disagree on about half of all
+  characters between nvim and bat, measured); vendoring `catppuccin/fish` `.theme` files (rejected:
+  fish already ships them); ANSI colour names in fish so the terminal palette drives it (rejected:
+  loses the per-role hex colours upstream assigns)
 
 **Kitty option reference generated on demand:**
 
