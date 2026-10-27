@@ -33,8 +33,12 @@ repo: the working directory, or another listed working directory whose `origin` 
 you `cd` into in its own Bash call first, since `/code-review` and `/security-review` review the
 session's working directory. If no listed directory is that repo, stop and name it.
 
-1. If `git diff --quiet HEAD` fails, stop and ask the user to stash; never stash, commit, or reset,
-   so the user knows where their changes went. Untracked files are fine.
+1. List the range's files (`gh pr diff <pr> --name-only` for a PR,
+   `git diff --name-only <base>...<target>` for a commit). If `git diff --quiet HEAD -- <files>`
+   fails, stop and ask the user to stash those files; never stash, commit, or reset, so the user
+   knows where their changes went. Uncommitted changes to other files, and untracked files, are
+   fine: they can't alter the reviewed diff, and a step 4 switch carries them along (git refuses a
+   switch that would overwrite one; stop and report it).
 2. If HEAD is the target (`ship`, or the user already checked it out), review in place: skip to
    step 5.
 3. Stop and tell the user instead of switching when:

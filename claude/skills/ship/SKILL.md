@@ -42,7 +42,7 @@ Plan, get approval, execute concern by concern, review the diff. Change request:
 ## 3. Review
 
 1. Run project verification (format, lint, tests for the files changed) once; fix failures and
-   commit the fixes, since `/full-review` needs a clean working tree.
+   commit the fixes, since `/full-review` reviews only committed changes.
 2. Size the range with `git diff <base>..HEAD --stat`. At 20 or fewer changed lines, skip review and
    show the user the diff. Warn above 400; above 1500, ask whether to review or split.
 3. Run the review loop with `/full-review HEAD <base>`, passing the plan and verification results as
