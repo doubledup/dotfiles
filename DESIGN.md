@@ -132,7 +132,7 @@ Key technical choices and their rationale:
 - Kitty (`*-theme.auto.conf`) holds verbatim copies of `catppuccin/kitty` `latte.conf` and
   `mocha.conf`, and picks one from OS appearance itself. `just catppuccin-vendor` refreshes every
   vendored file; `git diff` is the review
-- Neovim loads `catppuccin/nvim` through lazy; `colorscheme catppuccin` picks the flavour from
+- Neovim loads `catppuccin/nvim` through lazy; `colorscheme catppuccin-nvim` picks the flavour from
   `background`, which auto-dark-mode sets
 - fish ships Catppuccin as colour-theme-aware themes (Latte for light, the named flavour for dark);
   `conf.d/theme.fish` runs `fish_config theme choose catppuccin-mocha`, which follows the terminal's

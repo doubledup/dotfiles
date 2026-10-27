@@ -3,7 +3,7 @@ require("config.options")
 require("config.keymaps")
 require("config.autocmds")
 
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme("catppuccin-nvim")
 
 -- firenvim
 if vim.g.started_by_firenvim == true then
