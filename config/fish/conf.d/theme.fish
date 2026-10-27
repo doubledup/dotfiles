@@ -8,10 +8,10 @@ if status is-interactive
     function __tokyonight_theme --on-variable fish_terminal_color_theme
         if test "$fish_terminal_color_theme" = light
             source $__fish_config_dir/themes/tokyonight_day.fish
-            set -gx DELTA_FEATURES tokyonight-day
+            set -gx DELTA_FEATURES catppuccin-latte
         else
             source $__fish_config_dir/themes/tokyonight_moon.fish
-            set -gx DELTA_FEATURES tokyonight-moon
+            set -gx DELTA_FEATURES catppuccin-mocha
         end
     end
     __tokyonight_theme

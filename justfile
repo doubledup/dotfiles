@@ -49,6 +49,19 @@ tokyonight-vendor:
         chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
     done; git status --short config/kitty config/fish/themes
 
+# Re-vendor the Catppuccin ports (delta) from upstream main; review with git diff
+catppuccin-vendor:
+    @for pair in \
+        delta/catppuccin.gitconfig:config/delta/catppuccin.gitconfig; do \
+        src=${pair%%:*}; \
+        tmp=$(mktemp "${TMPDIR:-/tmp}/catppuccin-XXXXXX"); \
+        curl -fsS -H "Accept: application/vnd.github.raw" \
+            "https://api.github.com/repos/catppuccin/${src%%/*}/contents/${src#*/}?ref=main" \
+            -o "$tmp" \
+            || { rm -f "$tmp"; echo "catppuccin-vendor: fetch failed for $src" >&2; exit 2; }; \
+        chmod 644 "$tmp"; mkdir -p "$(dirname "${pair#*:}")"; mv "$tmp" "${pair#*:}"; \
+    done; git status --short config/delta
+
 # Test the PreToolUse hooks (secret-path guard, commit-alone nudge)
 test-claude-hooks:
     @echo "Testing guard hook..."
@@ -111,14 +124,13 @@ update:
     @echo 'Available macOS updates:'
     sudo softwareupdate -l
 
-# Pull dotfile updates, re-link, rebuild bat themes, sync packages and plugins, triage orphan brews
+# Pull dotfile updates, re-link, sync packages and nvim plugins, and triage orphan brews
 sync:
     rcdn -t mac
     git pull
     git config core.hooksPath .githooks
     RCRC=~/.dotfiles/rcrc rcup -t mac
     brew bundle --no-upgrade --global
-    bat cache --build
     nvim -c "lua require('lazy').restore()"
     just terminfo
     just brew-cleanup

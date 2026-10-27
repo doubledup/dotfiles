@@ -7,8 +7,8 @@
 # auto:system is a MacOS-only option, but keeping it here as it's the only detection that seems to
 # work so far
 --theme="auto:system"
---theme-dark="tokyo-night-moon"
---theme-light="tokyo-night-day"
+--theme-dark="Catppuccin Mocha"
+--theme-light="Catppuccin Latte"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):

@@ -134,12 +134,13 @@ Key technical choices and their rationale:
   (`fish_terminal_color_theme`, DEC mode 2031) through the handler in `conf.d/theme.fish`, which
   sources the matching upstream script
 - Delta detects light or dark itself but holds one `syntax-theme` and one set of hunk colours, so
-  the same handler exports `DELTA_FEATURES` to pick a `[delta "tokyonight-day"]` or
-  `[delta "tokyonight-moon"]` feature in `gitconfig`, which carry upstream's `extras/delta` colours
-  by hand (upstream ships bare `[delta]` sections). Git not started from fish gets Moon, and git
-  started before a switch, such as from a running nvim, keeps its variant until restarted
-- bat follows OS appearance itself (`--theme=auto:system`); its `themes/` need `bat cache --build`,
-  which `just sync` runs, and delta reads its syntax themes from the same cache
+  the same handler exports `DELTA_FEATURES` to pick the `catppuccin-latte` or `catppuccin-mocha`
+  feature from `config/delta/catppuccin.gitconfig`, a verbatim copy of `catppuccin/delta` that
+  `gitconfig` includes (`just catppuccin-vendor` refreshes it). Git not started from fish gets
+  Mocha, and git started before a switch, such as from a running nvim, keeps its flavour until
+  restarted
+- bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
+  delta also bundles, so neither needs vendored themes or a cache build
 - Alternatives considered: `fish_config theme choose` with upstream `.theme` files (rejected: its
   override semantics either erase the prompt roles fish's default theme sets, or, with a
   fish-generated `fish_frozen_theme.fish` in `conf.d`, silently apply nothing; a plain `source` has
