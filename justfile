@@ -34,22 +34,11 @@ ponytail-diff:
         diff -u claude/skills/ponytail/SKILL.md "$tmp" && echo "up to date"; \
         rc=$?; rm -f "$tmp"; exit $rc
 
-# Re-vendor the Tokyo Night palettes (kitty) from upstream main; review with git diff
-tokyonight-vendor:
-    @for pair in \
-        kitty/tokyonight_day.conf:config/kitty/light-theme.auto.conf \
-        kitty/tokyonight_moon.conf:config/kitty/dark-theme.auto.conf; do \
-        tmp=$(mktemp "${TMPDIR:-/tmp}/tokyonight-XXXXXX"); \
-        curl -fsS -H "Accept: application/vnd.github.raw" \
-            "https://api.github.com/repos/folke/tokyonight.nvim/contents/extras/${pair%%:*}?ref=main" \
-            -o "$tmp" \
-            || { rm -f "$tmp"; echo "tokyonight-vendor: fetch failed for ${pair%%:*}" >&2; exit 2; }; \
-        chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
-    done; git status --short config/kitty
-
-# Re-vendor the Catppuccin ports (delta) from upstream main; review with git diff
+# Re-vendor the Catppuccin ports (kitty, delta) from upstream main; review with git diff
 catppuccin-vendor:
     @for pair in \
+        kitty/themes/latte.conf:config/kitty/light-theme.auto.conf \
+        kitty/themes/mocha.conf:config/kitty/dark-theme.auto.conf \
         delta/catppuccin.gitconfig:config/delta/catppuccin.gitconfig; do \
         src=${pair%%:*}; \
         tmp=$(mktemp "${TMPDIR:-/tmp}/catppuccin-XXXXXX"); \
@@ -58,7 +47,7 @@ catppuccin-vendor:
             -o "$tmp" \
             || { rm -f "$tmp"; echo "catppuccin-vendor: fetch failed for $src" >&2; exit 2; }; \
         chmod 644 "$tmp"; mkdir -p "$(dirname "${pair#*:}")"; mv "$tmp" "${pair#*:}"; \
-    done; git status --short config/delta
+    done; git status --short config/kitty config/delta
 
 # Test the PreToolUse hooks (secret-path guard, commit-alone nudge)
 test-claude-hooks:

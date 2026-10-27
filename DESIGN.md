@@ -125,11 +125,16 @@ Key technical choices and their rationale:
 - Mature, well-established
 - Supports keyboard-driven workflows
 
-**Tokyo Night palettes vendored from upstream extras:**
+**Catppuccin from each tool's official port (Latte for light, Mocha for dark):**
 
-- Kitty (`*-theme.auto.conf`) holds verbatim copies of `folke/tokyonight.nvim` `extras/` files for
-  the Day and Moon variants. `just tokyonight-vendor` refreshes them; `git diff` is the review
-- Kitty picks the variant from OS appearance itself
+- Every tool follows OS appearance, so one scheme with a written cross-port style guide keeps
+  colours in step: Tokyo Night's per-tool ports disagreed on about half of all characters between
+  nvim and bat (measured)
+- Kitty (`*-theme.auto.conf`) holds verbatim copies of `catppuccin/kitty` `latte.conf` and
+  `mocha.conf`, and picks one from OS appearance itself. `just catppuccin-vendor` refreshes every
+  vendored file; `git diff` is the review
+- Neovim loads `catppuccin/nvim` through lazy; `colorscheme catppuccin` picks the flavour from
+  `background`, which auto-dark-mode sets
 - fish ships Catppuccin as colour-theme-aware themes (Latte for light, the named flavour for dark);
   `conf.d/theme.fish` runs `fish_config theme choose catppuccin-mocha`, which follows the terminal's
   report (`fish_terminal_color_theme`, DEC mode 2031). Verified: it overrides the fish-generated
