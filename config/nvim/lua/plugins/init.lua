@@ -46,16 +46,6 @@ return {
         opts = {
             update_interval = 400,
             fallback = "dark",
-
-            set_dark_mode = function()
-                vim.api.nvim_set_option_value("background", "dark", {})
-                vim.api.nvim_exec_autocmds("User", { pattern = "AutoDarkModeChanged" })
-            end,
-
-            set_light_mode = function()
-                vim.api.nvim_set_option_value("background", "light", {})
-                vim.api.nvim_exec_autocmds("User", { pattern = "AutoDarkModeChanged" })
-            end,
         },
     },
 
