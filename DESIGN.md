@@ -378,27 +378,30 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   (measured: an `autoMode.environment` line calling it a production deploy didn't stop one), so each
   remote's branch protection is what keeps unreviewed code off a deploying `main`. Only the
   unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`,
-  `--prune`) and every `git -C * push` are `deny`. Shipping one-way doors (`gh pr merge`,
-  `gh release create`, `terraform apply`, `just deploy`) are `ask`: they are direction decisions.
-  `gh pr create` is `ask` as the PR review gate in every repo: it notifies the team, so the user
-  sees the title and body first. Known-destructive changes to remote state are `deny` up front: repo
-  delete, archive, rename and visibility changes; gh release, secret, variable, label, gist, issue,
-  project (and its items and fields), deploy-key, SSH and GPG key, and codespace deletes; `gh api`
-  DELETE calls and graphql delete mutations; `terraform destroy`, `-destroy`, `state rm` and
-  `workspace delete`; `aws` operations named `delete-*`, `*-delete-*` (`batch-delete-image`) or
-  `purge-*`, plus `s3 sync --delete`, `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`,
-  on any profile; and the Atlassian MCP's `executeDestructive`. `full-review` checks out same-repo
-  PRs with `gh pr checkout`, which runs unsandboxed with the PR's tracked hooks; teammates' PRs are
-  trusted per the accidents-only threat model, and fork PRs stop for the user. Regenerable state
-  (`gh run delete`, `gh cache delete`) has no rule. A rule with a `*` straight after the command
-  prefix gets a leading twin wherever its match can come first (`gh api -X DELETE`), since that `*`
-  doesn't match empty; `aws *delete*` needs none, as a service name always fills it. Residuals:
-  variable-built commands, other flag orders, graphql queries read from a file (`-F query=@file`),
-  and SDK scripts (boto3) bypass these patterns, accepted per the accidents-only threat model;
-  `gh api -X PATCH` can still archive a repo or change its visibility, left to the classifier
-  because a pattern on `visibility` would also block reads; routine dev deletes
-  (`aws sqs delete-message`) run via `!`; the terraform destroy rules also block harmless commands
-  naming `destroy` (`plan -destroy`, `plan -out destroy.tfplan`)
+  `--prune`) and every `git -C * push` are `deny`. Infra one-way doors (`terraform apply`,
+  `just deploy`) are `ask`: an apply can destroy resources. GitHub writes that only add or merge
+  (`gh pr create`, `gh pr merge`, `gh release create`) have no user rule, so the classifier judges
+  them: a merge is revertable and branch protection gates it, and a repo that wants a human gate (a
+  PR review gate, a release) adds the `ask` in its project settings.
+  `gh pr merge --delete-branch`/`-d` is `deny`, like `git push --delete`. Known-destructive changes
+  to remote state are `deny` up front: repo delete, archive, rename and visibility changes; gh
+  release, secret, variable, label, gist, issue, project (and its items and fields), deploy-key, SSH
+  and GPG key, and codespace deletes; `gh api` DELETE calls and graphql delete mutations;
+  `terraform destroy`, `-destroy`, `state rm` and `workspace delete`; `aws` operations named
+  `delete-*`, `*-delete-*` (`batch-delete-image`) or `purge-*`, plus `s3 sync --delete`,
+  `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`, on any profile; and the Atlassian
+  MCP's `executeDestructive`. `full-review` checks out same-repo PRs with `gh pr checkout`, which
+  runs unsandboxed with the PR's tracked hooks; teammates' PRs are trusted per the accidents-only
+  threat model, and fork PRs stop for the user. Regenerable state (`gh run delete`,
+  `gh cache delete`) has no rule. A rule with a `*` straight after the command prefix gets a leading
+  twin wherever its match can come first (`gh api -X DELETE`), since that `*` doesn't match empty;
+  `aws *delete*` needs none, as a service name always fills it. Residuals: variable-built commands,
+  other flag orders, graphql queries read from a file (`-F query=@file`), and SDK scripts (boto3)
+  bypass these patterns, accepted per the accidents-only threat model; `gh api -X PATCH` can still
+  archive a repo or change its visibility, left to the classifier because a pattern on `visibility`
+  would also block reads; routine dev deletes (`aws sqs delete-message`) run via `!`; the terraform
+  destroy rules also block harmless commands naming `destroy` (`plan -destroy`,
+  `plan -out destroy.tfplan`)
 - Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
   egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
   writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the

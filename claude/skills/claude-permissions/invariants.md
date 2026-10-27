@@ -77,7 +77,7 @@ and it still catches the no-arg case). Measured, for both `git` and `aws`; it co
 which present mid-command wildcards as working. So a `-C`/wrapper twin must use the glued form.
 Check every rule containing a non-trailing `*` for a `:*)` **or** ` *)` tail and flag it as inert -
 the two tails are equivalent, so both fail. It applies to any command with a mid-command wildcard,
-e.g. `Bash(aws * create-*:*)`, not just git. Ask-by-design rules (`gh pr merge`, `terraform apply`,
+e.g. `Bash(aws * create-*:*)`, not just git. Ask-by-design rules (`terraform apply`, `just deploy`,
 Datadog log tools) are NOT gaps. Check: for each destructive must-never, confirm a `deny` rule in
 the correct form. Example: all direnv subcommands are denied by a single `Bash(direnv:*)`; the
 trust-store WRITE is covered by the `Edit(~/.local/share/direnv/allow/**)` deny (`~/`-anchored: a
@@ -138,7 +138,8 @@ allow rule in both scopes. Example: an `allow` rule for a command the guard hook
 confirm => `ask` in settings.json (the guard never asks; the sandbox/classifier backstop). A
 must-never that is only `ask`, a confirm that is hard-denied, or any guard Bash-command block (which
 no longer exists) is a mismatch. Check: for each denied/guarded command, compare its settings
-disposition to the enforcement. Example: `gh pr merge` = `ask` (coherent); sudo/recursive
+disposition to the enforcement. Example: `terraform apply` = `ask` (coherent); `gh pr merge` = no
+rule, classifier-judged (coherent: revertable), with `--delete-branch` = `deny`; sudo/recursive
 `rm`/`git clean`/`find -delete` = `deny` (coherent); discarding uncommitted edits (`reset --hard`,
 `checkout -f`) = no rule, sandbox auto-allowed (recoverable by redoing the work); the guard's only
 leg is the Read/Grep/Glob secret-path block.
