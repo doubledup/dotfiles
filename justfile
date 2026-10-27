@@ -46,7 +46,7 @@ catppuccin-vendor:
             "https://api.github.com/repos/catppuccin/${src%%/*}/contents/${src#*/}?ref=main" \
             -o "$tmp" \
             || { rm -f "$tmp"; echo "catppuccin-vendor: fetch failed for $src" >&2; exit 2; }; \
-        chmod 644 "$tmp"; mkdir -p "$(dirname "${pair#*:}")"; mv "$tmp" "${pair#*:}"; \
+        chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
     done; git status --short config/kitty config/delta
 
 # Test the PreToolUse hooks (secret-path guard, commit-alone nudge)
