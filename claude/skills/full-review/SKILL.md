@@ -122,15 +122,21 @@ Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|pa
 [the Reviewer's section]
 
 ### High Impact
-- [sources] `path:line`. **Remediation**: fix|rollback. [problem]. [why]. Suggested fix: [action].
+**N. [one-line claim]** [sources] `path:line`. **Remediation**: fix|rollback.
+- **Now**: [what the code does today, with the concrete value or name a reader needs]
+- **Example**: [a walk-through with concrete inputs that ends in the wrong outcome]
+- **Fix**: [action]
 
 ### Medium Impact
 ...
 
 ### Low Impact
-...
+- [sources] `path:line`. **Remediation**: fix|rollback. [problem]. [why]. Suggested fix: [action].
 
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Omit empty severity sections.
+Omit empty severity sections. HIGH and MEDIUM findings use the Now/Example/Fix form, so a reader who
+hasn't read the diff can follow the mechanism; rewrite a source's shorthand into it rather than
+pasting it. Add a **Why it matters** line only when the Example doesn't make the impact plain, and
+an **Open question** line for an inference the review couldn't verify.
