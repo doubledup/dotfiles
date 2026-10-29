@@ -129,11 +129,17 @@ Key technical choices and their rationale:
 
 - Each tool below follows OS appearance, and one scheme with a written cross-port style guide keeps
   their colours in step
-- Kitty (`*-theme.auto.conf`) holds verbatim copies of `catppuccin/kitty` `latte.conf` and
-  `mocha.conf`, and picks one from OS appearance itself. `just catppuccin-vendor` fetches every
-  vendored file at the upstream commit the justfile pins per repo, so upstream changes land only
-  when a pin is bumped; `git diff` is the review. The delta file goes live through its include as
-  soon as it is written, so a bump is the point to read the upstream diff
+- Kitty holds verbatim copies of `catppuccin/kitty` `latte.conf` and `mocha.conf`
+  (`catppuccin-latte.conf`, `catppuccin-mocha.conf`), and picks a flavour from OS appearance itself
+  through `light-theme.auto.conf` and `dark-theme.auto.conf`. Those wrappers `include` the vendored
+  copy and then set local overrides, so re-vendoring never touches the overrides and the copies stay
+  byte-identical. `just catppuccin-vendor` fetches every vendored file at the upstream commit the
+  justfile pins per repo, so upstream changes land only when a pin is bumped; `git diff` is the
+  review. The delta file goes live through its include as soon as it is written, so a bump is the
+  point to read the upstream diff
+- Kitty re-reads a theme wrapper on reload only when the wrapper's mtime changes, not an included
+  file's (observed), so after editing a vendored copy or adding its `rcup` link, `touch` the wrapper
+  before `ctrl+shift+f5`
 - Neovim loads `catppuccin/nvim` through lazy; `colorscheme catppuccin-nvim` picks the flavour from
   `background`, which auto-dark-mode sets
 - fish ships Catppuccin as colour-theme-aware themes (Latte for light, the named flavour for dark);

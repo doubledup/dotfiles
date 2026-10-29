@@ -41,8 +41,8 @@ catppuccin_delta := "011516f5d14f66b771b3e716f29c77231e008c74"
 # Re-vendor the Catppuccin ports (kitty, delta) at their pinned commits; review with git diff
 catppuccin-vendor:
     @for pair in \
-        kitty@{{ catppuccin_kitty }}/themes/latte.conf:config/kitty/light-theme.auto.conf \
-        kitty@{{ catppuccin_kitty }}/themes/mocha.conf:config/kitty/dark-theme.auto.conf \
+        kitty@{{ catppuccin_kitty }}/themes/latte.conf:config/kitty/catppuccin-latte.conf \
+        kitty@{{ catppuccin_kitty }}/themes/mocha.conf:config/kitty/catppuccin-mocha.conf \
         delta@{{ catppuccin_delta }}/catppuccin.gitconfig:config/delta/catppuccin.gitconfig; do \
         src=${pair%%:*}; ref=${src#*@}; \
         tmp=$(mktemp "${TMPDIR:-/tmp}/catppuccin-XXXXXX"); \
