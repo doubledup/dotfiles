@@ -212,25 +212,6 @@ Key technical choices and their rationale:
 - Accepted cost: kitty loads the module once per process and keeps the built-in fallback if the
   first load fails, so edits (and a first install before `rcup`) need a full restart, not a reload
 
-**Claude Code theme driven by kitty's palette:**
-
-- `claude/themes/catppuccin.json` (`custom:catppuccin`) builds on `light-ansi` and points
-  `userMessageBackground` and `text` at palette slots 236 and 237, which each kitty theme wrapper
-  defines in its flavour. Kitty swaps the palette on the OS switch, so one Claude Code theme follows
-  light and dark without `auto`
-- Why a custom theme: the built-in light theme's message background barely differs from Latte's, and
-  custom themes are the only way to set it, but selecting one turns off `auto`
-- Why extended slots: no ANSI-16 slot is subtle in both flavours (Catppuccin keeps black dark and
-  white light in Latte and Mocha), and `light-ansi` draws `text` in ANSI black, which is unreadable
-  on Mocha. Slot 236's xterm default is already a dark grey near Mocha's, so other programs barely
-  notice. Verified live: Claude Code emits `ansi256(n)` as a palette index, which the docs leave
-  unstated
-- Only overrides shown broken in both modes stay; `inactive` and `subtle` read fine from
-  `light-ansi`. `dim_opacity 0.6` in `kitty.conf` keeps dim text (such as code-fence labels) legible
-  on Latte
-- Alternative considered: a job that watches OS appearance and swaps Claude Code's theme (rejected:
-  a background process for one colour)
-
 **Claude Code user config: minimal always-on context:**
 
 Target state for `claude/`. A line is always loaded only if it applies to most turns in most repos;

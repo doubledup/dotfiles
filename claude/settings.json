@@ -381,7 +381,7 @@
   },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false,
-  "theme": "custom:catppuccin",
+  "theme": "auto",
   "remoteControlAtStartup": false,
   "agentPushNotifEnabled": true,
   "autoMode": {
