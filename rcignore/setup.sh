@@ -19,6 +19,11 @@ if [ "$os_name" = "Darwin" ]; then
     printf '%bDisabling "smart" quotes...%b\n' "$blue" "$endcolor"
     defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
+    printf '%bBinding Notification Center to ctrl+opt+cmd+shift+n...%b\n' "$blue" "$endcolor"
+    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 163 \
+        '<dict><key>enabled</key><true/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>110</integer><integer>45</integer><integer>1966080</integer></array></dict></dict>'
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
     printf '%bChecking XCode...%b\n' "$blue" "$endcolor"
     if xcode-select --version >/dev/null; then
         printf '%bXCode is already installed.%b\n' "$green" "$endcolor"
