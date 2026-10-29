@@ -1,0 +1,10 @@
+{
+    "name": "Catppuccin (kitty palette)",
+    "base": "light-ansi",
+    "overrides": {
+        "userMessageBackground": "ansi256(236)",
+        "text": "ansi256(237)",
+        "inactive": "ansi256(238)",
+        "subtle": "ansi256(239)"
+    }
+}

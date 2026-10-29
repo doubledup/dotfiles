@@ -251,14 +251,6 @@
       }
     ]
   },
-  "autoMode": {
-    "environment": [
-      "$defaults",
-      "**Production cloud accounts**: AWS profiles whose names contain prd, prod or production are production; using one is a Production Read or Production Deploy",
-      "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams, CloudWatch and Datadog logs, traces and RUM sessions, log exports and database dumps. They hold customer personal information; work uses synthetic data only"
-    ]
-  },
-  "theme": "auto",
   "enabledPlugins": {
     "lua-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": false,
@@ -389,6 +381,14 @@
   },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false,
+  "theme": "custom:catppuccin",
   "remoteControlAtStartup": false,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "**Production cloud accounts**: AWS profiles whose names contain prd, prod or production are production; using one is a Production Read or Production Deploy",
+      "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams, CloudWatch and Datadog logs, traces and RUM sessions, log exports and database dumps. They hold customer personal information; work uses synthetic data only"
+    ]
+  }
 }
