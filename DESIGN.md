@@ -255,6 +255,12 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   branch, instead of the repo's `.claude/worktrees`). Formatting and lint are enforced by each
   repo's own pre-commit hook; a project PostToolUse lint hook only shortens feedback (see
   "Formatting enforced at commit")
+- Background sessions keep Claude Code's worktree guard (`worktree.bgIsolation` unset): Edit and
+  Write are refused in the main checkout until `EnterWorktree`, so parallel jobs never share a
+  working copy, and git commands that target another checkout (including `!` commands) are refused
+  too, so commits land on `main` by the worktree rule in `claude/rules/git.md`. Rejected:
+  `"bgIsolation": "none"` for this direct-to-`main` repo, which puts every background job in one
+  working copy. The guard covers file tools only; sandboxed Bash can still write to `~/.dotfiles`
 - Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish (PR
   creation, merge, release, deploy); the auto-mode classifier reviews everything else. The Atlassian
   MCP's read and non-destructive write tools are allowed by exact name, `executeWrite` included: a
