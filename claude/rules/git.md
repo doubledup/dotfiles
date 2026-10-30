@@ -13,3 +13,8 @@
 - Claude Code keeps a subagent's worktree; after the merge, remove it with lone calls:
   `git worktree remove <path>` (never `--force`, which is denied), `git worktree prune`, then
   `git branch -D <branch>` (squash merges never count as merged for `-d`)
+- In a repo that commits directly to `main`, land a worktree commit yourself: in the worktree,
+  `git rebase main` (stop and ask on conflict); `ExitWorktree` (keep); in the main checkout, confirm
+  `git status --short --branch` shows `main` with no changes, else stop and ask, since another
+  session may be working there; then `git merge --ff-only <branch>` (authorised; stop and ask if it
+  refuses; pushing stays with me) and the cleanup calls above
