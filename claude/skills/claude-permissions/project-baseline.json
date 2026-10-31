@@ -76,6 +76,7 @@
             "Edit(/.claude/docs/**)",
             "Edit(/.mcp.json)",
             "Edit(/.pre-commit-config.yaml)",
+            "Edit(/.githooks/**)",
             "Bash(*--profile*prd*)",
             "Bash(*--profile*prod*)",
             "Bash(*--profile*ppe*)",
