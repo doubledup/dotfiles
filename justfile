@@ -105,16 +105,70 @@ update:
     @echo 'Available macOS updates:'
     sudo softwareupdate -l
 
-# Pull dotfile updates, re-link, sync packages and plugins, clear bat's cache, triage orphan brews
+# Pull dotfile updates, then apply them; stops before changing anything if the pull is not safe
 sync:
-    rcdn -t mac
-    git pull
-    git config core.hooksPath .githooks
-    RCRC=~/.dotfiles/rcrc rcup -t mac
-    brew bundle --no-upgrade --global
-    bat cache --clear
-    nvim -c "lua require('lazy').restore()"
-    just brew-cleanup
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ "$(git rev-parse --show-toplevel)" != "$(cd ~/.dotfiles && pwd -P)" ]; then
+        echo "sync: run from the main checkout at ~/.dotfiles, not a worktree" >&2
+        exit 1
+    fi
+    if [ "$(git symbolic-ref --short -q HEAD)" != main ]; then
+        echo "sync: check out main first" >&2
+        exit 1
+    fi
+    git pull --ff-only || { echo "sync: pull failed, nothing applied" >&2; exit 1; }
+    # A fresh process, so a pulled change to the recipe applies on this run
+    exec just _sync-apply
+
+# Re-link, sync packages and plugins, clear bat's cache, triage orphan brews; safe to rerun
+_sync-apply:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    # Explicit, so a clashing or missing ~/.rcrc cannot change what rcup and lsrc read
+    export RCRC="$HOME/.dotfiles/rcrc"
+    failed=()
+    step() {
+        local name=$1
+        shift
+        echo "==> $name"
+        "$@" || failed+=("$name")
+    }
+    # rcup exits 0 after a skipped prompt, so compare the result with what rcm manages
+    check_links() {
+        local dest src kind rc=0
+        while IFS=: read -r dest src kind; do
+            if [ "$kind" = X ]; then
+                cmp -s "$src" "$dest" || { echo "differs from repo: $dest" >&2; rc=1; }
+            elif [ "$(readlink "$dest")" != "$src" ]; then
+                echo "not linked: $dest" >&2
+                rc=1
+            fi
+        done < <(lsrc -t mac -F)
+        return $rc
+    }
+    # The final cq means a thrown Lua error exits nonzero too; only a clean run reaches qa
+    restore_plugins() {
+        nvim --headless -c "lua require('lazy').restore({ wait = true }); \
+            for _, p in ipairs(require('lazy').plugins()) do \
+                if require('lazy.core.plugin').has_errors(p) then return end \
+            end; vim.cmd('qa')" -c cq
+    }
+    step "git hooks" git config core.hooksPath .githooks
+    step "rcup" rcup -t mac
+    step "check links" check_links
+    step "prune links" ./scripts/find-broken-symlinks --remove --into "$HOME/.dotfiles"
+    step "brew cleanup" just brew-cleanup
+    step "brew bundle" brew bundle --no-upgrade --global
+    step "bat cache" bat cache --clear
+    step "nvim plugins" restore_plugins
+    echo
+    # Steps here can edit tracked files (Brewfile, the lazy lock file); commit them before the next sync
+    git status --short
+    if [ ${#failed[@]} -gt 0 ]; then
+        printf 'sync: failed: %s\n' "${failed[@]}" >&2
+        exit 1
+    fi
 
 # Detect and triage brew packages not tracked in Brewfile
 brew-cleanup:
