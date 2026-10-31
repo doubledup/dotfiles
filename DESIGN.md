@@ -360,7 +360,10 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
       (`:branch` after a remote; `git push :x` reads `:x` as the remote, measured) and
       `git -C * push`, `--no-verify`, `git clean`, recursive `rm`, `find -delete`, forced worktree
       removal, `sudo`, `direnv`, gh/terraform/aws verbs that destroy remote state
-      (`terraform apply -destroy` included) wherever `--profile` sits, Atlassian
+      (`terraform apply -destroy` included) wherever `--profile` sits, the main AWS write-verb
+      families on every profile (`create-`, `put-`, `update-`, `modify-`, `remove-`, `batch-write-`,
+      `transact-write-`: data and infrastructure changes go through Terraform and CI, and a
+      profile-specific deny would need a rule per verb, profile token and order), Atlassian
       `executeDestructive`, and `dumps/` (customer data, as `*/dumps/*`, `* dumps/*` and `dumps` as
       the last word, so repo-relative paths and the bare directory match)
     - Bash patterns are a backstop for the common spelling, not a boundary; variable-built commands,
@@ -375,11 +378,10 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   turned rule needs a human to see it. Spelled per directory, not `**/.claude/**`, so auto-memory
   stays a free write. Production and pre-production AWS profiles (`prd`, `prod`, `ppe`, matched by
   command text and over-matching `products` and words like `mapper` on purpose): reads there are
-  sometimes needed, the delete and destroy denies still hold on every profile, and any other write
-  on such a profile passes only if the user approves the prompt; repos whose cloud data matters add
-  their own write-verb denies. Publish steps: `terraform apply`, `just deploy`; repos add
-  `gh pr create` where the PR is the review gate. Residual: a Bash write to a gated file goes to the
-  classifier
+  sometimes needed, and the write and destroy denies still hold there; a write outside those verb
+  families (`sqs send-message`, `lambda invoke`) on such a profile passes only if the user approves
+  the prompt. Publish steps: `terraform apply`, `just deploy`; repos add `gh pr create` where the PR
+  is the review gate. Residual: a Bash write to a gated file goes to the classifier
 - **`autoMode.environment`** says where production and personal information live (production AWS
   profiles; production DynamoDB, DLQs, Kinesis and dumps; POPIA personal-information fields) and
   that reading credential files is credential access. Logs, traces and RUM carry no personal

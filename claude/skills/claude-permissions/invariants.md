@@ -12,15 +12,14 @@ hooks.
   live.
 - **`deny`** for actions that are irreversible or expose credentials or customer data: secret paths,
   credential export, force/delete/prune pushes, `--no-verify`, recursive delete, remote-destroying
-  CLI verbs, destructive MCP runners.
+  CLI verbs, the main AWS write-verb families on every profile, destructive MCP runners.
 - **`ask`** for actions a human must see first: config that steers or runs code in future sessions
   (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, workflows, output styles,
   `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`, and `git config`
   setting `core.hooksPath` or `core.fsmonitor`), publish steps (PR creation where it's the review
   gate, terraform apply, deploys), and production or pre-production AWS profiles (`prd`, `prod`,
-  `ppe`), where reads are sometimes needed; delete and destroy verbs stay denied on every profile,
-  other writes pass only on approval unless the repo denies them. An `ask` prompts even in auto
-  mode.
+  `ppe`), where reads are sometimes needed; the AWS write and destroy denies hold on every profile,
+  and other writes there pass only on approval. An `ask` prompts even in auto mode.
 - **`allow`** only for read-only commands and tools, to skip classifier latency. Never for anything
   that mutates (Jira and Confluence writes included), since an allow skips the classifier and its
   personal-information check.
