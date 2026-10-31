@@ -52,14 +52,16 @@ check_broken_symlinks() {
 
         if [[ "$remove_broken" == true ]]; then
             echo "Removing broken symlinks..."
-            echo "$broken_symlinks" | while IFS= read -r symlink; do
+            local rc=0
+            while IFS= read -r symlink; do
                 if rm "$symlink" 2>/dev/null; then
                     echo "  Removed: $symlink"
                 else
                     echo "  Failed to remove: $symlink"
-                    exit 1
+                    rc=1
                 fi
-            done
+            done <<<"$broken_symlinks"
+            return $rc
         else
             echo "To clean up broken symlinks, use the --remove flag"
         fi

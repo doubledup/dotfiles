@@ -136,7 +136,8 @@ _sync-apply:
     }
     # rcup exits 0 after a skipped prompt, so compare the result with what rcm manages
     check_links() {
-        local dest src kind rc=0
+        local dest src kind entries rc=0
+        entries=$(lsrc -t mac -F) && [ -n "$entries" ] || { echo "lsrc failed" >&2; return 1; }
         while IFS=: read -r dest src kind; do
             if [ "$kind" = X ]; then
                 cmp -s "$src" "$dest" || { echo "differs from repo: $dest" >&2; rc=1; }
@@ -144,20 +145,22 @@ _sync-apply:
                 echo "not linked: $dest" >&2
                 rc=1
             fi
-        done < <(lsrc -t mac -F)
+        done <<<"$entries"
         return $rc
     }
-    # The final cq means a thrown Lua error exits nonzero too; only a clean run reaches qa
+    # The final cq means a thrown Lua error exits nonzero too; only a clean run reaches qa.
+    # Parser builds are asynchronous and qa would kill them, so wait for the update.
     restore_plugins() {
         nvim --headless -c "lua require('lazy').restore({ wait = true }); \
             for _, p in ipairs(require('lazy').plugins()) do \
                 if require('lazy.core.plugin').has_errors(p) then return end \
-            end; vim.cmd('qa')" -c cq
+            end; require('nvim-treesitter').update():wait(300000); vim.cmd('qa')" -c cq
     }
     step "git hooks" git config core.hooksPath .githooks
+    # Before rcup, so a stale link cannot block a path that is now a directory
+    step "prune links" ./scripts/find-broken-symlinks --remove --into "$HOME/.dotfiles"
     step "rcup" rcup -t mac
     step "check links" check_links
-    step "prune links" ./scripts/find-broken-symlinks --remove --into "$HOME/.dotfiles"
     step "brew cleanup" just brew-cleanup
     step "brew bundle" brew bundle --no-upgrade --global
     step "bat cache" bat cache --clear
