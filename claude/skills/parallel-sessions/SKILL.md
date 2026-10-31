@@ -99,11 +99,14 @@ agent's worktree (`cd` there in its own Bash call), and only while its agent isn
    notification) or are made here, one commit per finding; re-run the checks and push before the
    next iteration, from a detached HEAD with `git push origin HEAD:<branch>`, then check the PR's
    head SHA moved. A fix that changes the design gets another review round. Draft pushes cost no CI.
-3. Below MEDIUM, or once the user says to proceed: `gh pr ready`, then wait with a lone
-   `gh pr checks <pr> --watch` and Bash's 10-minute timeout, re-running the watch if CI outlasts it.
-   If CI's `concurrency` group is workflow-level, a push's skipped draft run can cancel the ready
-   run: let it finish before marking the PR ready, or re-run the cancelled run. If the user says to
-   stop instead, leave the PR as a draft, report it, and move on.
+3. Below MEDIUM, or once the user says to proceed: `gh pr ready`, then wait on the ready run itself:
+   `gh pr checks --watch` can return on a skipped draft run while the real one is still going.
+   Repeat `gh run list --branch <branch> --limit 1 --json databaseId,conclusion` until the newest
+   run isn't skipped (it can take a few seconds to appear), then run
+   `gh run watch <id> --exit-status` in the background and wait for its notification. If CI's
+   `concurrency` group is workflow-level, a push's skipped draft run can cancel the ready run: let
+   it finish before marking the PR ready, or re-run the cancelled run. If the user says to stop
+   instead, leave the PR as a draft, report it, and move on.
 4. If the merge method makes the PR title and body the commit, make them describe what actually
    lands, then re-read the PR: a failed edit merges the stale text. Otherwise squash with an
    explicit message (the PR body without generated footers, plus the commit trailers): the default
