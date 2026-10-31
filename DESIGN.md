@@ -346,26 +346,27 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   `worktree-create.sh` stays as a convenience
 - **Hard denies** (user scope, and the subset every repo needs in `project-baseline.json`):
     - Secret files by `Read` path, by path in command text (`*/.env*`, `*/.aws/*`, `*/.netrc*`), by
-      the common file-reading verbs (`cat`, `head`, `tail`, `less`, `source`, `cp` on `*.env*`; `cp`
-      because a copy under another name escapes every other rule) and by search and edit tools
-      (`grep`, `sed`, `awk`) with a space before `.env`, so a pattern like `process.env` still
-      passes. A bare `* .env*` would also match commit messages and search patterns, so it isn't
-      used; a commit message that names a secret path goes through `git commit -F <file>`. Personal
-      tools (`rg`, `bat`) get the same rules at user scope only. User-scope path rules are anchored
-      `~/**/`: measured, a user-scope `**/` rule matches only under the session's project, not in
-      additional directories. A tree-wide search that never names the file falls to the classifier
+      common file-reading and search commands (`cat`, `head`, `tail`, `less`, `source`, `cp`,
+      `grep`, `sed`, `awk`; `cp` because a copy under another name escapes every other rule), each
+      needing a space before `.env`, so `process.env`, `os.environ` in a heredoc and
+      `app.environment.ts` still pass. A bare `* .env*` would also match commit messages and search
+      patterns, so it isn't used; a commit message that names a secret path goes through
+      `git commit -F <file>`. Personal tools (`rg`, `bat`) get the same rules at user scope only.
+      User-scope path rules are anchored `~/**/`: measured, a user-scope `**/` rule matches only
+      under the session's project, not in additional directories. A tree-wide search that never
+      names the file falls to the classifier
     - Also denied: `export-credentials` in any form, `git commit -F` of a `.env` file (the commit
-      allow skips the classifier), force/delete/mirror/prune pushes (`:branch` with or without a
-      remote) and `git -C * push`, `--no-verify`, `git clean`, recursive `rm`, `find -delete`,
-      forced worktree removal, `sudo`, `direnv`, gh/terraform/aws verbs that destroy remote state
-      wherever `--profile` sits, Atlassian `executeDestructive`, and `dumps/` (customer data, as
-      `*/dumps/*`, `* dumps/*` and `dumps` as the last word, so repo-relative paths and the bare
-      directory match)
+      allow skips the classifier), force/delete/mirror/prune pushes (`:branch` after a remote;
+      `git push :x` reads `:x` as the remote, measured) and `git -C * push`, `--no-verify`,
+      `git clean`, recursive `rm`, `find -delete`, forced worktree removal, `sudo`, `direnv`,
+      gh/terraform/aws verbs that destroy remote state wherever `--profile` sits, Atlassian
+      `executeDestructive`, and `dumps/` (customer data, as `*/dumps/*`, `* dumps/*` and `dumps` as
+      the last word, so repo-relative paths and the bare directory match)
     - Bash patterns are a backstop for the common spelling, not a boundary; variable-built commands,
       other flag orders and SDK scripts fall to the classifier
 - **Asks**: edits to `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` settings, hooks, skills, agents,
-  commands and rules, `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/` and
-  `~/.dotfiles/claude/`, plus this repo's `justfile` and `scripts/` (the pre-commit hook runs
+  commands, rules, workflows and output styles, `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/`
+  and `~/.dotfiles/claude/`, plus this repo's `justfile` and `scripts/` (the pre-commit hook runs
   `just check`): these run or instruct every future session, and `git commit` is allowed, so a hook
   edit would run on the next commit unjudged (`.git/hooks` and `.git/config` are built-in protected,
   so the classifier judges writes there; `git config` setting `core.hooksPath` or `core.fsmonitor`

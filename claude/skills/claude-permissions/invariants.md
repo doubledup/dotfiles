@@ -14,12 +14,13 @@ hooks.
   credential export, force/delete/prune pushes, `--no-verify`, recursive delete, remote-destroying
   CLI verbs, destructive MCP runners.
 - **`ask`** for actions a human must see first: config that steers or runs code in future sessions
-  (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, `.mcp.json`,
-  `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`, and `git config` setting
-  `core.hooksPath` or `core.fsmonitor`), publish steps (PR creation where it's the review gate,
-  terraform apply, deploys), and production or pre-production AWS profiles (`prd`, `prod`, `ppe`),
-  where reads are sometimes needed; delete and destroy verbs stay denied on every profile, other
-  writes pass only on approval unless the repo denies them. An `ask` prompts even in auto mode.
+  (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, workflows, output styles,
+  `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`, and `git config`
+  setting `core.hooksPath` or `core.fsmonitor`), publish steps (PR creation where it's the review
+  gate, terraform apply, deploys), and production or pre-production AWS profiles (`prd`, `prod`,
+  `ppe`), where reads are sometimes needed; delete and destroy verbs stay denied on every profile,
+  other writes pass only on approval unless the repo denies them. An `ask` prompts even in auto
+  mode.
 - **`allow`** only for read-only commands and tools, to skip classifier latency. Never for anything
   that mutates (Jira and Confluence writes included), since an allow skips the classifier and its
   personal-information check.
@@ -67,19 +68,23 @@ Defends against mistakes and against prompt injection steering an action. Accept
    co-match an `ask` either: measured, `git merge --abort` ran unprompted with both present, though
    the docs say ask wins.
 6. **Config gate covers the loaders.** User `ask` covers `~/**/CLAUDE.md`, `~/**/CLAUDE.local.md`,
-   `~/**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules}`,
+   `~/**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules,workflows,output-styles}`,
    `~/**/.mcp.json`, `~/**/.pre-commit-config.yaml`, `~/**/.githooks/**` (`git commit` is allowed,
    so a hook edit there runs unjudged; other `core.hooksPath` names are not gated),
    `~/.dotfiles/claude/**`, the dotfiles' `justfile` and `scripts/**`, and `git config` setting
-   `core.hooksPath` or `core.fsmonitor`; not `~/**/.claude/**`, which would gate auto-memory.
-   Project scope uses `/**/CLAUDE.md` so nested files are gated too.
+   `core.hooksPath` or `core.fsmonitor` (`*hooksPath *`: a value must follow, so a read-only `--get`
+   doesn't prompt); not `~/**/.claude/**`, which would gate auto-memory. Project scope uses
+   `/**/CLAUDE.md` so nested files are gated too.
 7. **Pattern syntax.**
     - `Edit`/`Read` paths: `//abs`, `~/home`, `/project-relative` (in user settings `/` anchors at
       `~/.claude`), `**/name`. Measured: a user-scope `**/` rule matches only under the session's
       project, not in additional directories, so user-scope path rules use `~/**/`. `Write(...)` and
       `Glob(...)` rules never match.
-    - A `:*` tail after a mid-command `*` matches nothing (`Bash(git -C * clean:*)` never fires);
-      use a glued tail (`Bash(git -C * clean*)`).
+    - A rule ending in `:*` is parsed as a legacy prefix rule, so after a mid-command `*`, or
+      anywhere the prefix keeps a trailing space, it matches nothing (`Bash(git -C * clean:*)` and
+      `Bash(git push :*)` never fire, read from the 2.1.316 matcher); use a glued tail
+      (`Bash(git -C * clean*)`). A ` *` tail after a literal word is fine (`*hooksPath *` matches a
+      set command).
     - A `*` straight after the command prefix doesn't match empty, so a rule whose match can come
       first needs a leading twin (`Bash(git push --forc*)` beside `Bash(git push * --forc*)`).
     - git accepts the shortest unique prefix of a long option, so spell the prefix (`--forc`,
@@ -87,13 +92,14 @@ Defends against mistakes and against prompt injection steering an action. Accept
     - Measured: a leading `VAR=value` doesn't hide a command from a rule
       (`AWS_PROFILE=x aws s3 rm ...` hit `Bash(aws s3 rm:*)`), so rules need no env-prefix twins.
     - Claude Code splits compound commands and matches each subcommand (per the permissions docs),
-      so a verb-led rule (`Bash(cat*.env*)`) doesn't fire on another subcommand that only mentions
+      so a verb-led rule (`Bash(cat* .env*)`) doesn't fire on another subcommand that only mentions
       the path. Measured: a `$(cat <<'EOF' ...)` commit message mentioning `.env` passes.
 8. **Over-matching.** Flag text denies that block ordinary work, such as a bare `* .env*` that also
-   matches a commit message; prefer verb-led or path forms (`Bash(cat*.env*)`, `Bash(*/dumps/*)`
-   with `Bash(* dumps/*)`). Path-form rules still match a commit message naming the path; write that
-   message to a file and use `git commit -F`. Keep personal tools (`rg`, `bat`) out of
-   `project-baseline.json`.
+   matches a commit message; prefer verb-led forms with a space before the path (`Bash(cat* .env*)`,
+   which lets `os.environ` and `app.environment.ts` through) or path forms (`Bash(*/dumps/*)` with
+   `Bash(* dumps/*)` and `Bash(* dumps)`). Path-form rules still match a commit message naming the
+   path; write that message to a file and use `git commit -F`. Keep personal tools (`rg`, `bat`) out
+   of `project-baseline.json`.
 9. **Prose matches config.** `## Safety` and the repo CLAUDE.md name no layer that doesn't exist
    (sandbox, guard hooks).
 
