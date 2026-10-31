@@ -10,6 +10,8 @@
       "Bash(gh pr checks:*)",
       "Bash(gh pr diff:*)",
       "Bash(gh pr view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run view:*)",
       "Bash(git commit:*)",
       "Bash(git symbolic-ref --short HEAD)",
       "Bash(git worktree remove *)",
@@ -32,6 +34,7 @@
       "Read(~/.claude/plans/**)",
       "Edit(//private/tmp/claude-*/*)",
       "Edit(//tmp/claude-*/*)",
+      "Edit(~/.claude/projects/*/memory/**)",
       "Bash(claude doctor)",
       "mcp__claude_ai_Atlassian_MCP__atlassianUserInfo",
       "mcp__claude_ai_Atlassian_MCP__discover",
@@ -63,19 +66,13 @@
       "Read(**/.envrc)",
       "Read(**/*.envrc.*)",
       "Read(**/secrets/**)",
-      "Read(**/.ssh/**)",
-      "Read(**/.aws/**)",
-      "Read(**/.config/gh/**)",
-      "Read(**/.git-credentials)",
-      "Read(~/.env)",
-      "Read(~/.env.*)",
-      "Read(~/.envrc)",
+      "Read(**/dumps/**)",
       "Read(~/.aws/**)",
       "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
       "Read(~/.config/gh/**)",
       "Read(~/.config/cloudflare/**)",
       "Read(~/.git-credentials)",
-      "Read(~/.gnupg/**)",
       "Edit(~/.gitconfig)",
       "Edit(~/.dotfiles/gitconfig)",
       "Edit(~/.config/git/config)",
@@ -83,8 +80,26 @@
       "Edit(~/.aws/**)",
       "Edit(~/.gnupg/**)",
       "Edit(~/.local/share/direnv/allow/**)",
-      "Edit(~/**/.pre-commit-config.yaml)",
-      "Grep",
+      "Bash(*/.env*)",
+      "Bash(* .env*)",
+      "Bash(*=.env*)",
+      "Bash(*'.env*)",
+      "Bash(*\".env*)",
+      "Bash(*.envrc*)",
+      "Bash(*/secrets/*)",
+      "Bash(*/dumps/*)",
+      "Bash(*/.aws/*)",
+      "Bash(*/.ssh/*)",
+      "Bash(*/.gnupg/*)",
+      "Bash(*/.config/gh/*)",
+      "Bash(*.git-credentials*)",
+      "Bash(direnv:*)",
+      "Bash(aws configure export-credentials:*)",
+      "Bash(aws * export-credentials*)",
+      "Bash(*--profile*prd*)",
+      "Bash(*--profile*prod*)",
+      "Bash(*_PROFILE=*prd*)",
+      "Bash(*_PROFILE=*prod*)",
       "Bash(sudo:*)",
       "Bash(rm -r*)",
       "Bash(rm -R*)",
@@ -96,26 +111,27 @@
       "Bash(rm * --recursive*)",
       "Bash(rm * -fr*)",
       "Bash(rm * -fR*)",
-      "Bash(aws configure export-credentials:*)",
-      "Bash(aws * export-credentials*)",
-      "Bash(*--profile*prd*)",
-      "Bash(*--profile*prod*)",
-      "Bash(*_PROFILE=*prd*)",
-      "Bash(*_PROFILE=*prod*)",
-      "Bash(direnv:*)",
+      "Bash(find * -delete*)",
+      "Bash(find -delete*)",
       "Bash(git clean:*)",
       "Bash(git -C * clean*)",
-      "Bash(git push --forc*)",
-      "Bash(git push * --forc*)",
-      "Bash(git push -f*)",
-      "Bash(git push * -f*)",
-      "Bash(git push * +*)",
+      "Bash(git worktree remove -f:*)",
+      "Bash(git worktree remove * -f*)",
+      "Bash(git worktree remove *--force*)",
+      "Bash(git -C * worktree remove -f*)",
+      "Bash(git -C * worktree remove * -f*)",
+      "Bash(git -C * worktree remove *--force*)",
       "Bash(git commit --no-veri*)",
       "Bash(git commit * --no-veri*)",
       "Bash(git -C * commit --no-veri*)",
       "Bash(git -C * commit * --no-veri*)",
       "Bash(git push --no-veri*)",
       "Bash(git push * --no-veri*)",
+      "Bash(git push --forc*)",
+      "Bash(git push * --forc*)",
+      "Bash(git push -f*)",
+      "Bash(git push * -f*)",
+      "Bash(git push * +*)",
       "Bash(git push --m*)",
       "Bash(git push * --m*)",
       "Bash(git push --de*)",
@@ -128,21 +144,15 @@
       "Bash(git -C * push*)",
       "Bash(git -c * push*)",
       "Bash(git --* push*)",
-      "Bash(git worktree remove -f:*)",
-      "Bash(git worktree remove * -f*)",
-      "Bash(git worktree remove *--force*)",
-      "Bash(git -C * worktree remove -f*)",
-      "Bash(git -C * worktree remove * -f*)",
-      "Bash(git -C * worktree remove *--force*)",
       "Bash(gh repo delete:*)",
-      "Bash(gh pr merge --delete-branch*)",
-      "Bash(gh pr merge *--delete-branch*)",
-      "Bash(gh pr merge -d*)",
-      "Bash(gh pr merge * -d*)",
       "Bash(gh repo archive:*)",
       "Bash(gh repo rename:*)",
       "Bash(gh repo edit --visibility*)",
       "Bash(gh repo edit *--visibility*)",
+      "Bash(gh pr merge --delete-branch*)",
+      "Bash(gh pr merge *--delete-branch*)",
+      "Bash(gh pr merge -d*)",
+      "Bash(gh pr merge * -d*)",
       "Bash(gh release delete:*)",
       "Bash(gh secret delete:*)",
       "Bash(gh variable delete:*)",
@@ -170,49 +180,35 @@
       "Bash(terraform * destroy*)",
       "Bash(terraform *-destroy*)",
       "Bash(terraform state rm:*)",
+      "Bash(terraform *state rm*)",
       "Bash(terraform workspace delete:*)",
       "Bash(terraform *workspace delete*)",
-      "Bash(terraform *state rm*)",
       "Bash(aws s3 rm:*)",
       "Bash(aws *s3 rm*)",
       "Bash(aws s3 rb:*)",
       "Bash(aws *s3 rb*)",
-      "Bash(aws * delete-*)",
-      "Bash(aws * *-delete-*)",
       "Bash(aws s3 sync*--delete*)",
       "Bash(aws *s3 sync*--delete*)",
+      "Bash(aws * delete-*)",
+      "Bash(aws * *-delete-*)",
       "Bash(aws * purge-*)",
-      "Bash(aws *schedule-key-deletion*)",
       "Bash(aws * terminate-*)",
-      "mcp__claude_ai_Atlassian_MCP__executeDestructive",
-      "Bash(*/.env*)",
-      "Bash(* .env*)",
-      "Bash(*=.env*)",
-      "Bash(*'.env*)",
-      "Bash(*\".env*)",
-      "Bash(*.env)",
-      "Bash(*.env *)",
-      "Bash(*.envrc*)",
-      "Bash(*/secrets/*)",
-      "Bash(*/.aws/*)",
-      "Bash(*/.ssh/*)",
-      "Bash(*/.gnupg/*)",
-      "Bash(*/.config/gh/*)",
-      "Bash(*.git-credentials*)",
-      "Read(**/dumps/**)",
-      "Bash(*dumps/*)",
-      "Bash(* dumps)",
-      "Bash(* dumps *)",
-      "Bash(*/dumps)",
-      "Bash(*/dumps *)",
-      "Bash(find * -delete*)",
-      "Bash(find -delete*)"
+      "Bash(aws *schedule-key-deletion*)",
+      "mcp__claude_ai_Atlassian_MCP__executeDestructive"
     ],
     "ask": [
-      "mcp__*atadog*__*log*",
-      "mcp__*atadog*__*trace*",
-      "mcp__*atadog*__*span*",
-      "mcp__*atadog*__*rum*",
+      "Edit(**/CLAUDE.md)",
+      "Edit(**/CLAUDE.local.md)",
+      "Edit(**/.claude/settings.json)",
+      "Edit(**/.claude/settings.local.json)",
+      "Edit(**/.claude/hooks/**)",
+      "Edit(**/.claude/skills/**)",
+      "Edit(**/.claude/agents/**)",
+      "Edit(**/.claude/commands/**)",
+      "Edit(**/.claude/rules/**)",
+      "Edit(**/.mcp.json)",
+      "Edit(**/.pre-commit-config.yaml)",
+      "Edit(~/.dotfiles/claude/**)",
       "Bash(terraform apply:*)",
       "Bash(just deploy:*)"
     ],
@@ -223,28 +219,6 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Read|Write|Edit|Grep|Glob",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/guard.sh",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/commit-alone.sh",
-            "timeout": 10
-          }
-        ]
-      }
-    ],
     "WorktreeCreate": [
       {
         "hooks": [
@@ -265,126 +239,6 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "outputStyle": "Concise",
-  "sandbox": {
-    "enabled": true,
-    "failIfUnavailable": true,
-    "autoAllowBashIfSandboxed": true,
-    "allowUnsandboxedCommands": true,
-    "network": {
-      "allowedDomains": [
-        "api.github.com",
-        "github.com",
-        "objects.githubusercontent.com"
-      ]
-    },
-    "filesystem": {
-      "allowWrite": [
-        "~/.local/share/nvim",
-        "~/.local/state/nvim",
-        "~/.cache/nvim"
-      ],
-      "denyWrite": [
-        "~/**/.git/hooks",
-        "~/**/.git/config",
-        "~/.gitconfig",
-        "~/.dotfiles/gitconfig",
-        "~/.config/git/config",
-        "~/.dotfiles/.githooks",
-        "~/.dotfiles/claude/hooks",
-        "~/.dotfiles/claude/skills",
-        "~/.dotfiles/claude/rules",
-        "~/.dotfiles/justfile",
-        "~/.dotfiles/scripts"
-      ],
-      "denyRead": [
-        "~/.env",
-        "~/.envrc"
-      ]
-    },
-    "credentials": {
-      "files": [
-        {
-          "path": "~/.aws",
-          "mode": "deny"
-        },
-        {
-          "path": "~/.ssh",
-          "mode": "deny"
-        },
-        {
-          "path": "~/.gnupg",
-          "mode": "deny"
-        },
-        {
-          "path": "~/.config/gh",
-          "mode": "deny"
-        },
-        {
-          "path": "~/.config/cloudflare",
-          "mode": "deny"
-        },
-        {
-          "path": "~/.git-credentials",
-          "mode": "deny"
-        }
-      ],
-      "envVars": [
-        {
-          "name": "ANTHROPIC_API_KEY",
-          "mode": "deny"
-        },
-        {
-          "name": "GITHUB_TOKEN",
-          "mode": "deny"
-        },
-        {
-          "name": "GH_TOKEN",
-          "mode": "deny"
-        },
-        {
-          "name": "AWS_ACCESS_KEY_ID",
-          "mode": "deny"
-        },
-        {
-          "name": "AWS_SECRET_ACCESS_KEY",
-          "mode": "deny"
-        },
-        {
-          "name": "AWS_SESSION_TOKEN",
-          "mode": "deny"
-        }
-      ]
-    },
-    "excludedCommands": [
-      "gh *",
-      "rcup *",
-      "rcdn *",
-      "mkrc *",
-      "git commit *",
-      "git fetch",
-      "git fetch *",
-      "git ls-remote",
-      "git ls-remote *",
-      "git pull",
-      "git pull *",
-      "git push",
-      "git push origin",
-      "git push origin *",
-      "git push -u origin",
-      "git push -u origin *",
-      "git push --set-upstream origin",
-      "git push --set-upstream origin *",
-      "git rebase *",
-      "git merge *",
-      "git cherry-pick *",
-      "git revert *",
-      "git worktree remove *",
-      "git worktree prune",
-      "git worktree prune *",
-      "git branch -d *",
-      "git branch -D *"
-    ]
-  },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false,
   "theme": "auto",
@@ -394,7 +248,9 @@
     "environment": [
       "$defaults",
       "**Production cloud accounts**: AWS profiles whose names contain prd, prod or production are production; using one is a Production Read or Production Deploy",
-      "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams, CloudWatch and Datadog logs, traces and RUM sessions, log exports and database dumps. They hold customer personal information; work uses synthetic data only"
+      "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams and database dumps. They hold customer personal information; work uses synthetic data only. Logs, traces and RUM sessions (CloudWatch, Datadog) carry no personal information by design and are routine debugging sources",
+      "**Personal information**: customer names, ID and passport numbers, phone numbers, email and postal addresses, bank details and dates of birth are personal information under POPIA. Reading them from any store, or copying them into code, fixtures, commits, tickets, PR text or messages, is a data exfiltration risk even in non-production accounts",
+      "**Credentials**: a script or command that reads ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, .env or .envrc files, or prints their contents, is credential access unless the user asked for it"
     ]
   }
 }

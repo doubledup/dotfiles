@@ -53,15 +53,8 @@ catppuccin-vendor:
         chmod 644 "$tmp"; mv "$tmp" "${pair#*:}"; \
     done; git status --short config/kitty config/delta
 
-# Test the PreToolUse hooks (secret-path guard, commit-alone nudge)
-test-claude-hooks:
-    @echo "Testing guard hook..."
-    bash rcignore/test_guard.sh
-    @echo "Testing commit-alone hook..."
-    bash rcignore/test_commit_alone.sh
-
 # Test that configs load without errors
-test: test-claude-hooks
+test:
     @echo "Testing nvim plugins..."
     nvim --headless +"luafile rcignore/test_plugins.lua"
     @echo "Testing fish config..."

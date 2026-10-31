@@ -4,10 +4,9 @@ set -euo pipefail
 # WorktreeCreate hook: place worktrees flat as ~/code/worktrees/<repo>__<name>,
 # on a new branch <name> off the remote's default branch, instead of under the repo's
 # .claude/worktrees. Covers EnterWorktree, `claude --worktree` and subagents with
-# `isolation: "worktree"`, whose shell stays pinned to the worktree so a lone
-# `git commit` (see commit-alone.sh) runs there. Prints the path on stdout; git's
-# output goes to stderr. --no-track because the sandbox can't write .git/config
-# later, and this hook runs outside it.
+# `isolation: "worktree"`. Prints the path on stdout; git's output goes to
+# stderr. --no-track so the new branch doesn't take the default branch as its
+# upstream; the first `git push -u origin <name>` sets the real one.
 
 input="$(cat)"
 name="$(jq -r '.name // empty' <<<"$input")"

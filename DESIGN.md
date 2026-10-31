@@ -82,7 +82,7 @@ Key technical choices and their rationale:
 - `.claude/hooks/lint-edit.sh` (PostToolUse on Edit/Write, this repo only) lints the edited shell or
   fish file and feeds failures back to Claude, so a lint error is fixed in the same turn rather than
   at commit. It lints, never formats (the commit hook owns that), and fails open. It runs via
-  `bash`, because the sandbox can't set the execute bit under `.claude/hooks`
+  `bash`, so it doesn't depend on the file's execute bit
 - `just sync` re-applies `core.hooksPath`, so a clone set up before the hook existed gets it
 - Residuals: `just check` validates the working tree, not the index, so a staged misformat whose
   working copy was since fixed passes; committing with explicit paths runs the hook on a temporary
@@ -221,14 +221,13 @@ Key technical choices and their rationale:
 
 Target state for `claude/`. A line is always loaded only if it applies to most turns in most repos;
 procedures live in skills (loaded on invoke), file-specific guidance in path-scoped rules,
-must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
+must-nevers in deny rules. Budget: about 80 always-loaded lines.
 
-- `CLAUDE.md`: environment, communication, persistence, safety prose not enforced elsewhere,
-  compressed sandbox gotchas. No thinking keywords or session discipline. In this repo, touching a
-  file under `claude/` loads `claude/CLAUDE.md` a second time as a nested CLAUDE.md (about 1k
-  tokens, once per session). Accepted: `~/.claude/CLAUDE.md` links to the same file, so a
-  `claudeMdExcludes` pattern for it may also drop the user CLAUDE.md, silently, in every session
-  here
+- `CLAUDE.md`: environment, communication, persistence, safety prose not enforced elsewhere. No
+  thinking keywords or session discipline. In this repo, touching a file under `claude/` loads
+  `claude/CLAUDE.md` a second time as a nested CLAUDE.md (about 1k tokens, once per session).
+  Accepted: `~/.claude/CLAUDE.md` links to the same file, so a `claudeMdExcludes` pattern for it may
+  also drop the user CLAUDE.md, silently, in every session here
 - Rules: `git.md` unscoped; `claude-config.md`, `prose.md` and `backlog.md` path-scoped.
   `claude-config.md` points at the `code.claude.com` reference for each config schema, because a
   wrong-but-valid field choice (`Skill` in an agent's `tools` instead of `skills:` frontmatter)
@@ -255,65 +254,34 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   in worktrees open draft PRs; this session reviews and merges them; repo facts live in each repo's
   CLAUDE.md), `wrap-up` (end-of-session open threads; closes only what needs no decision). No
   commands
-- Hooks: `guard.sh` (security leg), `commit-alone.sh`, and `worktree-create.sh` (places every
-  worktree, including subagents', flat under `~/code/worktrees/`, branched off the remote's default
-  branch, instead of the repo's `.claude/worktrees`). Formatting and lint are enforced by each
-  repo's own pre-commit hook; a project PostToolUse lint hook only shortens feedback (see
-  "Formatting enforced at commit")
+- Hooks: `worktree-create.sh` only (places every worktree, including subagents', flat under
+  `~/code/worktrees/`, branched off the remote's default branch, instead of the repo's
+  `.claude/worktrees`). Formatting and lint are enforced by each repo's own pre-commit hook; a
+  project PostToolUse lint hook only shortens feedback (see "Formatting enforced at commit")
 - Background sessions keep Claude Code's worktree guard (`worktree.bgIsolation` unset): Edit and
   Write are refused in the main checkout until `EnterWorktree`, so parallel jobs never share a
   working copy, and git commands that target another checkout (including `!` commands) are refused
   too, so commits land on `main` by the worktree rule in `claude/rules/git.md`. Rejected:
   `"bgIsolation": "none"` for this direct-to-`main` repo, which puts every background job in one
-  working copy. The guard covers file tools only; sandboxed Bash can still write to `~/.dotfiles`
-- Settings: deny unrecoverable loss and leaks-secrets; ask only for actions that ship or publish (PR
-  creation, merge, release, deploy); the auto-mode classifier reviews everything else. The Atlassian
-  MCP's read and non-destructive write tools are allowed by exact name, `executeWrite` included: a
-  Jira or Confluence edit is recoverable from page and issue history, and its one destructive
-  runner, `executeDestructive`, is `deny`. Exact names send a primary tool the connector adds later
-  to the classifier (a prompt in default mode) until it is listed; an operation reached through
-  `executeRead` or `executeWrite` follows the server's tiering instead. Bash `allow` rules only for
-  commands harmless outside the sandbox (e.g. `command -v`, `date`), in settings and in skill
-  `allowed-tools` alike: an allow also approves the command's unsandboxed retry with no classifier
-  review, and tools like `rg` (`--pre`), `fd` (`-x`), `git` (config-driven hooks and filters) and
-  `just` run arbitrary code. Sandbox auto-allow already runs them unprompted. Cost: plan mode
-  prompts on them. Exception: the worktree cleanup verbs (`git worktree remove`, `prune`,
-  `git branch -d`/`-D`) are allowed and excluded, so cleanup skips the classifier. Only a planted
-  `.git/config` (e.g. `core.fsmonitor`) turns them into code execution, which is deliberate, not
-  accidental, and outside the threat model; the forced remove stays `deny`
+  working copy. The guard covers file tools only; Bash can still write to `~/.dotfiles`
+- Settings: see "Claude Code permissions" below
 - Claude's temp dirs (`/tmp/claude-<uid>`, which is `$TMPDIR`) are allowed without naming the uid:
   `Read` on `//private/tmp/claude-*/**` and `//tmp/claude-*/**`, `Edit` only on their direct
   children (`/*`), where scratch files go. Both spellings are needed because macOS `/tmp` is a
   symlink and an allow rule matches only when the requested and the resolved path both match. Edit
-  stays shallow so it can't reach the harness's task output under `<project>/<session>/tasks/`;
-  Claude Code also mirrors Edit allows into the sandbox's write paths. `claude-*` matches other
-  users' dirs too, accepted on a single-user machine (they are `drwx------`)
+  stays shallow so it can't reach the harness's task output under `<project>/<session>/tasks/`.
+  `claude-*` matches other users' dirs too, accepted on a single-user machine (they are
+  `drwx------`)
 - The file tools' `Read` in `~/.claude` is an allowlist, not a broad allow with denies: the
   directory also holds key files, transcripts, prompt and paste history and file snapshots, and
   Claude Code adds new state directories over time, so a denylist fails open. The config directories
   (`skills`, `agents`, `rules`, `hooks`, `commands`, `docs`) and the top-level `CLAUDE.md` and
   `settings.json` hold symlinks into `~/.dotfiles/claude/`, so each needs `~/.dotfiles/claude/**` as
   well, for the resolved path. Memory (`projects/*/memory/**`) and `plans/**` are real directories.
-  Everything else in `~/.claude` prompts. This gates the file tools only: sandboxed Bash reads all
-  of `~/.claude` except the paths the sandbox itself denies
+  Everything else in `~/.claude` prompts. This gates the file tools only; Bash reads are left to the
+  classifier
 - Work-only config (Jira, acli, jdtls-lombok) lives under `tag-work/`, enabled only on the work
   machine, so rcm never links it here
-
-**commit-alone hook:**
-
-- `claude/hooks/commit-alone.sh` (PreToolUse on Bash) blocks an excluded git verb (signing:
-  `commit`, `merge`, `rebase`, `cherry-pick`, `revert`; SSH: `fetch`, `pull`, `push`) unless it is a
-  lone call, and tells the model to rerun it alone. Only a lone call matches `excludedCommands`,
-  which GPG signing and SSH remotes need; the CLAUDE.md prose rule alone was repeatedly missed
-- It parses the Bash command string, which the enforcement-hook rule forbids; acceptable here
-  because it is not a security leg and fails open: a miss is a failed signed commit or remote op
-  (the status quo), and a false positive costs one retry
-
-**gh api reads:**
-
-- No hook and no `allow` rule: `gh` is sandbox-excluded, so the auto-mode classifier judges each
-  call and passes reads unprompted (measured: a GitHub Actions runs read). A broad `allow` would
-  also pre-approve `gh api` writes, which the classifier still reviews
 
 **Ponytail vendored as a skill, not installed as a plugin:**
 
@@ -326,10 +294,10 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
   near-worthless (the vendored copy keeps the intensity table in full)
 - Alternatives considered: installing the plugin (rejected: three third-party Node scripts with full
   user privileges on every session start, prompt submit, and subagent spawn - hooks are gated by
-  neither `permissions`, `guard.sh`, nor the sandbox - the largest trust-boundary widening available
-  here for the smallest benefit); putting the ruleset in `claude/CLAUDE.md` (rejected: ~1.4k tokens
-  on every session, coding or not); pinning the marketplace to a tag (rejected with the plugin;
-  upstream tags trailed `main` by 53 commits when evaluated, worse than tracking the branch)
+  neither `permissions` nor the classifier - the largest trust-boundary widening available here for
+  the smallest benefit); putting the ruleset in `claude/CLAUDE.md` (rejected: ~1.4k tokens on every
+  session, coding or not); pinning the marketplace to a tag (rejected with the plugin; upstream tags
+  trailed `main` by 53 commits when evaluated, worse than tracking the branch)
 - Accepted tradeoff: a skill is model-invoked rather than injected every session; its frontmatter
   description fires it on any coding task, preferable to a per-session tax
 - Deliberately no `just test` contract check, unlike the kitty watcher: the failure mode here is
@@ -349,174 +317,53 @@ must-nevers in the sandbox and deny rules. Budget: about 80 always-loaded lines.
 - Better organization than scattered dotfiles
 - Most tools now support ~/.config
 
-**claude-permissions skill:**
+**Claude Code permissions: auto mode, hard denies, one human gate:**
 
-- A focused, advisory linter for the layered permission config (CLAUDE.md intent, settings.json
-  allow/ask/deny, the sandbox block, the guard hooks) at `claude/skills/claude-permissions/`;
-  proposes diffs, never edits, so every change still passes through the normal plan-approve flow
-- Standing policy it encodes: **sandbox-first. The OS sandbox contains Bash; destructive must-nevers
-  live in `deny` rules; an ENFORCEMENT hook is added ONLY for what rules and the sandbox can't do
-  (secret reads via the built-in Read/Grep/Glob tools). Enforcement hooks never parse Bash command
-  strings.** Context-injection hooks are a separate category, justified case by case; the advisory
-  commit-alone hook (above) parses but fails open. Security-related intent still gets a CLAUDE.md
-  `## Safety` line. (Supersedes the earlier "belt-and-suspenders across all three layers" policy:
-  duplicating a `deny` rule in a Bash-parsing hook is fragile maintenance for no gain once the
-  sandbox is the primary boundary.)
-- Threat model (canonical copy: the Threat model section of the skill's `invariants.md`): defend
-  against accidental/mistaken commands; keep cheap, robust protections that also raise the attack
-  bar; decline complex/fragile adversarial hardening as friction undercut by accepted residuals.
-  Weigh each new rule against the accident it prevents
-- Alternative considered: a declarative policy-registry file (rejected: another artifact to keep
-  current, against the minimalism principle; invariants derive intent from the live config)
-
-**Bash sandbox (macOS Seatbelt):**
-
-- Enabled with `failIfUnavailable: true`: the PRIMARY containment boundary. Unsandboxed retries are
-  allowed (`allowUnsandboxedCommands: true`) and reviewed by the auto-mode classifier, not a prompt,
-  so a sandbox-incompatible command doesn't stop the session. A
-  `Bash(dangerouslyDisableSandbox:true)` ask rule would prompt on every retry, even in auto mode and
-  over a co-matching allow rule (verified live). `deny` rules still bind Bash (they descend into
-  `$(...)` and are respected under sandbox auto-allow and unsandboxed), so destructive verbs and
-  production credentials live in `deny` rules and the guard hook does no Bash parsing. Alternative:
-  `allowUnsandboxedCommands: false` (rejected: every such command becomes a hand-off)
-- **The `autoMode` block describes the environment, not new rules**: the built-in classifier rules
-  already block production deploys and reads, and PII handling, in what reaches them; the block
-  tells them where those things are (production AWS profiles, the stores holding customer data). It
-  is read from user scope only, so it lives here
-- A single block in user scope (`claude/settings.json`), not split across scopes: the docs confirm
-  the sandbox arrays merge across scopes (paths from every scope combine; deny entries only narrow),
-  but scalar keys (`enabled`, `failIfUnavailable`) have no documented cross-scope semantics, so a
-  split could still silently weaken the posture
-- Tools needing broad `$HOME` writes are `excludedCommands`, not `filesystem.allowWrite` grants:
-  `rcup`/`rcdn`/`mkrc` (symlink `$HOME`), `gh` (Go-TLS fails under Seatbelt), `git commit` (GPG
-  needs the gpg-agent socket and `~/.gnupg`), `git fetch`/`ls-remote`/`pull`/`push` (macOS can't
-  tunnel git's SSH through the sandbox proxy, and the remotes stay SSH rather than needing an HTTPS
-  credential helper). Push is excluded only toward `origin` (`git push`, `git push origin …`,
-  `git push -u`/`--set-upstream origin …`): any other target, however spelled (a path, `--repo=`, a
-  variable), runs sandboxed, so a local target's `receive-pack` hooks stay contained; `origin`'s URL
-  is in sandbox-protected `.git/config`. Broad home-write grants are a privilege-escalation surface
-  (shell configs, `$PATH` dirs). `brew`/`rustup`/`cargo`/`mas` stay un-excluded by design:
-  maintenance-only, fail under the sandbox, run via `!` or a prompted unsandboxed retry; excluding
-  them would run build tools unsandboxed in every repo
-- `autoAllowBashIfSandboxed: true` (the documented large prompt reduction): sandboxable commands run
-  unprompted while `deny` rules still gate the destructive and secret-file cases; the repo-relative
-  secret-read gap (`cat ./.env`, `cat secrets/x`) is closed by the
-  `Bash(*.env*)`/`Bash(*/secrets/*)` denies, not a guard Bash-block
-- **`~/.dotfiles` is an additional directory** (beside `~/code/worktrees`), so any session can edit
-  and commit user config without `/add-dir`. That also opens it to sandboxed writes, so `denyWrite`
-  keeps read-only what runs or instructs without review: `claude/hooks`, `claude/skills`,
-  `claude/rules`, `.githooks`, `justfile` and `scripts`. A build script or dependency in another
-  repo can't plant code there; the Edit tool still can, under the permission flow. Shell and editor
-  configs (`config/`, `zshrc`) stay writable: a residual, caught by reviewing the dotfiles diff
-- **Git config is sandbox read-only** (`~/**/.git/config`, `~/.gitconfig` and its rcm target
-  `~/.dotfiles/gitconfig`, `~/.config/git/config` in `denyWrite`; `Edit` denies on both gitconfig
-  paths): `core.sshCommand`, `remote.<n>.uploadpack` and similar keys run a command on the next
-  unsandboxed `git fetch`/`push`, which the classifier sees only as a plain fetch. The project
-  root's `.git/config` is already built-in protected; these entries extend that to every repo and to
-  global config. Measured: `git config --global` and a repo `git config` both fail. Cost: sandboxed
-  config writes (`git remote add`, `git branch -u`) run via `!`; `git push -u` is excluded and
-  unaffected
-- **Plain push goes to the classifier; unrecoverable pushes are must-nevers**: `git push` has no
-  `allow` rule. It is an excluded command, so it runs unsandboxed and the classifier reviews it,
-  which an `allow` would skip. The classifier treats a push to the default branch as ordinary
-  (measured: an `autoMode.environment` line calling it a production deploy didn't stop one), so each
-  remote's branch protection is what keeps unreviewed code off a deploying `main`. Only the
-  unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`, `:branch`,
-  `--prune`) and every `git -C * push` are `deny`. Infra one-way doors (`terraform apply`,
-  `just deploy`) are `ask`: an apply can destroy resources. GitHub writes that only add or merge
-  (`gh pr create`, `gh pr merge`, `gh release create`) have no user rule, so the classifier judges
-  them: a merge is revertable and branch protection gates it, and a repo that wants a human gate (a
-  PR review gate, a release) adds the `ask` in its project settings.
-  `gh pr merge --delete-branch`/`-d` is `deny`, like `git push --delete`. Known-destructive changes
-  to remote state are `deny` up front: repo delete, archive, rename and visibility changes; gh
-  release, secret, variable, label, gist, issue, project (and its items and fields), deploy-key, SSH
-  and GPG key, and codespace deletes; `gh api` DELETE calls and graphql delete mutations;
-  `terraform destroy`, `-destroy`, `state rm` and `workspace delete`; `aws` operations named
-  `delete-*`, `*-delete-*` (`batch-delete-image`) or `purge-*`, plus `s3 sync --delete`,
-  `terminate-*`, `schedule-key-deletion`, `s3 rm` and `s3 rb`, on any profile; and the Atlassian
-  MCP's `executeDestructive`. `full-review` checks out same-repo PRs with `gh pr checkout`, which
-  runs unsandboxed with the PR's tracked hooks; teammates' PRs are trusted per the accidents-only
-  threat model, and fork PRs stop for the user. Regenerable state (`gh run delete`,
-  `gh cache delete`) has no rule. A rule with a `*` straight after the command prefix gets a leading
-  twin wherever its match can come first (`gh api -X DELETE`), since that `*` doesn't match empty;
-  `aws *delete*` needs none, as a service name always fills it. Residuals: variable-built commands,
-  other flag orders, graphql queries read from a file (`-F query=@file`), and SDK scripts (boto3)
-  bypass these patterns, accepted per the accidents-only threat model; `gh api -X PATCH` can still
-  archive a repo or change its visibility, left to the classifier because a pattern on `visibility`
-  would also block reads; routine dev deletes (`aws sqs delete-message`) run via `!`; the terraform
-  destroy rules also block harmless commands naming `destroy` (`plan -destroy`,
-  `plan -out destroy.tfplan`)
-- Accepted tradeoffs and residuals: github-only egress for `just test` plugin fetches (non-github
-  egress via `git fetch <url>` or in-tree `insteadOf` accepted per the threat model); nvim data-dir
-  writes apply globally; Linux deploys need bubblewrap + socat under `failIfUnavailable: true`; the
-  text-match denies over-block benign mentions (`app.env`, a commit message containing " dumps ");
-  history-destroying commands (`reflog expire`, `gc --prune`, `update-ref -d`) are unguarded: they
-  lose only local, unpushed work and take a deliberate multi-step sequence; `git mv -f` can
-  overwrite one untracked destination file, left unguarded for the same reason; the collision-prone
-  `*.pem`/`*.key`/`*id_rsa*`/`.netrc`/`.npmrc` family is left out at user scope; recursive `rm`
-  clusters the denies don't spell (`-vfr`, `-dr`, `-ir`) and wrapped forms (`xargs rm -r`) run
-  unprompted. All narrow and contained while the sandbox is active
-- **Local destruction is fine only when recoverable or asked for**: committed work (recoverable via
-  reflog) may be reset or rebased; uncommitted edits and untracked files are the user's, and Claude
-  discards them only when asked. That is a CLAUDE.md `## Safety` rule, not a permission rule: the
-  discard forms (`reset --hard`, `checkout`/`restore` of a path or the tree, `checkout -f`,
-  `switch --discard-changes`, `stash drop`) match no rule and run sandboxed, so sandbox auto-allow
-  approves them and the classifier sees them only on an unsandboxed retry. Accepted because small
-  frequent commits bound the loss, and a dropped stash stays recoverable through `git fsck` until
-  gc. The same Safety section says to stop at the first denial from any source and raise it rather
-  than work around it, since a denial is either a config bug or a real edge case. `git clean` and
-  the forced `worktree remove` stay `deny`: they delete untracked and ignored files git never held.
-  Plain `worktree remove` deletes only ignored files (build output, local overrides) and runs
-  unprompted, so Claude can clean up its own worktrees
-- **Local history operations have no verb-level `allow`** (`merge`, `rebase`, `cherry-pick`,
-  `revert`, and `pull`, which merges): they are `excludedCommands` for GPG signing, so they run
-  unsandboxed and the auto-mode classifier reviews each, as it does their `--abort`/`--skip` and
-  `git -C *` forms; an `allow` would skip that review. In-repo hooks and merge drivers they trigger
-  run outside the sandbox as hooks already do for `git commit`. The flags that name a command to run
-  (`rebase --exec`, `push --receive-pack`/`--exec`, `fetch`/`pull --upload-pack`) and the commands
-  that repoint a remote (`git remote add`/`set-url`, `git config` URL and hook keys) have no rule: a
-  command Claude names there (`git rebase -x 'just test'`) runs unsandboxed under classifier review
-  like any other unsandboxed command, and the injected forms are attacker-only, which the threat
-  model leaves to the classifier and to the sandbox's `.git/config` and `~/.gitconfig` write denies
-- **`git commit` is allowed** (unlike the history verbs): commits are local and reversible, and the
-  classifier sees only `git commit -m …`, not the hooks it triggers, so its review adds little. The
-  real exposure is the commit's pre-commit hooks running unsandboxed from an in-tree config, so
-  `Edit(~/**/.pre-commit-config.yaml)` write-protects that config in every repo (merged into the
-  sandbox, so Bash writes too; wildcard, so macOS-only). Residual: a `repo: local` hook's in-tree
-  script, or a config that lives elsewhere (this repo's `.githooks` is already `denyWrite`)
-- **Plain `rm` runs unprompted** (sandboxed, auto-allowed): the sandbox bounds it to its write set,
-  and git restores tracked files; losing an untracked file is the accepted cost of not prompting on
-  every temp-file cleanup. Recursive `rm` is `deny` in its common spellings (`-r`, `-R`,
-  `--recursive`, `-fr`, `-fR`, in leading or later position). `find -delete` is `deny` for the same
-  reason; `find -exec rm`, `xargs rm -r` and `rsync --delete` are accepted residuals: rare, and
-  bounded by the sandbox's write set. `dd` and `rsync` otherwise have no rule
-- **`Bash(command -v:*)` is allowed** (read-only lookup plan mode would otherwise prompt on);
-  `Bash(command:*)` is deliberately NOT (`command rm -rf /` would evade the recursive `rm` denies)
-- **The `Grep` built-in tool is denied**: it bypasses the sandbox, so a broad `Grep(path=~)` could
-  leak `~/.aws` contents the path-guard can't catch; sandboxed `rg` is bounded by OS-level
-  credential-denies that `--no-ignore`/`-u` cannot defeat. `Glob` stays (paths and metadata, not
-  contents). The in-tree residual (`rg --no-ignore` on a git-ignored secret) is closed by the
-  no-secrets-in-repos discipline
-- **`~/.gnupg` is protected** (Read+Edit deny, guard case, `Bash(*/.gnupg/*)`, sandbox
-  credential-deny) and `~/.aws` has a full Edit deny. GPG-signed commits still work (`git commit *`
-  is an `excludedCommands` entry, and Edit denies bind only the built-in tool); `aws` is not
-  excluded, so sandboxed `aws` cannot read `~/.aws` and authenticated calls fail in the sandbox; an
-  unsandboxed retry reads `~/.aws`, gated by the classifier. Production profiles are `deny` by
-  command text (`*--profile*prd*`, `*_PROFILE=*prod*` and their pairs, which also cover
-  `AWS_DEFAULT_PROFILE`). They over-match on purpose: `prod` anywhere after the flag blocks, so a
-  `products` table or bucket in the same command is denied, as is any non-AWS tool with a
-  `--profile` flag (`cargo build --profile release -p products`); relax them if that friction shows
-  up. Uppercase names, profiles set in a separate shell step, credential wrappers that take the
-  profile as a plain argument (`aws-vault exec prod`), and SDK use are left to the classifier.
-  `git tag -s` and bare `gpg` under the sandbox are the documented over-block
-- **Customer data stays out of context**: `dumps/` is `deny` for Read (which also lands in the
-  sandbox read-deny) and by Bash command text. Residual: in a repo with a legitimate `dumps`
-  directory, sandboxed tools that walk it (`git status`, builds) fail there. Datadog log, trace,
-  span and RUM MCP tools are `ask`: they return customer personal information, while metrics and
-  monitors stay unprompted. The name globs (`mcp__*atadog*__*log*`) cover both the connector and the
-  plugin server, and over-match any config tool sharing those words. Transcript retention stays at
-  the default: one cleanup sweeps every project's transcripts, so a per-repo `cleanupPeriodDays`
-  can't scope it. Scanning prompts and edits for personal identifiers belongs in each work repo's
-  hooks, where the identifier formats are known. Alternatives: deny `*.log` reads (rejected: blocks
-  local build and test output); deny `~/Downloads` (rejected: files there are handed over on
-  purpose)
+- **Model**: the auto-mode classifier judges every action no rule settles; `deny` holds the
+  irreversible and the credential- or customer-data-exposing; `ask` gates config that steers or runs
+  code in future sessions, and publish steps; `allow` only skips classifier latency on read-only
+  commands. The checks and the project baseline live in `claude/skills/claude-permissions/`
+  (`invariants.md`, `project-baseline.json`), which `/claude-permissions setup` applies to a repo
+- **No OS sandbox.** Its two jobs are fewer prompts without a classifier (redundant under auto mode)
+  and containment that holds when the model is fooled. The second costs too much for this workflow:
+  the credentials it walls off (`~/.aws` SSO, SSH and GPG for git, `gh`) are the ones routine
+  commands need, so every git, gh and aws call needed an exclusion, a lone-call rule, a hook or a
+  `!` hand-off. Accepted residual: deny rules match Claude's file tools and command text, not what a
+  program opens, so a script reading `~/.aws` or `.envrc` is judged only by the classifier.
+  Mitigated by short-lived SSO credentials, agent-held keys, no secrets in repos, and
+  `autoMode.environment` lines naming credential reads and personal information. Revisit for
+  unattended or untrusted-code work, where containment earns its friction
+- **No enforcement hooks.** `Read` denies cover the file tools; Bash denies cover the common
+  spellings; the classifier covers the rest. Hooks that parse Bash are fragile and duplicate rules.
+  `worktree-create.sh` stays as a convenience
+- **Hard denies** (user scope, and the subset every repo needs in `project-baseline.json`): secret
+  paths by `Read` and by command text, `export-credentials`, production profiles by command text
+  (they over-match `products` on purpose), force/delete/mirror/prune pushes and `git -C * push`,
+  `--no-verify`, `git clean`, recursive `rm`, `find -delete`, forced worktree removal, `sudo`,
+  `direnv`, gh/terraform/aws verbs that destroy remote state, Atlassian `executeDestructive`, and
+  `dumps/` (customer data). Bash patterns are a backstop for the common spelling, not a boundary;
+  variable-built commands, other flag orders and SDK scripts fall to the classifier
+- **Asks**: edits to `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` settings, hooks, skills, agents,
+  commands and rules, `.mcp.json`, `.pre-commit-config.yaml` and `~/.dotfiles/claude/`: these run or
+  instruct every future session, so a persisted injection or a one-session workaround turned rule
+  needs a human to see it. Spelled per directory, not `**/.claude/**`, so auto-memory stays a free
+  write. Publish steps: `terraform apply`, `just deploy`; repos add `gh pr create` where the PR is
+  the review gate. Residual: a Bash write to a gated file goes to the classifier
+- **`autoMode.environment`** says where production and personal information live (production AWS
+  profiles; production DynamoDB, DLQs, Kinesis and dumps; POPIA personal-information fields) and
+  that reading credential files is credential access. Logs, traces and RUM carry no personal
+  information by design, so they are routine debugging sources. Read from user scope only, so each
+  contributor sets their own
+- **Scopes**: user scope holds my posture everywhere (mode, `autoMode`, the full deny list, read
+  allows, config asks). Project `.claude/settings.json` holds the shared baseline plus the repo's
+  own rules (its cloud CLI's mutation verbs, data-store asks, publish gates), so a teammate with no
+  user config still can't make a severe mistake there; duplicating user denies is harmless since
+  deny merges. Never in project scope: `sandbox` (a project `enabled` overrides the user value),
+  `defaultMode`/`autoMode` (ignored), `allow` (pre-approves for every teammate). Machine paths go in
+  `settings.local.json`
+- **Local destruction is fine only when recoverable or asked for**: a CLAUDE.md `## Safety` rule,
+  since the discard forms (`reset --hard`, `checkout .`, `stash drop`) have legitimate uses; the
+  classifier sees them
+- **`git commit` and worktree cleanup are allowed**: local and reversible, and the classifier sees
+  only the command, not the hooks it triggers. The pre-commit config that would make a commit run
+  new code is behind the config ask

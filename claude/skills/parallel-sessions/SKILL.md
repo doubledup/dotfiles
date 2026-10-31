@@ -18,7 +18,7 @@ Read the repo's CLAUDE.md "Parallel sessions" section first. It names:
 
 - the backlog to work from (a tracking issue, a milestone);
 - the hotspot: shared code most issues touch, which limits how many run at once;
-- the checks, and which can't run in the sandbox (CI runs those);
+- the checks, and which can't run locally (CI runs those);
 - the merge method, and whether the PR title and body become the commit.
 
 If the section is missing, ask for those and offer to add it. The flow assumes CI skips draft PRs
@@ -70,7 +70,7 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
   text in `-F` / `--body-file` files named `msg-<issue>-<n>.txt` in the scratchpad: agents and the
   coordinator share it, and a reused name commits someone else's message. Never amend, rebase or
   force-push anything already pushed.
-- Run the checks (skipping what the sandbox can't run), push from the named branch, never a detached
+- Run the checks (skipping what can't run locally), push from the named branch, never a detached
   HEAD, with `git push -u origin <branch>` so later plain pushes work, and open a **draft** PR: a
   title per the commit rules, a 1-2 line why, and `Closes #N`. Don't mark it ready, merge it or
   comment on it.
