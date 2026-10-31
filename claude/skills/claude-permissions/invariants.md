@@ -15,11 +15,11 @@ hooks.
   CLI verbs, the main AWS write-verb families on every profile, destructive MCP runners.
 - **`ask`** for actions a human must see first: config that steers or runs code in future sessions
   (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, workflows, output styles,
-  `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`, and `git config`
-  setting `core.hooksPath` or `core.fsmonitor`), publish steps (PR creation where it's the review
-  gate, terraform apply, deploys), and production or pre-production AWS profiles (`prd`, `prod`,
-  `ppe`), where reads are sometimes needed; the AWS write and destroy denies hold on every profile,
-  and other writes there pass only on approval. An `ask` prompts even in auto mode.
+  docs, `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`, and
+  `git config` setting `core.hooksPath` or `core.fsmonitor`), publish steps (PR creation where it's
+  the review gate, terraform apply, deploys), and production or pre-production AWS profiles (`prd`,
+  `prod`, `ppe`), where reads are sometimes needed; the AWS write and destroy denies hold on every
+  profile, and other writes there pass only on approval. An `ask` prompts even in auto mode.
 - **`allow`** only for read-only commands and tools, to skip classifier latency. Never for anything
   that mutates (Jira and Confluence writes included), since an allow skips the classifier and its
   personal-information check.
@@ -67,7 +67,7 @@ Defends against mistakes and against prompt injection steering an action. Accept
    co-match an `ask` either: measured, `git merge --abort` ran unprompted with both present, though
    the docs say ask wins.
 6. **Config gate covers the loaders.** User `ask` covers `~/**/CLAUDE.md`, `~/**/CLAUDE.local.md`,
-   `~/**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules,workflows,output-styles}`,
+   `~/**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules,workflows,output-styles,docs}`,
    `~/**/.mcp.json`, `~/**/.pre-commit-config.yaml`, `~/**/.githooks/**` (`git commit` is allowed,
    so a hook edit there runs unjudged; other `core.hooksPath` names are not gated),
    `~/.dotfiles/claude/**`, the dotfiles' `justfile` and `scripts/**`, and `git config` setting

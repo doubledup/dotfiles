@@ -109,6 +109,7 @@
             "Bash(aws *s3 sync*--delete*)",
             "Bash(aws * delete-*)",
             "Bash(aws * batch-delete-*)",
+            "Bash(aws * admin-delete-*)",
             "Bash(aws s3 mv:*)",
             "Bash(aws *s3 mv*)",
             "Bash(aws *schedule-key-deletion*)",
@@ -121,6 +122,9 @@
             "Bash(aws * remove-*)",
             "Bash(aws * batch-write-*)",
             "Bash(aws * transact-write-*)",
+            "Bash(aws * admin-create-*)",
+            "Bash(aws * admin-update-*)",
+            "Bash(aws * admin-set-*)",
             "mcp__claude_ai_Atlassian_MCP__executeDestructive"
         ],
         "ask": [
