@@ -32,6 +32,7 @@
             "Read(~/.git-credentials)",
             "Read(~/.netrc)",
             "Read(~/.npmrc)",
+            "Read(~/.m2/settings.xml)",
             "Edit(~/.gitconfig)",
             "Edit(~/.config/git/config)",
             "Edit(~/.ssh/**)",
@@ -46,6 +47,9 @@
             "Bash(bat* .env*)",
             "Bash(source* .env*)",
             "Bash(cp* .env*)",
+            "Bash(diff* .env*)",
+            "Bash(git add*-f*.env*)",
+            "Bash(git add*--force*.env*)",
             "Bash(git commit*-F*.env*)",
             "Bash(git commit*--file*.env*)",
             "Bash(rg * .env*)",
@@ -60,6 +64,7 @@
             "Bash(*/.ssh/*)",
             "Bash(*/.netrc*)",
             "Bash(*/.npmrc*)",
+            "Bash(*/.m2/settings.xml*)",
             "Bash(*/.gnupg/*)",
             "Bash(*/.config/gh/*)",
             "Bash(*.git-credentials*)",
@@ -126,6 +131,7 @@
             "Bash(gh api *--method=DELETE*)",
             "Bash(terraform destroy:*)",
             "Bash(terraform * destroy*)",
+            "Bash(terraform *-destroy*)",
             "Bash(terraform state rm:*)",
             "Bash(terraform *state rm*)",
             "Bash(terraform workspace delete:*)",
@@ -181,7 +187,7 @@
             "**Production cloud accounts**: AWS profiles whose names contain prd, prod or production are production, and ppe or preproduction profiles are pre-production; using one, by CLI flag, environment variable or SDK profile_name, is a Production Read or Production Deploy",
             "**Sensitive data locations & audiences**: production DynamoDB tables, SQS dead-letter queues, Kinesis streams and database dumps. They hold customer personal information; work uses synthetic data only. Logs, traces and RUM sessions (CloudWatch, Datadog) carry no personal information by design and are routine debugging sources",
             "**Personal information**: customer names, ID and passport numbers, phone numbers, email and postal addresses, bank details and dates of birth are personal information under POPIA. Reading them from any store, or copying them into code, fixtures, commits, tickets, PR text or messages, is a data exfiltration risk even in non-production accounts",
-            "**Credentials**: a script or command that opens, prints or copies the contents of ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, .env or .envrc files is credential access unless the user asked for it. Using a CLI or SDK that loads a named AWS profile (aws --profile, botocore Session(profile_name=...)) is not, and neither is searching code, config or permission rules for the text of those paths (rg '.env' settings.json) without opening a credential file"
+            "**Credentials**: a script or command that opens, prints or copies the contents of ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, ~/.m2/settings.xml, .env or .envrc files is credential access unless the user asked for it. Using a CLI or SDK that loads a named AWS profile (aws --profile, botocore Session(profile_name=...)) is not, and neither is searching code, config or permission rules for the text of those paths (rg '.env' settings.json) without opening a credential file"
         ]
     }
 }

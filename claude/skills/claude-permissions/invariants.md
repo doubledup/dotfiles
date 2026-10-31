@@ -74,7 +74,9 @@ Defends against mistakes and against prompt injection steering an action. Accept
    `~/.dotfiles/claude/**`, the dotfiles' `justfile` and `scripts/**`, and `git config` setting
    `core.hooksPath` or `core.fsmonitor` (`*hooksPath *`: a value must follow, so a read-only `--get`
    doesn't prompt); not `~/**/.claude/**`, which would gate auto-memory. Project scope uses
-   `/**/CLAUDE.md` so nested files are gated too.
+   `/**/CLAUDE.md` so nested files are gated too, and names `.claude/` subdirectories one by one
+   like user scope (not `/.claude/**`), so a Claude Code feature that writes there through the Edit
+   tool doesn't prompt; a new config subdirectory needs its own rule.
 7. **Pattern syntax.**
     - `Edit`/`Read` paths: `//abs`, `~/home`, `/project-relative` (in user settings `/` anchors at
       `~/.claude`), `**/name`. Measured: a user-scope `**/` rule matches only under the session's
