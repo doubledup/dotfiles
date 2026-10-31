@@ -1,9 +1,9 @@
 /* hide regular tabs */
 #TabsToolbar {
-  visibility: collapse !important;
+    visibility: collapse !important;
 }
 
 /* hide TreeStyleTabs sidebar heading */
 #sidebar-box #sidebar-header {
-  display: none !important;
+    display: none !important;
 }

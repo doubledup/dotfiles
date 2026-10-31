@@ -18,7 +18,7 @@ for f in "${staged[@]}"; do
     *.lua) lua+=("$f") ;;
     *.fish) fish+=("$f") ;;
     *.sh) sh+=("$f") ;;
-    *.json | *.md) prettier+=("$f") ;;
+    *.css | *.json | *.md) prettier+=("$f") ;;
     scripts/* | .githooks/*)
         [[ -n "$(shfmt -f "$f")" ]] || continue
         sh+=("$f")
