@@ -348,14 +348,16 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   spelling, not a boundary; variable-built commands, other flag orders and SDK scripts fall to the
   classifier
 - **Asks**: edits to `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` settings, hooks, skills, agents,
-  commands and rules, `.mcp.json`, `.pre-commit-config.yaml` and `~/.dotfiles/claude/`: these run or
-  instruct every future session, so a persisted injection or a one-session workaround turned rule
-  needs a human to see it. Spelled per directory, not `**/.claude/**`, so auto-memory stays a free
-  write. Production and pre-production AWS profiles (`prd`, `prod`, `ppe`, matched by command text
-  and over-matching `products` on purpose): reads there are sometimes needed, and the mutation and
-  delete denies still hold on every profile. Publish steps: `terraform apply`, `just deploy`; repos
-  add `gh pr create` where the PR is the review gate. Residual: a Bash write to a gated file goes to
-  the classifier
+  commands and rules, `.mcp.json`, `.pre-commit-config.yaml`, `.githooks/` and
+  `~/.dotfiles/claude/`, plus this repo's `justfile` and `scripts/` (the pre-commit hook runs
+  `just check`): these run or instruct every future session, and `git commit` is allowed, so a hook
+  edit would run on the next commit unjudged. A persisted injection or a one-session workaround
+  turned rule needs a human to see it. Spelled per directory, not `**/.claude/**`, so auto-memory
+  stays a free write. Production and pre-production AWS profiles (`prd`, `prod`, `ppe`, matched by
+  command text and over-matching `products` on purpose): reads there are sometimes needed, and the
+  mutation and delete denies still hold on every profile. Publish steps: `terraform apply`,
+  `just deploy`; repos add `gh pr create` where the PR is the review gate. Residual: a Bash write to
+  a gated file goes to the classifier
 - **`autoMode.environment`** says where production and personal information live (production AWS
   profiles; production DynamoDB, DLQs, Kinesis and dumps; POPIA personal-information fields) and
   that reading credential files is credential access. Logs, traces and RUM carry no personal

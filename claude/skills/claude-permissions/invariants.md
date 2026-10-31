@@ -61,8 +61,9 @@ Defends against mistakes and against prompt injection steering an action. Accept
    by an `allow` still asks; fine.
 6. **Config gate covers the loaders.** User `ask` covers `**/CLAUDE.md`, `**/CLAUDE.local.md`,
    `**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules}`,
-   `**/.mcp.json`, `**/.pre-commit-config.yaml`, `~/.dotfiles/claude/**`; not `**/.claude/**`, which
-   would gate auto-memory.
+   `**/.mcp.json`, `**/.pre-commit-config.yaml`, `**/.githooks/**` (any `core.hooksPath` dir:
+   `git commit` is allowed, so a hook edit runs unjudged), `~/.dotfiles/claude/**`, and the
+   dotfiles' `justfile` and `scripts/**`; not `**/.claude/**`, which would gate auto-memory.
 7. **Path syntax.** `Edit`/`Read` rules: `//abs`, `~/home`, `/project-relative` (in user settings
    `/` anchors at `~/.claude`), `**/anywhere`. `Write(...)` and `Glob(...)` rules never match.
 8. **Over-matching.** Flag text denies that block ordinary work (`*.pem*`, `* dumps *`); prefer the
