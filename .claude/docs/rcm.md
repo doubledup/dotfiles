@@ -54,9 +54,10 @@ Behaviour this relies on (measured on a throwaway `$HOME`):
 - `rcup` prompts on a clashing real file or a drifted `COPY_ALWAYS` copy, and exits 0 if the answer
   is `n` or stdin is closed. The link check against `lsrc -t mac -F` is what reports these. `-f`
   would overwrite local edits.
-- `rcup` never removes links to files deleted upstream. Pruning only removes broken links, not links
-  missing from `lsrc`, because `EXCLUDES` matches basenames at any depth and so omits the needed
-  `~/.claude/CLAUDE.md`.
+- `rcup` never removes links to files deleted upstream, so sync prunes broken links into this repo.
+  It leaves working links that `lsrc` doesn't list, which may be deliberate.
+- A bare `EXCLUDES` entry matches a basename at any depth. `./CLAUDE.md` matches only the repo root,
+  so `claude/CLAUDE.md` still links to `~/.claude/CLAUDE.md`.
 - `rcdn` deletes `COPY_ALWAYS` copies, and a failed pull after it would leave `$HOME` unlinked, so
   `just sync` does not use it.
 - `RCRC=~/.dotfiles/rcrc` stays explicit so a clashing or missing `~/.rcrc` cannot change what
