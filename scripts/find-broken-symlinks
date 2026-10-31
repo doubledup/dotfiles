@@ -5,6 +5,7 @@ set -euo pipefail
 check_broken_symlinks() {
     local search_dir="$HOME"
     local remove_broken=false
+    local into=""
 
     # Parse flags
     while [[ $# -gt 0 ]]; do
@@ -12,6 +13,10 @@ check_broken_symlinks() {
         -r | --remove)
             remove_broken=true
             shift
+            ;;
+        --into)
+            into="${2%/}"
+            shift 2
             ;;
         *)
             search_dir="$1"
@@ -31,7 +36,8 @@ check_broken_symlinks() {
             --exclude "code/" \
             2>/dev/null |
             while IFS= read -r symlink; do
-                if [[ -L "$symlink" ]] && [[ ! -e "$symlink" ]]; then
+                if [[ -L "$symlink" ]] && [[ ! -e "$symlink" ]] &&
+                    [[ -z "$into" || "$(readlink "$symlink")" == "$into"/* ]]; then
                     echo "$symlink"
                 fi
             done
@@ -51,6 +57,7 @@ check_broken_symlinks() {
                     echo "  Removed: $symlink"
                 else
                     echo "  Failed to remove: $symlink"
+                    exit 1
                 fi
             done
         else
