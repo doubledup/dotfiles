@@ -14,6 +14,17 @@
     --ctp-surface0: #313244;
     --ctp-mantle: #181825;
     --ctp-crust: #11111b;
+    --ctp-teal: #94e2d5;
+    --ctp-green: #a6e3a1;
+    --ctp-yellow: #f9e2af;
+    --ctp-red: #f38ba8;
+    --ctp-pink: #f5c2e7;
+    --ctp-mauve: #cba6f7;
+    --ctp-overlay1: #7f849c;
+    --ctp-base: #1e1e2e;
+    /* Group chip text when collapsed: dark on the pastel accent */
+    --ctp-pale-mix: 0%;
+    --ctp-pale-base: var(--ctp-crust);
 }
 
 /* -- Latte (light) -- */
@@ -26,6 +37,17 @@
         --ctp-surface0: #ccd0da;
         --ctp-mantle: #e6e9ef;
         --ctp-crust: #dce0e8;
+        --ctp-teal: #179299;
+        --ctp-green: #40a02b;
+        --ctp-yellow: #df8e1d;
+        --ctp-red: #d20f39;
+        --ctp-pink: #ea76cb;
+        --ctp-mauve: #8839ef;
+        --ctp-overlay1: #8c8fa1;
+        --ctp-base: #eff1f5;
+        /* Group chip fill when collapsed: a tint of the accent */
+        --ctp-pale-mix: 12%;
+        --ctp-pale-base: var(--ctp-base);
     }
 }
 
@@ -39,6 +61,82 @@
     --tab-dropmarker: var(--ctp-blue);
     --tab-highlighted-glow-default: var(--ctp-peach);
     --toolbarbutton-icon-fill: var(--ctp-text);
+}
+
+/* Firefox tab group chips. TST resolves a group's colour name to these variables; Firefox's
+ * names map to the nearest Catppuccin accent. */
+:root {
+    --tab-group-label-text-dark: var(--ctp-text);
+    --tab-group-color-blue: var(--ctp-blue);
+    --tab-group-color-blue-pale: color-mix(
+        in srgb,
+        var(--ctp-blue) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-blue-invert: color-mix(in srgb, var(--ctp-blue) 25%, var(--ctp-base));
+    --tab-group-color-cyan: var(--ctp-teal);
+    --tab-group-color-cyan-pale: color-mix(
+        in srgb,
+        var(--ctp-teal) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-cyan-invert: color-mix(in srgb, var(--ctp-teal) 25%, var(--ctp-base));
+    --tab-group-color-green: var(--ctp-green);
+    --tab-group-color-green-pale: color-mix(
+        in srgb,
+        var(--ctp-green) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-green-invert: color-mix(in srgb, var(--ctp-green) 25%, var(--ctp-base));
+    --tab-group-color-yellow: var(--ctp-yellow);
+    --tab-group-color-yellow-pale: color-mix(
+        in srgb,
+        var(--ctp-yellow) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-yellow-invert: color-mix(in srgb, var(--ctp-yellow) 25%, var(--ctp-base));
+    --tab-group-color-orange: var(--ctp-peach);
+    --tab-group-color-orange-pale: color-mix(
+        in srgb,
+        var(--ctp-peach) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-orange-invert: color-mix(in srgb, var(--ctp-peach) 25%, var(--ctp-base));
+    --tab-group-color-red: var(--ctp-red);
+    --tab-group-color-red-pale: color-mix(
+        in srgb,
+        var(--ctp-red) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-red-invert: color-mix(in srgb, var(--ctp-red) 25%, var(--ctp-base));
+    --tab-group-color-pink: var(--ctp-pink);
+    --tab-group-color-pink-pale: color-mix(
+        in srgb,
+        var(--ctp-pink) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-pink-invert: color-mix(in srgb, var(--ctp-pink) 25%, var(--ctp-base));
+    --tab-group-color-purple: var(--ctp-mauve);
+    --tab-group-color-purple-pale: color-mix(
+        in srgb,
+        var(--ctp-mauve) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-purple-invert: color-mix(in srgb, var(--ctp-mauve) 25%, var(--ctp-base));
+    --tab-group-color-grey: var(--ctp-overlay1);
+    --tab-group-color-grey-pale: color-mix(
+        in srgb,
+        var(--ctp-overlay1) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-grey-invert: color-mix(in srgb, var(--ctp-overlay1) 25%, var(--ctp-base));
+    --tab-group-color-gray: var(--ctp-overlay1);
+    --tab-group-color-gray-pale: color-mix(
+        in srgb,
+        var(--ctp-overlay1) var(--ctp-pale-mix),
+        var(--ctp-pale-base)
+    );
+    --tab-group-color-gray-invert: color-mix(in srgb, var(--ctp-overlay1) 25%, var(--ctp-base));
 }
 
 #background {
