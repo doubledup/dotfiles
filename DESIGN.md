@@ -346,26 +346,30 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   `worktree-create.sh` stays as a convenience
 - **Hard denies** (user scope, and the subset every repo needs in `project-baseline.json`):
     - Secret files by `Read` path, by path in command text (`*/.env*`, `*/.aws/*`, `*/.netrc*`,
-      `*/.m2/settings.xml*`, which holds the GitHub Packages token), by common file-reading and
-      search commands (`cat`, `head`, `tail`, `less`, `source`, `cp`, `diff`, `grep`, `sed`, `awk`;
-      `cp` because a copy under another name escapes every other rule), each needing a space before
-      `.env`, so `process.env`, `os.environ` in a heredoc and `app.environment.ts` still pass. A
-      bare `* .env*` would also match commit messages and search patterns, so it isn't used; a
-      commit message that names a secret path goes through `git commit -F <file>`. Personal tools
-      (`rg`, `bat`) get the same rules at user scope only. User-scope path rules are anchored
-      `~/**/`: measured, a user-scope `**/` rule matches only under the session's project, not in
-      additional directories. A tree-wide search that never names the file falls to the classifier
+      `*/.m2/settings.xml*`, which holds the GitHub Packages token, `*/.docker/config.json*`), by
+      common file-reading and search commands (`cat`, `head`, `tail`, `less`, `source`, `.`, `cp`,
+      `mv`, `diff`, `grep`, `sed`, `awk`; `cp` and `mv` because a file under another name escapes
+      every other rule), each needing a space before `.env`, so `process.env`, `os.environ` in a
+      heredoc and `app.environment.ts` still pass. A bare `* .env*` would also match commit messages
+      and search patterns, so it isn't used; a commit message that names a secret path goes through
+      `git commit -F <file>`. Personal tools (`rg`, `bat`) get the same rules at user scope only.
+      User-scope path rules are anchored `~/**/`: measured, a user-scope `**/` rule matches only
+      under the session's project, not in additional directories. A tree-wide search that never
+      names the file falls to the classifier
     - Also denied: `export-credentials` in any form, `git commit -F` of a `.env` file and
       `git add -f` of one (the commit allow skips the classifier), force/delete/mirror/prune pushes
       (`:branch` after a remote; `git push :x` reads `:x` as the remote, measured) and
       `git -C * push`, `--no-verify`, `git clean`, recursive `rm`, `find -delete`, forced worktree
       removal, `sudo`, `direnv`, gh/terraform/aws verbs that destroy remote state
-      (`terraform apply -destroy` included) wherever `--profile` sits, the main AWS write-verb
-      families on every profile (`create-`, `put-`, `update-`, `modify-`, `remove-`, `batch-write-`,
-      `transact-write-`: data and infrastructure changes go through Terraform and CI, and a
-      profile-specific deny would need a rule per verb, profile token and order), Atlassian
-      `executeDestructive`, and `dumps/` (customer data, as `*/dumps/*`, `* dumps/*` and `dumps` as
-      the last word, so repo-relative paths and the bare directory match)
+      (`terraform apply -destroy` and `-chdir` forms, `aws s3 mv`, `batch-delete-*`) wherever
+      `--profile` sits, the main AWS write-verb families on every profile (`create-`, `put-`,
+      `update-`, `modify-`, `remove-`, `batch-write-`, `transact-write-`: data and infrastructure
+      changes go through Terraform and CI, and a profile-specific deny would need a rule per verb,
+      profile token and order). Costs: emulator setup (`--endpoint-url` to LocalStack or DynamoDB
+      local) runs through the repo's scripts or `!`, and an argument containing a verb
+      (`--filter-pattern create-user`) is blocked too. Also Atlassian `executeDestructive`, and
+      `dumps/` (customer data, as `*/dumps/*`, `* dumps/*` and `dumps` as the last word, so
+      repo-relative paths and the bare directory match)
     - Bash patterns are a backstop for the common spelling, not a boundary; variable-built commands,
       other flag orders and SDK scripts fall to the classifier
 - **Asks**: edits to `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` settings, hooks, skills, agents,
