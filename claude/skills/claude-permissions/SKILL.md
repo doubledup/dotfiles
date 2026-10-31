@@ -1,121 +1,52 @@
 ---
 name: claude-permissions
 description:
-    Audit the layered permission config (settings.json allow/ask/deny, the sandbox block, the guard
-    hooks, and CLAUDE.md safety prose) for gaps, drift, and contradictions, or guide adding a new
-    permission policy through the right layer for the risk. Use when hardening or reviewing Claude
-    Code permissions, checking that a policy is enforced by the correct layer, or adding a command
-    or path that must be blocked or confirmed.
-argument-hint: "[policy to add, e.g. 'confirm chmod'; omit to audit]"
+    Audit Claude Code permission config (user and project settings.json allow/ask/deny, autoMode,
+    CLAUDE.md safety prose) against the auto-mode-plus-hard-denies model, add a rule at the right
+    scope, or set up a repo's project settings from the shared baseline. Use when reviewing or
+    hardening Claude Code permissions, adding a command or path that must be blocked or confirmed,
+    or setting up .claude/settings.json in a new or existing repo.
+argument-hint: "[setup | policy to add, e.g. 'confirm chmod'; omit to audit]"
 allowed-tools: Read, Glob
 ---
 
 # claude-permissions
 
-Maintain the layered permission config: keep each policy enforced by the layer its risk warrants,
-and add new policies without hand-wiring each one. Advisory only - this skill reports and proposes
-diffs; you apply them through the normal plan-approve flow. It never edits or commits (its
-`allowed-tools` omit Edit/Write, but that is tool-scoping plus compliance, not a hard block).
+Advisory: report and propose diffs; apply them through the normal plan-approve flow. The model and
+the checks live in `invariants.md` beside this file; read it first in every mode.
 
-Run `/claude-permissions` with no argument to **audit**. Pass a policy (e.g.
-`/claude-permissions confirm chmod`) to get a **guided add**. The check catalog and the disposition
-table live in `invariants.md` beside this file - read it before either mode.
+## Locate the config
 
-## The enforcement model
-
-The layers, softest to hardest (background rationale: `DESIGN.md`, the sandbox-first / minimal-hook
-decision; threat model: the **Threat model** section in `invariants.md` - defend accidents plus
-cheap/robust attack-bar raises, decline complex/fragile adversarial hardening):
-
-- **CLAUDE.md** (`## Safety`) - soft intent. Shapes model behavior; no hard stop. Kept minimal
-  (adherence decays past ~150-200 instructions), so it holds principles, not every rule.
-- **settings.json** `allow`/`ask`/`deny` - the permission gate. `deny` blocks, `ask` prompts,
-  evaluated deny-then-ask-then-allow, first match wins. Weaknesses: bypassed under
-  `--dangerously-skip-permissions`; Bash-argument patterns are brittle (reordered flags, redirects,
-  variable expansion); without a sandbox a `deny` binds only Claude's built-in tools, not `cat .env`
-  run via Bash.
-- **sandbox** (`sandbox` block, hard floor) - the OS-level primary containment boundary. It bounds
-  what a Bash command can touch, so destructive verbs are blocked by `deny` rules before they run
-  and contained by the sandbox if they do. This is why destructive must-nevers live in `deny` rules,
-  not a hook.
-- **hooks** (`claude/hooks/guard.sh`) - one narrow deterministic leg that matches a tool's
-  structured PATH input and must NOT parse Bash command strings (fragile on quoting/operators). Its
-  only job is blocking secret-path reads via the built-in tools (Read/Write/Edit/Grep/Glob), which
-  the sandbox doesn't wrap and `Read(**/…)` denies cover only best-effort. It does NOT bind `mcp__*`
-  tools - for MCP, `deny` is the only binding leg.
-
-Belt-and-suspenders means the RIGHT leg for the risk. A destructive must-never belongs in a `deny`
-rule plus the sandbox, NOT a hook that parses Bash. A secret read via a built-in tool is the one
-case that needs the hook.
-
-Plain push has no rule: it runs unprompted, reviewed by the auto-mode classifier, which an `allow`
-would skip. Only the unrecoverable forms (`--force*`, `-f`, `+refspec`, `--mirror`, `--delete`/`-d`,
-`:branch`, `--prune`, any `git -C * push`) are must-never `deny` rules. No hook either way.
-
-## Locate the config (two scopes)
-
-Claude Code merges **user** and **project** scope (managed > local > project > user; deny-first).
-Audit both; attribute every finding and edit to a scope.
-
-- **User scope** (global, every project). Source of truth is the dotfiles repo's `claude/*`, NOT
-  `~/.claude/*` (those are rcm symlinks into the repo). Find the repo with
-  `readlink -f ~/.claude/settings.json`, then read/edit there:
-    - `claude/settings.json` (allow/ask/deny, defaultMode, any `sandbox` key)
-    - `claude/hooks/guard.sh` (path-matching secret-path block only; block-only, no Bash branch)
-    - `claude/CLAUDE.md` `## Safety`
-    - `rcignore/test_guard.sh` (the guard hook's test), run via `just test-claude-hooks`
-- **Project scope** (current repo only): `<cwd>/.claude/settings.json`,
-  `.claude/settings.local.json`, `.claude/rules/`, `.claude/hooks/`. Usually additive allows.
-- **Managed scope** (enterprise MDM) is out of read scope; assume absent (solo setup) and say so in
-  the report.
-- Never edit through the `~/.claude` symlinks - the repo is the source
-  (`.claude/rules/toolchain.md`), and `~/.claude` is a built-in protected path, so writes there
-  always go through the permission prompt or classifier.
+- **User scope**: `~/.dotfiles/claude/settings.json` and `claude/CLAUDE.md` `## Safety`.
+  `~/.claude/*` are rcm symlinks into it; edit the repo, never the symlink.
+- **Project scope**: `<repo>/.claude/settings.json` (committed, shared with teammates) and
+  `.claude/settings.local.json` (gitignored, machine paths only).
+- Managed scope: assume absent and say so.
 
 ## Mode A: audit (no argument)
 
-1. Resolve both scopes' files (above).
-2. Run every check in `invariants.md` against the merged config.
-3. Emit a report:
-    - A **coverage matrix**: rows = policies found, columns = CLAUDE.md / settings / hook / scope.
-    - **Violations**, ordered contradiction > missing-hook-backstop > missing-visibility >
-      prose-only. **Deduplicate by (policy, missing-layer)**: one row per gap, listing every
-      invariant ID that cites it, so `--no-verify` shows once, not once per invariant.
-    - The **sandbox posture** note (invariant 7) and the managed-scope assumption.
-4. Group the first-run security-belt batch **by the CLAUDE.md dimension only**: existing guardrails
-   (sudo, force push, recursive rm, `git clean`, direnv, WebFetch/WebSearch) each have a
-   settings.json rule but no CLAUDE.md covering line - report the missing lines as ONE grouped
-   recommendation (a few family lines clear them), not N separate flags. This is orthogonal to
-   enforcement-leg gaps: do NOT describe the batch as fully enforced. Some members carry separate
-   findings reported via their own invariants - direnv's command denies lack a hook backstop (inv
-   1), WebFetch/WebSearch are settings-only by design (inv 9, no hook) - do not fold those into or
-   mask them behind the CLAUDE.md batch.
+Run every check in `invariants.md` against both scopes. Report one row per gap (rule, scope, missing
+or contradicting piece), contradictions first, then dead or shadowed rules, then over-matching
+rules. Propose diffs; edit nothing.
 
-Do not edit anything. Hand the report back for the user to act on.
+## Mode B: setup (argument `setup`)
 
-## Mode B: guided add (argument = the policy)
+Set up or realign a repo's `.claude/settings.json`:
 
-1. **Classify** the policy: disposition (forbid / confirm / allow), whether it is
-   **security-related** (definition in `invariants.md`), and **target scope** (security guardrails
-   default to user scope so they apply everywhere; project-specific allows go to the project's
-   `.claude/` - never put a security belt in one project's `.claude/` only).
-2. **Map to legs** via the disposition table in `invariants.md`, honoring the invariant-9 precedence
-   (no hook for ask-by-design network tools or MCP).
-3. **Propose** coordinated edits as diffs; do not apply:
-    - `settings.json`: the allow/ask/deny rule, in the right scope. A destructive forbid is a `deny`
-      rule (colon `:*` form) and gets NO guard branch - the guard doesn't parse Bash.
-    - `guard.sh`: a branch ONLY for a secret-path read via built-in tools (add the path to its
-      canonical secret set). No Bash-command branch exists or should be added. Confirm policies get
-      no hook: put the `ask` in settings.json and let the sandbox/classifier backstop.
-    - `claude/CLAUDE.md` `## Safety`: a one-line intent entry - required if security-related, else
-      only if a genuine principle. A covering family line is fine.
-    - `rcignore/test_guard.sh`: a matching block/allow case ONLY for a secret-path rule (the harness
-      feeds Read/Grep/Glob payloads to the guard). Destructive `deny` rules and MCP rules get no
-      harness test - say so, do not promise one.
-4. Tell the user to review, apply via plan-approve, and run `just test-claude-hooks`.
+1. Start from `project-baseline.json` beside this file. Keep it verbatim so repos stay consistent;
+   diff an existing file against it and list what's missing, extra, or contradicting.
+2. Add only repo-specific rules on top, each tied to something in the repo: a cloud CLI it calls
+   (mutation verb denies, data-store read asks), a publish step that needs a human gate (release,
+   deploy), a code-running config file beyond `.pre-commit-config.yaml`.
+3. Never add to project scope: `sandbox`, `defaultMode`, `autoMode` (ignored there), hooks that
+   assume one person's machine, `allow` rules (they apply only after folder trust and pre-approve
+   for every teammate).
+4. Add the CLAUDE.md `## Permissions` stub from `invariants.md` if the repo has none.
+5. Tell teammates the user-scope half lives in their own settings: point them at the `autoMode`
+   block and deny list in `~/.dotfiles/claude/settings.json` to copy what they want.
 
-## Scope
+## Mode C: add a policy (any other argument)
 
-This is the permission-surface deep check: it audits and proposes diffs across settings.json, the
-guard hook, and CLAUDE.md `## Safety`, but never applies them (apply via the normal plan-approve
-flow). Background rationale for the sandbox-first, minimal-hook posture is in `DESIGN.md`.
+Classify it with the disposition table in `invariants.md` (deny / ask / classifier), pick the scope
+(user if it protects me everywhere, baseline if every repo needs it, project if only this repo), and
+propose the rule plus a `## Safety` line only if it is a principle the rule can't express.
