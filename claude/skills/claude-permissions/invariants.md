@@ -34,7 +34,9 @@ Defends against mistakes and against prompt injection steering an action. Accept
   `autoMode.environment` credential and personal-information lines.
 - Bash argument patterns miss reordered flags, variables and wrappers. They're a backstop for the
   common spelling, not a boundary; don't chase every spelling.
-- A Bash write to a gated config file (`sed -i CLAUDE.md`) goes to the classifier, not the ask.
+- A Bash write to a gated config file (`sed -i CLAUDE.md`, a Python rewrite) goes to the classifier,
+  not the ask. The `## Safety` line requiring the Edit and Write tools for config, and the PR diff,
+  cover it.
 
 ## Disposition table
 
@@ -74,5 +76,8 @@ Defends against mistakes and against prompt injection steering an action. Accept
 
 `.claude/settings.json` holds the team baseline (hard denies, asks on Claude config and publish
 steps) plus this repo's rules; rationale in `.claude/docs/permissions.md`. Auto mode and its
-`autoMode.environment` are user-scope settings, so each contributor sets their own.
+`autoMode.environment` are user-scope settings, so each contributor sets their own. Change Claude
+config (CLAUDE.md, `.claude/`, `.mcp.json`, `.pre-commit-config.yaml`) only with the Edit and Write
+tools, never a script or shell command: the `ask` rules match those tools, so a scripted edit skips
+the prompt.
 ```
