@@ -131,16 +131,17 @@ Karabiner entry from that Bluetooth list with `-`, then repeat the setup step.
 
 ### Updates with rcm
 
-When pulling updates, run `rcdn` to remove all known symlinks, then pull updates, then run `rcup`:
+To pull updates and apply them, including links, packages and plugins, run this from the main
+checkout on `main`:
 
 ```sh
-cd ~/.dotfiles && rcdn -t mac && git pull && RCRC=~/.dotfiles/rcrc rcup -t mac && cd -
+just sync
 ```
 
 Detect broken symlinks potentially left behind by incorrect use of rcm:
 
 ```sh
-find ~ -type l ! -exec test -e {} \; -print | rg -v '/Library/' | rg -v '/.cache/'
+just broken-links
 ```
 
 Verify that the symlinks are unused (e.g. chroots and containers can appear to contain broken

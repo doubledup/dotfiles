@@ -38,20 +38,28 @@ not covered here, consult the man pages (`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1
 
 ## Update workflow (`just sync`)
 
-```bash
-rcdn -t mac                      # remove existing rcm-managed symlinks (mac tag)
-git pull                         # bring in the latest repo changes
-RCRC=~/.dotfiles/rcrc rcup -t mac  # re-link with the mac tag
-brew bundle --no-upgrade --global
-nvim -c "lua require('lazy').restore()"
-just brew-cleanup                # triage brew packages not tracked in Brewfile
-```
+`just sync` stops before changing anything unless it is in the main checkout on `main` and
+`git pull --ff-only` succeeds. It then runs every step, lists failures at the end and exits nonzero,
+so the fix for a failure is to run it again. Steps: set `core.hooksPath`, `rcup -t mac`, check the
+links, prune broken links into this repo, `just brew-cleanup`, `brew bundle --no-upgrade --global`,
+`bat cache --clear`, headless lazy.nvim restore. It prints `git status` last, because the Brewfile
+and lazy lock file can change; an uncommitted change that overlaps a later pull stops that sync.
 
-- The explicit `RCRC=~/.dotfiles/rcrc` on the `rcup` step is required: `rcrc` itself is a normal
-  rcm-managed root file (symlinked to `~/.rcrc`), so the preceding `rcdn` removes `~/.rcrc` along
-  with everything else. Without the override, the following `rcup` would have no `rcrc` to read.
-- `just broken-links` (`./scripts/find-broken-symlinks`, `--remove` to delete) finds dangling
-  symlinks left in `$HOME`, e.g. after removing a file this repo used to manage.
+Behaviour this relies on (measured on a throwaway `$HOME`):
+
+- `rcup` prompts on a clashing real file or a drifted `COPY_ALWAYS` copy, and exits 0 if the answer
+  is `n` or stdin is closed. The link check against `lsrc -t mac -F` is what reports these. `-f`
+  would overwrite local edits.
+- `rcup` never removes links to files deleted upstream. Pruning only removes broken links, not links
+  missing from `lsrc`, because `EXCLUDES` matches basenames at any depth and so omits the needed
+  `~/.claude/CLAUDE.md`.
+- `rcdn` deletes `COPY_ALWAYS` copies, and a failed pull after it would leave `$HOME` unlinked, so
+  `just sync` does not use it.
+- `RCRC=~/.dotfiles/rcrc` stays explicit so a clashing or missing `~/.rcrc` cannot change what
+  `rcup` and `lsrc` read.
+- `just broken-links` (`./scripts/find-broken-symlinks`, `--remove` to delete, `--into DIR` to limit
+  to links targeting `DIR`) finds dangling symlinks left in `$HOME`, e.g. after removing a file this
+  repo used to manage.
 - Sanity-check before a broad relink: `lsrc` dry-runs what rcm would manage without changing
   anything.
 
@@ -69,8 +77,8 @@ rcdn -v -t mac        # remove the symlinks rcm created
   `tag-mac`/`tag-linux`); host-specific (`-o`/`-B`) and undotted (`-U`) mkrc modes aren't used here.
 - `rcup`/`rcdn` are always run with `-t mac` (or `-t linux`) to include the relevant tag directory;
   `-v` for verbose output when troubleshooting.
-- `SYMLINK_DIRS`, `UNDOTTED`, and `HOSTNAME` (all `rcrc(5)` variables) aren't set in this repo's
-  `rcrc` and don't apply to anything here.
+- `SYMLINK_DIRS` in `rcrc` links each skill under `claude/skills/` as a whole directory. `UNDOTTED`
+  and `HOSTNAME` (also `rcrc(5)` variables) aren't set and don't apply to anything here.
 
 ## Gotchas
 
