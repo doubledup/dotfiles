@@ -161,6 +161,6 @@
     tab-item-substance.active:hover .background:not(.base) {
         outline: 1px solid #585b70;
         outline-offset: -1px;
-        box-shadow: 0 0 var(--tab-dropshadow-blur) rgba(205, 214, 244, 0.25);
+        box-shadow: 0 0 var(--tab-dropshadow-blur) rgba(205, 214, 244, 0.45);
     }
 }
