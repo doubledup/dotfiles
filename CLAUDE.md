@@ -1,9 +1,9 @@
 # Dotfiles
 
 Dotfiles managed with rcm. `DESIGN.md` records architectural decisions; read it on demand
-(deliberately not @-imported). Standing policy: sandbox-first containment (must-nevers live in deny
-rules; hooks only where the sandbox and rules cannot reach); no secrets in any repo, even
-git-ignored.
+(deliberately not @-imported). Standing policy: auto mode's classifier judges commands, must-nevers
+live in deny rules, edits to Claude config and code-running files ask first, and no hook enforces
+anything; no secrets in any repo, even git-ignored.
 
 ## Conventions
 

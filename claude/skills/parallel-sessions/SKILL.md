@@ -66,10 +66,11 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
 - Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gates, plan
   and PR. Skip `ship`'s review loop too: the coordinator runs it. Stop and report instead of
   guessing on a new dependency or tool, an ambiguous rule, or work outside the scope.
-- Commit in small steps per git.md. Run git commit, git push and gh as lone calls, with multi-line
-  text in `-F` / `--body-file` files named `msg-<issue>-<n>.txt` in the scratchpad: agents and the
-  coordinator share it, and a reused name commits someone else's message. Never amend, rebase or
-  force-push anything already pushed.
+- Commit in small steps per git.md. Run git commit, git push and gh as lone calls (worktree
+  isolation refuses compound commands that run git), with multi-line text in `-F` / `--body-file`
+  files named `msg-<issue>-<n>.txt` in the scratchpad: agents and the coordinator share it, and a
+  reused name commits someone else's message. Never amend, rebase or force-push anything already
+  pushed.
 - Run the checks (skipping what can't run locally), push from the named branch, never a detached
   HEAD, with `git push -u origin <branch>` so later plain pushes work, and open a **draft** PR: a
   title per the commit rules, a 1-2 line why, and `Closes #N`. Don't mark it ready, merge it or

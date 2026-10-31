@@ -8,9 +8,9 @@
 - Update a PR branch by merging `main` into it, not rebasing, to avoid force-pushing shared branches
 - Create worktrees with `EnterWorktree`, `claude --worktree` or subagent `isolation: "worktree"`
   (the `worktree-create.sh` hook places them under `~/code/worktrees/`, off the remote default
-  branch; run a lone `git fetch` first), never `git worktree add`. Subagents that commit need that
+  branch; run `git fetch` first), never `git worktree add`. Subagents that commit need that
   isolation, which pins their Bash calls to the worktree; without it they start in the main checkout
-- Claude Code keeps a subagent's worktree; after the merge, remove it with lone calls:
+- Claude Code keeps a subagent's worktree; after the merge, remove it with
   `git worktree remove <path>` (never `--force`, which is denied), `git worktree prune`, then
   `git branch -D <branch>` (squash merges never count as merged for `-d`)
 - In a repo that commits directly to `main`, land a worktree commit yourself: in the worktree,

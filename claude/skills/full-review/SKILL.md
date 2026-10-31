@@ -20,7 +20,7 @@ the title and body are the intent, a claim to verify rather than a source of tru
   `gh pr view <pr> --json headRefOid,baseRefOid,isCrossRepository,title,body`. Target is
   `headRefOid`; base defaults to `baseRefOid`, not `baseRefName`, because a stale local
   `origin/<base>` would pull merged-in commits into the diff.
-- Commit: run a lone `git fetch` (not for `HEAD`, which is local), then resolve with
+- Commit: run `git fetch` (not for `HEAD`, which is local), then resolve with
   `git rev-parse <commit>`, so a remote-only SHA or an `origin/<branch>` ref resolves to its current
   value; everything since the base is reviewed, not just that commit. Base defaults to
   `origin/HEAD`; if that ref is unset, ask the user for a base.
@@ -45,8 +45,8 @@ session's working directory. If no listed directory is that repo, stop and name 
     - the repo is `~/.dotfiles`: it holds the live Claude config and takes no PRs
     - the PR is from a fork (`isCrossRepository`): its hooks and config are untrusted; the user can
       check it out and rerun, which reviews in place
-4. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached. Run a
-   lone `git fetch` (skip it if Resolve just ran one), then `gh pr checkout <pr>` for a PR, or
+4. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached. Run
+   `git fetch` (skip it if Resolve just ran one), then `gh pr checkout <pr>` for a PR, or
    `git switch --detach <target>` for a commit. If the branch is checked out in another worktree,
    `cd` there in its own Bash call and restart at step 1; stop and name it only if it isn't a listed
    working directory.

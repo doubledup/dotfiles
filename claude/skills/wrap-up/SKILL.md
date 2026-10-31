@@ -11,8 +11,7 @@ description:
 # Wrap-up
 
 Find what this session leaves unfinished, close what needs no decision, and list the rest. Report
-only what's open; a clean check is one line. Run git push, git commit and gh as lone calls; for gh
-output, use `--json`/`--jq`, not pipes.
+only what's open; a clean check is one line.
 
 ## Check
 
