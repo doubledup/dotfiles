@@ -30,7 +30,7 @@
 #vimiumHintMarkerContainer div.internalVimiumHintMarker,
 #vimiumHintMarkerContainer div.vimiumHintMarker {
     padding: 3px 4px;
-    border: 1;
+    border: 1px solid;
     background: var(--vimium-blue);
     border-color: var(--vimium-border);
     box-shadow:
