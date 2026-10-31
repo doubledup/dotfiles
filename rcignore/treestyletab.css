@@ -152,3 +152,14 @@
 :root.left #tabbar {
     direction: ltr;
 }
+
+/* Proton draws the selected tab's edge as a black drop shadow, which vanishes on Mocha's dark
+ * background; a surface2 outline and a denser shadow give dark mode the same edge as light. */
+@media (prefers-color-scheme: dark) {
+    tab-item-substance.active .background:not(.base),
+    tab-item-substance.active:hover .background:not(.base) {
+        outline: 1px solid #585b70;
+        outline-offset: -1px;
+        box-shadow: 0 0 var(--tab-dropshadow-blur) rgba(0, 0, 0, 0.8);
+    }
+}
