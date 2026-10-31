@@ -66,8 +66,11 @@ To enable the custom stylesheet, go to the `about:config` page and set
 `toolkit.legacyUserProfileCustomizations.stylesheets` to true. To also remove the remaining sidebar
 UI, set `sidebar.revamp` to false.
 
-Vimium keeps its theme in extension storage, so `rcignore/vimium.css` is applied by hand: paste it
-into Vimium Options, Advanced Options, "CSS for Vimium UI".
+Extensions keep their themes in extension storage, so these are applied by hand:
+
+- Vimium: paste `rcignore/vimium.css` into Vimium Options, Advanced Options, "CSS for Vimium UI".
+- Tree Style Tab: with the Proton style selected, load `rcignore/treestyletab.css` with "Load from
+  File" under Advanced, "Extra style rules for contents provided by Tree Style Tab".
 
 ## MacOS
 

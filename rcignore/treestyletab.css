@@ -1,0 +1,56 @@
+/* Tree Style Tab Catppuccin - Mocha (dark) / Latte (light) via prefers-color-scheme, for TST's
+ * Proton style. Palettes: https://github.com/catppuccin/catppuccin
+ * Variables: https://github.com/piroor/treestyletab (webextensions/sidebar/styles/proton/proton.css)
+ *
+ * TST appends a specificity booster to each user rule, so these override its own declarations,
+ * including the colours it derives from the Firefox theme. */
+
+/* -- Mocha (dark, default) -- */
+:root {
+    --ctp-blue: #89b4fa;
+    --ctp-peach: #fab387;
+    --ctp-text: #cdd6f4;
+    --ctp-surface1: #45475a;
+    --ctp-surface0: #313244;
+    --ctp-mantle: #181825;
+    --ctp-crust: #11111b;
+}
+
+/* -- Latte (light) -- */
+@media (prefers-color-scheme: light) {
+    :root {
+        --ctp-blue: #1e66f5;
+        --ctp-peach: #fe640b;
+        --ctp-text: #4c4f69;
+        --ctp-surface1: #bcc0cc;
+        --ctp-surface0: #ccd0da;
+        --ctp-mantle: #e6e9ef;
+        --ctp-crust: #dce0e8;
+    }
+}
+
+:root {
+    --tabbar-bg: var(--ctp-mantle);
+    --tab-surface-regular: transparent;
+    --tab-surface-active: var(--ctp-surface0);
+    --tab-text-regular: var(--ctp-text);
+    --tab-text-active: var(--ctp-text);
+    --tab-border-color: var(--ctp-crust);
+    --tab-dropmarker: var(--ctp-blue);
+    --tab-highlighted-glow-default: var(--ctp-peach);
+    --toolbarbutton-icon-fill: var(--ctp-text);
+}
+
+#background {
+    background-color: var(--ctp-mantle);
+}
+
+#pinned-tabs-container,
+#normal-tabs-container {
+    scrollbar-color: var(--ctp-surface1) transparent;
+}
+
+/* put scrollbar rightside */
+:root.left #tabbar {
+    direction: ltr;
+}
