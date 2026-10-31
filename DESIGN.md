@@ -142,11 +142,12 @@ Key technical choices and their rationale:
   before `ctrl+shift+f5`
 - Neovim loads `catppuccin/nvim` through lazy; `colorscheme catppuccin-nvim` picks the flavour from
   `background`, which auto-dark-mode sets
-- fish ships Catppuccin as colour-theme-aware themes (Latte for light, the named flavour for dark);
-  `conf.d/theme.fish` runs `fish_config theme choose catppuccin-mocha`, which follows the terminal's
-  report (`fish_terminal_color_theme`, DEC mode 2031). Verified: it overrides the fish-generated
-  `fish_frozen_theme.fish` in `conf.d`, and the theme sets the prompt roles (cwd, user, host,
-  status) itself
+- fish sets its colours with ANSI names (`conf.d/theme.fish`), so kitty's Catppuccin palette drives
+  them: kitty stores palette colours by index, so a light/dark switch recolours fish output already
+  in scrollback, where truecolor output keeps the flavour it was printed in. Roles follow fish's
+  bundled catppuccin theme; accents outside the 16-colour palette (peach, mauve, flamingo) take the
+  nearest palette colour. `theme.fish` sorts after the fish-generated `fish_frozen_theme.fish` in
+  `conf.d`, so its globals win
 - Delta holds one `syntax-theme` and one set of hunk colours, so git runs it through
   `local/bin/delta-auto`, which reads macOS appearance on every call and passes the
   `catppuccin-latte` or `catppuccin-mocha` feature from `config/delta/catppuccin.gitconfig` (a
@@ -155,15 +156,19 @@ Key technical choices and their rationale:
   passes Mocha. The wrapper unsets `DELTA_FEATURES`, which outranks `--features` (measured)
 - bat follows OS appearance itself (`--theme=auto:system`) and ships the Catppuccin themes, which
   delta also bundles, so neither needs vendored themes or a cache build
+- Firefox extensions keep their styles in extension storage, so `rcignore/vimium.css` and
+  `rcignore/treestyletab.css` are applied by hand (README, Firefox). Each follows OS appearance with
+  `prefers-color-scheme` and repeats the extension's own selectors or variables, which change
+  between releases, so a style that stops applying needs its selectors checked against upstream
 - Alternatives considered: Tokyo Night (rejected: its per-tool ports disagree on about half of all
-  characters between nvim and bat, measured); vendoring `catppuccin/fish` `.theme` files (rejected:
-  fish already ships them); ANSI colour names in fish so the terminal palette drives it (rejected:
-  loses the per-role hex colours upstream assigns); palette colours in bat and delta (bat's `ansi`
-  theme), so output already on screen, such as an open pager, recolours when kitty switches palette
-  (rejected: Catppuccin's kitty palette holds six accent hues, so about half of all characters
-  change colour against bat's Catppuccin theme, measured, and delta's tinted hunk backgrounds have
-  no palette equivalent). Accepted cost: truecolor output keeps the flavour it was drawn in, so a
-  pager open across a switch needs a rerun
+  characters between nvim and bat, measured); fish's bundled catppuccin hex theme (rejected: its
+  truecolor output keeps the old flavour in scrollback after a switch, including every prompt and
+  typed command); palette colours in bat and delta (bat's `ansi` theme), so output already on
+  screen, such as an open pager, recolours when kitty switches palette (rejected: Catppuccin's kitty
+  palette holds six accent hues, so about half of all characters change colour against bat's
+  Catppuccin theme, measured, and delta's tinted hunk backgrounds have no palette equivalent).
+  Accepted cost: truecolor output keeps the flavour it was drawn in, so a pager open across a switch
+  needs a rerun
 
 **Kitty option reference generated on demand:**
 
