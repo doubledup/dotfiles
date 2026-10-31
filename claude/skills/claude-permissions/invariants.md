@@ -11,16 +11,17 @@ hooks.
   it. `autoMode.environment` (user scope only) tells it where production and personal information
   live.
 - **`deny`** for actions that are irreversible or expose credentials or customer data: secret paths,
-  credential export, force/delete pushes, `--no-verify`, recursive delete, remote-destroying CLI
-  verbs, destructive MCP runners.
+  credential export, force/delete/prune pushes, `--no-verify`, recursive delete, remote-destroying
+  CLI verbs, destructive MCP runners.
 - **`ask`** for actions a human must see first: config that steers or runs code in future sessions
   (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, `.mcp.json`,
-  `.pre-commit-config.yaml`, `~/.dotfiles/claude/`) and publish steps (PR creation where it's the
-  review gate, terraform apply, deploys), and production or pre-production AWS profiles (`prd`,
-  `prod`, `ppe`), where reads are sometimes needed but mutations stay denied. An `ask` prompts even
-  in auto mode.
+  `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`), publish steps (PR creation where
+  it's the review gate, terraform apply, deploys), and production or pre-production AWS profiles
+  (`prd`, `prod`, `ppe`), where reads are sometimes needed but mutations stay denied. An `ask`
+  prompts even in auto mode.
 - **`allow`** only for read-only commands and tools, to skip classifier latency. Never for anything
-  that mutates, since an allow skips the classifier.
+  that mutates (Jira and Confluence writes included), since an allow skips the classifier and its
+  personal-information check.
 - **CLAUDE.md `## Safety`** for principles no rule can express (synthetic data only, don't work
   around a denial, where instructions may come from).
 
@@ -32,11 +33,15 @@ Defends against mistakes and against prompt injection steering an action. Accept
   reads `~/.aws` or `.envrc`, or queries customer data, is judged only by the classifier. Mitigated
   by short-lived SSO credentials, agent-held SSH/GPG keys, no secrets in repos, and the
   `autoMode.environment` credential and personal-information lines.
+- Exported secrets in the shell environment reach every command, and `env` or `printenv` would print
+  them; keep tokens out of the environment Claude Code starts in.
 - Bash argument patterns miss reordered flags, variables and wrappers. They're a backstop for the
   common spelling, not a boundary; don't chase every spelling.
 - A Bash write to a gated config file (`sed -i CLAUDE.md`, a Python rewrite) goes to the classifier,
   not the ask. The `## Safety` line requiring the Edit and Write tools for config, and the PR diff,
   cover it.
+- `.git/hooks` and `.git/config` are Claude Code built-in protected paths, so writes there go to the
+  classifier rather than being auto-approved; there is no ask on them.
 
 ## Disposition table
 
@@ -55,20 +60,36 @@ Defends against mistakes and against prompt injection steering an action. Accept
 2. **No mutating allow.** Every `allow` is read-only or a local, reversible verb (`git commit`,
    worktree cleanup).
 3. **Baseline present.** Each project's `.claude/settings.json` contains every rule in
-   `project-baseline.json`.
-4. **No project-only keys in project scope.** No `defaultMode`, `autoMode`, `sandbox` or `allow`.
-5. **No shadowing.** An `ask` that a `deny` also matches never fires; flag it. An `ask` co-matched
-   by an `allow` still asks; fine.
+   `project-baseline.json`, and each user's settings every deny and ask in `user-baseline.json`.
+4. **No user-only keys in project scope.** No `defaultMode`, `autoMode`, `sandbox` or `allow`.
+5. **No shadowing.** An `ask` that a `deny` also matches never fires; flag it. Don't let an `allow`
+   co-match an `ask` either: measured, `git merge --abort` ran unprompted with both present, though
+   the docs say ask wins.
 6. **Config gate covers the loaders.** User `ask` covers `**/CLAUDE.md`, `**/CLAUDE.local.md`,
    `**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules}`,
-   `**/.mcp.json`, `**/.pre-commit-config.yaml`, `**/.githooks/**` (any `core.hooksPath` dir:
-   `git commit` is allowed, so a hook edit runs unjudged), `~/.dotfiles/claude/**`, and the
-   dotfiles' `justfile` and `scripts/**`; not `**/.claude/**`, which would gate auto-memory.
-7. **Path syntax.** `Edit`/`Read` rules: `//abs`, `~/home`, `/project-relative` (in user settings
-   `/` anchors at `~/.claude`), `**/anywhere`. `Write(...)` and `Glob(...)` rules never match.
-8. **Over-matching.** Flag text denies that block ordinary work (`*.pem*`, `* dumps *`); prefer the
-   path form (`*/dumps/*`).
-9. **Prose matches config.** `## Safety` names no layer that doesn't exist (sandbox, guard hooks).
+   `**/.mcp.json`, `**/.pre-commit-config.yaml`, `**/.githooks/**` (`git commit` is allowed, so a
+   hook edit there runs unjudged; other `core.hooksPath` names are not gated),
+   `~/.dotfiles/claude/**`, and the dotfiles' `justfile` and `scripts/**`; not `**/.claude/**`,
+   which would gate auto-memory. Project scope uses `/**/CLAUDE.md` so nested files are gated too.
+7. **Pattern syntax.**
+    - `Edit`/`Read` paths: `//abs`, `~/home`, `/project-relative` (in user settings `/` anchors at
+      `~/.claude`), `**/name`. Whether a user-scope `**/` rule reaches additional directories, or
+      only the session's project directory, is unverified; an older measurement said project only.
+      `Write(...)` and `Glob(...)` rules never match.
+    - A `:*` tail after a mid-command `*` matches nothing (`Bash(git -C * clean:*)` never fires);
+      use a glued tail (`Bash(git -C * clean*)`).
+    - A `*` straight after the command prefix doesn't match empty, so a rule whose match can come
+      first needs a leading twin (`Bash(git push --forc*)` beside `Bash(git push * --forc*)`).
+    - git accepts the shortest unique prefix of a long option, so spell the prefix (`--forc`,
+      `--de`, `--pru`).
+    - Claude Code splits compound commands and matches each subcommand (per the permissions docs;
+      unmeasured here), so a verb-led rule (`Bash(cat*.env*)`) shouldn't fire on another subcommand
+      that only mentions the path.
+8. **Over-matching.** Flag text denies that block ordinary work, such as a bare `* .env*` that also
+   matches a commit message; prefer verb-led or path forms (`Bash(cat*.env*)`, `Bash(*/dumps/*)`
+   with `Bash(* dumps/*)`). Keep personal tools (`rg`, `bat`) out of `project-baseline.json`.
+9. **Prose matches config.** `## Safety` and the repo CLAUDE.md name no layer that doesn't exist
+   (sandbox, guard hooks).
 
 ## CLAUDE.md `## Permissions` stub for a project
 
@@ -76,9 +97,10 @@ Defends against mistakes and against prompt injection steering an action. Accept
 ## Permissions
 
 `.claude/settings.json` holds the team baseline (hard denies, asks on Claude config and publish
-steps) plus this repo's rules; rationale in `.claude/docs/permissions.md`. Auto mode and its
-`autoMode.environment` are user-scope settings, so each contributor sets their own. Change Claude
-config (CLAUDE.md, `.claude/`, `.mcp.json`, `.pre-commit-config.yaml`) only with the Edit and Write
-tools, never a script or shell command: the `ask` rules match those tools, so a scripted edit skips
-the prompt.
+steps) plus this repo's rules. Auto mode and its `autoMode.environment` are user-scope settings, so
+each contributor sets their own. Change Claude config (CLAUDE.md, `.claude/`, `.mcp.json`,
+`.pre-commit-config.yaml`, `.githooks/`) only with the Edit and Write tools, never a script or shell
+command: the `ask` rules match those tools, so a scripted edit skips the prompt.
 ```
+
+Add "Rationale in `.claude/docs/permissions.md`." when the repo has that file.
