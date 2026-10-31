@@ -32,7 +32,7 @@
 :root {
     --tabbar-bg: var(--ctp-mantle);
     --tab-surface-regular: transparent;
-    --tab-surface-active: var(--ctp-surface0);
+    --tab-surface-active: var(--ctp-surface1);
     --tab-text-regular: var(--ctp-text);
     --tab-text-active: var(--ctp-text);
     --tab-border-color: var(--ctp-crust);
