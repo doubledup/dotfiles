@@ -322,12 +322,13 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
 - **Model**: the auto-mode classifier judges every action no rule settles; `deny` holds the
   irreversible and the credential- or customer-data-exposing; `ask` gates config that steers or runs
   code in future sessions, and publish steps; `allow` only skips classifier latency on read-only
-  commands. The checks and the project baseline live in `claude/skills/claude-permissions/`
-  (`invariants.md`, `project-baseline.json`, `user-baseline.json`); `/claude-permissions setup`
-  applies the project one to a repo and `/claude-permissions user` the user one to a teammate's
-  settings. Allows live only in the user baseline: tool names differ per person's connectors and
-  CLIs, and a project allow can't be routed back to the classifier, since a teammate can only
-  override it with `ask` or `deny`
+  commands. Jira and Confluence writes are not allowed: an allowed tool never reaches the
+  classifier, so the personal-information line couldn't stop a customer record pasted into a ticket.
+  The checks and the project baseline live in `claude/skills/claude-permissions/` (`invariants.md`,
+  `project-baseline.json`, `user-baseline.json`); `/claude-permissions setup` applies the project
+  one to a repo and `/claude-permissions user` the user one to a teammate's settings. Allows live
+  only in the user baseline: tool names differ per person's connectors and CLIs, and a project allow
+  can't be routed back to the classifier, since a teammate can only override it with `ask` or `deny`
 - **No OS sandbox.** Its two jobs are fewer prompts without a classifier (redundant under auto mode)
   and containment that holds when the model is fooled. The second costs too much for this workflow:
   the credentials it walls off (`~/.aws` SSO, SSH and GPG for git, `gh`) are the ones routine
