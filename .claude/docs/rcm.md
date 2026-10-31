@@ -40,10 +40,12 @@ not covered here, consult the man pages (`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1
 
 `just sync` stops before changing anything unless it is in the main checkout on `main` and
 `git pull --ff-only` succeeds. It then runs every step, lists failures at the end and exits nonzero,
-so the fix for a failure is to run it again. Steps: set `core.hooksPath`, `rcup -t mac`, check the
-links, prune broken links into this repo, `just brew-cleanup`, `brew bundle --no-upgrade --global`,
-`bat cache --clear`, headless lazy.nvim restore. It prints `git status` last, because the Brewfile
-and lazy lock file can change; an uncommitted change that overlaps a later pull stops that sync.
+so the fix for a failure is to run it again. A file the link check names, such as a drifted
+`karabiner.json`, is the exception: copy it into the repo to keep it, or answer `y` at the `rcup`
+prompt to replace it. Steps: set `core.hooksPath`, prune broken links into this repo, `rcup -t mac`,
+check the links, `just brew-cleanup`, `brew bundle --no-upgrade --global`, `bat cache --clear`,
+headless lazy.nvim restore and parser update. It prints `git status` last, because the Brewfile and
+lazy lock file can change; an uncommitted change that overlaps a later pull stops that sync.
 
 Behaviour this relies on (measured on a throwaway `$HOME`):
 
