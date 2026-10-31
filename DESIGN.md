@@ -337,18 +337,21 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   spellings; the classifier covers the rest. Hooks that parse Bash are fragile and duplicate rules.
   `worktree-create.sh` stays as a convenience
 - **Hard denies** (user scope, and the subset every repo needs in `project-baseline.json`): secret
-  paths by `Read` and by command text, `export-credentials`, production profiles by command text
-  (they over-match `products` on purpose), force/delete/mirror/prune pushes and `git -C * push`,
-  `--no-verify`, `git clean`, recursive `rm`, `find -delete`, forced worktree removal, `sudo`,
-  `direnv`, gh/terraform/aws verbs that destroy remote state, Atlassian `executeDestructive`, and
-  `dumps/` (customer data). Bash patterns are a backstop for the common spelling, not a boundary;
-  variable-built commands, other flag orders and SDK scripts fall to the classifier
+  paths by `Read` and by command text, `export-credentials`, force/delete/mirror/prune pushes and
+  `git -C * push`, `--no-verify`, `git clean`, recursive `rm`, `find -delete`, forced worktree
+  removal, `sudo`, `direnv`, gh/terraform/aws verbs that destroy remote state, Atlassian
+  `executeDestructive`, and `dumps/` (customer data). Bash patterns are a backstop for the common
+  spelling, not a boundary; variable-built commands, other flag orders and SDK scripts fall to the
+  classifier
 - **Asks**: edits to `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` settings, hooks, skills, agents,
   commands and rules, `.mcp.json`, `.pre-commit-config.yaml` and `~/.dotfiles/claude/`: these run or
   instruct every future session, so a persisted injection or a one-session workaround turned rule
   needs a human to see it. Spelled per directory, not `**/.claude/**`, so auto-memory stays a free
-  write. Publish steps: `terraform apply`, `just deploy`; repos add `gh pr create` where the PR is
-  the review gate. Residual: a Bash write to a gated file goes to the classifier
+  write. Production and pre-production AWS profiles (`prd`, `prod`, `ppe`, matched by command text
+  and over-matching `products` on purpose): reads there are sometimes needed, and the mutation and
+  delete denies still hold on every profile. Publish steps: `terraform apply`, `just deploy`; repos
+  add `gh pr create` where the PR is the review gate. Residual: a Bash write to a gated file goes to
+  the classifier
 - **`autoMode.environment`** says where production and personal information live (production AWS
   profiles; production DynamoDB, DLQs, Kinesis and dumps; POPIA personal-information fields) and
   that reading credential files is credential access. Logs, traces and RUM carry no personal

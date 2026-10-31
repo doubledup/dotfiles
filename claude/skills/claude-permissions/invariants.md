@@ -11,12 +11,14 @@ hooks.
   it. `autoMode.environment` (user scope only) tells it where production and personal information
   live.
 - **`deny`** for actions that are irreversible or expose credentials or customer data: secret paths,
-  credential export, production profiles, force/delete pushes, `--no-verify`, recursive delete,
-  remote-destroying CLI verbs, destructive MCP runners.
+  credential export, force/delete pushes, `--no-verify`, recursive delete, remote-destroying CLI
+  verbs, destructive MCP runners.
 - **`ask`** for actions a human must see first: config that steers or runs code in future sessions
   (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, `.mcp.json`,
   `.pre-commit-config.yaml`, `~/.dotfiles/claude/`) and publish steps (PR creation where it's the
-  review gate, terraform apply, deploys). An `ask` prompts even in auto mode.
+  review gate, terraform apply, deploys), and production or pre-production AWS profiles (`prd`,
+  `prod`, `ppe`), where reads are sometimes needed but mutations stay denied. An `ask` prompts even
+  in auto mode.
 - **`allow`** only for read-only commands and tools, to skip classifier latency. Never for anything
   that mutates, since an allow skips the classifier.
 - **CLAUDE.md `## Safety`** for principles no rule can express (synthetic data only, don't work

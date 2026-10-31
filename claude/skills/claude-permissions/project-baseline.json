@@ -24,10 +24,6 @@
             "Bash(*.git-credentials*)",
             "Bash(aws configure export-credentials:*)",
             "Bash(aws * export-credentials*)",
-            "Bash(*--profile*prd*)",
-            "Bash(*--profile*prod*)",
-            "Bash(*_PROFILE=*prd*)",
-            "Bash(*_PROFILE=*prod*)",
             "Bash(sudo:*)",
             "Bash(rm -r*)",
             "Bash(rm -R*)",
@@ -82,6 +78,12 @@
             "Edit(/.claude/docs/**)",
             "Edit(/.mcp.json)",
             "Edit(/.pre-commit-config.yaml)",
+            "Bash(*--profile*prd*)",
+            "Bash(*--profile*prod*)",
+            "Bash(*--profile*ppe*)",
+            "Bash(*_PROFILE=*prd*)",
+            "Bash(*_PROFILE=*prod*)",
+            "Bash(*_PROFILE=*ppe*)",
             "Bash(gh pr create:*)"
         ]
     }

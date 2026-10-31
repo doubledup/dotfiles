@@ -96,10 +96,6 @@
       "Bash(direnv:*)",
       "Bash(aws configure export-credentials:*)",
       "Bash(aws * export-credentials*)",
-      "Bash(*--profile*prd*)",
-      "Bash(*--profile*prod*)",
-      "Bash(*_PROFILE=*prd*)",
-      "Bash(*_PROFILE=*prod*)",
       "Bash(sudo:*)",
       "Bash(rm -r*)",
       "Bash(rm -R*)",
@@ -209,14 +205,17 @@
       "Edit(**/.mcp.json)",
       "Edit(**/.pre-commit-config.yaml)",
       "Edit(~/.dotfiles/claude/**)",
+      "Bash(*--profile*prd*)",
+      "Bash(*--profile*prod*)",
+      "Bash(*--profile*ppe*)",
+      "Bash(*_PROFILE=*prd*)",
+      "Bash(*_PROFILE=*prod*)",
+      "Bash(*_PROFILE=*ppe*)",
       "Bash(terraform apply:*)",
       "Bash(just deploy:*)"
     ],
     "defaultMode": "auto",
-    "additionalDirectories": [
-      "~/code/worktrees",
-      "~/.dotfiles"
-    ]
+    "additionalDirectories": ["~/code/worktrees", "~/.dotfiles"]
   },
   "hooks": {
     "WorktreeCreate": [
