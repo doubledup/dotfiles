@@ -12,6 +12,7 @@ abbr bat! 'bat --pager "less $LESS -n" --style=default'
 
 # claude
 abbr c claude
+abbr ca claude agents
 
 # codex
 abbr co codex
