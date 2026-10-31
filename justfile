@@ -125,6 +125,8 @@ sync:
 _sync-apply:
     #!/usr/bin/env bash
     set -uo pipefail
+    # Without set -e, Ctrl-C in a step that exits normally would otherwise move on to the next step
+    trap 'exit 130' INT
     # Explicit, so a clashing or missing ~/.rcrc cannot change what rcup and lsrc read
     export RCRC="$HOME/.dotfiles/rcrc"
     failed=()
@@ -154,10 +156,10 @@ _sync-apply:
         nvim --headless -c "lua require('lazy').restore({ wait = true }); \
             for _, p in ipairs(require('lazy').plugins()) do \
                 if require('lazy.core.plugin').has_errors(p) then return end \
-            end; require('nvim-treesitter').update():wait(300000); vim.cmd('qa')" -c cq
+            end; if require('nvim-treesitter').update():wait(300000) then vim.cmd('qa') end" -c cq
     }
     step "git hooks" git config core.hooksPath .githooks
-    # Before rcup, so a stale link cannot block a path that is now a directory
+    # Before rcup, so a broken link left by a moved source cannot block the new link's path
     step "prune links" ./scripts/find-broken-symlinks --remove --into "$HOME/.dotfiles"
     step "rcup" rcup -t mac
     step "check links" check_links
