@@ -3,10 +3,11 @@ name: claude-permissions
 description:
     Audit Claude Code permission config (user and project settings.json allow/ask/deny, autoMode,
     CLAUDE.md safety prose) against the auto-mode-plus-hard-denies model, add a rule at the right
-    scope, or set up a repo's project settings from the shared baseline. Use when reviewing or
-    hardening Claude Code permissions, adding a command or path that must be blocked or confirmed,
-    or setting up .claude/settings.json in a new or existing repo.
-argument-hint: "[setup | policy to add, e.g. 'confirm chmod'; omit to audit]"
+    scope, or set up a repo's project settings or a teammate's user settings from the shared
+    baselines. Use when reviewing or hardening Claude Code permissions, adding a command or path
+    that must be blocked or confirmed, or setting up .claude/settings.json in a repo or
+    ~/.claude/settings.json for a teammate.
+argument-hint: "[setup | user | policy to add, e.g. 'confirm chmod'; omit to audit]"
 allowed-tools: Read, Glob
 ---
 
@@ -42,10 +43,21 @@ Set up or realign a repo's `.claude/settings.json`:
    assume one person's machine, `allow` rules (they apply only after folder trust and pre-approve
    for every teammate).
 4. Add the CLAUDE.md `## Permissions` stub from `invariants.md` if the repo has none.
-5. Tell teammates the user-scope half lives in their own settings: point them at the `autoMode`
-   block and deny list in `~/.dotfiles/claude/settings.json` to copy what they want.
+5. Tell teammates the user-scope half lives in their own settings: point them at
+   `user-baseline.json` beside this file (auto mode, `autoMode.environment`, read-only allows, the
+   deny list and config asks) to merge into `~/.claude/settings.json`, keeping what fits their
+   tools.
 
-## Mode C: add a policy (any other argument)
+## Mode C: user setup (argument `user`)
+
+Diff `~/.claude/settings.json` against `user-baseline.json` and propose a merge: keep the person's
+own allows, plugins and hooks; add missing denies, asks and `autoMode` entries; flag allows for
+tools they don't have (another MCP connector's names, a CLI they don't use). Allows differ per
+person, which is why they live here and not in project scope: tool names depend on each person's
+connectors and CLIs, and a project allow can't be routed back to the classifier by a teammate (their
+only overrides are `ask` or `deny`).
+
+## Mode D: add a policy (any argument other than `setup` or `user`)
 
 Classify it with the disposition table in `invariants.md` (deny / ask / classifier), pick the scope
 (user if it protects me everywhere, baseline if every repo needs it, project if only this repo), and
