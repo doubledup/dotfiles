@@ -15,10 +15,11 @@ hooks.
   CLI verbs, destructive MCP runners.
 - **`ask`** for actions a human must see first: config that steers or runs code in future sessions
   (CLAUDE.md, `.claude/` settings, hooks, skills, agents, commands, rules, `.mcp.json`,
-  `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`), publish steps (PR creation where
-  it's the review gate, terraform apply, deploys), and production or pre-production AWS profiles
-  (`prd`, `prod`, `ppe`), where reads are sometimes needed but mutations stay denied. An `ask`
-  prompts even in auto mode.
+  `.pre-commit-config.yaml`, `.githooks/`, `~/.dotfiles/claude/`, and `git config` setting
+  `core.hooksPath` or `core.fsmonitor`), publish steps (PR creation where it's the review gate,
+  terraform apply, deploys), and production or pre-production AWS profiles (`prd`, `prod`, `ppe`),
+  where reads are sometimes needed; delete and destroy verbs stay denied on every profile, other
+  writes pass only on approval unless the repo denies them. An `ask` prompts even in auto mode.
 - **`allow`** only for read-only commands and tools, to skip classifier latency. Never for anything
   that mutates (Jira and Confluence writes included), since an allow skips the classifier and its
   personal-information check.
@@ -65,29 +66,34 @@ Defends against mistakes and against prompt injection steering an action. Accept
 5. **No shadowing.** An `ask` that a `deny` also matches never fires; flag it. Don't let an `allow`
    co-match an `ask` either: measured, `git merge --abort` ran unprompted with both present, though
    the docs say ask wins.
-6. **Config gate covers the loaders.** User `ask` covers `**/CLAUDE.md`, `**/CLAUDE.local.md`,
-   `**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules}`,
-   `**/.mcp.json`, `**/.pre-commit-config.yaml`, `**/.githooks/**` (`git commit` is allowed, so a
-   hook edit there runs unjudged; other `core.hooksPath` names are not gated),
-   `~/.dotfiles/claude/**`, and the dotfiles' `justfile` and `scripts/**`; not `**/.claude/**`,
-   which would gate auto-memory. Project scope uses `/**/CLAUDE.md` so nested files are gated too.
+6. **Config gate covers the loaders.** User `ask` covers `~/**/CLAUDE.md`, `~/**/CLAUDE.local.md`,
+   `~/**/.claude/{settings.json,settings.local.json,hooks,skills,agents,commands,rules}`,
+   `~/**/.mcp.json`, `~/**/.pre-commit-config.yaml`, `~/**/.githooks/**` (`git commit` is allowed,
+   so a hook edit there runs unjudged; other `core.hooksPath` names are not gated),
+   `~/.dotfiles/claude/**`, the dotfiles' `justfile` and `scripts/**`, and `git config` setting
+   `core.hooksPath` or `core.fsmonitor`; not `~/**/.claude/**`, which would gate auto-memory.
+   Project scope uses `/**/CLAUDE.md` so nested files are gated too.
 7. **Pattern syntax.**
     - `Edit`/`Read` paths: `//abs`, `~/home`, `/project-relative` (in user settings `/` anchors at
-      `~/.claude`), `**/name`. Whether a user-scope `**/` rule reaches additional directories, or
-      only the session's project directory, is unverified; an older measurement said project only.
-      `Write(...)` and `Glob(...)` rules never match.
+      `~/.claude`), `**/name`. Measured: a user-scope `**/` rule matches only under the session's
+      project, not in additional directories, so user-scope path rules use `~/**/`. `Write(...)` and
+      `Glob(...)` rules never match.
     - A `:*` tail after a mid-command `*` matches nothing (`Bash(git -C * clean:*)` never fires);
       use a glued tail (`Bash(git -C * clean*)`).
     - A `*` straight after the command prefix doesn't match empty, so a rule whose match can come
       first needs a leading twin (`Bash(git push --forc*)` beside `Bash(git push * --forc*)`).
     - git accepts the shortest unique prefix of a long option, so spell the prefix (`--forc`,
       `--de`, `--pru`).
-    - Claude Code splits compound commands and matches each subcommand (per the permissions docs;
-      unmeasured here), so a verb-led rule (`Bash(cat*.env*)`) shouldn't fire on another subcommand
-      that only mentions the path.
+    - Measured: a leading `VAR=value` doesn't hide a command from a rule
+      (`AWS_PROFILE=x aws s3 rm ...` hit `Bash(aws s3 rm:*)`), so rules need no env-prefix twins.
+    - Claude Code splits compound commands and matches each subcommand (per the permissions docs),
+      so a verb-led rule (`Bash(cat*.env*)`) doesn't fire on another subcommand that only mentions
+      the path. Measured: a `$(cat <<'EOF' ...)` commit message mentioning `.env` passes.
 8. **Over-matching.** Flag text denies that block ordinary work, such as a bare `* .env*` that also
    matches a commit message; prefer verb-led or path forms (`Bash(cat*.env*)`, `Bash(*/dumps/*)`
-   with `Bash(* dumps/*)`). Keep personal tools (`rg`, `bat`) out of `project-baseline.json`.
+   with `Bash(* dumps/*)`). Path-form rules still match a commit message naming the path; write that
+   message to a file and use `git commit -F`. Keep personal tools (`rg`, `bat`) out of
+   `project-baseline.json`.
 9. **Prose matches config.** `## Safety` and the repo CLAUDE.md name no layer that doesn't exist
    (sandbox, guard hooks).
 
@@ -100,7 +106,9 @@ Defends against mistakes and against prompt injection steering an action. Accept
 steps) plus this repo's rules. Auto mode and its `autoMode.environment` are user-scope settings, so
 each contributor sets their own. Change Claude config (CLAUDE.md, `.claude/`, `.mcp.json`,
 `.pre-commit-config.yaml`, `.githooks/`) only with the Edit and Write tools, never a script or shell
-command: the `ask` rules match those tools, so a scripted edit skips the prompt.
+command: the `ask` rules match those tools, so a scripted edit skips the prompt. A commit message
+that names a secret path (`.env`, `dumps/`) can trip a deny; write it to a file and use
+`git commit -F`.
 ```
 
 Add "Rationale in `.claude/docs/permissions.md`." when the repo has that file.
