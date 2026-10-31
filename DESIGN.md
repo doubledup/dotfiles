@@ -265,7 +265,7 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   worktree-isolated session the guard also refuses a Bash call whose git target it can't verify: a
   `cd` or computed path before git, or a script whose text names git (seen live). Rejected:
   `"bgIsolation": "none"` for this direct-to-`main` repo, which puts every background job in one
-  working copy. The guard covers file tools only; Bash can still write to `~/.dotfiles`
+  working copy. The guard's Edit and Write refusal doesn't stop a Bash write to `~/.dotfiles`
 - Settings: see "Claude Code permissions" below
 - Claude's temp dirs (`/tmp/claude-<uid>`, which is `$TMPDIR`) are allowed without naming the uid:
   `Read` on `//private/tmp/claude-*/**` and `//tmp/claude-*/**`, `Edit` only on their direct
@@ -334,9 +334,9 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
 - **No OS sandbox.** Its two jobs are fewer prompts without a classifier (redundant under auto mode)
   and containment that holds when the model is fooled. The second costs too much for this workflow:
   the credentials it walls off (`~/.aws` SSO, SSH and GPG for git, `gh`) are the ones routine
-  commands need, so every git, gh and aws call needed an exclusion, a lone-call rule, a hook or a
-  `!` hand-off. Accepted residual: deny rules match Claude's file tools and command text, not what a
-  program opens, so a script reading `~/.aws` or `.envrc` is judged only by the classifier.
+  commands need, so every git, gh and aws call would need an exclusion, a lone-call rule, a hook or
+  a `!` hand-off. Accepted residual: deny rules match Claude's file tools and command text, not what
+  a program opens, so a script reading `~/.aws` or `.envrc` is judged only by the classifier.
   Mitigated by short-lived SSO credentials, agent-held keys, no secrets in repos, and
   `autoMode.environment` lines naming credential reads and personal information. Claude Code doesn't
   unset exported tokens, so keep them out of the environment it starts in. Revisit for unattended or
@@ -349,17 +349,18 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
       the common file-reading verbs (`cat`, `head`, `tail`, `less`, `source`, `cp` on `*.env*`; `cp`
       because a copy under another name escapes every other rule) and by search and edit tools
       (`grep`, `sed`, `awk`) with a space before `.env`, so a pattern like `process.env` still
-      passes. Not a bare `* .env*`, which also matched commit messages and search patterns; a commit
-      message that names a secret path goes through `git commit -F <file>`. Personal tools (`rg`,
-      `bat`) get the same rules at user scope only. User-scope path rules are anchored `~/**/`:
-      measured, a user-scope `**/` rule matches only under the session's project, not in additional
-      directories. A tree-wide search that never names the file falls to the classifier
+      passes. A bare `* .env*` would also match commit messages and search patterns, so it isn't
+      used; a commit message that names a secret path goes through `git commit -F <file>`. Personal
+      tools (`rg`, `bat`) get the same rules at user scope only. User-scope path rules are anchored
+      `~/**/`: measured, a user-scope `**/` rule matches only under the session's project, not in
+      additional directories. A tree-wide search that never names the file falls to the classifier
     - Also denied: `export-credentials` in any form, `git commit -F` of a `.env` file (the commit
-      allow skips the classifier), force/delete/mirror/prune pushes and `git -C * push`,
-      `--no-verify`, `git clean`, recursive `rm`, `find -delete`, forced worktree removal, `sudo`,
-      `direnv`, gh/terraform/aws verbs that destroy remote state, Atlassian `executeDestructive`,
-      and `dumps/` (customer data, as `*/dumps/*` and `* dumps/*` so the repo-relative spelling
-      matches)
+      allow skips the classifier), force/delete/mirror/prune pushes (`:branch` with or without a
+      remote) and `git -C * push`, `--no-verify`, `git clean`, recursive `rm`, `find -delete`,
+      forced worktree removal, `sudo`, `direnv`, gh/terraform/aws verbs that destroy remote state
+      wherever `--profile` sits, Atlassian `executeDestructive`, and `dumps/` (customer data, as
+      `*/dumps/*`, `* dumps/*` and `dumps` as the last word, so repo-relative paths and the bare
+      directory match)
     - Bash patterns are a backstop for the common spelling, not a boundary; variable-built commands,
       other flag orders and SDK scripts fall to the classifier
 - **Asks**: edits to `CLAUDE.md`, `CLAUDE.local.md`, `.claude/` settings, hooks, skills, agents,
