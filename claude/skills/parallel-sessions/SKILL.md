@@ -49,8 +49,8 @@ worktrees sharing one overwrite each other's binaries and test another branch's 
 
 ## Launching
 
-Run a lone `git fetch`, then one `Agent` call per issue, all in one message, with
-`isolation: "worktree"` (git.md). Subagents run in the background.
+Run `git fetch`, then one `Agent` call per issue, all in one message, with `isolation: "worktree"`
+(git.md). Subagents run in the background.
 
 ## The brief
 
@@ -66,11 +66,11 @@ Run a lone `git fetch`, then one `Agent` call per issue, all in one message, wit
 - Plan, then proceed: the user approved the run, which stands in for `ship`'s approval gates, plan
   and PR. Skip `ship`'s review loop too: the coordinator runs it. Stop and report instead of
   guessing on a new dependency or tool, an ambiguous rule, or work outside the scope.
-- Commit in small steps per git.md. Run git commit, git push and gh as lone calls (worktree
-  isolation refuses compound commands that run git), with multi-line text in `-F` / `--body-file`
-  files named `msg-<issue>-<n>.txt` in the scratchpad: agents and the coordinator share it, and a
-  reused name commits someone else's message. Never amend, rebase or force-push anything already
-  pushed.
+- Commit in small steps per git.md. Run git commands from the worktree without a `cd` or a script
+  around them (worktree isolation refuses a git call whose target it can't verify), with multi-line
+  text in `-F` / `--body-file` files named `msg-<issue>-<n>.txt` in the scratchpad: agents and the
+  coordinator share it, and a reused name commits someone else's message. Never amend, rebase or
+  force-push anything already pushed.
 - Run the checks (skipping what can't run locally), push from the named branch, never a detached
   HEAD, with `git push -u origin <branch>` so later plain pushes work, and open a **draft** PR: a
   title per the commit rules, a 1-2 line why, and `Closes #N`. Don't mark it ready, merge it or
@@ -89,9 +89,9 @@ Pick an order once the PRs are up: smallest and least shared first, the most hot
 conflicts land on the PRs best placed to absorb them. Then, one PR at a time, working from the
 agent's worktree (`cd` there in its own Bash call), and only while its agent isn't running:
 
-1. Run a lone `git fetch`, then merge `origin/main` into the branch (git.md). Resolve textual
-   conflicts yourself and commit the merge, then re-run the checks and push. For a conflict in
-   logic, `git merge --abort` and hand it back to the owning agent through SendMessage.
+1. Run `git fetch`, then merge `origin/main` into the branch (git.md). Resolve textual conflicts
+   yourself and commit the merge, then re-run the checks and push. For a conflict in logic,
+   `git merge --abort` and hand it back to the owning agent through SendMessage.
 2. While the PR is still a draft, run the `ship` review loop with `/full-review <pr>`, whatever the
    PR's size, giving the Reviewer the worktree's path as the repo root: subagents start in the main
    checkout. The coordinator reviews, never the PR's author. Decide each finding explicitly: fix

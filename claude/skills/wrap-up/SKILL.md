@@ -17,7 +17,7 @@ only what's open; a clean check is one line.
 
 For every repo this session touched (including dotfiles and worktrees):
 
-- **Local state:** a lone `git fetch`, then `git status --short` and `git branch -vv`, which show
+- **Local state:** `git fetch`, then `git status --short` and `git branch -vv`, which show
   uncommitted files and each branch's ahead/behind counts.
 - **Worktrees and branches:** `git worktree list` and `git branch` list every session's, not just
   this one's. Only those this session created count, and none that a running agent or peer session
