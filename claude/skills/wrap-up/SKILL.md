@@ -36,8 +36,8 @@ Then, across the session:
   issue reflects what landed (per its CLAUDE.md). Replace its status line; edit the rest of the
   description only when the exit criteria changed, and put everything else in a comment.
 
-Skip temp and scratch files (`$TMPDIR`, the session scratchpad): they're disposable, so neither
-check nor report them.
+Skip anything a restart cleans up (`/tmp/`, `$TMPDIR`, the session scratchpad): it's disposable, so
+neither check nor mention it, in the report or as a closing aside.
 
 ## Close and report
 
