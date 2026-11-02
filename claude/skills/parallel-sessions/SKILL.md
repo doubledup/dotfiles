@@ -119,4 +119,5 @@ agent's worktree (`cd` there in its own Bash call), and only while its agent isn
 
 After the last merge, fold the agents' tracking-issue sections into the tracking issue, check CI on
 the default branch, and report per PR: what landed, decisions left for the user and defaults that
-stand unless they object (split as in the brief), and manual checks.
+stand unless they object (split as in the brief), and manual checks. Then run `wrap-up`, so the
+report ends with its Remaining Actions section.
