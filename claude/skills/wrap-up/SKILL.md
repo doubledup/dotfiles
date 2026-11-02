@@ -51,7 +51,13 @@ Close without asking only these:
 - a notice to a peer session: information only (what changed, where, who owns it), never an approval
   relayed or a request to act.
 
-List everything else, most important first: decisions for the user (other pushes, anything
-"abandoned", a shared checkout behind origin), then actions only they can take as `!` commands, then
-what other sessions or agents still own. Give each owner other than the user one line, so the list
-holds only the user's decisions. Don't start new work; offer it.
+Report what was closed, then end every wrap-up with a **Remaining Actions** section, even when it's
+empty ("None"), so the user never has to infer what's left from the prose above it. List each action
+as one line naming who acts and what, most important first:
+
+1. Decisions for the user: other pushes, anything "abandoned", a shared checkout behind origin.
+2. Actions only the user can take: `!` commands, and steps outside the terminal, such as a question
+   for another team, a console check, a ticket to raise, or an access request.
+3. What other sessions, agents or people still own, one line per owner.
+
+Don't start new work; offer it.
