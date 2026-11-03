@@ -16,11 +16,17 @@ Voice (PR-specific):
 
 Review comments:
 
-- Review tags: `nit:`, `suggestion:`, `question:`, `issue:`, `request:`
-- No bold in review comments, tags included: `nit: ...`, not `**nit:** ...`
-- Three-tier severity: `issue (blocking):` for merge blockers, `issue (non-blocking):` for important
-  follow-ups, `nit:` for polish/consistency (typos, naming). Default non-blocking. Low-impact review
-  findings, when commented at all, are `nit:`
+- Format comments per Conventional Comments (conventionalcomments.org):
+  `<label> [decorations]: <subject>`, then an optional discussion paragraph
+- Labels: `praise:`, `nitpick:`, `suggestion:`, `issue:`, `todo:`, `question:`, `thought:`,
+  `chore:`, `note:`, `typo:`, `polish:`
+- Decorations go in one pair of parentheses after a space, comma-separated: `issue (blocking):`,
+  `suggestion (security,if-minor):`
+- Bare labels are non-blocking; mark anything that must change before merge `(blocking)`, whatever
+  the label. `(if-minor)` asks for the change only if it stays small
+- No bold in review comments, labels included: `nitpick: ...`, not `**nitpick:** ...`
+- Low-impact findings, when commented at all, are `nitpick:`, `typo:`, or `polish:`
+- Use `praise:` for something specifically done well, in one line naming what and why
 - With no `issue (blocking):` comment, submit the review as an approval and let the author decide
   what to take; with one, request changes
 - One idea per comment

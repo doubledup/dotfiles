@@ -79,8 +79,7 @@ scope for this skill).
 
 1. Load the PR comms style file (default: `~/.claude/skills/authored-voice/SKILL.md`).
 2. Draft comments in that style:
-    - Use `we` voice and review tags from style (`nit:`, `suggestion:`, `question:`, `issue:`,
-      `request:`).
+    - Use `we` voice and the review labels from the style file.
     - One idea per comment.
     - Name exact files/fields/lines for remaining gaps.
     - When listing multiple files, use bullet points with markdown links and filename-only link

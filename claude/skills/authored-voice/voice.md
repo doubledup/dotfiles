@@ -16,20 +16,22 @@ non-blocking offramp rather than digging in. Uncertainty is named plainly in one
 there ("I can't recall that, I'll defer to you") rather than diluted across a paragraph. In Slack,
 quick decisions are fully direct with no cushioning ("No, keep him"), while diagnostic guesses
 follow a hedge-then-act pattern. Self-correction and ownership are explicit and undefensive. Praise
-is short, usually one line, and almost always paired with an ask or caveat rather than standing
-alone. A combative, un-resolving disagreement does not occur.
+in conversation is short, usually one line, and almost always paired with an ask or caveat rather
+than standing alone; a `praise:` review comment stands on its own. A combative, un-resolving
+disagreement does not occur.
 
 ## 3. PR and review conventions
 
 PR descriptions follow the repo's template and are typically Claude-drafted rather than
 hand-written, so the heading skeleton and testing-done depth are a repo convention to follow, not a
-personal voice signal. Review-comment tag prefixes (nit, issue, issue (blocking), suggestion,
-question, praise, etc.) follow the Conventional Comments format (conventionalcomments.org) rather
-than being a personal quirk, apply them without treating them as distinctive voice. What is
-personal: non-blocking feedback gets routed away from the thread rather than relitigated, either to
-a follow-up ticket or cited as "discussed offline"; approvals aren't held hostage to open nits;
-large PRs get flagged for proactive splitting before any code-level feedback; disagreement states a
-firm preference, then offers a concrete non-blocking offramp rather than digging in.
+personal voice signal. Review-comment labels and decorations (nitpick, issue, issue (blocking),
+suggestion, question, praise, etc.) follow the Conventional Comments format
+(conventionalcomments.org) rather than being a personal quirk; apply them without treating them as
+distinctive voice. What is personal: non-blocking feedback gets routed away from the thread rather
+than relitigated, either to a follow-up ticket or cited as "discussed offline"; approvals aren't
+held hostage to open nits; large PRs get flagged for proactive splitting before any code-level
+feedback; disagreement states a firm preference, then offers a concrete non-blocking offramp rather
+than digging in.
 
 ## 4. Voice fingerprints
 
