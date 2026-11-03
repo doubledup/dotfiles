@@ -27,8 +27,9 @@ Review comments:
 - No bold in review comments, labels included: `nitpick: ...`, not `**nitpick:** ...`
 - Low-impact findings, when commented at all, are `nitpick:`, `typo:`, or `polish:`
 - Use `praise:` for something specifically done well, in one line naming what and why
-- With no `issue (blocking):` comment, submit the review as an approval and let the author decide
-  what to take; with one, request changes
+- With no blocking comments, approve and let the author decide what to take; with blocking comments,
+  submit as a comment; request changes only when a blocking comment flags something that would break
+  the system if merged
 - One idea per comment
 - When the fix is known, propose it directly; use suggestion blocks when helpful
 - Prefer consistency with existing in-repo conventions unless there is a strong reason to diverge
