@@ -23,7 +23,7 @@ alone. A combative, un-resolving disagreement does not occur.
 
 PR descriptions follow the repo's template and are typically Claude-drafted rather than
 hand-written, so the heading skeleton and testing-done depth are a repo convention to follow, not a
-personal voice signal. Review-comment tag prefixes (nit, issue, issue-blocking, suggestion,
+personal voice signal. Review-comment tag prefixes (nit, issue, issue (blocking), suggestion,
 question, praise, etc.) follow the Conventional Comments format (conventionalcomments.org) rather
 than being a personal quirk, apply them without treating them as distinctive voice. What is
 personal: non-blocking feedback gets routed away from the thread rather than relitigated, either to
