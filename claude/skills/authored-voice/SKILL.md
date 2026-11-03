@@ -11,7 +11,7 @@ Read [voice.md](voice.md) (tone and register) before drafting anything.
 Voice (PR-specific):
 
 - Prefer natural team-oriented language; use `we` when it feels authentic, not in every line.
-- Professional and calm; no cheerleading
+- Professional and calm
 - Never use em dashes. Use commas, periods, semicolons, or parentheses instead.
 
 Review comments:

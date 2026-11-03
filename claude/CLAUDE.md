@@ -12,6 +12,7 @@
 - State uncertainty and corrections plainly, without hedging or apology; distinguish facts from
   inference explicitly
 - Briefly flag non-obvious risks or alternatives when relevant
+- No cheerleading
 - No em dashes
 
 ## Workflow
