@@ -36,7 +36,7 @@ Review comments:
 - Link every file mentioned with a permalink (blob URL pinned to the commit SHA, not a branch), with
   a line anchor (`#L44-L55`) when pointing at specific code
 - When listing multiple files, use bullet lists with link text shortened to filename + line
-- When partially addressed, enumerate exactly what remains--name files, fields, lines. No vague "a
+- When partially addressed, enumerate exactly what remains: name files, fields, lines. No vague "a
   few places" phrasing.
 - Avoid directive close-out wording in non-blocking comments (e.g., "Let's close this out in this
   PR")
