@@ -52,6 +52,8 @@
   denied where a pattern catches them, so confirm any other with me first. Destroy local state only
   when it is recoverable (committed work, via reflog) or I asked to discard it: uncommitted edits
   and untracked files are mine
+- Scratch work needs no recursive delete: make a fresh uniquely named directory per run (`mktemp -d`
+  under the scratchpad) and remove single files with `rm -f`. Never use `rm -r`; it is hard-denied
 - Never work around a denial (deny rule or classifier). Stop at the first one in a planned sequence,
   run nothing after it, and raise it with a one-line justification: it is a config bug or a real
   edge case, and I judge which
