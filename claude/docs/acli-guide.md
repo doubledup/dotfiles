@@ -7,26 +7,26 @@ All Jira operations use `acli jira workitem <subcommand>`. `acli issue ...` is n
 ## Viewing issues
 
 ```bash
-acli jira workitem view GLUE-1587
-acli jira workitem view GLUE-1587 --json --fields "summary,status,assignee,description"
+acli jira workitem view PROJ-123
+acli jira workitem view PROJ-123 --json --fields "summary,status,assignee,description"
 ```
 
 ## Searching issues
 
 ```bash
-acli jira workitem search --jql "project = GLUE AND labels = CIMS" --json --fields "key,summary,issuetype,labels" --limit 10
+acli jira workitem search --jql "project = PROJ AND labels = backend" --json --fields "key,summary,issuetype,labels" --limit 10
 ```
 
 ## Creating issues
 
 ```bash
 acli jira workitem create \
-  --project GLUE \
+  --project PROJ \
   --type Task \
   --summary "Short summary here" \
   --description "Plain text or ADF JSON" \
-  --label CIMS \
-  --parent GLUE-1234 \
+  --label backend \
+  --parent PROJ-100 \
   --json
 ```
 
@@ -49,4 +49,3 @@ Key flags: `--project`, `--type` (Task, Bug, Story, Epic), `--summary`, `--descr
 - Use `--fields` to limit output and reduce noise
 - ADF (Atlassian Document Format) descriptions render with full formatting (bold, lists, code
   blocks, links)
-- The GLUE project uses labels like `CIMS`, `CIS`, `KYC`, `CPS`, `Glue-Scrum` to categorize work
