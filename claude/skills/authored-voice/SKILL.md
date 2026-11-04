@@ -31,8 +31,8 @@ Review comments:
   (`praise: the retry wrapper keeps every call site idempotent`); never to fill a quota or soften
   criticism, and no generic `praise: great work!`
 - With no blocking comments, approve and let the author decide what to take; with blocking comments,
-  submit as a comment; request changes only when a blocking comment flags something that would break
-  the system if merged
+  submit as a comment; request changes only when merging would do real damage, such as an outage, a
+  failed deploy, data loss, or a security hole
 - One idea per comment
 - When the fix is known, propose it directly; use suggestion blocks when helpful
 - Prefer consistency with existing in-repo conventions unless there is a strong reason to diverge
