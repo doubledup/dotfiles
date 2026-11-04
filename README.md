@@ -38,10 +38,6 @@ For machine-local kitty or fish config, add '.local' before the file extension a
 same place. eg. use `~/.config/kitty/kitty.local.conf` for kitty config you only want on your
 current machine, or `~/.config/fish/config.local.fish` for fish shell config.
 
-Codex config is split between shared defaults in `rcignore/codex/config.toml` and the runtime file
-at `~/.codex/config.toml`. Copy or merge shared defaults into the runtime file alongside
-machine-specific `[projects.*]` trust settings. The setup script handles the initial copy.
-
 Machine-local nvim config lives in `~/.config/nvim/lua/config/local.lua`
 
 OS-specific config lives in `./tag-{os}/` and follows the same convention as local config, replacing
