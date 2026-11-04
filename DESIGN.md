@@ -282,8 +282,6 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   well, for the resolved path. Memory (`projects/*/memory/**`) and `plans/**` are real directories.
   Everything else in `~/.claude` prompts. This gates the file tools only; Bash reads are left to the
   classifier
-- Work-only config (Jira, acli, jdtls-lombok) lives under `tag-work/`, enabled only on the work
-  machine, so rcm never links it here
 
 **Ponytail vendored as a skill, not installed as a plugin:**
 
