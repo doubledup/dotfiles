@@ -284,6 +284,11 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "outputStyle": "Concise",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": false,
   "theme": "auto",
@@ -297,10 +302,5 @@
       "**Personal information**: customer names, ID and passport numbers, phone numbers, email and postal addresses, bank details and dates of birth are personal information under POPIA. Reading them from any store, or copying them into code, fixtures, commits, tickets, PR text or messages, is a data exfiltration risk even in non-production accounts",
       "**Credentials**: a script or command that opens, prints or copies the contents of ~/.aws, ~/.ssh, ~/.gnupg, ~/.config/gh, ~/.netrc, ~/.npmrc, ~/.m2/settings.xml, ~/.docker/config.json, .env or .envrc files is credential access unless the user asked for it. Using a CLI or SDK that loads a named AWS profile (aws --profile, botocore Session(profile_name=...)) is not, and neither is searching code, config or permission rules for the text of those paths (rg '.env' settings.json) without opening a credential file"
     ]
-  },
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "high"
-    }
   }
 }
