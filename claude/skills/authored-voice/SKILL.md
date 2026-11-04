@@ -26,7 +26,10 @@ Review comments:
   the label. `(if-minor)` asks for the change only if it stays small
 - No bold in review comments, labels included: `nitpick: ...`, not `**nitpick:** ...`
 - Low-impact findings, when commented at all, are `nitpick:`, `typo:`, or `polish:`
-- Use `praise:` for something specifically done well, in one line naming what and why
+- `praise:` is optional, not expected in every review. Leave one only when something genuinely
+  stands out, in one line naming what and why
+  (`praise: the retry wrapper keeps every call site idempotent`); never to fill a quota or soften
+  criticism, and no generic `praise: great work!`
 - With no blocking comments, approve and let the author decide what to take; with blocking comments,
   submit as a comment; request changes only when a blocking comment flags something that would break
   the system if merged
