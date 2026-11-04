@@ -390,10 +390,10 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   `just deploy`; repos add `gh pr create` where the PR is the review gate. Residual: a Bash write to
   a gated file goes to the classifier
 - **`autoMode.environment`** says where production and personal information live (production AWS
-  profiles; production DynamoDB, DLQs, Kinesis and dumps; POPIA personal-information fields) and
-  that reading credential files is credential access. Logs, traces and RUM carry no personal
-  information by design, so they are routine debugging sources. Read from user scope only, so each
-  contributor sets their own
+  profiles; production DynamoDB, DLQs, Kinesis and dumps; personal-information fields) and that
+  reading credential files is credential access. Logs, traces and RUM carry no personal information
+  by design, so they are routine debugging sources. Read from user scope only, so each contributor
+  sets their own
 - **Scopes**: user scope holds my posture everywhere (mode, `autoMode`, the full deny list, read
   allows, config asks). Project `.claude/settings.json` holds the shared baseline plus the repo's
   own rules (its cloud CLI's mutation verbs, data-store asks, publish gates), so a teammate with no
