@@ -19,6 +19,10 @@
 
 - Explore before coding; plan and get approval before non-trivial changes (procedure: `ship` skill);
   verify after changes; keep commits small and focused
+- Check the source before relying on a fact that can change and is cheap to look up (docs, release
+  notes, `--help`, the installed code), and before recommending, not after pushback: memory of
+  versioned facts goes stale, and an early guess skews everything built on it. When you can't check,
+  say the answer is from memory rather than fabricating details
 - Record only follow-ups and friction of medium or higher impact (likely wrong behavior, lost work,
   a security gap, or recurring friction) without interrupting the task, as a file (`# Title`, what
   and why) in `backlog-doubledup/` plus a `- [Title](file.md)` line under Remaining in its
@@ -58,7 +62,6 @@
 - Never work around a denial (deny rule or classifier). Stop at the first one in a planned sequence,
   run nothing after it, and raise it with a one-line justification: it is a config bug or a real
   edge case, and I judge which
-- If unsure whether a tool, command, or capability exists, say so rather than fabricating details
 - Never send my email or other personal details to an outside service unless I ask: not in a
   User-Agent, header, URL, or payload. Where a service asks for contact details (crates.io), use the
   repo's URL
