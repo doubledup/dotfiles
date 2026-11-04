@@ -12,9 +12,9 @@ not covered here, consult the man pages (`rcm(7)`, `mkrc(1)`, `rcup(1)`, `rcdn(1
 - `claude/` -> `~/.claude/` (rcm-managed, version-controlled Claude Code
   settings/commands/agents/rules). The repo-root `.claude/` is a separate, non-rcm-managed directory
   for project-local config.
-- Other top-level dirs map the same way: `local/` -> `~/.local/`, `ssh/` -> `~/.ssh/`. `Library/` is
-  a likely exception (macOS expects `~/Library`, not `~/.Library`); unconfirmed how it actually
-  resolves, worth checking before relying on it.
+- Other top-level dirs map the same way: `local/` -> `~/.local/`, `ssh/` -> `~/.ssh/`. rcm
+  dot-prefixes every top-level entry, so a `Library/` would land at `~/.Library`; list it in rcrc's
+  `UNDOTTED` so its files link under `~/Library/`.
 - `tag-mac/` and `tag-linux/` hold OS-specific overrides, included via `rcup -t <tag>`. `just sync`
   always passes `-t mac`; there is currently no equivalent automated sync path for `tag-linux`,
   Linux machines need a manual `rcup -t linux`.
