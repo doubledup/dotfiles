@@ -18,7 +18,8 @@ only what's open; a clean check is one line.
 For every repo this session touched (including dotfiles and worktrees):
 
 - **Local state:** `git fetch`, then `git status --short` and `git branch -vv`, which show
-  uncommitted files and each branch's ahead/behind counts.
+  uncommitted files and each branch's ahead/behind counts. Only what this session made counts: an
+  untracked file it didn't create isn't this session's, so leave it out.
 - **Worktrees and branches:** `git worktree list` and `git branch` list every session's, not just
   this one's. Only those this session created count, and none that a running agent or peer session
   is using.
@@ -48,6 +49,8 @@ Close without asking only these:
 - a push the user already asked for, to a branch that isn't the default branch;
 - the tracking issue and follow-up issues, per the repo's CLAUDE.md, unless the repo is public or a
   finding is security-sensitive;
+- what's left of the task the user asked for, when it needs no new decision (finish it; don't list
+  it);
 - a notice to a peer session: information only (what changed, where, who owns it), never an approval
   relayed or a request to act.
 
@@ -55,9 +58,12 @@ Report what was closed, then end every wrap-up with a **Remaining Actions** sect
 empty ("None"), so the user never has to infer what's left from the prose above it. List each action
 as one line naming who acts and what, most important first:
 
-1. Decisions for the user: other pushes, anything "abandoned", a shared checkout behind origin.
+1. Decisions for the user: a push the user hasn't asked for (not in a repo where the user does the
+   pushing), anything "abandoned", a shared checkout behind origin. Lead each with a recommendation
+   and say in plain terms what each option does.
 2. Actions only the user can take: `!` commands, and steps outside the terminal, such as a question
    for another team, a console check, a ticket to raise, or an access request.
-3. What other sessions, agents or people still own, one line per owner.
+3. Work other sessions, agents or people still owe, one line per owner; a notice already sent is
+   done, not an action.
 
 Don't start new work; offer it.
