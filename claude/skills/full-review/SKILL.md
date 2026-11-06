@@ -56,7 +56,8 @@ is passed; otherwise review in a worktree, so the user's checkout never moves.
 1. Record `git rev-parse --path-format=absolute --git-common-dir` in the selected checkout.
 2. `EnterWorktree` with name `review-<pr-number>` for a PR, or `review-<sha7>` for a commit. If it
    refuses (the session is already in a worktree, or the name is left from an earlier run), stop and
-   suggest `--in-place`, or `git worktree remove` for the stale one.
+   suggest `--in-place`, or removing the stale one with `git worktree remove` and
+   `git branch -D review-<...>`.
 3. If the worktree's `git-common-dir` differs from the recorded one, it came from another repo:
    clean up (below), stop, and suggest `--in-place`.
 4. Run `git fetch` (skip it if Resolve just ran one), so the base exists locally, then
