@@ -42,7 +42,7 @@ finding:
   finding's Now/Example/Fix is written for a reader who hasn't seen the diff; the author has, so add
   the walk-through only when the mechanism isn't plain from the line. Use a suggestion block when
   the fix is a few lines. Permalinks pin the head SHA; a finding about a Jira issue links it, using
-  the PR body's existing link.
+  the PR body's existing link, or names the key alone when the body has none.
 - Anchor each comment to its line on the diff's RIGHT side (`start_line` too for a range). A finding
   outside the diff's hunks goes in the review body instead, with its permalink, since GitHub rejects
   inline comments there.
