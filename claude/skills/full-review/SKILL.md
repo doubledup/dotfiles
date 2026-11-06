@@ -58,7 +58,8 @@ is passed; otherwise review in a worktree, so the user's checkout never moves.
    suggest `--in-place`, or `git worktree remove` for the stale one.
 3. If the worktree's `git-common-dir` differs from the recorded one, it came from another repo:
    clean up (below), stop, and suggest `--in-place`.
-4. `gh pr checkout <pr> --detach` for a PR, or `git switch --detach <target>` for a commit. A
+4. Run `git fetch` (skip it if Resolve just ran one), so the base exists locally, then
+   `gh pr checkout <pr> --detach` for a PR, or `git switch --detach <target>` for a commit. A
    detached HEAD works even when the PR branch is checked out in another worktree.
 5. Verify (below).
 
