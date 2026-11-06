@@ -158,7 +158,7 @@ findings is a clean result, not a failure.
 
 ```
 ## Review: <target> vs <base>
-Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED], jira [ok|none|unavailable] (PR targets only)
+Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED], jira [ok|none|unavailable]
 
 ## Investigation
 [the Reviewer's section]
@@ -178,7 +178,8 @@ Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|pa
 VERDICT: [HIGH|MEDIUM|LOW|CLEAR]
 ```
 
-Omit empty severity sections. HIGH and MEDIUM findings use the Now/Example/Fix form, so a reader who
-hasn't read the diff can follow the mechanism; rewrite a source's shorthand into it rather than
-pasting it. Add a **Why it matters** line only when the Example doesn't make the impact plain, and
-an **Open question** line for an inference the review couldn't verify.
+Omit empty severity sections, and the `jira` entry for a commit target. HIGH and MEDIUM findings use
+the Now/Example/Fix form, so a reader who hasn't read the diff can follow the mechanism; rewrite a
+source's shorthand into it rather than pasting it. Add a **Why it matters** line only when the
+Example doesn't make the impact plain, and an **Open question** line for an inference the review
+couldn't verify.
