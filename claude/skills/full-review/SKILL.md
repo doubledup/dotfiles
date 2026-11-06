@@ -5,14 +5,14 @@ description:
     over-engineering), built-in `/code-review` (correctness), and `/security-review`. Returns merged
     findings with one VERDICT. Use when the user wants a PR or branch reviewed for defects, and from
     `ship`'s review step. To understand or triage a PR instead, use pr-triage.
-argument-hint: "<pr-url|pr-number|commit> [base]"
+argument-hint: "<pr-url|pr-number|commit> [base] [--in-place]"
 ---
 
 # Full Review
 
-`/full-review <pr-url|pr-number|commit> [base]`. Intent is optional: `ship` passes the plan,
-verification results, and on later iterations the prior findings with their dispositions; for a PR,
-the title and body are the intent, a claim to verify rather than a source of truth.
+`/full-review <pr-url|pr-number|commit> [base] [--in-place]`. Intent is optional: `ship` passes the
+plan, verification results, and on later iterations the prior findings with their dispositions; for
+a PR, the title and body are the intent, a claim to verify rather than a source of truth.
 
 ## Resolve
 
@@ -33,28 +33,55 @@ repo: the working directory, or another listed working directory whose `origin` 
 you `cd` into in its own Bash call first, since `/code-review` and `/security-review` review the
 session's working directory. If no listed directory is that repo, stop and name it.
 
+Stop when the PR is from a fork (`isCrossRepository`): checking it out runs its content under the
+repo's shared git config and hooks, and its nested CLAUDE.md files load when read. The user can
+check it out and rerun, which reviews in place.
+
+Review in place when HEAD is the target (`ship`, or the user already checked it out) or `--in-place`
+is passed; otherwise review in a worktree, so the user's checkout never moves.
+
+### Worktree
+
+1. Record `git rev-parse --path-format=absolute --git-common-dir` in the selected checkout.
+2. `EnterWorktree` with name `review-<pr-number>` for a PR, or `review-<sha7>` for a commit. If it
+   refuses (the session is already in a worktree, or the name is left from an earlier run), stop and
+   suggest `--in-place`, or `git worktree remove` for the stale one.
+3. If the worktree's `git-common-dir` differs from the recorded one, it came from another repo:
+   clean up (below), stop, and suggest `--in-place`.
+4. `gh pr checkout <pr> --detach` for a PR, or `git switch --detach <target>` for a commit. A
+   detached HEAD works even when the PR branch is checked out in another worktree.
+5. Verify (below).
+
+The worktree is the repo root for the rest of the review. Clean up after Output, including after a
+stop: `git switch review-<...>` (the worktree's own branch, so it has nothing to discard), then
+`ExitWorktree` with `remove`. If that refuses, `ExitWorktree` with `keep` and report the path; never
+pass `discard_changes`.
+
+### In place
+
 1. List the range's files (`gh pr diff <pr> --name-only` for a PR,
    `git diff --name-only <base>...<target>` for a commit). If `git diff --quiet HEAD -- <files>`
    fails, stop and ask the user to stash those files; never stash, commit, or reset, so the user
    knows where their changes went. Uncommitted changes to other files, and untracked files, are
    fine: they can't alter the reviewed diff, and a step 4 switch carries them along (git refuses a
    switch that would overwrite one; stop and report it).
-2. If HEAD is the target (`ship`, or the user already checked it out), review in place: skip to
-   step 5.
-3. Stop and tell the user instead of switching when:
-    - the repo is `~/.dotfiles`: it holds the live Claude config and takes no PRs
-    - the PR is from a fork (`isCrossRepository`): its hooks and config are untrusted; the user can
-      check it out and rerun, which reviews in place
+2. If HEAD is the target, skip to Verify.
+3. Stop instead of switching when the repo is `~/.dotfiles`: it holds the live Claude config and
+   takes no PRs.
 4. Record the current branch (`git symbolic-ref --short -q HEAD`), or the SHA if detached. Run
    `git fetch` (skip it if Resolve just ran one), then `gh pr checkout <pr>` for a PR, or
    `git switch --detach <target>` for a commit. If the branch is checked out in another worktree,
    `cd` there in its own Bash call and restart at step 1; stop and name it only if it isn't a listed
    working directory.
-5. Check that `git rev-parse HEAD` equals the target and `git cat-file -e <base>^{commit}` passes;
-   on either failure, stop and report it.
+5. Verify (below).
 
 After a step 4 switch, switch back to the recorded branch or SHA once the review ends, including
 after a stop.
+
+### Verify
+
+Check that `git rev-parse HEAD` equals the target and `git cat-file -e <base>^{commit}` passes; on
+either failure, stop and report it.
 
 If `git diff --quiet <base>...<target>` passes, the range is empty: report nothing to review and
 stop, rather than a CLEAR from three reviews of nothing. For a commit already in the base, suggest
