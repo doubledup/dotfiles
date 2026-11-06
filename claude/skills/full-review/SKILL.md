@@ -67,9 +67,10 @@ is passed; otherwise review in a worktree, so the user's checkout never moves.
 5. Verify (below).
 
 The worktree is the repo root for the rest of the review. Clean up after Output, including after a
-stop: `git switch review-<...>` (the worktree's own branch, so it has nothing to discard), then
-`ExitWorktree` with `remove`. If that refuses, `ExitWorktree` with `keep` and report the path; never
-pass `discard_changes`.
+stop: `ExitWorktree` with `keep` (observed: `remove` refuses a hook-created worktree, as it can't
+verify its state), then in the checkout `git worktree remove <path>`, `git worktree prune`, and
+`git branch -D review-<...>`. `git worktree remove` refuses a worktree with changes, so if it does,
+report the path; never pass `--force` or `discard_changes`.
 
 ### In place
 
