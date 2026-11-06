@@ -157,7 +157,7 @@ findings is a clean result, not a failure.
 
 ```
 ## Review: <target> vs <base>
-Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED], jira [ok|none|unavailable]
+Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED], jira [ok|none|unavailable] (PR targets only)
 
 ## Investigation
 [the Reviewer's section]
