@@ -12,14 +12,24 @@ argument-hint: "<pr-url|pr-number|commit> [base] [--in-place]"
 
 `/full-review <pr-url|pr-number|commit> [base] [--in-place]`. Intent is optional: `ship` passes the
 plan, verification results, and on later iterations the prior findings with their dispositions; for
-a PR, the title and body are the intent, a claim to verify rather than a source of truth.
+a PR, the title, body, and linked Jira issues are the intent, claims to verify rather than a source
+of truth.
 
 ## Resolve
 
 - PR (a URL, or a bare number, which is never treated as a SHA):
-  `gh pr view <pr> --json headRefOid,baseRefOid,isCrossRepository,title,body`. Target is
+  `gh pr view <pr> --json headRefOid,headRefName,baseRefOid,isCrossRepository,title,body`. Target is
   `headRefOid`; base defaults to `baseRefOid`, not `baseRefName`, because a stale local
   `origin/<base>` would pull merged-in commits into the diff.
+- Jira issues, for a PR only: collect keys from `headRefName` (`feature/GLUE-1234`) and from Jira
+  browse links in the body (`/browse/GLUE-1234?focusedCommentId=...`), not from key-shaped text
+  elsewhere (`UTF-8`). Deduplicate, then fetch each with the Atlassian MCP `getJiraIssue`: summary,
+  description, and its `## Done when` checklist. Drop a key that isn't found, since it was a bad
+  match. The PR's own issue is the branch key, else the first remaining linked key; the rest are
+  context. Don't follow the issues' own links. Record `jira` as `ok` (at least one fetched), `none`
+  (no keys remain), or `unavailable` (the MCP itself failed); the review continues either way, since
+  issues only add intent. A commit target has no `jira` status: callers put ticket context in the
+  intent they pass.
 - Commit: run `git fetch` (not for `HEAD`, which is local), then resolve with
   `git rev-parse <commit>`, so a remote-only SHA or an `origin/<branch>` ref resolves to its current
   value; everything since the base is reviewed, not just that commit. Base defaults to
@@ -94,9 +104,12 @@ Run all three, then wait for every one before merging:
 1. Reviewer agent in `diff` mode, in the background: the output of `git diff <base>...<target> -U8`
    (it cannot run git), the intent, and the repo root. For a PR, tell it the title and body stand in
    for the plan as claims to check, with gaps between them and the code rated as unstated changes,
-   MEDIUM at most. On later iterations, send only its own prior findings and dispositions; built-in
-   findings reach it only as confirm requests (see Merge). If its review output lacks an
-   Investigation section, re-ask only the Reviewer, once; still missing is `FAILED`.
+   MEDIUM at most. Send fetched Jira issues too, marking the PR's own: an issue's scope may span
+   several PRs, so flag code that contradicts or exceeds the PR's own issue, and rate a `Done when`
+   item the PR doesn't cover LOW unless the PR body claims to complete the issue. On later
+   iterations, send only its own prior findings and dispositions; built-in findings reach it only as
+   confirm requests (see Merge). If its review output lacks an Investigation section, re-ask only
+   the Reviewer, once; still missing is `FAILED`.
 2. `/code-review <level> --max-findings default <base>...<target>`. Level is `medium` unless the
    user explicitly asks for another level for this review. Always pass both: omitted, each reuses
    the user's last choice. Never `--fix` or `--comment`.
@@ -143,7 +156,7 @@ findings is a clean result, not a failure.
 
 ```
 ## Review: <target> vs <base>
-Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED]
+Sources: reviewer [ok|FAILED], /code-review [ok|FAILED], /security-review [ok|partial|no coverage|FAILED], jira [ok|none|unavailable]
 
 ## Investigation
 [the Reviewer's section]
