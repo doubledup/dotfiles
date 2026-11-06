@@ -34,8 +34,9 @@ Load `authored-voice` and follow its review-comment rules, with these choices. O
 finding:
 
 - Label by kind of finding: `issue` for a defect, `todo` for a small, mechanical addition that's
-  required, `suggestion` for a better alternative, `question` for what the review couldn't verify
-  (its Open question), `chore` for a task outside the code (a deploy or config step).
+  required, `suggestion` for a better alternative, `question` for a finding the review couldn't
+  verify and has no fix for (a finding with a fix keeps its label and asks its Open question in the
+  text), `chore` for a task outside the code (a deploy or config step).
 - Decorations: `blocking` for HIGH, `non-blocking` for MEDIUM; a domain decoration where one fits
   (`security` for a security-review finding, `test` for a test gap); `claude` last.
   `issue (blocking, security, claude): ...`
