@@ -18,9 +18,9 @@ to full-review, for a session already in a worktree, where its own worktree can'
 
 `gh pr view <pr> --json author,state,isDraft,isCrossRepository,headRefOid,url` and
 `gh api user --jq .login`. Stop and say why when the PR is the user's own, not `OPEN`, a draft, or
-from a fork. Also stop when `gh api repos/<owner>/<repo>/pulls/<n>/reviews` holds a review by the
-user whose body starts with the marker line (below) and whose `commit_id` is `headRefOid`: this head
-already has a first pass.
+from a fork. Also stop when `gh api --paginate repos/<owner>/<repo>/pulls/<n>/reviews` holds a
+review by the user whose body starts with the marker line (below) and whose `commit_id` is
+`headRefOid`: this head already has a first pass.
 
 ## Review
 
