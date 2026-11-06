@@ -4,14 +4,15 @@ description:
     Run full-review on a colleague's PR and post its MEDIUM and HIGH findings as one review of
     Conventional Comments, a first round of feedback entirely from Claude before the user's own
     review.
-argument-hint: "<pr-url|pr-number> [--dry-run]"
+argument-hint: "<pr-url|pr-number> [--dry-run] [--in-place]"
 disable-model-invocation: true
 ---
 
 # PR First Pass
 
-`/pr-first-pass <pr-url|pr-number> [--dry-run]`. Invoking it is the user's approval to post; with
-`--dry-run`, print the drafted review instead of posting it.
+`/pr-first-pass <pr-url|pr-number> [--dry-run] [--in-place]`. Invoking it is the user's approval to
+post; with `--dry-run`, print the drafted review instead of posting it. `--in-place` passes through
+to full-review, for a session already in a worktree, where its own worktree can't be created.
 
 ## Guard
 
@@ -23,9 +24,9 @@ already has a first pass.
 
 ## Review
 
-Run `/full-review <pr>`, which reviews in a worktree and brings the PR's Jira issues as intent. If
-it stops or marks a source `FAILED`, post nothing and report why. Keep only the HIGH and MEDIUM
-findings; with none, post nothing and tell the user, listing any LOW findings.
+Run `/full-review <pr> [--in-place]`, which reviews in a worktree and brings the PR's Jira issues as
+intent. If it stops or marks a source `FAILED`, post nothing and report why. Keep only the HIGH and
+MEDIUM findings; with none, post nothing and tell the user, listing any LOW findings.
 
 ## Draft
 
