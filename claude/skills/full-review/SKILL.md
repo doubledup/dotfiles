@@ -43,9 +43,9 @@ repo: the working directory, or another listed working directory whose `origin` 
 you `cd` into in its own Bash call first, since `/code-review` and `/security-review` review the
 session's working directory. If no listed directory is that repo, stop and name it.
 
-Stop when the PR is from a fork (`isCrossRepository`): checking it out runs its content under the
-repo's shared git config and hooks, and its nested CLAUDE.md files load when read. The user can
-check it out and rerun, which reviews in place.
+Unless HEAD is the target, stop when the PR is from a fork (`isCrossRepository`): checking it out
+runs its content under the repo's shared git config and hooks, and its nested CLAUDE.md files load
+when read. The user can check it out and rerun, which reviews in place.
 
 Review in place when HEAD is the target (`ship`, or the user already checked it out) or `--in-place`
 is passed; otherwise review in a worktree, so the user's checkout never moves.
