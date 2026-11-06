@@ -50,8 +50,9 @@ finding:
   the reviewed head; a finding about a Jira issue links it, using the PR body's existing link, or
   names the key alone when the body has none.
 - Anchor each comment to its line on the diff's RIGHT side (`start_line` too for a range). A finding
-  outside the diff's hunks goes in the review body instead, with its permalink, since GitHub rejects
-  inline comments there.
+  outside the diff's hunks, or with no file location (a scope gap against a Jira issue), goes in the
+  review body instead, with a permalink when it has a location, since GitHub rejects inline comments
+  there.
 
 The review body opens with the marker line `Claude first pass, ahead of my own review.` and the
 VERDICT, then any findings that couldn't be anchored. The marker is true here because the user
