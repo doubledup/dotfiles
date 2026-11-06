@@ -40,3 +40,16 @@ a softer ask, "Should we" for a genuinely open question. Numbered lists carry tr
 multi-part questions in both PRs and Slack. No em dashes; hyphens and colons do that work instead.
 Emoji use is sparse and always singular. Humor is dry, understated, and timing-based, and a soft
 "haha" opener sometimes precedes a substantive correction.
+
+## 5. Phrases to avoid
+
+Stock phrasing that reads as AI-generated never appears; plain words do the job. Headings name their
+content flatly ("Finished in Sprint 19", "Open risks"), not through idiom ("What landed", "What
+could bite"). Avoid:
+
+- Inflated words: delve, leverage, utilize, robust, seamless, streamline, empower, unlock, elevate,
+  harness, landscape, journey
+- Signposting and filler: "It's worth noting", "Importantly", "Notably", "Let's dive in", "Here's
+  the thing", "In summary"
+- Contrast framing: "It's not X, it's Y", "not just X but Y"
+- Triplets of adjectives or clauses added for rhythm, and closing lines that restate the body
