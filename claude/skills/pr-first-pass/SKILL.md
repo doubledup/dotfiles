@@ -68,5 +68,6 @@ into the body, and post once more. A second failure stops and reports.
 
 ## Report
 
-The review's `html_url`, the count of comments by label, and the LOW findings for the user's own
-pass.
+The review's `html_url`, the count of comments by label, any reduced coverage on full-review's
+Sources line (`jira unavailable`, `/security-review` `partial` or `no coverage`), and the LOW
+findings for the user's own pass.
