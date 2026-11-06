@@ -26,7 +26,9 @@ review by the user whose body starts with the marker line (below) and whose `com
 
 Run `/full-review <pr> [--in-place]`, which reviews in a worktree and brings the PR's Jira issues as
 intent. If it stops or marks a source `FAILED`, post nothing and report why. Keep only the HIGH and
-MEDIUM findings; with none, post nothing and tell the user, listing any LOW findings.
+MEDIUM findings; with none, post nothing and tell the user, listing any LOW findings. The reviewed
+head is full-review's target, not the Guard's `headRefOid`: the author may push in between, so use
+it for every `git show`, permalink, and `commit_id` below.
 
 ## Draft
 
@@ -43,10 +45,10 @@ finding:
 - Text: the claim as the subject, then one or two sentences on why it matters and the fix. The
   finding's Now/Example/Fix is written for a reader who hasn't seen the diff; the author has, so add
   the walk-through only when the mechanism isn't plain from the line. Use a suggestion block when
-  the fix is a few lines, reading the lines it replaces with `git show <headRefOid>:<path>`, since
-  full-review's worktree is gone and the working tree holds another revision. Permalinks pin the
-  head SHA; a finding about a Jira issue links it, using the PR body's existing link, or names the
-  key alone when the body has none.
+  the fix is a few lines, reading the lines it replaces with `git show <reviewed head>:<path>`,
+  since full-review's worktree is gone and the working tree holds another revision. Permalinks pin
+  the reviewed head; a finding about a Jira issue links it, using the PR body's existing link, or
+  names the key alone when the body has none.
 - Anchor each comment to its line on the diff's RIGHT side (`start_line` too for a range). A finding
   outside the diff's hunks goes in the review body instead, with its permalink, since GitHub rejects
   inline comments there.
@@ -58,13 +60,13 @@ hasn't read the drafts, so it overrides the usual rule against a "drafted by Cla
 ## Post
 
 Write the payload to a file in a fresh `mktemp -d` scratch directory and post it with
-`gh api repos/<owner>/<repo>/pulls/<n>/reviews --input <file>`: `commit_id` is the reviewed head
-SHA, `event` is always `COMMENT` (approving or requesting changes is the user's own review), `body`,
-and `comments` as `{path, line, side, body}`, plus `start_line` and `start_side` for a range, so a
+`gh api repos/<owner>/<repo>/pulls/<n>/reviews --input <file>`: `commit_id` is the reviewed head,
+`event` is always `COMMENT` (approving or requesting changes is the user's own review), `body`, and
+`comments` as `{path, line, side, body}`, plus `start_line` and `start_side` for a range, so a
 multi-line suggestion replaces the whole range. A bad anchor fails the whole request (HTTP 422) and
-posts nothing. On a 422, if `headRefOid` has moved since the review, stop and report that the author
-pushed; otherwise recheck each anchor against the hunks in `gh pr diff <pr>`, move any outside them
-into the body, and post once more. A second failure stops and reports.
+posts nothing. On a 422, if the PR's `headRefOid` is no longer the reviewed head, stop and report
+that the author pushed; otherwise recheck each anchor against the hunks in `gh pr diff <pr>`, move
+any outside them into the body, and post once more. A second failure stops and reports.
 
 ## Report
 
