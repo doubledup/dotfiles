@@ -56,7 +56,8 @@ hasn't read the drafts, so it overrides the usual rule against a "drafted by Cla
 Write the payload to a file in a fresh `mktemp -d` scratch directory and post it with
 `gh api repos/<owner>/<repo>/pulls/<n>/reviews --input <file>`: `commit_id` is the reviewed head
 SHA, `event` is always `COMMENT` (approving or requesting changes is the user's own review), `body`,
-and `comments` as `{path, line, side, body}`. A bad anchor fails the whole request (HTTP 422) and
+and `comments` as `{path, line, side, body}`, plus `start_line` and `start_side` for a range, so a
+multi-line suggestion replaces the whole range. A bad anchor fails the whole request (HTTP 422) and
 posts nothing, so on a 422 recheck each anchor against the hunks in `gh pr diff <pr>`, move any
 outside them into the body, and post again.
 
