@@ -252,7 +252,12 @@ must-nevers in deny rules. Budget: about 80 always-loaded lines.
   `voice.md`, loaded only when drafting text in the user's voice; rejected: an output style, inert
   while another style is active, and a rule, loaded every session), `parallel-sessions` (subagents
   in worktrees open draft PRs; this session reviews and merges them; repo facts live in each repo's
-  CLAUDE.md), `wrap-up` (end-of-session open threads; closes only what needs no decision). No
+  CLAUDE.md), `pr-first-pass` (user-invoked only; posts `full-review`'s MEDIUM+ findings on a
+  colleague's PR as one review before the user's own; always `COMMENT`, since approving or
+  requesting changes belongs to the user's review; its body's first-pass marker line is the one
+  place Claude's authorship is stated outside the `claude` decoration, true because the user hasn't
+  read the drafts; rejected: `/code-review --comment`, which posts unconfirmed findings not in the
+  user's voice), `wrap-up` (end-of-session open threads; closes only what needs no decision). No
   commands
 - Hooks: `worktree-create.sh` only (places every worktree, including subagents', flat under
   `~/code/worktrees/`, branched off the remote's default branch, instead of the repo's
