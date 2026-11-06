@@ -54,9 +54,10 @@ finding:
   review body instead, with a permalink when it has a location, since GitHub rejects inline comments
   there.
 
-The review body opens with the marker line `Claude first pass, ahead of my own review.` and the
-VERDICT, then any findings that couldn't be anchored. The marker is true here because the user
-hasn't read the drafts, so it overrides the usual rule against a "drafted by Claude" line.
+The review body opens with the marker line `Claude first pass, ahead of my own review.`, then any
+findings that couldn't be anchored. The marker is true here because the user hasn't read the drafts,
+so it overrides the usual rule against a "drafted by Claude" line. The VERDICT and Sources line are
+review-process notes for the user, not the author, so they stay out of the body.
 
 ## Post
 
@@ -71,6 +72,6 @@ any outside them into the body, and post once more. A second failure stops and r
 
 ## Report
 
-The review's `html_url`, the count of comments by label, any reduced coverage on full-review's
-Sources line (`jira unavailable`, `/security-review` `partial` or `no coverage`), and the LOW
-findings for the user's own pass.
+The review's `html_url`, full-review's VERDICT, the count of comments by label, any reduced coverage
+on full-review's Sources line (`jira unavailable`, `/security-review` `partial` or `no coverage`),
+and the LOW findings for the user's own pass.
