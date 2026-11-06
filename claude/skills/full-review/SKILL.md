@@ -23,14 +23,15 @@ of truth.
   `origin/<base>` would pull merged-in commits into the diff.
 - Jira issues, for a PR only: collect keys from `headRefName` (`feature/GLUE-1234`) and from Jira
   browse links in the body (`/browse/GLUE-1234?focusedCommentId=...`), not from key-shaped text
-  elsewhere (`UTF-8`). Deduplicate, then fetch each with the Atlassian MCP `getJiraIssue`: summary,
-  description, and its `## Done when` checklist. Drop a key the MCP reports as not found, since it
-  was a bad match; any other error (auth, no cloudId) is `unavailable`, not a missing key. The PR's
-  own issue is the branch key, else the first remaining linked key that isn't an Epic; the rest are
-  context. Don't follow the issues' own links. Record `jira` as `ok` (at least one fetched), `none`
-  (no keys remain), or `unavailable` (the MCP or its auth failed); the review continues either way,
-  since issues only add intent. A commit target has no `jira` status: callers put ticket context in
-  the intent they pass.
+  elsewhere (`UTF-8`). Deduplicate, resolve the cloudId once with `getAccessibleAtlassianResources`,
+  then fetch each with the Atlassian MCP `getJiraIssue`: summary, description, and its
+  `## Done when` checklist. Drop a key the MCP reports as not found, since it was a bad match; any
+  other error (auth, no accessible site) is `unavailable`, not a missing key. The PR's own issue is
+  the branch key, else the first remaining linked key that isn't an Epic; the rest are context.
+  Don't follow the issues' own links. Record `jira` as `ok` (at least one fetched), `none` (no keys
+  remain), or `unavailable` (the MCP or its auth failed); the review continues either way, since
+  issues only add intent. A commit target has no `jira` status: callers put ticket context in the
+  intent they pass.
 - Commit: run `git fetch` (not for `HEAD`, which is local), then resolve with
   `git rev-parse <commit>`, so a remote-only SHA or an `origin/<branch>` ref resolves to its current
   value; everything since the base is reviewed, not just that commit. Base defaults to
